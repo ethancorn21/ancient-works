@@ -32,11 +32,14 @@ usage: src_roman_horsley.py --fetch         live: triage-size page images, all 9
                                            + .map.json (24 list leaves, site_plan = true for the 17
                                            kind-s maps) only (the shared validation.json /
                                            index.jsonl are never written)
-       src_roman_horsley.py [--stage]      stage the verified kind-s (site-plan) rows into
-       [--dry]                            files_roman.jsonl + classified_roman.jsonl (+
-                                           extras_roman.jsonl for new sites): append-only,
-                                           idempotent, 200 evidence field per row (the printed list
-                                           entry is the tie), 1732 on every row; --dry previews
+       src_roman_horsley.py [--stage]      OFFLINE (no LLM, no network): stage the book's 17 verified
+       [--dry]                             kind-s (site-plan) rows (the 24-entry list's 17 kind-s leaves:
+                                           the 15 wall maps + n0114 P.44 + n0185 P.113) into
+                                           files_roman.jsonl + classified_roman.jsonl (+
+                                           extras_roman.jsonl for the 8 new no-QID sites): append-only,
+                                           idempotent (a second run changes no byte), 200 evidence field
+                                           per row (the printed list entry is the tie), 1732 on every row;
+                                           --dry previews
        src_roman_horsley.py --check        offline (no network): join the staged roman rows (every row
                                            names an existing or staged site; every new site has its
                                            plans) and run fit/evidence.py's check over this book's
@@ -87,7 +90,10 @@ FILES_ROMAN = os.path.join(ROOT, "data", "commons", "files_roman.jsonl")
 CLASSIFIED_ROMAN = os.path.join(ROOT, "data", "commons", "classified_roman.jsonl")
 EXTRAS_ROMAN = os.path.join(ROOT, "data", "catalog", "extras_roman.jsonl")
 SITES_JSONL = os.path.join(ROOT, "data", "catalog", "sites.jsonl")
+EXTRAS_CANON = os.path.join(ROOT, "data", "catalog", "extras.jsonl")   # the canonical extras: the reuse source (bar-hill-fort, rough-castle-fort)
 WEB_SITES = os.path.join(ROOT, "web", "data", "sites.json")
+MODULE = "fit/src_roman_horsley.py"   # the by/source tag every staged row of this book carries (207b's landed convention)
+LICENSE = "public domain (the 1732 original, pre-copyright era)"   # the book's IA metadata has no license flag (checked 2026-10-14, live + cached)
 
 # The per-leaf figure table in books_lists' HAND_FIGS format: fig|title|page|kind|kind_by (one line per
 # plate leaf, exactly 4 pipes; fig = the leaf's n; page = the printed corner mark or '' - none; kind
