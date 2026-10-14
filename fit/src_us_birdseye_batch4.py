@@ -5,10 +5,10 @@ batch, so 240 and 241 build in parallel) - staged from the Library of Congress "
 collection (about 1,500 US bird's-eye views, 1847-1929, public domain; this machine cannot reach
 loc.gov, so the files are fetched from their Wikimedia Commons mirrors - the 236b route, its lead
 doc docs/lead_us_birdseye.md): Denver (the 1908 Birdseye View Publishing Co. sheet, looking south
-from the Twenty-Third Street Viaduct) and St. Paul (the 1906 Robert M. Saint sheet) first, then
-Minneapolis (the 1885 W. V. Herancourt / I. Monasch sheet); Cleveland follows in candidate
-order. The 25-city total spans 236b's 16 + 240's four + 241's five; 236c consolidates every
-staging set into the canonical data and checks the total.
+from the Twenty-Third Street Viaduct), St. Paul (the 1906 Robert M. Saint sheet), Minneapolis
+(the 1885 W. V. Herancourt / I. Monasch sheet) and Cleveland (the 1877 A. Ruger / Shober &
+Carqueville sheet) - all four staged. The 25-city total spans 236b's 16 + 240's four + 241's
+five; 236c consolidates every staging set into the canonical data and checks the total.
 
 This module is a COPY of fit/src_us_birdseye.py (236b's module) - the template it keeps in sync
 with: the verify/stage/check/golden machinery, the 200 caption_coords evidence field, the Zwolle
@@ -72,10 +72,10 @@ NO_BOOKS = os.path.join(ROOT, "data", "books", ".no-books")  # never exists: che
 # (aerial-photograph ground: no open LiDAR over a built-up city, bare-earth LiDAR erases the
 # streets). Batch 4 (verified live 2026-10-14, --verify re-checks; per-view STAGED/DROP verdicts in
 # docs/lead_us_birdseye_batch4.md): Denver (the next candidate after 236b's twelve new cities),
-# St. Paul (the 1906 Robert M. Saint sheet) and Minneapolis (the 1885 W. V. Herancourt / I.
-# Monasch sheet); Cleveland follows in candidate order (the task owes FOUR staged cities, not
-# specifically these four - a city with no usable view gets a lead-doc note and the next
-# candidate).
+# St. Paul (the 1906 Robert M. Saint sheet), Minneapolis (the 1885 W. V. Herancourt / I. Monasch
+# sheet) and Cleveland (the 1877 A. Ruger / Shober & Carqueville sheet) - all four staged (the
+# task owed FOUR staged cities, not specifically these four - a city with no usable view would
+# have gotten a lead-doc note and the next candidate).
 SITES = {
     # Q16554: P625 = ONE 30 m value (-104.984722, 39.739167) - the central CBD (16th-20th street
     # core; no refinement needed). P373 is the STRING "Denver, Colorado" (a Wikidata quirk, not a
@@ -162,6 +162,40 @@ SITES = {
                         "the lower right - spanning the whole city beyond the 2000 m town box, so "
                         "its fit is likely to end a review item (the 236a NY-1811 / DC-ring "
                         "precedent)"),
+    # Q37320: P625 = ONE 30 m value (-81.69472222222223, 41.49916666666667) - the central CBD
+    # (no refinement needed). P373 is the STRING "Cleveland, Ohio" (the usual US quirk - the
+    # place is written from the county + the state); P131 = Q251267 Cuyahoga County (the only
+    # one) - hence place "Cuyahoga County, Ohio"; P17 = Q30 (a proper entity); enwiki
+    # "Cleveland". First-guess check: the "Cleveland, Ohio" name search's first hit IS the city
+    # itself (the batch's first clean first-guess - Denver's Q3101 a person, St. Paul's Q16842
+    # a person, Minneapolis's Q3094 a Romanian monastery), though the memorized QID Q131855
+    # turned out to be a ROADSTER (a bicycle; enwiki "Roadster (bicycle)", no P625) - a memory
+    # error caught by the label check. Name search "Cleveland": NO first-hit trap - the first
+    # hit with P625 is the city itself (0 km, the Denver/Minneapolis pattern); the in-city
+    # institution traps rank behind it (Cleveland State University 1.7 km, Cleveland Clinic
+    # 6.1, Cleveland Museum of Art 7.0, Cleveland Guardians 0.9, Cleveland Browns 0.9);
+    # other-state namesakes: Cleveland TN 756.0 km (the big one near Knoxville), Georgia 788.6,
+    # Quebec (Canada) 901.4, Mississippi 1172.0, Oklahoma 1400.0; foreign: Tasmania 15993.8
+    # (Cleveland, Wisconsin and Texas carry no P625 in the top 20). No existing site holds the
+    # QID (checked at the 240 session-10 run in the catalog, extras, 236a's and 236b's extras
+    # files, 241's absent batch-5 file, this task's own file and web/data/sites.json); site id
+    # cleveland-q37320 (catalog.slug("Cleveland") = "cleveland", verified).
+    "Q37320": dict(id="cleveland-q37320", name="Cleveland", named="Cleveland",
+                   lon=-81.69472222222223, lat=41.49916666666667,
+                   place="Cuyahoga County, Ohio", region="United States", kind="town",
+                   wikipedia="https://en.wikipedia.org/wiki/Cleveland",
+                   note="aerial-photograph ground (no open LiDAR over the built-up city: bare-earth "
+                        "LiDAR erases the streets); the street grid, the Cuyahoga and the Lake Erie "
+                        "shoreline carry the fit; the 1877 staged sheet is the steepest (near-"
+                        "vertical) whole-city view in the pool, drawn from a high vantage over Lake "
+                        "Erie (south of the city) looking north - the Cuyahoga meanders in from the "
+                        "upper centre to its mouth centre-right (the Washington Avenue arch viaduct "
+                        "and a truss bridge over it, the Union Passenger Dock west of the mouth), "
+                        "the dense downtown core (Public Square with its fountain) at the sheet's "
+                        "centre just left of the mouth, the rotated grid legible to the farmland "
+                        "horizon, the lake with its ship traffic along the bottom - spanning the "
+                        "whole city beyond the 2000 m town box, so its fit is likely to end a review "
+                        "item (the 236a NY-1811 / DC-ring precedent)"),
 }
 
 # Denver (batch 4, city 1; checked live 2026-10-14; the pool 65 unique / 33 good, per-view
@@ -242,6 +276,38 @@ MINNEAPOLIS_1885 = [
     ("File:Minneapolis, Minnesota. LOC 75694644.jpg", "Q36091", "Minneapolis", dict()),
 ]
 
+# Cleveland (batch 4, city 4; checked live 2026-10-14; the pool 51 unique / 9 good, per-view
+# STAGED/DROP verdicts in docs/lead_us_birdseye_batch4.md). One row per city: the steepest,
+# best-scanned whole-city view of the collection; the shallower same-genre sheets and the non-view
+# pool (regional views, district close-ups, photographs, too-small scans, other-city and
+# false-name sheets, licence rejects) are DROPS recorded in the lead doc (the 236b precedent).
+CLEVELAND_1877 = [
+    # 1877 (A. Ruger, artist; lith. by Shober & Carqueville, Chicago - the sheet's own accent
+    # ("LITH. BY SHOBER & CARQÉVILLE CHICAGO") is kept here and in the lead doc, the row label
+    # and the SOURCES label stay ASCII; "ENTERED ACCORDING TO ACT OF CONGRESS BY J. J. STONER
+    # MADISON WIS." lower right; LC Panoramic maps (2nd ed.), 687.2; 10704x6544, Public domain):
+    # banner "BIRDS EYE VIEW OF CLEVELAND / OHIO 1877" (three lines, no apostrophe); "A. RUGER,
+    # ARTIST" at the image area's lower-left corner; the LC stamp "Division of Maps / FEB 28
+    # 1941 / Library of Congress" and the handwritten call number "G4084 .C5A3 1877 .R8 / Rug
+    # 157" - the page date (1877) is the drawing's year (no Zwolle-style swap). THE steepest
+    # (near-vertical) whole-city view in the pool: drawn from a high vantage OVER LAKE ERIE
+    # (south of the city; the lake with its sailing/steam traffic fills the bottom band) looking
+    # NORTH (sheet up = north, confirmed three ways - the Cuyahoga enters from the north, the
+    # Chippewa to its east, the lake to the south - no mirroring possible): the Cuyahoga
+    # meanders in from the upper centre (the north) to its mouth at the sheet's centre-right,
+    # crossed by the multi-arch Washington Avenue viaduct (label "WASHINGTON" on the sheet) and
+    # a truss bridge, the "UNION PASSANGER DOCK" (spelled so on the sheet) on the WEST side of
+    # the mouth; the dense downtown core (Public Square with its fountain, on the bluff above
+    # the lakefront - the site's P625 point sits right at it) at the sheet's centre just left of
+    # the mouth; the Woodland / Catholic / Cleveland cemeteries and the factory stacks on the
+    # farmland horizon at the top; the "SUPERIOR" street label lower-left; the "CHIPPEWA RIVER"
+    # meander upper-right (east of the Cuyahoga); the rotated street grid legible across the
+    # whole frame (lakefront to the farmland horizon). The same-scan .tif twin and the DPLA-
+    # family "Cleveland 1877.jpg" (the same 10704x6544 sheet, a wider index crop) are the same
+    # sheet - one row per sheet, the LOC .jpg staged.
+    ("File:Birds eye view of Cleveland, Ohio 1877. LOC 73694507.jpg", "Q37320", "Cleveland", dict()),
+]
+
 SOURCES = {
     "denver_1908": dict(rows=DENVER_1908, p="birdseye",
                         label="{name}, the Birdseye View Publishing Co. bird's-eye view (1908)"),
@@ -249,6 +315,8 @@ SOURCES = {
                         label="{name}, the Robert M. Saint bird's-eye view (1906)"),
     "minneapolis_1885": dict(rows=MINNEAPOLIS_1885, p="birdseye",
                              label="{name}, the W. V. Herancourt / I. Monasch bird's-eye view (1885)"),
+    "cleveland_1877": dict(rows=CLEVELAND_1877, p="birdseye",
+                           label="{name}, the A. Ruger / Shober & Carqueville bird's-eye view (1877)"),
 }
 
 
