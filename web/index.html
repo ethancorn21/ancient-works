@@ -403,6 +403,7 @@ function applyLayers(site) {
     map.setLayoutProperty(id, 'visibility', S.plateMode === mode && S.plateOpacity > 0 ? 'visible' : 'none');
     map.setPaintProperty(id, 'raster-opacity', S.plateOpacity);
   }
+  if (B.site === site) syncBlock();
 }
 function applyRelief() {
   let v = null;
@@ -423,6 +424,7 @@ function moveplate(site) {
   const pc = alignedCorners(site);
   map.getSource(`ink-${site.id}`).setCoordinates(pc);
   map.getSource(`paper-${site.id}`).setCoordinates(pc);
+  if (B.site === site) syncBlock();
 }
 /* ---------- old maps and aerials (pipeline/topo.py, pipeline/depict.py -> data/sites/<id>/depictions.json) ---------- */
 // plain surveys (maps, aerials, USGS topos) only when at least 150 years old: the point is how little the works changed
@@ -439,7 +441,7 @@ async function loadDeps(s) {
 function applyDep(s) {
   if (!S.loaded.has(s.id)) return;
   const id = `dep-${s.id}`, d = (S.dep[s.id] || []).find(x => x.file === S.depSel[s.id]);
-  if (!d) { if (map.getLayer(id)) map.setLayoutProperty(id, 'visibility', 'none'); return; }
+  if (!d) { if (map.getLayer(id)) map.setLayoutProperty(id, 'visibility', 'none'); if (B.site === s) syncBlock(); return; }
   const url = `data/sites/${s.id}/${S.depMode === 'ink' && d.ink ? d.ink : d.file}`;
   const coordinates = shiftCorners(d.corners, S.depAlign[depKey(s, d)], s.lat);
   if (!map.getSource(id)) {
@@ -452,6 +454,7 @@ function applyDep(s) {
   S.depUrl[id] = url;
   map.setLayoutProperty(id, 'visibility', 'visible');
   map.setPaintProperty(id, 'raster-opacity', S.depOpacity);
+  if (B.site === s) syncBlock();
 }
 const depKey = (s, d) => `${s.id}.${d.file}`;
 function setDep(s, file) {
@@ -811,7 +814,7 @@ function renderSite(s) {
   $('#p-paper').onclick = () => setPlateMode('paper', s);
   wireAlign('p', () => S.align[s.id], a => { S.align[s.id] = a; }, () => moveplate(s), `plates/${s.id}`, 'Saved. This is now the plate position for this site.');
 }
-function setTab(block) { const a = $('#t-map'), b = $('#t-block'); if (a && b) { a.setAttribute('aria-pressed', String(!block)); b.setAttribute('aria-pressed', String(block)); } }
+function setTab(block) { const a = $('#t-map'), b = $('#t-block'); if (a && b) { a.setAttribute('aria-pressed', String(!block)); b.setAttribute('aria-pressed', String(block)); } if (block) syncBlock(); }
 function alignDesc(a) {
   if (!a || (!a.dx && !a.dy && !a.rot && a.scale === 1)) return 'Showing the fit.';
   const dir = (v, p, n) => v ? `${Math.abs(v)} m ${v > 0 ? p : n}` : null;
@@ -1389,7 +1392,8 @@ function buildPiece(site, H, r0, r1, ve, base, tex, inkTex, cutNorth, cutSouth) 
   top.setAttribute('position', new THREE.BufferAttribute(pos, 3));
   top.setAttribute('uv', new THREE.BufferAttribute(uv, 2));
   top.setIndex(new THREE.BufferAttribute(idx, 1));
-  group.add(new THREE.Mesh(top, new THREE.MeshBasicMaterial({ map: tex })));
+  const ground = new THREE.Mesh(top, new THREE.MeshBasicMaterial({ map: tex }));
+  ground.name = 'ground'; group.add(ground);
   if (inkTex) {
     const m = new THREE.Mesh(top, new THREE.MeshBasicMaterial({ map: inkTex, transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }));
     m.name = 'plate'; m.renderOrder = 2; group.add(m);
@@ -1423,16 +1427,18 @@ async function openBlock(s) {
   B.open = true; setTab(true);
   $('#sheet').hidden = false;
   if (narrow()) $('#panel').classList.add('collapsed');
-  if (B.site === s && B.scene) { resizeBlock(); B.dirty = true; loop(); return; }
+  if (B.site === s && B.scene) { resizeBlock(); B.dirty = true; loop(); syncBlock(); return; }
   B.site = s; $('#loading').hidden = false; $('#loading').textContent = 'Building the block…';
   const ve = verticalExaggeration(s), [W, Hm] = s.size_m;
   $('#sheet-left').textContent = s.plate ? `${s.plate.label} · Squier & Davis 1848` : 'Ancient Works';
   $('#cap-title').textContent = `Isometric block diagram of the ${s.name.replace(/^the /i, '')}, ${s.place}`;
   $('#cap-sub').textContent = `Ground from ${s.lidar_credit || 'USGS 3DEP LiDAR, 1 m'}. Block ${(W / 1000).toFixed(1)} by ${(Hm / 1000).toFixed(1)} km; vertical exaggeration ×${ve}; contour interval ${s.block.contour_m} m.`;
-  renderExplain(s, ve);
+  B.drapeKeys = []; B.groundKind = null; renderExplain(s, ve);
   try {
-    const [H, tex, inkTex] = await Promise.all([heights(s), loadTexture(`data/sites/${s.id}/${s.block.top}`), s.plate ? loadTexture(`data/sites/${s.id}/${s.plate.ink}`) : null]);
+    const [H, tex, drape] = await Promise.all([heights(s), groundTexture(s), drapeCanvas(s)]);
     if (B.site !== s) return;
+    const inkTex = new THREE.CanvasTexture(drape.canvas); inkTex.anisotropy = 4;
+    B.drapeTex = inkTex; B.groundTex = tex; B.groundKind = tex.kind; B.drapeKeys = drape.keys; renderExplain(s, ve);
     if (!B.renderer) {
       B.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
       B.renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
@@ -1453,20 +1459,97 @@ async function openBlock(s) {
   } catch (e) { $('#loading').textContent = 'The block could not be built: ' + e.message; }
 }
 function closeBlock() { B.open = false; $('#sheet').hidden = true; cancelAnimationFrame(B.raf); setTab(false); }
+
+/* The block carries what the map shows (owner 2026-10-13: "when we go into block diagram it needs
+   to stay pinned to that spot ... when you rotate it around it sticks"). The block's top is the
+   site's EPSG:3857 box (site.corners), the same frame every overlay's four corners live in, so each
+   overlay layer the map has visible for the site (the old drawing or survey sheet, the plate, at
+   their own opacity and after any nudge) is drawn into one canvas in the block's frame by the
+   affine through three of its corners - exact for the parallelograms every plan fit produces, the
+   same as the map's own image source - and that canvas is draped on the terrain. */
+const DRAPE_IMG = new Map();
+function drapeImage(url) { if (!DRAPE_IMG.has(url)) DRAPE_IMG.set(url, loadImage(url).catch(e => { DRAPE_IMG.delete(url); throw e; })); return DRAPE_IMG.get(url); }
+async function drapeCanvas(s) {
+  const W = 2048, H = Math.max(2, Math.round(2048 * s.size_m[1] / s.size_m[0]));
+  const c = document.createElement('canvas'); c.width = W; c.height = H;
+  const g = c.getContext('2d'), keys = [];
+  const [tl, , br] = s.corners.map(merc), px = ([x, y]) => [(x - tl[0]) / (br[0] - tl[0]) * W, (tl[1] - y) / (tl[1] - br[1]) * H];
+  const want = [`dep-${s.id}`, `paper-${s.id}`, `ink-${s.id}`];
+  const ids = (map.getStyle().layers || []).map(l => l.id).filter(id => want.includes(id));  // the map's own stacking order
+  for (const id of ids) {
+    if (map.getLayoutProperty(id, 'visibility') === 'none') continue;
+    const src = map.getSource(id), op = map.getPaintProperty(id, 'raster-opacity') ?? 1;
+    if (!src || !src.url || !src.coordinates || !(op > 0)) continue;
+    let im; try { im = await drapeImage(src.url); } catch { continue; }
+    const [p0, p1, , p3] = src.coordinates.map(q => px(merc(q))), iw = im.naturalWidth, ih = im.naturalHeight;
+    g.save(); g.globalAlpha = op;
+    g.setTransform((p1[0] - p0[0]) / iw, (p1[1] - p0[1]) / iw, (p3[0] - p0[0]) / ih, (p3[1] - p0[1]) / ih, p0[0], p0[1]);
+    g.drawImage(im, 0, 0); g.restore();
+    if (id.startsWith('dep-')) { const d = (S.dep[s.id] || []).find(x => x.file === S.depSel[s.id]); if (d) keys.push(d.label || d.file); }
+    else if (s.plate) keys.push(`${s.plate.label}, Squier & Davis 1848`);
+  }
+  return { canvas: c, keys: [...new Set(keys)] };
+}
+// the block's ground follows the map's: the plate-style relief surface, or the site's aerial photograph
+async function groundTexture(s) {
+  if (S.ground === 'imagery') {
+    try { const t = await loadTexture(`data/sites/${s.id}/imagery.jpg`); t.kind = 'imagery'; return t; } catch {}
+    try { const t = new THREE.CanvasTexture(await satCanvas(s)); t.anisotropy = 4; t.kind = 'imagery'; return t; } catch {}
+  }
+  const t = await loadTexture(`data/sites/${s.id}/${s.block.top}`); t.kind = 'relief'; return t;
+}
+// a site without its own imagery.jpg: the map's satellite tiles (the 'sat' source) stitched over the
+// block's box, at the deepest zoom that keeps the picture within 2048 px
+async function satCanvas(s) {
+  const url = map.getStyle().sources.sat.tiles[0], R = 20037508.342789244;
+  const [tl, , br] = s.corners.map(merc);
+  let z = 19; while (z > 1 && (br[0] - tl[0]) / (2 * R / 2 ** z / 256) > 2048) z--;
+  const tm = 2 * R / 2 ** z, tx = x => (x + R) / tm, ty = y => (R - y) / tm;
+  const x0 = Math.floor(tx(tl[0])), x1 = Math.floor(tx(br[0])), y0 = Math.floor(ty(tl[1])), y1 = Math.floor(ty(br[1]));
+  if ((x1 - x0 + 1) * (y1 - y0 + 1) > 400) throw new Error('too many tiles');
+  const W = Math.round((tx(br[0]) - tx(tl[0])) * 256), H = Math.round((ty(br[1]) - ty(tl[1])) * 256);
+  const c = document.createElement('canvas'); c.width = W; c.height = H;
+  const g = c.getContext('2d'), jobs = [];
+  for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) jobs.push(new Promise(res => {
+    const im = new Image(); im.crossOrigin = 'anonymous';
+    im.onload = () => { g.drawImage(im, Math.round((x - tx(tl[0])) * 256), Math.round((y - ty(tl[1])) * 256), 256, 256); res(); };
+    im.onerror = () => res();
+    im.src = url.replace('{z}', z).replace('{x}', x).replace('{y}', y);
+  }));
+  await Promise.all(jobs);
+  return c;
+}
+let _drapeT = 0;
+function syncBlock() {
+  if (!B.open || !B.scene || !B.site) return;
+  clearTimeout(_drapeT);
+  _drapeT = setTimeout(async () => {
+    const s = B.site, kind = S.ground === 'imagery' ? 'imagery' : 'relief';
+    const [drape, tex] = await Promise.all([drapeCanvas(s), kind !== B.groundKind ? groundTexture(s) : null]);
+    if (B.site !== s || !B.scene) return;
+    const t = new THREE.CanvasTexture(drape.canvas); t.anisotropy = 4;
+    if (tex) { B.groundTex && B.groundTex.dispose(); B.groundTex = tex; B.groundKind = tex.kind; }
+    B.scene.traverse(o => { if (o.name === 'plate') o.material.map = t; if (tex && o.name === 'ground') o.material.map = tex; if (o.material) o.material.needsUpdate = true; });
+    B.drapeTex && B.drapeTex.dispose(); B.drapeTex = t;
+    B.drapeKeys = drape.keys; renderExplain(s, B.ve); B.dirty = true;
+  }, 120);
+}
 $('#sheet-close').onclick = closeBlock;
 function applyGap() { const south = B.scene && B.scene.getObjectByName('south'); if (south) { south.position.z = B.gap * 0.14 * B.site.size_m[1]; B.dirty = true; } }
 function applyPlate() { if (B.scene) { B.scene.traverse(o => { if (o.name === 'plate') o.visible = B.plate; }); B.dirty = true; } }
 function renderExplain(s, ve) {
+  const keys = B.drapeKeys || [], img = B.groundKind === 'imagery';
   $('#explain').innerHTML = `
     <p class="section-title">Explanation</p>
-    <div class="key"><span class="swatch" style="background:linear-gradient(90deg,#96807a,#FAF4E4)"></span><span><b>Ground surface</b><i>Shaded LiDAR relief with contours every ${s.block.contour_m} m; heavier line every ${s.block.contour_m * 5} m</i></span></div>
-    <div class="key"><span class="swatch" style="background:#C4DEDC"></span><span><b>Water</b><i>Rivers, ponds, quarry lakes</i></span></div>
-    ${s.plate ? `<div class="key"><span class="swatch" style="background:linear-gradient(transparent 40%, var(--survey) 40% 60%, transparent 60%), var(--sheet)"></span><span><b>Survey of 1848</b><i>${esc(s.plate.label)}, fitted to the LiDAR walls</i></span></div>` : ''}
+    ${img ? `<div class="key"><span class="swatch" style="background:linear-gradient(90deg,#5b6b4a,#a9a184)"></span><span><b>Ground surface</b><i>The site's aerial photograph, laid on the LiDAR heights</i></span></div>`
+      : `<div class="key"><span class="swatch" style="background:linear-gradient(90deg,#96807a,#FAF4E4)"></span><span><b>Ground surface</b><i>Shaded LiDAR relief with contours every ${s.block.contour_m} m; heavier line every ${s.block.contour_m * 5} m</i></span></div>
+    <div class="key"><span class="swatch" style="background:#C4DEDC"></span><span><b>Water</b><i>Rivers, ponds, quarry lakes</i></span></div>`}
+    ${keys.map(k => `<div class="key"><span class="swatch" style="background:linear-gradient(transparent 40%, var(--survey) 40% 60%, transparent 60%), var(--sheet)"></span><span><b>Old drawing</b><i>${esc(k)}, where the map has it</i></span></div>`).join('')}
     <div class="key"><span class="swatch" style="background:#F2B5C4"></span><span><b>Section</b><i>Cut through the middle of the block; walls show as bumps in its top edge</i></span></div>
     <div class="key"><span class="swatch" style="background:linear-gradient(90deg,#D8BCD5 50%,#B996B6 50%)"></span><span><b>Block sides</b><i>No geology implied; the ground below the surface is not mapped here</i></span></div>
-    ${s.plate ? `<label class="toggle"><input type="checkbox" id="b-plate" ${B.plate ? 'checked' : ''}> Show the 1848 survey</label>` : ''}
+    ${keys.length ? `<label class="toggle"><input type="checkbox" id="b-plate" ${B.plate ? 'checked' : ''}> Show the old drawing</label>` : `<p class="fit">No old drawing is showing on the map; pick one in the site panel and it is laid on the block too.</p>`}
     <label class="toggle"><input type="checkbox" id="b-gap" ${B.gap ? 'checked' : ''}> Open the section</label>
-    <p class="fit">Vertical exaggeration ×${ve}. Elevations ${s.block.zmin.toFixed(0)}–${s.block.zmax.toFixed(0)} m above sea level.</p>`;
+    <p class="fit">Vertical exaggeration ×${ve}. Elevations ${s.block.zmin.toFixed(0)}–${s.block.zmax.toFixed(0)} m above sea level. The drawing, the ground and the opacity follow the map: change them in the site panel.</p>`;
   const p = $('#b-plate'); if (p) p.onchange = e => { B.plate = e.target.checked; applyPlate(); };
   $('#b-gap').onchange = e => { B.gap = e.target.checked ? 1 : 0; applyGap(); };
 }
