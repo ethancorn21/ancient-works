@@ -5,7 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
-- `tasks/230-roman-merge-rerun.md` (open) - hand-over: (2026-10-14, iteration 209, agent a - STEP 1 (the scoped merge) DONE AND COMMITTED. The three canonical
+- `tasks/230-roman-merge-rerun.md` (open) - hand-over: (2026-10-14, iteration 210, agent a - STEP 2 (book-index rebuild + evidence record/check) DONE ON DISK
 - `tasks/236-us-cities.md` (split)
 - `tasks/240-us-birdseye-batch4.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
 - `tasks/241-us-birdseye-batch5.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
@@ -18,22 +18,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-14 230 DECISION: iteration 207 - first session: re-run prep (merge scoping + re-baselining); the live re-run is the next session
-First session on 230. The Roman staging is on main (808's 9adaf16 + 207b: extras_roman 9 / files_roman 18 / classified_roman 18, both books' lists+triage, lead_roman.md), 211 is done, and the post-211 state is: extras.jsonl 193, files.jsonl 1730 (211's 1623 + 212a's 107 direct appends 9c48d94), classified 1037, index.jsonl 1068, sites.json 499, plans.json 1510. 207c is DROPPED (owner, ask 008) so the re-run covers the two landed books; the task's Notes cover exactly this case and the Depends on line already matches (207c was never on it) - no edit made.
-
-**Decision 1: add `--sources` to fit/merge.py (Landed).** The module's glob picks up EVERY extras_*/files_*/classified_* file next to the canonical ones, so an unfiltered re-run would fold the US families' still-pending staging (files_us_cities/us_birdseye.jsonl etc., owned by open task 236c) into the canonical files and into my run's log. The new flag scopes a run to named source families and records only that run's rows in the log (236c will need it too). Default (no flag) is byte-for-byte the old behaviour; new test test_sources_filter_merges_only_named_sources covers filter + unfiltered rerun-once. Chose the flag over "move the other staging files aside" because a session killed mid-move would leave source families' staging files out of the tree (the driver commits uncommitted work - that would propagate to main and break the 222-228 source-guard tests).
-
-**Decision 2: re-baseline data/merge/ to the post-211 state (Landed).** sites_premerge_baseline.jsonl = the 499 current sites.json entries (one json.dumps line each, ensure_ascii=False; was the 385 entries served at 406562b); plans_premerge_keys.jsonl = the 1510 current (id, sites[0]) keys (uniqueness asserted before writing; was 1166). These make test_served_sites_grew_purely / test_plan_list_refresh_is_pure_growth assert THIS re-run's box ("pre-run entries unchanged"), per the task Notes. Both files are git-tracked; the old baselines live in git history.
-
-**FAILED: applying the tests/test_merge.py edits (3 attempts, all aborted atomically - the file is UNMODIFIED).** Each attempt mixed one typo'd oldText with three good ones; the atomic abort means NOTHING was applied, including the good edits. The 4 pending edits, exact oldText -> newText (verify current text with `sed -n '16,31p;245,249p;293,299p' tests/test_merge.py` before applying; line numbers approximate):
-1. Module docstring Box 4+3 block: oldText starts "Box 4 (the refreshed plan list): the test asserts the data-level result of the tools/export_plans.py\nrefresh, read-only - every (id, sites[0]) key of the pre-merge file (frozen in\ndata/merge/plans_premerge_keys.jsonl) is still present" and ends "values their recorded builds produced.\n\"\"\""; newText: "...every (id, sites[0]) key of the frozen pre-run list (data/merge/plans_premerge_keys.jsonl,\n230 re-baselined it to the post-211 rows) is still present..." and "...grew purely against the frozen pre-run baseline\n(data/merge/sites_premerge_baseline.jsonl, the 499 entries served after 211's consolidation - the 385\npre-211 set plus 211's 114 builds, re-baselined by 230 before the Roman re-run): nothing removed..." (rest unchanged).
-2. test_plan_list_refresh_is_pure_growth docstring (file lines ~246-249, exact): oldText =
-    "    after the merge. Every pre-merge (id, sites[0]) key is still present (frozen list), (id, sites[0])\n    stays unique, the merged pictures that qualify as plans reach the list, and each picture row's files\n    row carries the 200 evidence field.\"\"\""
-   newText =
-    "    after the merge. Every key of the frozen pre-run list (the post-211 rows) is still present, (id,\n    sites[0]) stays unique, the merged pictures that qualify as plans reach the list, and each picture\n    row's files row carries the 200 evidence field.\"\"\""
-3. test_served_sites_grew_purely docstring + assertion (~lines 293-299, exact): oldText =
-... (4.4 KB more: `grep -n -A 200 -F '## 2026-10-14 230 DECISION: iteration 207 - first session: re-run prep (merge scoping + re-baselining); the live re-run is the next session' DECISIONS.md`)
 
 ### 2026-10-14 230 DECISION: iteration 208 - applied the 4 pending test_merge.py edits (plus the stale _tree comment); 9/10 green; test_new_sites_are_complete is the EXPECTED red until the 9 Roman builds land
 All 5 edits landed in ONE atomic edit call (the 3 aborted attempts of iteration 207 were each one typo'd oldText among good ones; this time every oldText was verified against the file with sed first - the lesson holds: a bad oldText aborts the WHOLE batch, so verify each before the call).
@@ -54,6 +38,26 @@ Executed `.venv/bin/python fit/merge.py merge --sources roman` in this tree. Eve
 **Tests:** tests/test_merge.py 9 passed / 1 failed in 22 s; the one red is the same expected open gate (test_new_sites_are_complete: "no new sites: the build phase produced nothing") - it closes when the 9 roman site builds land (hand-over step 4). No 307d PNG dirt (only test_merge ran this session, it renders no owner-check captures).
 
 **Next session:** hand-over step 2 - the book-index rebuild (import fit.src_roman_horsley + fit.src_roman_maclauchlan, register(), pipeline.books_lists.cmd_index(None) + cmd_validate(None); index.jsonl 1068->, validation.json regenerated; then fit/evidence.py record + check), then steps 3-6.
+
+### 2026-10-14 230 DECISION: iteration 210 - step 2 (the book-index rebuild) ran offline and landed on disk; UNCOMMITTED (harness saved it) - next session commits it, then step 3 (docs/sources.md section 9)
+Executed the in-process driver /tmp/230_step2_driver.py (network patched to hard-fail first, the 207b precedent; importlib-loaded fit/src_roman_horsley.py + fit/src_roman_maclauchlan.py, register() each, then books_lists.cmd_index(None) + cmd_validate(None)). Everything read committed triage/lists caches + local raw images (936 + 171 triage jpgs exist in this checkout); zero network, zero LLM.
+
+**Verified results (all checked by diffing against pre-run baselines /tmp/idx_before_230s2.jsonl, /tmp/val_before_230s2.json):**
+- index.jsonl 1068 -> 1112: the 10 pre-existing books byte-identical in row order and content (the rebuild drops the evidence field; 0 rows differ once evidence is excluded from both sides); then 38 horsley rows (31 kind-s per stage-B plan boxes: n0114x2, n0185x5, n0242x2, n0248x3, n0250x2, n0282x4, n0284x3 + 10 single-plan leaves; 7 kind-o list_view) and 6 maclauchlan rows (3 s: n0078/n0093/n0111, 3 o: n0090/n0115/n0129). The B plan order on n0185 is the scan's reading order (Olenacum, Virosidum, Bremetenracum, Alione, Glannibanta), not the list's I-V - the per-plan site_names carry the identity.
+- validation.json 10 -> 12 books: the 10 pre-existing entries byte-identical (indent=1 dump diff); new entries match the lead_roman.md / 207b PITFALLS verified numbers EXACTLY (horsley: 936 pages/936 triaged, flaggedA 80, stageF 0, flagged 17, figs 24 = 17 s + 7 o, gt 17, recall 1.0/pm1 1.0, precision 1.0/1.0, missed []; maclauchlan: 171/171, 3/0/3, figs 6 = 3+3, recall 1.0, precision 1.0, missed []).
+- `fit/evidence.py record` (offline, no --live): "0 hand-tied, 1112 book, 0 live" - all 1112 rows re-recorded because the rebuild stripped the field. data/commons/files.jsonl and data/catalog/extras.jsonl md5-UNCHANGED (step 1's pure-growth state intact).
+- `fit/evidence.py check`: rc 0, "evidence: 2751 rows, 1456 pass, 0 fail, 1295 no-tie" (the 44 roman book rows: 6 PASS / 38 NONE).
+- tests/test_merge.py: 9 passed / 1 failed - the expected open build gate (test_new_sites_are_complete) unchanged.
+
+**Correction to the it.209 hand-over prediction ("existing rows stay byte-identical"):** NOT byte-identical - the re-record stamps `checked` from 2026-10-12 to 2026-10-14 on ALL 1068 pre-roman rows (record stamps now() on every re-recorded row; that is the 211 precedent too - 211's rebuild set all dates to 2026-10-12). Everything else in every evidence field is content-identical (verified: the only field that changed across all 1068 rows is `checked`). Not a problem for any box (test_index_and_plan_list_rows_carry_evidence asserts the rec value; check re-derives from stored fields).
+
+**The 6 roman caption_coords ties (recorded, not silently kept; the other 38 roman rows are NONE):**
+- n0185_3 -> bremetennacum-q4960578 (Bremetennacum/Old Penrith): GENUINE - B read the plan's own name "BREMETENRACUM".
+- n0185_5 -> glannoventa-q16839208 (score 1.0, ru 0.12): backed by the catalog's OWN alias - glannoventa's aliases include "Glannibanta" (the Roman names are conflated in the sources); the plan is GLANNIBANTA/Lanchester. Ties follow the catalog, not scholarly judgement.
+- n0248_3 -> aesica-q4688554 (Aesica/Great Chesters): GENUINE - the plan's own name "AESICA".
+- n0248_1 -> brimstone-hill-q24660840 (Kent): QUESTIONABLE - the row's only distinctive token "magna" (MAGNA, the Hadrian's-Wall station) hits a catalog alias token "magna" in "Barling Magna Brimstone Hill"; score 1.0 because share = row-tokens-in-site-tokens on a single-token row.
+- n0244_1 -> whitehouse-camp-q17678709 (Wiltshire): QUESTIONABLE - the map's ~35 B-read labels include "Whitehouse" (a Northumberland village by the wall); the lookup key "whitehouse" (SUFFIX strips "camp") ties the row to the Wiltshire ringwork, ~130 km away.
+... (0.6 KB more: `grep -n -A 200 -F '## 2026-10-14 230 DECISION: iteration 210 - step 2 (the book-index rebuild) ran offline and landed on disk; UNCOMMITTED (harness saved it) - next session commits it, then step 3 (docs/sources.md section 9)' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
