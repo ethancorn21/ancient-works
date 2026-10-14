@@ -83,7 +83,7 @@ the original or a facsimile of it, its date, its licence, and its resolution bef
     "P625 east of the Cumberland") and no Tennessee River in the SW boxes at all; the confluence is not
     cleanly mapped. Nissan Stadium (way 58759639) is (36.1665, -86.7713) - NE of the CBD, not at a river corner.
     Use the old maps + Wikidata, not OSM, for the point decision.
-  - **OVERPASS IS DEAD FROM THIS MACHINE** (PITFALLS added): overpass-api.de -> HTTP 406 even with a UA;
+  - **OVERPASS IS DEAD FROM THIS MACHINE** (file in PITFALLS next session): overpass-api.de -> 406
     kumi.systems -> XHTML error page. Use api.openstreetmap.org instead: /map?bbox=... (bbox <= ~0.02x0.02
     deg or it hits the 50000-node limit) and /way/{id}/full for single ways.
   - **Haydon 1860 downloaded but NOT yet looked at** (context limit). Re-download URLs (both verified live 155):
