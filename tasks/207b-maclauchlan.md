@@ -65,7 +65,74 @@ still stands) with "b" = the stop is lifted; 207a was completed on that lift (7e
 207c dropped on the owner's answer to ask 008. This note records the stop as made.)
 
 ## Hand-over
-(2026-10-14, iteration 134, agent c - the --stage session. READ THIS FIRST.)
+(2026-10-14, iteration 135, agent c - the --check/--golden/tests session. READ THIS FIRST.)
+
+**What happened this session** (code changes UNCOMMITTED at the context limit - the harness saves them:
+fit/src_roman_maclauchlan.py + the two new test files; the three committed *_roman staging files are
+UNTOUCHED, md5-verified unchanged after a --dry run):
+1. 134's background suite (started 03:27, before any of my edits) finished: **10 failed, 158 passed,
+   1 skipped in 710.95s** (log /tmp/aw134_suite.log). The 10: test_fit_queue::test_placement_gestures_and_
+   save_in_the_browser (the known 307d red) + test_fit_queue::test_block_diagram_carries_the_drawing +
+   test_review x4 (test_page_shows_the_review_list, test_save_resolves_the_item FileNotFoundError,
+   test_plan_lookup_is_keyed_by_id_and_site, test_index_html_review_footprint) + test_serve x4
+   (test_page_loads, test_sites_data HTTP 404, test_hand_fits_are_the_reference,
+   test_platefits_docs_match_sites). NONE of them reads anything this task wrote; they are agent a's
+   in-flight 212/307* work merged into main before my session (+ this checkout's locally-built web data,
+   the 306d note). This is the NEW baseline for my branch (the 10-13 driver's 159/1/1 is stale).
+2. Built `--check` in fit/src_roman_maclauchlan.py: new constants MODULE (the by/source tag - stage()
+   now uses it, same values as before), SITES_CATALOG, EXTRAS_CANONICAL, NO_BOOKS, GOLDEN (module-level
+   so a test can point them at temp copies); check_staged() = the box-5 join (every file row of this book
+   names a site in the catalog / canonical extras / this book's own staged sites; a staged site id already
+   in the canonical files must be IDENTICAL - 211 first-row-wins; a staged QID held by a different site is
+   a collision; every new site has a picture; (site,title) unique; classified 1:1) + evidence.check over
+   this book's rows only (written to a temp file; NO_BOOKS) - fully offline. Ran it: rc=0, no join
+   problems, "evidence: 1 rows, 1 pass, 0 fail, 0 no-tie". Built `--golden`: writes tests/golden/
+   src_roman_maclauchlan_sample.json (this book's staged rows - the one file row, the new site row, the
+   classified row - plus per-book counts; _norm normalizes evidence.checked and location_check.checked to
+   0000-00-00; indent=1, sort_keys, ensure_ascii=False). Ran twice: byte-stable, md5
+   04637684823db2dc36c14219a7eecd16. main() now dispatches --check/--golden; docstring's "(not built
+   yet)" lines removed. 134's staged files md5s: extras 05f74cd072221794222d812b23632d77, files
+   a569d2a994a911c7ee7a760357ad9309, classified 9827656cc5904015f7c628498eaa23f1 (unchanged this session).
+3. Wrote tests/test_src_roman_maclauchlan.py (the test_src_van_deventer.py pattern): autouse no_network
+   socket-blocking fixture (socket.socket/create_connection/getaddrinfo -> raise); _stage_into() points
+   sm.FILES_ROMAN/EXTRAS_ROMAN/CLASSIFIED_ROMAN at tmp files (stage() reads them as globals) and runs
+   stage(). Four tests: (1) stage writes exactly one row per file with ALL fields pinned (site
+   luguvallium-q71551754/Q71551754/"Luguvallium (Carlisle)"/-2.94077/54.896187/england/"roman fort"/
+   aerial_ok/location_check confirmed with "324 m"; file row site/qid/title sm.FILE_TITLE/year 1858/
+   date 1858/artist/w 964/h 1400/url the IA /download/ page image/evidence caption_coords named Carlisle
+   place Q192896 coords dist 324.1; classified (site,title) p_plan 1.0 by hand) and is idempotent (second
+   run: 3x "row already present", no byte changed); (2) check_staged three states with the canonical path
+   constants monkeypatched to temp copies (real content captured BEFORE the patch): pre-merge 0, merged
+   identical 0, same-id different row (qid Q99999999) 1 with exactly the join line; (3) evidence negative
+   controls: a stored dist_m 48000 ("does not reproduce (324 m)") and a caption without "Carlisle" both
+   FAIL (code 1), the staged row untouched; (4) the committed golden file == the normalized committed
+   staged rows. Ran it: **4 passed in 4.25s**.
+
+**Tests state at context limit:** the FULL suite was re-started in the background at the very end of this
+session (nohup .venv/bin/python -m pytest tests/ -q -p no:cacheprovider > /tmp/aw135_suite.log 2>&1 &,
+pid 2293842, started ~03:41) - it includes my 4 new tests (173 total) and its result was NEVER READ.
+Expectation: the SAME 10 pre-existing failures as the 134 run (listed above - all agent a's in-flight
+work), 162 passed (158+4), 1 skipped.
+
+**Acceptance boxes:** 1 (132), 2 (133), 3 (134), 4 (134) ticked. Box 5 (test + golden) is BUILT and its
+tests pass standalone; it is NOT ticked yet - tick it in the next session only after the /tmp/aw135_suite.
+log confirms no NEW failure beyond the 10 pre-existing ones.
+
+**Exact next step (136).**
+1. Read /tmp/aw135_suite.log (tail). If gone: re-run the same nohup command (as aw136) and wait ~12 min.
+   Compare its failure list against the 134 baseline's 10 (above). If identical: tick box 5 and set
+   Status: done, commit everything (the module, the two test files, this task file; the staged roman files
+   are already committed and unchanged - md5-check before committing).
+2. If a NEW failure appears (one not in the 10): check whether it reads this task's files (src_roman_
+   maclauchlan, the *_roman staging, my test/golden) - if yes it's mine, fix it; if no it's agent a's
+   in-flight work (212/236a/307* on main), record it in DECISIONS and still tick box 5 (the task's
+   criterion is "no test failing that was not already failing before").
+3. Note the final suite numbers in the hand-over for the driver's re-check.
+
+**Re-read next session:** fit/src_roman_maclauchlan.py (check_staged() + golden() + _norm() + the new
+constants above stage(); the docstring); tests/test_src_roman_maclauchlan.py (all 4 tests, in order);
+tests/golden/src_roman_maclauchlan_sample.json (committed? NO - it is part of the uncommitted batch);
+/tmp/aw135_suite.log (tail -30 for the summary line).
 
 **What happened this session** (all done; code + data changes UNCOMMITTED - the harness saves them for 135 to commit):
 1. Built the `--stage` leg in fit/src_roman_maclauchlan.py (docstring updated, main() dispatches --stage/--dry; new constants SITE_NAME/SITE_QID/SITE_LON/LAT/PLACE_QID/PLACE_LON/LAT/FILE_TITLE/FILE_NAME/FILE_DESC above stage()). OFFLINE: the row is built from stored facts only - title = the plate's own printed heading; desc = the binder's-list entry (djvu leaf 119) + the p.77 running head "(See Plans, Fig. 4.)" (the named-place "Carlisle" carrier check_caption re-verifies); year/date 1858; url/thumb = the stable IA /download/ page image; w/h 964x1400 read from the committed stage-B row (data/books/triage/<ia>.B.jsonl img_size - the ONLY dynamic input; fails loud if missing/unreadable); artist Henry Maclauchlan; license "public domain (IA: NOT_IN_COPYRIGHT, the 1858 original)" (live item metadata: no licenseurl, possible-copyright-status NOT_IN_COPYRIGHT). NO map_box on the files row: files.jsonl's shape has no such field - the propose/inkfit fit flow reads map_box from the BOOK-INDEX row (211 consolidates it from the B file) and falls back to the full page when absent (808/809: same).
