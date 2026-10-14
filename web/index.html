@@ -1372,7 +1372,7 @@ addEventListener('keydown', e => {
 });
 
 /* ---------- isometric block diagram ---------- */
-const B = { open: false, site: null, renderer: null, scene: null, camera: null, az: Math.PI * 0.75, el: 0.62, zoom: 1.3, gap: 1, plate: true, dirty: true, raf: 0, radius: 1, center: null };
+const B = { open: false, site: null, renderer: null, scene: null, camera: null, az: Math.PI * 0.75, el: 0.62, zoom: 1.3, gap: 0, plate: true, dirty: true, raf: 0, radius: 1, center: null };
 const FACE = { ns: 0xD8BCD5, ew: 0xB996B6, cut: 0xF2B5C4, ink: 0x2B2724 };
 
 function loadImage(url) { return new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = () => rej(new Error('Could not load ' + url)); im.src = url; }); }
@@ -1466,9 +1466,11 @@ async function openBlock(s) {
     }
     const scene = new THREE.Scene();
     const base = 0.24 * Math.min(W, Hm), cut = Math.round(s.block.h * 0.5);
+    // closed (the default, owner 2026-10-13): one whole block, no seam; "Open the section" swaps in the two cut halves
+    const whole = buildPiece(s, H, 0, s.block.h - 1, ve, base, tex, inkTex, false, false);
     const north = buildPiece(s, H, 0, cut, ve, base, tex, inkTex, false, true);
     const south = buildPiece(s, H, cut, s.block.h - 1, ve, base, tex, inkTex, true, false);
-    south.name = 'south'; scene.add(north, south);
+    whole.name = 'whole'; north.name = 'north'; south.name = 'south'; scene.add(whole, north, south);
     B.scene = scene; B.ve = ve; B.base = base; B.center = new THREE.Vector3(0, base * 0.6, 0);
     B.radius = 0.5 * Math.hypot(W, Hm * 1.15, base * 2);
     B.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, -B.radius * 10, B.radius * 10);
@@ -1554,7 +1556,12 @@ function syncBlock() {
   }, 120);
 }
 $('#sheet-close').onclick = closeBlock;
-function applyGap() { const south = B.scene && B.scene.getObjectByName('south'); if (south) { south.position.z = B.gap * 0.14 * B.site.size_m[1]; B.dirty = true; } }
+function applyGap() {
+  if (!B.scene) return;
+  const [whole, north, south] = ['whole', 'north', 'south'].map(n => B.scene.getObjectByName(n));
+  whole.visible = !B.gap; north.visible = south.visible = !!B.gap;
+  south.position.z = B.gap * 0.14 * B.site.size_m[1]; B.dirty = true;
+}
 function applyPlate() { if (B.scene) { B.scene.traverse(o => { if (o.name === 'plate') o.visible = B.plate; }); B.dirty = true; } }
 function renderExplain(s, ve) {
   const keys = B.drapeKeys || [], img = B.groundKind === 'imagery';
@@ -1564,13 +1571,13 @@ function renderExplain(s, ve) {
       : `<div class="key"><span class="swatch" style="background:linear-gradient(90deg,#96807a,#FAF4E4)"></span><span><b>Ground surface</b><i>Shaded LiDAR relief with contours every ${s.block.contour_m} m; heavier line every ${s.block.contour_m * 5} m</i></span></div>
     <div class="key"><span class="swatch" style="background:#C4DEDC"></span><span><b>Water</b><i>Rivers, ponds, quarry lakes</i></span></div>`}
     ${keys.map(k => `<div class="key"><span class="swatch" style="background:linear-gradient(transparent 40%, var(--survey) 40% 60%, transparent 60%), var(--sheet)"></span><span><b>Old drawing</b><i>${esc(k)}, where the map has it</i></span></div>`).join('')}
-    <div class="key"><span class="swatch" style="background:#F2B5C4"></span><span><b>Section</b><i>Cut through the middle of the block; walls show as bumps in its top edge</i></span></div>
+    ${B.gap ? `<div class="key"><span class="swatch" style="background:#F2B5C4"></span><span><b>Section</b><i>Cut through the middle of the block; walls show as bumps in its top edge</i></span></div>` : ''}
     <div class="key"><span class="swatch" style="background:linear-gradient(90deg,#D8BCD5 50%,#B996B6 50%)"></span><span><b>Block sides</b><i>No geology implied; the ground below the surface is not mapped here</i></span></div>
     ${keys.length ? `<label class="toggle"><input type="checkbox" id="b-plate" ${B.plate ? 'checked' : ''}> Show the old drawing</label>` : `<p class="fit">No old drawing is showing on the map; pick one in the site panel and it is laid on the block too.</p>`}
     <label class="toggle"><input type="checkbox" id="b-gap" ${B.gap ? 'checked' : ''}> Open the section</label>
     <p class="fit">Vertical exaggeration ×${ve}. Elevations ${s.block.zmin.toFixed(0)}–${s.block.zmax.toFixed(0)} m above sea level. The drawing, the ground and the opacity follow the map: change them in the site panel.</p>`;
   const p = $('#b-plate'); if (p) p.onchange = e => { B.plate = e.target.checked; applyPlate(); };
-  $('#b-gap').onchange = e => { B.gap = e.target.checked ? 1 : 0; applyGap(); };
+  $('#b-gap').onchange = e => { B.gap = e.target.checked ? 1 : 0; applyGap(); renderExplain(s, ve); };
 }
 function resizeBlock() {
   if (!B.renderer) return;

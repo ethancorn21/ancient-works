@@ -174,6 +174,7 @@ function _fkDeactivate() {
   _fkDragStop();
   _fkSetGestures(true);
   _fkSpace(false);
+  _fkBarOff();
 }
 
 /* Where the anchor stands, from the pairs the eye sees: the least-squares fit of
@@ -300,28 +301,67 @@ function _fkHint() {
   if (!P.placed || !P.anchor) return;
   $('#fithint').textContent =
     `${P.anchor.mpx.toFixed(2)} m per page pixel, turned ${P.anchor.rot > 0 ? '+' : ''}${P.anchor.rot.toFixed(1)}°`;
-  const st = document.querySelector('#body .step');
-  if (st) st.innerHTML = P.pending ? 'Now click the same spot on the map.' :
-    'Drag <b>on</b> the drawing to move it; drag anywhere else to move the map. ' +
-    '<b>Shift</b>+wheel scales the drawing, <b>Alt</b>+wheel turns it; the plain wheel zooms the map, right-drag turns the map. ' +
-    'To pin an exact spot, click it on the page (Bigger), then on the map.';
-  // the fit line: the owner's pins only (the frame pairs always agree with themselves)
-  const pins = P.pairs.slice(5), fl = [...document.querySelectorAll('#body p.fit')].find(p => /^(Scale|Perspective)/.test(p.textContent));
-  if (fl) {
-    const turn = `Scale ${P.anchor.mpx.toFixed(2)} m per page pixel, turned ${P.anchor.rot > 0 ? '+' : ''}${P.anchor.rot.toFixed(1)}°.`;
-    if (pins.length < 3) fl.textContent = `${turn} ${pins.length ? `${pins.length} pin${pins.length > 1 ? 's' : ''}: ${pins.length === 1 ? 'the drawing slides onto it' : 'two pins set the place, scale and turn exactly'}; a third shows whether the drawing is true.` : ''}`;
-    else {
-      // how far each pin is from where the drawing now puts that spot (a move after pinning shows here)
-      const k = Math.cos(P.anchor.lat * Math.PI / 180);
-      const r = pins.map(p => { const a = _fkAt(P.anchor, p.u, p.v), b = merc([p.lon, p.lat]); return Math.hypot(a[0] - b[0], a[1] - b[1]) * k; });
-      fl.innerHTML = `${turn} Your ${pins.length} pins sit within ${Math.ceil(Math.max(...r))} m of the drawing: ` +
-        r.map((m, i) => `<span class="${m > 15 ? 'bad' : ''}">${i + 1}: ${m.toFixed(0)} m</span>`).join(' · ') +
-        (Math.max(...r) > 15 ? '. A pin far off the others is on the wrong spot, or the drawing is not true there: Undo it.' : '.');
-    }
-  }
-  const u = $('#fundo');
-  if (u) { u.disabled = !(P.hist && P.hist.length) && !P.pending; u.onclick = _fkUndo; u.title = 'Cmd/Ctrl+Z'; }
+  _fkBarSync();
 }
+
+/* Place mode is a tool (owner 2026-10-13: "the keybinds for rotate, scale, undo need to be on the
+   screen itself ... a little taskbar at the top"; the tan instruction box and the panel buttons
+   were "really ugly" and leaned on the left side). While placed, one bar across the top of the map
+   carries every control with its key, and a readout line under it; the panel's step box, buttons
+   and fit line are hidden (body.placing) - the buttons stay in the DOM for the page's own save. */
+function _fkQueued() { return typeof FQ !== 'undefined' && !!fqPending()[0] && fqPending()[0].site === (P.site && P.site.id); }
+function _fkBarEl() {
+  let b = $('#fkbar');
+  if (b) return b;
+  b = document.createElement('div'); b.id = 'fkbar'; b.setAttribute('role', 'toolbar'); b.setAttribute('aria-label', 'Place the drawing');
+  b.innerHTML = `
+    <div class="fkrow">
+      <span class="grp"><b>Move</b><span class="how">drag the drawing</span></span>
+      <span class="grp"><b>Scale</b><button data-a="s-" title="Smaller (shift+wheel down)">&minus;</button><button data-a="s+" title="Bigger (shift+wheel up)">+</button><kbd>&#8679; wheel</kbd></span>
+      <span class="grp"><b>Turn</b><button data-a="r-" title="Turn left 1&deg; (shift-click 5&deg;)">&#8634;</button><button data-a="r+" title="Turn right 1&deg; (shift-click 5&deg;)">&#8635;</button><kbd>&#8997; wheel</kbd></span>
+      <span class="grp"><button data-a="undo" id="fkundo">Undo</button><kbd>&#8984;Z</kbd></span>
+      <span class="grp map"><b>Map</b><span class="how">drag off it &middot; wheel zooms &middot; right-drag turns</span></span>
+      <span class="sp"></span>
+      <button data-a="skip" id="fkbskip">Skip site</button>
+      <button data-a="not" id="fkbnot" title="The picture does not show this site (a detail, a building, another place)">Not this structure</button>
+      <button data-a="cancel">Cancel</button>
+      <button data-a="save" class="primary" id="fkbsave">Save on the map</button>
+    </div>
+    <div class="fkread"><span id="fkread"></span><span id="fkst"></span></div>`;
+  document.body.appendChild(b);
+  const step = (fn, e) => { if (!P.placed || !P.anchor) return; _fkPush(false); fn(e && e.shiftKey ? 5 : 1); _fkReemitLive(); _fkScheduleApply(); };
+  const act = {
+    's-': e => step(() => { P.anchor.mpx /= 1.05; }, e), 's+': e => step(() => { P.anchor.mpx *= 1.05; }, e),
+    'r-': e => step(n => { P.anchor.rot -= n; }, e), 'r+': e => step(n => { P.anchor.rot += n; }, e),
+    undo: () => _fkUndo(), skip: () => { fqSkip(); _fkNext(); }, not: () => _fkNotThis(),
+    cancel: () => endFit(), save: () => saveFit(),
+  };
+  b.addEventListener('click', e => { const t = e.target.closest('button[data-a]'); if (t && !t.disabled) act[t.dataset.a](e); });
+  return b;
+}
+function _fkBarSync() {
+  const b = _fkBarEl(), pins = P.pairs.slice(5);
+  $('#fkundo').disabled = !(P.hist && P.hist.length) && !P.pending;
+  $('#fkbskip').hidden = !_fkQueued();
+  $('#fkbsave').disabled = !S.db;
+  let t = `${P.anchor.mpx.toFixed(2)} m per page pixel, turned ${P.anchor.rot > 0 ? '+' : ''}${P.anchor.rot.toFixed(1)}°. `;
+  if (P.pending) t += '<b>Now click the same spot on the map.</b>';
+  else if (!pins.length) t += 'For an exact spot: click it on the page (Bigger), then on the map.';
+  else if (pins.length < 3) t += `${pins.length} pin${pins.length > 1 ? 's' : ''}: ${pins.length === 1 ? 'the drawing slides onto it' : 'they set place, scale and turn'}; a third shows whether the drawing is true.`;
+  else {
+    // how far each pin is from where the drawing now puts that spot (a move after pinning shows here)
+    const k = Math.cos(P.anchor.lat * Math.PI / 180);
+    const r = pins.map(p => { const a = _fkAt(P.anchor, p.u, p.v), q = merc([p.lon, p.lat]); return Math.hypot(a[0] - q[0], a[1] - q[1]) * k; });
+    t += `Pins off the drawing: ` + r.map((m, i) => `<span class="${m > 15 ? 'bad' : ''}">${i + 1}: ${m.toFixed(0)} m</span>`).join(' · ') +
+      (Math.max(...r) > 15 ? ' &mdash; a pin far off is on the wrong spot, or the drawing is not true there: Undo it.' : '');
+  }
+  $('#fkread').innerHTML = t;
+  const st = $('#fitst'); $('#fkst').textContent = st ? st.textContent : '';
+}
+function _fkBarOff() { const b = $('#fkbar'); if (b) b.remove(); }
+// the page writes save/record progress into the panel's #fitst (hidden behind the bar's readout): mirror it
+new MutationObserver(() => { const b = $('#fkst'), st = $('#fitst'); if (b) b.textContent = st ? st.textContent : ''; })
+  .observe($('#body'), { subtree: true, childList: true, characterData: true });
 
 /* Skip and "Not this structure" sit in the fit panel itself (2026-10-13: "once you're in the
    place the drawing option there's no way to skip it ... you have to go out zoom out then
@@ -345,10 +385,10 @@ async function _fkNotThis() {
   const s = P.site, r = P.plan, st = $('#fitst');
   if (!S.db) { if (st) st.textContent = 'The page is not connected to its server; nothing was recorded.'; return; }
   const id = `${s.id}.${r.id}`;
-  const fromQueue = !!$('#fkskip');
-  $('#fknot').disabled = true; if (st) st.textContent = 'Recording…';
+  const fromQueue = _fkQueued(), btns = ['#fknot', '#fkbnot'].map(q => $(q)).filter(Boolean);
+  btns.forEach(x => { x.disabled = true; }); if (st) st.textContent = 'Recording…'; if ($('#fkst')) $('#fkst').textContent = 'Recording…';
   try { await S.db.doc(`notthis/${id}`).set({ site: s.id, plan: r.id, title: r.title || '', at: new Date().toISOString() }); }
-  catch (e) { if (st) st.textContent = `Could not record it (${e.message}).`; $('#fknot').disabled = false; return; }
+  catch (e) { if (st) st.textContent = `Could not record it (${e.message}).`; if ($('#fkst')) $('#fkst').textContent = st ? st.textContent : ''; btns.forEach(x => { x.disabled = false; }); return; }
   _fkNotSet.add(id); lsSet('aw.notThis.last', { id, title: r.title || '' });
   // the PUT returns after the server has rebuilt web/data/fit_queue.json without the picture
   if (typeof FQ !== 'undefined') { FQ.loaded = false; await fqLoad(); }
@@ -593,6 +633,28 @@ _fkContainer.addEventListener('mousemove', _fkHover);
 const _fkStyle = document.createElement('style');
 _fkStyle.textContent = `
   #fitbig { display: none; }
+  body.placing #body .step, body.placing #body .tools, body.placing #body p.fit:not(.source) { display: none; }
+  #fkbar { position: fixed; top: 12px; left: 400px; right: 60px; z-index: 30; background: var(--sheet); border: 1.5px solid var(--ink);
+    box-shadow: 0 2px 10px rgba(43,39,36,.18); font: 600 12px var(--label); letter-spacing: .02em; color: var(--ink); }
+  #fkbar .fkrow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 7px 10px; }
+  #fkbar .grp { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+  #fkbar .grp b { text-transform: uppercase; letter-spacing: .08em; font-size: 11px; }
+  #fkbar .how { font: italic 12.5px var(--title); color: var(--ink-2); }
+  #fkbar .grp.map { color: var(--ink-2); }
+  #fkbar .sp { flex: 1; }
+  #fkbar kbd { font: 600 10.5px var(--label); border: 1px solid var(--rule, #bbb); border-bottom-width: 2px; border-radius: 3px; padding: 1px 5px; background: var(--paper, #fff); color: var(--ink-2); }
+  #fkbar button { font: 600 11.5px var(--label); text-transform: uppercase; letter-spacing: .06em; background: var(--sheet); color: var(--ink);
+    border: 1px solid var(--ink); padding: 4px 9px; cursor: pointer; }
+  #fkbar .grp button { min-width: 26px; padding: 3px 6px; font-size: 14px; line-height: 1; }
+  #fkbar button:hover:not(:disabled) { background: var(--paper-2, #eee); }
+  #fkbar button:disabled { opacity: .4; cursor: default; }
+  #fkbar button.primary { background: var(--ink); color: var(--sheet); }
+  #fkbar button[hidden] { display: none; }
+  #fkbar .fkread { display: flex; gap: 14px; justify-content: space-between; border-top: 1px solid var(--rule, #ccc); padding: 5px 10px;
+    font: 13px var(--title); font-style: italic; text-transform: none; letter-spacing: 0; color: var(--ink-2); }
+  #fkbar .fkread b { font-style: normal; color: var(--ink); }
+  #fkbar .fkread .bad { color: var(--survey); font-weight: 700; font-style: normal; }
+  #fkst { white-space: nowrap; }
   .gpin.fk-handle { width: 9px; height: 9px; border-radius: 0; background: var(--sheet, #fff); border: 1.5px solid var(--survey); }
   #body p.fit span.bad { color: var(--survey); font-weight: 700; }
   body.placing #fitbig { display: inline-block; }
@@ -601,6 +663,8 @@ _fkStyle.textContent = `
   body.placing .fitpane:not(.big) .fit-tools { display: none; }
   body.placing #body .seg, body.placing #body ol.pairs, body.placing #fother { display: none; }
   @media (max-width: 760px) {
+    #fkbar { top: auto; bottom: 8px; left: 8px; right: 8px; }
+    #fkbar .grp.map, #fkbar kbd { display: none; }
     body.placing .fitpane:not(.big) { top: 8px; left: 8px; right: auto; bottom: auto; width: 46vw; height: 26vh; }
   }`;
 document.head.appendChild(_fkStyle);
