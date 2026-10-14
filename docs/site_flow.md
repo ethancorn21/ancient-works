@@ -1421,6 +1421,14 @@ the site stays covered for the union check, an open item counts).
   way: the picture and its 6 points went to a new review item for the site with this reason -
   the site had none before - the document was deleted, the site's review page file
   re-exported scoped to the site; the site stays covered by the new open item).
+  (2026-10-14, 306 close: the lead's 77405cf (2026-10-13, '13 matcher re-fits after the 212b
+  sync, eye-checked') re-ported this document to the map after the deletion above, and the
+  lead's 10dcb23 close of 306e + 306f (written after that re-port: 'the survivors are
+  eye-checked matcher re-fits') names these Portchester twins among the eye-checked survivors -
+  the owner's re-port stands; this verdict stays as the record of what the drawing does, and
+  the audited entry (picture + this reason) stays in the site's review item, resolved on this
+  document. One of the 7 audit-deleted documents 77405cf re-ported: the 5 annotated above,
+  plus this twin pair.)
 - portus-adurni-q762664.c_4912bb54aa79f3ea - Burg von Portchester (GB), Plan von 1836 aus der
   Penny Cyclopaedia, Seite 354 (similarity, 6 pts, resid 0.0 m, 1.00 m/px, -0.0 deg): the
   German-titled twin of the deleted c_42bedb90fffce1d4 - the same Penny Cyclopaedia 1836 v6 p
@@ -1434,6 +1442,13 @@ the site stays covered for the union check, an open item counts).
   the page (the 303 way: the picture and its 6 points were APPENDED to the portus item
   created by the twin's deletion - the item keeps its file name and its lead, and the site
   stays covered by the still-open item).
+  (2026-10-14, 306 close: the lead's 77405cf (2026-10-13, '13 matcher re-fits after the 212b
+  sync, eye-checked') re-ported this document to the map after the deletion above, and the
+  lead's 10dcb23 close of 306e + 306f (written after that re-port: 'the survivors are
+  eye-checked matcher re-fits') names these Portchester twins among the eye-checked survivors -
+  the owner's re-port stands; this verdict stays as the record of what the drawing does, and
+  the audited entry (picture + this reason) stays in the site's review item, which is resolved
+  on the twin, c_42bedb90fffce1d4.)
 - raby-castle-q4583646.c_fe1d6c7f0ba858cb - Raby Castle, plan from Mackenzie, The Castles of
   England (1897) (similarity, 4 pts, resid 0.0 m, 0.67 m/px, 0.0 deg): the 4 anchors are the
   plate's 900-px corner square - a ladder with no placement information: the fit pins the plate
