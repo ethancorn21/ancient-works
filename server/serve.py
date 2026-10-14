@@ -195,8 +195,16 @@ class Handler(SimpleHTTPRequestHandler):
                 return self.reply(404, {"error": "no such document"})
             return self.reply(200, json.load(open(path)))
         if method == "DELETE":
+            old = None
             if os.path.exists(path):
+                if parts[2] == "notthis":
+                    try:
+                        old = json.load(open(path))
+                    except (OSError, ValueError):
+                        old = None
                 os.remove(path)
+            if parts[2] == "notthis" and isinstance(old, dict):
+                not_this(old.get("site"), old.get("plan"), False)
             after_write(parts[2])
             return self.reply(200, {"ok": True})
         n = int(self.headers.get("Content-Length") or 0)
@@ -224,6 +232,10 @@ class Handler(SimpleHTTPRequestHandler):
             # fallback for a document that never said where it belongs)
             site = data.get("site") if isinstance(data.get("site"), str) and data.get("site") else parts[3].split(".")[0]
             after_write(parts[2], "line", site)
+        elif parts[2] == "notthis":
+            # answered only once the review item and the queue file are rewritten, so the page's
+            # next fetch of fit_queue.json no longer offers the picture
+            not_this(data.get("site"), data.get("plan"), True, data.get("title"))
         else:
             after_write(parts[2])
         return self.reply(200, {"ok": True})
@@ -236,6 +248,47 @@ class Handler(SimpleHTTPRequestHandler):
 _fit_wake = None
 _fit_jobs = []
 _fit_lock = threading.Lock()
+_files_lock = threading.Lock()  # the fit worker's jobs and not_this both rewrite data/review/ items
+
+
+NOT_THIS_WHY = "dropped by the owner on the page: the picture does not show this structure"
+
+
+def not_this(site, plan, on, title=None):
+    """The owner's "Not this structure" on the page (2026-10-13; db notthis/<site>.<plan>). On: the
+    site's review-item candidate for the picture gets dropped: true (added when the item lacks it),
+    which fit/matchfit.py already honours and tools/fit_queue.py leaves out; then review.json and
+    fit_queue.json are rebuilt. Off (the doc deleted): an owner drop is lifted again; a drop the
+    lead or a batch made is left alone. A tree without fit/ or tools/ writes nothing."""
+    if not (isinstance(site, str) and site and isinstance(plan, str) and plan):
+        return
+    try:
+        for d in ("fit", "tools"):
+            if os.path.join(ROOT, d) not in sys.path:
+                sys.path.insert(0, os.path.join(ROOT, d))
+        import review
+        import fit_queue
+    except BaseException as e:
+        print(f"  not-this {site}.{plan}: unavailable in this tree ({e!r}); nothing written", flush=True)
+        return
+    with _files_lock:
+        try:
+            _, item = review._find_item(ROOT, site)
+            cur = next((c for c in (item or {}).get("candidates") or [] if c.get("plan") == plan), None)
+            if on:
+                e = dict(cur or {"plan": plan, "title": title or plan})
+                e.update(dropped=True, why=NOT_THIS_WHY)
+            elif cur and cur.get("dropped") and cur.get("why") == NOT_THIS_WHY:
+                e = {k: v for k, v in cur.items() if k not in ("dropped", "why")}
+            else:
+                e = None
+            if e is not None:
+                review.upsert_item(ROOT, site, [e])
+            review.export(ROOT)
+            fit_queue.main(["--root", ROOT])
+            print(f"  not-this {site}.{plan}: {'dropped' if on else 'lifted'}", flush=True)
+        except BaseException as ex:  # never let it take the server down
+            print(f"  not-this {site}.{plan} failed: {ex!r}", flush=True)
 
 
 def _fit_line(site):
@@ -287,10 +340,11 @@ def _fit_worker():
             todo = list(_fit_jobs)
             _fit_jobs.clear()
         for kind, site in todo:
-            if kind == "line":
-                _fit_line(site)
-            else:
-                _fit_sweep()
+            with _files_lock:
+                if kind == "line":
+                    _fit_line(site)
+                else:
+                    _fit_sweep()
 
 
 def after_write(coll, kind="sweep", site=None):
