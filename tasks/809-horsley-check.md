@@ -1,4 +1,4 @@
-Status: blocked
+Status: open
 Depends on: 808
 Touches: fit/src_roman_horsley.py, tests/test_src_roman_horsley.py, tests/golden/src_roman_horsley_sample.json, data/commons/files_roman.jsonl, data/commons/classified_roman.jsonl, data/catalog/extras_roman.jsonl
 
@@ -68,3 +68,6 @@ classified rows + the new extras_roman site rows); the module already documents 
 **Suite baseline at the split:** 1 failed / 156 passed / 1 skipped (389 s; the lone red =
 agent a's 307d placement test: seed check + /tiles/relief 404, PITFALLS). No test imports
 this module yet; re-baseline on the final run.
+
+(Unblocked 2026-10-14, iteration 137, agent c, from the parent 207: same owner lift as
+807/808 - DECISIONS 2026-10-14 207. Runs last of the chain.)

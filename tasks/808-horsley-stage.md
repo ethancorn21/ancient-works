@@ -1,4 +1,4 @@
-Status: blocked
+Status: open
 Depends on: 807
 Touches: fit/src_roman_horsley.py, data/commons/files_roman.jsonl, data/commons/classified_roman.jsonl, data/catalog/extras_roman.jsonl, docs/lead_roman.md
 
@@ -100,3 +100,6 @@ the stable URL).
 **Suite baseline at the split:** 1 failed / 156 passed / 1 skipped (the lone red = agent a's
 307d placement test, known pre-existing). No test imports this module until 809; re-baseline
 on the final run.
+
+(Unblocked 2026-10-14, iteration 137, agent c, from the parent 207: same owner lift as 807
+- DECISIONS 2026-10-14 207. Runs after 807.)
