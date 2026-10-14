@@ -48,156 +48,141 @@ the original or a facsimile of it, its date, its licence, and its resolution bef
 
 ## Hand-over
 
-(2026-10-14, iteration 170, agent a, written at the context limit. RESEARCH session, the
-145/147/151/152/163/164/165/168/169 pattern: NO repo file touched, staged files still
+(2026-10-14, iteration 172, agent a, written at the context limit. RESEARCH session,
+145/147/151/152/163/164/165/168/169/170 pattern: NO repo file touched, staged files still
 3/11/11, no edits to fit/src_us_cities.py or the lead doc. Baseline 7/7 (tests/test_src_us_cities.py
-+ tests/test_region.py) was green at the 169 limit and the tree is unchanged since. THE
-SITE-POINT VERDICT IS NOW COMPUTED (see ### THE VERDICT below) - next session APPLIES it
-(the 146/148 pattern). All session crops live in /tmp/nash168/ (haydon.jpg, clayton1804.jpg,
-cbx*.xml, loc2003630459.jpg 28.8 MB 19690x11294, defnash1895.jpg 1536x886, z_*.png; this
-session added nash169_{hill,fort,mouth,vertex,exit,scalebar,scalebar2}.png in /tmp/) and
-/tmp/nash168/fit_clayton.py - the working fit script, SELF-CONTAINED (anchors, ENU, river
-chains from /tmp/nash164/way40806685full.xml + cbx*, street PCA, extent boxes, P625
-margins); re-run it first. If re-download is needed, get URLs from commons.info() on the
-titles "File:Map of Nashville, Tennessee. LOC 2003630459.jpg" and "File:Defenses of
-Chattanooga, Tenn. Battery Erwin ... (IA dr defenses-of-chattanooga-tenn-...-01104241).jpg"
-- upload.wikimedia.org with a browser UA. The LOC jpg needs Image.MAX_IMAGE_PIXELS = None
-(222 MP > PIL bomb limit). Haydon.jpg dpi metadata = 600; clayton dpi = 72 (meaningless).
++ tests/test_region.py) was green at the 169/170 limits and the tree is unchanged since
+(only the driver's merge 7f6d6f4 after 170). ### THE VERDICT IS NOW SETTLED - see below -
+and the next session APPLIES it (the 146/148 pattern, the old route step 5). The 170
+fit_clayton.py (rotation fit w=a*z+b) is WRONG - it maps the river N-NW of the town (page-down
+-> 29.6 NNE): the correct transform is the MIRROR fit w=a*conj(z)+b (page-up -> 354.1 ~N,
+page-right -> 264.1 ~W): the 1804 sheet is a near north-up bird's-eye view with a ~6 deg tilt.
 
-### MAJOR REVISION: the Haydon 1860 sheet is a decorative composite - the 164/165 premise "the
-sheet is NORTH-UP" is WRONG, and the 165 route step 1 (3-anchor least squares over
-confluence + capitol + reservoir) is DEAD
-- The labelled "C U M B E R L A N D R I V E R" band runs across the sheet's MIDDLE (full-sheet
-  y~3900-4300 for x~3160-6300), the dense downtown core sits NORTH of it (x~3250-5750,
-  y~2700-4250) - geographically correct (the CBD is north of the Cumberland). BUT the blue
-  TENNESSEE arm enters from the sheet's upper-LEFT (map-NW) and the combined river exits
-  lower-LEFT (map-SW): the map's V at (3288,4302) is a right angle while the real confluence
-  is nearly a straight line (Tennessee from SSE, combined river WNW). No single rotation fits
-  all three arms -> the rivers are bent for composition. The compass rose (full-sheet
-  ~(7185,1425)) is a decorative 8-point star with a quill-arrow through it, NO letter labels -
-  unusable for orientation. Title block (bottom-left): "CITY OF NASHVILLE AND EDGEFIELD,
-  DAVIDSON COUNTY, TENNESSEE. Published by Hayden and Booth. 1860. SCALE 400 FEET TO 1 INCH."
-- The sheet is a "tacked-up" composite of plates at different rotations: the dense core
-  (TAYLOR/SPRUCE/HIGH/CHERRY/COLLEGE/MARKET/WATER/FRONT/ADAMS streets, capitol, Nashville
-  Academy, Market Square/City Hall) is one plate; the OVERTOWN/EDGEFIELD diagonal grid
-  (OVERTON/FRANKLIN/MIDDLE/TAYLOR ST, CITY HOSPITAL, Queen's Hotel, FRANKLIN TURNPIKE,
-  Tennessee & Alabama R.R.) is bottom-LEFT; another diagonal grid (BERRY/WHITFIELD/...)
-  bottom-right; the FILLMORE/BARROW/HICKORY/OAK/FULLER/GALLATIN grid south of the river; the
-  "Shelby" floodplain; the red "Corporation Line" (1860 city boundary) around the core; a
-  REFERENCES legend (full-sheet (4885-5125, 3775-4075)) and a CHURCHES list.
-- CAPITOL pin RE-CONFIRMED at (4880,3193) (165 stands): my 169 attempt to re-pin it to
-  (4288,2982) was a scale miscalc (the wide crop (2500,2500)-(6500,5200)@1.5x displayed at
-  2000 wide means full-sheet = 2500 + display*2, NOT *1.5).
-- Consequence: the Haydon map CANNOT carry a whole-sheet georef. It is still usable (a)
-  qualitatively - the core plate = the modern CBD - and (b) for the site note's extent
-  estimate, from labelled landmarks (Franklin Turnpike = Franklin Pike, the Wesleyan College
-  green block = the later Vanderbilt hill, "Residence of J.B. Hayes near Nashville", the
-  Howard School, the T&A RR line, the red Corporation Line).
-- The 1833 waterworks "Reservar[y]" + University St grid (full-sheet (2740-3100,
-  3430-3950), near the bent Tennessee arm) is no longer a candidate third anchor - it sits on
-  a bent plate and its modern site was already not pinnable (168: no University St on the west
-  bank; modern University St is EAST of the river). DROP it.
+### THE VERDICT (computed this session, replaces the 170 "VERDICT route")
+- MIRROR fit over the same two anchors (A = fort pin (746,1362) <-> Q5471739 (36.164167,
+  -86.774444); B = capitol-hill knoll (1750,1040) <-> Nominatim way 249147622 centroid
+  (36.1658290,-86.7842374)), ENU origin (36.163,-86.775): a-angle -174.1 deg, scale 0.8520
+  m/px (scene 2048 px wide -> 1.74 km; consistent with the sheet). Checks: (a) confluence
+  V (490,1680) projects to (36.161941,-86.771715) = 207 m from real confluence node
+  303579826 (36.1606686,-86.7700322) [rotation fit: 521 m]; 7 m from the mapped Cumberland
+  way. (b) Rich-Branch mouth (2222,1620) -> (36.161022,-86.788123) = the WEST riverfront
+  (12th-15th Ave S area, on the Cumberland's north bank) - agrees with the 165 independent
+  Haydon-1860 cross-check (the only stream on the south riverfront, west of the core; the
+  170 "east of the town" read was the rotation-fit artefact). (c) River flows left->right
+  on the page = WESTWARD under the mirror = the Cumberland's true flow; under the rotation
+  fit it would place the river N of the town (impossible). (d) The fort is the old town's
+  SE corner (page lower-left = SE), consistent with the fort standing on the bluff by the
+  corner. So: the mirror fit is correct; do NOT use w=a*z+b for this sheet. (Caveat for the
+  lead doc: the drawn street families do not match the modern ones under either fit -
+  segment-level OSM: modern "N-S" streets run ~240/60 and E-W streets exactly 90/270, the
+  old grid is non-orthogonal; mirror fit: map-horizontal -> 84.1/264.1 matches Division
+  within 6 deg, map-vertical -> 354.1/174.1 is ~67 deg off modern Broadway - perspective
+  convergence and/or the 1796 plat's own orientation; not a fit blocker, the anchors are
+  the evidence.)
+- Extents under the MIRROR fit (scene box per the 170 definition, unchanged): 1804 SCENE
+  (x 448-2496, y 678-1600) -> lat 36.16096..36.16963, lon -86.79163..-86.77140, 1.82 x 0.96
+  km, center (36.16529, -86.78152); P625 2 km box margins: W -543 / E +726 / S +860 / N
+  +178 m (W overshoot -> P625 REJECTED as the site point). Candidate point = the projected
+  extent centre, 5 decimals: (36.16529, -86.78152) (721 m from P625 -> no --verify >50 km
+  flag); its 2 km box covers the whole scene with margins W +92 / E +91 / S +519 / N +519
+  m. Dense core (718-1790, 986-1575) -> 0.96 x 0.59 km, fits P625's box too. Full ink
+  (45-2496, 525-1900) -> 2.20 x 1.38 km (the REFERENCES index + title block; the scene box
+  is the verdict's extent, as in 170). The other three sheets (Haydon 1860, LOC 1860s,
+  1895 ring) still span beyond the box -> review items, their extents go on the site note
+  (estimate from z_loc_whole.png / z_def_whole.png when writing the note).
+- VERDICT: nashville-q23197 point = (36.16529, -86.78152), NOT a P625 (the 147/148 SF
+  precedent: the center of the drawn extent, 5 decimals). The 170 prior "P625's box covers
+  the 1804 extent with ~1 km margin -> point = P625" is DEAD (it was built on the rotation
+  fit).
 
-### Clayton 1804 re-read (fresh eyes this session) - THE georeferenceable plan
-- Sheet 2557x1913. "NASHVILLE IN 1804. From Notes of one then resident, (Mrs Temple, Daughter
-  of Genl Robertson)." A building INDEX "REFERENCES" 1-20 tops the sheet (An Old Yellow
-  Frame..., Market 40 feet long, Court House, Stocks, Jail with Picket Fence, Tulbot Tavern,
-  Stone Tavern Captain Demumbrance, House McKane, D. Robertson, J. B. Craighead, William Tate,
-  James Jackson, Tavern Eakin, Ferry and Keel-Boat Landing, ...).
-- Labeled streets: "Present Broad St." (vertical, left-center), "Present Church St."
-  (vertical, center), "Present Cedar St." (vertical, right-center), "Present summer Str"
-  (horizontal, left), "Present College Str." (horizontal, TWO labels: left and right),
-  "Market or Main St" (horizontal, center). Modern "Broad Street" = today's Broadway;
-  College St survives.
-- Freshly confirmed pins (full-sheet; 170 re-verified with fresh eyes, nash169 crops): fort
-  "D. Cross's owner / Stone House / former Fort" hatched block (727-765, 1345-1380) centre
-  (746,1362) [169's (718,1345) = its left edge]; "White Hall / former Fort / 2 story"
-  hatched block (982-1025, 1545-1577) [169's (985-1062,1478-1523) was ~60 px high - not an
-  anchor, but use the 170 numbers in the lead doc]; the "now. Capitol Hill" annotation
-  (1400-1650, 1020-1055) points at the big wooded knoll (1685-1825, 990-1110) centre
-  (1750,1040) = the modern Capitol hill -> anchor B (36.1658290,-86.7842374) (+/-100 m)
-  CONFIRMED (the small cluster below-left of the annotation is the separate KNOB); "W. Tate Occupant / now 1834 Walkers / Best House in
-  town" (1088-1472, 1005-1110); "T. Napier occupant / Small 2 story Frame" hatched building
-  (1510-1543, 837-860); "KNOB" (1453-1557, 953-977); "Dr. Henning's House & Office"
-  (1498-1792, 1344-1421); "Nashville Inn / Mr Parker / 2 story Frame" (1485-1702,
-  1472-1523); cemetery marker (2118,988) label (2112-2253, 986-1005); McNairy's spring
-  (2112-2342, 870-896); "Sulphur Spring / Salt made of it" (2150-2432, 1158-1197); "Judge
-  McNairy's since enlarged" (2099-2496, 678-736); the labelled Rich Branch runs from the
-  springs to its mouth at (2222,1620) [169's (2282,1597) a bit east]. RIVER RE-READ (170,
-corrects 169): the wide hatched band along the bottom is labelled "Cumberland River"
-  (label ~ (1472-1997, 1536-1574)) and is the COMBINED river flowing LEFT->RIGHT, exiting
-  lower-RIGHT at ~(2496,1766) - 169's "combined river continues down-left" read the hatch
-  direction wrong. Two arms merge into it at the V ~(490,1680) [NEW pin]: a thin creek from
-  the upper left (enters the sheet ~ (450,1470); page bearing from V ~350) and a hatched
-  band from the lower-left corner (~ (300-450, 1850-1913); page bearing ~210). The Rich
-  Branch joins the combined band near the exit at (2222,1620) (vertical label "...k
-  Branch" (2165-2210, 1350-1505)). Against the real geometry (164: confluence node
-  303579826 (36.1606686,-86.7700322) = node index 126 of way 40806685, which is the
-  Cumberland E chain + combined; combined runs NNW initially (nodes 127-130:
-  (36.1632,-86.7731) -> (36.1719,-86.7781)) then WNW; Tennessee arm upstream = SE toward
-  Chattanooga; Cumberland arm upstream ~ESE): the downstream band maps cleanly (page
-  87.6 - 150.4 = 297 deg real, inside the real 278-328 flow cone) but the two drawn arms
-  are bent ~40-60 deg (drawn opening ~140 deg vs real ~35) to frame the scene - decorative
-  rivers, same class as the Haydon composite; do not trust the drawn V/mouth, do trust the
-  town (see THE VERDICT below).
-- The drawn town extent (full-ink corners): roughly x 448-2496, y 678-1600 - from the
-  Johnson's ferry house (left) through the fort, the core, to Judge McNairy's property
-  (right) and down to the river band; the dense core (buildings 1-20) is x~718-1790,
-  y~986-1575.
+### APPLY (exact next step, the 146/148 pattern)
+1. fit/src_us_cities.py: SITES += "Q23197": dict(id="nashville-q23197", name="Nashville",
+   named="Nashville", lon=-86.78152, lat=36.16529, place="Davidson County, Tennessee",
+   region="United States", kind="town", wikipedia="https://en.wikipedia.org/wiki/
+   Nashville,_Tennessee", note=...) - the note: aerial ground; the 1804 Clayton is a near
+   north-up bird's-eye view (mirror fit, ~6 deg tilt, 0.852 m/px); the point is the center
+   of the projected 1804 extent (P625 721 m NE, its box overshoots W 543 m); the other 3
+   sheets oversize -> likely review items (NY-1811/DC-ring precedent); Fort Negley Q5471744
+   record (no fort-only plan on Commons; the 3 Fletcher 1864 views are 236b leads; a
+   fort-only plan later -> a Q5471744 fort site with the 1600 m fort box). SOURCES += 4
+   rows: Clayton 1804 swap dict(date="1804"); Haydon 1860 no swap; LOC 2003630459 no swap
+   (page "1860s" is the drawing date); Defenses 1895 swap dict(date="1895") (the "..." in
+   its title is literal). Exact title strings: docs/lead_us_cities.md candidate list
+   (read it first; the LOC re-download title is "File:Map of Nashville, Tennessee. LOC
+   2003630459.jpg" and the 1895 one is "File:Defenses of Chattanooga, Tenn. Battery Erwin
+   ... (IA dr defenses-of-chattanooga-tenn-...-01104241).jpg" - both in /tmp/nash168 as
+   loc2003630459.jpg / defnash1895.jpg; the LOC jpg needs Image.MAX_IMAGE_PIXELS=None, 222
+   MP). Module docstring: update the "Nashville follows in a later session" line.
+2. Live (under .venv/bin/python, Nominatim/OSM gotchas as in the 170 standing block below):
+   --verify (now 4 SITES keys Q60/Q61/Q62/Q23197; record the Q23197 facts + the 721 m P625
+   no-flag into the lead doc; also re-record Q5471739/Q5471744 facts there - they are NOT
+   SITES keys, no --verify for them). stage (expect "1 new sites, 4 new pictures; build
+   (236c): nashville-q23197"); offline --check (expect 15 file rows, 15 pass); --golden.
+3. tests/test_src_us_cities.py: staged row asserts 11->15, PASS-list += 4 titles, qid
+   table += Q23197 (lon -86.78152, lat 36.16529, named "Nashville"), extras ids +=, years
+   dict += 1804/1860/1860/1895, named_by_qid += {"Q23197": "Nashville"}. Run ONLY
+   tests/test_src_us_cities.py + tests/test_region.py (offline; 7/7 + the 4 new passes).
+4. docs/lead_us_cities.md Nashville section: the verdict (point + why, the mirror fit,
+   the rotation-fit dead end, margins); per-candidate STAGED/DROP (the 151 DROP list below);
+   Fort Negley record; the --verify transcript (15-row check, 15 pass); the Haydon
+   composite finding (the 168 block below); the other sheets' extent estimates (from
+   z_loc_whole.png 2500x1443 and z_def_whole.png 2x - examine them first; if the 1895
+   page scan is unreadable fetch the David Rumsey zoomable original the desc links).
+5. Tick acceptance box 3, Status: done (all 5 boxes).
 
-### The other two staged Nashville sheets (checked this session)
-- LOC 2003630459 "Map of Nashville, Tennessee" (19690x11294, page date "1860s", pen-and-ink
-  and pencil, fold-line relief, streets/railroads/all buildings/streams): a big 1860s
-  building-by-building city map. NOT YET EXAMINED at any zoom - the z_loc_whole.png
-  downsample (2500x1443) is in /tmp/nash168; look at it to estimate its geographic extent
-  (city + how far out) for the site note. Expect the same order as Haydon (city + a few km of
-  country) -> oversize vs the 2 km box -> review item, same as Haydon/1895.
+### The Haydon 1860 sheet is a decorative composite (168 finding, unchanged)
+The labelled "C U M B E R L A N D R I V E R" band runs across the sheet's MIDDLE
+(full-sheet y~3900-4300 for x~3160-6300), the dense downtown core sits NORTH of it
+(x~3250-5750, y~2700-4250) - geographically correct. BUT the blue TENNESSEE arm enters
+from the sheet's upper-LEFT and the combined river exits lower-LEFT: the map's V at
+(3288,4302) is a right angle while the real confluence is nearly a straight line - the
+rivers are bent for composition. The compass rose (~(7185,1425)) is a decorative 8-point
+star, no letter labels. Title block: "CITY OF NASHVILLE AND EDGEFIELD, DAVIDSON COUNTY,
+TENNESSEE. Published by Hayden and Booth. 1860. SCALE 400 FEET TO 1 INCH." Tacked-together
+plates at different rotations (core plate = modern CBD; OVERTOWN/EDGEFIELD diagonal grid
+bottom-left; another diagonal grid bottom-right; FILLMORE/BARROW grid south of the river;
+"Shelby" floodplain; red 1860 Corporation Line; REFERENCES legend (4885-5125,3775-4075);
+CHURCHES list). Capitol pin RE-CONFIRMED (4880,3193) (165 stands; the 169 re-pin attempt
+(4288,2982) was a scale miscalc: wide crop (2500,2500)-(6500,5200)@1.5x displayed 2000
+wide -> full-sheet = 2500 + display*2). Consequence: Haydon CANNOT carry a whole-sheet
+gereof; usable only qualitatively (core plate = modern CBD) and for the site note's
+extent estimate from labelled landmarks (Franklin Turnpike, the Wesleyan College green =
+the later Vanderbilt hill, "Residence of J.B. Hayes near Nashville", Howard School, T&A RR
+line, the red Corporation Line). The 1833 waterworks reservoir is DEAD as an anchor (168).
+
+### Clayton 1804 pins (170 re-read, unchanged; the mirror fit uses them)
+Sheet 2557x1913, "NASHVILLE IN 1804. From Notes of one then resident, (Mrs Temple, Daughter
+of Genl Robertson)." REFERENCES index 1-20 tops the sheet. Labeled streets: Broad /
+Church / Cedar (vertical), Summer / College (2 labels) / Market (horizontal); modern Broad
+= Broadway. Pins (full-sheet): fort hatched block (727-765,1345-1380) centre (746,1362);
+"White Hall / former Fort" (982-1025,1545-1577); "now. Capitol Hill" annotation (1400-1650,
+1020-1055) -> big wooded knoll (1685-1825,990-1110) centre (1750,1040); "W. Tate...Best
+House in town" (1088-1472,1005-1110); "T. Napier" (1510-1543,837-860); KNOB (1453-1557,
+953-977); "Dr. Henning's House & Office" (1498-1792,1344-1421); "Nashville Inn" (1485-1702,
+1472-1523); cemetery (2118,988); McNairy's spring (2112-2342,870-896); "Sulphur Spring /
+Salt made of it" (2150-2432,1158-1197) [projects to (36.164345,-86.789199) under the
+mirror fit - not independently verified; Nominatim/web searches for "Sulphur Spring,
+Nashville" and "Rich Branch, Nashville" return nothing useful]; "Judge McNairy's since
+enlarged" (2099-2496,678-736); Rich Branch runs from the springs to its mouth (2222,1620)
+(label (2165-2210,1350-1505)). The bottom hatched band = the Cumberland flowing left->right,
+exit lower-right ~(2496,1766); two arms merge at the V (490,1680) (bent ~40-60 deg for
+composition - decorative rivers, same class as Haydon; do not trust the drawn V/mouth,
+do trust the town). Scene extent x 448-2496, y 678-1600 (ferry left through the fort, the
+core, to Judge McNairy's property, down to the river band); dense core (718-1790,
+986-1575). Full-ink 45-2496, 525-1900 (index + title included).
+
+### The other two staged sheets (for the site note, when applying)
+- LOC 2003630459 "Map of Nashville, Tennessee" (19690x11294, page date "1860s", pen-and-
+  ink and pencil, fold-line relief, streets/railroads/all buildings/streams): a big 1860s
+  building-by-building city map. NOT YET EXAMINED at any zoom - z_loc_whole.png (2500x1443)
+  is in /tmp/nash168; estimate its geographic extent for the note. Expect city + a few km
+  of country -> oversize vs the 2 km box -> review item.
 - The 1895 Defenses sheet (1536x886 IA book page, "Nine b&w plans, some with sections. LC
   Civil War map", zoomable original at davidrumsey.com): ONE small "Defenses of Nashville,
-  Tenn. Capitol" plan among nine on the page. The z_def_whole.png 2x view is in
-  /tmp/nash168 - identify the Nashville panel and its drawn extent (city + the fort ring:
-  Fort Negley at (36.145,-86.7747) ~1.9 km S of P625, plus the ring's other forts). At
-  1536x886 for nine plans the Nashville panel is small - too small to georef, only to
-  estimate the ring's span for the note. If the page scan is too small to read, fetch the
-  David Rumsey zoomable original (the desc field links it) before giving up.
-
-### VERDICT route (revised - this is the exact next step)
-The site point no longer waits on the Haydon georef. The only plan that can be georeferenced
-is the Clayton 1804 (the 1790s core), and it is the smallest of the four extents, so the
-155/161 rule applies to it:
-1. Fit a 2-anchor (or 3-anchor LSQ) similarity over the Clayton 1804: A = fort (718,1345)
-   <-> (36.164167,-86.774444) (Q5471739); B = capitol-hill centre (1750,1040) <->
-   (36.1658290,-86.7842374). ENU metres at origin (36.163,-86.775) (E=(lon-lon0)*111194.9266*
-   cos(lat0), N=(lat-lat0)*110900; map complex z = x - 1j*y). Report scale (m/px), rotation
-   (deg) and per-anchor residuals (2-anchor = exact by construction; a 3rd anchor to test:
-   the Rich-Branch mouth (2282,1597) projected -> should land on/near the Cumberland bank
-   east of the town core; if the projected mouth is >300-500 m off the river, suspect the
-   hill-centre pin and re-read the "now. Capitol Hill" target).
-2. Cross-check the rotation: the Clayton street grid (Broad/Church/Cedar vertical,
-   Summer/College/Market horizontal) should rotate to the modern downtown grid orientation
-   (the modern grid is rotated ~20-30 deg from compass; Nominatim College St / Broadway
-   segments in the cbx dumps can verify 1-2 street directions).
-3. Project the drawn extent corners (full-ink x 448-2496, y 678-1600; dense core
-   x 718-1790, y 986-1575) -> geographic box.
-4. VERDICT (155/161): point = P625 (36.162222,-86.774444) iff its 2 km box (hw 1000 m: lat
-   36.1522-36.1722, lon -86.7844..-86.7644) covers the projected 1804 extent WITH margin;
-   else point = the projected-extent centre, 5 decimals (147/148 SF precedent). My prior:
-   the 1804 extent is ~1 km x 0.8 km centred near (36.163,-86.775) -> P625's box covers it
-   with ~1 km margin -> point = P625. The other three sheets (Haydon, LOC 1860s, 1895
-   ring) span beyond the box -> review items, per the NY-1811/DC-ring precedent; their
-   extents go on the site note (examine z_loc_whole.png / z_def_whole.png for those).
-5. Then the 165 route step 8 (APPLY), unchanged: SITES entry nashville-q23197 (name
-   "Nashville", named "Nashville", kind "town", region "United States", place "Davidson
-   County, Tennessee", wikipedia https://en.wikipedia.org/wiki/Nashville,_Tennessee, point =
-   the verdict) + SOURCES rows for the 4 titles (Clayton swap dict(date="1804"); Haydon no
-   swap; LOC 2003630459 NO swap (page "1860s" is the drawing date); Defenses swap
-   dict(date="1895"), the "..." is literal) - then live --verify (4 QIDs: Q23197,
-   Q5471739, Q5471744 + existing), stage (expect "1 new sites, 4 new pictures; build
-   (236c): nashville-q23197"), offline --check (expect 15 rows, 15 pass), --golden, tests
-   (row asserts 11->15, PASS-list += 4, qid-table += Q23197 point, extras ids +=, years dict
-   += 1804/1860/1860/1895, named_by_qid += {Q23197:"Nashville"}), lead doc Nashville
-   section (point + why; per-candidate STAGED/DROP; Fort Negley record; 15-PASS transcript;
-   the Haydon composite finding; the 1895 panel extent), tick box 3, Status: done.
+  Tenn. Capitol" plan among nine. z_def_whole.png 2x is in /tmp/nash168 - identify the
+  Nashville panel and the ring's span (Fort Negley (36.145,-86.7747) ~1.9 km S of P625 plus
+  the ring's other forts) for the note; too small to georef. If unreadable, fetch the
+  David Rumsey zoomable original (desc links it) before giving up.
 
 ### Standing gotchas (unchanged, still true)
 Tests OFFLINE only (socket-blocked fixture); run ONLY tests/test_src_us_cities.py +
@@ -211,14 +196,17 @@ box_m override; specs/site_boxes.json not in Touches); do NOT write the canonica
 (pipeline/aw.py UA), live OSM browser UA (/map?bbox and /api/0.6/* alive per 164/168 -
 retest per call; /map?bbox arg order minlon,minlat,maxlon,maxlat; the response root holds
 BOTH node and way elements); Overpass dead (PITFALLS filed 168); after ANY full-suite run
-restore `git checkout main -- docs/site_flow/307d_*.png` (PITFALLS filed 168). QID facts:
-Q23197 (label "Nashville", P625 (-86.774444,36.162222), P373 ['Nashville, Tennessee'], P131
-Davidson County Q1177705, enwiki "Nashville, Tennessee", first name-search hit = itself,
-NOT in the catalog); Q5471739 Fort Nashborough (36.164167,-86.774444) precision 0.001;
-Q5471744 Fort Negley (-86.774658,36.145097); no Fort Negley fort site is staged (no
-fort-only plan on Commons - the 3 Fletcher 1864 views are 236b leads; a fort-only Negley
-plan later -> Q5471744 with the 1600 m fort box). DROP list for the lead doc (151
-DECISIONS entry): the Burns 1906 copy of the 1804 plan; the 1854 book detail; the 1888
-Sanborn fragment; the 1916 LOC 75695990 .tif (outside the window); the two 1887 battle-map
-files; the 1895 battlefield map (look once via its Commons page before dropping); all
-Fort Negley photos.
+restore `git checkout main -- docs/site_flow/307d_*.png` (PITFALLS filed 168). /map?bbox
+data (nash164/168 dumps): the downstream Cumberland WEST of ~-86.783 is NOT in OSM here
+(cbx.xml/cbx2/cbx3 have no river way; cbx4 has the Bing water=river face 36.166..-86.783
+and way 40806685 = E arm + N arm only) - river-distance checks west of the confluence are
+unreliable (corroborates 155). QID facts: Q23197 (label "Nashville", P625 (-86.774444,
+36.162222), P373 ['Nashville, Tennessee'], P131 Davidson County Q1177705, enwiki
+"Nashville, Tennessee", first name-search hit = itself, NOT in the catalog); Q5471739
+Fort Nashborough (36.164167,-86.774444) precision 0.001; Q5471744 Fort Negley
+(-86.774658,36.145097); no Fort Negley fort site is staged (no fort-only plan on Commons -
+the 3 Fletcher 1864 views are 236b leads; a fort-only Negley plan later -> Q5471744 with
+the 1600 m fort box). DROP list for the lead doc (151 DECISIONS entry): the Burns 1906
+copy of the 1804 plan; the 1854 book detail; the 1888 Sanborn fragment; the 1916 LOC
+75695990 .tif (outside the window); the two 1887 battle-map files; the 1895 battlefield
+map (look once via its Commons page before dropping); all Fort Negley photos.
