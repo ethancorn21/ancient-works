@@ -7,10 +7,11 @@ machine cannot reach loc.gov, so the files are fetched from their Wikimedia Comm
 236b route, its lead doc docs/lead_us_birdseye.md). The 25-city total spans 236b's 16 + 240's four
 + 241's five; 236c consolidates every staging set into the canonical data and checks the total.
 The candidate order (240's lead-doc "Not done yet" pointer, continuing the 181 candidate list of
-the 236b lead doc): Omaha (skipped in 236b with no recorded drop reason - re-run its pool search
-and record the verdict), Indianapolis, Columbus, Memphis, then whatever the collection's search
-order adds to reach five. This task owes FIVE staged cities, not specifically these - a city with
-no usable view gets a lead-doc note and the next candidate.
+the 236b lead doc): Omaha (landed first: the 1868 E. Ruger sheet - the 236b silent-skip question
+resolves stageable: it fell out of 236b's batch order, its pool has a strong pick), Indianapolis,
+Columbus, Memphis, then whatever the collection's search order adds to reach five. This task
+owes FIVE staged cities, not specifically these - a city with no usable view gets a lead-doc
+note and the next candidate.
 
 This module is a copy of fit/src_us_birdseye_batch4.py (240's module), which is itself a copy of
 fit/src_us_birdseye.py (236b's module) - the template this module keeps in sync with: the
@@ -76,12 +77,39 @@ NO_BOOKS = os.path.join(ROOT, "data", "books", ".no-books")  # never exists: che
 # no open LiDAR over a built-up city, bare-earth LiDAR erases the streets). Batch 5 is the FINAL
 # FIVE cities of the 25-city total (16 from 236b + 4 from 240 + 5 here); the candidate order
 # (240's lead-doc "Not done yet" pointer, continuing the 181 candidate list of the 236b lead
-# doc): Omaha (skipped in 236b with no recorded drop reason - re-run its pool search and record
-# the verdict), Indianapolis, Columbus, Memphis, then whatever the collection's search order
+# doc): Omaha (LANDED, city 1 of 5 - the 1868 E. Ruger sheet; the 236b silent-skip question
+# resolves stageable: it fell out of 236b's batch order, its pool has a strong pick),
+# Indianapolis, Columbus, Memphis, then whatever the collection's search order
 # adds to reach five (each new entry verified live, --verify re-checks; per-view STAGED/DROP
 # verdicts in docs/lead_us_birdseye_batch5.md). This task owes FIVE staged cities, not
 # specifically these - a city with no usable view gets a lead-doc note and the next candidate.
-SITES = {}
+SITES = {
+    # Q43199: P625 = ONE 30 m value (-95.9375, 41.25861111111111) - the downtown core (no
+    # refinement needed). P373 is the STRING "Omaha, Nebraska" (a Wikidata quirk, not a country
+    # entity - the place is written from the county + the state); P131 = Q490695 Douglas County
+    # (the only one, + the state) - hence place "Douglas County, Nebraska"; P17 = Q30 (a proper
+    # entity); enwiki "Omaha, Nebraska". Name search at limit 5 AND limit 20 (the 241 session-3
+    # research run): NO TRAP - the first hit with P625, what record --live would store, is Q43199
+    # itself (dist 0); the other hits are a Ulf Lundell album, the University of Nebraska Omaha
+    # (Q2495890, an in-city institution - the Pittsburgh/Chicago trap class, but it never comes
+    # first), a 2025 film, Omaha Beach (France), namesake cities (TX/AR/IL/GA), a racehorse, a
+    # ship. No existing site holds the QID (checked at the 241 session-3 run in the catalog,
+    # extras, 236a's, 236b's and 240's extras files and web/data/sites.json); site id
+    # omaha-q43199 (catalog.slug("Omaha") = "omaha", verified).
+    "Q43199": dict(id="omaha-q43199", name="Omaha", named="Omaha",
+                   lon=-95.9375, lat=41.25861111111111,
+                   place="Douglas County, Nebraska", region="United States", kind="town",
+                   wikipedia="https://en.wikipedia.org/wiki/Omaha,_Nebraska",
+                   note="aerial-photograph ground (no open LiDAR over the built-up city: bare-earth "
+                        "LiDAR erases the streets); the street grid and the Missouri carry the fit; "
+                        "the 1868 E. Ruger sheet is the steepest (near-vertical) whole-city view in "
+                        "the pool (the 1905 Austen 'panoramic' oblique is the recorded dupe): drawn "
+                        "from a high vantage across the Missouri River - the river a foreground "
+                        "strip with steamboats and a railroad along the sheet's bottom, a thin "
+                        "hill-horizon band across the top - the city grid fills the sheet beyond "
+                        "the 2000 m town box, so its fit is likely to end a review item (the 236a "
+                        "NY-1811 / DC-ring precedent)"),
+}
 
 # The per-view source rows land here as each city lands, keyed by <city>_<year> like the batch-4
 # module's DENVER_1908 etc.: one row per city = the steepest (near-vertical), best-scanned
@@ -89,7 +117,35 @@ SITES = {}
 # the shallower same-genre sheets and the non-view pool (district close-ups, real-estate ads,
 # street-car scenes, regional views, photographs, too-small scans, other-city sheets, licence
 # rejects) are DROPS recorded in the lead doc (the 236b/240 precedent).
-SOURCES = {}
+# Omaha (batch 5, city 1; checked live 2026-10-14; the pool 39 unique / 8 gate-pass, per-view
+# STAGED/DROP verdicts in docs/lead_us_birdseye_batch5.md). One row per city: the steepest,
+# best-scanned whole-city view of the collection; the shallower same-genre sheets and the
+# non-view pool (a low panoramic oblique, stereoscopic photo cards, book text pages, regional
+# and other-city sheets, too-small scans, licence rejects) are DROPS recorded in the lead doc
+# (the 236b/240 precedent).
+OMAHA_1868 = [
+    # 1868 (the sheet's own signature lower left reads "Drawn by E. Ruger" - the page's artist
+    # field reads "Ruger, A.", an A. Ruger work like 240's Cleveland 1877 sheet - a different
+    # Ruger, the label runs from the sheet's signature; lith. by the Chicago Lithographing Co.,
+    # its name at the sheet's lower right; LC Panoramic maps (2nd ed.), 467; 8896x7024, Public
+    # domain): the lower-centre cartouche reads "BIRD'S EYE VIEW OF THE CITY OF / OMAHA /
+    # NEBRASKA / 1868" (labelled landmark vignettes along the bottom border: Turner's Hall,
+    # Central Block, Oakwell Block, the court house, ...; a numbered landmark legend) - THE
+    # steepest (near-vertical) whole-city view in the pool: drawn from a high vantage across the
+    # Missouri River - the "MISSOURI RIVER" label runs diagonally along the sheet's lower right,
+    # the steamboat traffic and the rail yard with its rolling stock at the sheet's right, a thin
+    # hill-horizon band across the top - the built-up grid fills the sheet beyond the 2000 m
+    # town box, so its fit is likely to end a review item (the 236a NY-1811 / DC-ring precedent);
+    # the LC Division-of-Maps stamp (FEB 28 1941) and the handwritten LCCN "73-693495" at the
+    # lower right. The page date (1868) matches the drawing (no Zwolle-style swap). The .tif is
+    # the ONLY scan of the sheet on Commons (an LCCN search) - no .jpg mirror to stage instead.
+    ("File:Bird's eye view of the city of Omaha, Nebraska 1868. LOC 73693495.tif", "Q43199", "Omaha", dict()),
+]
+
+SOURCES = {
+    "omaha_1868": dict(rows=OMAHA_1868, p="birdseye",
+                       label="{name}, the E. Ruger / Chicago Lithographing Co. bird's-eye view (1868)"),
+}
 
 
 

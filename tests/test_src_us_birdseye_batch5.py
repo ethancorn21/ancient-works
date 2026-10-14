@@ -5,17 +5,17 @@ module + one staging file set per batch, so 240 and 241 built in parallel), from
 "Panoramic Maps" collection (about 1,500 US bird's-eye views, 1847-1929, public domain; this
 machine cannot reach loc.gov, so the files are fetched from their Wikimedia Commons mirrors - the
 236b route, its lead doc). The candidate order (240's lead-doc "Not done yet" pointer, continuing
-the 181 candidate list of the 236b lead doc): Omaha (skipped in 236b with no recorded drop reason
-- re-run its pool search and record the verdict), Indianapolis, Columbus, Memphis, then whatever
-the collection's search order adds to reach five - the task owes FIVE staged cities, not
-specifically these, one steepest near-vertical whole-city view each (a city with no usable view
-gets a lead-doc note and the next candidate). The tests are offline: a socket-blocking fixture
-makes any network fetch fail loud, so the evidence check runs from the stored fields only (200's
-fail-closed box). The negative control pins the trap the hand record exists for: a row whose
-stored place point is a FOREIGN point (Venice) instead of the site's own point - thousands of km
-away, a name-search-style resolution that record --live could store - must be reported FAIL, never
-kept (synthetic at module creation; the first city landing rebinds it to the real first staged
-row, the 236b/240 pattern). The golden file (tests/golden/src_us_birdseye_batch5_sample.json)
+the 181 candidate list of the 236b lead doc): Omaha first (the 1868 E. Ruger sheet - the 236b
+silent-skip question resolves stageable: it fell out of 236b's batch order, its pool has a strong
+pick), then Indianapolis, Columbus, Memphis, then whatever the collection's search order adds to
+reach five - the task owes FIVE staged cities, not specifically these, one steepest near-vertical
+whole-city view each (a city with no usable view gets a lead-doc note and the next candidate).
+The tests are offline: a socket-blocking fixture makes any network fetch fail loud, so the
+evidence check runs from the stored fields only (200's fail-closed box). The negative control
+pins the trap the hand record exists for: a staged row with a foreign place point (Venice)
+instead of the site's own point - ~8036 km away, a name-search-style resolution that record
+--live could store - must be reported FAIL, never kept (rebound to the real first staged row at
+the first city landing, the 236b/240 pattern). The golden file (tests/golden/src_us_birdseye_batch5_sample.json)
 pins the staged rows as a whole; it is regenerated only via the module's --golden flag for an
 intended change. The check-staged test covers the merge states of the --check guards hermetically
 - pre-merge; the 236c first-row-wins merge already run (an already-merged row is a no-op); and a
@@ -54,15 +54,14 @@ def test_check_staged_files_join_and_pass(capsys):
     existing or staged site - the batch-5 ids via this task's own extras file, never a QID on two
     sites, (site, title) unique, no clash with the canonical files.jsonl, classified rows 1:1,
     every new site has a picture) and every staged row PASSes the evidence check. The key list
-    grows one entry per city landing (Omaha first, in the candidate order of the lead doc; none
-    at module creation)."""
+    grows one entry per city landing (Omaha first, in the candidate order of the lead doc)."""
     code = src_us_birdseye_batch5.check_staged()
     out = capsys.readouterr().out
     assert code == 0, out
     assert "join:" not in out, f"join problems:\n{out}"
     n = len(src_us_birdseye_batch5._load(src_us_birdseye_batch5.FILES_BIRDS))
     assert f"evidence: {n} rows, {n} pass, 0 fail, 0 no-tie" in out, out
-    for key in ():  # grows one entry per city landing
+    for key in ("omaha-q43199|File:Bird's eye view of the city of Omaha, Nebraska 1868. LOC 73693495.tif",):
         assert f"PASS caption_coords  {key}" in out, f"missing PASS line for {key}:\n{out}"
 
 
@@ -73,8 +72,8 @@ def test_check_staged_three_states(tmp_path, monkeypatch, capsys):
     evidence all PASS; (b) staged rows present with IDENTICAL content (the 236c first-row-wins
     merge has run) - check 0, no join problems: an already-merged row is a no-op; (c) the same
     (site, title) key held by a DIFFERENT row - still fails loud, naming exactly that problem and
-    no other (the batch-4/236b pattern; a no-op at module creation, re-enabled by the first city
-    landing). This batch stages NO shared (owner-named) cities, so every staged id is NEW in every
+    no other (the batch-4/236b pattern; live from the first city landing on). This batch stages
+    NO shared (owner-named) cities, so every staged id is NEW in every
     state: known_sites() is built from the real catalog/extras + 236a's + 236b's + 240's extras
     files and the temp web file, none holding a batch-5 id (236a's four owner cities, 236b's
     sixteen and 240's four stay known as other sites, never colliding - the QID-unique guards are
@@ -130,21 +129,19 @@ def test_check_staged_three_states(tmp_path, monkeypatch, capsys):
     assert evidence_line in out, out
 
     # (c) the same (site, title) key held by a DIFFERENT row: the pre-merge conflict protection
-    # still fires (only once a staged row exists - the batch-4/236b pattern, re-enabled by the
-    # first city landing)
-    if staged_files:
-        victim = staged_files[0]
-        k = (victim["site"], victim["title"])
-        other = dict(victim, name="a different row holds this key")
-        lines = [json.dumps(other, ensure_ascii=False) if (r.get("site"), r.get("title")) == k
-                 else json.dumps(r, ensure_ascii=False) for r in staged_files]
-        point(files_pre + lines, extras_pre + staged_site_lines)
-        code = src_us_birdseye_batch5.check_staged()
-        out = capsys.readouterr().out
-        assert code == 1, out
-        join = [l for l in out.splitlines() if l.startswith("join:")]
-        assert join == [f"join: staged title already in the canonical files.jsonl: {k}"], join
-        assert evidence_line in out, out
+    # still fires (the batch-4/236b pattern; live from the first city landing on)
+    victim = staged_files[0]
+    k = (victim["site"], victim["title"])
+    other = dict(victim, name="a different row holds this key")
+    lines = [json.dumps(other, ensure_ascii=False) if (r.get("site"), r.get("title")) == k
+             else json.dumps(r, ensure_ascii=False) for r in staged_files]
+    point(files_pre + lines, extras_pre + staged_site_lines)
+    code = src_us_birdseye_batch5.check_staged()
+    out = capsys.readouterr().out
+    assert code == 1, out
+    join = [l for l in out.splitlines() if l.startswith("join:")]
+    assert join == [f"join: staged title already in the canonical files.jsonl: {k}"], join
+    assert evidence_line in out, out
 
 
 def test_sites_table_and_staged_rows():
@@ -156,11 +153,12 @@ def test_sites_table_and_staged_rows():
     pick's page date matches the drawing (a Zwolle-style swap lands as date=... only if a later
     sheet needs one, the page value kept as date_commons), and every row's evidence point is the
     site's own point (the city's verified P625) with the short caption name. The tables grow one
-    entry per city landing (empty at module creation; the candidate order: Omaha, Indianapolis,
-    Columbus, Memphis, then the collection's search order)."""
+    entry per city landing (Omaha first - the 1868 E. Ruger sheet; then Indianapolis, Columbus,
+    Memphis, then the collection's search order)."""
     # the hand-verified SITES table (slug rule, P625 points, aerial ground) - grows one entry per
     # city landing (five at close)
-    assert {qid: s["id"] for qid, s in src_us_birdseye_batch5.SITES.items()} == {}
+    assert {qid: s["id"] for qid, s in src_us_birdseye_batch5.SITES.items()} == {
+        "Q43199": "omaha-q43199"}
     for s in src_us_birdseye_batch5.SITES.values():
         assert s["region"] == "United States" and s["kind"] == "town" and s["named"]
         assert s["note"]  # the staged view's apparent angle, for 236c/the matcher's fit order
@@ -174,9 +172,10 @@ def test_sites_table_and_staged_rows():
     want = {(r[0], r[1]) for src in src_us_birdseye_batch5.SOURCES.values() for r in src["rows"]}
     assert {(r["title"], r["qid"]) for r in files} == want
     assert len(files) == len(src_us_birdseye_batch5.SITES)  # one view per city
-    years = {}
-    points = {}
-    named_by_qid = {}
+    years = {"File:Bird's eye view of the city of Omaha, Nebraska 1868. LOC 73693495.tif": 1868}
+    # the new-cities' P625s (verified here): the stored evidence point must be the site's own point
+    points = {"omaha-q43199": (-95.9375, 41.25861111111111)}
+    named_by_qid = {"Q43199": "Omaha"}
     for r in files:
         assert r["year"] == years[r["title"]]
         assert r["site"] in points and r["qid"] in named_by_qid
@@ -186,46 +185,46 @@ def test_sites_table_and_staged_rows():
         assert (r["evidence"]["place_lon"], r["evidence"]["place_lat"]) == points[r["site"]]
         assert r["evidence"]["dist_m"] == 0.0
         assert r["license"] == "Public domain"  # the collection is public domain, per-file verified
+    omaha = next(r for r in files
+                 if r["title"] == "File:Bird's eye view of the city of Omaha, Nebraska 1868. LOC 73693495.tif")
+    # the Omaha 1868 pick: the page date is the drawing's year - no Zwolle swap (a swap lands here
+    # only if a later city's sheet needs one)
+    assert omaha["date"] == "1868" and "date_commons" not in omaha
 
 
 def test_evidence_offline_and_negative_control(tmp_path):
     """fit/evidence.py's check over the staged rows, offline: exit 0, zero FAIL, every row PASS
     caption_coords. The negative control (never written into the staged files) is reported FAIL:
-    a row whose stored place point is a FOREIGN point (Venice) instead of the site's own point -
-    ~5615 km away, a name-search-style resolution a live record could store - fails the stored-
-    distance reproduction (200's fails-closed box). Synthetic at module creation (no staged row to
-    copy yet); the first city landing rebinds the control to the real first staged row (the
-    236b/240 pattern, the Denver row with the Venice point)."""
+    the Omaha row with the Venice point instead of the site's own point - ~8036 km away, a
+    name-search-style resolution a live record could store - fails the stored-distance
+    reproduction (200's fails-closed box). Rebound to the real first staged row at the first city
+    landing (the 236b/240 pattern)."""
     code, text = evidence.check(src_us_birdseye_batch5.FILES_BIRDS, src_us_birdseye_batch5.NO_BOOKS,
                                 catalog=src_us_birdseye_batch5.EXTRAS_BIRDS)
     assert code == 0, text
     n = len(src_us_birdseye_batch5._load(src_us_birdseye_batch5.FILES_BIRDS))
     assert f"evidence: {n} rows, {n} pass, 0 fail, 0 no-tie" in text, text
 
-    site_lon, site_lat = -95.933889, 41.256944  # a midwest US point (the synthetic site's own point)
-    place_lon, place_lat = 12.33, 45.44  # Venice: the foreign point a name search could store
-    bad = {"site": "batch5-skeleton", "qid": "Q0",
-           "title": "File:Bird's eye view of Batchville, 1900. LOC 00000000.jpg",
-           "desc": "", "year": 1900, "wd_plan": False, "cat": None, "license": "Public domain",
-           "evidence": {"rec": "evidence/1", "kind": "caption_coords", "checked": "0000-00-00",
-                        "named_place": "Batchville", "place_qid": "Q0", "place_label": "Batchville",
-                        "place_lon": place_lon, "place_lat": place_lat,
-                        "site_lon": site_lon, "site_lat": site_lat, "dist_m": 0.0}}
-    f = tmp_path / "bad_skeleton.jsonl"
+    omaha = src_us_birdseye_batch5._load(src_us_birdseye_batch5.FILES_BIRDS)[0]
+    bad = dict(omaha)
+    bad["evidence"] = dict(omaha["evidence"], place_lon=12.33, place_lat=45.44, dist_m=0.0)  # Venice
+    f = tmp_path / "bad_omaha.jsonl"
     f.write_text(json.dumps(bad, ensure_ascii=False) + "\n", encoding="utf-8")
     code, text = evidence.check(str(f), src_us_birdseye_batch5.NO_BOOKS,
                                 catalog=src_us_birdseye_batch5.EXTRAS_BIRDS)
     assert code == 1, text
-    d = evidence.hav_m(site_lon, site_lat, place_lon, place_lat)
+    d = evidence.hav_m(-95.9375, 41.25861111111111, 12.33, 45.44)
     line = next(l for l in text.splitlines() if l.startswith("FAIL"))
-    assert "batch5-skeleton" in line and f"does not reproduce ({d:.0f} m)" in line, line
+    assert "omaha-q43199" in line and f"does not reproduce ({d:.0f} m)" in line, line
     assert "evidence: 1 rows, 0 pass, 1 fail, 0 no-tie" in text, text
+    assert omaha["evidence"]["place_lon"] == -95.9375  # the staged row is untouched by the control
 
 
 def test_golden_sample_matches_staged_rows():
     """tests/golden/src_us_birdseye_batch5_sample.json (written by the module's --golden, keys
     sorted, checked/date_commons normalized) is the staged rows exactly - the pin the staging
-    files are final against (empty at module creation; --golden only for an intended change)."""
+    files are final against (1/1/1 after the Omaha landing; --golden only for an intended
+    change)."""
     golden = json.load(open(os.path.join(ROOT, "tests", "golden", "src_us_birdseye_batch5_sample.json"),
                             encoding="utf-8"))
     want = {"extras": src_us_birdseye_batch5._norm(src_us_birdseye_batch5._load(src_us_birdseye_batch5.EXTRAS_BIRDS)),
