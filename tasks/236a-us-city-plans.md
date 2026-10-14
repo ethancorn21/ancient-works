@@ -48,16 +48,21 @@ the original or a facsimile of it, its date, its licence, and its resolution bef
 
 ## Hand-over
 
-(2026-10-14, iteration 169, agent a, written at the context limit. RESEARCH session, the
-151/152/163/164/165/168 pattern: no repo file touched, staged files still 3/11/11, no edits to
-fit/src_us_cities.py or the lead doc. Baseline 7/7 (tests/test_src_us_cities.py +
-tests/test_region.py) green before research. All session crops live in /tmp/nash168/
-(haydon.jpg, clayton1804.jpg, cbx*.xml, and NEW: loc2003630459.jpg 28.8 MB 19690x11294,
-defnash1895.jpg 1536x886, plus z_*.png crops; if re-download is needed, get URLs from
-commons.info() on the titles "File:Map of Nashville, Tennessee. LOC 2003630459.jpg" and
-"File:Defenses of Chattanooga, Tenn. Battery Erwin ... Battery Coolidge. Defenses of Nashville,
-Tenn. Capitol (IA dr defenses-of-chattanooga-tenn-battery-erwin-battery-coolidge-defenses-
-01104241).jpg" - upload.wikimedia.org with a browser UA).
+(2026-10-14, iteration 170, agent a, written at the context limit. RESEARCH session, the
+145/147/151/152/163/164/165/168/169 pattern: NO repo file touched, staged files still
+3/11/11, no edits to fit/src_us_cities.py or the lead doc. Baseline 7/7 (tests/test_src_us_cities.py
++ tests/test_region.py) was green at the 169 limit and the tree is unchanged since. THE
+SITE-POINT VERDICT IS NOW COMPUTED (see ### THE VERDICT below) - next session APPLIES it
+(the 146/148 pattern). All session crops live in /tmp/nash168/ (haydon.jpg, clayton1804.jpg,
+cbx*.xml, loc2003630459.jpg 28.8 MB 19690x11294, defnash1895.jpg 1536x886, z_*.png; this
+session added nash169_{hill,fort,mouth,vertex,exit,scalebar,scalebar2}.png in /tmp/) and
+/tmp/nash168/fit_clayton.py - the working fit script, SELF-CONTAINED (anchors, ENU, river
+chains from /tmp/nash164/way40806685full.xml + cbx*, street PCA, extent boxes, P625
+margins); re-run it first. If re-download is needed, get URLs from commons.info() on the
+titles "File:Map of Nashville, Tennessee. LOC 2003630459.jpg" and "File:Defenses of
+Chattanooga, Tenn. Battery Erwin ... (IA dr defenses-of-chattanooga-tenn-...-01104241).jpg"
+- upload.wikimedia.org with a browser UA. The LOC jpg needs Image.MAX_IMAGE_PIXELS = None
+(222 MP > PIL bomb limit). Haydon.jpg dpi metadata = 600; clayton dpi = 72 (meaningless).
 
 ### MAJOR REVISION: the Haydon 1860 sheet is a decorative composite - the 164/165 premise "the
 sheet is NORTH-UP" is WRONG, and the 165 route step 1 (3-anchor least squares over
@@ -104,23 +109,37 @@ confluence + capitol + reservoir) is DEAD
   (horizontal, left), "Present College Str." (horizontal, TWO labels: left and right),
   "Market or Main St" (horizontal, center). Modern "Broad Street" = today's Broadway;
   College St survives.
-- Freshly confirmed pins (full-sheet): fort "D. Cross's owner / Stone House / former Fort"
-  centre (718,1345); "White Hall / former Fort / 2 story" (985-1062, 1478-1523); the
-  "now. Capitol Hill" annotation (1393-1650, 1020-1050) points at a wooded hillock
-  (1683-1817, 1000-1083) centre ~ (1750,1040) = the modern Capitol hill -> anchor B
-  (36.1658290,-86.7842374) (+/-100 m); "W. Tate Occupant / now 1834 Walkers / Best House in
+- Freshly confirmed pins (full-sheet; 170 re-verified with fresh eyes, nash169 crops): fort
+  "D. Cross's owner / Stone House / former Fort" hatched block (727-765, 1345-1380) centre
+  (746,1362) [169's (718,1345) = its left edge]; "White Hall / former Fort / 2 story"
+  hatched block (982-1025, 1545-1577) [169's (985-1062,1478-1523) was ~60 px high - not an
+  anchor, but use the 170 numbers in the lead doc]; the "now. Capitol Hill" annotation
+  (1400-1650, 1020-1055) points at the big wooded knoll (1685-1825, 990-1110) centre
+  (1750,1040) = the modern Capitol hill -> anchor B (36.1658290,-86.7842374) (+/-100 m)
+  CONFIRMED (the small cluster below-left of the annotation is the separate KNOB); "W. Tate Occupant / now 1834 Walkers / Best House in
   town" (1088-1472, 1005-1110); "T. Napier occupant / Small 2 story Frame" hatched building
   (1510-1543, 837-860); "KNOB" (1453-1557, 953-977); "Dr. Henning's House & Office"
   (1498-1792, 1344-1421); "Nashville Inn / Mr Parker / 2 story Frame" (1485-1702,
   1472-1523); cemetery marker (2118,988) label (2112-2253, 986-1005); McNairy's spring
   (2112-2342, 870-896); "Sulphur Spring / Salt made of it" (2150-2432, 1158-1197); "Judge
-  McNairy's since enlarged" (2099-2496, 678-736). The Rich Branch (labelled thin creek) runs
-  from the springs to its Cumberland mouth at (2282,1597) - the 165 pin stands. The
-  Cumberland hatched band crosses the bottom (y~1470-1600); the Tennessee enters from the
-  bottom-LEFT; the combined river continues down-left. (On THIS sheet the river corner sits
-  bottom-LEFT - the Clayton drawing's river geometry still needs a bent-river sanity check
-  against OSM before the mouth anchor is trusted, but the fort + capitol-hill anchors do not
-  depend on the rivers at all.)
+  McNairy's since enlarged" (2099-2496, 678-736); the labelled Rich Branch runs from the
+  springs to its mouth at (2222,1620) [169's (2282,1597) a bit east]. RIVER RE-READ (170,
+corrects 169): the wide hatched band along the bottom is labelled "Cumberland River"
+  (label ~ (1472-1997, 1536-1574)) and is the COMBINED river flowing LEFT->RIGHT, exiting
+  lower-RIGHT at ~(2496,1766) - 169's "combined river continues down-left" read the hatch
+  direction wrong. Two arms merge into it at the V ~(490,1680) [NEW pin]: a thin creek from
+  the upper left (enters the sheet ~ (450,1470); page bearing from V ~350) and a hatched
+  band from the lower-left corner (~ (300-450, 1850-1913); page bearing ~210). The Rich
+  Branch joins the combined band near the exit at (2222,1620) (vertical label "...k
+  Branch" (2165-2210, 1350-1505)). Against the real geometry (164: confluence node
+  303579826 (36.1606686,-86.7700322) = node index 126 of way 40806685, which is the
+  Cumberland E chain + combined; combined runs NNW initially (nodes 127-130:
+  (36.1632,-86.7731) -> (36.1719,-86.7781)) then WNW; Tennessee arm upstream = SE toward
+  Chattanooga; Cumberland arm upstream ~ESE): the downstream band maps cleanly (page
+  87.6 - 150.4 = 297 deg real, inside the real 278-328 flow cone) but the two drawn arms
+  are bent ~40-60 deg (drawn opening ~140 deg vs real ~35) to frame the scene - decorative
+  rivers, same class as the Haydon composite; do not trust the drawn V/mouth, do trust the
+  town (see THE VERDICT below).
 - The drawn town extent (full-ink corners): roughly x 448-2496, y 678-1600 - from the
   Johnson's ferry house (left) through the fort, the core, to Judge McNairy's property
   (right) and down to the river band; the dense core (buildings 1-20) is x~718-1790,
