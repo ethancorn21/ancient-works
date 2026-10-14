@@ -5,9 +5,8 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
-- `tasks/212-cover-final.md` (in-progress) - hand-over: (2026-10-13, iteration 255, agent a, written at the context limit -
 - `tasks/236-us-cities.md` (split)
-- `tasks/240-us-birdseye-batch4.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
+- `tasks/240-us-birdseye-batch4.md` (open) - hand-over: (2026-10-14, iteration 160, agent c - session 1 of 240; the merge is STAGED but NOT committed, the
 - `tasks/241-us-birdseye-batch5.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
 - `tasks/307bc-reverify-place-mode.md` (open) - hand-over: (2026-10-13, iteration 256, agent a - first session: the task was filed as the driver
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-13, iteration 256, agent a - context limit hit at the end of this session; the
@@ -15,14 +14,19 @@ task file (for a subtask, read its parent's too).
 
 ## Next open tasks
 - `tasks/230-roman-merge-rerun.md`
-- `tasks/235-placement-test-dep-pick.md`
 - `tasks/236c-us-cities-merge.md`
+- `tasks/238-matcher-gate.md`
 
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-14 240 DECISION: iteration 160 - session 1: merge main (4 307d png conflicts -> main's bytes), batch4 module built and live-verified, Denver LANDED in the working tree (verify/stage/check all pass, lead doc complete incl. the Not-done-yet pointer to 241) - test + golden + baseline still to do
+- **Merge (the prompt's first step):** discarded the 5 working-tree re-encoded 307d pngs (R5 jitter from this checkout's earlier suite runs), `git merge main` conflicted in exactly the 4 named pngs (307d_A_4-saved, A_5-reload, B_4-saved, B_5-reload - main's come from agent a's 307b work, our side is re-encode noise of the same shots). Resolved all 4 by taking MAIN's bytes (both sides' intent = the site-flow screenshots as the other agents' finished work left them; our side adds nothing but jitter). Merge is STAGED, **NOT committed at the context limit** - the next session's first act is the merge commit (MERGE_HEAD set, no other changes staged).
+- **The module:** fit/src_us_birdseye_batch4.py = a full copy of fit/src_us_birdseye.py with exactly the 5 prep-note changes (batch4 staging paths + EXTRAS_BIRDS_236B + EXTRAS_BIRDS_BATCH5 constants; known_sites() over catalog/extras/236a/236b/241 extras + web sites; SHARED_SITES/_shared_site/_shared_rows and their branches dropped - batch4 stages no owner cities; by/source/docstring strings say batch4; SITES = Denver only for now). Kept the template verbatim otherwise (verify/stage/check/golden, evidence_for, Zwolle swap, _canon_norm/_norm, idempotent (site,title) append, NO_BOOKS) so 241's batch5 copy stays a clean mechanical mirror.
+- **Denver (box 5, researched at 236b iteration 194):** re-verified LIVE this session, all clean: --verify -> Q16554 'Denver', one P625 = table point (no FLAG), P373 string 'Denver, Colorado', P131 Colorado + Denver County, enwiki 'Denver', first name-search hit with P625 = itself (no TRAP - the 194 "no trap" record holds). --dry/stage -> 1 new site (denver-q16554) + 1 picture (the 1908 LOC 75693133 pick, still live on Commons, PD, 19338x13294, page date 1908 = drawing year, no Zwolle swap). --check (offline) -> exit 0, 1/1 PASS caption_coords, no join problems (the known_sites() guard over 236a's + 236b's files found no Q16554 collision, matching the session-start grep of catalog/extras/web sites). The two 194 un-eyeballed thumbs were eyeballed OFFLINE (they survived the wiper in /tmp/aw236b_b3_dvr_thumbs/): Arbor-Day Colfax avenue = district close-up (a real-estate souvenir sheet of the Colfax corridor + Montclair subdivision); the 1895 "Healer" = a photograph (street-car crowd, the title puns) - both drop wordings finalized in the lead doc.
+- **Lead doc:** docs/lead_us_birdseye_batch4.md written (format = 236b's): Fetch route (pointer, re-verified for Denver), QID verification (the verbatim 1-QID transcript), evidence field (pointer), Denver (STAGED bullet + same-sheet scans + the full 16-item DROP list from the 194 record, exact pool titles cross-checked against /tmp/aw236b_b3_dvr.json, + QID-facts paragraph with the 1287 m viaduct measurement), Staging and checks (the verbatim --check transcript, 1 view / 1 site row, golden note) and the **Not-done-yet pointer**: this task closes at 4 (St. Paul, Minneapolis, Cleveland remain); 241's batch-5 candidates after that = **Omaha (skipped in 236b with no recorded drop reason), Indianapolis, Columbus, Memphis** (the 181 candidate order: ...Kansas City, Omaha, St. Paul/Minneapolis, Indianapolis, Columbus, Memphis, New Orleans...).
+... (1.1 KB more: `grep -n -A 200 -F '## 2026-10-14 240 DECISION: iteration 160 - session 1: merge main (4 307d png conflicts -> main's bytes), batch4 module built and live-verified, Denver LANDED in the working tree (verify/stage/check all pass, lead doc complete incl. the Not-done-yet pointer to 241) - test + golden + baseline still to do' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
