@@ -1,4 +1,4 @@
-Status: open
+Status: done
 Depends on: 807
 Touches: fit/src_roman_horsley.py, data/commons/files_roman.jsonl, data/commons/classified_roman.jsonl, data/catalog/extras_roman.jsonl, docs/lead_roman.md
 
@@ -15,12 +15,12 @@ pattern); --dry previews; fully offline (no LLM, no network). The staging plan t
 the Horsley section 807 wrote in docs/lead_roman.md.
 
 ## Acceptance criteria
-- [ ] --stage and --dry in fit/src_roman_horsley.py: append-only, idempotent (a second run
+- [x] --stage and --dry in fit/src_roman_horsley.py: append-only, idempotent (a second run
       changes no file byte-wise), offline, writes ONLY data/commons/files_roman.jsonl,
       data/commons/classified_roman.jsonl, data/catalog/extras_roman.jsonl (creating each if
       absent; never touching other rows, other books' tagged rows, or any file outside those
       three).
-- [ ] files_roman.jsonl gains exactly 17 rows tagged with this book (one per kind-s leaf:
+- [x] files_roman.jsonl gains exactly 17 rows tagged with this book (one per kind-s leaf:
       n236-254 even, n278-286 even, n114, n185), row shape per data/commons/files.jsonl
       (site/qid/title/year/wd_plan/cat/url/thumb/w/h/mime/date/desc/evidence): the 15 wall
       maps tied to their principal named fort per the 216 design (multi-fort maps tie to the
@@ -40,9 +40,9 @@ the Horsley section 807 wrote in docs/lead_roman.md.
       place_lat, site_lon/site_lat, dist_m - fit/evidence.py's check_caption verifies this
       OFFLINE from the stored fields: the named place appears in norm(title+desc) and the
       stored distance reproduces within 1 km and is <= 50 km).
-- [ ] classified_roman.jsonl gains 17 rows classifying those (site, title) as "plan" (by
+- [x] classified_roman.jsonl gains 17 rows classifying those (site, title) as "plan" (by
       hand).
-- [ ] extras_roman.jsonl gains the new no-QID site rows the staged rows need, row shape per
+- [x] extras_roman.jsonl gains the new no-QID site rows the staged rows need, row shape per
       data/catalog/extras.jsonl's no-QID rows (id/name/place/lon/lat/region/kind/
       location_check{...}/source): region LOWERCASE and per-site (england for the P.113
       forts and the Hadrian's-wall forts, scotland for Ardoch and the Antonine-wall forts -
@@ -54,7 +54,7 @@ the Horsley section 807 wrote in docs/lead_roman.md.
       REUSED, not re-created). Check how 809's join counts "every new site has its plans"
       BEFORE deciding whether all five P.113 forts get their own row (the 220 note) or only
       the principal one.
-- [ ] All 17 verified site-plan leaves staged (100%, which meets 207a's moved 90% box with
+- [x] All 17 verified site-plan leaves staged (100%, which meets 207a's moved 90% box with
       nothing missing); if any row must be dropped, the reason is recorded in a DECISIONS
       entry and appended to the Horsley section of docs/lead_roman.md (this task may touch
       that section for the accounting only - 807 wrote it, 808 runs after it).
@@ -103,3 +103,45 @@ on the final run.
 
 (Unblocked 2026-10-14, iteration 137, agent c, from the parent 207: same owner lift as 807
 - DECISIONS 2026-10-14 207. Runs after 807.)
+## Hand-over
+(2026-10-14, iteration 152, agent c - DATA RUN SESSION, TASK DONE: all 5 boxes ticked, Status: done.
+The 147-151 hand-over blocks were replaced by this note; their lasting facts live in the
+DECISIONS entries (808 147/148/150/152) and the module itself, which is now self-documenting
+(docstring + STAGE_ROWS/NEW_SITES comments + the staged rows' descs).)
+
+**What landed (3 commits this session):**
+1. (the driver committed 84db6df before the session) fit/src_roman_horsley.py: the full
+   --stage/--dry leg - STAGE_ROWS (17 leaves, leaf order 114, 185, 236-254 even, 278-286 even)
+   + NEW_SITES (8 no-QID rows) + _page_sizes + stage(dry) + __main__ wiring. --check/--golden
+   still raise "not built yet (809)".
+2. 9adaf16 the three data files: files_roman.jsonl 1->18 rows, classified_roman.jsonl 1->18,
+   extras_roman.jsonl 1->9 (17/17/8 appended by this book; 207b's row 1 byte-identical,
+   sha256-verified).
+3. 61ff60b + 5cc71d6: docs/lead_roman.md Horsley section gains the "**Staged (808,
+   2026-10-14 ...)**" accounting paragraph (between Staging and Deferred), the DECISIONS
+   entry for the run, and the PITFALLS entry (mid-suite edits break integrity tests).
+
+**Verification (all this session):** --dry AND --stage under the socket-block wrapper
+(urllib.request/ssl + socket.connect/create_connection/getaddrinfo all raise) - 42 rows, ZERO
+network errors; a second --stage appended nothing (git diff vs HEAD identical after both runs
+= idempotent); git diff --stat shows ONLY the three *_roman.jsonl files; evidence.check over
+the 17 rows (temp file, books path absent, catalog = data/catalog/sites.jsonl): "17 rows, 17
+pass, 0 fail, 0 no-tie", exit 0 - the caption_coords contract (named_place = the row's title,
+place_* = site_* = the tied site's own coords, dist_m 0.0) verifies OFFLINE from stored
+fields. Full suite on the STABLE tree (commit everything before starting it - see PITFALLS):
+169 passed / 1 skipped / 0 failed (2026-10-14; the earlier 1/159/1 baseline is stale - agent
+a's 212 work on main fixed the old 307d placement red and the suite grew to 170).
+
+**For 809 (the --check/--golden legs):** the join spec (148 item 3, restated): (a) every
+staged file row names an existing catalog site or a staged extras_roman site; (b) every NEW
+extras row has >=1 staged plan row; (c) (site,title) unique; (d) classified 1:1 with file
+rows; (e) a staged id already in the canonical files must be byte-identical (merge norm:
+json.dumps sort_keys, ensure_ascii=False); (f) a staged QID held by another existing site =
+collision (all 8 new rows are qid null - safe). 207b's check_staged()/golden()/_norm in
+fit/src_roman_maclauchlan.py (~lines 345-465) are the pattern. This book's rows filter by
+by == "fit/src_roman_horsley.py" (files) / source (extras). The only existing test reading
+the shared roman files is tests/test_src_roman_maclauchlan.py - it monkeypatches its own
+module's file paths to temp files and filters the real files by by/source == its own module,
+so it stays green against any book's rows. No test imports fit/src_roman_horsley.py yet.
+Note the maclauchlan book (207b) is still "in progress" in the lead; if 207c (Roy) stages
+into the same files later, re-run --stage after any merge (idempotent).
