@@ -222,6 +222,11 @@ def build(site, names=None):
     deps["depictions"].sort(key=lambda d: d.get("year", 0))
     aw.save_json(dep_path, deps)
     add_ink(sid, force=True)
+    # sheets measured against today's ground keep their correction across a rebuild (fit/sheetfit.py; always
+    # redone from the raw sheet, so this cannot double a move)
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "fit"))
+    import sheetfit
+    sheetfit.apply(sid)
     return made
 
 

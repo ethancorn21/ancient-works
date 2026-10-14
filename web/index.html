@@ -454,7 +454,9 @@ function applyDep(s) {
   if (!S.loaded.has(s.id)) return;
   const id = `dep-${s.id}`, d = (S.dep[s.id] || []).find(x => x.file === S.depSel[s.id]);
   if (!d) { if (map.getLayer(id)) map.setLayoutProperty(id, 'visibility', 'none'); if (B.site === s) syncBlock(); return; }
-  const url = `data/sites/${s.id}/${S.depMode === 'ink' && d.ink ? d.ink : d.file}`;
+  // a survey sheet measured against today's ground (fit/sheetfit.py) shows its corrected copy when one was made
+  const f = d.check && d.check.file ? d.check : d;
+  const url = `data/sites/${s.id}/${S.depMode === 'ink' && f.ink ? f.ink : f.file}`;
   const coordinates = shiftCorners(d.corners, S.depAlign[depKey(s, d)], s.lat);
   if (!map.getSource(id)) {
     map.addSource(id, { type: 'image', url, coordinates });
@@ -690,12 +692,18 @@ const DRAWING = new Set(['plan', 'drawing', 'view']);
 // listed but never shown by default, and labelled rough
 const ROUGH = new Set(['cassini', 'roy']);
 const rough = x => x.kind === 'map' && ROUGH.has(x.file.split('.')[0]);
+// Ethan 2026-10-14: sheets are measured against today's aerial and LiDAR (fit/sheetfit.py); a sheet that could not be
+// confirmed on today's ground is listed but never opened by default, and every checked sheet says what was done
+const unsure = x => x.check && x.check.use === 'unsure';
+const checkNote = x => !x.check ? '' : x.check.use === 'unsure' ? 'not confirmed on today\'s ground'
+  : x.check.use === 'shift' ? `aligned to today's ground, moved ${Math.round(x.check.moved_m)} m`
+  : x.check.use === 'bend' ? `aligned to today's ground, moved ${Math.round(x.check.moved_m)} m and bent` : 'checked: lines up';
 function depGroup(s) {
   const list = S.dep[s.id] || [];
   if (!list.length) return '';
   const d = list.find(x => x.file === S.depSel[s.id]);
   const draw = list.filter(x => DRAWING.has(x.kind)), plain = list.filter(x => !DRAWING.has(x.kind));
-  const btn = x => `<button data-dep="${esc(x.file)}" aria-pressed="${!!d && d.file === x.file}">${esc(x.label)}${x.scale ? `<span class="yr">${esc(x.scale)}</span>` : ''}${rough(x) ? '<span class="yr">rough, 250 m+ off</span>' : ''}</button>`;
+  const btn = x => `<button data-dep="${esc(x.file)}" aria-pressed="${!!d && d.file === x.file}">${esc(x.label)}${x.scale ? `<span class="yr">${esc(x.scale)}</span>` : ''}${rough(x) ? '<span class="yr">rough, 250 m+ off</span>' : checkNote(x) ? `<span class="yr">${esc(checkNote(x))}</span>` : ''}</button>`;
   return `
     <div class="group">
       <p class="section-title">${draw.length ? 'Old drawings of the site' : 'Old maps and aerials'}</p>
@@ -867,7 +875,7 @@ function select(id) {
     // its latest old map (every site with one is a coloured pin now, Ethan 2026-10-10; all are 150+ years old, and
     // the later surveys sit closest on today's roads, e.g. the État-major against Cassini's sketch)
     if (!(s.id in S.depSel)) {
-      const ds = S.dep[s.id] || [], d = ds.find(x => DRAWING.has(x.kind)) || ds.filter(x => x.kind === 'map' && !rough(x)).pop();
+      const ds = S.dep[s.id] || [], d = ds.find(x => DRAWING.has(x.kind)) || ds.filter(x => x.kind === 'map' && !rough(x) && !unsure(x)).pop();
       if (d) S.depSel[s.id] = d.file;
     }
     applyDep(s); if (S.sel === id && !B.open) renderSite(s);

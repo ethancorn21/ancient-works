@@ -37,3 +37,4 @@ data/db/surveyseen/
 
 # harness (agent-loop): per-checkout state and logs
 .agent/
+data/sheetfit/*.jpg
