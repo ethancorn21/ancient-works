@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207b-maclauchlan.md` (in-progress) - hand-over: (2026-10-13, iteration 204, agent c - NO work on this task. The driver auto-put it back to
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/212-cover-final.md` (in-progress) - hand-over: (2026-10-13, iteration 255, agent a, written at the context limit -
-- `tasks/236a-us-city-plans.md` (in-progress) - hand-over: (2026-10-13, iteration 155, agent a - **MAIN MERGED (commit 3093e4e, 12/12 tests green). Site-point research in progress: Fort Nashborough = Q5471739,
+- `tasks/236a-us-city-plans.md` (in-progress) - hand-over: (2026-10-14, iteration 160, agent a - main merged (eeff0b8); baseline tests 7/7 green (test_src_us_cities + test_region, run this session); staged fil
 - `tasks/236-us-cities.md` (split)
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-13, iteration 208, agent c - the driver returned the parent: all existing subtasks
 - `tasks/302f-matcher-station-test.md` (open) - hand-over: (2026-10-13, iteration 211, agent c - all code read and traced THIS session (fresh eyes, current
