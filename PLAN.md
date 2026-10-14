@@ -236,6 +236,24 @@ Waves 1-5 above are history (done or in their closing steps). The queue's tail, 
 | 7 | **238** (every matcher fit through the frozen 001 gate) | waits on wave 6: it changes what `matchfit.run` writes, and 302f/302g record the current behaviour of the line. One module (`fit/matchfit.py`) plus its own new test and one appended `docs/gate.md` section |
 | 8 | **239** (the vision-model fitting pass retired: the batch's model path and the line's second pass) | waits on 238 (it consumes the matcher's per-candidate refusal reasons) and on 212 (in flight: `fit/cover.py`'s loop still forwards the batch's `--model-json`; 212's closing step lands first). The batch, the line, `cover.py`'s forwarding and their tests are one module for this change; `docs/site_flow.md`'s step 1 is reworded (append-only for the other tasks' sections) |
 
+### The US cities family (236, added 2026-10-13; 236b split 2026-10-14)
+
+The owner's 2026-10-13 GOAL add (US cities: old plans, surveys and artists' bird's-eye views count
+as drawings) is one task family spread over top-level tasks, each with its own module + staging
+files + lead doc + test, so the parts run in parallel without sharing a file:
+
+| task | scope | state / gate |
+|---|---|---|
+| **236a** | the named city plans (manuscript and engraved, 1660-1880), the four owner cities first | done |
+| **236b** | the bird's-eye / panoramic views (1847-1929), own staging files - closed done at the split with 16 cities (the four owner cities on 236a's site ids + 12 new: batches 1-3) | done (2026-10-14) |
+| **240** | bird's-eye batch 4 - Denver, St. Paul, Minneapolis, Cleveland (Denver's 194 research record in its Notes) | open, waits on 236b |
+| **241** | bird's-eye batch 5 - the final five cities to the 25 total (candidate order continues from 240's lead doc) | open, waits on 240 |
+| **236c** | consolidates every staging set into the canonical data (fit/merge.py's glob), builds the sites, checks the 25 total (16 + 4 + 5) | open, waits on 236a, 236b, 240, 241 |
+
+240 and 241 are disjoint from everything else in flight (own files only); 241 waits on 240 only for
+the candidate order and the QID cross-check. The 25-city total that was 236b's box 4 before the split
+is checked by 236c (its Proposed changes, 2026-10-14).
+
 ## Test policy
 
 - Command: `python3 -m pytest -q` (the driver builds `.venv` from the hashed `requirements.txt` first).
