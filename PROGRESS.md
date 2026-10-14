@@ -4,7 +4,7 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/207b-maclauchlan.md` (in-progress) - hand-over: (2026-10-14, iteration 132, agent c - the stage-B session. READ THIS FIRST.)
+- `tasks/207b-maclauchlan.md` (in-progress) - hand-over: (2026-10-14, iteration 133, agent c - the validate_book / lead-doc session. READ THIS FIRST.)
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/212-cover-final.md` (in-progress) - hand-over: (2026-10-13, iteration 255, agent a, written at the context limit -
 - `tasks/236a-us-city-plans.md` (in-progress) - hand-over: (2026-10-13, iteration 155, agent a - **MAIN MERGED (commit 3093e4e, 12/12 tests green). Site-point research in progress: Fort Nashborough = Q5471739,
@@ -56,6 +56,10 @@ Needed: a human with a real browser to download the NLS facsimile and place it i
 3. Box 1 ticked in the task file: fetched 171/171 + A 171/0 + B 3/0 + per-book lists (131); the shared data/books/index.jsonl and validation.json were NOT written (git status showed only the new B file). No stage F needed: A's site set equals the list's kind-s set exactly (no missed site pages).
 4. Suite not run this session: data-only leg; no test reads the B jsonl (test_merge.py joins only stage-A .A.jsonl files) and my own test file is not built yet. The driver's 2026-10-13 baseline 159/1/1 stands (lone red = agent a's 307d placement test).
 Next: 133 = validate_book offline (expected numbers in the hand-over) -> the "## Maclauchlan" section in docs/lead_roman.md (inserted before "## Roy"), then --stage, then --check/--golden/tests.
+
+### 2026-10-14 207b DECISION: iteration 133 - validate_book run OFFLINE matched the hand-computed numbers exactly (171/171/3/3, recall 1.0, precision 1.0, no misses); wrote the "## Maclauchlan" section into docs/lead_roman.md (after the lead header, before "## Roy"); box 2 ticked
+1. Offline validate_book (socket-blocking wrapper: import urllib.request/ssl/socket FIRST, patch socket.socket.connect + connect_ex, socket.create_connection and socket.getaddrinfo to raise, then importlib-load fit/src_roman_maclauchlan.py, register(), books_lists.validate_book(KEY)): no network, no LLM. Output == the 132 hand-over's hand-computed expectations, nothing different: pages 171, triaged_A 171, flagged_site_pages_stageA 3, stageF_pages 0, flagged_site_pages 3; figures listed 6 / site 3 / other 3 / unsure 0 / expected None, gt_site_pages 3, recall_pages 1.0 (±1: 1.0), flagged_nonplate_pages 3, precision_strict 1.0, precision_lenient 1.0, flagged_on_other_only_pages [], flagged_not_in_list [], missed_pages [], stage_A_only {recall 1.0, flagged 3}; no "plates" key (the book has no PLATES list - the figs branch IS the list). Mechanism verified in source: `flagged` = books.site_pages_qwen, which drops stage-A site pages whose ink < BLANK_INK (0.005); measured ink 0.0102/0.0352/0.1048 for n0078/n0093/n0111 so all three stay in (a truly blank page would not) and 90/129 (other_illustration) + 115 (text_only) never enter - filed as a PITFALLS entry under the book-machinery section (offline recipe + the ink-drop trap + Maclauchlan's verified final numbers).
+... (2.2 KB more: `grep -n -A 200 -F '## 2026-10-14 207b DECISION: iteration 132 - stage B live on the three site leaves (3/3 ok, 0 errors, 9.7 s on the two up replicas); n0093's Carlisle plan got map_box [100,405,830,880] (norm1000) for the staging row; box 1 (fetch + triage A/B + per-book lists) ticked' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
