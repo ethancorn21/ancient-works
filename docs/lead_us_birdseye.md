@@ -68,23 +68,60 @@ the DC 1921/1883/1886 sheets span far beyond it, so their fits are likely to end
 
 ## QID verification (re-checked 2026-10-14, `.venv/bin/python fit/src_us_birdseye.py --verify`)
 
-The four shared QIDs were first verified by 236a (docs/lead_us_cities.md, 2026-10-13/14); this is
-236b's re-check that its own table stands on: label, every P625 value (flagged when >50 km from the
-table point), P373, P131 (with labels), the enwiki article, and the first name-search hit with
-coordinates (what `record --live` would resolve for the caption route). No P625 flag fired (Q62's two
-values are 2.0-2.4 km from its table point - the point is a refinement, not a P625; Q23197's is
-721 m NE); no search trap: the first search hit with coordinates is the city itself in all four cases.
-New-cities batches re-run `--verify` as they are added (the table grows in `fit/src_us_birdseye.py:
-SITES`).
+The four shared QIDs were first verified by 236a (docs/lead_us_cities.md, 2026-10-13/14); the five
+batch-1 QIDs were verified when they were added. This is 236b's re-check (at the batch-1 close-out)
+that its own table stands on: label, every P625 value (flagged when >50 km from the table point),
+P373, P131 (with labels), the enwiki article, and the first name-search hit with coordinates (what
+`record --live` would resolve for the caption route). No P625 flag fired on any of the nine (Q62's
+two values are 2.0-2.4 km from its table point - the point is a refinement, not a P625; Q23197's is
+721 m NE; the five new-city points ARE the P625s, dist 0). One search trap, **Pittsburgh** (the
+Barnard-Castle class, the 236a Q60 note): the first "Pittsburgh" name-search hit with coordinates is
+Q235034 University of Pittsburgh (-79.953274, 40.444565, ~4.7 km west of the city point) - within the
+50 km flag so the run does not flag it, but `record --live` would store the university's point instead
+of the city's; the staged rows hand-record the city's P625 (dist 0), and the trap is recorded on the
+Q1342 SITES comment and site note. Baltimore's P131 carries two values (Maryland and the historic
+Province of Maryland): the city is no county of its own, so the site's place is written "Baltimore
+City, Maryland" from P373 + the state. New-cities batches re-run `--verify` as they are added (the
+table grows in `fit/src_us_birdseye.py:SITES`).
 
 ```
-checked 2026-10-14 - 4 QIDs (Wikidata)
+checked 2026-10-14 - 9 QIDs (Wikidata)
+  Q100  'Boston'  (site id: boston-q100, new (this task))
+      P625: [(-71.05777777777777, 42.360277777777775)]  (table site point: -71.057778, 42.360278)
+      P373: ['Boston']
+      P131: [('Suffolk County', 'Q54072')]  (table place: 'Suffolk County, Massachusetts')
+      enwiki: 'Boston'  (table wikipedia: 'https://en.wikipedia.org/wiki/Boston')
+      search 'Boston': first hit with P625 is Q100 'Boston' (-71.05777777777777, 42.360277777777775)
+  Q1342  'Pittsburgh'  (site id: pittsburgh-q1342, new (this task))
+      P625: [(-80, 40.44166666666667)]  (table site point: -80.0, 40.441667)
+      P373: ['Pittsburgh']
+      P131: [('Allegheny County', 'Q156291')]  (table place: 'Allegheny County, Pennsylvania')
+      enwiki: 'Pittsburgh'  (table wikipedia: 'https://en.wikipedia.org/wiki/Pittsburgh')
+      search 'Pittsburgh': first hit with P625 is Q235034 'University of Pittsburgh' (-79.953274, 40.444565)
+  Q1345  'Philadelphia'  (site id: philadelphia-q1345, new (this task))
+      P625: [(-75.163611111111, 39.952777777778)]  (table site point: -75.163611, 39.952778)
+      P373: ['Philadelphia']
+      P131: [('Philadelphia County', 'Q496900')]  (table place: 'Philadelphia County, Pennsylvania')
+      enwiki: 'Philadelphia'  (table wikipedia: 'https://en.wikipedia.org/wiki/Philadelphia')
+      search 'Philadelphia': first hit with P625 is Q1345 'Philadelphia' (-75.163611111111, 39.952777777778)
   Q23197  'Nashville'  (site id: nashville-q23197, shared (236a))
       P625: [(-86.77444444444444, 36.16222222222222)]  (table site point: -86.78152, 36.16529)
       P373: ['Nashville, Tennessee']
       P131: [('Davidson County', 'Q1177705')]  (table place: 'Davidson County, Tennessee')
       enwiki: 'Nashville, Tennessee'  (table wikipedia: 'https://en.wikipedia.org/wiki/Nashville,_Tennessee')
       search 'Nashville': first hit with P625 is Q23197 'Nashville' (-86.77444444444444, 36.16222222222222)
+  Q43196  'Cincinnati'  (site id: cincinnati-q43196, new (this task))
+      P625: [(-84.5125, 39.1)]  (table site point: -84.5125, 39.1)
+      P373: ['Cincinnati, Ohio']
+      P131: [('Hamilton County', 'Q152891')]  (table place: 'Hamilton County, Ohio')
+      enwiki: 'Cincinnati'  (table wikipedia: 'https://en.wikipedia.org/wiki/Cincinnati')
+      search 'Cincinnati': first hit with P625 is Q43196 'Cincinnati' (-84.5125, 39.1)
+  Q5092  'Baltimore'  (site id: baltimore-q5092, new (this task))
+      P625: [(-76.615, 39.286388888889)]  (table site point: -76.615, 39.286389)
+      P373: ['Baltimore']
+      P131: [('Maryland', 'Q1391'), ('Province of Maryland', 'Q2452027')]  (table place: 'Baltimore City, Maryland')
+      enwiki: 'Baltimore'  (table wikipedia: 'https://en.wikipedia.org/wiki/Baltimore')
+      search 'Baltimore': first hit with P625 is Q5092 'Baltimore' (-76.615, 39.286388888889)
   Q60  'New York City'  (site id: new-york-q60, shared (236a))
       P625: [(-74.00611111111111, 40.71277777777778)]  (table site point: -74.006111, 40.712778)
       P373: ['New York City']
@@ -238,13 +275,179 @@ fort-only plan, so **no Fort Negley fort site exists** to attach them to (236a's
 same). The 1897 centennial view stands as Nashville's bird's-eye view (the "at least one view or the
 lead doc says why" box holds either way).
 
+## Boston (site `boston-q100`, this task's point = the verified P625; 1 view staged)
+
+**STAGED** (one row per sheet; dupes dropped):
+
+- `File:Bird's eye view of Boston. LOC 75694559.jpg` - 1902, Geo. H. Walker & Co., 8288x5712, Public
+domain (LC Panoramic 279.1). The **steep near-vertical whole-city view**: the street grid dense and
+legible to the suburbs, the harbour and Charles-River shorelines, a printed key of numbered
+landmarks (1-14) along the bottom; the sheet spans the whole city far beyond the 2000 m town box, so
+its fit is likely to end a review item (the 236a NY-1811 / DC-ring precedent). **`File:1902 birds-eye
+view map of Boston featuring Beach and Clarridge Company.jpg` (8288x5712) is the SAME sheet**
+(identical title block, key, the B&C factory vignette and the hand-written accession numbers -
+eyeballed 2026-10-14, the batch-1 close-out): one row per sheet, the LOC scan is staged. The .tif of
+the same LOC item (8288x5712) is the same scan, dropped.
+
+**DROP (with reasons):** the street-car maps - `File:1904 Boston and Worcester Street Railway
+bird's eye view map.jpg` (18385x4894), `File:1908 bird's eye view of trolley routes in New
+England.jpg` (New England Street Railway Club, 4439x6366) and the 1908/1911/1914/1917 station and
+route sheets - railway route maps, not city views. The regional sheets - `File:Birds eye view of
+Mass., R.I. & Conn. LOC 79695398.jpg` (1905, Geo. H. Walker & Co. for the Joy Steamship Co.,
+6475x5020) and `File:Bird's eye view of Boston Harbor along the South Shore to Plymouth, Cape Cod
+Canal, and Provincetown - in colors - showing all steamboat routes. LOC 2010589292.jpg` (1920,
+Federal Engraving & Publishing Co., 8112x6632; the 1905 LOC 2008624058 9072x8828 is the same subject)
+- the city a small part of a multi-state / harbour sheet. `File:Bird's-eye view of waterfront, Boston,
+Mass. LCCN2005691058.jpg` (1890, Detroit Publishing Co., 5541x4401) - a **photographic print** (the
+236a HABS-photo precedent). `File:Birds eye view of the White Mountains LOC 2012592589.jpg` (1890,
+8551x5957) - search noise (not Boston).
+
+**RESERVED for a later batch** (same-genre obliques, passers - one view per city is staged): the 1850
+John Bachmann view (`File:1850 bird's-eye view map of Boston.jpg` 9880x7280, the colour pair
+8983x6709), the 1866 Nutting view (`File:1866 BirdsEye Boston byNutting BPL2675751434.jpg`
+9587x6671), the 1870 Fuchs view (`File:1870 bird's-eye view map of Boston.jpg` 9872x7560), the 1877
+Bachmann/Prang views from the north (`File:Boston - bird's eye view from the north - J. Bachmann del.
+and lith. LCCN2001696113.jpg` 8544x6789 + .tif + 5000x4058 copy; `File:Boston bird's-eye view from the
+north. LOC 75694554.jpg` 7888x6272), the 1899 Downs/Walker view (`File:1899 bird's eye view map of
+Boston.jpg` 7810x5268 + 5400x3600 copy) and the 1872 Great-Fire / burned-district pair
+(`File:1872 bird's eye view map of Boston after the Great Fire.jpg` 9176x6336 /
+`File:Bird's-eye view of Boston, showing the burned district 01.jpg` 7272x5200).
+
+## Philadelphia (site `philadelphia-q1345`, this task's point = the verified P625; 1 view staged)
+
+**STAGED** (one row per sheet; dupes dropped):
+
+- `File:Bird's eye view of Philadelphia. LOC 75694509.jpg` - 1872, drawn and engraved expressly for
+Harper's Weekly from sketches by Theodore R. Davis (the sheet's banner: "SUPPLEMENT TO HARPER'S
+WEEKLY, June 15, 1872."), 9744x6816, Public domain (LC Panoramic 828). **The steepest (near-vertical)
+view staged for the city**: drawn from the Schuylkill side, the street grid legible from the old town
+to the northern suburbs, the squares, the Delaware with its shipping in the foreground; the sheet
+spans well beyond the 2000 m town box, so its fit is likely to end a review item (the 236a NY-1811 /
+DC-ring precedent). **`File:Bird's-eye view of Philadelphia - drawn and engraved expressly for
+Harper's Weekly from sketches by Theodore R. Davis. LCCN2012645607.jpg` (10173x7287) is the SAME
+sheet** (identical title block, the same grid, the same islands and shipping in the Delaware; a
+different physical copy - ragged margins and a different hand-written accession number - eyeballed
+2026-10-14, the batch-1 close-out): one row per sheet, the LOC scan is staged. The .tif of the same
+LOC item (9744x6816) is the same scan, dropped.
+
+**DROP (with reasons):** `File:Bird's eye view of Philadelphia. LOC 75696517.jpg` (1857,
+Bachmann/Weik/Duval, 11472x9136) - a **shallower oblique** with a large sky band (a pass on the
+one-view pick, not on quality). The 1875/76 Centennial / Fairmount sheets (exposition close-ups, no
+city grid): `LCCN2003679941` (9836x6924, Philadelphia & centennial grounds), `LCCN93504545`
+(8197x6434), `LCCN00650148` (8088x6848), `LCCN90711913` (7226x5580), `LCCN90711914` (7309x5492),
+`LCCN2006676664` (8350x6375), the NYPL Hades-118934 scan (6011x5200) and the Fairmount-with-
+Exhibition scans. `File:Birds eye view of Manayunk, Wissahickon=Roxborough from West Laurel Hill
+Cemetery, Philadelphia, Pennsylvania 1907. LOC 76693090.jpg` (9152x5792) - the **western districts**,
+not the city. `File:Hydroplanes - Manufacturers - Navy Aircraft Factroy, Philadephia, Pennsylvania
+(NAF) General - ... - NARA - 31484700.jpg` (1917, 9145x6207) - a **photograph/document** of a Navy
+plant (the HABS-photo precedent). `File:Birds eye view of Philadelphia and vicinity showing location
+of the Philadelphia & Reading Railroad. LOC 76695313.jpg` (1870, 5152x7040) - a **railway map**, not
+a city view.
+
+**RESERVED for a later batch:** `File:Bird's-eye view of the city of Philadelphia -its streets,
+avenues, and public buildings-and of the Centennial buildings in Fairmount Park. LOC 76695314.jpg`
+(1876, Frank Leslie, 9696x6800) - a genuine whole-city view, a shallower oblique than the staged
+1872 sheet - and the 1857 Bachmann/Duval pair (5451x4448, LCCN2003679940).
+
+## Baltimore (site `baltimore-q5092`, this task's point = the verified P625; 1 view staged)
+
+**STAGED** (one row per sheet; dupes dropped):
+
+- `File:The City of Baltimore - sketched and drawn by C.R. Parsons. LCCN90715972.jpg` - 1880, drawn
+by C.R. Parsons, published by Currier & Ives, 10206x7171, Public domain. A **steep oblique view
+drawn from the south**: the whole city, the Inner Harbour in the foreground, the dense grid and the
+parks, a printed key of landmarks; the sheet spans the whole city beyond the 2000 m town box, so its
+fit is likely to end a review item (the 236a NY-1811 / DC-ring precedent).
+
+**DROP (with reasons):** the 1862 Sachse pair - `File:View of Baltimore City, Md., looking South -
+lith. & print by E. Sachse & Co. 5 N. Liberty St. Balto. LCCN2012648855.jpg` (7953x5983) and
+`File:View of Baltimore City, Md., from the North - lith. & print by E. Sachse & Co. 104 S. Charles
+St. Baltimore. LCCN2012648854.jpg` (7657x4693) - **pictorial** views: the Washington Monument is the
+foreground subject and the city a painted background with no surveyed grid legible at fit scale (the
+DC-Sachse precedent, eyeballed 2026-10-14 batch 1). `File:A birds-eye view of the heart of Baltimore.
+LOC 75694536.jpg` (1912, Spofford, 9968x6560) - a **downtown-only** partial view. `File:Birds eye
+view of the seat of war. Arranged after the latest surveys, ... LOC 99447047.jpg` (1861, Louis Prang,
+6360x5021) - a **regional** sheet (Washington, Baltimore, Harpers Ferry, Richmond, Manassas, Ft.
+Monroe, Norfolk). The fort / camp sheets (fort close-ups with no city grid, and no fort site exists
+to attach them to - the Fort Negley precedent): `Camp Carroll, Baltimore, Md LCCN2003654992.jpg`
+(1862, 8984x6078), `Fort McHenry, Baltimore, Md LCCN2003656652.jpg` (1861, 8920x5976), `Fort number
+1 - west defences of Baltimore, Md LCCN2003656653.jpg` (1863, 7980x5708), `Camp Belger, Baltimore,
+M'd. - 114th Regt. New York S. Volunteers-... LOC 93685279.jpg` (1862, 7128x5485) and the 1863
+Illustrated-album-of-Baltimore-City strips (LCCN2003656659/6668). The street-car maps -
+`File:United Railways map of Baltimore 1910.jpg` (8495x4670) and `File:Trolley trips in and out of
+Baltimore - map of system showing places of interest and how to reach them. LOC 96681722.jpg`
+(1913, 16892x4593) - route maps, not city views. `File:Baltimore fire, 1904) Bird's eye view of
+Baltimore LCCN2016844565.jpg` (National Photo Company Collection, 8513x6958) - a **photographic
+transparency** (the HABS-photo precedent). The small 1869 Sachse station close-ups (Calvert St,
+President St, Riverside) - building close-ups, too small to fit.
+
+## Pittsburgh (site `pittsburgh-q1342`, this task's point = the verified P625; 1 view staged)
+
+**STAGED** (one row per sheet; dupes dropped):
+
+- `File:Pittsburgh, Pennsylvania 1902. LOC 75696521.jpg` - 1902, T. M. Fowler for James M. Moyer,
+7256x4856, Public domain (LC Panoramic 833). A **steep oblique view drawn from the south**: the whole
+city at the confluence, the Allegheny and Monongahela in the foreground, the bridges, the printed
+index of numbered landmarks (1-16); the sheet spans the whole city beyond the 2000 m town box, so its
+fit is likely to end a review item (the 236a NY-1811 / DC-ring precedent). **Three other scans of the
+same sheet (eyeballed 2026-10-14, the batch-1 close-out - identical title block, the same numbered
+index, the same "COPYRIGHT BY T. FOWLER & JAMES M. MOYER" line; the Adam Cuerden copy is a different
+physical copy):** `File:Pittsburgh, Pennsylvania 1902. LOC 75696521.tif` (the .tif of the same LOC
+item, 7256x4856), `File:Pittsburgh 1902.jpg` (7256x4856, a 2010 scan - identical dimensions and the
+same hand-written annotations) and `File:Thaddeus M. Fowler - Pittsburgh, Pennsylvania 1902.jpg`
+(7206x4806, Adam Cuerden) - one row per sheet, the LOC scan is staged.
+
+**Name-search trap (the Barnard-Castle class, the 236a Q60 note):** the first "Pittsburgh"
+name-search hit with coordinates is Q235034 University of Pittsburgh (-79.953274, 40.444565, ~4.7 km
+west of the city point) - within the 50 km flag, so `--verify` does not flag it, but `record --live`'
+caption route would store the university's point instead of the city's. The staged row hand-records
+the city's P625 (dist 0); the trap is recorded on the Q1342 SITES comment and site note.
+
+**DROP (with reasons):** `File:Pittsburgh 1904.jpg` (1904, William Campbell, 9560x1680) - a
+**painted skyline strip** with no street grid. `File:Pittsburgh, Allegheny & Birmingham.jpg` (1871,
+Otto Krebs, 5880x3186) - a shallower panorama. `File:View of the ruins of the city of Pittsburgh from
+Boyd's Hill - painted by W.C. Wall; on stone by James Queen... LCCN2014648393.jpg` (1850, 5560x3960)
+- a **pictorial painting** (the post-flood "ruins" view), not a surveyed city view. `File:Bird's-eye
+view of Pittsburgh, Pennsylvania, with river in foreground (cph.3c10668).tif` (1905, 4096x3289) - a
+**Library of Congress photograph** (the HABS-photo precedent).
+
+## Cincinnati (site `cincinnati-q43196`, this task's point = the verified P625; 1 view staged)
+
+**STAGED** (one row per sheet; dupes dropped):
+
+- `File:Panoramic view, city of Cincinnati, U.S.A. 1900. LOC 75694914.jpg` - 1900, drawn by John L.
+Trout, The Henderson Litho. Co., Cincinnati, 14320x9664, Public domain (LC Panoramic 685). A **steep
+view drawn from the south**: the whole city, the Ohio in the foreground, the hillside blocks dense and
+legible; the sheet spans the whole city and its hillside suburbs beyond the 2000 m town box, so its
+fit is likely to end a review item (the 236a NY-1811 / DC-ring precedent). **`File:Cincinnati-aerial-
+view-1900.jpg` (10000x6459, DPLA) is the SAME sheet** (identical title block and fold lines -
+eyeballed 2026-10-14, batch 1): one row per sheet, the larger LOC scan is staged. The `(Mill Creek)`
+crop (9217x5001) is a detail crop of the same sheet, dropped.
+
+**DROP (with reasons):** `File:Cincinnati, U.S.A LCCN2003691125.jpg` (12519x5168 + the 11100x1609
+crop) - the **1900 Ulrich steel-engraving strip**: a second sheet of the same year, and one view per
+city is staged (the 1900 Trout sheet is the steeper whole-city view). `File:View of Camp Dennison-
+16 miles northeast of Cincinnati, Ohio - lithographed by Middleton, Strobridge & Co....
+LCCN2013645282.jpg` (1865, 10317x7499) - a **camp 16 miles out**, not the city. The Price-Hill
+inclined-plane sheets (`File:Birds-eye view of Price Hill inclined planes. Cincinnati, O
+LCCN2003656969.jpg`/`.tif` 8493x6747, `File:Birds-eye view of Price Hill inclined planes,
+Cincinnati.jpg` 7643x6181) - **close-ups** of the hillside works. `File:Bird's eye view of Camp
+Chase - DPLA - a43492d77185c5ed15cfd63562098668.jpg` (1898, 4496x3016) - a **camp** (the Civil-War
+prison), not the city. Search noise: the 1896/97 Tennessee Centennial sheet (`File:Tennessee
+Centennial Exposition, Nashville, Tennessee, 1897. Opens May 1st - Closes Oct. 31st - The Henderson
+Litho. Co., Cincinnati. LCCN95501846.jpg` 6315x4483 - made BY The Henderson Litho. Co. of Cincinnati;
+that view is 236b's staged Nashville view), `File:View of Georgetown, Colorado, 1874 - DPLA -
+eaf2a145a27092ce8408f891af4147a0.jpg` (4000x3171 - a Strobridge sheet published in Cincinnati) and
+the Monroe, Ohio photograph.
+
 ## Staging and checks (2026-10-14)
 
-The four owner-named cities are staged (11 views total: NYC 3, DC 3, SF 4, Nashville 1) in this
-task's own files only: `data/commons/files_us_birdseye.jsonl` (files.jsonl shape + the 200 evidence
-field) and `data/commons/classified_us_birdseye.jsonl` (`p_birdseye: 1.0`, `by: "hand"`);
-`data/catalog/extras_us_birdseye.jsonl` stays **empty** until the new-city batches land (the four
-owner cities' sites come from 236a's file, above). `--check` (offline, no network) on 2026-10-14:
+All nine cities staged so far are in this task's own files only: 16 views total (11 for the four
+owner-named cities - NYC 3, DC 3, SF 4, Nashville 1 - plus one for each of the five batch-1 cities)
+in `data/commons/files_us_birdseye.jsonl` (files.jsonl shape + the 200 evidence field) and
+`data/commons/classified_us_birdseye.jsonl` (`p_birdseye: 1.0`, `by: "hand"`); the five batch-1
+site rows are in `data/catalog/extras_us_birdseye.jsonl` (the four owner cities' sites come from
+236a's file, above). `--check` (offline, no network), re-run at the batch-1 close-out 2026-10-14:
 
 ```
 PASS caption_coords  new-york-q60|File:New York - drawn by J. Bachmann ; print by G. Schlegel, 97 William St. N.Y. LCCN98508526.jpg
@@ -258,15 +461,22 @@ PASS caption_coords  san-francisco-q62|File:(Bird's eye view of San Francisco) L
 PASS caption_coords  san-francisco-q62|File:The city of San Francisco. Birds eye view from the bay looking south-west. LOC 75693104.jpg
 PASS caption_coords  san-francisco-q62|File:1914 San Francisco Birds Eye Map by Peter.jpg
 PASS caption_coords  nashville-q23197|File:Tennessee Centennial Exposition, Nashville, Tennessee, 1897. LOC 77696328.jpg
-evidence: 11 rows, 11 pass, 0 fail, 0 no-tie
+PASS caption_coords  boston-q100|File:Bird's eye view of Boston. LOC 75694559.jpg
+PASS caption_coords  philadelphia-q1345|File:Bird's eye view of Philadelphia. LOC 75694509.jpg
+PASS caption_coords  baltimore-q5092|File:The City of Baltimore - sketched and drawn by C.R. Parsons. LCCN90715972.jpg
+PASS caption_coords  pittsburgh-q1342|File:Pittsburgh, Pennsylvania 1902. LOC 75696521.jpg
+PASS caption_coords  cincinnati-q43196|File:Panoramic view, city of Cincinnati, U.S.A. 1900. LOC 75694914.jpg
+evidence: 16 rows, 16 pass, 0 fail, 0 no-tie
 ```
 
-No join problems (every file row names an existing site - the four shared ids via 236a's file;
-classified rows 1:1; the golden sample `tests/golden/src_us_birdseye_sample.json` pins the rows).
+No join problems (every file row names an existing site - the four shared ids via 236a's file, the
+five new ids staged above; classified rows 1:1; the golden sample `tests/golden/
+src_us_birdseye_sample.json` pins the 16 rows, regenerated at the stage).
 
-**Not done yet (next sessions):** the 25-cities box - at least 21 more US cities, each a NEW site in
-`extras_us_birdseye.jsonl` (region "United States", kind "town", aerial_ok true, the point = the
-city's verified P625 or a recorded refinement, the note recording the view's apparent angle), one
-best view per city, found by the file-namespace search route above and QID-verified with `--verify`
-before staging. The four owner-named cities are done. **Do NOT write the canonical files - that is
-236c.**
+**Not done yet (next sessions):** the 25-cities box - **16 more US cities** (25 total, 9 done), each
+a NEW site in `extras_us_birdseye.jsonl` (region "United States", kind "town", aerial_ok true, the
+point = the city's verified P625 or a recorded refinement, the note recording the view's apparent
+angle), one best view per city, found by the file-namespace search route above and QID-verified with
+`--verify` before staging. The next candidates (in order): Louisville, St. Louis, Chicago, Detroit,
+Milwaukee, Kansas City, Omaha, St. Paul/Minneapolis, Indianapolis, Columbus, Memphis, New Orleans,
+... **Do NOT write the canonical files - that is 236c.**
