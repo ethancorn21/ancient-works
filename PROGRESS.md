@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207b-maclauchlan.md` (in-progress) - hand-over: (2026-10-13, iteration 123, agent c - plate-transcription session. ALL candidate plate
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/212-cover-final.md` (in-progress) - hand-over: (2026-10-13, iteration 255, agent a, written at the context limit -
-- `tasks/236a-us-city-plans.md` (in-progress) - hand-over: (2026-10-14, iteration 169, agent a, written at the context limit. RESEARCH session, the
+- `tasks/236a-us-city-plans.md` (in-progress) - hand-over: (2026-10-14, iteration 170, agent a, written at the context limit. RESEARCH session, the
 - `tasks/236-us-cities.md` (split)
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-13, iteration 208, agent c - the driver returned the parent: all existing subtasks
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
