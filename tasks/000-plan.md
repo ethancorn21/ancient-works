@@ -113,6 +113,11 @@ All seven acceptance boxes re-verified true against this tree.
 
 **Commits:** merge = eeff0b8; this bookkeeping commit (000 Status: done + this hand-over +
 DECISIONS entry).
+The full test run re-encoded the ten tracked docs/site_flow/307d_*.png (the 307d
+captures: every suite run regenerates them); ac7c5f8 committed those re-encodings by
+accident (git add -A) and the next commit restores main's bytes for all ten - the
+branch must stay byte-identical to main on them or the driver's merge into main
+conflicts (the 207a 4cc34aa precedent; no test pins the PNG bytes).
 
 **If the driver reopens 000 again:** the note in this file / DECISIONS says why. (a) Another
 merge-conflict hold -> same procedure: `git merge main`, resolve keeping both sides' intent
