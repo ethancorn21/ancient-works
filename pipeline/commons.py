@@ -44,7 +44,11 @@ FOLLOW = re.compile(r"map|plan|histor|old |engrav|drawing|print|paint|antiquar|i
                     re.I)
 SKIP = re.compile(r"people|event|interior|church|coin|artefact|artifact|finds|museum|logo|sign|bus |railway station|"
                   r"pub |shop|street|vehicle|ship|portrait|grave|tomb|stained glass|cricket|football|concert", re.I)
-NO = re.compile(r"reconstruct|\.svg$|model|diorama|artist'?s impression|google|openstreetmap|FindID|geograph\.org|"
+# The google alternative names the junk products (Maps/Earth/Art Project/Street View/satellite), not the bare word:
+# a book-scan provenance line like "leaf n0248 of the 936-leaf Google scan (British Museum volume)" names the
+# scan's maker, not a screenshot - the bare word silently re-dropped the 17 staged Horsley files rows after
+# 230's merge (2026-10-14). The junk the rule targets names its product.
+NO = re.compile(r"reconstruct|\.svg$|model|diorama|artist'?s impression|google (?:maps?|earth|art|street view|satellite)|openstreetmap|FindID|geograph\.org|"
                 r"\(geograph|panoramio|flickr - |buckle|brooch|coin|portrait|\.webm|\.ogv|\.pdf$|\.djvu$|"
                 r"\(style of\)|Bowes Museum|still life", re.I)
 PLANWORD = re.compile(r"plan|map|survey|engrav|sketch|view|bird|ichnograph|prospect|plate|lithograph|etching|drawing", re.I)
