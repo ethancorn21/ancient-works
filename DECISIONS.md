@@ -19,6 +19,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 ## Archived decisions
 
 502 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
+499 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
 
 - 000 plan (18 entries)
 - 001 fit-gate (10 entries)
@@ -230,3 +231,34 @@ Ground truth measured while planning (all verified by running code, iteration 10
   - **HOW TO APPLY (this session burned its attempts on this):** the `edit` tool FAILED on every attempt at these blocks - "Could not find" even though the text is byte-identical in the file (verified with a python probe). The apostrophes in the edit-tool payload come out as curly (U+2019) while the file has straight (U+0027); the same text typed in a bash heredoc matches. So apply via `.venv/bin/python` through a bash heredoc: build each old block as `"\n".join([...])` of single-quoted lines (single-quoted strings are the trap-safe form), assert `t.count(old) == 1`, replace, write back. Do NOT put a block whose text ends with `"""` inside a `"""`-quoted python string (the session-4 script died there with IndentationError: the docstring block C1 ends with `caption name."""` - the triple-quote terminates the python string early; the \n.join-of-lines form avoids it). After applying: run the batch4 tests (`-m pytest tests/test_src_us_birdseye_batch4.py -q -p no:cacheprovider`, expect 5/5), then the FULL suite (`-m pytest -q -p no:cacheprovider`, expect **182P/1S/0F** = the recorded baseline - the extensions add no new tests), restore the re-encoded docs/site_flow/307d_*.png to main's bytes (`git checkout main -- docs/site_flow/`, R5), and commit everything (module, staging, lead doc, golden, test file) as "240: St. Paul landed (batch 4 city 2) - the 1906 Robert M. Saint sheet". Also file a PITFALLS.md entry under Agent tools and harness for the edit-tool curly-apostrophe failure (one-line: "edit tool 'Could not find' on oldText with apostrophes: the tool payload's apostrophes are not the file's U+0027; verify with a python probe and apply via a heredoc script" - and the triple-quote-heredoc variant). Then Minneapolis (city 3) is the next session pair (research -> landing), per the task Notes playbook.
 - **Baselines (unchanged):** R1 merged-tree baseline 177P/1S/0F; last confirmed full suite 182P/1S/0F (/tmp/aw240_suite_161.log) = baseline + the 5 batch4 tests. The St. Paul extensions keep the test count at 182. No suite ran this session (the session ended before the test extension could be applied).
 - **/tmp artifacts (wiper-prone):** /tmp/aw240_sp_qid.py, /tmp/aw240_sp_qid_162.txt, /tmp/aw240_sp_qid2_162.txt (the Q28848 facts transcript), /tmp/aw240_sp_pool.py, /tmp/aw240_sp_pool.json (the 51-row pool), /tmp/aw240_sp_pool_162.log, /tmp/aw240_sp_thumbs.py, /tmp/aw240_sp_thumbs/ (the 13 good thumbs). Rebuild recipe: the qid script is the 236b dvr_qid clone repointed at this checkout (QID arg, limit-20 name search, all-P625-hit distances); the pool script is the 236b dvr clone with CITIES=["St. Paul"].
+## 2026-10-14 307 DECISION: parent closed - all six boxes verified on the merged tree, Status: done
+The driver returned the parent (all subtasks done) for its own box check. Verified, not on
+faith, on this branch (a237650: driver sync over the 307bc close 4549978; 309/804/805,
+235 and all of 307b/307c/307d already on main):
+- Box 1: ran the build's own check directly on the committed queue (imported
+  tools/fit_queue as a module; _place_store('.') + _place_flags over the entries'
+  candidate maps): 0 residual namesake pairs over the 180-entry queue. n0686_1 (the
+  owner's "The Devil's Dyke Camp, near Brighton") no longer pairs with
+  devil-s-dyke-q3307343 (that site keeps n0662_1 "SWEALD"); it is the candidate on the
+  unbuilt Sussex hillfort's review item (data/review/
+  devil-s-dyke-hillfort-q17674160.earthworkenglan01allcgoog_n0686_1.json) with the
+  reason "same name, other place: near Brighton vs Stetchworth, Cambridgeshire,
+  England". docs/site_flow.md ("The right-place check", task 309) reports 15 wrong
+  pairings over 9 sites in the 116-entry rebuild, with the per-row list and the H1/H2
+  rules.
+- Boxes 2-4 and 6: full suite on this tree: 177 passed, 1 skipped, 0 failed (497.6 s) -
+  exactly 235's recorded baseline; the pre-235 red (marietta's page-filtered 1904 topo)
+  is gone (307bc's post-235 re-run). Part 4 of tests/test_fit_queue.py covers boxes 2-4
+  end to end in headless Chrome (open on the works, dep layer hidden/restored, the
+  gestures, the 17-key by:hand save, the hermetic write-surface hash);
+  tests/test_owner_check.py (two derived queue sites, real headless Chrome, the
+  one-site line, the revert proven) covers box 6; the place-check tests of box 6 are
+  309's (804's namesake + real tests, 805's drift test) and green; the golden hand-fit
+  hashes and test_fit_provenance stayed green.
+- Box 5: place_before.png / place_after.png measured 1440x900 (file(1)); the "The
+  working space (task 307c)" section cites them; every other page layout's pinned
+  footprints green in the same run.
+No subtasks filed - nothing in the six boxes is missing. The only open follow-on from the
+307 line is tasks/242 (the 307d owner-check screenshot drift; filed by 307bc; its own
+owner) - it postdates the boxes (screenshot stability, not a box requirement) and does
+not block done. Status: done.
