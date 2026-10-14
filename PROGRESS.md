@@ -5,7 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
-- `tasks/230-roman-merge-rerun.md` (open) - hand-over: (2026-10-14, iteration 208, agent a - PREP COMPLETE. All three prep pieces are committed
+- `tasks/230-roman-merge-rerun.md` (open) - hand-over: (2026-10-14, iteration 209, agent a - STEP 1 (the scoped merge) DONE AND COMMITTED. The three canonical
 - `tasks/236-us-cities.md` (split)
 - `tasks/240-us-birdseye-batch4.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
 - `tasks/241-us-birdseye-batch5.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
@@ -43,6 +43,17 @@ All 5 edits landed in ONE atomic edit call (the 3 aborted attempts of iteration 
 - FAILED (expected, the open build gate): test_new_sites_are_complete - "no new sites: the build phase produced nothing". After re-baselining, the 499-entry baseline equals the whole served sites.json, so the "new sites" set is empty until this task's run builds the 9 new Roman sites (luguvallium-q71551754, ardoch, virosidum, cilurni, petriana, congavata, tunnocelum, kirkintilloch, carriden). Same open-gate pattern the driver recorded for 211 in the 306d note (new_sites_are_complete/new_site_golden_samples were 211's open gate until its 114 builds landed); test_new_site_golden_samples stays green (it pins the 211-era builds, which are baseline members).
 - No new PITFALLS entry for the merge glob: the --sources rule already lives in fit/merge.py's docstring and is pinned by the new test (one place for each piece of knowledge).
 - The live re-run is the next session: `fit/merge.py merge --sources roman` in this tree (expect extras 193->202, files 1730->1748, classified 1037->1055, a 45-row log all "merged", rc 0; second run a byte-identical no-op), then the book-index rebuild + evidence record/check, docs/sources.md section 9, the 9 site builds (UK-DEM open question first - check the four pre-existing Antonine Wall camps' web/data/sites/ dirs as precedent), tools/export_plans.py, full suite, done claim. Full ordered steps are in the task hand-over.
+
+### 2026-10-14 230 DECISION: iteration 209 - the live scoped merge (hand-over step 1): 45 roman rows folded into the three canonical files, log replaced by the 45-row run snapshot, idempotent on re-run; next session does the book-index rebuild (step 2)
+Executed `.venv/bin/python fit/merge.py merge --sources roman` in this tree. Everything matched the hand-over's prediction exactly.
+
+**Pre-checks (all confirmed before running):** staging on main is both books - extras_roman 9 (Horsley 8 + Maclauchlan 1), files_roman 18, classified_roman 18; every files_roman row carries the 200 evidence field (rec "evidence/1", kind "caption_coords") so the evidence gate passes all of them; data/merge/log.jsonl was 211's 381-row snapshot (all "merged") - this run replaces it (211's stays in git history); web/data/sites.json has the 499 baseline entries and NONE of the 9 new roman site ids; web/data/plans.json has the 1510 (id, sites[0]) rows; no run_build process running.
+
+**The run:** rc 0, 0 refused. extras.jsonl 193->202 (+9), files.jsonl 1730->1748 (+18), classified.jsonl 1037->1055 (+18). Verified pure growth: first 193/1730/1037 lines of each canonical file byte-identical to a pre-run copy taken in this session. data/merge/log.jsonl = exactly 45 rows, all action "merged", source "roman" (9 extras / 18 files / 18 classified) - zero conflicts, zero rejections (as the temp-tree test and the direct key-dup check of iteration 207 predicted). Second run: +0/+0/+0, rc 0, all four files (three canonical + log) byte-identical by md5 - idempotent.
+
+**Tests:** tests/test_merge.py 9 passed / 1 failed in 22 s; the one red is the same expected open gate (test_new_sites_are_complete: "no new sites: the build phase produced nothing") - it closes when the 9 roman site builds land (hand-over step 4). No 307d PNG dirt (only test_merge ran this session, it renders no owner-check captures).
+
+**Next session:** hand-over step 2 - the book-index rebuild (import fit.src_roman_horsley + fit.src_roman_maclauchlan, register(), pipeline.books_lists.cmd_index(None) + cmd_validate(None); index.jsonl 1068->, validation.json regenerated; then fit/evidence.py record + check), then steps 3-6.
 
 ## Project-wide driver notes (newest)
 
