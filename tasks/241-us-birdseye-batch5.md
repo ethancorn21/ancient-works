@@ -96,103 +96,64 @@ restore main's bytes before committing (the PITFALLS test_owner_check entry); on
 (same-sheet scans recorded in the lead doc, the LOC .jpg staged where it is the best scan).
 
 ## Hand-over
-(2026-10-14, iteration 175, agent c - **Omaha RESEARCH done (the task's first open question resolved:
-236b skipped Omaha with no recorded reason, but its pool has a strong pick); the step is CLOSED and committed (bfdc630): Omaha is stageable - the pick is the 1868 E. Ruger sheet, Q43199 verified live with no name-search trap, the gate-false-positive pitfall is filed, the working tree is clean at session end, and the post-174 full suite is green (190P/1S/0F, driver's 241 baseline 0-failing). The next session starts the Omaha LANDING at step 1 below - nothing else is pending.
-LANDING, batch-5 city 1 of 5**)
+(2026-10-14, iteration 176, agent c - **Omaha LANDING functionally complete, changes saved
+UNCOMMITTED by the context limit** (the harness holds them for the next agent): module tests 5/5,
+full suite GREEN 190 passed / 1 skipped / 0 failed in 553 s (in-session blocking run; the 307d
+PNGs were restored to main's bytes after it). Next session: step 1 = re-verify + COMMIT the
+landing, then the INDIANAPOLIS research + landing (city 2/5), the same per-city playbook.)
 
-**State:**
-- Step 0 committed (driver 193e4d2): `fit/src_us_birdseye_batch5.py` (401 lines, `SITES = {}`),
-  `docs/lead_us_birdseye_batch5.md` (skeleton), `tests/test_src_us_birdseye_batch5.py` (5 tests),
-  `tests/golden/src_us_birdseye_batch5_sample.json` (empty 0/0/0). Working tree clean. Post-174 full
-  suite GREEN: 190 passed / 1 skipped / 0 failed (/tmp/aw241_suite_post_174.log; 191 = 186 baseline + 5
-  new). The driver's 241 baseline: 0 failing (loop.log) - any red is not this task's (R2).
-- Omaha RESEARCH (this session; full record in the DECISIONS 175 entry, the 240 format):
-  - **QID Q43199 = Omaha, Nebraska**: label matches; ONE P625 (-95.9375, 41.25861111111111, ~30 m) =
-    downtown, no refinement; P373 = STRING "Omaha, Nebraska" -> place "Douglas County, Nebraska"
-    (P131 = Q490695 Douglas County only + the state, the Denver pattern); P17 = Q30; enwiki
-    "Omaha, Nebraska". Name search (limit 5 AND 20, R5): **NO TRAP** (the first P625 hit at both
-    limits is Q43199 itself, dist 0; other hits = album/UNO/film/Beach/namesakes). Q43199 and
-    "omaha" are in NO existing site file (catalog, extras, 236a/236b/240 files, web/data/sites.json -
-    clean grep); catalog.slug("Omaha") = "omaha" verified -> id **omaha-q43199**.
-  - **Pool** (/tmp/aw241_omaha_pool.json, six phrase forms + filetype:bitmap): 39 unique, 8 gate-pass.
-    Only TWO true whole-city sheets: **the 1868 E. Ruger sheet** (File:Bird's eye view of the city of
-    Omaha, Nebraska 1868. LOC 73693495.tif, 8896x7024, PD, LC Panoramic 467, page date 1868 = title
-    year - no Zwolle swap; the .tif is the ONLY scan of the sheet - LCCN search) and **the 1905
-    Austen sheet** (File:Panoramic view of Omaha. LOC 75694679.jpg + .tif, 10080x5808, PD, LC
-    Panoramic 468, "Supplement to the Omaha Daily Bee, January 1, 1906"). **PICK = the 1868**: steeper
-    (the built-up grid fills the sheet from a high vantage over the Missouri River; the river a
-    foreground strip with steamboats + a railroad, a thin hill-horizon band at the top) vs the 1905's
-    LOW "PANORAMIC VIEW OF OMAHA" oblique (frozen river fills the lower-right quadrant, wide plain
-    horizon band ~30% at the top) - the 1905 is the same-genre dupe drop (both its scans). Six other
-    gate-pass items eyeballed (/tmp/aw241_omaha_thumbs/) are false positives: Weber stereo PHOTO cards
-    x2 (the series line "west from Omaha"), Green River WY 1875 ("846 miles west of Omaha"), the 1893
-    Rocky Mountains regional sheet (copyright line "...Omaha, Nebr."), the Great Plains book TEXT
-    page. 31 more rows fail a gate (22 too small incl. the 1865 Jackson Bros / Currier set + 9 NYPL
-    3072 px + the 1897/98 Trans-Mississippi x2; 6 Union Pacific book sheets; Sioux City; 2 "No
-    restrictions" rejects; 1 NBY photo) - full list in the DECISIONS entry.
-  - **Verdict on 236b's silent Omaha skip**: stageable - it fell out of 236b's batch order (the 181
-    list ran past it to St. Paul/Minneapolis), not for a pool failure. Omaha stays batch-5 city 1;
-    next candidates: **Indianapolis, Columbus, Memphis**, then the collection's search order.
-- New PITFALLS fit/ entry filed (the pool gate is a substring match - incidental mentions pass;
-  eyeball every gate-pass item).
-- /tmp artifacts (re-verifiable): aw241_omaha_qid.py/.log, aw241_omaha_pool.py/.json/.log,
-  aw241_omaha_thumbs.py + /tmp/aw241_omaha_thumbs/ (8 thumbs). `aw241_omaha_pool.py` is the template
-  for the next candidates (change CITIES, the output path, and the thumbs script's slug).
+**What the saved tree contains (the Omaha landing, batch-5 city 1/5):**
+- `fit/src_us_birdseye_batch5.py`: SITES[Q43199] (id omaha-q43199; point = the verified P625 at
+  full precision -95.9375/41.25861111111111; place "Douglas County, Nebraska"; the note = the
+  staged view's apparent angle), OMAHA_1868 (the single .tif row; empty dict = no Zwolle swap -
+  the page date 1868 IS the drawing's year) and SOURCES["omaha_1868"] (label from the sheet's own
+  signature "E. Ruger", NOT the page's artist field "Ruger, A." - two different Rugers; the
+  mismatch is recorded in the lead doc). Header comments say Omaha is LANDED.
+- Staging files at 1/1/1 (extras/files/classified_us_birdseye_batch5.jsonl); --check green (PASS
+  caption_coords, "evidence: 1 rows, 1 pass, 0 fail, 0 no-tie", no join problems); golden = 1/1/1.
+- Lead doc: the Omaha city section (STAGED bullet - the cartouche banner re-verified from the
+  surviving 175 thumb with zoomed crops; the 38-item DROP list; the QID-facts paragraph; the
+  236b-silent-skip verdict), the verbatim --verify transcript (no FLAG/TRAP), the Staging section
+  count "1 view / 1 site row so far of the final five" + the verbatim --check transcript, and the
+  updated Not-done-yet pointer (next: Indianapolis, Columbus, Memphis; New Orleans is 236b's -
+  skip it in the search order).
+- Tests extended per the 236b/240 pattern: test 1's key list = the Omaha PASS line; test 3's (c)
+  is now unguarded (live from the first landing on); test 4's tables filled + the Omaha 1868 date
+  check (no date_commons); test 5's negative control rebound to files[0] (the real Omaha row) with
+  the Venice point -> FAIL "does not reproduce (8036016 m)" (hav_m measured this session).
 
-**Next session - the Omaha LANDING (the per-city playbook step 2, the 240 pattern):**
-1. Module edit (`fit/src_us_birdseye_batch5.py`): replace the `SITES = {}` preamble with the Q43199
-   comment block (mirror batch4's Denver comment: the facts above, no trap, skip-list check, slug)
-   + `SITES = {"Q43199": dict(id="omaha-q43199", name="Omaha", named="Omaha", lon=-95.9375,
-   lat=41.258611, place="Douglas County, Nebraska", region="United States", kind="town",
-   wikipedia="https://en.wikipedia.org/wiki/Omaha,_Nebraska", note=<angle text below>)}`;
-   `OMAHA_1868 = [("File:Bird's eye view of the city of Omaha, Nebraska 1868. LOC 73693495.tif",
-   "Q43199", "Omaha", dict())]` (empty dict = no Zwolle swap; the page date IS 1868);
-   `SOURCES = {"omaha_1868": dict(rows=OMAHA_1868, p="birdseye", label="{name}, the E. Ruger /
-   Chicago Lithographing Co. bird's-eye view (1868)")}`. Angle text: "the 1868 E. Ruger sheet
-   (the steepest whole-city view in the pool; the 1905 Austen 'panoramic' oblique is the recorded
-   dupe): a steep bird's-eye view from a high vantage across the Missouri River (the river a
-   foreground strip with steamboats and a railroad along the sheet's bottom, a thin hill-horizon
-   band at the top); the city grid fills the sheet beyond the 2000 m town box, so the fit is
-   likely to end a review item (the 236a NY-1811 / DC-ring precedent)". NOTE: the page's artist
-   field says "Ruger, A.; Chicago Lithographing Co." but the sheet's own signature (lower left)
-   says "E. Ruger" - label from the signature and record the mismatch in the lead doc (240's
-   Cleveland 1877 is an A. Ruger work - a different person).
-2. `.venv/bin/python fit/src_us_birdseye_batch5.py --verify` -> expect exactly 1 QID, NO FLAG/TRAP
-   (the first P625 name-search hit is Q43199 itself); save the output VERBATIM into the lead doc's
-   QID section (replacing the placeholder).
-3. `--dry` -> stage (live commons.info re-check: keep() must pass - date 1868, PD, 8896 px) ->
-   `--check` (expect `PASS caption_coords  omaha-q43199|File:Bird's eye view of the city of Omaha,
-   Nebraska 1868. LOC 73693495.tif`, `evidence: 1 rows, 1 pass, 0 fail, 0 no-tie`, no join: lines);
-   save the transcript verbatim into the lead doc's Staging section (append after the skeleton's
-   "Nothing is staged yet" - that sentence becomes the running count "1 view / 1 site row so far of
-   the final five").
-4. Lead-doc city section (`docs/lead_us_birdseye_batch5.md`, mirror batch4's Denver section):
-   "## Omaha (site `omaha-q43199`, this task's point = the verified P625; 1 view staged)" with the
-   STAGED bullet (the facts + the angle text), the DROP list (the 38 non-staged pool items - the
-   full text is in the DECISIONS 175 entry; format it batch4-style: the 1905 dupe first with both
-   scans, then the six eyeballed false positives with what the gate caught, then the gate-fail
-   groups), the QID-facts paragraph (from the --verify transcript + the live log: the namesake
-   hits, the P373 string quirk, no existing site holds the QID). Update the Not-done-yet pointer:
-   Omaha done; the remaining four = Indianapolis, Columbus, Memphis, then search order.
-5. `--golden` (now 1/1/1 - an intended change) -> extend `tests/test_src_us_birdseye_batch5.py`:
-   test 2's key list = [(omaha site, the 1868 title)]; test 4's tables (id omaha-q43199,
-   lon/lat -95.9375/41.258611, place, year 1868, named "Omaha"); the hermetic three-states test is
-   unguarded (`if staged_files:` becomes live: states a/b/c, the c-state message "join: staged
-   title already in the canonical files.jsonl: ('omaha-q43199', '<title>')"); the negative control
-   rebinds to files[0] (the real Omaha row with the Venice point 12.33, 45.44 - the 236b pattern;
-   drop the Batchville synthetic).
-6. Module tests -> the FULL suite (.venv/bin/python -m pytest -q; ALL edits done first - R4;
-   restore any re-encoded docs/site_flow/307d_*.png to main's bytes first - R5; expect 191 tests
-   plus whatever main merges) -> commit "241: Omaha landed (batch-5 city 1/5) - the 1868 E. Ruger
-   sheet (LOC 73693495) - steepest of the pool's two whole-city views".
+**Next session, exact steps:**
+1. `git status` to confirm the saved tree (module, 3 staging files, lead doc, golden, test file
+   dirty; 307d pngs clean). Run `.venv/bin/python -m pytest tests/test_src_us_birdseye_batch5.py
+   -q` - expect 5/5. If green: `git add -A && git commit -m "241: Omaha landed (batch-5 city
+   1/5) - the 1868 E. Ruger sheet (LOC 73693495) - steepest of the pool's two whole-city views"`
+   (R2: the driver's 241 baseline is 0 failing - any red first goes to the PITFALLS Esri-flake /
+   pytest-temp-tree entries and an isolated re-run; if a suite re-run re-dirties the 307d PNGs,
+   restore them before committing - R5).
+2. INDIANAPOLIS research (city 2/5; live): QID (label - the first-guess mislabel is the usual
+   trap; every P625; P373 - a string is the usual US quirk, place = county + state; P131; P17;
+   enwiki; the name-search trap check at BOTH limit 5 AND limit 20 (R5); no existing site holds
+   the QID - catalog, extras, 236a's/236b's/240's and this task's staging files, web/data/
+   sites.json; catalog.slug(name) -> id) + the pool (the six plain-phrase forms +
+   "filetype:bitmap", srnamespace 6, srlimit 40, deduped; gates = keep() + the caption names the
+   city + Public domain + >= 4000 px; EYEBALL every 1280-px thumb of every gate-pass item - the
+   pool gate is a substring match: the fit/ PITFALLS entry). The 175 /tmp scripts are the
+   templates, but /tmp trees get wiped by the loop maintenance - if gone, the 175 DECISIONS entry
+   carries the full recipe.
+3. Landing mirrors 176: module edit -> --verify (expect 2 QIDs, no FLAG/TRAP on the new one;
+   transcript verbatim into the lead doc's QID section) -> --dry -> stage -> --check (transcript;
+   the count becomes "2 views / 2 site rows so far of the final five") -> lead-doc city section
+   (STAGED bullet + DROP list + QID-facts paragraph; update the Not-done-yet pointer) -> --golden
+   (2/2/2) -> tests (key list, SITES/years/points/named tables, the date check; the negative
+   control STAYS on files[0] = the Omaha row, the batch4 "Denver row" pattern) -> module tests ->
+   the FULL suite in-session (restore any re-encoded 307d PNGs first, R5) -> commit.
+4. Then Columbus (3/5), Memphis (4/5), then one more from the collection's search order (5/5);
+   the Staging section ends at the total (25 = 16 + 4 + 5, or a recorded shortfall) with the 236c
+   note.
 
-**Cities 2-5 the same** (Indianapolis, Columbus, Memphis, then the 181 list's remainder - clone
-/tmp/aw241_omaha_pool.py per city; the Staging section ends at the total 25 = 16 + 4 + 5, or the
-recorded shortfall, with the 236c note; a city whose pool yields no usable view gets the drop note
-and the next candidate).
-
-**Rules (unchanged):** never write the canonical files (236c); never touch 236a's/236b's/240's files
-(read-only; known_sites() enforces); live commands under .venv/bin/python (module top stays
-stdlib-only); the golden is the contract (--golden only for an intended change); tests never bind
-fixed ports or write outside the project and /tmp; every full-suite run re-encodes up to ten
-docs/site_flow/307d_*.png - restore main's bytes before committing (R5).
+**Rules (unchanged):** never write the canonical files (236c); 236a's/236b's/240's files read-only;
+live commands under .venv/bin/python (module top stays stdlib-only); the golden is the contract
+(--golden only for an intended change); tests never bind fixed ports or write outside the project
+and /tmp; every full-suite run re-encodes up to ten docs/site_flow/307d_*.png - restore main's
+bytes before committing (R5); run the suite in-session (blocking), never nohup'd past the session
+(the 174 driver-kill lesson).
