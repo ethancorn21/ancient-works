@@ -38,7 +38,9 @@ staging files, the way 213 staged Civitates.
 ticked (tests green, lead doc complete, shared ids agreed). **Only box 4 remains: >=25 cities staged
 in total (4 done, >=21 new cities to go).** Everything is committed (the 179 "uncommitted" list was
 swept into b06513f before this session; this session's work - tests verified, PITFALLS entry, boxes -
-is committed on top).
+is committed on top, in af5c91a - which also carries 5 docs/site_flow/307d_*.png regenerations as a
+side effect of the full-suite run: the 307d screenshot test rewrites them every run (test output, not
+236b work; disclosed in DECISIONS the 306g way).
 
 - **Verified this session (all under .venv/bin/python):** `pytest tests/test_src_us_birdseye.py -q`
   -> 5 passed, FIRST TRY (no test fix needed - the 179-guessed risk spots, the per-title year map and
