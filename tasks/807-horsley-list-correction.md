@@ -128,86 +128,94 @@ block registered no open request and is stale - DECISIONS 2026-10-14 207. All wo
 stays offline.)
 
 ## Hand-over
-(2026-10-14, iteration 144, agent c - boxes 1+2 done and committed (d137f28 + the list-file
-commit below); box 3 = the lead-doc section is the ONE remaining step)
+(2026-10-14, iteration 145, agent c - box 3 is WRITTEN and in the working tree; remaining =
+tick box 3 + set Status: done + DECISIONS entry + final commit. The whole task is otherwise
+done and verified.)
 
-**Prep notes (tasks/prep/807.md) - which assumptions were wrong:**
-1. STALE: "207a is on agent/c, NOT in main" - 207a IS merged into main (1e9e63b); my branch
-   (agent/c) already carries the 219 module, the 22-entry list files and docs/lead_roman.md.
-   No blob extraction from agent/c was needed; no branch-state discrepancy beyond the prep's
-   own staleness (the Depends chain worked as intended).
-2. STALE: "lead_roman.md has only the ## Roy section (207b's section: not yet in the file)" -
-   207b's Maclauchlan section HAS landed (line 17, heading says "(in progress)") before the Roy
-   section (line 98, "(dropped)"). Anchor rule (prep §1/207b, matches the lead's "in subtask
-   order" line): insert Horsley AFTER the intro paragraph (ends "...in place of the shared
-   validation.json.") and BEFORE the first "##" heading = before Maclauchlan. That also
-   satisfies the box's "before ## Roy". Re-read the intro before inserting in case 207b edited
-   it since (the Maclauchlan section body looks final; its heading's "(in progress)" is just
-   its stage marker).
-3. CORRECT as written: everything else - the books/books_lists machinery semantics (validate_book
-   offline, cmd_ocrmap offline + its stage-A guard, the BLANK_INK=0.005 floor, ink() over local
-   triage jpgs, the socket-block one-liner pattern, B.jsonl contents, the 808 staging plan, the
-   220-era catalog check) all match main, and the prep's dry-run predictions matched my actual
-   runs exactly (both the 22-entry and the 24-entry sides).
+**What 145 did (the lead-doc section exists now, UNCOMMITTED in docs/lead_roman.md):**
+- docs/lead_roman.md (working tree, `M` in git status) = the Horsley section inserted between
+  the intro paragraph (ends "...in place of the shared validation.json.") and "## Maclauchlan"
+  (line 17; subtask order Horsley, Maclauchlan, Roy; also satisfies the box's "before ## Roy").
+  Heading: `## Horsley, Britannia Romana (1732) - 207a (list corrected 807)`. Seven bold-label
+  paragraphs (the box's seven items): Source / the no-list discovery / the 24-entry list (with
+  the two new plates, the 219 mislabel correction, the 220 completeness proof + the remaining-
+  short-pages inventory) / Stage A / Stage B / Staging (the 17-row plan 808 executes) /
+  Deferred (~121 plates). Hard-wrapped at 79 like the neighbours. The diff vs HEAD is PURELY
+  ADDITIVE: 103 lines, 0 deletions (verified with diff <(git show HEAD:docs/lead_roman.md)
+  <file>). Built by /tmp/aw807b/insert_horsley.py (textwrap 79, break_long_words=False - the
+  script's length report counted logical elements, a cosmetic bug; the file is fine). One late
+  patch re-wrapped the Stage-A paragraph's dating line to "measured offline, 219's run
+  2026-10-13 reproduced with the corrected-list run 2026-10-14" (now at ~line 66).
+  VERIFY BEFORE COMMIT: grep -n "219's run" docs/lead_roman.md (expect 1 hit) and re-run the
+  pure-additive diff; do NOT rewrite the file from memory.
+- Box 1 re-verified this session on the current tree: module table 24 entries (17 s / 7 o /
+  0 u); lists/*.json = 24 figures, plates null; lists/*.map.json = 24 dicts sorted by n,
+  site_plan=true exactly [114,185]+[236..254 even]+[278..286 even], false [60,62,256,706,734,
+  832,867]. Box 2 numbers (144's measured runs) are the ones quoted in the section: 22-entry
+  0.882 (15/17) flagged [114,185] stage-A-only 0.188 (15/80); corrected 1.0/1.0/1.0/1.0 no
+  flags, stage-A-only 0.212 (17/80).
+- B.jsonl format (for 808/809 readers): rows are {"n", "leaf", "out": {"plans": [...],
+  "blank_boxes": [...]}} - the plans live under r["out"]["plans"], NOT r["plans"] (my first
+  probe printed empty). n0114: 2 plans ("Innerpeffery camp." / "Ardoch camp.", each scale
+  "A scale of two hundred yards" + north arrow); n0185: 5 plans, site_names pairs OLENACUM/
+  Old Carlisle, VIROSIDUM/Elenborough, BREMETENRACUM/Old Penreth (B's spelling - 808's source
+  of truth), ALIONE/Whitley castle, GLANNIBANTA/Lanchester; 31 plans total (24 on the wall
+  maps, 1-4 each).
 
-**Done this session (all committed, all offline):**
-- fit/src_roman_horsley.py (d137f28): HORSEY_FIGS = 24 entries (17 s / 7 o). The two lines from
-  the task Notes inserted VERBATIM between the `62|` and `236|` lines (leaf order; each exactly
-  4 pipes; long-s spellings; P.44 / P.113 corner marks, no space). The docstring's --list usage
-  line ("24 list leaves ... the 17 kind-s maps"), the Later-legs paragraph, and the table's
-  comment block (17 kind-s; the 219 mislabel correction - the stage-A FLAGS on n0114/n0185 were
-  right, only the invented captions were hallucinations; the 220 hOCR completeness sweep proves
-  24 is the whole book's kind-s set) all updated. HORSEY_PLATES still None.
-- data/books/lists/britanniaromanao00hors.json = 24 figures (the 22 old ones byte-verbatim + the
-  2 new, leaf order 60,62,114,185,236-254 even,256,278-286 even,706,734,832,867; plates: null);
-  .map.json = 24 entries sorted by n: site_plan=true exactly [114,185] + [236..254 even] +
-  [278..286 even], false on [60,62,256,706,734,832,867]; the 22 old map entries unchanged. The
-  regen ran under the socket-block wrapper (/tmp/aw807/list807.py) -> stdout exactly: `horsley_
-  britannia_romana_1732 plates 0 figures 24 fig kinds {'s': 17, 'u': 0, 'o': 7} list leaves 24`.
-- Box 2 evidence (/tmp/aw807/validate807.py, .venv/bin/python, socket-blocked, both runs): PRE
-  = 219 journal reproduced to the digit (precision 0.882 = 15/17, flagged_not_in_list [114,185],
-  stageA-only 0.188 = 15/80, flagged 17/80/936, stageF 0); POST = recall_pages 1.0, recall_pages
-  _pm1 1.0, precision_strict = precision_lenient 1.0 (17/17), flagged_not_in_list [],
-  flagged_on_other_only_pages [], missed_pages []; flagged_site_pages 17 / stageA 80 / triaged
-  936; stage_A_only on the corrected list recall 1.0, precision 0.212 (17/80).
+**Suite (145):** the background run (pid 3018765, started before my data commits, on the
+22-entry state) FINISHED: 12 failed / 142 passed / 1 skipped / 15 errors (184 s) - ALL shared-
+store churn from agent a's concurrent 212/236a/307d work: FileNotFoundErrors/HTTPErrors in
+test_fit_queue (5F+4E), test_fit_provenance (2F+2E), test_matchfit_station (2E), test_merge
+(4E), test_owner_check (2E), test_review (4F), test_serve (4F) - exactly the files agent a's
+tasks own (web/data/fit_queue.json, data/merge/, data/db/platefits, web/data/review.json,
+docs/site_flow/). NONE read any 807 artifact (no test imports the horsley module or its list
+files; test_src_roman_horsley.py is 809's; the only lead_roman.md references are 207b's
+docstring/golden-desc text). docs/site_flow/307d_*.png were NOT re-encoded this run (git
+status clean there - test_owner_check died before writing) -> no 77c2f2c-style restore
+needed. The driver re-runs the suite itself for the done claim; its newest loop-start note
+(2026-10-13) names test_fit_queue.py::test_placement_gestures_and_save_in_the_browser, a red
+that lead port bba5961 CLEARED on main (207a iters 120/121 measured the merged tree 158/1/0;
+corrected PITFALLS entry: the old signature is stale - if a re-check names it, cite that).
 
-**Next session - box 3 (the only remaining work), then done:**
-1. Confirm the background suite (pid 3018765 -> /tmp/aw807/suite.log; started this session
-   before my data commits, so it ran on the 22-entry files + the pre-commit module - fine: no
-   test reads any horsley file, the run is a baseline health check). Expect the known baseline:
-   1 failed (agent a's 307d/307bb placement test - known pre-existing, flakes and passes on
-   re-run per c344571) / ~159 passed / 1 skipped, plus whatever other tasks' tests main gained.
-   If the suite re-encoded docs/site_flow/307d_*.png (it overwrites all ten every run), restore
-   main's bytes (git checkout main -- <those pngs> + a small bookkeeping commit, 77c2f2c
-   precedent) BEFORE the final commit so the driver's merge stays conflict-free.
-2. Write the Horsley section of docs/lead_roman.md (one commit). Anchor: between the intro
-   paragraph and "## Maclauchlan" (above). Heading in the neighbours' style, e.g. `## Horsley,
-   Britannia Romana (1732) - 207a (list corrected 807)`. Body = the seven bold-label paragraphs
-   the box lists (Source / the no-list discovery / the 24-entry list with the two new plates +
-   the 219 mislabel correction + the 220 completeness proof / stage A / stage B / the 17-row
-   staging plan 808 executes / the deferred ~121 inscription plates). Format model: the
-   Maclauchlan and Roy sections (bold label: paragraph, dates on the journal sequence =
-   2026-10-14 era). Numbers to quote: all in this hand-over + the DECISIONS entry (214-14 807)
-   + the task Notes; for B's per-plate detail read data/books/triage/britanniaromanao00hors
-   .B.jsonl (n0114 = 2 plans "Innerpeffery camp." + "Ardoch camp."; n0185 = 5 plans I-V with the
-   Roman/modern site names - B's "Old Penreth" spelling is 808's staging source of truth, the
-   list keeps the transcribed "Penrith"; the 15 wall maps = 1-4 plans each with segment fort
-   names; B's schema has no kind field - verdict = non-empty plans[]); the staging-plan detail
-   is in tasks/808-horsley-stage.md (the 15 wall maps on the 216 QID/extras design; n0114 ONE
-   row on a NEW Ardoch "roman site" extras row with Innerpeffery recorded; n0185 ONE row on the
-   principal P.113 fort's new "roman fort" extras row, the other four forts' names on desc;
-   extras rows for all five P.113 forts only if the join requires each new site to have a plan;
-   the four Antonine camps reused from extras.jsonl; every row 1732 + the 200 evidence field);
-   the 207a archive entries (DECISIONS-archive.md, "# Task 207a horsley" section, the 215/218/
-   219/221 entries) have the no-list discovery, the corner-mark conventions and the CITE text
-   (title page n0014: printed for John Osborn and Thomas Longman, at the Ship in Pater-Noster
-   Row, London 1732, M.DCC.XXXII; shelf mark RB DA 145. H 86 folio on n0015).
-3. Tick box 3, set Status: done, commit (module + list files already committed; this session's
-   commit = the lead-doc section + the task file + DECISIONS). The driver re-checks the suite
-   green itself.
+**Exact next step (one small session):**
+1. Edit tasks/807-horsley-list-correction.md: line 1 `Status: in-progress` -> `Status: done`;
+   box 3's first line `- [ ] The Horsley section of docs/lead_roman.md` -> `- [x]` (the two
+   short unique anchors work with the edit tool; the rest of the file is untouched).
+2. Append to DECISIONS.md: `## 2026-10-14 807 DECISION: iteration 145 - box 3 done: the Horsley
+   section of docs/lead_roman.md written (7 bold-label paragraphs, purely additive 103-line
+   diff, hard-wrapped 79) - all three boxes ticked, Status: done` + bullets: anchor choice
+   (before "## Maclauchlan" = before the first "##" heading, subtask order; intro re-verified
+   unchanged; the box's "Maclauchlan will land later" was stale - 207b had landed, per the
+   144 anchor rule); section content = the box's seven items with the 144-measured numbers
+   (re-verified 145); B.jsonl out-plans format finding; the suite-churn analysis above;
+   307d PNGs not re-encoded; done claim filed, driver re-checks.
+3. Optional (record a lasting fact, the 807-prep note got the shape wrong): PITFALLS entry
+   under `### pipeline/books.py, pipeline/books_ia.py (the book machinery)` (insert before
+   `### pipeline/autowalls.py`, ~line 1309): the lists/<ia>.map.json rows are DICTS
+   {"n", "site_plan", "entries"}, not the [n, site_plan, entries] triples the 807 prep
+   claims - verified across ALL 12 books' map files in data/books/lists/ (probe `e[1]`
+   dies KeyError: 1; read e["n"]/e["site_plan"]).
+4. Commit: git add docs/lead_roman.md tasks/807-horsley-list-correction.md DECISIONS.md
+   PITFALLS.md && git commit -m "807: the Horsley section of docs/lead_roman.md (box 3) -
+   the book's full lead record: source, no-list discovery, the corrected 24-entry list, stage
+   A/B recall, the 17-row staging plan 808 executes, the deferred ~121 plates; all boxes
+   ticked". Stop - the driver re-checks.
+
+**If the driver reopens on a red:** it names a specific test. First check it is shared-store
+churn (stat the file's mtime + git status in the main checkout; PITFALLS shared-store entry).
+If real and not owned by another open task's files: A/B in-checkout per the PITFALLS idiom -
+my files = fit/src_roman_horsley.py + data/books/lists/britanniaromanao00hors.{json,map.json}
++ docs/lead_roman.md (back up to /tmp, restore main's state, re-run, compare byte-for-byte);
+cite the 207a-222 A/B precedent. 3rd failed attempt at the same blocker -> ask_human +
+Status: blocked.
+
+**Chain:** 808 (the 17-row staging; its plan = this section's "Staging" paragraph; its Notes
+carry the coordinate cross-check + evidence-contract detail; it may append accounting to the
+section per its box) then 809 (--check + golden + the no-network test; the test's seed = the
+task Notes' socket-block validate_book one-liner) run after this task.
 
 **Environment facts (kept true):** data/raw is a symlink into the shared store (the 936 triage
 jpgs + bookreader.json live there - re-download recipe in the task Notes if gone); never call
 cmd_validate (it writes the shared validation.json - 211/230's); .venv has numpy+PIL, system
-python3 does not; the suite must not bind fixed ports (it doesn't) and the machine clock is
-2026-10-14 (matches the journal sequence).
+python3 does not; the machine clock is 2026-10-14 (matches the journal sequence); nothing of
+mine runs in the background now (pid 3018765 is gone).
