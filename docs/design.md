@@ -80,11 +80,16 @@ DEM's box is on screen. Layer order: sat, relief-*, per-site `rel-<id>`, `dep-<i
 `fit-prev`, Finder crop/rings/dots, Amazon tiles and marks. Controls: NavigationControl top-right and a compact
 AttributionControl bottom-right, restyled square with `--sheet` faces and 1px `--ink` borders (L181-183).
 
-Markers (L159-200, L477-535) are DOM `<button class="marker tN">` elements, anchor `bottom` (the pin's tip is the
-site's coordinate), holding a `.sq.pin` map pin (inline svg `PIN`, 72x100 frame, paper eye) and a `.tag` label. Tier
-from `build_site` score: `TIERS = [[2.5,'t4'],[1.6,'t3'],[1.2,'t2'],[0.01,'t1']]`, else `plain`. Pin sizes (w x h) and
-fills: t4 14x19 `#8A1230`; t3 12x17 `--survey`; t2 11x15 `#E2697F`; t1 9x13 `#F4B4C0`; plain 7x10 `--sheet` (ink eye);
-one non-scaling 1.2px ink outline. `PIN_W`/`PIN_H` in the script repeat the sizes for the label collision boxes. Today's
+Markers (L159-200, L477-560) are DOM `<button class="marker tN">` elements, anchor `bottom` (the pin's tip is the
+site's coordinate), holding a `.sq.pin` plumb bob (inline svg `PIN`, 72x100 frame; owner picked it from four candidates
+on 2026-10-13: "I like Bob") and a `.tag` label. Tier from `build_site` score: `TIERS = [[2.5,'t4'],[1.6,'t3'],
+[1.2,'t2'],[0.01,'t1']]`, else `plain`. Sizes (w x h) and fills: t4 14x19 `#8A1230`; t3 12x17 `--survey`; t2 11x15
+`#E2697F`; t1 9x13 `#F4B4C0`; plain 7x10 `--sheet`; one non-scaling 1.2px ink outline. `PIN_W`/`PIN_H` in the script
+repeat the sizes for the label collision boxes. Zoom gate (owner 2026-10-13: "only the best of the best" fully zoomed
+out, more as you zoom in): a tier's pins show from `PIN_FROM = {t4:0, t3:3, t2:4, t1:5.5, plain:7}`, and among those a pin
+waits while a higher-scored pin is within `PIN_GAP = [13, 17]` px of it (grid hash in `syncMarkers`); held-back pins
+get `data-off`, fade out over .3s on their children (maplibre writes opacity on the marker element itself) and leave
+the hit-test. At the first view (z2.3) 5 pins show; Europe at z4 about 20; Britain at z7 about 290. Today's
 sites.json: 385 sites, t4 3 (Bergues 1545, Old Sarum 1761, Mayburgh 1769), t3 11, t2 12, t1 251, plain 108; plain shows
 only with "More sites". Labels (`.tag`, an EU direction sign: 20px tall `--sheet` box with the left end pointed at the pin, 1px ink outline
 made by clipping the ink box and its `::before` paper face to the same polygon, 600 11px caps .08em) appear from zoom `LABEL_FROM = {t4:0,

@@ -179,14 +179,17 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
 .marker.t2 .sq { width: 11px; height: 15px; background: #E2697F; --mks: #E2697F; }
 .marker.t1 .sq { width: 9px; height: 13px; background: #F4B4C0; --mks: #F4B4C0; }
 .marker.plain .sq { width: 7px; height: 10px; border-width: 1.5px; background: var(--sheet); --mks: var(--sheet); }
-/* the pin: the 72x100 svg scaled to the tier box, filled with the tier colour, one non-scaling ink outline at every
-   size (crisp on retina), a paper-coloured eye in the head. Must stay after the tier rules above: equal specificity,
+/* the plumb bob: the 72x100 svg scaled to the tier box, filled with the tier colour, one non-scaling ink outline at every
+   size (crisp on retina). Must stay after the tier rules above: equal specificity,
    the .pin declarations win by order. */
 .marker .sq.pin, .tiers .sq.pin { border: 0; background: none; }
+/* a pin the zoom gate or the declutter holds back (syncMarkers sets data-off) fades out, then leaves the hit-test; maplibre
+   writes opacity on the marker element itself (globe occlusion), so the fade is on its children */
+.marker .sq, .marker .tag { transition: opacity .3s; }
+.marker[data-off] { visibility: hidden; transition: visibility 0s .3s; }
+.marker[data-off] .sq, .marker[data-off] .tag { opacity: 0; }
 .marker .sq.pin svg, .tiers .sq.pin svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .marker .sq.pin path, .tiers .sq.pin path { fill: var(--mks, var(--survey)); stroke: var(--ink); stroke-width: 1.2px; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
-.marker .sq.pin circle, .tiers .sq.pin circle { fill: var(--sheet); }
-.marker.plain .sq.pin circle, .tiers .sq.pin.plain circle { fill: var(--ink); }
 .marker.t4 .tag { font-weight: 700; }
 .tiers { display: flex; align-items: center; gap: 6px; font: 11.5px var(--label); letter-spacing: .04em; color: var(--ink-2); }
 .tiers .sq { display: inline-block; border: 1.5px solid var(--ink); }
@@ -483,18 +486,17 @@ for (const [ev, fn] of [['mousedown', dragStart], ['touchstart', dragStart], ['m
 // with an overlay at least 150 years old show until the viewer asks for more ("More sites": LiDAR or photograph only).
 // Today (277 scored): t4 = Bergues 1545, Mayburgh 1769, Old Sarum 1761; t3 = the 1848 plates; t2 = plans of c.1900 on
 // an 1840s Ordnance Survey sheet; t1 = old survey sheets only (Etat-major 1.0, Cassini alone 0.2).
-// candidate silhouettes, all in the pin's 72x100 frame (x 14..86), tip at (50,99); ?pin=<name> picks one while the shape is being chosen
-const SHAPES = {
-  pin: '<path d="M50 99C46 90 14 58 14 36A36 36 0 0 1 86 36C86 58 54 90 50 99Z"/><circle cx="50" cy="36" r="13"/>',
-  point: '<path d="M50 99C60 83 79 62 85 39L70 33L63 5H37L30 33L15 39C21 62 40 83 50 99Z"/>',
-  bob: '<path d="M43 1H57V12L74 29V40L50 99L26 40V29L43 12Z"/>',
-  arrow: '<path d="M50 99L14 58H38V4H62V58H86Z"/>',
-};
-const PIN = `<svg viewBox="14 0 72 100" aria-hidden="true">${SHAPES[new URLSearchParams(location.search).get('pin')] || SHAPES.pin}</svg>`;  // the marker, tip at the bottom (the 100x100 frame cropped to 72 px wide)
+// the marker: a plumb bob (Ethan 2026-10-13: "I like Bob"; the surveyor's weight whose point marks the exact spot), tip at the
+// bottom, drawn in the 72x100 frame (x 14..86) and filled with the tier colour by the .pin rules
+const PIN = '<svg viewBox="14 0 72 100" aria-hidden="true"><path d="M40 1H60V13L82 31V42L50 99L18 42V31L40 13Z"/></svg>';
 const PIN_H = { t4: 19, t3: 17, t2: 15, t1: 13, plain: 10 }, PIN_W = { t4: 14, t3: 12, t2: 11, t1: 9, plain: 7 };  // px, as in the .marker.tN .sq rules
 const TIERS = [[2.5, 't4'], [1.6, 't3'], [1.2, 't2'], [0.01, 't1']];
 const tierOf = s => (TIERS.find(t => (s.score || 0) >= t[0]) || [0, 'plain'])[1];
-const LABEL_FROM = { t4: 0, t3: 3, t2: 5, t1: 7, plain: 9 };  // zoom from which a tier's names show
+// zoom from which a tier's pins and names show (Ethan 2026-10-13: fully zoomed out only the best sites, more as the view fills;
+// Europe was one pile at the first view). Pins also hold back while a better pin is within PIN_GAP px (syncMarkers).
+const PIN_FROM = { t4: 0, t3: 3, t2: 4, t1: 5.5, plain: 7 };
+const LABEL_FROM = { t4: 0, t3: 3.5, t2: 5, t1: 7, plain: 9 };
+const PIN_GAP = [13, 17];  // px: closer than this, horizontally and vertically, and the lower-ranked pin waits for more zoom
 const markers = [];
 let syncMarkers = () => {};
 function shown(s) {  // on the map: scored sites, the rest only with More sites; the kind chips filter both
@@ -510,21 +512,28 @@ function addMarkers() {
     // lift the tip, so it is passed explicitly
     markers.push({ id: s.id, el, m: new maplibregl.Marker({ element: el, anchor: 'bottom', offset: [0, 0] }).setLngLat([s.lon, s.lat]).addTo(map) });
   }
-  // pins stay clickable at every zoom (Ethan 2026-10-10: the markers used to vanish past ~z12.5, so a site could not be
-  // opened from close in); only the open site's own pin goes, as it would sit on its overlay. A label (not its
-  // pin) hides when it would overlap another pin or a label already placed; higher tiers are placed first.
+  // pins stay clickable at every zoom they show at (Ethan 2026-10-10: the markers used to vanish past ~z12.5, so a site could not
+  // be opened from close in); only the open site's own pin goes, as it would sit on its overlay. Zoomed out, a tier's pins wait
+  // for PIN_FROM, and among the rest a pin waits while a higher-scored pin sits within PIN_GAP of it. A label (not its pin)
+  // hides when it would overlap another pin or a label already placed; higher tiers are placed first.
+  markers.sort((a, b) => ((S.byId[b.id] || {}).score || 0) - ((S.byId[a.id] || {}).score || 0));  // best first
   syncMarkers = () => {
-    const z = map.getZoom(), pts = new Map(), placed = [], on = [];
+    const z = map.getZoom(), pts = new Map(), placed = [], on = [], grid = new Map();
     for (const k of markers) {
       const s = S.byId[k.id];
       if (!s) continue;  // a Finder search area's marker (addScanAreas): always shown
-      const vis = shown(s) && k.id !== S.sel;
-      k.el.style.display = vis ? '' : 'none';
-      if (vis) { pts.set(k, map.project(k.m.getLngLat())); on.push(k); }
+      let vis = shown(s) && k.id !== S.sel && z >= PIN_FROM[tierOf(s)];
+      if (vis) {
+        const p = map.project(k.m.getLngLat()), cx = Math.floor(p.x / PIN_GAP[0]), cy = Math.floor(p.y / PIN_GAP[1]);
+        for (let i = cx - 1; i <= cx + 1 && vis; i++) for (let j = cy - 1; j <= cy + 1 && vis; j++)
+          for (const q of grid.get(i + ',' + j) || []) if (Math.abs(q.x - p.x) < PIN_GAP[0] && Math.abs(q.y - p.y) < PIN_GAP[1]) { vis = false; break; }
+        if (vis) { const key = cx + ',' + cy; if (!grid.has(key)) grid.set(key, []); grid.get(key).push(p); pts.set(k, p); on.push(k); }
+      }
+      if (vis) delete k.el.dataset.off; else k.el.dataset.off = '1';
     }
     // the pin hangs above the tip (the point): the box covers the tallest 19 px pin plus its outline
     const marks = on.map(k => { const p = pts.get(k); return [p.x - 8, p.y - 21, p.x + 8, p.y + 1, k]; });
-    for (const k of on.sort((a, b) => (S.byId[b.id].score || 0) - (S.byId[a.id].score || 0))) {
+    for (const k of on) {  // best first
       const s = S.byId[k.id], tag = k.el.querySelector('.tag'), p = pts.get(k);
       if (z < LABEL_FROM[tierOf(s)]) { tag.style.visibility = 'hidden'; continue; }
       // the 20 px sign sits right of the pin, centred on its head (36% down the pin: .marker .tag)
