@@ -5,7 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
-- `tasks/230-roman-merge-rerun.md` (open) - hand-over: (2026-10-14, iteration 207, agent a - FIRST session. Investigation done; prep step half
+- `tasks/230-roman-merge-rerun.md` (open) - hand-over: (2026-10-14, iteration 208, agent a - PREP COMPLETE. All three prep pieces are committed
 - `tasks/236-us-cities.md` (split)
 - `tasks/240-us-birdseye-batch4.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
 - `tasks/241-us-birdseye-batch5.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
@@ -34,6 +34,15 @@ First session on 230. The Roman staging is on main (808's 9adaf16 + 207b: extras
     "    after the merge. Every key of the frozen pre-run list (the post-211 rows) is still present, (id,\n    sites[0]) stays unique, the merged pictures that qualify as plans reach the list, and each picture\n    row's files row carries the 200 evidence field.\"\"\""
 3. test_served_sites_grew_purely docstring + assertion (~lines 293-299, exact): oldText =
 ... (4.4 KB more: `grep -n -A 200 -F '## 2026-10-14 230 DECISION: iteration 207 - first session: re-run prep (merge scoping + re-baselining); the live re-run is the next session' DECISIONS.md`)
+
+### 2026-10-14 230 DECISION: iteration 208 - applied the 4 pending test_merge.py edits (plus the stale _tree comment); 9/10 green; test_new_sites_are_complete is the EXPECTED red until the 9 Roman builds land
+All 5 edits landed in ONE atomic edit call (the 3 aborted attempts of iteration 207 were each one typo'd oldText among good ones; this time every oldText was verified against the file with sed first - the lesson holds: a bad oldText aborts the WHOLE batch, so verify each before the call).
+
+- test_sources_filter_merges_only_named_sources PASSES: `--sources b` merges only extras_b (the log holds that run's rows only, source=="b"), and the later unfiltered run picks up extras_a once and leaves xb as a single copy.
+- test_all_staging_merged_and_prefix_preserved PASSES with the Roman staging present on main: all 45 rows (extras 9 / files 18 / classified 18) land in the canonical files of the temp tree, every log entry "merged", rc 0, 0 refused. Pre-verified directly before trusting the tests: zero roman keys conflict with a canonical row, zero roman rows are byte-identical (sorted-JSON) to a canonical row; the 18 (site,title) keys that appear in BOTH files_roman and classified_roman are cross-file (different canonical targets), not in-target duplicates - a shared `seen` dict across both files is the source of a naive in-staging-dup false positive.
+- FAILED (expected, the open build gate): test_new_sites_are_complete - "no new sites: the build phase produced nothing". After re-baselining, the 499-entry baseline equals the whole served sites.json, so the "new sites" set is empty until this task's run builds the 9 new Roman sites (luguvallium-q71551754, ardoch, virosidum, cilurni, petriana, congavata, tunnocelum, kirkintilloch, carriden). Same open-gate pattern the driver recorded for 211 in the 306d note (new_sites_are_complete/new_site_golden_samples were 211's open gate until its 114 builds landed); test_new_site_golden_samples stays green (it pins the 211-era builds, which are baseline members).
+- No new PITFALLS entry for the merge glob: the --sources rule already lives in fit/merge.py's docstring and is pinned by the new test (one place for each piece of knowledge).
+- The live re-run is the next session: `fit/merge.py merge --sources roman` in this tree (expect extras 193->202, files 1730->1748, classified 1037->1055, a 45-row log all "merged", rc 0; second run a byte-identical no-op), then the book-index rebuild + evidence record/check, docs/sources.md section 9, the 9 site builds (UK-DEM open question first - check the four pre-existing Antonine Wall camps' web/data/sites/ dirs as precedent), tools/export_plans.py, full suite, done claim. Full ordered steps are in the task hand-over.
 
 ## Project-wide driver notes (newest)
 
