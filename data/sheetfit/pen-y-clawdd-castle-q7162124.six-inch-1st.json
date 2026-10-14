@@ -1,0 +1,51 @@
+{
+ "site": "pen-y-clawdd-castle-q7162124",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 4912,
+   "fraction": 0.982,
+   "asis_fraction": 0.967,
+   "asis_err_m": 5.1,
+   "rigid_err_m": 4.7,
+   "shift_m": 9.9,
+   "shift_en_m": [
+    -3.9,
+    9.1
+   ],
+   "rot_deg": 1.49,
+   "scale": 0.9992,
+   "resid_med_m": 4.6,
+   "spread": [
+    0.7225358327906874,
+    54.38146151488287
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 5.1 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.998883232238119,
+   0.02599759929143913
+  ],
+  "t": [
+   4.65988280207749,
+   -12.707990713439818
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

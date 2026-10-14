@@ -1,0 +1,56 @@
+{
+ "site": "bibracte-q650053",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4989,
+   "inliers": 331,
+   "fraction": 0.066,
+   "asis_fraction": 0.01,
+   "asis_err_m": 145.4,
+   "rigid_err_m": 89.1,
+   "shift_m": 144.8,
+   "shift_en_m": [
+    -28.7,
+    142.0
+   ],
+   "rot_deg": -4.39,
+   "scale": 1.3584,
+   "resid_med_m": 14.4,
+   "spread": [
+    0.3877447399424803,
+    107.61176520523442
+   ],
+   "bend": {
+    "control_cells": 29,
+    "consistent_matches": 1406,
+    "heldout_rigid_m": 26.7,
+    "heldout_bend_m": 7.5,
+    "max_move_m": 92.0,
+    "why": "bend would move ground 92 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "no independent check: no relief"
+ },
+ "params": {
+  "s": [
+   1.3544194215927488,
+   -0.10397631844494275
+  ],
+  "t": [
+   -395.39014515213745,
+   -342.3176003519031
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

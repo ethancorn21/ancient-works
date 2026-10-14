@@ -1,0 +1,90 @@
+{
+ "site": "king-arthur-s-round-table-q283800",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.502,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 4404,
+   "fraction": 0.881,
+   "asis_fraction": 0.867,
+   "asis_err_m": 8.2,
+   "rigid_err_m": 8.0,
+   "shift_m": 4.4,
+   "shift_en_m": [
+    -4.2,
+    1.5
+   ],
+   "rot_deg": 0.08,
+   "scale": 0.9992,
+   "resid_med_m": 7.1,
+   "spread": [
+    0.7071154680799323,
+    138.79248418818503
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4998,
+   "inliers": 4361,
+   "fraction": 0.873,
+   "asis_fraction": 0.857,
+   "asis_err_m": 12.9,
+   "rigid_err_m": 12.3,
+   "shift_m": 4.6,
+   "shift_en_m": [
+    -3.7,
+    -2.8
+   ],
+   "rot_deg": -0.03,
+   "scale": 1.0015,
+   "resid_med_m": 11.0,
+   "spread": [
+    0.7247512978630218,
+    147.34461390892633
+   ],
+   "bend": {
+    "control_cells": 115,
+    "consistent_matches": 4523,
+    "heldout_rigid_m": 11.1,
+    "heldout_bend_m": 6.5,
+    "max_move_m": 22.8
+   }
+  }
+ },
+ "grounds_agree_m": 4.3,
+ "cross": {
+  "asis_m": 12.9,
+  "shift_m": 12.9,
+  "bend_m": null,
+  "n": 4998,
+  "within_25m": {
+   "asis": 0.857,
+   "shift": 0.868,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 8.2 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9991731564216947,
+   0.0014804863136884967
+  ],
+  "t": [
+   -2.007721147487177,
+   -1.1963727879847463
+  ],
+  "m_per_px": 1.5015015015015014,
+  "smooth": 2.0,
+  "size": [
+   666,
+   666
+  ]
+ }
+}

@@ -1,0 +1,86 @@
+{
+ "site": "birdoswald-roman-fort-and-the-section-of-q17650767",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.502,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 4965,
+   "fraction": 0.993,
+   "asis_fraction": 0.972,
+   "asis_err_m": 7.1,
+   "rigid_err_m": 5.9,
+   "shift_m": 2.3,
+   "shift_en_m": [
+    2.2,
+    0.4
+   ],
+   "rot_deg": -0.33,
+   "scale": 0.9949,
+   "resid_med_m": 5.9,
+   "spread": [
+    0.9124349192544825,
+    190.86871442416665
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 5000,
+   "inliers": 4941,
+   "fraction": 0.988,
+   "asis_fraction": 0.985,
+   "asis_err_m": 7.5,
+   "rigid_err_m": 6.4,
+   "shift_m": 3.1,
+   "shift_en_m": [
+    3.0,
+    -0.4
+   ],
+   "rot_deg": -0.26,
+   "scale": 1.0041,
+   "resid_med_m": 6.3,
+   "spread": [
+    0.9348468778543624,
+    180.3543064329844
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 1.1,
+ "cross": {
+  "asis_m": 7.5,
+  "shift_m": 7.5,
+  "bend_m": null,
+  "n": 5000,
+  "within_25m": {
+   "asis": 0.985,
+   "shift": 0.985,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 7.1 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9948599521493252,
+   -0.005702476807068397
+  ],
+  "t": [
+   1.2897880551140073,
+   3.315118958374695
+  ],
+  "m_per_px": 1.5015015015015014,
+  "smooth": 2.0,
+  "size": [
+   666,
+   666
+  ]
+ }
+}

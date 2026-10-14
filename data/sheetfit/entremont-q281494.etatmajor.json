@@ -1,0 +1,96 @@
+{
+ "site": "entremont-q281494",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4995,
+   "inliers": 391,
+   "fraction": 0.078,
+   "asis_fraction": 0.036,
+   "asis_err_m": 109.1,
+   "rigid_err_m": 80.1,
+   "shift_m": 131.6,
+   "shift_en_m": [
+    -29.1,
+    128.3
+   ],
+   "rot_deg": 3.31,
+   "scale": 1.1465,
+   "resid_med_m": 13.8,
+   "spread": [
+    0.8138034711274066,
+    295.20486264435135
+   ],
+   "bend": {
+    "control_cells": 64,
+    "consistent_matches": 1980,
+    "heldout_rigid_m": 46.3,
+    "heldout_bend_m": 5.6,
+    "max_move_m": 177.8,
+    "why": "bend would move ground 178 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4995,
+   "inliers": 445,
+   "fraction": 0.089,
+   "asis_fraction": 0.013,
+   "asis_err_m": 131.6,
+   "rigid_err_m": 118.7,
+   "shift_m": 136.6,
+   "shift_en_m": [
+    91.6,
+    101.4
+   ],
+   "rot_deg": -8.18,
+   "scale": 1.0311,
+   "resid_med_m": 13.6,
+   "spread": [
+    0.500638815318639,
+    145.05873694483967
+   ],
+   "bend": {
+    "control_cells": 66,
+    "consistent_matches": 2231,
+    "heldout_rigid_m": 54.4,
+    "heldout_bend_m": 8.5,
+    "max_move_m": 192.9,
+    "why": "bend would move ground 193 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 123.7,
+ "cross": {
+  "asis_m": 134.7,
+  "shift_m": 166.4,
+  "bend_m": null,
+  "n": 3381,
+  "within_25m": {
+   "asis": 0.019,
+   "shift": 0.056,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 2% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   1.144552690569256,
+   0.06623560224047688
+  ],
+  "t": [
+   -91.72110327997319,
+   -296.94942357348515
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

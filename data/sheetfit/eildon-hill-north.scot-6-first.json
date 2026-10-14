@@ -1,0 +1,86 @@
+{
+ "site": "eildon-hill-north",
+ "sheet": "scot-6-first",
+ "label": "Ordnance Survey six-inch map, Scotland, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 4830,
+   "fraction": 0.966,
+   "asis_fraction": 0.96,
+   "asis_err_m": 6.1,
+   "rigid_err_m": 4.7,
+   "shift_m": 3.5,
+   "shift_en_m": [
+    0.2,
+    3.5
+   ],
+   "rot_deg": 0.02,
+   "scale": 1.0006,
+   "resid_med_m": 4.6,
+   "spread": [
+    0.7910518289778079,
+    466.4773447643807
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 5000,
+   "inliers": 4916,
+   "fraction": 0.983,
+   "asis_fraction": 0.953,
+   "asis_err_m": 11.1,
+   "rigid_err_m": 4.6,
+   "shift_m": 11.6,
+   "shift_en_m": [
+    8.4,
+    -8.0
+   ],
+   "rot_deg": 0.04,
+   "scale": 1.0049,
+   "resid_med_m": 4.6,
+   "spread": [
+    0.8993337857606528,
+    463.25482828749386
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 14.1,
+ "cross": {
+  "asis_m": 11.1,
+  "shift_m": 13.0,
+  "bend_m": null,
+  "n": 5000,
+  "within_25m": {
+   "asis": 0.953,
+   "shift": 0.925,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 6.1 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0006254077304406,
+   0.0003860002720745508
+  ],
+  "t": [
+   -0.04763251680042835,
+   -3.1510024750510617
+  ],
+  "m_per_px": 1.5006002400960383,
+  "smooth": 2.0,
+  "size": [
+   1666,
+   1666
+  ]
+ }
+}

@@ -1,0 +1,86 @@
+{
+ "site": "clun-castle-q5136615",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4999,
+   "inliers": 4999,
+   "fraction": 1.0,
+   "asis_fraction": 1.0,
+   "asis_err_m": 4.9,
+   "rigid_err_m": 2.5,
+   "shift_m": 4.4,
+   "shift_en_m": [
+    -3.5,
+    2.8
+   ],
+   "rot_deg": -0.19,
+   "scale": 0.9978,
+   "resid_med_m": 2.5,
+   "spread": [
+    0.9797275049697487,
+    160.74805338361998
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4995,
+   "inliers": 4995,
+   "fraction": 1.0,
+   "asis_fraction": 0.995,
+   "asis_err_m": 4.1,
+   "rigid_err_m": 2.8,
+   "shift_m": 2.8,
+   "shift_en_m": [
+    -2.8,
+    0.2
+   ],
+   "rot_deg": -0.17,
+   "scale": 0.9994,
+   "resid_med_m": 2.8,
+   "spread": [
+    0.9142799406068467,
+    157.9755107018551
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 2.7,
+ "cross": {
+  "asis_m": 4.1,
+  "shift_m": 3.5,
+  "bend_m": null,
+  "n": 4995,
+  "within_25m": {
+   "asis": 0.995,
+   "shift": 0.996,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 4.1 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9977660988328763,
+   -0.003347188070008113
+  ],
+  "t": [
+   -2.6175397677930627,
+   -0.3542887401804202
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

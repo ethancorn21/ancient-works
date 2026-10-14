@@ -1,0 +1,91 @@
+{
+ "site": "vieil-hesdin-q1022768",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4993,
+   "inliers": 416,
+   "fraction": 0.083,
+   "asis_fraction": 0.002,
+   "asis_err_m": 160.7,
+   "rigid_err_m": 89.7,
+   "shift_m": 522.6,
+   "shift_en_m": [
+    -332.9,
+    402.8
+   ],
+   "rot_deg": 11.23,
+   "scale": 0.4668,
+   "resid_med_m": 12.1,
+   "spread": [
+    0.27696506721933645,
+    143.9526050604314
+   ],
+   "bend": {
+    "why": "matches cover only 3 consistent cells of 80 m"
+   }
+  },
+  "relief": {
+   "matches": 4997,
+   "inliers": 681,
+   "fraction": 0.136,
+   "asis_fraction": 0.01,
+   "asis_err_m": 122.6,
+   "rigid_err_m": 104.2,
+   "shift_m": 343.6,
+   "shift_en_m": [
+    -253.2,
+    232.3
+   ],
+   "rot_deg": -6.68,
+   "scale": 0.4876,
+   "resid_med_m": 12.0,
+   "spread": [
+    0.4755714461794709,
+    229.6987791008848
+   ],
+   "bend": {
+    "control_cells": 23,
+    "consistent_matches": 2875,
+    "heldout_rigid_m": 22.4,
+    "heldout_bend_m": 9.0,
+    "max_move_m": 129.0,
+    "why": "bend would move ground 129 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 188.2,
+ "cross": {
+  "asis_m": 299.6,
+  "shift_m": 189.2,
+  "bend_m": null,
+  "n": 3894,
+  "within_25m": {
+   "asis": 0.013,
+   "shift": 0.007,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 1% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.45786017182547284,
+   0.09091734936266092
+  ],
+  "t": [
+   300.13537964318675,
+   48.38836134602051
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   2000,
+   2000
+  ]
+ }
+}

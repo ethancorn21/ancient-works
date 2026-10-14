@@ -1,0 +1,86 @@
+{
+ "site": "okehampton-castle-q1419982",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 4905,
+   "fraction": 0.981,
+   "asis_fraction": 0.946,
+   "asis_err_m": 8.5,
+   "rigid_err_m": 7.8,
+   "shift_m": 5.7,
+   "shift_en_m": [
+    2.6,
+    5.1
+   ],
+   "rot_deg": -0.63,
+   "scale": 1.003,
+   "resid_med_m": 7.6,
+   "spread": [
+    0.6994435920481027,
+    123.45531911259273
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4994,
+   "inliers": 4663,
+   "fraction": 0.934,
+   "asis_fraction": 0.927,
+   "asis_err_m": 5.9,
+   "rigid_err_m": 4.8,
+   "shift_m": 3.7,
+   "shift_en_m": [
+    2.5,
+    2.7
+   ],
+   "rot_deg": -0.27,
+   "scale": 1.0025,
+   "resid_med_m": 4.5,
+   "spread": [
+    0.9624340106866147,
+    148.3419674510527
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 2.4,
+ "cross": {
+  "asis_m": 5.9,
+  "shift_m": 6.0,
+  "bend_m": null,
+  "n": 4994,
+  "within_25m": {
+   "asis": 0.927,
+   "shift": 0.928,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 5.9 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0029077706604688,
+   -0.011066075470434943
+  ],
+  "t": [
+   -2.0022941047380005,
+   -1.2351254455108962
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

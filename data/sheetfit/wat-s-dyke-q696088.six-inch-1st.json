@@ -1,0 +1,86 @@
+{
+ "site": "wat-s-dyke-q696088",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.5,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 4899,
+   "fraction": 0.98,
+   "asis_fraction": 0.954,
+   "asis_err_m": 8.8,
+   "rigid_err_m": 3.8,
+   "shift_m": 8.5,
+   "shift_en_m": [
+    1.1,
+    8.4
+   ],
+   "rot_deg": -0.03,
+   "scale": 1.0017,
+   "resid_med_m": 3.7,
+   "spread": [
+    0.8765958236075302,
+    331.0498588317449
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4999,
+   "inliers": 4959,
+   "fraction": 0.992,
+   "asis_fraction": 0.986,
+   "asis_err_m": 7.0,
+   "rigid_err_m": 3.1,
+   "shift_m": 6.0,
+   "shift_en_m": [
+    2.6,
+    5.4
+   ],
+   "rot_deg": -0.01,
+   "scale": 1.0005,
+   "resid_med_m": 3.1,
+   "spread": [
+    0.6563079786873279,
+    265.8561371375231
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 3.4,
+ "cross": {
+  "asis_m": 7.0,
+  "shift_m": 4.4,
+  "bend_m": null,
+  "n": 4999,
+  "within_25m": {
+   "asis": 0.986,
+   "shift": 0.983,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 7.0 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0016721917322366,
+   -0.0004676253301720766
+  ],
+  "t": [
+   -0.6635490441031644,
+   -6.4337818994654175
+  ],
+  "m_per_px": 1.5003750937734435,
+  "smooth": 2.0,
+  "size": [
+   1333,
+   1333
+  ]
+ }
+}

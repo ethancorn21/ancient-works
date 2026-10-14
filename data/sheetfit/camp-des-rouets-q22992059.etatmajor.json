@@ -1,0 +1,95 @@
+{
+ "site": "camp-des-rouets-q22992059",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4997,
+   "inliers": 784,
+   "fraction": 0.157,
+   "asis_fraction": 0.129,
+   "asis_err_m": 70.4,
+   "rigid_err_m": 80.1,
+   "shift_m": 28.0,
+   "shift_en_m": [
+    -10.7,
+    25.8
+   ],
+   "rot_deg": -1.57,
+   "scale": 0.97,
+   "resid_med_m": 15.2,
+   "spread": [
+    0.5774855771834896,
+    246.6357780472524
+   ],
+   "bend": {
+    "control_cells": 77,
+    "consistent_matches": 3214,
+    "heldout_rigid_m": 33.9,
+    "heldout_bend_m": 9.2,
+    "max_move_m": 165.2,
+    "why": "bend would move ground 165 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4992,
+   "inliers": 1417,
+   "fraction": 0.284,
+   "asis_fraction": 0.274,
+   "asis_err_m": 40.2,
+   "rigid_err_m": 40.1,
+   "shift_m": 7.8,
+   "shift_en_m": [
+    -7.0,
+    3.4
+   ],
+   "rot_deg": 0.3,
+   "scale": 0.9968,
+   "resid_med_m": 17.0,
+   "spread": [
+    0.5607134400271792,
+    293.265377196923
+   ],
+   "bend": {
+    "control_cells": 118,
+    "consistent_matches": 3495,
+    "heldout_rigid_m": 23.1,
+    "heldout_bend_m": 8.4,
+    "max_move_m": 52.2
+   }
+  }
+ },
+ "grounds_agree_m": 22.7,
+ "cross": {
+  "asis_m": 40.2,
+  "shift_m": 45.4,
+  "bend_m": null,
+  "n": 4989,
+  "within_25m": {
+   "asis": 0.274,
+   "shift": 0.205,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 27% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.9696209985655174,
+   -0.026620039799139936
+  ],
+  "t": [
+   -7.7231465554586,
+   19.762459829590814
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

@@ -1,0 +1,51 @@
+{
+ "site": "colwyn-castle-q5150338",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 4932,
+   "fraction": 0.986,
+   "asis_fraction": 0.969,
+   "asis_err_m": 9.4,
+   "rigid_err_m": 6.7,
+   "shift_m": 7.2,
+   "shift_en_m": [
+    0.7,
+    7.2
+   ],
+   "rot_deg": -0.17,
+   "scale": 0.994,
+   "resid_med_m": 6.6,
+   "spread": [
+    0.8577827193897272,
+    136.06527243477484
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 9.4 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9939553344920544,
+   -0.002869514001377261
+  ],
+  "t": [
+   1.2880265560692892,
+   -2.389432799621442
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

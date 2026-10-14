@@ -1,0 +1,96 @@
+{
+ "site": "castrum-levefanum-q1309559",
+ "sheet": "tmk1850",
+ "label": "Topographic and Military Map of the Netherlands (TMK, c. 1850)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 1138,
+   "fraction": 0.228,
+   "asis_fraction": 0.164,
+   "asis_err_m": 61.1,
+   "rigid_err_m": 54.7,
+   "shift_m": 17.7,
+   "shift_en_m": [
+    -14.0,
+    -10.8
+   ],
+   "rot_deg": 1.11,
+   "scale": 0.9908,
+   "resid_med_m": 16.1,
+   "spread": [
+    0.896252504362353,
+    282.25919181815766
+   ],
+   "bend": {
+    "control_cells": 133,
+    "consistent_matches": 3944,
+    "heldout_rigid_m": 33.4,
+    "heldout_bend_m": 5.4,
+    "max_move_m": 105.9,
+    "why": "bend would move ground 106 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4993,
+   "inliers": 1041,
+   "fraction": 0.208,
+   "asis_fraction": 0.096,
+   "asis_err_m": 62.8,
+   "rigid_err_m": 58.2,
+   "shift_m": 23.5,
+   "shift_en_m": [
+    -23.4,
+    -1.7
+   ],
+   "rot_deg": 4.46,
+   "scale": 1.0007,
+   "resid_med_m": 15.4,
+   "spread": [
+    0.4255083411915013,
+    185.8038978370012
+   ],
+   "bend": {
+    "control_cells": 86,
+    "consistent_matches": 3660,
+    "heldout_rigid_m": 26.6,
+    "heldout_bend_m": 5.2,
+    "max_move_m": 111.3,
+    "why": "bend would move ground 111 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 13.1,
+ "cross": {
+  "asis_m": 65.9,
+  "shift_m": 57.6,
+  "bend_m": null,
+  "n": 4847,
+  "within_25m": {
+   "asis": 0.099,
+   "shift": 0.141,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 10% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.9906556638437896,
+   0.019169475535209504
+  ],
+  "t": [
+   8.85388884400746,
+   2.956307257987376
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

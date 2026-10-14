@@ -1,0 +1,86 @@
+{
+ "site": "heveskesklooster-q3276052",
+ "sheet": "tmk1850",
+ "label": "Topographic and Military Map of the Netherlands (TMK, c. 1850)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4991,
+   "inliers": 269,
+   "fraction": 0.054,
+   "asis_fraction": 0.0,
+   "asis_err_m": 184.0,
+   "rigid_err_m": 64.3,
+   "shift_m": 63.6,
+   "shift_en_m": [
+    23.5,
+    59.1
+   ],
+   "rot_deg": 54.49,
+   "scale": 1.232,
+   "resid_med_m": 15.2,
+   "spread": [
+    0.6820045229974735,
+    189.2180456159469
+   ],
+   "bend": {
+    "why": "matches cover only 5 consistent cells of 80 m"
+   }
+  },
+  "relief": {
+   "matches": 4987,
+   "inliers": 265,
+   "fraction": 0.053,
+   "asis_fraction": 0.008,
+   "asis_err_m": 125.1,
+   "rigid_err_m": 54.6,
+   "shift_m": 211.3,
+   "shift_en_m": [
+    -210.6,
+    -17.2
+   ],
+   "rot_deg": 10.5,
+   "scale": 0.5245,
+   "resid_med_m": 12.4,
+   "spread": [
+    0.3554217500683098,
+    68.46031287728647
+   ],
+   "bend": {
+    "why": "matches cover only 5 consistent cells of 80 m"
+   }
+  }
+ },
+ "grounds_agree_m": 246.2,
+ "cross": {
+  "asis_m": 166.8,
+  "shift_m": 308.3,
+  "bend_m": null,
+  "n": 1669,
+  "within_25m": {
+   "asis": 0.024,
+   "shift": 0.002,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 2% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.7155316442166202,
+   1.002937927029109
+  ],
+  "t": [
+   795.9768054395281,
+   -490.1425678631198
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1200,
+   1200
+  ]
+ }
+}

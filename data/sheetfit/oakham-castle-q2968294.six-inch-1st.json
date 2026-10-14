@@ -1,0 +1,86 @@
+{
+ "site": "oakham-castle-q2968294",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 4968,
+   "fraction": 0.994,
+   "asis_fraction": 0.983,
+   "asis_err_m": 9.1,
+   "rigid_err_m": 3.7,
+   "shift_m": 8.4,
+   "shift_en_m": [
+    -2.8,
+    7.9
+   ],
+   "rot_deg": -0.16,
+   "scale": 1.0086,
+   "resid_med_m": 3.7,
+   "spread": [
+    0.8432931932274266,
+    118.8374550025261
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4989,
+   "inliers": 4652,
+   "fraction": 0.932,
+   "asis_fraction": 0.924,
+   "asis_err_m": 7.5,
+   "rigid_err_m": 5.9,
+   "shift_m": 4.7,
+   "shift_en_m": [
+    -1.7,
+    4.4
+   ],
+   "rot_deg": -0.1,
+   "scale": 1.0019,
+   "resid_med_m": 5.5,
+   "spread": [
+    0.8665070111748907,
+    140.0817743425867
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 3.7,
+ "cross": {
+  "asis_m": 7.5,
+  "shift_m": 6.9,
+  "bend_m": null,
+  "n": 4989,
+  "within_25m": {
+   "asis": 0.924,
+   "shift": 0.924,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 7.5 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.00857064134472,
+   -0.0028005564551371424
+  ],
+  "t": [
+   -4.914668467216691,
+   -6.795900746460261
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

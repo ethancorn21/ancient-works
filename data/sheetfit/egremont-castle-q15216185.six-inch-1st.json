@@ -1,0 +1,86 @@
+{
+ "site": "egremont-castle-q15216185",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4999,
+   "inliers": 4847,
+   "fraction": 0.97,
+   "asis_fraction": 0.945,
+   "asis_err_m": 11.3,
+   "rigid_err_m": 8.6,
+   "shift_m": 6.4,
+   "shift_en_m": [
+    5.8,
+    2.7
+   ],
+   "rot_deg": -0.39,
+   "scale": 0.9897,
+   "resid_med_m": 8.3,
+   "spread": [
+    0.8266752146669847,
+    133.90648598873528
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4991,
+   "inliers": 4825,
+   "fraction": 0.967,
+   "asis_fraction": 0.923,
+   "asis_err_m": 8.0,
+   "rigid_err_m": 7.5,
+   "shift_m": 5.7,
+   "shift_en_m": [
+    5.4,
+    1.8
+   ],
+   "rot_deg": 0.41,
+   "scale": 0.9884,
+   "resid_med_m": 7.3,
+   "spread": [
+    0.8364471900684843,
+    136.74127508990287
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 1.0,
+ "cross": {
+  "asis_m": 8.0,
+  "shift_m": 7.8,
+  "bend_m": null,
+  "n": 4991,
+  "within_25m": {
+   "asis": 0.923,
+   "shift": 0.945,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 8.0 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9897095014319109,
+   -0.00667191865458052
+  ],
+  "t": [
+   4.839546491727729,
+   2.7404765734364362
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

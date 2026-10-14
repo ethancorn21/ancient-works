@@ -1,0 +1,86 @@
+{
+ "site": "silbury-hill-q225896",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.502,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 4839,
+   "fraction": 0.968,
+   "asis_fraction": 0.876,
+   "asis_err_m": 11.0,
+   "rigid_err_m": 9.4,
+   "shift_m": 4.5,
+   "shift_en_m": [
+    -2.8,
+    3.5
+   ],
+   "rot_deg": -0.12,
+   "scale": 0.9818,
+   "resid_med_m": 9.2,
+   "spread": [
+    0.7786486216554865,
+    139.21592121927654
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 5000,
+   "inliers": 4950,
+   "fraction": 0.99,
+   "asis_fraction": 0.974,
+   "asis_err_m": 4.9,
+   "rigid_err_m": 3.8,
+   "shift_m": 5.4,
+   "shift_en_m": [
+    -0.3,
+    5.4
+   ],
+   "rot_deg": 0.36,
+   "scale": 0.9949,
+   "resid_med_m": 3.7,
+   "spread": [
+    0.5820003218715872,
+    103.80092825663847
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 3.1,
+ "cross": {
+  "asis_m": 4.9,
+  "shift_m": 9.2,
+  "bend_m": null,
+  "n": 5000,
+  "within_25m": {
+   "asis": 0.974,
+   "shift": 0.986,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 4.9 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9817851351266789,
+   -0.0021298590253171585
+  ],
+  "t": [
+   3.4633835395233312,
+   4.4210193260825275
+  ],
+  "m_per_px": 1.5015015015015014,
+  "smooth": 2.0,
+  "size": [
+   666,
+   666
+  ]
+ }
+}

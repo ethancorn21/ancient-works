@@ -1,0 +1,86 @@
+{
+ "site": "dunster-castle-q2969173",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4999,
+   "inliers": 4960,
+   "fraction": 0.992,
+   "asis_fraction": 0.977,
+   "asis_err_m": 6.5,
+   "rigid_err_m": 3.0,
+   "shift_m": 6.9,
+   "shift_en_m": [
+    1.4,
+    6.8
+   ],
+   "rot_deg": -0.05,
+   "scale": 0.9998,
+   "resid_med_m": 3.0,
+   "spread": [
+    0.6305434092830573,
+    105.49080021845376
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4998,
+   "inliers": 4912,
+   "fraction": 0.983,
+   "asis_fraction": 0.952,
+   "asis_err_m": 4.4,
+   "rigid_err_m": 3.5,
+   "shift_m": 5.3,
+   "shift_en_m": [
+    1.8,
+    4.9
+   ],
+   "rot_deg": -0.34,
+   "scale": 0.9984,
+   "resid_med_m": 3.4,
+   "spread": [
+    0.8109429246298785,
+    132.27783848035227
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 1.9,
+ "cross": {
+  "asis_m": 4.4,
+  "shift_m": 5.1,
+  "bend_m": null,
+  "n": 4998,
+  "within_25m": {
+   "asis": 0.952,
+   "shift": 0.97,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 4.4 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9997817703960492,
+   -0.000926864745677501
+  ],
+  "t": [
+   0.7400171207586479,
+   -4.195139941938399
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

@@ -1,0 +1,91 @@
+{
+ "site": "rough-castle-fort",
+ "sheet": "roy",
+ "label": "Roy's Military Survey of Scotland",
+ "m_per_px": 1.502,
+ "grounds": {
+  "aerial": {
+   "matches": 4990,
+   "inliers": 380,
+   "fraction": 0.076,
+   "asis_fraction": 0.002,
+   "asis_err_m": 137.0,
+   "rigid_err_m": 77.8,
+   "shift_m": 154.5,
+   "shift_en_m": [
+    84.5,
+    -129.3
+   ],
+   "rot_deg": 30.45,
+   "scale": 0.7842,
+   "resid_med_m": 11.1,
+   "spread": [
+    0.34414606752068344,
+    43.9736560482792
+   ],
+   "bend": {
+    "control_cells": 17,
+    "consistent_matches": 1671,
+    "heldout_rigid_m": 31.4,
+    "heldout_bend_m": 8.7,
+    "max_move_m": 115.4,
+    "why": "bend would move ground 115 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4981,
+   "inliers": 614,
+   "fraction": 0.123,
+   "asis_fraction": 0.001,
+   "asis_err_m": 185.2,
+   "rigid_err_m": 239.0,
+   "shift_m": 427.7,
+   "shift_en_m": [
+    -386.9,
+    182.3
+   ],
+   "rot_deg": 14.59,
+   "scale": 0.5688,
+   "resid_med_m": 13.1,
+   "spread": [
+    0.3121343194041791,
+    34.259831023022166
+   ],
+   "bend": {
+    "why": "matches cover only 4 consistent cells of 80 m"
+   }
+  }
+ },
+ "grounds_agree_m": 565.1,
+ "cross": {
+  "asis_m": 198.5,
+  "shift_m": 184.0,
+  "bend_m": null,
+  "n": 1378,
+  "within_25m": {
+   "asis": 0.004,
+   "shift": 0.004,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 0% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.6760366641362714,
+   0.3973783633079314
+  ],
+  "t": [
+   296.494669338873,
+   61.690158268518815
+  ],
+  "m_per_px": 1.5015015015015014,
+  "smooth": 2.0,
+  "size": [
+   666,
+   666
+  ]
+ }
+}

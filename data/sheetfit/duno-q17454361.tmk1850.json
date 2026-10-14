@@ -1,0 +1,95 @@
+{
+ "site": "duno-q17454361",
+ "sheet": "tmk1850",
+ "label": "Topographic and Military Map of the Netherlands (TMK, c. 1850)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4992,
+   "inliers": 770,
+   "fraction": 0.154,
+   "asis_fraction": 0.056,
+   "asis_err_m": 82.6,
+   "rigid_err_m": 66.9,
+   "shift_m": 46.3,
+   "shift_en_m": [
+    1.8,
+    -46.3
+   ],
+   "rot_deg": -0.12,
+   "scale": 0.9834,
+   "resid_med_m": 14.6,
+   "spread": [
+    0.48995206476312353,
+    305.3108495688296
+   ],
+   "bend": {
+    "control_cells": 112,
+    "consistent_matches": 2835,
+    "heldout_rigid_m": 51.4,
+    "heldout_bend_m": 6.9,
+    "max_move_m": 119.4,
+    "why": "bend would move ground 119 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4982,
+   "inliers": 630,
+   "fraction": 0.126,
+   "asis_fraction": 0.009,
+   "asis_err_m": 63.2,
+   "rigid_err_m": 33.3,
+   "shift_m": 60.6,
+   "shift_en_m": [
+    16.7,
+    -58.3
+   ],
+   "rot_deg": -0.14,
+   "scale": 0.9854,
+   "resid_med_m": 14.2,
+   "spread": [
+    0.41707374088325716,
+    215.92059558423446
+   ],
+   "bend": {
+    "control_cells": 26,
+    "consistent_matches": 1408,
+    "heldout_rigid_m": 27.5,
+    "heldout_bend_m": 7.3,
+    "max_move_m": 62.0
+   }
+  }
+ },
+ "grounds_agree_m": 19.1,
+ "cross": {
+  "asis_m": 63.5,
+  "shift_m": 42.5,
+  "bend_m": null,
+  "n": 1599,
+  "within_25m": {
+   "asis": 0.029,
+   "shift": 0.28,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 3% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.9834167209021369,
+   -0.0020316119441346554
+  ],
+  "t": [
+   13.48905128740131,
+   61.147591056265796
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

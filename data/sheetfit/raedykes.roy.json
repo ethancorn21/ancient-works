@@ -1,0 +1,90 @@
+{
+ "site": "raedykes",
+ "sheet": "roy",
+ "label": "Roy's Military Survey of Scotland",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4995,
+   "inliers": 749,
+   "fraction": 0.15,
+   "asis_fraction": 0.0,
+   "asis_err_m": 216.2,
+   "rigid_err_m": 18.2,
+   "shift_m": 518.6,
+   "shift_en_m": [
+    240.1,
+    459.6
+   ],
+   "rot_deg": -7.98,
+   "scale": 0.4145,
+   "resid_med_m": 13.3,
+   "spread": [
+    0.4890736741494573,
+    70.47023054827596
+   ],
+   "bend": {
+    "why": "matches cover only 2 consistent cells of 80 m"
+   }
+  },
+  "relief": {
+   "matches": 4991,
+   "inliers": 291,
+   "fraction": 0.058,
+   "asis_fraction": 0.0,
+   "asis_err_m": null,
+   "rigid_err_m": null,
+   "shift_m": 899.6,
+   "shift_en_m": [
+    -896.5,
+    -75.6
+   ],
+   "rot_deg": 1.78,
+   "scale": 0.8593,
+   "resid_med_m": 15.3,
+   "spread": [
+    0.40063177286903284,
+    96.20702503506406
+   ],
+   "bend": {
+    "control_cells": 6,
+    "consistent_matches": 1012,
+    "heldout_rigid_m": 16.4,
+    "heldout_bend_m": 8.6,
+    "max_move_m": 29.6
+   }
+  }
+ },
+ "grounds_agree_m": 1256.3,
+ "cross": {
+  "asis_m": 562.8,
+  "shift_m": 80.9,
+  "bend_m": null,
+  "n": 797,
+  "within_25m": {
+   "asis": 0.0,
+   "shift": 0.082,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 0% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.4104533386923099,
+   -0.05751051339852385
+  ],
+  "t": [
+   443.5609904381752,
+   38.65207161563259
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   1066,
+   1066
+  ]
+ }
+}

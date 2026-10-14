@@ -1,0 +1,96 @@
+{
+ "site": "whitley-castle-q7996561",
+ "sheet": "os1inch",
+ "label": "Ordnance Survey One-inch map, Revised New Series (c. 1900)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 2216,
+   "fraction": 0.443,
+   "asis_fraction": 0.207,
+   "asis_err_m": 42.1,
+   "rigid_err_m": 30.1,
+   "shift_m": 25.8,
+   "shift_en_m": [
+    -25.8,
+    -0.5
+   ],
+   "rot_deg": -0.83,
+   "scale": 1.055,
+   "resid_med_m": 13.9,
+   "spread": [
+    0.6243084304405343,
+    234.98328549498123
+   ],
+   "bend": {
+    "control_cells": 109,
+    "consistent_matches": 4023,
+    "heldout_rigid_m": 19.0,
+    "heldout_bend_m": 8.0,
+    "max_move_m": 94.6,
+    "why": "bend would move ground 95 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4995,
+   "inliers": 1284,
+   "fraction": 0.257,
+   "asis_fraction": 0.114,
+   "asis_err_m": 51.3,
+   "rigid_err_m": 42.6,
+   "shift_m": 39.8,
+   "shift_en_m": [
+    -14.3,
+    37.1
+   ],
+   "rot_deg": -0.05,
+   "scale": 0.9764,
+   "resid_med_m": 15.6,
+   "spread": [
+    0.7873627510132598,
+    263.5105381240325
+   ],
+   "bend": {
+    "control_cells": 75,
+    "consistent_matches": 3480,
+    "heldout_rigid_m": 26.4,
+    "heldout_bend_m": 8.0,
+    "max_move_m": 91.3,
+    "why": "bend would move ground 91 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 39.3,
+ "cross": {
+  "asis_m": 51.4,
+  "shift_m": 56.0,
+  "bend_m": null,
+  "n": 4033,
+  "within_25m": {
+   "asis": 0.141,
+   "shift": 0.165,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 14% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   1.0549095930378583,
+   -0.01534253652571832
+  ],
+  "t": [
+   -81.96750559741939,
+   -31.15516583619761
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

@@ -1,0 +1,86 @@
+{
+ "site": "avebury-q661855",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.502,
+ "grounds": {
+  "aerial": {
+   "matches": 4996,
+   "inliers": 4540,
+   "fraction": 0.909,
+   "asis_fraction": 0.85,
+   "asis_err_m": 11.6,
+   "rigid_err_m": 8.5,
+   "shift_m": 10.0,
+   "shift_en_m": [
+    -2.9,
+    9.6
+   ],
+   "rot_deg": -0.23,
+   "scale": 0.9984,
+   "resid_med_m": 7.9,
+   "spread": [
+    0.9392004043727261,
+    177.74865510854343
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 5000,
+   "inliers": 4819,
+   "fraction": 0.964,
+   "asis_fraction": 0.924,
+   "asis_err_m": 6.2,
+   "rigid_err_m": 4.4,
+   "shift_m": 7.1,
+   "shift_en_m": [
+    -1.1,
+    7.0
+   ],
+   "rot_deg": -0.22,
+   "scale": 1.0003,
+   "resid_med_m": 4.3,
+   "spread": [
+    0.9305762393147454,
+    178.63687777173783
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 3.2,
+ "cross": {
+  "asis_m": 6.2,
+  "shift_m": 6.3,
+  "bend_m": null,
+  "n": 5000,
+  "within_25m": {
+   "asis": 0.924,
+   "shift": 0.96,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 6.2 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9984121726107026,
+   -0.0039695277775550885
+  ],
+  "t": [
+   -2.7029497680927577,
+   -4.5380149972972355
+  ],
+  "m_per_px": 1.5015015015015014,
+  "smooth": 2.0,
+  "size": [
+   666,
+   666
+  ]
+ }
+}

@@ -1,0 +1,86 @@
+{
+ "site": "cadbury-castle-q1025082",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4996,
+   "inliers": 4992,
+   "fraction": 0.999,
+   "asis_fraction": 0.991,
+   "asis_err_m": 4.9,
+   "rigid_err_m": 4.9,
+   "shift_m": 1.7,
+   "shift_en_m": [
+    0.7,
+    1.6
+   ],
+   "rot_deg": -0.04,
+   "scale": 0.9987,
+   "resid_med_m": 4.9,
+   "spread": [
+    0.946311971495656,
+    314.1582073237823
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4997,
+   "inliers": 4997,
+   "fraction": 1.0,
+   "asis_fraction": 1.0,
+   "asis_err_m": 3.6,
+   "rigid_err_m": 3.3,
+   "shift_m": 1.7,
+   "shift_en_m": [
+    -0.3,
+    -1.7
+   ],
+   "rot_deg": 0.07,
+   "scale": 0.9988,
+   "resid_med_m": 3.3,
+   "spread": [
+    0.9395722508468015,
+    331.1333626840093
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 3.4,
+ "cross": {
+  "asis_m": 3.6,
+  "shift_m": 4.4,
+  "bend_m": null,
+  "n": 4997,
+  "within_25m": {
+   "asis": 1.0,
+   "shift": 1.0,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 3.6 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9986506975602141,
+   -0.0007652693778215587
+  ],
+  "t": [
+   0.8040886896108512,
+   0.08360995203147287
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   1066,
+   1066
+  ]
+ }
+}

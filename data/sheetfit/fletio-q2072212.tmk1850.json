@@ -1,0 +1,96 @@
+{
+ "site": "fletio-q2072212",
+ "sheet": "tmk1850",
+ "label": "Topographic and Military Map of the Netherlands (TMK, c. 1850)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4999,
+   "inliers": 1553,
+   "fraction": 0.311,
+   "asis_fraction": 0.177,
+   "asis_err_m": 50.1,
+   "rigid_err_m": 42.7,
+   "shift_m": 22.8,
+   "shift_en_m": [
+    14.3,
+    17.8
+   ],
+   "rot_deg": -0.69,
+   "scale": 1.0573,
+   "resid_med_m": 14.9,
+   "spread": [
+    0.7546650138432666,
+    326.5647586379872
+   ],
+   "bend": {
+    "control_cells": 205,
+    "consistent_matches": 4249,
+    "heldout_rigid_m": 29.8,
+    "heldout_bend_m": 5.9,
+    "max_move_m": 198.0,
+    "why": "bend would move ground 198 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4999,
+   "inliers": 929,
+   "fraction": 0.186,
+   "asis_fraction": 0.163,
+   "asis_err_m": 60.8,
+   "rigid_err_m": 67.9,
+   "shift_m": 3.5,
+   "shift_en_m": [
+    1.7,
+    -3.1
+   ],
+   "rot_deg": -0.62,
+   "scale": 0.9729,
+   "resid_med_m": 14.9,
+   "spread": [
+    0.5450796850288225,
+    337.72645685532336
+   ],
+   "bend": {
+    "control_cells": 97,
+    "consistent_matches": 3776,
+    "heldout_rigid_m": 35.1,
+    "heldout_bend_m": 7.0,
+    "max_move_m": 136.7,
+    "why": "bend would move ground 137 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 24.4,
+ "cross": {
+  "asis_m": 60.9,
+  "shift_m": 64.6,
+  "bend_m": null,
+  "n": 4531,
+  "within_25m": {
+   "asis": 0.18,
+   "shift": 0.131,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 18% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   1.0572265852954146,
+   -0.012674589481002306
+  ],
+  "t": [
+   -41.63142391499136,
+   -53.421235950653504
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

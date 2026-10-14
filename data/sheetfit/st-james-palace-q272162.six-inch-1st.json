@@ -1,0 +1,86 @@
+{
+ "site": "st-james-palace-q272162",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4999,
+   "inliers": 4958,
+   "fraction": 0.992,
+   "asis_fraction": 0.986,
+   "asis_err_m": 7.4,
+   "rigid_err_m": 4.1,
+   "shift_m": 5.8,
+   "shift_en_m": [
+    2.4,
+    5.2
+   ],
+   "rot_deg": 0.04,
+   "scale": 0.9981,
+   "resid_med_m": 4.1,
+   "spread": [
+    0.9538715455743726,
+    326.4294145301553
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4999,
+   "inliers": 4996,
+   "fraction": 0.999,
+   "asis_fraction": 0.987,
+   "asis_err_m": 6.0,
+   "rigid_err_m": 3.8,
+   "shift_m": 5.5,
+   "shift_en_m": [
+    4.9,
+    2.3
+   ],
+   "rot_deg": -0.1,
+   "scale": 0.9977,
+   "resid_med_m": 3.8,
+   "spread": [
+    0.901811209711365,
+    314.24040554894606
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 3.8,
+ "cross": {
+  "asis_m": 6.0,
+  "shift_m": 4.6,
+  "bend_m": null,
+  "n": 4999,
+  "within_25m": {
+   "asis": 0.987,
+   "shift": 0.993,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 6.0 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9981115111153094,
+   0.000783509769526685
+  ],
+  "t": [
+   3.055697632389145,
+   -2.883399878269878
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   1066,
+   1066
+  ]
+ }
+}

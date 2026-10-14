@@ -1,0 +1,95 @@
+{
+ "site": "saint-ghislain-q668950",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4992,
+   "inliers": 303,
+   "fraction": 0.061,
+   "asis_fraction": 0.0,
+   "asis_err_m": 219.1,
+   "rigid_err_m": 220.0,
+   "shift_m": 861.5,
+   "shift_en_m": [
+    -462.4,
+    726.9
+   ],
+   "rot_deg": 20.36,
+   "scale": 0.4758,
+   "resid_med_m": 8.1,
+   "spread": [
+    0.40920323275777765,
+    94.17378579474968
+   ],
+   "bend": {
+    "control_cells": 9,
+    "consistent_matches": 806,
+    "heldout_rigid_m": 5.5,
+    "heldout_bend_m": 10.6,
+    "max_move_m": 15.4,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  },
+  "relief": {
+   "matches": 4995,
+   "inliers": 289,
+   "fraction": 0.058,
+   "asis_fraction": 0.001,
+   "asis_err_m": 147.4,
+   "rigid_err_m": 128.1,
+   "shift_m": 342.8,
+   "shift_en_m": [
+    -271.7,
+    209.1
+   ],
+   "rot_deg": 16.66,
+   "scale": 0.9626,
+   "resid_med_m": 15.7,
+   "spread": [
+    0.6535777176430257,
+    209.07975004302892
+   ],
+   "bend": {
+    "control_cells": 14,
+    "consistent_matches": 849,
+    "heldout_rigid_m": 23.8,
+    "heldout_bend_m": 9.7,
+    "max_move_m": 57.5
+   }
+  }
+ },
+ "grounds_agree_m": 551.8,
+ "cross": {
+  "asis_m": 192.0,
+  "shift_m": 429.4,
+  "bend_m": null,
+  "n": 631,
+  "within_25m": {
+   "asis": 0.01,
+   "shift": 0.0,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 1% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.44609246013854764,
+   0.16550451964309768
+  ],
+  "t": [
+   257.04444974868824,
+   -338.5129548030754
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   2000,
+   2000
+  ]
+ }
+}

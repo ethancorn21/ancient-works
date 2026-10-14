@@ -1,0 +1,95 @@
+{
+ "site": "motte-de-la-jacquille-q3325352",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4987,
+   "inliers": 1514,
+   "fraction": 0.304,
+   "asis_fraction": 0.062,
+   "asis_err_m": 57.4,
+   "rigid_err_m": 30.4,
+   "shift_m": 48.7,
+   "shift_en_m": [
+    -42.1,
+    -24.4
+   ],
+   "rot_deg": 0.42,
+   "scale": 0.9681,
+   "resid_med_m": 15.5,
+   "spread": [
+    0.5335873391266107,
+    104.10078448091114
+   ],
+   "bend": {
+    "control_cells": 16,
+    "consistent_matches": 2858,
+    "heldout_rigid_m": 12.7,
+    "heldout_bend_m": 11.7,
+    "max_move_m": 27.6,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  },
+  "relief": {
+   "matches": 4985,
+   "inliers": 1576,
+   "fraction": 0.316,
+   "asis_fraction": 0.067,
+   "asis_err_m": 73.5,
+   "rigid_err_m": 40.1,
+   "shift_m": 39.7,
+   "shift_en_m": [
+    -38.6,
+    9.5
+   ],
+   "rot_deg": 5.05,
+   "scale": 0.9592,
+   "resid_med_m": 13.2,
+   "spread": [
+    0.9406639823493462,
+    152.1643787953979
+   ],
+   "bend": {
+    "control_cells": 24,
+    "consistent_matches": 3090,
+    "heldout_rigid_m": 11.5,
+    "heldout_bend_m": 6.6,
+    "max_move_m": 25.6
+   }
+  }
+ },
+ "grounds_agree_m": 34.1,
+ "cross": {
+  "asis_m": 80.8,
+  "shift_m": 57.7,
+  "bend_m": null,
+  "n": 4643,
+  "within_25m": {
+   "asis": 0.072,
+   "shift": 0.143,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 7% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.9680783404233341,
+   0.007167128977766875
+  ],
+  "t": [
+   -26.447585691272877,
+   34.32855752208014
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   800,
+   800
+  ]
+ }
+}

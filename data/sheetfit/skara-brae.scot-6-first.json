@@ -1,0 +1,90 @@
+{
+ "site": "skara-brae",
+ "sheet": "scot-6-first",
+ "label": "Ordnance Survey six-inch map, Scotland, 1st edition",
+ "m_per_px": 1.502,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 4933,
+   "fraction": 0.987,
+   "asis_fraction": 0.974,
+   "asis_err_m": 8.9,
+   "rigid_err_m": 6.0,
+   "shift_m": 7.5,
+   "shift_en_m": [
+    -2.0,
+    -7.3
+   ],
+   "rot_deg": -0.17,
+   "scale": 0.9987,
+   "resid_med_m": 5.9,
+   "spread": [
+    0.7952531434741361,
+    173.60696479167643
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 5000,
+   "inliers": 4870,
+   "fraction": 0.974,
+   "asis_fraction": 0.726,
+   "asis_err_m": 19.1,
+   "rigid_err_m": 7.0,
+   "shift_m": 13.9,
+   "shift_en_m": [
+    2.8,
+    -13.6
+   ],
+   "rot_deg": 0.13,
+   "scale": 1.027,
+   "resid_med_m": 6.9,
+   "spread": [
+    0.6773092780225474,
+    151.43892731508387
+   ],
+   "bend": {
+    "control_cells": 127,
+    "consistent_matches": 4865,
+    "heldout_rigid_m": 6.7,
+    "heldout_bend_m": 3.3,
+    "max_move_m": 20.6
+   }
+  }
+ },
+ "grounds_agree_m": 7.9,
+ "cross": {
+  "asis_m": 19.1,
+  "shift_m": 14.2,
+  "bend_m": null,
+  "n": 5000,
+  "within_25m": {
+   "asis": 0.726,
+   "shift": 0.804,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 8.9 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.998733626576536,
+   -0.002893534094200148
+  ],
+  "t": [
+   -1.8453755365001523,
+   6.23846110911606
+  ],
+  "m_per_px": 1.5015015015015014,
+  "smooth": 2.0,
+  "size": [
+   666,
+   666
+  ]
+ }
+}

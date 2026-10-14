@@ -1,0 +1,86 @@
+{
+ "site": "aldford-castle-q4713789",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 4989,
+   "fraction": 0.998,
+   "asis_fraction": 0.994,
+   "asis_err_m": 8.9,
+   "rigid_err_m": 5.1,
+   "shift_m": 6.9,
+   "shift_en_m": [
+    -2.2,
+    6.5
+   ],
+   "rot_deg": 0.03,
+   "scale": 0.9913,
+   "resid_med_m": 5.1,
+   "spread": [
+    0.7440324018216777,
+    121.95063777560433
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4995,
+   "inliers": 4959,
+   "fraction": 0.993,
+   "asis_fraction": 0.985,
+   "asis_err_m": 6.6,
+   "rigid_err_m": 4.5,
+   "shift_m": 7.1,
+   "shift_en_m": [
+    -2.0,
+    6.8
+   ],
+   "rot_deg": 0.3,
+   "scale": 0.9962,
+   "resid_med_m": 4.4,
+   "spread": [
+    0.8772866740340888,
+    141.14633811168494
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 0.4,
+ "cross": {
+  "asis_m": 6.6,
+  "shift_m": 5.2,
+  "bend_m": null,
+  "n": 4995,
+  "within_25m": {
+   "asis": 0.985,
+   "shift": 0.992,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 6.6 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9912825131653612,
+   0.000472468308425755
+  ],
+  "t": [
+   0.9976604153823352,
+   -2.155739081759895
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

@@ -1,0 +1,96 @@
+{
+ "site": "sutton-hoo-q503256",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.5,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 1114,
+   "fraction": 0.223,
+   "asis_fraction": 0.188,
+   "asis_err_m": 57.9,
+   "rigid_err_m": 58.1,
+   "shift_m": 18.6,
+   "shift_en_m": [
+    13.8,
+    12.5
+   ],
+   "rot_deg": -1.11,
+   "scale": 1.0018,
+   "resid_med_m": 13.3,
+   "spread": [
+    0.36209541666968487,
+    115.729921206468
+   ],
+   "bend": {
+    "control_cells": 85,
+    "consistent_matches": 3951,
+    "heldout_rigid_m": 64.5,
+    "heldout_bend_m": 8.1,
+    "max_move_m": 181.0,
+    "why": "bend would move ground 181 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4986,
+   "inliers": 1731,
+   "fraction": 0.347,
+   "asis_fraction": 0.323,
+   "asis_err_m": 34.4,
+   "rigid_err_m": 33.4,
+   "shift_m": 13.7,
+   "shift_en_m": [
+    12.1,
+    6.4
+   ],
+   "rot_deg": -1.03,
+   "scale": 1.0075,
+   "resid_med_m": 12.2,
+   "spread": [
+    0.6053310466417756,
+    156.0970810653738
+   ],
+   "bend": {
+    "control_cells": 122,
+    "consistent_matches": 3473,
+    "heldout_rigid_m": 19.5,
+    "heldout_bend_m": 7.6,
+    "max_move_m": 95.4,
+    "why": "bend would move ground 95 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 6.3,
+ "cross": {
+  "asis_m": 34.8,
+  "shift_m": 31.6,
+  "bend_m": null,
+  "n": 4023,
+  "within_25m": {
+   "asis": 0.401,
+   "shift": 0.424,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "40% of relief matches within 25 m as laid; no confirmed fix"
+ },
+ "params": {
+  "s": [
+   1.0015772803700653,
+   -0.019410747260176386
+  ],
+  "t": [
+   0.8200369414053108,
+   -1.1982364199536104
+  ],
+  "m_per_px": 1.5,
+  "smooth": 2.0,
+  "size": [
+   800,
+   800
+  ]
+ }
+}

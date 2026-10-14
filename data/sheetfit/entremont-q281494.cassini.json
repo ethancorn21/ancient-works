@@ -1,0 +1,95 @@
+{
+ "site": "entremont-q281494",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 676,
+   "fraction": 0.135,
+   "asis_fraction": 0.004,
+   "asis_err_m": 177.4,
+   "rigid_err_m": 112.9,
+   "shift_m": 227.0,
+   "shift_en_m": [
+    -130.5,
+    -185.7
+   ],
+   "rot_deg": -3.69,
+   "scale": 1.0621,
+   "resid_med_m": 13.2,
+   "spread": [
+    0.821199888410778,
+    212.60559941167205
+   ],
+   "bend": {
+    "control_cells": 56,
+    "consistent_matches": 2370,
+    "heldout_rigid_m": 22.9,
+    "heldout_bend_m": 7.4,
+    "max_move_m": 130.8,
+    "why": "bend would move ground 131 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4995,
+   "inliers": 230,
+   "fraction": 0.046,
+   "asis_fraction": 0.005,
+   "asis_err_m": 149.1,
+   "rigid_err_m": 184.5,
+   "shift_m": 236.4,
+   "shift_en_m": [
+    124.6,
+    200.9
+   ],
+   "rot_deg": -148.99,
+   "scale": 1.0363,
+   "resid_med_m": 14.7,
+   "spread": [
+    0.4642038413640911,
+    94.65508536621616
+   ],
+   "bend": {
+    "control_cells": 14,
+    "consistent_matches": 1107,
+    "heldout_rigid_m": 16.2,
+    "heldout_bend_m": 10.1,
+    "max_move_m": 64.4
+   }
+  }
+ },
+ "grounds_agree_m": 463.2,
+ "cross": {
+  "asis_m": 172.5,
+  "shift_m": 187.9,
+  "bend_m": null,
+  "n": 371,
+  "within_25m": {
+   "asis": 0.065,
+   "shift": 0.003,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 6% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   1.0598825003041286,
+   -0.06827379342930619
+  ],
+  "t": [
+   -233.04156910663767,
+   192.43315375017073
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

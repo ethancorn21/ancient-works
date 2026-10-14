@@ -1,0 +1,95 @@
+{
+ "site": "saint-omer-q208793",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 412,
+   "fraction": 0.082,
+   "asis_fraction": 0.022,
+   "asis_err_m": 113.9,
+   "rigid_err_m": 89.0,
+   "shift_m": 97.6,
+   "shift_en_m": [
+    8.9,
+    97.2
+   ],
+   "rot_deg": -7.14,
+   "scale": 0.8508,
+   "resid_med_m": 16.0,
+   "spread": [
+    0.7277574988550738,
+    299.3365946454841
+   ],
+   "bend": {
+    "control_cells": 79,
+    "consistent_matches": 2820,
+    "heldout_rigid_m": 57.9,
+    "heldout_bend_m": 6.5,
+    "max_move_m": 194.9,
+    "why": "bend would move ground 195 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4986,
+   "inliers": 352,
+   "fraction": 0.071,
+   "asis_fraction": 0.0,
+   "asis_err_m": 197.0,
+   "rigid_err_m": 37.6,
+   "shift_m": 337.9,
+   "shift_en_m": [
+    -209.5,
+    -265.1
+   ],
+   "rot_deg": 18.04,
+   "scale": 0.4784,
+   "resid_med_m": 12.0,
+   "spread": [
+    0.4879049591712539,
+    105.63656669415006
+   ],
+   "bend": {
+    "control_cells": 10,
+    "consistent_matches": 677,
+    "heldout_rigid_m": 9.3,
+    "heldout_bend_m": 7.1,
+    "max_move_m": 23.2
+   }
+  }
+ },
+ "grounds_agree_m": 423.0,
+ "cross": {
+  "asis_m": 242.5,
+  "shift_m": 160.1,
+  "bend_m": null,
+  "n": 1943,
+  "within_25m": {
+   "asis": 0.001,
+   "shift": 0.008,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 0% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.8441872485185977,
+   -0.10578061574512936
+  ],
+  "t": [
+   58.95143029056965,
+   164.39523230192998
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   2000,
+   2000
+  ]
+ }
+}

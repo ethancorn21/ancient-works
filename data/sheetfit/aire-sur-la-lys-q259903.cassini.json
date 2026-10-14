@@ -1,0 +1,96 @@
+{
+ "site": "aire-sur-la-lys-q259903",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4994,
+   "inliers": 1000,
+   "fraction": 0.2,
+   "asis_fraction": 0.01,
+   "asis_err_m": 129.2,
+   "rigid_err_m": 50.0,
+   "shift_m": 48.5,
+   "shift_en_m": [
+    -21.8,
+    -43.4
+   ],
+   "rot_deg": 6.57,
+   "scale": 0.8607,
+   "resid_med_m": 14.6,
+   "spread": [
+    0.6678306845096127,
+    406.98123564293365
+   ],
+   "bend": {
+    "control_cells": 105,
+    "consistent_matches": 3938,
+    "heldout_rigid_m": 26.5,
+    "heldout_bend_m": 8.0,
+    "max_move_m": 95.8,
+    "why": "bend would move ground 96 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4995,
+   "inliers": 591,
+   "fraction": 0.118,
+   "asis_fraction": 0.031,
+   "asis_err_m": 111.8,
+   "rigid_err_m": 83.9,
+   "shift_m": 60.6,
+   "shift_en_m": [
+    -41.0,
+    44.6
+   ],
+   "rot_deg": 1.72,
+   "scale": 0.8184,
+   "resid_med_m": 15.1,
+   "spread": [
+    0.5740649627632928,
+    317.9174066251544
+   ],
+   "bend": {
+    "control_cells": 98,
+    "consistent_matches": 3657,
+    "heldout_rigid_m": 54.0,
+    "heldout_bend_m": 8.0,
+    "max_move_m": 155.7,
+    "why": "bend would move ground 156 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 90.1,
+ "cross": {
+  "asis_m": 114.2,
+  "shift_m": 110.6,
+  "bend_m": null,
+  "n": 4480,
+  "within_25m": {
+   "asis": 0.035,
+   "shift": 0.043,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 4% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.8550087856708986,
+   0.09841927618826618
+  ],
+  "t": [
+   221.64703416301978,
+   89.96376229082064
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   2000,
+   2000
+  ]
+ }
+}

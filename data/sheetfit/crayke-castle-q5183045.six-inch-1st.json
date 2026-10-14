@@ -1,0 +1,86 @@
+{
+ "site": "crayke-castle-q5183045",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4993,
+   "inliers": 4916,
+   "fraction": 0.985,
+   "asis_fraction": 0.979,
+   "asis_err_m": 6.6,
+   "rigid_err_m": 6.1,
+   "shift_m": 0.3,
+   "shift_en_m": [
+    0.1,
+    0.3
+   ],
+   "rot_deg": -0.01,
+   "scale": 0.9935,
+   "resid_med_m": 6.0,
+   "spread": [
+    0.8509920299200766,
+    135.7690474238399
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4996,
+   "inliers": 4931,
+   "fraction": 0.987,
+   "asis_fraction": 0.985,
+   "asis_err_m": 4.5,
+   "rigid_err_m": 4.0,
+   "shift_m": 1.9,
+   "shift_en_m": [
+    1.7,
+    0.8
+   ],
+   "rot_deg": 0.11,
+   "scale": 0.9978,
+   "resid_med_m": 4.0,
+   "spread": [
+    0.9237888819417927,
+    144.60012880364746
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 1.7,
+ "cross": {
+  "asis_m": 4.5,
+  "shift_m": 4.5,
+  "bend_m": null,
+  "n": 4996,
+  "within_25m": {
+   "asis": 0.985,
+   "shift": 0.985,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 4.5 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9934720224484382,
+   -8.746026588026977e-05
+  ],
+  "t": [
+   1.8004901601234762,
+   1.5831555883084862
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

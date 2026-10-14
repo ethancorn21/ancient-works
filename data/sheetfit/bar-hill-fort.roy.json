@@ -1,0 +1,86 @@
+{
+ "site": "bar-hill-fort",
+ "sheet": "roy",
+ "label": "Roy's Military Survey of Scotland",
+ "m_per_px": 1.502,
+ "grounds": {
+  "aerial": {
+   "matches": 4989,
+   "inliers": 621,
+   "fraction": 0.124,
+   "asis_fraction": 0.007,
+   "asis_err_m": 203.7,
+   "rigid_err_m": 232.4,
+   "shift_m": 343.7,
+   "shift_en_m": [
+    319.2,
+    127.5
+   ],
+   "rot_deg": 24.38,
+   "scale": 0.4484,
+   "resid_med_m": 13.1,
+   "spread": [
+    0.264352701902186,
+    37.62138119055382
+   ],
+   "bend": {
+    "why": "matches cover only 2 consistent cells of 80 m"
+   }
+  },
+  "relief": {
+   "matches": 4986,
+   "inliers": 487,
+   "fraction": 0.098,
+   "asis_fraction": 0.0,
+   "asis_err_m": 202.5,
+   "rigid_err_m": 152.3,
+   "shift_m": 308.7,
+   "shift_en_m": [
+    242.9,
+    190.5
+   ],
+   "rot_deg": -22.39,
+   "scale": 0.509,
+   "resid_med_m": 13.1,
+   "spread": [
+    0.51023129310621,
+    46.9314114617194
+   ],
+   "bend": {
+    "why": "matches cover only 5 consistent cells of 80 m"
+   }
+  }
+ },
+ "grounds_agree_m": 98.9,
+ "cross": {
+  "asis_m": 430.3,
+  "shift_m": 72.8,
+  "bend_m": null,
+  "n": 1717,
+  "within_25m": {
+   "asis": 0.0,
+   "shift": 0.064,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 0% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.4084414201936099,
+   0.18509531463896498
+  ],
+  "t": [
+   471.2094508647057,
+   50.45682499259419
+  ],
+  "m_per_px": 1.5015015015015014,
+  "smooth": 2.0,
+  "size": [
+   666,
+   666
+  ]
+ }
+}

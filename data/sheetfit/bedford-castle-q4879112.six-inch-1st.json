@@ -1,0 +1,86 @@
+{
+ "site": "bedford-castle-q4879112",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 4910,
+   "fraction": 0.982,
+   "asis_fraction": 0.968,
+   "asis_err_m": 9.7,
+   "rigid_err_m": 5.3,
+   "shift_m": 7.9,
+   "shift_en_m": [
+    4.6,
+    6.5
+   ],
+   "rot_deg": -0.05,
+   "scale": 1.0107,
+   "resid_med_m": 5.2,
+   "spread": [
+    0.7640499623467638,
+    113.70128489965296
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4997,
+   "inliers": 4974,
+   "fraction": 0.995,
+   "asis_fraction": 0.988,
+   "asis_err_m": 8.3,
+   "rigid_err_m": 4.6,
+   "shift_m": 6.5,
+   "shift_en_m": [
+    2.9,
+    5.9
+   ],
+   "rot_deg": -0.1,
+   "scale": 1.0062,
+   "resid_med_m": 4.6,
+   "spread": [
+    0.840810077116446,
+    143.14273874249187
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 1.8,
+ "cross": {
+  "asis_m": 8.3,
+  "shift_m": 5.3,
+  "bend_m": null,
+  "n": 4997,
+  "within_25m": {
+   "asis": 0.988,
+   "shift": 0.994,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 8.3 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0107364390426818,
+   -0.0008068989666328848
+  ],
+  "t": [
+   -0.018995676464266253,
+   -6.958548637888083
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

@@ -1,0 +1,86 @@
+{
+ "site": "somerset-house-q1344889",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4999,
+   "inliers": 4955,
+   "fraction": 0.991,
+   "asis_fraction": 0.984,
+   "asis_err_m": 7.7,
+   "rigid_err_m": 5.9,
+   "shift_m": 3.0,
+   "shift_en_m": [
+    -0.5,
+    2.9
+   ],
+   "rot_deg": 0.32,
+   "scale": 0.9987,
+   "resid_med_m": 5.9,
+   "spread": [
+    0.7525624329477619,
+    253.2673575329949
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 5000,
+   "inliers": 4488,
+   "fraction": 0.898,
+   "asis_fraction": 0.872,
+   "asis_err_m": 6.1,
+   "rigid_err_m": 6.4,
+   "shift_m": 4.4,
+   "shift_en_m": [
+    4.0,
+    1.6
+   ],
+   "rot_deg": -0.1,
+   "scale": 1.0003,
+   "resid_med_m": 5.7,
+   "spread": [
+    0.9592242102703115,
+    327.98568098972254
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 4.7,
+ "cross": {
+  "asis_m": 6.1,
+  "shift_m": 8.5,
+  "bend_m": null,
+  "n": 5000,
+  "within_25m": {
+   "asis": 0.872,
+   "shift": 0.875,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 6.1 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9986873628440043,
+   0.005599740290956998
+  ],
+  "t": [
+   3.3774791730341454,
+   -4.238717954067585
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   1066,
+   1066
+  ]
+ }
+}

@@ -1,0 +1,86 @@
+{
+ "site": "eddisbury-hill-fort-q5336613",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 4685,
+   "fraction": 0.937,
+   "asis_fraction": 0.905,
+   "asis_err_m": 9.7,
+   "rigid_err_m": 7.0,
+   "shift_m": 6.8,
+   "shift_en_m": [
+    -6.8,
+    -0.2
+   ],
+   "rot_deg": -0.15,
+   "scale": 0.9937,
+   "resid_med_m": 6.6,
+   "spread": [
+    0.9035649681185387,
+    252.04941510866223
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 5000,
+   "inliers": 4632,
+   "fraction": 0.926,
+   "asis_fraction": 0.911,
+   "asis_err_m": 9.6,
+   "rigid_err_m": 7.5,
+   "shift_m": 4.5,
+   "shift_en_m": [
+    -4.4,
+    -0.9
+   ],
+   "rot_deg": 0.03,
+   "scale": 0.9992,
+   "resid_med_m": 7.0,
+   "spread": [
+    0.97695738254443,
+    310.0059293241956
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 2.5,
+ "cross": {
+  "asis_m": 9.6,
+  "shift_m": 9.1,
+  "bend_m": null,
+  "n": 5000,
+  "within_25m": {
+   "asis": 0.911,
+   "shift": 0.906,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 9.6 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9936928007868215,
+   -0.002620654543770382
+  ],
+  "t": [
+   -2.5855598410068503,
+   4.887381837103003
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   1066,
+   1066
+  ]
+ }
+}

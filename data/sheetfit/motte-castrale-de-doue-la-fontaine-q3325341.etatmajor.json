@@ -1,0 +1,95 @@
+{
+ "site": "motte-castrale-de-doue-la-fontaine-q3325341",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4996,
+   "inliers": 1858,
+   "fraction": 0.372,
+   "asis_fraction": 0.048,
+   "asis_err_m": 58.9,
+   "rigid_err_m": 31.6,
+   "shift_m": 63.9,
+   "shift_en_m": [
+    10.4,
+    63.1
+   ],
+   "rot_deg": 1.62,
+   "scale": 0.868,
+   "resid_med_m": 16.2,
+   "spread": [
+    0.5775886633063051,
+    124.55764990881
+   ],
+   "bend": {
+    "control_cells": 26,
+    "consistent_matches": 3960,
+    "heldout_rigid_m": 21.5,
+    "heldout_bend_m": 11.1,
+    "max_move_m": 105.3,
+    "why": "bend would move ground 105 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4996,
+   "inliers": 1649,
+   "fraction": 0.33,
+   "asis_fraction": 0.251,
+   "asis_err_m": 39.3,
+   "rigid_err_m": 37.0,
+   "shift_m": 18.7,
+   "shift_en_m": [
+    -0.8,
+    18.7
+   ],
+   "rot_deg": 1.54,
+   "scale": 0.9885,
+   "resid_med_m": 15.0,
+   "spread": [
+    0.5595860377336174,
+    150.26182093086683
+   ],
+   "bend": {
+    "control_cells": 36,
+    "consistent_matches": 3890,
+    "heldout_rigid_m": 35.8,
+    "heldout_bend_m": 10.6,
+    "max_move_m": 66.5
+   }
+  }
+ },
+ "grounds_agree_m": 45.8,
+ "cross": {
+  "asis_m": 39.4,
+  "shift_m": 68.5,
+  "bend_m": null,
+  "n": 4598,
+  "within_25m": {
+   "asis": 0.273,
+   "shift": 0.079,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 27% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.8676246910568102,
+   0.02447038205981945
+  ],
+  "t": [
+   73.18264613408934,
+   -19.89723200998163
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   800,
+   800
+  ]
+ }
+}

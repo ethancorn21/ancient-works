@@ -1,0 +1,86 @@
+{
+ "site": "stoke-house",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4997,
+   "inliers": 4768,
+   "fraction": 0.954,
+   "asis_fraction": 0.877,
+   "asis_err_m": 11.7,
+   "rigid_err_m": 7.6,
+   "shift_m": 12.7,
+   "shift_en_m": [
+    -9.3,
+    8.6
+   ],
+   "rot_deg": -0.25,
+   "scale": 1.0075,
+   "resid_med_m": 7.3,
+   "spread": [
+    0.823381853777785,
+    233.63115084418362
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4999,
+   "inliers": 4471,
+   "fraction": 0.894,
+   "asis_fraction": 0.862,
+   "asis_err_m": 9.7,
+   "rigid_err_m": 6.9,
+   "shift_m": 6.3,
+   "shift_en_m": [
+    -6.0,
+    1.9
+   ],
+   "rot_deg": -0.1,
+   "scale": 1.0049,
+   "resid_med_m": 6.4,
+   "spread": [
+    0.7073999063891521,
+    241.59354086078565
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 7.5,
+ "cross": {
+  "asis_m": 9.7,
+  "shift_m": 9.2,
+  "bend_m": null,
+  "n": 4999,
+  "within_25m": {
+   "asis": 0.862,
+   "shift": 0.849,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 9.7 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0074720439726506,
+   -0.00446939026798541
+  ],
+  "t": [
+   -12.552523149884715,
+   -7.361707342845796
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   1066,
+   1066
+  ]
+ }
+}

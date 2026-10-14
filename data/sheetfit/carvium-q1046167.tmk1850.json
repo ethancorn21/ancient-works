@@ -1,0 +1,96 @@
+{
+ "site": "carvium-q1046167",
+ "sheet": "tmk1850",
+ "label": "Topographic and Military Map of the Netherlands (TMK, c. 1850)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4993,
+   "inliers": 569,
+   "fraction": 0.114,
+   "asis_fraction": 0.002,
+   "asis_err_m": 222.8,
+   "rigid_err_m": 190.4,
+   "shift_m": 642.9,
+   "shift_en_m": [
+    -577.4,
+    -282.5
+   ],
+   "rot_deg": -6.35,
+   "scale": 0.5842,
+   "resid_med_m": 13.1,
+   "spread": [
+    0.21710571654214822,
+    126.55108643487046
+   ],
+   "bend": {
+    "control_cells": 10,
+    "consistent_matches": 1287,
+    "heldout_rigid_m": 11.0,
+    "heldout_bend_m": 12.0,
+    "max_move_m": 54.6,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  },
+  "relief": {
+   "matches": 4984,
+   "inliers": 422,
+   "fraction": 0.085,
+   "asis_fraction": 0.0,
+   "asis_err_m": null,
+   "rigid_err_m": null,
+   "shift_m": 759.8,
+   "shift_en_m": [
+    -699.2,
+    297.4
+   ],
+   "rot_deg": -1.58,
+   "scale": 1.1088,
+   "resid_med_m": 13.4,
+   "spread": [
+    0.5833102847253736,
+    113.11961703147773
+   ],
+   "bend": {
+    "control_cells": 29,
+    "consistent_matches": 2060,
+    "heldout_rigid_m": 22.2,
+    "heldout_bend_m": 7.2,
+    "max_move_m": 101.9,
+    "why": "bend would move ground 102 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 592.6,
+ "cross": {
+  "asis_m": 682.3,
+  "shift_m": 162.7,
+  "bend_m": null,
+  "n": 938,
+  "within_25m": {
+   "asis": 0.002,
+   "shift": 0.023,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 0% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.5806060288177735,
+   -0.06462253542549995
+  ],
+  "t": [
+   -293.62291527268036,
+   669.7419712346576
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

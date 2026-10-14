@@ -1,0 +1,86 @@
+{
+ "site": "castle-dore-q5050057",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 4998,
+   "fraction": 1.0,
+   "asis_fraction": 1.0,
+   "asis_err_m": 3.4,
+   "rigid_err_m": 3.0,
+   "shift_m": 1.4,
+   "shift_en_m": [
+    -0.3,
+    -1.4
+   ],
+   "rot_deg": 0.01,
+   "scale": 1.0006,
+   "resid_med_m": 3.0,
+   "spread": [
+    0.9522299516408341,
+    300.11493785295215
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 5000,
+   "inliers": 5000,
+   "fraction": 1.0,
+   "asis_fraction": 1.0,
+   "asis_err_m": 3.8,
+   "rigid_err_m": 3.2,
+   "shift_m": 1.9,
+   "shift_en_m": [
+    -0.1,
+    -1.9
+   ],
+   "rot_deg": -0.02,
+   "scale": 1.0011,
+   "resid_med_m": 3.2,
+   "spread": [
+    0.8702893577352347,
+    299.45027894311653
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 0.5,
+ "cross": {
+  "asis_m": 3.8,
+  "shift_m": 3.3,
+  "bend_m": null,
+  "n": 5000,
+  "within_25m": {
+   "asis": 1.0,
+   "shift": 1.0,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 3.4 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.00057885451031,
+   0.00012881049243446133
+  ],
+  "t": [
+   -0.4301216866590624,
+   0.5339033737486661
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   1066,
+   1066
+  ]
+ }
+}

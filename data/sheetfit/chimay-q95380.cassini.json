@@ -1,0 +1,96 @@
+{
+ "site": "chimay-q95380",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 339,
+   "fraction": 0.068,
+   "asis_fraction": 0.001,
+   "asis_err_m": 135.7,
+   "rigid_err_m": 77.9,
+   "shift_m": 91.6,
+   "shift_en_m": [
+    46.3,
+    79.1
+   ],
+   "rot_deg": -3.37,
+   "scale": 0.7087,
+   "resid_med_m": 15.3,
+   "spread": [
+    0.4884298879600999,
+    139.04366713328037
+   ],
+   "bend": {
+    "control_cells": 6,
+    "consistent_matches": 1574,
+    "heldout_rigid_m": 15.9,
+    "heldout_bend_m": 14.8,
+    "max_move_m": 48.1,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  },
+  "relief": {
+   "matches": 4990,
+   "inliers": 270,
+   "fraction": 0.054,
+   "asis_fraction": 0.0,
+   "asis_err_m": 226.8,
+   "rigid_err_m": 238.7,
+   "shift_m": 374.7,
+   "shift_en_m": [
+    297.8,
+    -227.4
+   ],
+   "rot_deg": 16.16,
+   "scale": 0.7108,
+   "resid_med_m": 13.1,
+   "spread": [
+    0.6340608639778366,
+    122.66670623361209
+   ],
+   "bend": {
+    "control_cells": 8,
+    "consistent_matches": 479,
+    "heldout_rigid_m": 12.7,
+    "heldout_bend_m": 16.2,
+    "max_move_m": 25.1,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  }
+ },
+ "grounds_agree_m": 396.5,
+ "cross": {
+  "asis_m": 463.1,
+  "shift_m": 210.8,
+  "bend_m": null,
+  "n": 401,
+  "within_25m": {
+   "asis": 0.0,
+   "shift": 0.0,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 0% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.7074968369262506,
+   -0.04170711114393802
+  ],
+  "t": [
+   297.05405514886377,
+   255.1289991782549
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   2000,
+   2000
+  ]
+ }
+}

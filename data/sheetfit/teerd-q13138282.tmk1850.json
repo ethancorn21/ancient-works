@@ -1,0 +1,96 @@
+{
+ "site": "teerd-q13138282",
+ "sheet": "tmk1850",
+ "label": "Topographic and Military Map of the Netherlands (TMK, c. 1850)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4994,
+   "inliers": 1858,
+   "fraction": 0.372,
+   "asis_fraction": 0.005,
+   "asis_err_m": 117.2,
+   "rigid_err_m": 33.6,
+   "shift_m": 110.7,
+   "shift_en_m": [
+    78.0,
+    -78.5
+   ],
+   "rot_deg": 0.44,
+   "scale": 0.9552,
+   "resid_med_m": 15.4,
+   "spread": [
+    0.5565766009575788,
+    188.17863342237413
+   ],
+   "bend": {
+    "control_cells": 81,
+    "consistent_matches": 3999,
+    "heldout_rigid_m": 22.6,
+    "heldout_bend_m": 6.0,
+    "max_move_m": 90.8,
+    "why": "bend would move ground 91 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4998,
+   "inliers": 2936,
+   "fraction": 0.587,
+   "asis_fraction": 0.002,
+   "asis_err_m": 127.5,
+   "rigid_err_m": 18.2,
+   "shift_m": 118.7,
+   "shift_en_m": [
+    71.4,
+    -94.9
+   ],
+   "rot_deg": 2.8,
+   "scale": 0.9784,
+   "resid_med_m": 12.4,
+   "spread": [
+    0.6640162479446984,
+    174.55443160153223
+   ],
+   "bend": {
+    "control_cells": 84,
+    "consistent_matches": 4220,
+    "heldout_rigid_m": 14.2,
+    "heldout_bend_m": 4.9,
+    "max_move_m": 225.1,
+    "why": "bend would move ground 225 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 17.7,
+ "cross": {
+  "asis_m": 129.9,
+  "shift_m": 26.2,
+  "bend_m": null,
+  "n": 4998,
+  "within_25m": {
+   "asis": 0.002,
+   "shift": 0.482,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "shift",
+  "why": "relief matches 129.9 m as laid -> 26.2 m (shift)"
+ },
+ "params": {
+  "s": [
+   0.9551296687238057,
+   0.007414236145205011
+  ],
+  "t": [
+   109.33398843248924,
+   101.02279676959564
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1200,
+   1200
+  ]
+ }
+}

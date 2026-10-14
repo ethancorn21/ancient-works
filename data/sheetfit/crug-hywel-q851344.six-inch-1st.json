@@ -1,0 +1,51 @@
+{
+ "site": "crug-hywel-q851344",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4999,
+   "inliers": 4747,
+   "fraction": 0.95,
+   "asis_fraction": 0.939,
+   "asis_err_m": 6.4,
+   "rigid_err_m": 3.7,
+   "shift_m": 4.5,
+   "shift_en_m": [
+    -3.7,
+    2.6
+   ],
+   "rot_deg": 0.13,
+   "scale": 1.0,
+   "resid_med_m": 3.6,
+   "spread": [
+    0.787796641707391,
+    285.4130911907445
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 6.4 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0000371389207579,
+   0.002325117600301798
+  ],
+  "t": [
+   -1.2352692255685263,
+   -2.9788088724487745
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   1066,
+   1066
+  ]
+ }
+}

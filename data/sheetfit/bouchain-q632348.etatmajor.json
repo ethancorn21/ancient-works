@@ -1,0 +1,95 @@
+{
+ "site": "bouchain-q632348",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4994,
+   "inliers": 1013,
+   "fraction": 0.203,
+   "asis_fraction": 0.024,
+   "asis_err_m": 86.0,
+   "rigid_err_m": 55.7,
+   "shift_m": 59.1,
+   "shift_en_m": [
+    3.8,
+    59.0
+   ],
+   "rot_deg": -0.1,
+   "scale": 1.0008,
+   "resid_med_m": 16.0,
+   "spread": [
+    0.49301310658204606,
+    266.1939830309969
+   ],
+   "bend": {
+    "control_cells": 107,
+    "consistent_matches": 3374,
+    "heldout_rigid_m": 21.5,
+    "heldout_bend_m": 6.7,
+    "max_move_m": 170.9,
+    "why": "bend would move ground 171 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4996,
+   "inliers": 1288,
+   "fraction": 0.258,
+   "asis_fraction": 0.053,
+   "asis_err_m": 72.1,
+   "rigid_err_m": 46.0,
+   "shift_m": 60.1,
+   "shift_en_m": [
+    3.8,
+    60.0
+   ],
+   "rot_deg": 0.35,
+   "scale": 1.0111,
+   "resid_med_m": 15.6,
+   "spread": [
+    0.7763412390544505,
+    422.9205746217441
+   ],
+   "bend": {
+    "control_cells": 105,
+    "consistent_matches": 3245,
+    "heldout_rigid_m": 24.7,
+    "heldout_bend_m": 7.6,
+    "max_move_m": 73.9
+   }
+  }
+ },
+ "grounds_agree_m": 1.0,
+ "cross": {
+  "asis_m": 72.2,
+  "shift_m": 44.2,
+  "bend_m": null,
+  "n": 4975,
+  "within_25m": {
+   "asis": 0.053,
+   "shift": 0.251,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 5% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   1.0008005373272877,
+   -0.001800923059945007
+  ],
+  "t": [
+   1.229631036412549,
+   -57.9599205002118
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   2000,
+   2000
+  ]
+ }
+}

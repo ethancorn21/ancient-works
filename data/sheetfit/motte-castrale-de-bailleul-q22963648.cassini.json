@@ -1,0 +1,91 @@
+{
+ "site": "motte-castrale-de-bailleul-q22963648",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4983,
+   "inliers": 533,
+   "fraction": 0.107,
+   "asis_fraction": 0.011,
+   "asis_err_m": 115.1,
+   "rigid_err_m": 139.4,
+   "shift_m": 135.4,
+   "shift_en_m": [
+    121.4,
+    60.0
+   ],
+   "rot_deg": -50.75,
+   "scale": 0.8344,
+   "resid_med_m": 15.0,
+   "spread": [
+    0.4970741293230536,
+    74.79025596821086
+   ],
+   "bend": {
+    "why": "matches cover only 5 consistent cells of 80 m"
+   }
+  },
+  "relief": {
+   "matches": 4986,
+   "inliers": 540,
+   "fraction": 0.108,
+   "asis_fraction": 0.0,
+   "asis_err_m": 157.4,
+   "rigid_err_m": 77.6,
+   "shift_m": 207.0,
+   "shift_en_m": [
+    -190.5,
+    80.9
+   ],
+   "rot_deg": 26.39,
+   "scale": 1.2757,
+   "resid_med_m": 13.9,
+   "spread": [
+    0.44767751295747915,
+    83.35973926074759
+   ],
+   "bend": {
+    "control_cells": 11,
+    "consistent_matches": 1605,
+    "heldout_rigid_m": 11.4,
+    "heldout_bend_m": 9.3,
+    "max_move_m": 25.4,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  }
+ },
+ "grounds_agree_m": 312.6,
+ "cross": {
+  "asis_m": 186.5,
+  "shift_m": 284.8,
+  "bend_m": null,
+  "n": 2003,
+  "within_25m": {
+   "asis": 0.001,
+   "shift": 0.042,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 0% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.5279011721070263,
+   -0.646174910252545
+  ],
+  "t": [
+   51.72031846129073,
+   387.2987096653547
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   800,
+   800
+  ]
+ }
+}

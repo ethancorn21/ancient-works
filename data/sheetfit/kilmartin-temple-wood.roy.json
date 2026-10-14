@@ -1,0 +1,96 @@
+{
+ "site": "kilmartin-temple-wood",
+ "sheet": "roy",
+ "label": "Roy's Military Survey of Scotland",
+ "m_per_px": 1.5,
+ "grounds": {
+  "aerial": {
+   "matches": 4996,
+   "inliers": 218,
+   "fraction": 0.044,
+   "asis_fraction": 0.001,
+   "asis_err_m": 205.0,
+   "rigid_err_m": 49.4,
+   "shift_m": 507.7,
+   "shift_en_m": [
+    -248.1,
+    -442.9
+   ],
+   "rot_deg": 1.24,
+   "scale": 1.2574,
+   "resid_med_m": 15.6,
+   "spread": [
+    0.26536421651112535,
+    146.03777991764449
+   ],
+   "bend": {
+    "control_cells": 12,
+    "consistent_matches": 1222,
+    "heldout_rigid_m": 29.8,
+    "heldout_bend_m": 9.9,
+    "max_move_m": 82.5,
+    "why": "bend would move ground 83 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4993,
+   "inliers": 165,
+   "fraction": 0.033,
+   "asis_fraction": 0.001,
+   "asis_err_m": 167.9,
+   "rigid_err_m": 130.8,
+   "shift_m": 578.8,
+   "shift_en_m": [
+    520.5,
+    253.1
+   ],
+   "rot_deg": -38.76,
+   "scale": 0.876,
+   "resid_med_m": 13.0,
+   "spread": [
+    0.2724860660687917,
+    68.84948761992474
+   ],
+   "bend": {
+    "control_cells": 8,
+    "consistent_matches": 650,
+    "heldout_rigid_m": 116.0,
+    "heldout_bend_m": 13.6,
+    "max_move_m": 142.2,
+    "why": "bend would move ground 142 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 1036.9,
+ "cross": {
+  "asis_m": 225.6,
+  "shift_m": 222.9,
+  "bend_m": null,
+  "n": 321,
+  "within_25m": {
+   "asis": 0.009,
+   "shift": 0.019,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 1% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   1.2571214775425563,
+   0.027293416136174795
+  ],
+  "t": [
+   -395.21704695270563,
+   10.88072343815773
+  ],
+  "m_per_px": 1.5,
+  "smooth": 2.0,
+  "size": [
+   2000,
+   2000
+  ]
+ }
+}

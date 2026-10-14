@@ -1,0 +1,96 @@
+{
+ "site": "bethune-q207145",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4997,
+   "inliers": 482,
+   "fraction": 0.096,
+   "asis_fraction": 0.014,
+   "asis_err_m": 139.6,
+   "rigid_err_m": 97.6,
+   "shift_m": 244.7,
+   "shift_en_m": [
+    129.9,
+    207.4
+   ],
+   "rot_deg": -17.67,
+   "scale": 1.2861,
+   "resid_med_m": 15.9,
+   "spread": [
+    0.48735238104194734,
+    238.05282965058728
+   ],
+   "bend": {
+    "control_cells": 100,
+    "consistent_matches": 2797,
+    "heldout_rigid_m": 67.8,
+    "heldout_bend_m": 7.0,
+    "max_move_m": 197.9,
+    "why": "bend would move ground 198 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4998,
+   "inliers": 739,
+   "fraction": 0.148,
+   "asis_fraction": 0.009,
+   "asis_err_m": 166.1,
+   "rigid_err_m": 100.2,
+   "shift_m": 231.6,
+   "shift_en_m": [
+    181.5,
+    143.9
+   ],
+   "rot_deg": -13.85,
+   "scale": 1.1037,
+   "resid_med_m": 14.0,
+   "spread": [
+    0.7140493248409588,
+    192.36208928095797
+   ],
+   "bend": {
+    "control_cells": 123,
+    "consistent_matches": 2781,
+    "heldout_rigid_m": 44.1,
+    "heldout_bend_m": 7.9,
+    "max_move_m": 207.0,
+    "why": "bend would move ground 207 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 81.8,
+ "cross": {
+  "asis_m": 188.6,
+  "shift_m": 198.1,
+  "bend_m": null,
+  "n": 3977,
+  "within_25m": {
+   "asis": 0.011,
+   "shift": 0.017,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 1% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   1.2254596777304685,
+   -0.3903206787624983
+  ],
+  "t": [
+   -485.92014117103054,
+   -42.54766132442103
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   2000,
+   2000
+  ]
+ }
+}

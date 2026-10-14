@@ -1,0 +1,86 @@
+{
+ "site": "shotwick-castle-q7502621",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4995,
+   "inliers": 4801,
+   "fraction": 0.961,
+   "asis_fraction": 0.936,
+   "asis_err_m": 8.5,
+   "rigid_err_m": 7.8,
+   "shift_m": 4.3,
+   "shift_en_m": [
+    3.9,
+    2.0
+   ],
+   "rot_deg": -0.12,
+   "scale": 1.0081,
+   "resid_med_m": 7.6,
+   "spread": [
+    0.9069691707236957,
+    140.54908161202056
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4995,
+   "inliers": 4678,
+   "fraction": 0.937,
+   "asis_fraction": 0.928,
+   "asis_err_m": 6.2,
+   "rigid_err_m": 6.2,
+   "shift_m": 0.9,
+   "shift_en_m": [
+    0.9,
+    -0.3
+   ],
+   "rot_deg": 0.26,
+   "scale": 0.9962,
+   "resid_med_m": 5.8,
+   "spread": [
+    0.9668462571749752,
+    154.06000345658003
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 3.8,
+ "cross": {
+  "asis_m": 6.2,
+  "shift_m": 8.3,
+  "bend_m": null,
+  "n": 4995,
+  "within_25m": {
+   "asis": 0.928,
+   "shift": 0.927,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 6.2 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0081112891616402,
+   -0.0021081284853481518
+  ],
+  "t": [
+   -0.14714239258984207,
+   -2.9075213362991517
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

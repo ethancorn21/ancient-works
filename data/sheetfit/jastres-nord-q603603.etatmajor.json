@@ -1,0 +1,95 @@
+{
+ "site": "jastres-nord-q603603",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 823,
+   "fraction": 0.165,
+   "asis_fraction": 0.033,
+   "asis_err_m": 111.4,
+   "rigid_err_m": 66.2,
+   "shift_m": 111.2,
+   "shift_en_m": [
+    99.9,
+    -48.9
+   ],
+   "rot_deg": 1.26,
+   "scale": 0.9553,
+   "resid_med_m": 14.7,
+   "spread": [
+    0.6697475826930417,
+    282.73192732686175
+   ],
+   "bend": {
+    "control_cells": 71,
+    "consistent_matches": 3300,
+    "heldout_rigid_m": 22.8,
+    "heldout_bend_m": 10.7,
+    "max_move_m": 148.9,
+    "why": "bend would move ground 149 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4996,
+   "inliers": 1273,
+   "fraction": 0.255,
+   "asis_fraction": 0.03,
+   "asis_err_m": 107.8,
+   "rigid_err_m": 52.3,
+   "shift_m": 96.6,
+   "shift_en_m": [
+    89.2,
+    -37.2
+   ],
+   "rot_deg": 1.23,
+   "scale": 0.9781,
+   "resid_med_m": 14.6,
+   "spread": [
+    0.5670625020255007,
+    295.982236687875
+   ],
+   "bend": {
+    "control_cells": 116,
+    "consistent_matches": 3148,
+    "heldout_rigid_m": 22.6,
+    "heldout_bend_m": 7.2,
+    "max_move_m": 73.3
+   }
+  }
+ },
+ "grounds_agree_m": 15.9,
+ "cross": {
+  "asis_m": 108.1,
+  "shift_m": 58.9,
+  "bend_m": null,
+  "n": 4993,
+  "within_25m": {
+   "asis": 0.03,
+   "shift": 0.152,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 3% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.9550895859214829,
+   0.020931051920769748
+  ],
+  "t": [
+   152.5302520422938,
+   68.08322961541835
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

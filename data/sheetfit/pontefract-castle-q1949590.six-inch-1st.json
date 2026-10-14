@@ -1,0 +1,86 @@
+{
+ "site": "pontefract-castle-q1949590",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4995,
+   "inliers": 4306,
+   "fraction": 0.862,
+   "asis_fraction": 0.858,
+   "asis_err_m": 11.9,
+   "rigid_err_m": 11.6,
+   "shift_m": 1.1,
+   "shift_en_m": [
+    -0.6,
+    0.9
+   ],
+   "rot_deg": -0.31,
+   "scale": 0.9922,
+   "resid_med_m": 10.2,
+   "spread": [
+    0.7018185941930297,
+    119.4125070677928
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4997,
+   "inliers": 4704,
+   "fraction": 0.941,
+   "asis_fraction": 0.929,
+   "asis_err_m": 10.7,
+   "rigid_err_m": 10.4,
+   "shift_m": 1.8,
+   "shift_en_m": [
+    1.5,
+    -1.1
+   ],
+   "rot_deg": -0.76,
+   "scale": 0.9985,
+   "resid_med_m": 9.9,
+   "spread": [
+    0.8699635940282646,
+    139.23912432864134
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 2.9,
+ "cross": {
+  "asis_m": 10.7,
+  "shift_m": 10.7,
+  "bend_m": null,
+  "n": 4997,
+  "within_25m": {
+   "asis": 0.929,
+   "shift": 0.929,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 10.7 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9921400233769706,
+   -0.005359764282654566
+  ],
+  "t": [
+   0.25442548155489497,
+   2.9057915012675664
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

@@ -1,0 +1,86 @@
+{
+ "site": "stanton-drew-stone-circles-q1516300",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.502,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 4998,
+   "fraction": 1.0,
+   "asis_fraction": 0.995,
+   "asis_err_m": 5.4,
+   "rigid_err_m": 2.9,
+   "shift_m": 5.5,
+   "shift_en_m": [
+    -2.1,
+    5.0
+   ],
+   "rot_deg": 0.06,
+   "scale": 0.9992,
+   "resid_med_m": 2.9,
+   "spread": [
+    0.8954776476502526,
+    199.80230669651354
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4999,
+   "inliers": 4999,
+   "fraction": 1.0,
+   "asis_fraction": 1.0,
+   "asis_err_m": 3.7,
+   "rigid_err_m": 2.3,
+   "shift_m": 3.0,
+   "shift_en_m": [
+    -2.9,
+    0.6
+   ],
+   "rot_deg": -0.13,
+   "scale": 1.0019,
+   "resid_med_m": 2.3,
+   "spread": [
+    0.9387247333225033,
+    205.99931093598548
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 4.5,
+ "cross": {
+  "asis_m": 3.7,
+  "shift_m": 5.0,
+  "bend_m": null,
+  "n": 4999,
+  "within_25m": {
+   "asis": 1.0,
+   "shift": 1.0,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 3.7 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9991744321836652,
+   0.0011249912035380127
+  ],
+  "t": [
+   -0.7699822733201342,
+   -3.450860391998627
+  ],
+  "m_per_px": 1.5015015015015014,
+  "smooth": 2.0,
+  "size": [
+   666,
+   666
+  ]
+ }
+}

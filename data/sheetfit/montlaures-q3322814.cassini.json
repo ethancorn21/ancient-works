@@ -1,0 +1,154 @@
+{
+ "site": "montlaures-q3322814",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4995,
+   "inliers": 290,
+   "fraction": 0.058,
+   "asis_fraction": 0.0,
+   "asis_err_m": 166.7,
+   "rigid_err_m": 214.7,
+   "shift_m": 397.3,
+   "shift_en_m": [
+    17.7,
+    396.9
+   ],
+   "rot_deg": -137.17,
+   "scale": 0.5961,
+   "resid_med_m": 15.4,
+   "spread": [
+    0.6687030231583975,
+    83.81524462381964
+   ],
+   "bend": {
+    "control_cells": 7,
+    "consistent_matches": 743,
+    "heldout_rigid_m": 15.9,
+    "heldout_bend_m": 4.4,
+    "max_move_m": 43.8
+   }
+  },
+  "relief": {
+   "matches": 4988,
+   "inliers": 250,
+   "fraction": 0.05,
+   "asis_fraction": 0.003,
+   "asis_err_m": null,
+   "rigid_err_m": null,
+   "shift_m": 1156.6,
+   "shift_en_m": [
+    1132.8,
+    233.3
+   ],
+   "rot_deg": 11.22,
+   "scale": 1.0963,
+   "resid_med_m": 12.8,
+   "spread": [
+    0.520316009377239,
+    72.1606841815918
+   ],
+   "bend": {
+    "control_cells": 14,
+    "consistent_matches": 530,
+    "heldout_rigid_m": 11.4,
+    "heldout_bend_m": 6.1,
+    "max_move_m": 16.7
+   }
+  }
+ },
+ "grounds_agree_m": 1127.0,
+ "cross": {
+  "asis_m": 244.3,
+  "shift_m": 221.6,
+  "bend_m": 223.8,
+  "n": 871,
+  "within_25m": {
+   "asis": 0.017,
+   "shift": 0.009,
+   "bend": 0.009
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 2% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   -0.43710027239469484,
+   -0.40525182129692044
+  ],
+  "t": [
+   843.218306174321,
+   1077.027569242611
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ],
+  "cp": [
+   [
+    844.34,
+    136.63
+   ],
+   [
+    940.34,
+    65.8
+   ],
+   [
+    923.05,
+    114.11
+   ],
+   [
+    992.66,
+    57.16
+   ],
+   [
+    1000.61,
+    131.38
+   ],
+   [
+    1076.47,
+    128.86
+   ],
+   [
+    1148.46,
+    180.5
+   ]
+  ],
+  "cd": [
+   [
+    -33.02,
+    3.42
+   ],
+   [
+    -19.01,
+    5.45
+   ],
+   [
+    -17.41,
+    3.82
+   ],
+   [
+    -7.68,
+    5.11
+   ],
+   [
+    0.28,
+    -5.25
+   ],
+   [
+    11.7,
+    -10.77
+   ],
+   [
+    4.87,
+    -2.18
+   ]
+  ]
+ }
+}

@@ -1,0 +1,96 @@
+{
+ "site": "oppidum-d-enserune-q77221",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4994,
+   "inliers": 1431,
+   "fraction": 0.287,
+   "asis_fraction": 0.012,
+   "asis_err_m": 102.8,
+   "rigid_err_m": 43.2,
+   "shift_m": 83.8,
+   "shift_en_m": [
+    58.4,
+    -60.1
+   ],
+   "rot_deg": 0.7,
+   "scale": 1.0257,
+   "resid_med_m": 15.9,
+   "spread": [
+    0.5164361786361754,
+    246.91977910835823
+   ],
+   "bend": {
+    "control_cells": 180,
+    "consistent_matches": 3969,
+    "heldout_rigid_m": 31.7,
+    "heldout_bend_m": 6.2,
+    "max_move_m": 89.8,
+    "why": "bend would move ground 90 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4998,
+   "inliers": 1826,
+   "fraction": 0.365,
+   "asis_fraction": 0.008,
+   "asis_err_m": 102.3,
+   "rigid_err_m": 36.4,
+   "shift_m": 102.3,
+   "shift_en_m": [
+    47.0,
+    -90.8
+   ],
+   "rot_deg": 1.59,
+   "scale": 0.9759,
+   "resid_med_m": 14.0,
+   "spread": [
+    0.7136596466071261,
+    313.6685377097443
+   ],
+   "bend": {
+    "control_cells": 137,
+    "consistent_matches": 4051,
+    "heldout_rigid_m": 25.6,
+    "heldout_bend_m": 7.5,
+    "max_move_m": 88.1,
+    "why": "bend would move ground 88 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 32.7,
+ "cross": {
+  "asis_m": 102.4,
+  "shift_m": 44.4,
+  "bend_m": null,
+  "n": 4998,
+  "within_25m": {
+   "asis": 0.008,
+   "shift": 0.218,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 1% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   1.0256689133615848,
+   0.01251611883621618
+  ],
+  "t": [
+   47.89498347440871,
+   29.50369757097152
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

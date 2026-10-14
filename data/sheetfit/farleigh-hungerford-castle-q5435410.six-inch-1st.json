@@ -1,0 +1,86 @@
+{
+ "site": "farleigh-hungerford-castle-q5435410",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4997,
+   "inliers": 4744,
+   "fraction": 0.949,
+   "asis_fraction": 0.904,
+   "asis_err_m": 10.1,
+   "rigid_err_m": 6.7,
+   "shift_m": 9.5,
+   "shift_en_m": [
+    -9.2,
+    2.3
+   ],
+   "rot_deg": 0.14,
+   "scale": 0.9892,
+   "resid_med_m": 6.5,
+   "spread": [
+    0.909113502841466,
+    142.85078818651695
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4999,
+   "inliers": 4927,
+   "fraction": 0.986,
+   "asis_fraction": 0.967,
+   "asis_err_m": 9.4,
+   "rigid_err_m": 5.3,
+   "shift_m": 7.1,
+   "shift_en_m": [
+    -7.1,
+    0.3
+   ],
+   "rot_deg": 0.02,
+   "scale": 0.9942,
+   "resid_med_m": 5.2,
+   "spread": [
+    0.8053438330192905,
+    136.0834532099874
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 2.9,
+ "cross": {
+  "asis_m": 9.4,
+  "shift_m": 5.9,
+  "bend_m": null,
+  "n": 4999,
+  "within_25m": {
+   "asis": 0.967,
+   "shift": 0.969,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 9.4 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9891665086669162,
+   0.0023807818002091817
+  ],
+  "t": [
+   -2.6044291502396213,
+   0.7317188279861622
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

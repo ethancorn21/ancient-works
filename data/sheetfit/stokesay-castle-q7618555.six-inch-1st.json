@@ -1,0 +1,86 @@
+{
+ "site": "stokesay-castle-q7618555",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4999,
+   "inliers": 4998,
+   "fraction": 1.0,
+   "asis_fraction": 0.997,
+   "asis_err_m": 7.2,
+   "rigid_err_m": 4.8,
+   "shift_m": 4.0,
+   "shift_en_m": [
+    2.8,
+    2.8
+   ],
+   "rot_deg": 0.38,
+   "scale": 1.0024,
+   "resid_med_m": 4.8,
+   "spread": [
+    0.7048470869661965,
+    113.60180673652732
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 5000,
+   "inliers": 4958,
+   "fraction": 0.992,
+   "asis_fraction": 0.985,
+   "asis_err_m": 6.3,
+   "rigid_err_m": 6.0,
+   "shift_m": 3.2,
+   "shift_en_m": [
+    1.8,
+    2.6
+   ],
+   "rot_deg": 0.15,
+   "scale": 0.999,
+   "resid_med_m": 6.0,
+   "spread": [
+    0.8462875115400957,
+    134.02071834564344
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 1.0,
+ "cross": {
+  "asis_m": 6.3,
+  "shift_m": 6.4,
+  "bend_m": null,
+  "n": 5000,
+  "within_25m": {
+   "asis": 0.985,
+   "shift": 0.99,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 6.3 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0024071832257868,
+   0.006725726133741021
+  ],
+  "t": [
+   3.0485401762084248,
+   -4.304427320462599
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

@@ -1,0 +1,95 @@
+{
+ "site": "eddisbury-hill-fort-q5336613",
+ "sheet": "os1inch",
+ "label": "Ordnance Survey One-inch map, Revised New Series (c. 1900)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4999,
+   "inliers": 1516,
+   "fraction": 0.303,
+   "asis_fraction": 0.219,
+   "asis_err_m": 48.9,
+   "rigid_err_m": 44.7,
+   "shift_m": 17.5,
+   "shift_en_m": [
+    -1.5,
+    -17.5
+   ],
+   "rot_deg": 0.45,
+   "scale": 1.0149,
+   "resid_med_m": 15.6,
+   "spread": [
+    0.5862641233134123,
+    230.8278316892023
+   ],
+   "bend": {
+    "control_cells": 99,
+    "consistent_matches": 3995,
+    "heldout_rigid_m": 19.1,
+    "heldout_bend_m": 8.1,
+    "max_move_m": 93.0,
+    "why": "bend would move ground 93 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4999,
+   "inliers": 1290,
+   "fraction": 0.258,
+   "asis_fraction": 0.106,
+   "asis_err_m": 59.3,
+   "rigid_err_m": 38.8,
+   "shift_m": 46.6,
+   "shift_en_m": [
+    -2.0,
+    -46.5
+   ],
+   "rot_deg": -0.73,
+   "scale": 0.9852,
+   "resid_med_m": 19.4,
+   "spread": [
+    0.8183384226893261,
+    361.859094496062
+   ],
+   "bend": {
+    "control_cells": 123,
+    "consistent_matches": 3842,
+    "heldout_rigid_m": 29.2,
+    "heldout_bend_m": 7.7,
+    "max_move_m": 66.5
+   }
+  }
+ },
+ "grounds_agree_m": 29.0,
+ "cross": {
+  "asis_m": 59.3,
+  "shift_m": 53.1,
+  "bend_m": null,
+  "n": 4967,
+  "within_25m": {
+   "asis": 0.107,
+   "shift": 0.192,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 11% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   1.014888418386614,
+   0.007919128457079936
+  ],
+  "t": [
+   -7.043145722404762,
+   -0.7605721201248379
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

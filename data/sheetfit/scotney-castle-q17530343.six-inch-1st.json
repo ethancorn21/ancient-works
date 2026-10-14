@@ -1,0 +1,86 @@
+{
+ "site": "scotney-castle-q17530343",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 4844,
+   "fraction": 0.969,
+   "asis_fraction": 0.931,
+   "asis_err_m": 7.9,
+   "rigid_err_m": 7.4,
+   "shift_m": 6.3,
+   "shift_en_m": [
+    4.8,
+    4.1
+   ],
+   "rot_deg": -0.49,
+   "scale": 0.9972,
+   "resid_med_m": 7.2,
+   "spread": [
+    0.6729455622822285,
+    117.7145279522894
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4989,
+   "inliers": 4770,
+   "fraction": 0.956,
+   "asis_fraction": 0.936,
+   "asis_err_m": 9.1,
+   "rigid_err_m": 5.5,
+   "shift_m": 7.8,
+   "shift_en_m": [
+    7.6,
+    1.6
+   ],
+   "rot_deg": -0.08,
+   "scale": 1.0034,
+   "resid_med_m": 5.3,
+   "spread": [
+    0.7999624679520689,
+    134.32504414237175
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 3.8,
+ "cross": {
+  "asis_m": 9.1,
+  "shift_m": 5.5,
+  "bend_m": null,
+  "n": 4989,
+  "within_25m": {
+   "asis": 0.936,
+   "shift": 0.941,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 7.9 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9971218569039749,
+   -0.008477460040005536
+  ],
+  "t": [
+   1.7320838296270542,
+   0.3229580071099494
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

@@ -1,0 +1,86 @@
+{
+ "site": "pons-aelius-q7227963",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 4634,
+   "fraction": 0.927,
+   "asis_fraction": 0.87,
+   "asis_err_m": 10.8,
+   "rigid_err_m": 8.6,
+   "shift_m": 9.1,
+   "shift_en_m": [
+    9.1,
+    -0.7
+   ],
+   "rot_deg": 0.12,
+   "scale": 0.9984,
+   "resid_med_m": 8.1,
+   "spread": [
+    0.8207175206651445,
+    243.2804301019433
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4987,
+   "inliers": 334,
+   "fraction": 0.067,
+   "asis_fraction": 0.034,
+   "asis_err_m": 98.7,
+   "rigid_err_m": 54.5,
+   "shift_m": 489.6,
+   "shift_en_m": [
+    486.4,
+    -55.2
+   ],
+   "rot_deg": 28.81,
+   "scale": 0.7,
+   "resid_med_m": 11.3,
+   "spread": [
+    0.12541764444915304,
+    16.14112752284247
+   ],
+   "bend": {
+    "why": "matches cover only 4 consistent cells of 80 m"
+   }
+  }
+ },
+ "grounds_agree_m": 480.4,
+ "cross": {
+  "asis_m": 108.9,
+  "shift_m": 105.8,
+  "bend_m": null,
+  "n": 2308,
+  "within_25m": {
+   "asis": 0.075,
+   "shift": 0.064,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 10.8 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9984091718873987,
+   0.002009865923813816
+  ],
+  "t": [
+   7.962849875925998,
+   0.25181111792648103
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   1066,
+   1066
+  ]
+ }
+}

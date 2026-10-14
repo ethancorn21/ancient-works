@@ -1,0 +1,90 @@
+{
+ "site": "ensemble-castral-de-vesvre-q3054866",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4994,
+   "inliers": 544,
+   "fraction": 0.109,
+   "asis_fraction": 0.004,
+   "asis_err_m": 157.3,
+   "rigid_err_m": 79.4,
+   "shift_m": 108.2,
+   "shift_en_m": [
+    103.4,
+    31.8
+   ],
+   "rot_deg": -169.08,
+   "scale": 0.8127,
+   "resid_med_m": 13.8,
+   "spread": [
+    0.6679876906062174,
+    96.94814489442597
+   ],
+   "bend": {
+    "why": "matches cover only 4 consistent cells of 80 m"
+   }
+  },
+  "relief": {
+   "matches": 4982,
+   "inliers": 944,
+   "fraction": 0.189,
+   "asis_fraction": 0.009,
+   "asis_err_m": 87.3,
+   "rigid_err_m": 54.0,
+   "shift_m": 72.9,
+   "shift_en_m": [
+    56.6,
+    45.9
+   ],
+   "rot_deg": -3.94,
+   "scale": 0.9437,
+   "resid_med_m": 11.4,
+   "spread": [
+    0.7217702163846508,
+    111.77868409266856
+   ],
+   "bend": {
+    "control_cells": 7,
+    "consistent_matches": 2162,
+    "heldout_rigid_m": 9.9,
+    "heldout_bend_m": 7.6,
+    "max_move_m": 15.5
+   }
+  }
+ },
+ "grounds_agree_m": 48.9,
+ "cross": {
+  "asis_m": 97.2,
+  "shift_m": 554.9,
+  "bend_m": null,
+  "n": 3272,
+  "within_25m": {
+   "asis": 0.013,
+   "shift": 0.003,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 1% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   -0.7979563626919917,
+   -0.15400779450829113
+  ],
+  "t": [
+   760.9809673322951,
+   748.9729188131518
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   800,
+   800
+  ]
+ }
+}

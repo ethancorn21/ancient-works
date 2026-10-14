@@ -1,0 +1,86 @@
+{
+ "site": "bokerley-dyke-q891218",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.5,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 4550,
+   "fraction": 0.91,
+   "asis_fraction": 0.889,
+   "asis_err_m": 9.8,
+   "rigid_err_m": 7.0,
+   "shift_m": 7.3,
+   "shift_en_m": [
+    2.3,
+    7.0
+   ],
+   "rot_deg": -0.17,
+   "scale": 1.0011,
+   "resid_med_m": 6.5,
+   "spread": [
+    0.8564163657971063,
+    354.74894245093634
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4999,
+   "inliers": 4922,
+   "fraction": 0.985,
+   "asis_fraction": 0.974,
+   "asis_err_m": 7.6,
+   "rigid_err_m": 7.4,
+   "shift_m": 3.0,
+   "shift_en_m": [
+    0.1,
+    3.0
+   ],
+   "rot_deg": 0.1,
+   "scale": 1.0009,
+   "resid_med_m": 7.4,
+   "spread": [
+    0.8700081101541138,
+    378.9790705748626
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 4.6,
+ "cross": {
+  "asis_m": 7.6,
+  "shift_m": 8.5,
+  "bend_m": null,
+  "n": 4999,
+  "within_25m": {
+   "asis": 0.974,
+   "shift": 0.957,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 7.6 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0010532980390625,
+   -0.0030256799956648204
+  ],
+  "t": [
+   -1.2068459032510948,
+   -3.3338069134395694
+  ],
+  "m_per_px": 1.5003750937734435,
+  "smooth": 2.0,
+  "size": [
+   1333,
+   1333
+  ]
+ }
+}

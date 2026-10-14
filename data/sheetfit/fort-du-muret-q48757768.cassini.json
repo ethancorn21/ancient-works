@@ -1,0 +1,86 @@
+{
+ "site": "fort-du-muret-q48757768",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4999,
+   "inliers": 630,
+   "fraction": 0.126,
+   "asis_fraction": 0.0,
+   "asis_err_m": 180.0,
+   "rigid_err_m": 125.3,
+   "shift_m": 294.7,
+   "shift_en_m": [
+    -106.7,
+    274.7
+   ],
+   "rot_deg": -14.07,
+   "scale": 0.5325,
+   "resid_med_m": 14.5,
+   "spread": [
+    0.6828509375346954,
+    171.93710447675412
+   ],
+   "bend": {
+    "why": "matches cover only 5 consistent cells of 80 m"
+   }
+  },
+  "relief": {
+   "matches": 4989,
+   "inliers": 300,
+   "fraction": 0.06,
+   "asis_fraction": 0.002,
+   "asis_err_m": 152.3,
+   "rigid_err_m": 65.1,
+   "shift_m": 176.4,
+   "shift_en_m": [
+    -34.5,
+    173.0
+   ],
+   "rot_deg": 16.9,
+   "scale": 1.1048,
+   "resid_med_m": 13.4,
+   "spread": [
+    0.7255359220355784,
+    187.96571415093362
+   ],
+   "bend": {
+    "why": "matches cover only 5 consistent cells of 80 m"
+   }
+  }
+ },
+ "grounds_agree_m": 124.7,
+ "cross": {
+  "asis_m": 154.9,
+  "shift_m": 561.4,
+  "bend_m": null,
+  "n": 1207,
+  "within_25m": {
+   "asis": 0.01,
+   "shift": 0.001,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 1% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.5164961506735625,
+   -0.12948046005767874
+  ],
+  "t": [
+   176.47461109737085,
+   215.72260011439283
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

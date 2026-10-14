@@ -1,0 +1,96 @@
+{
+ "site": "butte-saint-clair-du-mesnil-vigot-q22963275",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4992,
+   "inliers": 1039,
+   "fraction": 0.208,
+   "asis_fraction": 0.046,
+   "asis_err_m": 71.7,
+   "rigid_err_m": 62.6,
+   "shift_m": 56.3,
+   "shift_en_m": [
+    -35.0,
+    -44.1
+   ],
+   "rot_deg": -0.09,
+   "scale": 0.9842,
+   "resid_med_m": 14.3,
+   "spread": [
+    0.8928223539760967,
+    170.09885920290927
+   ],
+   "bend": {
+    "control_cells": 11,
+    "consistent_matches": 3772,
+    "heldout_rigid_m": 25.1,
+    "heldout_bend_m": 21.6,
+    "max_move_m": 80.4,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  },
+  "relief": {
+   "matches": 4993,
+   "inliers": 1191,
+   "fraction": 0.239,
+   "asis_fraction": 0.032,
+   "asis_err_m": 81.0,
+   "rigid_err_m": 30.0,
+   "shift_m": 146.7,
+   "shift_en_m": [
+    -131.6,
+    -64.8
+   ],
+   "rot_deg": 2.31,
+   "scale": 0.7243,
+   "resid_med_m": 14.0,
+   "spread": [
+    0.1736324893043999,
+    51.207830909912886
+   ],
+   "bend": {
+    "control_cells": 6,
+    "consistent_matches": 2911,
+    "heldout_rigid_m": 42.9,
+    "heldout_bend_m": 43.6,
+    "max_move_m": 71.8,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  }
+ },
+ "grounds_agree_m": 98.8,
+ "cross": {
+  "asis_m": 100.6,
+  "shift_m": 74.2,
+  "bend_m": null,
+  "n": 3389,
+  "within_25m": {
+   "asis": 0.047,
+   "shift": 0.067,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 5% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.9841709357203958,
+   -0.0015726814358451788
+  ],
+  "t": [
+   -29.26712046779983,
+   51.057805442208306
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   800,
+   800
+  ]
+ }
+}

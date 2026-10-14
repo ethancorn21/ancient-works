@@ -1,0 +1,95 @@
+{
+ "site": "stonehenge-q39671",
+ "sheet": "os1inch",
+ "label": "Ordnance Survey One-inch map, Revised New Series (c. 1900)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4996,
+   "inliers": 1805,
+   "fraction": 0.361,
+   "asis_fraction": 0.072,
+   "asis_err_m": 60.1,
+   "rigid_err_m": 36.5,
+   "shift_m": 58.2,
+   "shift_en_m": [
+    36.6,
+    45.2
+   ],
+   "rot_deg": 0.96,
+   "scale": 1.0552,
+   "resid_med_m": 15.2,
+   "spread": [
+    0.49259789981510804,
+    125.01956841443393
+   ],
+   "bend": {
+    "control_cells": 54,
+    "consistent_matches": 4120,
+    "heldout_rigid_m": 20.1,
+    "heldout_bend_m": 6.2,
+    "max_move_m": 98.9,
+    "why": "bend would move ground 99 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4997,
+   "inliers": 4072,
+   "fraction": 0.815,
+   "asis_fraction": 0.062,
+   "asis_err_m": 47.2,
+   "rigid_err_m": 13.6,
+   "shift_m": 40.9,
+   "shift_en_m": [
+    20.6,
+    35.3
+   ],
+   "rot_deg": 0.19,
+   "scale": 0.9718,
+   "resid_med_m": 11.5,
+   "spread": [
+    0.7911824778118545,
+    160.18791249091134
+   ],
+   "bend": {
+    "control_cells": 75,
+    "consistent_matches": 4635,
+    "heldout_rigid_m": 13.2,
+    "heldout_bend_m": 6.0,
+    "max_move_m": 33.6
+   }
+  }
+ },
+ "grounds_agree_m": 18.8,
+ "cross": {
+  "asis_m": 47.2,
+  "shift_m": 24.8,
+  "bend_m": null,
+  "n": 4997,
+  "within_25m": {
+   "asis": 0.062,
+   "shift": 0.503,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "shift",
+  "why": "relief matches 47.2 m as laid -> 24.8 m (shift)"
+ },
+ "params": {
+  "s": [
+   1.0550396925965484,
+   0.017702036306084554
+  ],
+  "t": [
+   17.973718289641504,
+   -81.56196724496759
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1000,
+   1000
+  ]
+ }
+}

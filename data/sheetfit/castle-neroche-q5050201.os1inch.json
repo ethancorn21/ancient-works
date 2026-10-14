@@ -1,0 +1,95 @@
+{
+ "site": "castle-neroche-q5050201",
+ "sheet": "os1inch",
+ "label": "Ordnance Survey One-inch map, Revised New Series (c. 1900)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4995,
+   "inliers": 2189,
+   "fraction": 0.438,
+   "asis_fraction": 0.142,
+   "asis_err_m": 46.5,
+   "rigid_err_m": 29.9,
+   "shift_m": 33.0,
+   "shift_en_m": [
+    22.0,
+    24.6
+   ],
+   "rot_deg": -0.58,
+   "scale": 1.016,
+   "resid_med_m": 11.4,
+   "spread": [
+    0.6002959036206796,
+    260.26197167584144
+   ],
+   "bend": {
+    "control_cells": 165,
+    "consistent_matches": 4392,
+    "heldout_rigid_m": 21.8,
+    "heldout_bend_m": 6.7,
+    "max_move_m": 87.8,
+    "why": "bend would move ground 88 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4995,
+   "inliers": 1342,
+   "fraction": 0.269,
+   "asis_fraction": 0.027,
+   "asis_err_m": 61.3,
+   "rigid_err_m": 35.5,
+   "shift_m": 40.5,
+   "shift_en_m": [
+    13.5,
+    38.2
+   ],
+   "rot_deg": -0.35,
+   "scale": 0.9937,
+   "resid_med_m": 16.3,
+   "spread": [
+    0.7672340582489104,
+    303.8126518826028
+   ],
+   "bend": {
+    "control_cells": 117,
+    "consistent_matches": 3165,
+    "heldout_rigid_m": 21.3,
+    "heldout_bend_m": 8.6,
+    "max_move_m": 62.2
+   }
+  }
+ },
+ "grounds_agree_m": 16.0,
+ "cross": {
+  "asis_m": 61.8,
+  "shift_m": 47.8,
+  "bend_m": null,
+  "n": 4144,
+  "within_25m": {
+   "asis": 0.033,
+   "shift": 0.228,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 3% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   1.0159965818320702,
+   -0.010360084978204419
+  ],
+  "t": [
+   0.9157615923062039,
+   -29.11982889998602
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

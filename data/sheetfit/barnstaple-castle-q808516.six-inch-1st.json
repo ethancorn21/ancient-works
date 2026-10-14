@@ -1,0 +1,86 @@
+{
+ "site": "barnstaple-castle-q808516",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4999,
+   "inliers": 4843,
+   "fraction": 0.969,
+   "asis_fraction": 0.927,
+   "asis_err_m": 6.9,
+   "rigid_err_m": 7.1,
+   "shift_m": 6.2,
+   "shift_en_m": [
+    -5.3,
+    3.2
+   ],
+   "rot_deg": 0.25,
+   "scale": 1.0132,
+   "resid_med_m": 7.0,
+   "spread": [
+    0.8774582779511239,
+    140.43335023505458
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4994,
+   "inliers": 4756,
+   "fraction": 0.952,
+   "asis_fraction": 0.937,
+   "asis_err_m": 7.2,
+   "rigid_err_m": 7.5,
+   "shift_m": 3.8,
+   "shift_en_m": [
+    -3.7,
+    -0.7
+   ],
+   "rot_deg": 0.23,
+   "scale": 1.0071,
+   "resid_med_m": 7.2,
+   "spread": [
+    0.7307817921746955,
+    122.55225510902521
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 4.2,
+ "cross": {
+  "asis_m": 7.2,
+  "shift_m": 8.1,
+  "bend_m": null,
+  "n": 4994,
+  "within_25m": {
+   "asis": 0.937,
+   "shift": 0.94,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 6.9 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.013153151857634,
+   0.00438615244212534
+  ],
+  "t": [
+   -5.8776513668511665,
+   -6.787334923312125
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

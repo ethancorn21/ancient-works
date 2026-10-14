@@ -1,0 +1,96 @@
+{
+ "site": "camp-d-attila-q18749222",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4992,
+   "inliers": 719,
+   "fraction": 0.144,
+   "asis_fraction": 0.021,
+   "asis_err_m": 120.6,
+   "rigid_err_m": 91.1,
+   "shift_m": 150.1,
+   "shift_en_m": [
+    69.1,
+    -133.3
+   ],
+   "rot_deg": -21.37,
+   "scale": 0.9987,
+   "resid_med_m": 15.9,
+   "spread": [
+    0.5916013637705538,
+    181.75663874485753
+   ],
+   "bend": {
+    "control_cells": 58,
+    "consistent_matches": 2583,
+    "heldout_rigid_m": 20.6,
+    "heldout_bend_m": 9.4,
+    "max_move_m": 122.8,
+    "why": "bend would move ground 123 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4989,
+   "inliers": 768,
+   "fraction": 0.154,
+   "asis_fraction": 0.017,
+   "asis_err_m": 109.1,
+   "rigid_err_m": 86.4,
+   "shift_m": 121.7,
+   "shift_en_m": [
+    110.5,
+    -51.0
+   ],
+   "rot_deg": -0.3,
+   "scale": 0.998,
+   "resid_med_m": 11.4,
+   "spread": [
+    0.4012839951115445,
+    208.5577920967133
+   ],
+   "bend": {
+    "control_cells": 68,
+    "consistent_matches": 3257,
+    "heldout_rigid_m": 19.9,
+    "heldout_bend_m": 5.8,
+    "max_move_m": 98.1,
+    "why": "bend would move ground 98 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 92.1,
+ "cross": {
+  "asis_m": 114.8,
+  "shift_m": 194.9,
+  "bend_m": null,
+  "n": 4575,
+  "within_25m": {
+   "asis": 0.018,
+   "shift": 0.014,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 2% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.930056823262768,
+   -0.36385349904636594
+  ],
+  "t": [
+   -165.98502381823752,
+   480.30024643405045
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

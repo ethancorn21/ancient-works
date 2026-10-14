@@ -1,0 +1,95 @@
+{
+ "site": "windmill-hill-q4348373",
+ "sheet": "os1inch",
+ "label": "Ordnance Survey One-inch map, Revised New Series (c. 1900)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 1283,
+   "fraction": 0.257,
+   "asis_fraction": 0.109,
+   "asis_err_m": 72.6,
+   "rigid_err_m": 56.6,
+   "shift_m": 43.9,
+   "shift_en_m": [
+    8.2,
+    43.2
+   ],
+   "rot_deg": -2.2,
+   "scale": 1.0341,
+   "resid_med_m": 13.4,
+   "spread": [
+    0.6086983213060826,
+    126.78178782536182
+   ],
+   "bend": {
+    "control_cells": 43,
+    "consistent_matches": 3414,
+    "heldout_rigid_m": 15.7,
+    "heldout_bend_m": 8.2,
+    "max_move_m": 86.6,
+    "why": "bend would move ground 87 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4998,
+   "inliers": 1071,
+   "fraction": 0.214,
+   "asis_fraction": 0.186,
+   "asis_err_m": 67.3,
+   "rigid_err_m": 56.0,
+   "shift_m": 19.1,
+   "shift_en_m": [
+    -4.6,
+    18.5
+   ],
+   "rot_deg": -0.29,
+   "scale": 0.9954,
+   "resid_med_m": 15.2,
+   "spread": [
+    0.5952687938028948,
+    200.69131333886102
+   ],
+   "bend": {
+    "control_cells": 32,
+    "consistent_matches": 3202,
+    "heldout_rigid_m": 18.9,
+    "heldout_bend_m": 8.8,
+    "max_move_m": 60.2
+   }
+  }
+ },
+ "grounds_agree_m": 27.8,
+ "cross": {
+  "asis_m": 67.5,
+  "shift_m": 48.6,
+  "bend_m": null,
+  "n": 4525,
+  "within_25m": {
+   "asis": 0.206,
+   "shift": 0.222,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 21% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   1.0333427360442853,
+   -0.039770115377679285
+  ],
+  "t": [
+   -35.67739963951826,
+   -39.316714888134705
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1200,
+   1200
+  ]
+ }
+}

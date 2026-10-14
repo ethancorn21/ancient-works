@@ -1,0 +1,86 @@
+{
+ "site": "mitford-castle-q6881554",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4993,
+   "inliers": 4483,
+   "fraction": 0.898,
+   "asis_fraction": 0.884,
+   "asis_err_m": 10.8,
+   "rigid_err_m": 10.5,
+   "shift_m": 0.8,
+   "shift_en_m": [
+    -0.1,
+    0.8
+   ],
+   "rot_deg": 0.0,
+   "scale": 1.0081,
+   "resid_med_m": 9.7,
+   "spread": [
+    0.837771788278951,
+    141.30044918000308
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4998,
+   "inliers": 4727,
+   "fraction": 0.946,
+   "asis_fraction": 0.928,
+   "asis_err_m": 6.6,
+   "rigid_err_m": 6.9,
+   "shift_m": 2.3,
+   "shift_en_m": [
+    -2.3,
+    0.3
+   ],
+   "rot_deg": -0.16,
+   "scale": 1.0029,
+   "resid_med_m": 6.5,
+   "spread": [
+    0.8084991783995988,
+    139.1539530970017
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 2.3,
+ "cross": {
+  "asis_m": 6.6,
+  "shift_m": 7.2,
+  "bend_m": null,
+  "n": 4998,
+  "within_25m": {
+   "asis": 0.928,
+   "shift": 0.928,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 6.6 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0080762624490016,
+   7.303132038179232e-05
+  ],
+  "t": [
+   -2.2027170040094575,
+   -2.732548537325686
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

@@ -1,0 +1,147 @@
+{
+ "site": "groby-castle-q5609924",
+ "sheet": "os1inch",
+ "label": "Ordnance Survey One-inch map, Revised New Series (c. 1900)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4995,
+   "inliers": 520,
+   "fraction": 0.104,
+   "asis_fraction": 0.007,
+   "asis_err_m": 160.3,
+   "rigid_err_m": 85.1,
+   "shift_m": 145.9,
+   "shift_en_m": [
+    27.3,
+    143.4
+   ],
+   "rot_deg": -103.3,
+   "scale": 0.8836,
+   "resid_med_m": 17.7,
+   "spread": [
+    0.5730542361642349,
+    165.75386532350302
+   ],
+   "bend": {
+    "control_cells": 6,
+    "consistent_matches": 2224,
+    "heldout_rigid_m": 32.0,
+    "heldout_bend_m": 19.4,
+    "max_move_m": 65.9
+   }
+  },
+  "relief": {
+   "matches": 4995,
+   "inliers": 475,
+   "fraction": 0.095,
+   "asis_fraction": 0.082,
+   "asis_err_m": 57.3,
+   "rigid_err_m": 214.6,
+   "shift_m": 244.6,
+   "shift_en_m": [
+    -147.5,
+    195.1
+   ],
+   "rot_deg": -4.37,
+   "scale": 1.0104,
+   "resid_med_m": 9.3,
+   "spread": [
+    0.887863517067128,
+    59.24099694003595
+   ],
+   "bend": {
+    "control_cells": 9,
+    "consistent_matches": 1703,
+    "heldout_rigid_m": 7.5,
+    "heldout_bend_m": 7.4,
+    "max_move_m": 28.1,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  }
+ },
+ "grounds_agree_m": 182.3,
+ "cross": {
+  "asis_m": 94.5,
+  "shift_m": 334.2,
+  "bend_m": 313.6,
+  "n": 2903,
+  "within_25m": {
+   "asis": 0.141,
+   "shift": 0.003,
+   "bend": 0.005
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 14% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   -0.203231161936358,
+   -0.859900253753735
+  ],
+  "t": [
+   164.62845706829148,
+   681.8844804549028
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   800,
+   800
+  ],
+  "cp": [
+   [
+    535.84,
+    50.38
+   ],
+   [
+    523.7,
+    123.13
+   ],
+   [
+    602.58,
+    132.76
+   ],
+   [
+    686.67,
+    49.53
+   ],
+   [
+    679.48,
+    118.85
+   ],
+   [
+    745.43,
+    137.14
+   ]
+  ],
+  "cd": [
+   [
+    -38.94,
+    -9.99
+   ],
+   [
+    -37.33,
+    19.55
+   ],
+   [
+    -21.85,
+    -3.42
+   ],
+   [
+    9.72,
+    -11.9
+   ],
+   [
+    -8.68,
+    -23.77
+   ],
+   [
+    -4.88,
+    -38.38
+   ]
+  ]
+ }
+}

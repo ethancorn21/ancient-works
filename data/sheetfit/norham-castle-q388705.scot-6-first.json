@@ -1,0 +1,95 @@
+{
+ "site": "norham-castle-q388705",
+ "sheet": "scot-6-first",
+ "label": "Ordnance Survey six-inch map, Scotland, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4992,
+   "inliers": 3091,
+   "fraction": 0.619,
+   "asis_fraction": 0.546,
+   "asis_err_m": 17.7,
+   "rigid_err_m": 10.9,
+   "shift_m": 17.8,
+   "shift_en_m": [
+    14.6,
+    -10.1
+   ],
+   "rot_deg": -0.69,
+   "scale": 1.0053,
+   "resid_med_m": 9.4,
+   "spread": [
+    0.5606776388988194,
+    60.13173811316068
+   ],
+   "bend": {
+    "control_cells": 26,
+    "consistent_matches": 3586,
+    "heldout_rigid_m": 7.5,
+    "heldout_bend_m": 6.3,
+    "max_move_m": 26.3,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  },
+  "relief": {
+   "matches": 4983,
+   "inliers": 1166,
+   "fraction": 0.234,
+   "asis_fraction": 0.165,
+   "asis_err_m": 41.8,
+   "rigid_err_m": 23.4,
+   "shift_m": 50.1,
+   "shift_en_m": [
+    48.6,
+    -12.4
+   ],
+   "rot_deg": -5.63,
+   "scale": 1.0617,
+   "resid_med_m": 11.2,
+   "spread": [
+    0.46636035297078965,
+    44.454363851984006
+   ],
+   "bend": {
+    "control_cells": 14,
+    "consistent_matches": 1769,
+    "heldout_rigid_m": 10.1,
+    "heldout_bend_m": 7.0,
+    "max_move_m": 25.0
+   }
+  }
+ },
+ "grounds_agree_m": 34.1,
+ "cross": {
+  "asis_m": 42.5,
+  "shift_m": 40.9,
+  "bend_m": null,
+  "n": 2300,
+  "within_25m": {
+   "asis": 0.357,
+   "shift": 0.4,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 36% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   1.005265331932732,
+   -0.01214214934978445
+  ],
+  "t": [
+   5.091362870070711,
+   8.569509814865045
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

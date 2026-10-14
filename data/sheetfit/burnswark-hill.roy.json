@@ -1,0 +1,95 @@
+{
+ "site": "burnswark-hill",
+ "sheet": "roy",
+ "label": "Roy's Military Survey of Scotland",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4993,
+   "inliers": 664,
+   "fraction": 0.133,
+   "asis_fraction": 0.005,
+   "asis_err_m": 162.6,
+   "rigid_err_m": 48.9,
+   "shift_m": 576.7,
+   "shift_en_m": [
+    84.6,
+    570.5
+   ],
+   "rot_deg": 6.99,
+   "scale": 0.4683,
+   "resid_med_m": 12.5,
+   "spread": [
+    0.2258826695787262,
+    70.13142431998322
+   ],
+   "bend": {
+    "control_cells": 16,
+    "consistent_matches": 2661,
+    "heldout_rigid_m": 32.4,
+    "heldout_bend_m": 10.7,
+    "max_move_m": 110.8,
+    "why": "bend would move ground 111 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4994,
+   "inliers": 273,
+   "fraction": 0.055,
+   "asis_fraction": 0.0,
+   "asis_err_m": 213.8,
+   "rigid_err_m": 191.3,
+   "shift_m": 370.4,
+   "shift_en_m": [
+    -25.6,
+    369.5
+   ],
+   "rot_deg": 1.81,
+   "scale": 1.0067,
+   "resid_med_m": 13.0,
+   "spread": [
+    0.40099323569605727,
+    55.87455657364185
+   ],
+   "bend": {
+    "control_cells": 12,
+    "consistent_matches": 620,
+    "heldout_rigid_m": 9.8,
+    "heldout_bend_m": 5.8,
+    "max_move_m": 38.3
+   }
+  }
+ },
+ "grounds_agree_m": 229.2,
+ "cross": {
+  "asis_m": 158.3,
+  "shift_m": 311.3,
+  "bend_m": null,
+  "n": 228,
+  "within_25m": {
+   "asis": 0.0,
+   "shift": 0.0,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 0% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.46483917722212076,
+   0.05700828681963323
+  ],
+  "t": [
+   431.19152577098635,
+   -77.47065043886528
+  ],
+  "m_per_px": 1.5007898894154819,
+  "smooth": 2.0,
+  "size": [
+   1266,
+   1266
+  ]
+ }
+}

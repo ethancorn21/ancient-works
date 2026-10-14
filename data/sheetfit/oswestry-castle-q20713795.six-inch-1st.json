@@ -1,0 +1,86 @@
+{
+ "site": "oswestry-castle-q20713795",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4995,
+   "inliers": 4898,
+   "fraction": 0.981,
+   "asis_fraction": 0.949,
+   "asis_err_m": 6.0,
+   "rigid_err_m": 3.7,
+   "shift_m": 5.6,
+   "shift_en_m": [
+    4.3,
+    3.6
+   ],
+   "rot_deg": 0.06,
+   "scale": 0.9915,
+   "resid_med_m": 3.6,
+   "spread": [
+    0.8026786942341779,
+    117.60492472996613
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4992,
+   "inliers": 4862,
+   "fraction": 0.974,
+   "asis_fraction": 0.966,
+   "asis_err_m": 6.4,
+   "rigid_err_m": 5.3,
+   "shift_m": 3.7,
+   "shift_en_m": [
+    3.5,
+    1.3
+   ],
+   "rot_deg": -0.2,
+   "scale": 1.0083,
+   "resid_med_m": 5.2,
+   "spread": [
+    0.8334806041021388,
+    123.11639834427264
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 2.4,
+ "cross": {
+  "asis_m": 6.4,
+  "shift_m": 7.4,
+  "bend_m": null,
+  "n": 4989,
+  "within_25m": {
+   "asis": 0.966,
+   "shift": 0.961,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 6.0 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9915059678520136,
+   0.0010029469604930917
+  ],
+  "t": [
+   5.399938131048662,
+   -0.42657709562016954
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

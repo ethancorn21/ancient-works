@@ -1,0 +1,96 @@
+{
+ "site": "argentoratum-q2361353",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4994,
+   "inliers": 354,
+   "fraction": 0.071,
+   "asis_fraction": 0.001,
+   "asis_err_m": 193.7,
+   "rigid_err_m": 98.6,
+   "shift_m": 271.6,
+   "shift_en_m": [
+    121.9,
+    242.7
+   ],
+   "rot_deg": -9.1,
+   "scale": 0.8502,
+   "resid_med_m": 13.3,
+   "spread": [
+    0.5337433197194953,
+    144.0776076402766
+   ],
+   "bend": {
+    "control_cells": 22,
+    "consistent_matches": 1794,
+    "heldout_rigid_m": 98.2,
+    "heldout_bend_m": 14.1,
+    "max_move_m": 177.6,
+    "why": "bend would move ground 178 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4993,
+   "inliers": 879,
+   "fraction": 0.176,
+   "asis_fraction": 0.001,
+   "asis_err_m": 187.4,
+   "rigid_err_m": 86.7,
+   "shift_m": 346.9,
+   "shift_en_m": [
+    121.9,
+    324.8
+   ],
+   "rot_deg": -9.1,
+   "scale": 0.8448,
+   "resid_med_m": 13.0,
+   "spread": [
+    0.39102507553889354,
+    209.96860494895716
+   ],
+   "bend": {
+    "control_cells": 65,
+    "consistent_matches": 3484,
+    "heldout_rigid_m": 30.2,
+    "heldout_bend_m": 9.5,
+    "max_move_m": 112.8,
+    "why": "bend would move ground 113 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 82.1,
+ "cross": {
+  "asis_m": 361.8,
+  "shift_m": 104.3,
+  "bend_m": null,
+  "n": 4501,
+  "within_25m": {
+   "asis": 0.001,
+   "shift": 0.002,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 0% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.8395532596727513,
+   -0.13443836128130313
+  ],
+  "t": [
+   142.75304295445403,
+   -6.76465986620947
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

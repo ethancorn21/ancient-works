@@ -1,0 +1,90 @@
+{
+ "site": "clava-cairns",
+ "sheet": "scot-6-first",
+ "label": "Ordnance Survey six-inch map, Scotland, 1st edition",
+ "m_per_px": 1.502,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 4857,
+   "fraction": 0.971,
+   "asis_fraction": 0.969,
+   "asis_err_m": 9.4,
+   "rigid_err_m": 8.5,
+   "shift_m": 3.4,
+   "shift_en_m": [
+    0.2,
+    -3.4
+   ],
+   "rot_deg": -0.15,
+   "scale": 0.9987,
+   "resid_med_m": 8.4,
+   "spread": [
+    0.761529414530161,
+    148.96452709210087
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4994,
+   "inliers": 4414,
+   "fraction": 0.884,
+   "asis_fraction": 0.815,
+   "asis_err_m": 12.6,
+   "rigid_err_m": 9.0,
+   "shift_m": 10.6,
+   "shift_en_m": [
+    0.7,
+    -10.6
+   ],
+   "rot_deg": -0.29,
+   "scale": 1.0185,
+   "resid_med_m": 8.0,
+   "spread": [
+    0.5905963265180803,
+    124.0973113007299
+   ],
+   "bend": {
+    "control_cells": 101,
+    "consistent_matches": 4627,
+    "heldout_rigid_m": 7.1,
+    "heldout_bend_m": 4.4,
+    "max_move_m": 20.6
+   }
+  }
+ },
+ "grounds_agree_m": 7.2,
+ "cross": {
+  "asis_m": 12.6,
+  "shift_m": 11.1,
+  "bend_m": null,
+  "n": 4994,
+  "within_25m": {
+   "asis": 0.815,
+   "shift": 0.836,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 9.4 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9987168861760951,
+   -0.0025759563011977485
+  ],
+  "t": [
+   -0.27034861879677363,
+   3.5473790530040863
+  ],
+  "m_per_px": 1.5015015015015014,
+  "smooth": 2.0,
+  "size": [
+   666,
+   666
+  ]
+ }
+}

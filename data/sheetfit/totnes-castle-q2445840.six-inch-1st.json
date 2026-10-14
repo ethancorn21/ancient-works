@@ -1,0 +1,86 @@
+{
+ "site": "totnes-castle-q2445840",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4999,
+   "inliers": 4944,
+   "fraction": 0.989,
+   "asis_fraction": 0.987,
+   "asis_err_m": 5.0,
+   "rigid_err_m": 3.5,
+   "shift_m": 2.6,
+   "shift_en_m": [
+    -2.2,
+    1.4
+   ],
+   "rot_deg": -0.18,
+   "scale": 1.0005,
+   "resid_med_m": 3.5,
+   "spread": [
+    0.8064872712686882,
+    132.9887654568511
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4996,
+   "inliers": 4624,
+   "fraction": 0.926,
+   "asis_fraction": 0.918,
+   "asis_err_m": 6.2,
+   "rigid_err_m": 5.3,
+   "shift_m": 2.8,
+   "shift_en_m": [
+    -2.6,
+    1.1
+   ],
+   "rot_deg": -0.24,
+   "scale": 1.0062,
+   "resid_med_m": 4.9,
+   "spread": [
+    0.9127331026316843,
+    139.32763334492628
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 0.5,
+ "cross": {
+  "asis_m": 6.2,
+  "shift_m": 5.2,
+  "bend_m": null,
+  "n": 4996,
+  "within_25m": {
+   "asis": 0.918,
+   "shift": 0.919,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 5.0 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0004835966876762,
+   -0.0031749635801364647
+  ],
+  "t": [
+   -2.4644020541891307,
+   -0.21186856431320011
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

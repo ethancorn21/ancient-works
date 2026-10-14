@@ -1,0 +1,95 @@
+{
+ "site": "daw-s-castle-q5242247",
+ "sheet": "os1inch",
+ "label": "Ordnance Survey One-inch map, Revised New Series (c. 1900)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4995,
+   "inliers": 835,
+   "fraction": 0.167,
+   "asis_fraction": 0.158,
+   "asis_err_m": 59.8,
+   "rigid_err_m": 60.5,
+   "shift_m": 7.7,
+   "shift_en_m": [
+    0.2,
+    -7.7
+   ],
+   "rot_deg": 0.6,
+   "scale": 1.0036,
+   "resid_med_m": 12.1,
+   "spread": [
+    0.9518778548851059,
+    245.39275878946964
+   ],
+   "bend": {
+    "control_cells": 36,
+    "consistent_matches": 2437,
+    "heldout_rigid_m": 14.2,
+    "heldout_bend_m": 11.0,
+    "max_move_m": 93.2,
+    "why": "bend would move ground 93 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 5000,
+   "inliers": 3741,
+   "fraction": 0.748,
+   "asis_fraction": 0.666,
+   "asis_err_m": 20.2,
+   "rigid_err_m": 14.6,
+   "shift_m": 10.2,
+   "shift_en_m": [
+    -0.2,
+    -10.2
+   ],
+   "rot_deg": 0.4,
+   "scale": 1.0024,
+   "resid_med_m": 10.9,
+   "spread": [
+    0.823741282724013,
+    358.68182212899023
+   ],
+   "bend": {
+    "control_cells": 155,
+    "consistent_matches": 4532,
+    "heldout_rigid_m": 11.9,
+    "heldout_bend_m": 4.9,
+    "max_move_m": 33.5
+   }
+  }
+ },
+ "grounds_agree_m": 2.5,
+ "cross": {
+  "asis_m": 20.2,
+  "shift_m": 14.6,
+  "bend_m": null,
+  "n": 5000,
+  "within_25m": {
+   "asis": 0.666,
+   "shift": 0.74,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "67% of relief matches within 25 m as laid; no confirmed fix"
+ },
+ "params": {
+  "s": [
+   1.0035614913939876,
+   0.010476584052431818
+  ],
+  "t": [
+   5.6825478704314225,
+   -3.50942842643898
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

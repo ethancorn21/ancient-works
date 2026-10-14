@@ -1,0 +1,86 @@
+{
+ "site": "marden-henge-q139573",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.502,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 4912,
+   "fraction": 0.982,
+   "asis_fraction": 0.944,
+   "asis_err_m": 5.9,
+   "rigid_err_m": 5.5,
+   "shift_m": 1.8,
+   "shift_en_m": [
+    1.1,
+    -1.4
+   ],
+   "rot_deg": -0.0,
+   "scale": 1.0065,
+   "resid_med_m": 5.4,
+   "spread": [
+    0.8346842163134833,
+    168.37393547593882
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4997,
+   "inliers": 4995,
+   "fraction": 1.0,
+   "asis_fraction": 0.996,
+   "asis_err_m": 5.3,
+   "rigid_err_m": 3.2,
+   "shift_m": 4.0,
+   "shift_en_m": [
+    0.6,
+    -4.0
+   ],
+   "rot_deg": -0.05,
+   "scale": 1.0003,
+   "resid_med_m": 3.2,
+   "spread": [
+    0.9030862785539607,
+    204.31637173800408
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 2.6,
+ "cross": {
+  "asis_m": 5.3,
+  "shift_m": 5.2,
+  "bend_m": null,
+  "n": 4997,
+  "within_25m": {
+   "asis": 0.996,
+   "shift": 0.998,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 5.3 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0064651425160074,
+   -7.056660476668412e-05
+  ],
+  "t": [
+   -1.474398711791743,
+   -1.1895757787511148
+  ],
+  "m_per_px": 1.5015015015015014,
+  "smooth": 2.0,
+  "size": [
+   666,
+   666
+  ]
+ }
+}

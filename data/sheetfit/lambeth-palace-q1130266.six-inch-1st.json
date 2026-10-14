@@ -1,0 +1,90 @@
+{
+ "site": "lambeth-palace-q1130266",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 4674,
+   "fraction": 0.935,
+   "asis_fraction": 0.912,
+   "asis_err_m": 11.5,
+   "rigid_err_m": 7.8,
+   "shift_m": 8.1,
+   "shift_en_m": [
+    3.8,
+    7.1
+   ],
+   "rot_deg": -0.09,
+   "scale": 0.9974,
+   "resid_med_m": 7.3,
+   "spread": [
+    0.6175228633400399,
+    214.73153287178357
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4999,
+   "inliers": 4174,
+   "fraction": 0.835,
+   "asis_fraction": 0.787,
+   "asis_err_m": 12.3,
+   "rigid_err_m": 9.3,
+   "shift_m": 8.8,
+   "shift_en_m": [
+    3.4,
+    8.1
+   ],
+   "rot_deg": -0.02,
+   "scale": 0.9971,
+   "resid_med_m": 7.9,
+   "spread": [
+    0.612432276785434,
+    251.51969525893102
+   ],
+   "bend": {
+    "control_cells": 218,
+    "consistent_matches": 4575,
+    "heldout_rigid_m": 7.9,
+    "heldout_bend_m": 3.4,
+    "max_move_m": 27.2
+   }
+  }
+ },
+ "grounds_agree_m": 1.1,
+ "cross": {
+  "asis_m": 12.3,
+  "shift_m": 9.3,
+  "bend_m": null,
+  "n": 4961,
+  "within_25m": {
+   "asis": 0.793,
+   "shift": 0.832,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 11.5 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.997350296294298,
+   -0.0015476385367693833
+  ],
+  "t": [
+   3.142208748216267,
+   -2.493181337020143
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   1066,
+   1066
+  ]
+ }
+}

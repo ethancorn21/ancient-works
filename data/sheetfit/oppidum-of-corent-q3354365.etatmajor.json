@@ -1,0 +1,96 @@
+{
+ "site": "oppidum-of-corent-q3354365",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4996,
+   "inliers": 1452,
+   "fraction": 0.291,
+   "asis_fraction": 0.273,
+   "asis_err_m": 42.8,
+   "rigid_err_m": 41.1,
+   "shift_m": 9.7,
+   "shift_en_m": [
+    -8.9,
+    4.0
+   ],
+   "rot_deg": -0.17,
+   "scale": 0.9965,
+   "resid_med_m": 14.7,
+   "spread": [
+    0.47585368546469825,
+    231.0315306693175
+   ],
+   "bend": {
+    "control_cells": 133,
+    "consistent_matches": 3819,
+    "heldout_rigid_m": 20.8,
+    "heldout_bend_m": 9.5,
+    "max_move_m": 146.3,
+    "why": "bend would move ground 146 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4997,
+   "inliers": 1098,
+   "fraction": 0.22,
+   "asis_fraction": 0.176,
+   "asis_err_m": 59.7,
+   "rigid_err_m": 52.3,
+   "shift_m": 12.3,
+   "shift_en_m": [
+    -6.8,
+    10.2
+   ],
+   "rot_deg": -0.94,
+   "scale": 0.9805,
+   "resid_med_m": 16.2,
+   "spread": [
+    0.6195033617256144,
+    289.6125738907023
+   ],
+   "bend": {
+    "control_cells": 113,
+    "consistent_matches": 3467,
+    "heldout_rigid_m": 36.3,
+    "heldout_bend_m": 9.5,
+    "max_move_m": 115.8,
+    "why": "bend would move ground 116 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 6.5,
+ "cross": {
+  "asis_m": 59.7,
+  "shift_m": 55.2,
+  "bend_m": null,
+  "n": 4997,
+  "within_25m": {
+   "asis": 0.176,
+   "shift": 0.191,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 18% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.9964675949240019,
+   -0.002918183870887694
+  ],
+  "t": [
+   -8.382959647715165,
+   1.1260729898582769
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

@@ -1,0 +1,86 @@
+{
+ "site": "eaton-socon-castle-q5331372",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4997,
+   "inliers": 4199,
+   "fraction": 0.84,
+   "asis_fraction": 0.823,
+   "asis_err_m": 12.0,
+   "rigid_err_m": 9.7,
+   "shift_m": 6.0,
+   "shift_en_m": [
+    -0.8,
+    6.0
+   ],
+   "rot_deg": 0.18,
+   "scale": 0.9939,
+   "resid_med_m": 8.5,
+   "spread": [
+    0.7391834402571118,
+    128.52478814786323
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4995,
+   "inliers": 4861,
+   "fraction": 0.973,
+   "asis_fraction": 0.966,
+   "asis_err_m": 6.9,
+   "rigid_err_m": 4.8,
+   "shift_m": 3.6,
+   "shift_en_m": [
+    0.3,
+    3.6
+   ],
+   "rot_deg": 0.27,
+   "scale": 0.9993,
+   "resid_med_m": 4.6,
+   "spread": [
+    0.7332120128647969,
+    134.57193994455977
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 2.6,
+ "cross": {
+  "asis_m": 6.9,
+  "shift_m": 5.7,
+  "bend_m": null,
+  "n": 4995,
+  "within_25m": {
+   "asis": 0.966,
+   "shift": 0.961,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 6.9 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9939339031490361,
+   0.003055058825038888
+  ],
+  "t": [
+   1.921166807174538,
+   -3.1893322943800047
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

@@ -1,0 +1,91 @@
+{
+ "site": "clava-cairns",
+ "sheet": "roy",
+ "label": "Roy's Military Survey of Scotland",
+ "m_per_px": 1.502,
+ "grounds": {
+  "aerial": {
+   "matches": 4988,
+   "inliers": 356,
+   "fraction": 0.071,
+   "asis_fraction": 0.006,
+   "asis_err_m": 171.8,
+   "rigid_err_m": 200.0,
+   "shift_m": 298.7,
+   "shift_en_m": [
+    -272.0,
+    -123.5
+   ],
+   "rot_deg": -6.48,
+   "scale": 0.8877,
+   "resid_med_m": 15.3,
+   "spread": [
+    0.5202014305010328,
+    52.558762867302356
+   ],
+   "bend": {
+    "control_cells": 8,
+    "consistent_matches": 1060,
+    "heldout_rigid_m": 15.6,
+    "heldout_bend_m": 12.8,
+    "max_move_m": 34.3,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  },
+  "relief": {
+   "matches": 4985,
+   "inliers": 582,
+   "fraction": 0.117,
+   "asis_fraction": 0.005,
+   "asis_err_m": 171.1,
+   "rigid_err_m": 68.9,
+   "shift_m": 129.1,
+   "shift_en_m": [
+    -120.6,
+    -46.3
+   ],
+   "rot_deg": 31.33,
+   "scale": 0.5929,
+   "resid_med_m": 14.5,
+   "spread": [
+    0.6202778660039547,
+    60.11491959165182
+   ],
+   "bend": {
+    "why": "matches cover only 3 consistent cells of 80 m"
+   }
+  }
+ },
+ "grounds_agree_m": 169.9,
+ "cross": {
+  "asis_m": 141.4,
+  "shift_m": 303.7,
+  "bend_m": null,
+  "n": 3125,
+  "within_25m": {
+   "asis": 0.008,
+   "shift": 0.0,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 1% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.8819920338807723,
+   -0.10022199698966089
+  ],
+  "t": [
+   -175.2187415745083,
+   154.91787122957405
+  ],
+  "m_per_px": 1.5015015015015014,
+  "smooth": 2.0,
+  "size": [
+   666,
+   666
+  ]
+ }
+}

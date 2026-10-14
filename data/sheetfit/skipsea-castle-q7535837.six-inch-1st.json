@@ -1,0 +1,86 @@
+{
+ "site": "skipsea-castle-q7535837",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 4988,
+   "fraction": 0.998,
+   "asis_fraction": 0.993,
+   "asis_err_m": 5.9,
+   "rigid_err_m": 4.7,
+   "shift_m": 5.3,
+   "shift_en_m": [
+    -4.5,
+    2.8
+   ],
+   "rot_deg": -0.06,
+   "scale": 1.0008,
+   "resid_med_m": 4.7,
+   "spread": [
+    0.6976566862150219,
+    117.94678441967379
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4996,
+   "inliers": 4826,
+   "fraction": 0.966,
+   "asis_fraction": 0.93,
+   "asis_err_m": 6.5,
+   "rigid_err_m": 6.3,
+   "shift_m": 5.2,
+   "shift_en_m": [
+    -5.1,
+    -0.8
+   ],
+   "rot_deg": 0.03,
+   "scale": 1.0084,
+   "resid_med_m": 6.1,
+   "spread": [
+    0.8778828228181869,
+    141.41718820214817
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 3.6,
+ "cross": {
+  "asis_m": 6.5,
+  "shift_m": 6.6,
+  "bend_m": null,
+  "n": 4996,
+  "within_25m": {
+   "asis": 0.93,
+   "shift": 0.933,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 5.9 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0007937634955955,
+   -0.0010654388319232021
+  ],
+  "t": [
+   -3.4627639263979786,
+   -1.8168508841029176
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

@@ -1,0 +1,86 @@
+{
+ "site": "hunnum-q12060606",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 4839,
+   "fraction": 0.968,
+   "asis_fraction": 0.962,
+   "asis_err_m": 6.4,
+   "rigid_err_m": 6.0,
+   "shift_m": 3.1,
+   "shift_en_m": [
+    -1.8,
+    2.5
+   ],
+   "rot_deg": 0.03,
+   "scale": 0.9981,
+   "resid_med_m": 5.7,
+   "spread": [
+    0.971487696348501,
+    310.84633001674877
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4996,
+   "inliers": 4980,
+   "fraction": 0.997,
+   "asis_fraction": 0.984,
+   "asis_err_m": 6.5,
+   "rigid_err_m": 5.9,
+   "shift_m": 2.2,
+   "shift_en_m": [
+    -2.2,
+    -0.1
+   ],
+   "rot_deg": 0.1,
+   "scale": 1.0004,
+   "resid_med_m": 5.9,
+   "spread": [
+    0.8472950791353429,
+    309.7865781415821
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 2.6,
+ "cross": {
+  "asis_m": 6.5,
+  "shift_m": 5.5,
+  "bend_m": null,
+  "n": 4996,
+  "within_25m": {
+   "asis": 0.984,
+   "shift": 0.979,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 6.4 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.998103228499705,
+   0.0004505707095116559
+  ],
+  "t": [
+   0.032059990214569956,
+   -0.8843018089231405
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   1066,
+   1066
+  ]
+ }
+}

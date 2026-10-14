@@ -1,0 +1,86 @@
+{
+ "site": "bryn-amlwg-castle-q4980826",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 4808,
+   "fraction": 0.962,
+   "asis_fraction": 0.952,
+   "asis_err_m": 7.9,
+   "rigid_err_m": 7.9,
+   "shift_m": 3.0,
+   "shift_en_m": [
+    0.3,
+    2.9
+   ],
+   "rot_deg": 0.19,
+   "scale": 1.0015,
+   "resid_med_m": 7.6,
+   "spread": [
+    0.764281790228105,
+    133.93483944890838
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4995,
+   "inliers": 4343,
+   "fraction": 0.869,
+   "asis_fraction": 0.866,
+   "asis_err_m": 8.7,
+   "rigid_err_m": 8.4,
+   "shift_m": 1.9,
+   "shift_en_m": [
+    -0.8,
+    1.7
+   ],
+   "rot_deg": -0.13,
+   "scale": 0.9999,
+   "resid_med_m": 7.3,
+   "spread": [
+    0.7167542064048151,
+    125.40870212377979
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 1.6,
+ "cross": {
+  "asis_m": 8.7,
+  "shift_m": 8.7,
+  "bend_m": null,
+  "n": 4995,
+  "within_25m": {
+   "asis": 0.866,
+   "shift": 0.866,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 7.9 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0014881281406534,
+   0.003355676462625542
+  ],
+  "t": [
+   0.7231268552580268,
+   -3.25096026839419
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

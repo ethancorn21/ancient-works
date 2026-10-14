@@ -1,0 +1,51 @@
+{
+ "site": "hen-domen-q5712905",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4999,
+   "inliers": 4999,
+   "fraction": 1.0,
+   "asis_fraction": 0.997,
+   "asis_err_m": 4.1,
+   "rigid_err_m": 3.2,
+   "shift_m": 2.6,
+   "shift_en_m": [
+    -1.0,
+    2.4
+   ],
+   "rot_deg": -0.12,
+   "scale": 1.0015,
+   "resid_med_m": 3.2,
+   "spread": [
+    0.9042607511876389,
+    149.6587135415627
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 4.1 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0015211660151295,
+   -0.002141117451200363
+  ],
+  "t": [
+   -1.6371013605204197,
+   -1.4399398938035626
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

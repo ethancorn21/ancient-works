@@ -1,0 +1,95 @@
+{
+ "site": "camp-des-rouets-q22992059",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4989,
+   "inliers": 552,
+   "fraction": 0.111,
+   "asis_fraction": 0.015,
+   "asis_err_m": 142.1,
+   "rigid_err_m": 87.5,
+   "shift_m": 176.2,
+   "shift_en_m": [
+    -56.2,
+    167.0
+   ],
+   "rot_deg": 17.14,
+   "scale": 0.8852,
+   "resid_med_m": 12.4,
+   "spread": [
+    0.7666773867554909,
+    327.44908228647967
+   ],
+   "bend": {
+    "control_cells": 37,
+    "consistent_matches": 2807,
+    "heldout_rigid_m": 22.3,
+    "heldout_bend_m": 7.2,
+    "max_move_m": 84.5,
+    "why": "bend would move ground 84 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4985,
+   "inliers": 347,
+   "fraction": 0.07,
+   "asis_fraction": 0.0,
+   "asis_err_m": null,
+   "rigid_err_m": null,
+   "shift_m": 1416.0,
+   "shift_en_m": [
+    432.1,
+    -1348.5
+   ],
+   "rot_deg": 5.25,
+   "scale": 1.2656,
+   "resid_med_m": 13.8,
+   "spread": [
+    0.8230698344477543,
+    94.30292299793298
+   ],
+   "bend": {
+    "control_cells": 16,
+    "consistent_matches": 625,
+    "heldout_rigid_m": 14.9,
+    "heldout_bend_m": 11.8,
+    "max_move_m": 29.4
+   }
+  }
+ },
+ "grounds_agree_m": 1592.2,
+ "cross": {
+  "asis_m": 297.3,
+  "shift_m": 214.5,
+  "bend_m": null,
+  "n": 114,
+  "within_25m": {
+   "asis": 0.0,
+   "shift": 0.0,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 0% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.845895706017862,
+   0.2608715175344319
+  ],
+  "t": [
+   275.74077097286886,
+   -252.42476071815753
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

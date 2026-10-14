@@ -1,0 +1,56 @@
+{
+ "site": "bibracte-q650053",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4997,
+   "inliers": 1052,
+   "fraction": 0.211,
+   "asis_fraction": 0.001,
+   "asis_err_m": 144.0,
+   "rigid_err_m": 118.1,
+   "shift_m": 319.4,
+   "shift_en_m": [
+    -210.9,
+    239.8
+   ],
+   "rot_deg": 30.9,
+   "scale": 0.3132,
+   "resid_med_m": 10.6,
+   "spread": [
+    0.5468879893496278,
+    125.63061353635722
+   ],
+   "bend": {
+    "control_cells": 8,
+    "consistent_matches": 2096,
+    "heldout_rigid_m": 10.2,
+    "heldout_bend_m": 17.4,
+    "max_move_m": 45.1,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "no independent check: no relief"
+ },
+ "params": {
+  "s": [
+   0.26872541420393864,
+   0.16082914803401238
+  ],
+  "t": [
+   502.7575547240329,
+   216.54818481035934
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

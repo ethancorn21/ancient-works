@@ -1,0 +1,91 @@
+{
+ "site": "ferme-d-azincourt-q20669811",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4993,
+   "inliers": 463,
+   "fraction": 0.093,
+   "asis_fraction": 0.028,
+   "asis_err_m": 85.9,
+   "rigid_err_m": 64.7,
+   "shift_m": 384.9,
+   "shift_en_m": [
+    318.9,
+    215.6
+   ],
+   "rot_deg": -65.79,
+   "scale": 0.0219,
+   "resid_med_m": 13.0,
+   "spread": [
+    0.47282187673183396,
+    134.24040425210478
+   ],
+   "bend": {
+    "why": "matches cover only 1 consistent cells of 80 m"
+   }
+  },
+  "relief": {
+   "matches": 4993,
+   "inliers": 582,
+   "fraction": 0.117,
+   "asis_fraction": 0.004,
+   "asis_err_m": 128.0,
+   "rigid_err_m": 50.6,
+   "shift_m": 171.3,
+   "shift_en_m": [
+    -44.1,
+    -165.6
+   ],
+   "rot_deg": 26.22,
+   "scale": 0.9023,
+   "resid_med_m": 11.1,
+   "spread": [
+    0.7257142966215738,
+    69.62102736443552
+   ],
+   "bend": {
+    "control_cells": 8,
+    "consistent_matches": 1435,
+    "heldout_rigid_m": 9.6,
+    "heldout_bend_m": 11.0,
+    "max_move_m": 25.7,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  }
+ },
+ "grounds_agree_m": 526.4,
+ "cross": {
+  "asis_m": 174.7,
+  "shift_m": 401.1,
+  "bend_m": null,
+  "n": 3146,
+  "within_25m": {
+   "asis": 0.007,
+   "shift": 0.025,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 1% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.008984710971230778,
+   -0.019983600427024135
+  ],
+  "t": [
+   707.3105437620031,
+   188.8085961883583
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   800,
+   800
+  ]
+ }
+}

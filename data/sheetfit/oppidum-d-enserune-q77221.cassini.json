@@ -1,0 +1,96 @@
+{
+ "site": "oppidum-d-enserune-q77221",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4997,
+   "inliers": 415,
+   "fraction": 0.083,
+   "asis_fraction": 0.011,
+   "asis_err_m": 83.7,
+   "rigid_err_m": 149.2,
+   "shift_m": 175.0,
+   "shift_en_m": [
+    -77.0,
+    -157.1
+   ],
+   "rot_deg": 27.4,
+   "scale": 1.0083,
+   "resid_med_m": 14.5,
+   "spread": [
+    0.5863722638013088,
+    209.07558404987896
+   ],
+   "bend": {
+    "control_cells": 57,
+    "consistent_matches": 2106,
+    "heldout_rigid_m": 81.5,
+    "heldout_bend_m": 9.6,
+    "max_move_m": 161.1,
+    "why": "bend would move ground 161 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4991,
+   "inliers": 458,
+   "fraction": 0.092,
+   "asis_fraction": 0.0,
+   "asis_err_m": 167.2,
+   "rigid_err_m": 91.9,
+   "shift_m": 138.1,
+   "shift_en_m": [
+    124.1,
+    60.5
+   ],
+   "rot_deg": -161.68,
+   "scale": 0.776,
+   "resid_med_m": 15.3,
+   "spread": [
+    0.4842021014359958,
+    236.23564613312126
+   ],
+   "bend": {
+    "control_cells": 39,
+    "consistent_matches": 2239,
+    "heldout_rigid_m": 52.1,
+    "heldout_bend_m": 9.1,
+    "max_move_m": 108.1,
+    "why": "bend would move ground 108 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 296.3,
+ "cross": {
+  "asis_m": 196.4,
+  "shift_m": 204.5,
+  "bend_m": null,
+  "n": 131,
+  "within_25m": {
+   "asis": 0.008,
+   "shift": 0.023,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 1% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.8951581636687974,
+   0.4639870326627234
+  ],
+  "t": [
+   378.0256994126308,
+   -130.22587685323458
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

@@ -1,0 +1,95 @@
+{
+ "site": "ensemble-castral-de-vesvre-q3054866",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4987,
+   "inliers": 1042,
+   "fraction": 0.209,
+   "asis_fraction": 0.001,
+   "asis_err_m": 132.9,
+   "rigid_err_m": 42.2,
+   "shift_m": 87.2,
+   "shift_en_m": [
+    -87.1,
+    2.7
+   ],
+   "rot_deg": -19.24,
+   "scale": 0.8979,
+   "resid_med_m": 11.1,
+   "spread": [
+    0.555260125588817,
+    76.34374854603946
+   ],
+   "bend": {
+    "control_cells": 9,
+    "consistent_matches": 2861,
+    "heldout_rigid_m": 7.2,
+    "heldout_bend_m": 10.1,
+    "max_move_m": 26.0,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  },
+  "relief": {
+   "matches": 4989,
+   "inliers": 926,
+   "fraction": 0.186,
+   "asis_fraction": 0.007,
+   "asis_err_m": 106.0,
+   "rigid_err_m": 55.2,
+   "shift_m": 91.3,
+   "shift_en_m": [
+    66.4,
+    62.7
+   ],
+   "rot_deg": 3.95,
+   "scale": 0.9122,
+   "resid_med_m": 15.9,
+   "spread": [
+    0.6849856003829169,
+    157.1295856673564
+   ],
+   "bend": {
+    "control_cells": 20,
+    "consistent_matches": 2546,
+    "heldout_rigid_m": 17.7,
+    "heldout_bend_m": 5.8,
+    "max_move_m": 37.8
+   }
+  }
+ },
+ "grounds_agree_m": 164.8,
+ "cross": {
+  "asis_m": 110.3,
+  "shift_m": 156.6,
+  "bend_m": null,
+  "n": 3759,
+  "within_25m": {
+   "asis": 0.009,
+   "shift": 0.0,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 1% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.8477334324355046,
+   -0.2959324644866522
+  ],
+  "t": [
+   -144.61073802610983,
+   176.6042887510879
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   800,
+   800
+  ]
+ }
+}

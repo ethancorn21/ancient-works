@@ -1,0 +1,96 @@
+{
+ "site": "municipium-ulpia-noviomagus-batavorum-q1309708",
+ "sheet": "tmk1850",
+ "label": "Topographic and Military Map of the Netherlands (TMK, c. 1850)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4997,
+   "inliers": 656,
+   "fraction": 0.131,
+   "asis_fraction": 0.001,
+   "asis_err_m": 168.9,
+   "rigid_err_m": 73.4,
+   "shift_m": 167.9,
+   "shift_en_m": [
+    126.1,
+    -110.8
+   ],
+   "rot_deg": 6.21,
+   "scale": 0.8773,
+   "resid_med_m": 15.2,
+   "spread": [
+    0.7018945116379763,
+    253.22854951004055
+   ],
+   "bend": {
+    "control_cells": 41,
+    "consistent_matches": 2524,
+    "heldout_rigid_m": 68.3,
+    "heldout_bend_m": 7.2,
+    "max_move_m": 173.9,
+    "why": "bend would move ground 174 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4992,
+   "inliers": 486,
+   "fraction": 0.097,
+   "asis_fraction": 0.005,
+   "asis_err_m": 124.9,
+   "rigid_err_m": 88.2,
+   "shift_m": 41.2,
+   "shift_en_m": [
+    17.6,
+    -37.2
+   ],
+   "rot_deg": 4.1,
+   "scale": 0.827,
+   "resid_med_m": 12.2,
+   "spread": [
+    0.7693273965120649,
+    134.4575621658356
+   ],
+   "bend": {
+    "control_cells": 19,
+    "consistent_matches": 1212,
+    "heldout_rigid_m": 12.6,
+    "heldout_bend_m": 10.2,
+    "max_move_m": 28.1,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  }
+ },
+ "grounds_agree_m": 131.1,
+ "cross": {
+  "asis_m": 141.6,
+  "shift_m": 173.0,
+  "bend_m": null,
+  "n": 2070,
+  "within_25m": {
+   "asis": 0.012,
+   "shift": 0.005,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 1% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.8721317946328283,
+   0.09494489662938779
+  ],
+  "t": [
+   304.36025661688274,
+   137.13073344471138
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

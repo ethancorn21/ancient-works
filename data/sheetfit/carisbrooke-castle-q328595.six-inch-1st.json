@@ -1,0 +1,86 @@
+{
+ "site": "carisbrooke-castle-q328595",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4992,
+   "inliers": 4968,
+   "fraction": 0.995,
+   "asis_fraction": 0.992,
+   "asis_err_m": 6.0,
+   "rigid_err_m": 5.0,
+   "shift_m": 3.8,
+   "shift_en_m": [
+    -3.8,
+    -0.4
+   ],
+   "rot_deg": -0.2,
+   "scale": 0.9945,
+   "resid_med_m": 5.0,
+   "spread": [
+    0.6210192589834335,
+    110.27100304037704
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4998,
+   "inliers": 4998,
+   "fraction": 1.0,
+   "asis_fraction": 1.0,
+   "asis_err_m": 3.5,
+   "rigid_err_m": 3.0,
+   "shift_m": 1.8,
+   "shift_en_m": [
+    -1.1,
+    -1.4
+   ],
+   "rot_deg": 0.01,
+   "scale": 1.0001,
+   "resid_med_m": 3.0,
+   "spread": [
+    0.8406987223014031,
+    150.60196059931886
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 2.9,
+ "cross": {
+  "asis_m": 3.5,
+  "shift_m": 4.8,
+  "bend_m": null,
+  "n": 4998,
+  "within_25m": {
+   "asis": 1.0,
+   "shift": 1.0,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 3.5 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9944838504414552,
+   -0.00347772103353324
+  ],
+  "t": [
+   -1.9774470967533966,
+   2.6652705248322346
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

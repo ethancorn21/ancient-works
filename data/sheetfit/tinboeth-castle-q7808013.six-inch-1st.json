@@ -1,0 +1,51 @@
+{
+ "site": "tinboeth-castle-q7808013",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 4990,
+   "fraction": 0.998,
+   "asis_fraction": 0.995,
+   "asis_err_m": 7.6,
+   "rigid_err_m": 3.7,
+   "shift_m": 6.5,
+   "shift_en_m": [
+    1.0,
+    6.4
+   ],
+   "rot_deg": 0.01,
+   "scale": 0.9992,
+   "resid_med_m": 3.7,
+   "spread": [
+    0.9631317485886204,
+    325.17290312626466
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 7.6 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9991664347721858,
+   0.00010429485059673397
+  ],
+  "t": [
+   1.1338582804121193,
+   -3.887097960899386
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   1066,
+   1066
+  ]
+ }
+}

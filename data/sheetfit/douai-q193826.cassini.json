@@ -1,0 +1,95 @@
+{
+ "site": "douai-q193826",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4997,
+   "inliers": 359,
+   "fraction": 0.072,
+   "asis_fraction": 0.005,
+   "asis_err_m": 137.1,
+   "rigid_err_m": 80.4,
+   "shift_m": 138.1,
+   "shift_en_m": [
+    -126.4,
+    -55.7
+   ],
+   "rot_deg": -0.14,
+   "scale": 0.9745,
+   "resid_med_m": 15.3,
+   "spread": [
+    0.47957009572480014,
+    308.5835041631241
+   ],
+   "bend": {
+    "control_cells": 9,
+    "consistent_matches": 2273,
+    "heldout_rigid_m": 42.8,
+    "heldout_bend_m": 88.4,
+    "max_move_m": 102.3,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  },
+  "relief": {
+   "matches": 4995,
+   "inliers": 494,
+   "fraction": 0.099,
+   "asis_fraction": 0.002,
+   "asis_err_m": 211.3,
+   "rigid_err_m": 91.9,
+   "shift_m": 202.0,
+   "shift_en_m": [
+    -193.5,
+    58.0
+   ],
+   "rot_deg": -8.81,
+   "scale": 1.1656,
+   "resid_med_m": 13.6,
+   "spread": [
+    0.4164914065441388,
+    190.66712264316809
+   ],
+   "bend": {
+    "control_cells": 32,
+    "consistent_matches": 1718,
+    "heldout_rigid_m": 15.2,
+    "heldout_bend_m": 7.7,
+    "max_move_m": 34.7
+   }
+  }
+ },
+ "grounds_agree_m": 132.0,
+ "cross": {
+  "asis_m": 234.9,
+  "shift_m": 149.4,
+  "bend_m": null,
+  "n": 3143,
+  "within_25m": {
+   "asis": 0.003,
+   "shift": 0.009,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 0% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.9744856390623737,
+   -0.00241910695983199
+  ],
+  "t": [
+   -103.30649794956997,
+   83.6174785023288
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   2000,
+   2000
+  ]
+ }
+}

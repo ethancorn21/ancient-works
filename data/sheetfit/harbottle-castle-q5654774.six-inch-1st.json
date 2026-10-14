@@ -1,0 +1,86 @@
+{
+ "site": "harbottle-castle-q5654774",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4997,
+   "inliers": 4865,
+   "fraction": 0.974,
+   "asis_fraction": 0.959,
+   "asis_err_m": 9.6,
+   "rigid_err_m": 8.6,
+   "shift_m": 4.9,
+   "shift_en_m": [
+    2.3,
+    4.4
+   ],
+   "rot_deg": -0.38,
+   "scale": 0.9973,
+   "resid_med_m": 8.4,
+   "spread": [
+    0.715897843813583,
+    130.18063980486085
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4996,
+   "inliers": 4851,
+   "fraction": 0.971,
+   "asis_fraction": 0.94,
+   "asis_err_m": 5.5,
+   "rigid_err_m": 5.1,
+   "shift_m": 0.7,
+   "shift_en_m": [
+    0.2,
+    0.7
+   ],
+   "rot_deg": 0.75,
+   "scale": 1.0033,
+   "resid_med_m": 5.0,
+   "spread": [
+    0.7752386900407926,
+    136.4823981396814
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 4.3,
+ "cross": {
+  "asis_m": 5.5,
+  "shift_m": 9.7,
+  "bend_m": null,
+  "n": 4996,
+  "within_25m": {
+   "asis": 0.94,
+   "shift": 0.925,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 5.5 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9972948076227975,
+   -0.006603091872727222
+  ],
+  "t": [
+   0.5110210932554071,
+   -0.4225310465960762
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

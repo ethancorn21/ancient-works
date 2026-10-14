@@ -1,0 +1,86 @@
+{
+ "site": "cawthorne-camp-q5055239",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 4676,
+   "fraction": 0.935,
+   "asis_fraction": 0.909,
+   "asis_err_m": 10.5,
+   "rigid_err_m": 7.0,
+   "shift_m": 7.4,
+   "shift_en_m": [
+    -2.1,
+    7.1
+   ],
+   "rot_deg": -0.01,
+   "scale": 1.0027,
+   "resid_med_m": 6.5,
+   "spread": [
+    0.9670969661689145,
+    512.5246559495189
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 5000,
+   "inliers": 4494,
+   "fraction": 0.899,
+   "asis_fraction": 0.883,
+   "asis_err_m": 7.0,
+   "rigid_err_m": 6.8,
+   "shift_m": 4.1,
+   "shift_en_m": [
+    -1.0,
+    3.9
+   ],
+   "rot_deg": -0.06,
+   "scale": 1.0005,
+   "resid_med_m": 6.2,
+   "spread": [
+    0.7536936422845402,
+    355.382386327355
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 3.4,
+ "cross": {
+  "asis_m": 7.0,
+  "shift_m": 8.5,
+  "bend_m": null,
+  "n": 5000,
+  "within_25m": {
+   "asis": 0.883,
+   "shift": 0.892,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 7.0 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0027247230623737,
+   -0.00021191864950147229
+  ],
+  "t": [
+   -3.8303575401539627,
+   -6.793353618886865
+  ],
+  "m_per_px": 1.5006002400960383,
+  "smooth": 2.0,
+  "size": [
+   1666,
+   1666
+  ]
+ }
+}

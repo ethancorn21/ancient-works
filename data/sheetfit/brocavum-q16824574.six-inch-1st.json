@@ -1,0 +1,86 @@
+{
+ "site": "brocavum-q16824574",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 4569,
+   "fraction": 0.914,
+   "asis_fraction": 0.877,
+   "asis_err_m": 11.7,
+   "rigid_err_m": 9.4,
+   "shift_m": 6.1,
+   "shift_en_m": [
+    3.0,
+    5.3
+   ],
+   "rot_deg": -0.02,
+   "scale": 0.9938,
+   "resid_med_m": 8.2,
+   "spread": [
+    0.8716559174141262,
+    279.0682266923808
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 5000,
+   "inliers": 4748,
+   "fraction": 0.95,
+   "asis_fraction": 0.909,
+   "asis_err_m": 7.5,
+   "rigid_err_m": 7.6,
+   "shift_m": 2.4,
+   "shift_en_m": [
+    -0.1,
+    2.4
+   ],
+   "rot_deg": -0.11,
+   "scale": 0.9932,
+   "resid_med_m": 7.2,
+   "spread": [
+    0.806923382858248,
+    271.6297315566409
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 4.2,
+ "cross": {
+  "asis_m": 7.5,
+  "shift_m": 8.2,
+  "bend_m": null,
+  "n": 5000,
+  "within_25m": {
+   "asis": 0.909,
+   "shift": 0.933,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 7.5 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9937612173241573,
+   -0.00040953187603839973
+  ],
+  "t": [
+   5.122804024153261,
+   0.02989316971557754
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   1066,
+   1066
+  ]
+ }
+}

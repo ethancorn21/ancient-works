@@ -1,0 +1,56 @@
+{
+ "site": "le-cateau-cambresis-q329103",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4993,
+   "inliers": 608,
+   "fraction": 0.122,
+   "asis_fraction": 0.016,
+   "asis_err_m": 120.0,
+   "rigid_err_m": 65.3,
+   "shift_m": 119.1,
+   "shift_en_m": [
+    -101.3,
+    -62.7
+   ],
+   "rot_deg": -0.6,
+   "scale": 0.4852,
+   "resid_med_m": 12.3,
+   "spread": [
+    0.2496693855473061,
+    201.54252405509638
+   ],
+   "bend": {
+    "control_cells": 16,
+    "consistent_matches": 2926,
+    "heldout_rigid_m": 42.4,
+    "heldout_bend_m": 10.6,
+    "max_move_m": 156.1,
+    "why": "bend would move ground 156 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "no independent check: no relief"
+ },
+ "params": {
+  "s": [
+   0.4852128515551676,
+   -0.00507505099923068
+  ],
+  "t": [
+   408.4461610194945,
+   582.5810238896819
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   2000,
+   2000
+  ]
+ }
+}

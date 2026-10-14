@@ -1,0 +1,56 @@
+{
+ "site": "maubeuge-q138648",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 2018,
+   "fraction": 0.404,
+   "asis_fraction": 0.004,
+   "asis_err_m": 141.7,
+   "rigid_err_m": 15.6,
+   "shift_m": 125.0,
+   "shift_en_m": [
+    -116.4,
+    45.7
+   ],
+   "rot_deg": -1.18,
+   "scale": 0.4051,
+   "resid_med_m": 13.4,
+   "spread": [
+    0.6269106192292617,
+    152.89979671547462
+   ],
+   "bend": {
+    "control_cells": 21,
+    "consistent_matches": 4438,
+    "heldout_rigid_m": 19.3,
+    "heldout_bend_m": 11.3,
+    "max_move_m": 155.4,
+    "why": "bend would move ground 155 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "no independent check: no relief"
+ },
+ "params": {
+  "s": [
+   0.4049733793675282,
+   -0.008367252950998487
+  ],
+  "t": [
+   470.3093210673219,
+   557.6928101052868
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   2000,
+   2000
+  ]
+ }
+}

@@ -1,0 +1,86 @@
+{
+ "site": "badminton-house-q2628510",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 4907,
+   "fraction": 0.981,
+   "asis_fraction": 0.961,
+   "asis_err_m": 8.9,
+   "rigid_err_m": 4.3,
+   "shift_m": 7.9,
+   "shift_en_m": [
+    -4.5,
+    6.5
+   ],
+   "rot_deg": 0.06,
+   "scale": 1.0003,
+   "resid_med_m": 4.3,
+   "spread": [
+    0.8241228018648727,
+    300.5886399383875
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4999,
+   "inliers": 4781,
+   "fraction": 0.956,
+   "asis_fraction": 0.955,
+   "asis_err_m": 8.3,
+   "rigid_err_m": 4.4,
+   "shift_m": 5.6,
+   "shift_en_m": [
+    -3.1,
+    4.7
+   ],
+   "rot_deg": 0.12,
+   "scale": 1.0002,
+   "resid_med_m": 4.3,
+   "spread": [
+    0.8029934520622853,
+    272.31838128333857
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 2.3,
+ "cross": {
+  "asis_m": 8.3,
+  "shift_m": 4.5,
+  "bend_m": null,
+  "n": 4999,
+  "within_25m": {
+   "asis": 0.955,
+   "shift": 0.946,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 8.3 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0003396934086841,
+   0.001020674138336023
+  ],
+  "t": [
+   -2.667064903744345,
+   -5.041013507806504
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   1066,
+   1066
+  ]
+ }
+}

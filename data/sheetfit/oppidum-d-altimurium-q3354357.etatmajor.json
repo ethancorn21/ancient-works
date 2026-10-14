@@ -1,0 +1,95 @@
+{
+ "site": "oppidum-d-altimurium-q3354357",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4995,
+   "inliers": 1205,
+   "fraction": 0.241,
+   "asis_fraction": 0.13,
+   "asis_err_m": 76.2,
+   "rigid_err_m": 58.9,
+   "shift_m": 93.1,
+   "shift_en_m": [
+    5.6,
+    -92.9
+   ],
+   "rot_deg": -6.89,
+   "scale": 1.0675,
+   "resid_med_m": 13.0,
+   "spread": [
+    0.4722440017658744,
+    183.61772742320284
+   ],
+   "bend": {
+    "control_cells": 177,
+    "consistent_matches": 4152,
+    "heldout_rigid_m": 33.2,
+    "heldout_bend_m": 6.3,
+    "max_move_m": 106.2,
+    "why": "bend would move ground 106 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4990,
+   "inliers": 649,
+   "fraction": 0.13,
+   "asis_fraction": 0.061,
+   "asis_err_m": 78.7,
+   "rigid_err_m": 38.5,
+   "shift_m": 109.8,
+   "shift_en_m": [
+    36.1,
+    103.7
+   ],
+   "rot_deg": 5.69,
+   "scale": 0.8845,
+   "resid_med_m": 16.0,
+   "spread": [
+    0.4581832683225881,
+    185.81159170956133
+   ],
+   "bend": {
+    "control_cells": 40,
+    "consistent_matches": 1384,
+    "heldout_rigid_m": 19.1,
+    "heldout_bend_m": 8.3,
+    "max_move_m": 38.6
+   }
+  }
+ },
+ "grounds_agree_m": 199.0,
+ "cross": {
+  "asis_m": 79.8,
+  "shift_m": 152.2,
+  "bend_m": null,
+  "n": 1975,
+  "within_25m": {
+   "asis": 0.154,
+   "shift": 0.069,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 15% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   1.0598206031875645,
+   -0.12810691075369549
+  ],
+  "t": [
+   -144.76854701302258,
+   147.53587904105606
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

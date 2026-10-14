@@ -1,0 +1,96 @@
+{
+ "site": "hartshill-castle-q15223134",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 4099,
+   "fraction": 0.82,
+   "asis_fraction": 0.779,
+   "asis_err_m": 13.1,
+   "rigid_err_m": 8.5,
+   "shift_m": 10.5,
+   "shift_en_m": [
+    -0.8,
+    10.5
+   ],
+   "rot_deg": 0.5,
+   "scale": 0.9891,
+   "resid_med_m": 6.7,
+   "spread": [
+    0.8642274144333725,
+    121.0697259489345
+   ],
+   "bend": {
+    "control_cells": 70,
+    "consistent_matches": 4620,
+    "heldout_rigid_m": 5.8,
+    "heldout_bend_m": 5.5,
+    "max_move_m": 21.0,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  },
+  "relief": {
+   "matches": 4988,
+   "inliers": 3724,
+   "fraction": 0.747,
+   "asis_fraction": 0.732,
+   "asis_err_m": 12.7,
+   "rigid_err_m": 10.6,
+   "shift_m": 8.3,
+   "shift_en_m": [
+    -1.6,
+    8.2
+   ],
+   "rot_deg": 0.36,
+   "scale": 1.0057,
+   "resid_med_m": 9.4,
+   "spread": [
+    0.4617444630785154,
+    71.22451364972224
+   ],
+   "bend": {
+    "control_cells": 48,
+    "consistent_matches": 3920,
+    "heldout_rigid_m": 8.0,
+    "heldout_bend_m": 6.8,
+    "max_move_m": 18.3,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  }
+ },
+ "grounds_agree_m": 2.4,
+ "cross": {
+  "asis_m": 12.7,
+  "shift_m": 11.7,
+  "bend_m": null,
+  "n": 4265,
+  "within_25m": {
+   "asis": 0.856,
+   "shift": 0.86,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "86% of relief matches within 25 m as laid; no confirmed fix"
+ },
+ "params": {
+  "s": [
+   0.989044780535838,
+   0.008715770825863325
+  ],
+  "t": [
+   4.738560020932138,
+   -6.376913972803051
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

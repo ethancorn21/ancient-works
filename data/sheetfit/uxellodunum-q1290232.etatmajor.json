@@ -1,0 +1,95 @@
+{
+ "site": "uxellodunum-q1290232",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 1804,
+   "fraction": 0.361,
+   "asis_fraction": 0.106,
+   "asis_err_m": 62.1,
+   "rigid_err_m": 32.9,
+   "shift_m": 34.4,
+   "shift_en_m": [
+    5.4,
+    -33.9
+   ],
+   "rot_deg": 1.98,
+   "scale": 0.9722,
+   "resid_med_m": 16.4,
+   "spread": [
+    0.5760776240838218,
+    304.3854589774898
+   ],
+   "bend": {
+    "control_cells": 202,
+    "consistent_matches": 4439,
+    "heldout_rigid_m": 23.9,
+    "heldout_bend_m": 7.0,
+    "max_move_m": 91.2,
+    "why": "bend would move ground 91 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4999,
+   "inliers": 2097,
+   "fraction": 0.419,
+   "asis_fraction": 0.098,
+   "asis_err_m": 53.5,
+   "rigid_err_m": 30.3,
+   "shift_m": 38.0,
+   "shift_en_m": [
+    12.2,
+    -36.0
+   ],
+   "rot_deg": 1.02,
+   "scale": 0.9847,
+   "resid_med_m": 14.2,
+   "spread": [
+    0.6644682820151772,
+    332.82199257121135
+   ],
+   "bend": {
+    "control_cells": 152,
+    "consistent_matches": 4067,
+    "heldout_rigid_m": 19.0,
+    "heldout_bend_m": 6.6,
+    "max_move_m": 76.7
+   }
+  }
+ },
+ "grounds_agree_m": 7.1,
+ "cross": {
+  "asis_m": 53.5,
+  "shift_m": 32.5,
+  "bend_m": null,
+  "n": 4999,
+  "within_25m": {
+   "asis": 0.098,
+   "shift": 0.357,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 10% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.9716627883003603,
+   0.03356275508932124
+  ],
+  "t": [
+   54.92706830843322,
+   29.75950180073955
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

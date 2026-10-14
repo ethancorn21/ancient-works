@@ -1,0 +1,95 @@
+{
+ "site": "totnes-castle-q2445840",
+ "sheet": "os1inch",
+ "label": "Ordnance Survey One-inch map, Revised New Series (c. 1900)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 3258,
+   "fraction": 0.652,
+   "asis_fraction": 0.262,
+   "asis_err_m": 33.4,
+   "rigid_err_m": 17.1,
+   "shift_m": 26.7,
+   "shift_en_m": [
+    -26.3,
+    4.6
+   ],
+   "rot_deg": -1.1,
+   "scale": 0.9817,
+   "resid_med_m": 12.3,
+   "spread": [
+    0.6746477617682142,
+    139.26521855150725
+   ],
+   "bend": {
+    "control_cells": 52,
+    "consistent_matches": 4271,
+    "heldout_rigid_m": 10.8,
+    "heldout_bend_m": 9.1,
+    "max_move_m": 28.2,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  },
+  "relief": {
+   "matches": 4992,
+   "inliers": 3052,
+   "fraction": 0.611,
+   "asis_fraction": 0.15,
+   "asis_err_m": 38.3,
+   "rigid_err_m": 18.5,
+   "shift_m": 33.2,
+   "shift_en_m": [
+    -33.2,
+    -0.4
+   ],
+   "rot_deg": -0.09,
+   "scale": 0.9897,
+   "resid_med_m": 12.9,
+   "spread": [
+    0.8880392469621479,
+    193.77812616773537
+   ],
+   "bend": {
+    "control_cells": 61,
+    "consistent_matches": 4038,
+    "heldout_rigid_m": 11.8,
+    "heldout_bend_m": 7.7,
+    "max_move_m": 29.5
+   }
+  }
+ },
+ "grounds_agree_m": 8.5,
+ "cross": {
+  "asis_m": 38.3,
+  "shift_m": 21.5,
+  "bend_m": null,
+  "n": 4748,
+  "within_25m": {
+   "asis": 0.158,
+   "shift": 0.587,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "shift",
+  "why": "relief matches 38.3 m as laid -> 21.5 m (shift)"
+ },
+ "params": {
+  "s": [
+   0.9815536698567472,
+   -0.01889659973823463
+  ],
+  "t": [
+   -26.520067521775893,
+   10.370691195556699
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   800,
+   800
+  ]
+ }
+}

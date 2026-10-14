@@ -1,0 +1,96 @@
+{
+ "site": "vellaunodunum-q673209",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 754,
+   "fraction": 0.151,
+   "asis_fraction": 0.092,
+   "asis_err_m": 81.7,
+   "rigid_err_m": 73.1,
+   "shift_m": 72.5,
+   "shift_en_m": [
+    -29.5,
+    -66.2
+   ],
+   "rot_deg": 4.83,
+   "scale": 1.0925,
+   "resid_med_m": 14.2,
+   "spread": [
+    0.7139086880082879,
+    258.20273466867513
+   ],
+   "bend": {
+    "control_cells": 84,
+    "consistent_matches": 2791,
+    "heldout_rigid_m": 29.1,
+    "heldout_bend_m": 7.0,
+    "max_move_m": 161.9,
+    "why": "bend would move ground 162 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4994,
+   "inliers": 1721,
+   "fraction": 0.345,
+   "asis_fraction": 0.274,
+   "asis_err_m": 40.2,
+   "rigid_err_m": 39.0,
+   "shift_m": 29.0,
+   "shift_en_m": [
+    -10.4,
+    -27.0
+   ],
+   "rot_deg": 2.24,
+   "scale": 0.9906,
+   "resid_med_m": 13.8,
+   "spread": [
+    0.5660680595955156,
+    224.00528029664784
+   ],
+   "bend": {
+    "control_cells": 145,
+    "consistent_matches": 3605,
+    "heldout_rigid_m": 20.0,
+    "heldout_bend_m": 6.2,
+    "max_move_m": 98.9,
+    "why": "bend would move ground 99 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 43.6,
+ "cross": {
+  "asis_m": 41.7,
+  "shift_m": 90.0,
+  "bend_m": null,
+  "n": 4618,
+  "within_25m": {
+   "asis": 0.296,
+   "shift": 0.057,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 30% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   1.0886600426099085,
+   0.09201024825914858
+  ],
+  "t": [
+   -26.781716886412852,
+   -78.30528543947575
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

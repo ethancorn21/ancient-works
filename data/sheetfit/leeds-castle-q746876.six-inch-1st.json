@@ -1,0 +1,86 @@
+{
+ "site": "leeds-castle-q746876",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4997,
+   "inliers": 4737,
+   "fraction": 0.948,
+   "asis_fraction": 0.931,
+   "asis_err_m": 8.5,
+   "rigid_err_m": 7.9,
+   "shift_m": 5.3,
+   "shift_en_m": [
+    5.2,
+    0.7
+   ],
+   "rot_deg": 0.43,
+   "scale": 1.0079,
+   "resid_med_m": 7.2,
+   "spread": [
+    0.811566369312337,
+    108.99134406577673
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4994,
+   "inliers": 4560,
+   "fraction": 0.913,
+   "asis_fraction": 0.903,
+   "asis_err_m": 4.8,
+   "rigid_err_m": 4.5,
+   "shift_m": 2.2,
+   "shift_en_m": [
+    -0.1,
+    2.2
+   ],
+   "rot_deg": 0.12,
+   "scale": 0.9983,
+   "resid_med_m": 4.2,
+   "spread": [
+    0.8497078272797065,
+    116.58864226493523
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 5.5,
+ "cross": {
+  "asis_m": 4.8,
+  "shift_m": 6.2,
+  "bend_m": null,
+  "n": 4994,
+  "within_25m": {
+   "asis": 0.903,
+   "shift": 0.894,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 4.8 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0078448207052486,
+   0.007596801203073166
+  ],
+  "t": [
+   3.414135207530908,
+   -4.557686011174274
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

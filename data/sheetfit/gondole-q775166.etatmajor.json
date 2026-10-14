@@ -1,0 +1,95 @@
+{
+ "site": "gondole-q775166",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4991,
+   "inliers": 1472,
+   "fraction": 0.295,
+   "asis_fraction": 0.108,
+   "asis_err_m": 55.6,
+   "rigid_err_m": 45.1,
+   "shift_m": 27.8,
+   "shift_en_m": [
+    14.9,
+    23.4
+   ],
+   "rot_deg": -0.05,
+   "scale": 1.0334,
+   "resid_med_m": 13.1,
+   "spread": [
+    0.4608370117684124,
+    222.77226838307598
+   ],
+   "bend": {
+    "control_cells": 132,
+    "consistent_matches": 3399,
+    "heldout_rigid_m": 20.4,
+    "heldout_bend_m": 6.8,
+    "max_move_m": 116.3,
+    "why": "bend would move ground 116 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4995,
+   "inliers": 1148,
+   "fraction": 0.23,
+   "asis_fraction": 0.071,
+   "asis_err_m": 57.9,
+   "rigid_err_m": 35.7,
+   "shift_m": 32.2,
+   "shift_en_m": [
+    29.1,
+    13.8
+   ],
+   "rot_deg": -0.25,
+   "scale": 0.9282,
+   "resid_med_m": 15.1,
+   "spread": [
+    0.4058549845198559,
+    153.03928223577577
+   ],
+   "bend": {
+    "control_cells": 55,
+    "consistent_matches": 2883,
+    "heldout_rigid_m": 22.9,
+    "heldout_bend_m": 6.8,
+    "max_move_m": 61.6
+   }
+  }
+ },
+ "grounds_agree_m": 17.1,
+ "cross": {
+  "asis_m": 59.1,
+  "shift_m": 54.4,
+  "bend_m": null,
+  "n": 3313,
+  "within_25m": {
+   "asis": 0.107,
+   "shift": 0.262,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 11% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   1.0333665237933507,
+   -0.0008227562017107452
+  ],
+  "t": [
+   -12.417696552524276,
+   -49.435888184272486
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

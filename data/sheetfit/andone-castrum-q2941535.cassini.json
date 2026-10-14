@@ -1,0 +1,95 @@
+{
+ "site": "andone-castrum-q2941535",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4994,
+   "inliers": 697,
+   "fraction": 0.14,
+   "asis_fraction": 0.011,
+   "asis_err_m": 153.8,
+   "rigid_err_m": 52.5,
+   "shift_m": 266.6,
+   "shift_en_m": [
+    -226.7,
+    140.2
+   ],
+   "rot_deg": 15.9,
+   "scale": 0.8005,
+   "resid_med_m": 12.1,
+   "spread": [
+    0.31982565395407164,
+    151.27395634990404
+   ],
+   "bend": {
+    "control_cells": 54,
+    "consistent_matches": 2801,
+    "heldout_rigid_m": 25.7,
+    "heldout_bend_m": 11.3,
+    "max_move_m": 219.1,
+    "why": "bend would move ground 219 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4995,
+   "inliers": 971,
+   "fraction": 0.194,
+   "asis_fraction": 0.001,
+   "asis_err_m": 167.4,
+   "rigid_err_m": 35.1,
+   "shift_m": 232.6,
+   "shift_en_m": [
+    15.3,
+    232.1
+   ],
+   "rot_deg": 11.55,
+   "scale": 0.5231,
+   "resid_med_m": 13.6,
+   "spread": [
+    0.4794520946348169,
+    151.90543821927957
+   ],
+   "bend": {
+    "control_cells": 12,
+    "consistent_matches": 2284,
+    "heldout_rigid_m": 15.3,
+    "heldout_bend_m": 8.4,
+    "max_move_m": 33.8
+   }
+  }
+ },
+ "grounds_agree_m": 258.9,
+ "cross": {
+  "asis_m": 172.1,
+  "shift_m": 228.9,
+  "bend_m": null,
+  "n": 970,
+  "within_25m": {
+   "asis": 0.003,
+   "shift": 0.0,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 0% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.7699270866737528,
+   0.2192523679423522
+  ],
+  "t": [
+   132.73870674165056,
+   -131.51451360778867
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

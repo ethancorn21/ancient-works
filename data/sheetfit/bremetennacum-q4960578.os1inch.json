@@ -1,0 +1,95 @@
+{
+ "site": "bremetennacum-q4960578",
+ "sheet": "os1inch",
+ "label": "Ordnance Survey One-inch map, Revised New Series (c. 1900)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 2380,
+   "fraction": 0.476,
+   "asis_fraction": 0.181,
+   "asis_err_m": 41.5,
+   "rigid_err_m": 26.8,
+   "shift_m": 37.5,
+   "shift_en_m": [
+    31.2,
+    20.7
+   ],
+   "rot_deg": 0.59,
+   "scale": 0.9888,
+   "resid_med_m": 13.7,
+   "spread": [
+    0.5546994844617906,
+    240.03071832738505
+   ],
+   "bend": {
+    "control_cells": 213,
+    "consistent_matches": 4544,
+    "heldout_rigid_m": 20.1,
+    "heldout_bend_m": 4.9,
+    "max_move_m": 86.8,
+    "why": "bend would move ground 87 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4999,
+   "inliers": 2468,
+   "fraction": 0.494,
+   "asis_fraction": 0.21,
+   "asis_err_m": 41.3,
+   "rigid_err_m": 25.1,
+   "shift_m": 27.5,
+   "shift_en_m": [
+    -6.7,
+    26.6
+   ],
+   "rot_deg": 1.89,
+   "scale": 1.0199,
+   "resid_med_m": 15.0,
+   "spread": [
+    0.5472838646772066,
+    275.27345044097166
+   ],
+   "bend": {
+    "control_cells": 157,
+    "consistent_matches": 4682,
+    "heldout_rigid_m": 25.5,
+    "heldout_bend_m": 5.1,
+    "max_move_m": 56.3
+   }
+  }
+ },
+ "grounds_agree_m": 38.4,
+ "cross": {
+  "asis_m": 41.3,
+  "shift_m": 49.1,
+  "bend_m": null,
+  "n": 4999,
+  "within_25m": {
+   "asis": 0.21,
+   "shift": 0.315,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 21% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.9887749538518393,
+   0.010253950469981697
+  ],
+  "t": [
+   48.41445162454028,
+   -19.970934857608746
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

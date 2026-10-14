@@ -1,0 +1,90 @@
+{
+ "site": "kilmartin-temple-wood",
+ "sheet": "scot-6-first",
+ "label": "Ordnance Survey six-inch map, Scotland, 1st edition",
+ "m_per_px": 1.5,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 4736,
+   "fraction": 0.947,
+   "asis_fraction": 0.924,
+   "asis_err_m": 7.6,
+   "rigid_err_m": 6.7,
+   "shift_m": 3.8,
+   "shift_en_m": [
+    -0.7,
+    3.7
+   ],
+   "rot_deg": 0.0,
+   "scale": 1.0002,
+   "resid_med_m": 6.3,
+   "spread": [
+    0.9299628534611982,
+    565.3055634475744
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 5000,
+   "inliers": 4537,
+   "fraction": 0.907,
+   "asis_fraction": 0.833,
+   "asis_err_m": 15.6,
+   "rigid_err_m": 9.8,
+   "shift_m": 11.4,
+   "shift_en_m": [
+    8.2,
+    -8.0
+   ],
+   "rot_deg": 0.04,
+   "scale": 1.0031,
+   "resid_med_m": 9.0,
+   "spread": [
+    0.7712268873795322,
+    496.498728502465
+   ],
+   "bend": {
+    "control_cells": 271,
+    "consistent_matches": 4753,
+    "heldout_rigid_m": 8.1,
+    "heldout_bend_m": 2.4,
+    "max_move_m": 21.8
+   }
+  }
+ },
+ "grounds_agree_m": 14.7,
+ "cross": {
+  "asis_m": 15.6,
+  "shift_m": 17.8,
+  "bend_m": null,
+  "n": 4998,
+  "within_25m": {
+   "asis": 0.833,
+   "shift": 0.769,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 7.6 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.000151030731779,
+   3.844349711049369e-05
+  ],
+  "t": [
+   -0.5906066420795661,
+   -2.6435662854777293
+  ],
+  "m_per_px": 1.5,
+  "smooth": 2.0,
+  "size": [
+   2000,
+   2000
+  ]
+ }
+}

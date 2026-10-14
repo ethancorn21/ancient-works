@@ -1,0 +1,86 @@
+{
+ "site": "mayburgh-henge-q1469390",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.502,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 4903,
+   "fraction": 0.981,
+   "asis_fraction": 0.964,
+   "asis_err_m": 7.3,
+   "rigid_err_m": 4.9,
+   "shift_m": 6.1,
+   "shift_en_m": [
+    -5.5,
+    2.5
+   ],
+   "rot_deg": 0.36,
+   "scale": 1.009,
+   "resid_med_m": 4.8,
+   "spread": [
+    0.5170097069133639,
+    102.70086559781126
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 5000,
+   "inliers": 4916,
+   "fraction": 0.983,
+   "asis_fraction": 0.982,
+   "asis_err_m": 7.8,
+   "rigid_err_m": 7.2,
+   "shift_m": 0.9,
+   "shift_en_m": [
+    -0.9,
+    -0.1
+   ],
+   "rot_deg": -0.11,
+   "scale": 1.0059,
+   "resid_med_m": 7.2,
+   "spread": [
+    0.5600177044447188,
+    119.75108388774963
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 5.3,
+ "cross": {
+  "asis_m": 7.8,
+  "shift_m": 9.1,
+  "bend_m": null,
+  "n": 5000,
+  "within_25m": {
+   "asis": 0.982,
+   "shift": 0.968,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 7.3 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0089305274151363,
+   0.006271934738809692
+  ],
+  "t": [
+   -4.572032063507866,
+   -6.731913048990316
+  ],
+  "m_per_px": 1.5015015015015014,
+  "smooth": 2.0,
+  "size": [
+   666,
+   666
+  ]
+ }
+}

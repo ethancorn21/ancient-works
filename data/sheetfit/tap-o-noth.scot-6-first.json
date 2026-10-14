@@ -1,0 +1,96 @@
+{
+ "site": "tap-o-noth",
+ "sheet": "scot-6-first",
+ "label": "Ordnance Survey six-inch map, Scotland, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4992,
+   "inliers": 873,
+   "fraction": 0.175,
+   "asis_fraction": 0.117,
+   "asis_err_m": 62.1,
+   "rigid_err_m": 56.3,
+   "shift_m": 46.8,
+   "shift_en_m": [
+    5.8,
+    46.4
+   ],
+   "rot_deg": 1.89,
+   "scale": 0.8771,
+   "resid_med_m": 14.5,
+   "spread": [
+    0.5508614795150031,
+    87.11978962591374
+   ],
+   "bend": {
+    "control_cells": 46,
+    "consistent_matches": 2491,
+    "heldout_rigid_m": 19.4,
+    "heldout_bend_m": 10.3,
+    "max_move_m": 151.8,
+    "why": "bend would move ground 152 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4998,
+   "inliers": 834,
+   "fraction": 0.167,
+   "asis_fraction": 0.091,
+   "asis_err_m": 77.8,
+   "rigid_err_m": 69.1,
+   "shift_m": 73.6,
+   "shift_en_m": [
+    -34.3,
+    -65.1
+   ],
+   "rot_deg": 6.14,
+   "scale": 1.186,
+   "resid_med_m": 15.0,
+   "spread": [
+    0.8102275332046268,
+    150.15172655957213
+   ],
+   "bend": {
+    "control_cells": 23,
+    "consistent_matches": 3085,
+    "heldout_rigid_m": 26.4,
+    "heldout_bend_m": 9.5,
+    "max_move_m": 86.1,
+    "why": "bend would move ground 86 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 118.5,
+ "cross": {
+  "asis_m": 79.4,
+  "shift_m": 127.1,
+  "bend_m": null,
+  "n": 4648,
+  "within_25m": {
+   "asis": 0.097,
+   "shift": 0.033,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 10% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.8765726675752105,
+   0.028982077338826122
+  ],
+  "t": [
+   59.69275294679862,
+   3.6678758841001375
+  ],
+  "m_per_px": 1.500682128240109,
+  "smooth": 2.0,
+  "size": [
+   733,
+   733
+  ]
+ }
+}

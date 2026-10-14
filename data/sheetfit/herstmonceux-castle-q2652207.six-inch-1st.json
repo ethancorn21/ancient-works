@@ -1,0 +1,95 @@
+{
+ "site": "herstmonceux-castle-q2652207",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4994,
+   "inliers": 1626,
+   "fraction": 0.326,
+   "asis_fraction": 0.306,
+   "asis_err_m": 40.6,
+   "rigid_err_m": 39.9,
+   "shift_m": 3.1,
+   "shift_en_m": [
+    0.8,
+    3.0
+   ],
+   "rot_deg": -1.86,
+   "scale": 1.002,
+   "resid_med_m": 15.5,
+   "spread": [
+    0.6318651254770596,
+    100.89845180450257
+   ],
+   "bend": {
+    "control_cells": 23,
+    "consistent_matches": 3651,
+    "heldout_rigid_m": 19.8,
+    "heldout_bend_m": 9.8,
+    "max_move_m": 115.4,
+    "why": "bend would move ground 115 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4976,
+   "inliers": 3078,
+   "fraction": 0.619,
+   "asis_fraction": 0.566,
+   "asis_err_m": 19.1,
+   "rigid_err_m": 17.5,
+   "shift_m": 8.6,
+   "shift_en_m": [
+    8.6,
+    -0.6
+   ],
+   "rot_deg": 0.56,
+   "scale": 1.0064,
+   "resid_med_m": 10.8,
+   "spread": [
+    0.5741989795473178,
+    97.0915312204874
+   ],
+   "bend": {
+    "control_cells": 48,
+    "consistent_matches": 4150,
+    "heldout_rigid_m": 10.7,
+    "heldout_bend_m": 7.9,
+    "max_move_m": 24.3
+   }
+  }
+ },
+ "grounds_agree_m": 8.6,
+ "cross": {
+  "asis_m": 19.1,
+  "shift_m": 24.0,
+  "bend_m": null,
+  "n": 4715,
+  "within_25m": {
+   "asis": 0.597,
+   "shift": 0.522,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "60% of relief matches within 25 m as laid; no confirmed fix"
+ },
+ "params": {
+  "s": [
+   1.0014745141341292,
+   -0.032468202112340847
+  ],
+  "t": [
+   -8.510997672460697,
+   6.273352570737725
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

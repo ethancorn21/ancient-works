@@ -1,0 +1,86 @@
+{
+ "site": "trematon-castle-q7838051",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 4946,
+   "fraction": 0.99,
+   "asis_fraction": 0.979,
+   "asis_err_m": 6.1,
+   "rigid_err_m": 4.1,
+   "shift_m": 6.8,
+   "shift_en_m": [
+    -5.6,
+    3.9
+   ],
+   "rot_deg": -0.19,
+   "scale": 0.9917,
+   "resid_med_m": 4.0,
+   "spread": [
+    0.8181504142209879,
+    132.96175273458402
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 5000,
+   "inliers": 5000,
+   "fraction": 1.0,
+   "asis_fraction": 1.0,
+   "asis_err_m": 4.5,
+   "rigid_err_m": 3.4,
+   "shift_m": 2.7,
+   "shift_en_m": [
+    -2.6,
+    -0.9
+   ],
+   "rot_deg": 0.1,
+   "scale": 0.9978,
+   "resid_med_m": 3.4,
+   "spread": [
+    0.6280861819200231,
+    130.28688834579734
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 5.7,
+ "cross": {
+  "asis_m": 4.5,
+  "shift_m": 5.5,
+  "bend_m": null,
+  "n": 5000,
+  "within_25m": {
+   "asis": 1.0,
+   "shift": 0.999,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 4.5 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9917138429997095,
+   -0.0032064183446456796
+  ],
+  "t": [
+   -2.368657815812415,
+   0.4488029867736598
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

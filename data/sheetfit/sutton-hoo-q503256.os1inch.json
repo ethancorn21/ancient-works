@@ -1,0 +1,96 @@
+{
+ "site": "sutton-hoo-q503256",
+ "sheet": "os1inch",
+ "label": "Ordnance Survey One-inch map, Revised New Series (c. 1900)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4996,
+   "inliers": 1612,
+   "fraction": 0.323,
+   "asis_fraction": 0.148,
+   "asis_err_m": 57.4,
+   "rigid_err_m": 35.9,
+   "shift_m": 43.0,
+   "shift_en_m": [
+    41.8,
+    -10.2
+   ],
+   "rot_deg": 0.16,
+   "scale": 1.0684,
+   "resid_med_m": 14.8,
+   "spread": [
+    0.4558110641301064,
+    168.5335801485893
+   ],
+   "bend": {
+    "control_cells": 91,
+    "consistent_matches": 3977,
+    "heldout_rigid_m": 22.1,
+    "heldout_bend_m": 7.8,
+    "max_move_m": 107.8,
+    "why": "bend would move ground 108 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4991,
+   "inliers": 791,
+   "fraction": 0.158,
+   "asis_fraction": 0.119,
+   "asis_err_m": 57.2,
+   "rigid_err_m": 102.8,
+   "shift_m": 105.1,
+   "shift_en_m": [
+    79.5,
+    68.7
+   ],
+   "rot_deg": -0.34,
+   "scale": 0.8284,
+   "resid_med_m": 11.7,
+   "spread": [
+    0.6678700178771457,
+    116.74023468712898
+   ],
+   "bend": {
+    "control_cells": 48,
+    "consistent_matches": 2654,
+    "heldout_rigid_m": 21.8,
+    "heldout_bend_m": 7.6,
+    "max_move_m": 143.8,
+    "why": "bend would move ground 144 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 87.4,
+ "cross": {
+  "asis_m": 68.6,
+  "shift_m": 72.8,
+  "bend_m": null,
+  "n": 4306,
+  "within_25m": {
+   "asis": 0.138,
+   "shift": 0.074,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 14% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   1.068436404003008,
+   0.0030218488354024696
+  ],
+  "t": [
+   2.53048127519747,
+   -32.71163296800114
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1200,
+   1200
+  ]
+ }
+}

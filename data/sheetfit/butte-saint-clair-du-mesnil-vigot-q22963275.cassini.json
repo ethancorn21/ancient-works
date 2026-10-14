@@ -1,0 +1,95 @@
+{
+ "site": "butte-saint-clair-du-mesnil-vigot-q22963275",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4984,
+   "inliers": 537,
+   "fraction": 0.108,
+   "asis_fraction": 0.002,
+   "asis_err_m": 139.1,
+   "rigid_err_m": 75.7,
+   "shift_m": 72.1,
+   "shift_en_m": [
+    48.2,
+    -53.7
+   ],
+   "rot_deg": 133.27,
+   "scale": 0.7314,
+   "resid_med_m": 14.1,
+   "spread": [
+    0.5724471122211208,
+    97.48067465563905
+   ],
+   "bend": {
+    "control_cells": 7,
+    "consistent_matches": 2400,
+    "heldout_rigid_m": 11.2,
+    "heldout_bend_m": 20.1,
+    "max_move_m": 40.9,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  },
+  "relief": {
+   "matches": 4991,
+   "inliers": 850,
+   "fraction": 0.17,
+   "asis_fraction": 0.001,
+   "asis_err_m": 172.6,
+   "rigid_err_m": 18.5,
+   "shift_m": 120.9,
+   "shift_en_m": [
+    120.7,
+    7.2
+   ],
+   "rot_deg": 68.66,
+   "scale": 0.7627,
+   "resid_med_m": 13.9,
+   "spread": [
+    0.831760321337492,
+    126.85714597279957
+   ],
+   "bend": {
+    "control_cells": 13,
+    "consistent_matches": 2578,
+    "heldout_rigid_m": 12.0,
+    "heldout_bend_m": 8.5,
+    "max_move_m": 31.8
+   }
+  }
+ },
+ "grounds_agree_m": 94.7,
+ "cross": {
+  "asis_m": 284.4,
+  "shift_m": 166.4,
+  "bend_m": null,
+  "n": 2145,
+  "within_25m": {
+   "asis": 0.003,
+   "shift": 0.018,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 0% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   -0.5013580329285509,
+   0.5325470986594185
+  ],
+  "t": [
+   861.7844839722687,
+   441.1835924041029
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   800,
+   800
+  ]
+ }
+}

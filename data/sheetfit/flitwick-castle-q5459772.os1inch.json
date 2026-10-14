@@ -1,0 +1,96 @@
+{
+ "site": "flitwick-castle-q5459772",
+ "sheet": "os1inch",
+ "label": "Ordnance Survey One-inch map, Revised New Series (c. 1900)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4991,
+   "inliers": 677,
+   "fraction": 0.136,
+   "asis_fraction": 0.024,
+   "asis_err_m": 99.7,
+   "rigid_err_m": 85.2,
+   "shift_m": 124.8,
+   "shift_en_m": [
+    -124.5,
+    8.8
+   ],
+   "rot_deg": -16.69,
+   "scale": 1.519,
+   "resid_med_m": 13.7,
+   "spread": [
+    0.4730374136528689,
+    67.28232178525244
+   ],
+   "bend": {
+    "control_cells": 13,
+    "consistent_matches": 2223,
+    "heldout_rigid_m": 12.5,
+    "heldout_bend_m": 5.5,
+    "max_move_m": 87.0,
+    "why": "bend would move ground 87 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4991,
+   "inliers": 843,
+   "fraction": 0.169,
+   "asis_fraction": 0.119,
+   "asis_err_m": 63.1,
+   "rigid_err_m": 66.1,
+   "shift_m": 32.3,
+   "shift_en_m": [
+    32.3,
+    -0.8
+   ],
+   "rot_deg": 3.98,
+   "scale": 0.9068,
+   "resid_med_m": 11.2,
+   "spread": [
+    0.7796230137432979,
+    108.10765722441984
+   ],
+   "bend": {
+    "control_cells": 10,
+    "consistent_matches": 1907,
+    "heldout_rigid_m": 7.9,
+    "heldout_bend_m": 12.5,
+    "max_move_m": 28.1,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  }
+ },
+ "grounds_agree_m": 157.1,
+ "cross": {
+  "asis_m": 65.9,
+  "shift_m": 156.6,
+  "bend_m": null,
+  "n": 2756,
+  "within_25m": {
+   "asis": 0.216,
+   "shift": 0.009,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 22% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   1.454991787719604,
+   -0.43633854970672653
+  ],
+  "t": [
+   -480.9887675246335,
+   -16.299443759067316
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   800,
+   800
+  ]
+ }
+}

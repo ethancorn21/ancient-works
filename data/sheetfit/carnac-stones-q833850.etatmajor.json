@@ -1,0 +1,56 @@
+{
+ "site": "carnac-stones-q833850",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4995,
+   "inliers": 986,
+   "fraction": 0.197,
+   "asis_fraction": 0.171,
+   "asis_err_m": 52.5,
+   "rigid_err_m": 54.8,
+   "shift_m": 29.2,
+   "shift_en_m": [
+    5.8,
+    -28.6
+   ],
+   "rot_deg": 0.1,
+   "scale": 0.9597,
+   "resid_med_m": 17.3,
+   "spread": [
+    0.9383388999965473,
+    420.5182733001122
+   ],
+   "bend": {
+    "control_cells": 124,
+    "consistent_matches": 3761,
+    "heldout_rigid_m": 47.9,
+    "heldout_bend_m": 9.4,
+    "max_move_m": 142.6,
+    "why": "bend would move ground 143 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "no independent check: no relief"
+ },
+ "params": {
+  "s": [
+   0.9596957019159258,
+   0.001718779066798296
+  ],
+  "t": [
+   39.41685632235448,
+   59.456327709544695
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

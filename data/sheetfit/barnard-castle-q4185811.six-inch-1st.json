@@ -1,0 +1,90 @@
+{
+ "site": "barnard-castle-q4185811",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 4977,
+   "fraction": 0.996,
+   "asis_fraction": 0.972,
+   "asis_err_m": 10.1,
+   "rigid_err_m": 5.9,
+   "shift_m": 7.2,
+   "shift_en_m": [
+    2.3,
+    6.9
+   ],
+   "rot_deg": -0.4,
+   "scale": 0.9936,
+   "resid_med_m": 5.9,
+   "spread": [
+    0.795886004745129,
+    125.11628489556331
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4985,
+   "inliers": 4597,
+   "fraction": 0.922,
+   "asis_fraction": 0.891,
+   "asis_err_m": 12.4,
+   "rigid_err_m": 9.5,
+   "shift_m": 8.0,
+   "shift_en_m": [
+    1.1,
+    7.9
+   ],
+   "rot_deg": -0.33,
+   "scale": 1.0041,
+   "resid_med_m": 8.8,
+   "spread": [
+    0.9179463387198452,
+    145.16516890560644
+   ],
+   "bend": {
+    "control_cells": 90,
+    "consistent_matches": 4703,
+    "heldout_rigid_m": 8.1,
+    "heldout_bend_m": 5.8,
+    "max_move_m": 20.9
+   }
+  }
+ },
+ "grounds_agree_m": 1.6,
+ "cross": {
+  "asis_m": 12.4,
+  "shift_m": 9.9,
+  "bend_m": null,
+  "n": 4985,
+  "within_25m": {
+   "asis": 0.891,
+   "shift": 0.913,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 10.1 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9935486570660602,
+   -0.0068552237726543005
+  ],
+  "t": [
+   1.4066991427969704,
+   -1.023027422911129
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

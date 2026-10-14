@@ -1,0 +1,56 @@
+{
+ "site": "conde-sur-l-escaut-q494533",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4999,
+   "inliers": 1468,
+   "fraction": 0.294,
+   "asis_fraction": 0.121,
+   "asis_err_m": 64.5,
+   "rigid_err_m": 43.7,
+   "shift_m": 50.8,
+   "shift_en_m": [
+    17.0,
+    47.8
+   ],
+   "rot_deg": 0.16,
+   "scale": 0.9241,
+   "resid_med_m": 14.1,
+   "spread": [
+    0.5607781146801443,
+    246.33828687496867
+   ],
+   "bend": {
+    "control_cells": 203,
+    "consistent_matches": 3980,
+    "heldout_rigid_m": 27.4,
+    "heldout_bend_m": 5.5,
+    "max_move_m": 99.7,
+    "why": "bend would move ground 100 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "no independent check: no relief"
+ },
+ "params": {
+  "s": [
+   0.9240868997828576,
+   0.0026028785399066718
+  ],
+  "t": [
+   95.50411690226642,
+   25.473757221054516
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   2000,
+   2000
+  ]
+ }
+}

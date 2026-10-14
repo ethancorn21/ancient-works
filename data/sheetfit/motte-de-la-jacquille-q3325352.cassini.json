@@ -1,0 +1,154 @@
+{
+ "site": "motte-de-la-jacquille-q3325352",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4987,
+   "inliers": 440,
+   "fraction": 0.088,
+   "asis_fraction": 0.008,
+   "asis_err_m": 147.5,
+   "rigid_err_m": 72.3,
+   "shift_m": 68.3,
+   "shift_en_m": [
+    35.7,
+    -58.3
+   ],
+   "rot_deg": -31.73,
+   "scale": 0.6638,
+   "resid_med_m": 11.2,
+   "spread": [
+    0.4280958513030517,
+    95.90807249124296
+   ],
+   "bend": {
+    "control_cells": 7,
+    "consistent_matches": 2113,
+    "heldout_rigid_m": 27.5,
+    "heldout_bend_m": 16.0,
+    "max_move_m": 64.0
+   }
+  },
+  "relief": {
+   "matches": 4988,
+   "inliers": 490,
+   "fraction": 0.098,
+   "asis_fraction": 0.004,
+   "asis_err_m": 130.3,
+   "rigid_err_m": 72.4,
+   "shift_m": 134.5,
+   "shift_en_m": [
+    6.5,
+    -134.3
+   ],
+   "rot_deg": 173.01,
+   "scale": 1.3542,
+   "resid_med_m": 13.7,
+   "spread": [
+    0.47640277180361273,
+    85.63404074994905
+   ],
+   "bend": {
+    "control_cells": 14,
+    "consistent_matches": 1744,
+    "heldout_rigid_m": 24.4,
+    "heldout_bend_m": 8.6,
+    "max_move_m": 67.1
+   }
+  }
+ },
+ "grounds_agree_m": 81.4,
+ "cross": {
+  "asis_m": 144.5,
+  "shift_m": 130.6,
+  "bend_m": 132.8,
+  "n": 1327,
+  "within_25m": {
+   "asis": 0.016,
+   "shift": 0.018,
+   "bend": 0.014
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 2% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.564566057139097,
+   -0.34912909260611197
+  ],
+  "t": [
+   70.17656848492635,
+   372.1133432598118
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   800,
+   800
+  ],
+  "cp": [
+   [
+    198.4,
+    345.49
+   ],
+   [
+    275.25,
+    286.63
+   ],
+   [
+    272.74,
+    415.46
+   ],
+   [
+    366.46,
+    416.4
+   ],
+   [
+    444.9,
+    436.93
+   ],
+   [
+    448.31,
+    608.54
+   ],
+   [
+    497.48,
+    459.76
+   ]
+  ],
+  "cd": [
+   [
+    32.78,
+    20.62
+   ],
+   [
+    4.67,
+    -8.16
+   ],
+   [
+    8.78,
+    4.76
+   ],
+   [
+    -3.09,
+    -3.49
+   ],
+   [
+    -10.33,
+    27.69
+   ],
+   [
+    24.32,
+    40.57
+   ],
+   [
+    -4.64,
+    27.07
+   ]
+  ]
+ }
+}

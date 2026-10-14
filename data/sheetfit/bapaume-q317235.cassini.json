@@ -1,0 +1,91 @@
+{
+ "site": "bapaume-q317235",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4994,
+   "inliers": 274,
+   "fraction": 0.055,
+   "asis_fraction": 0.004,
+   "asis_err_m": 133.1,
+   "rigid_err_m": 73.0,
+   "shift_m": 68.0,
+   "shift_en_m": [
+    59.7,
+    -32.6
+   ],
+   "rot_deg": 6.3,
+   "scale": 0.7732,
+   "resid_med_m": 14.8,
+   "spread": [
+    0.3184759053926771,
+    213.79918712997335
+   ],
+   "bend": {
+    "why": "matches cover only 5 consistent cells of 80 m"
+   }
+  },
+  "relief": {
+   "matches": 4992,
+   "inliers": 410,
+   "fraction": 0.082,
+   "asis_fraction": 0.007,
+   "asis_err_m": 166.2,
+   "rigid_err_m": 130.1,
+   "shift_m": 129.0,
+   "shift_en_m": [
+    120.3,
+    46.4
+   ],
+   "rot_deg": 3.9,
+   "scale": 0.7723,
+   "resid_med_m": 15.6,
+   "spread": [
+    0.31668182245341925,
+    171.55295536814802
+   ],
+   "bend": {
+    "control_cells": 22,
+    "consistent_matches": 1928,
+    "heldout_rigid_m": 20.4,
+    "heldout_bend_m": 10.7,
+    "max_move_m": 210.3,
+    "why": "bend would move ground 210 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 99.6,
+ "cross": {
+  "asis_m": 230.4,
+  "shift_m": 110.6,
+  "bend_m": null,
+  "n": 3449,
+  "within_25m": {
+   "asis": 0.01,
+   "shift": 0.034,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 1% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.7685181858032739,
+   0.08483289498577633
+  ],
+  "t": [
+   376.0303396812784,
+   179.26405844975648
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   2000,
+   2000
+  ]
+ }
+}

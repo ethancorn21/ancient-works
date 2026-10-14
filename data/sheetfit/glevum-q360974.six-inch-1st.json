@@ -1,0 +1,86 @@
+{
+ "site": "glevum-q360974",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 4895,
+   "fraction": 0.979,
+   "asis_fraction": 0.969,
+   "asis_err_m": 7.3,
+   "rigid_err_m": 3.4,
+   "shift_m": 5.5,
+   "shift_en_m": [
+    -0.4,
+    5.5
+   ],
+   "rot_deg": 0.04,
+   "scale": 0.995,
+   "resid_med_m": 3.4,
+   "spread": [
+    0.8889617617443134,
+    276.1012590052327
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 5000,
+   "inliers": 4630,
+   "fraction": 0.926,
+   "asis_fraction": 0.901,
+   "asis_err_m": 6.5,
+   "rigid_err_m": 6.6,
+   "shift_m": 1.2,
+   "shift_en_m": [
+    -1.1,
+    0.5
+   ],
+   "rot_deg": 0.04,
+   "scale": 0.9998,
+   "resid_med_m": 6.0,
+   "spread": [
+    0.9198673369274153,
+    279.33019179013763
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 5.0,
+ "cross": {
+  "asis_m": 6.5,
+  "shift_m": 8.4,
+  "bend_m": null,
+  "n": 5000,
+  "within_25m": {
+   "asis": 0.901,
+   "shift": 0.89,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 6.5 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9949947620814151,
+   0.0006944591142684203
+  ],
+  "t": [
+   2.7542769104499643,
+   -1.3635799272087081
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   1066,
+   1066
+  ]
+ }
+}

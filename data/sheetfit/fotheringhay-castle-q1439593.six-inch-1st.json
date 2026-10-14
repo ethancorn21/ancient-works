@@ -1,0 +1,86 @@
+{
+ "site": "fotheringhay-castle-q1439593",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 4733,
+   "fraction": 0.947,
+   "asis_fraction": 0.892,
+   "asis_err_m": 9.2,
+   "rigid_err_m": 8.1,
+   "shift_m": 5.8,
+   "shift_en_m": [
+    4.4,
+    3.7
+   ],
+   "rot_deg": -0.07,
+   "scale": 1.0143,
+   "resid_med_m": 7.7,
+   "spread": [
+    0.6388839301484507,
+    103.3402664132068
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4999,
+   "inliers": 4971,
+   "fraction": 0.994,
+   "asis_fraction": 0.98,
+   "asis_err_m": 7.4,
+   "rigid_err_m": 5.1,
+   "shift_m": 7.0,
+   "shift_en_m": [
+    -4.0,
+    5.7
+   ],
+   "rot_deg": -0.13,
+   "scale": 0.9914,
+   "resid_med_m": 5.0,
+   "spread": [
+    0.656584507970115,
+    120.48895352329492
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 8.6,
+ "cross": {
+  "asis_m": 7.4,
+  "shift_m": 6.1,
+  "bend_m": null,
+  "n": 4999,
+  "within_25m": {
+   "asis": 0.98,
+   "shift": 0.934,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 7.4 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.014255438034479,
+   -0.0012475639837703466
+  ],
+  "t": [
+   -1.1954073223784993,
+   -5.946154558340465
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

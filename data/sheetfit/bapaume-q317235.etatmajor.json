@@ -1,0 +1,96 @@
+{
+ "site": "bapaume-q317235",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4996,
+   "inliers": 1964,
+   "fraction": 0.393,
+   "asis_fraction": 0.162,
+   "asis_err_m": 53.2,
+   "rigid_err_m": 36.2,
+   "shift_m": 31.8,
+   "shift_en_m": [
+    -31.6,
+    -3.6
+   ],
+   "rot_deg": -2.67,
+   "scale": 1.0397,
+   "resid_med_m": 13.7,
+   "spread": [
+    0.6853711016045148,
+    310.52703211009873
+   ],
+   "bend": {
+    "control_cells": 207,
+    "consistent_matches": 3638,
+    "heldout_rigid_m": 16.8,
+    "heldout_bend_m": 5.9,
+    "max_move_m": 99.7,
+    "why": "bend would move ground 100 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4993,
+   "inliers": 795,
+   "fraction": 0.159,
+   "asis_fraction": 0.129,
+   "asis_err_m": 44.9,
+   "rigid_err_m": 66.1,
+   "shift_m": 46.1,
+   "shift_en_m": [
+    35.5,
+    29.3
+   ],
+   "rot_deg": -1.68,
+   "scale": 0.9994,
+   "resid_med_m": 14.4,
+   "spread": [
+    0.7308684850004085,
+    308.2979133552365
+   ],
+   "bend": {
+    "control_cells": 147,
+    "consistent_matches": 3048,
+    "heldout_rigid_m": 52.1,
+    "heldout_bend_m": 6.2,
+    "max_move_m": 112.3,
+    "why": "bend would move ground 112 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 74.7,
+ "cross": {
+  "asis_m": 45.5,
+  "shift_m": 76.1,
+  "bend_m": null,
+  "n": 3787,
+  "within_25m": {
+   "asis": 0.17,
+   "shift": 0.154,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 17% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   1.0386029833756005,
+   -0.04844830804664368
+  ],
+  "t": [
+   -118.6670514201304,
+   13.400151189914851
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   2000,
+   2000
+  ]
+ }
+}

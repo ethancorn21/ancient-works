@@ -1,0 +1,91 @@
+{
+ "site": "tournai-q173219",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4992,
+   "inliers": 236,
+   "fraction": 0.047,
+   "asis_fraction": 0.003,
+   "asis_err_m": 149.2,
+   "rigid_err_m": 123.3,
+   "shift_m": 620.9,
+   "shift_en_m": [
+    216.0,
+    582.1
+   ],
+   "rot_deg": -26.02,
+   "scale": 0.7638,
+   "resid_med_m": 12.9,
+   "spread": [
+    0.32970755719177136,
+    114.93985060450535
+   ],
+   "bend": {
+    "why": "matches cover only 4 consistent cells of 80 m"
+   }
+  },
+  "relief": {
+   "matches": 4996,
+   "inliers": 285,
+   "fraction": 0.057,
+   "asis_fraction": 0.003,
+   "asis_err_m": 182.8,
+   "rigid_err_m": 134.3,
+   "shift_m": 347.8,
+   "shift_en_m": [
+    188.0,
+    292.6
+   ],
+   "rot_deg": -6.51,
+   "scale": 0.9563,
+   "resid_med_m": 15.9,
+   "spread": [
+    0.3993550376163372,
+    189.4468706376622
+   ],
+   "bend": {
+    "control_cells": 25,
+    "consistent_matches": 1758,
+    "heldout_rigid_m": 51.7,
+    "heldout_bend_m": 12.4,
+    "max_move_m": 130.7,
+    "why": "bend would move ground 131 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 290.9,
+ "cross": {
+  "asis_m": 252.0,
+  "shift_m": 182.0,
+  "bend_m": null,
+  "n": 1974,
+  "within_25m": {
+   "asis": 0.007,
+   "shift": 0.017,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 1% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.6863533773365861,
+   -0.3350721622044279
+  ],
+  "t": [
+   194.55491001181372,
+   66.58949553295787
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   2000,
+   2000
+  ]
+ }
+}

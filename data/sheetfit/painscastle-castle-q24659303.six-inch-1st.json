@@ -1,0 +1,51 @@
+{
+ "site": "painscastle-castle-q24659303",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4997,
+   "inliers": 4997,
+   "fraction": 1.0,
+   "asis_fraction": 1.0,
+   "asis_err_m": 6.6,
+   "rigid_err_m": 2.8,
+   "shift_m": 5.9,
+   "shift_en_m": [
+    -0.3,
+    5.9
+   ],
+   "rot_deg": 0.07,
+   "scale": 1.0044,
+   "resid_med_m": 2.8,
+   "spread": [
+    0.9263353370625472,
+    153.91315188681025
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 6.6 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0043788863519,
+   0.0011681471304629694
+  ],
+  "t": [
+   -1.0304574563120141,
+   -5.412017933105238
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

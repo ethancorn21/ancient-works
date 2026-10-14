@@ -1,0 +1,95 @@
+{
+ "site": "burcht-van-voorne-q2765622",
+ "sheet": "tmk1850",
+ "label": "Topographic and Military Map of the Netherlands (TMK, c. 1850)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4997,
+   "inliers": 1032,
+   "fraction": 0.207,
+   "asis_fraction": 0.074,
+   "asis_err_m": 76.1,
+   "rigid_err_m": 65.7,
+   "shift_m": 141.8,
+   "shift_en_m": [
+    36.7,
+    137.0
+   ],
+   "rot_deg": -10.5,
+   "scale": 0.8582,
+   "resid_med_m": 14.0,
+   "spread": [
+    0.5015862932488452,
+    118.98521172822191
+   ],
+   "bend": {
+    "control_cells": 9,
+    "consistent_matches": 3783,
+    "heldout_rigid_m": 11.7,
+    "heldout_bend_m": 12.9,
+    "max_move_m": 30.0,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  },
+  "relief": {
+   "matches": 4997,
+   "inliers": 2216,
+   "fraction": 0.443,
+   "asis_fraction": 0.155,
+   "asis_err_m": 57.5,
+   "rigid_err_m": 25.9,
+   "shift_m": 53.8,
+   "shift_en_m": [
+    25.1,
+    47.5
+   ],
+   "rot_deg": 1.86,
+   "scale": 0.9595,
+   "resid_med_m": 15.0,
+   "spread": [
+    0.809689822747659,
+    195.82309831772093
+   ],
+   "bend": {
+    "control_cells": 64,
+    "consistent_matches": 3921,
+    "heldout_rigid_m": 20.7,
+    "heldout_bend_m": 8.0,
+    "max_move_m": 53.6
+   }
+  }
+ },
+ "grounds_agree_m": 90.2,
+ "cross": {
+  "asis_m": 60.0,
+  "shift_m": 124.0,
+  "bend_m": null,
+  "n": 4902,
+  "within_25m": {
+   "asis": 0.158,
+   "shift": 0.056,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 16% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.8438707847330791,
+   -0.15644191946035496
+  ],
+  "t": [
+   36.602324945881094,
+   -11.929972698590959
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   800,
+   800
+  ]
+ }
+}

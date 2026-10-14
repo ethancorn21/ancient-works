@@ -1,0 +1,86 @@
+{
+ "site": "bincknoll-castle-q4913961",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4999,
+   "inliers": 4567,
+   "fraction": 0.914,
+   "asis_fraction": 0.905,
+   "asis_err_m": 10.0,
+   "rigid_err_m": 8.6,
+   "shift_m": 4.7,
+   "shift_en_m": [
+    -4.6,
+    -0.4
+   ],
+   "rot_deg": 0.35,
+   "scale": 0.9993,
+   "resid_med_m": 8.0,
+   "spread": [
+    0.838065950528238,
+    283.3638428195518
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4999,
+   "inliers": 4753,
+   "fraction": 0.951,
+   "asis_fraction": 0.943,
+   "asis_err_m": 8.0,
+   "rigid_err_m": 7.9,
+   "shift_m": 2.0,
+   "shift_en_m": [
+    -2.0,
+    0.1
+   ],
+   "rot_deg": -0.08,
+   "scale": 0.9993,
+   "resid_med_m": 7.5,
+   "spread": [
+    0.7764753427542461,
+    295.6985340562076
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 2.6,
+ "cross": {
+  "asis_m": 8.0,
+  "shift_m": 9.8,
+  "bend_m": null,
+  "n": 4999,
+  "within_25m": {
+   "asis": 0.943,
+   "shift": 0.921,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 8.0 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9992400468751678,
+   0.006037637345461683
+  ],
+  "t": [
+   0.5288491733684113,
+   -2.5488569685119558
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   1066,
+   1066
+  ]
+ }
+}

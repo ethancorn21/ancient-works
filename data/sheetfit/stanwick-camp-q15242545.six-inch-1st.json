@@ -1,0 +1,86 @@
+{
+ "site": "stanwick-camp-q15242545",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 4689,
+   "fraction": 0.938,
+   "asis_fraction": 0.921,
+   "asis_err_m": 11.2,
+   "rigid_err_m": 8.1,
+   "shift_m": 9.6,
+   "shift_en_m": [
+    -4.9,
+    8.3
+   ],
+   "rot_deg": 0.17,
+   "scale": 1.0065,
+   "resid_med_m": 7.6,
+   "spread": [
+    0.8840570883286946,
+    185.99747709814324
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 5000,
+   "inliers": 4563,
+   "fraction": 0.913,
+   "asis_fraction": 0.877,
+   "asis_err_m": 8.5,
+   "rigid_err_m": 7.0,
+   "shift_m": 2.3,
+   "shift_en_m": [
+    -2.1,
+    0.9
+   ],
+   "rot_deg": 0.16,
+   "scale": 0.9933,
+   "resid_med_m": 6.5,
+   "spread": [
+    0.4350171365853329,
+    149.591911110888
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 7.9,
+ "cross": {
+  "asis_m": 8.5,
+  "shift_m": 8.7,
+  "bend_m": null,
+  "n": 4964,
+  "within_25m": {
+   "asis": 0.883,
+   "shift": 0.865,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 8.5 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0064638937034533,
+   0.0029994002456412076
+  ],
+  "t": [
+   -5.0952484819352435,
+   -10.56619181744312
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   1066,
+   1066
+  ]
+ }
+}

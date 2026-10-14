@@ -1,0 +1,96 @@
+{
+ "site": "avaricum-q281826",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4992,
+   "inliers": 593,
+   "fraction": 0.119,
+   "asis_fraction": 0.006,
+   "asis_err_m": 153.1,
+   "rigid_err_m": 148.6,
+   "shift_m": 382.4,
+   "shift_en_m": [
+    -296.2,
+    -241.9
+   ],
+   "rot_deg": 6.24,
+   "scale": 0.6159,
+   "resid_med_m": 11.7,
+   "spread": [
+    0.5237074098711222,
+    135.05236780468948
+   ],
+   "bend": {
+    "control_cells": 37,
+    "consistent_matches": 2310,
+    "heldout_rigid_m": 101.6,
+    "heldout_bend_m": 9.4,
+    "max_move_m": 187.1,
+    "why": "bend would move ground 187 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4990,
+   "inliers": 912,
+   "fraction": 0.183,
+   "asis_fraction": 0.001,
+   "asis_err_m": 164.9,
+   "rigid_err_m": 19.4,
+   "shift_m": 161.9,
+   "shift_en_m": [
+    -136.3,
+    87.3
+   ],
+   "rot_deg": 10.63,
+   "scale": 0.1123,
+   "resid_med_m": 15.4,
+   "spread": [
+    0.7649068179009063,
+    177.86103935098203
+   ],
+   "bend": {
+    "control_cells": 7,
+    "consistent_matches": 2362,
+    "heldout_rigid_m": 73.8,
+    "heldout_bend_m": 16.4,
+    "max_move_m": 224.7,
+    "why": "bend would move ground 225 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 366.0,
+ "cross": {
+  "asis_m": 224.9,
+  "shift_m": 304.5,
+  "bend_m": null,
+  "n": 2055,
+  "within_25m": {
+   "asis": 0.002,
+   "shift": 0.002,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 0% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.6122427685168411,
+   0.06691654974370678
+  ],
+  "t": [
+   67.5572042768232,
+   498.56201769508965
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

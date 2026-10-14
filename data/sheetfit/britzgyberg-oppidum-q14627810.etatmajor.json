@@ -1,0 +1,96 @@
+{
+ "site": "britzgyberg-oppidum-q14627810",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 1213,
+   "fraction": 0.243,
+   "asis_fraction": 0.153,
+   "asis_err_m": 58.5,
+   "rigid_err_m": 65.0,
+   "shift_m": 71.0,
+   "shift_en_m": [
+    -61.0,
+    -36.3
+   ],
+   "rot_deg": -0.66,
+   "scale": 0.9171,
+   "resid_med_m": 15.1,
+   "spread": [
+    0.7771548925531447,
+    250.47992803321128
+   ],
+   "bend": {
+    "control_cells": 154,
+    "consistent_matches": 4078,
+    "heldout_rigid_m": 40.1,
+    "heldout_bend_m": 5.6,
+    "max_move_m": 155.9,
+    "why": "bend would move ground 156 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4995,
+   "inliers": 1570,
+   "fraction": 0.314,
+   "asis_fraction": 0.204,
+   "asis_err_m": 39.9,
+   "rigid_err_m": 38.8,
+   "shift_m": 31.7,
+   "shift_en_m": [
+    -29.3,
+    -12.1
+   ],
+   "rot_deg": -0.82,
+   "scale": 0.9705,
+   "resid_med_m": 15.5,
+   "spread": [
+    0.766212375714028,
+    289.71914262636903
+   ],
+   "bend": {
+    "control_cells": 158,
+    "consistent_matches": 4088,
+    "heldout_rigid_m": 26.9,
+    "heldout_bend_m": 6.9,
+    "max_move_m": 113.8,
+    "why": "bend would move ground 114 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 39.9,
+ "cross": {
+  "asis_m": 40.0,
+  "shift_m": 61.2,
+  "bend_m": null,
+  "n": 4966,
+  "within_25m": {
+   "asis": 0.205,
+   "shift": 0.185,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 20% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.9170037915673784,
+   -0.01059646868275318
+  ],
+  "t": [
+   -3.1043545345829244,
+   111.1722057977801
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

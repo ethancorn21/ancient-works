@@ -1,0 +1,96 @@
+{
+ "site": "motte-castrale-de-garenne-de-la-motte-q14689836",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4993,
+   "inliers": 1197,
+   "fraction": 0.24,
+   "asis_fraction": 0.126,
+   "asis_err_m": 58.1,
+   "rigid_err_m": 130.6,
+   "shift_m": 116.7,
+   "shift_en_m": [
+    -24.8,
+    -114.0
+   ],
+   "rot_deg": -3.04,
+   "scale": 1.1402,
+   "resid_med_m": 12.3,
+   "spread": [
+    0.5370194201149132,
+    92.22800733643402
+   ],
+   "bend": {
+    "control_cells": 34,
+    "consistent_matches": 3588,
+    "heldout_rigid_m": 13.7,
+    "heldout_bend_m": 7.0,
+    "max_move_m": 216.7,
+    "why": "bend would move ground 217 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4986,
+   "inliers": 1628,
+   "fraction": 0.327,
+   "asis_fraction": 0.204,
+   "asis_err_m": 40.9,
+   "rigid_err_m": 37.9,
+   "shift_m": 45.0,
+   "shift_en_m": [
+    -45.0,
+    -0.4
+   ],
+   "rot_deg": 2.33,
+   "scale": 0.8863,
+   "resid_med_m": 14.0,
+   "spread": [
+    0.5987996390779403,
+    149.82671805017637
+   ],
+   "bend": {
+    "control_cells": 44,
+    "consistent_matches": 4297,
+    "heldout_rigid_m": 19.3,
+    "heldout_bend_m": 8.1,
+    "max_move_m": 98.4,
+    "why": "bend would move ground 98 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 115.4,
+ "cross": {
+  "asis_m": 40.9,
+  "shift_m": 135.4,
+  "bend_m": null,
+  "n": 4961,
+  "within_25m": {
+   "asis": 0.205,
+   "shift": 0.003,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 20% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   1.1385502010724569,
+   -0.06049557736094096
+  ],
+  "t": [
+   -104.36853805325943,
+   82.80580263026171
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   800,
+   800
+  ]
+ }
+}

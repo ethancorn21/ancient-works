@@ -1,0 +1,90 @@
+{
+ "site": "burnswark-hill",
+ "sheet": "scot-6-first",
+ "label": "Ordnance Survey six-inch map, Scotland, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4999,
+   "inliers": 4937,
+   "fraction": 0.988,
+   "asis_fraction": 0.981,
+   "asis_err_m": 6.2,
+   "rigid_err_m": 5.6,
+   "shift_m": 2.4,
+   "shift_en_m": [
+    -1.9,
+    -1.5
+   ],
+   "rot_deg": -0.06,
+   "scale": 1.0011,
+   "resid_med_m": 5.6,
+   "spread": [
+    0.9240540700728422,
+    365.6150393689185
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4999,
+   "inliers": 4542,
+   "fraction": 0.909,
+   "asis_fraction": 0.74,
+   "asis_err_m": 17.0,
+   "rigid_err_m": 8.4,
+   "shift_m": 13.1,
+   "shift_en_m": [
+    4.1,
+    -12.4
+   ],
+   "rot_deg": -0.09,
+   "scale": 1.012,
+   "resid_med_m": 7.9,
+   "spread": [
+    0.5251456098019236,
+    207.43066416775582
+   ],
+   "bend": {
+    "control_cells": 192,
+    "consistent_matches": 4720,
+    "heldout_rigid_m": 7.1,
+    "heldout_bend_m": 2.7,
+    "max_move_m": 23.2
+   }
+  }
+ },
+ "grounds_agree_m": 12.4,
+ "cross": {
+  "asis_m": 17.0,
+  "shift_m": 17.0,
+  "bend_m": null,
+  "n": 4979,
+  "within_25m": {
+   "asis": 0.743,
+   "shift": 0.755,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 6.2 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0010996123428557,
+   -0.0009611296325600008
+  ],
+  "t": [
+   -2.5697061165406776,
+   0.8850082307915419
+  ],
+  "m_per_px": 1.5007898894154819,
+  "smooth": 2.0,
+  "size": [
+   1266,
+   1266
+  ]
+ }
+}

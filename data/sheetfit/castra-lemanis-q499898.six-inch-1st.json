@@ -1,0 +1,86 @@
+{
+ "site": "castra-lemanis-q499898",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4999,
+   "inliers": 4714,
+   "fraction": 0.943,
+   "asis_fraction": 0.892,
+   "asis_err_m": 11.2,
+   "rigid_err_m": 8.2,
+   "shift_m": 8.1,
+   "shift_en_m": [
+    4.1,
+    7.0
+   ],
+   "rot_deg": -0.01,
+   "scale": 1.0038,
+   "resid_med_m": 7.8,
+   "spread": [
+    0.9606149428629223,
+    315.2428098880084
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4997,
+   "inliers": 4732,
+   "fraction": 0.947,
+   "asis_fraction": 0.931,
+   "asis_err_m": 6.5,
+   "rigid_err_m": 5.1,
+   "shift_m": 4.3,
+   "shift_en_m": [
+    3.5,
+    2.6
+   ],
+   "rot_deg": -0.04,
+   "scale": 0.9979,
+   "resid_med_m": 4.7,
+   "spread": [
+    0.7861944235484314,
+    294.3626656775513
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 4.4,
+ "cross": {
+  "asis_m": 6.5,
+  "shift_m": 6.0,
+  "bend_m": null,
+  "n": 4997,
+  "within_25m": {
+   "asis": 0.931,
+   "shift": 0.93,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 6.5 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0037689786569894,
+   -0.00014232895339460317
+  ],
+  "t": [
+   0.6296576242239942,
+   -6.5940833931174
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   1066,
+   1066
+  ]
+ }
+}

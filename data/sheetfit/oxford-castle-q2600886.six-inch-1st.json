@@ -1,0 +1,91 @@
+{
+ "site": "oxford-castle-q2600886",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4996,
+   "inliers": 4689,
+   "fraction": 0.939,
+   "asis_fraction": 0.92,
+   "asis_err_m": 8.5,
+   "rigid_err_m": 7.3,
+   "shift_m": 6.2,
+   "shift_en_m": [
+    6.0,
+    1.5
+   ],
+   "rot_deg": -0.64,
+   "scale": 0.9918,
+   "resid_med_m": 6.9,
+   "spread": [
+    0.7336233368561548,
+    104.03392618969502
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4994,
+   "inliers": 2698,
+   "fraction": 0.54,
+   "asis_fraction": 0.496,
+   "asis_err_m": 18.1,
+   "rigid_err_m": 13.1,
+   "shift_m": 15.7,
+   "shift_en_m": [
+    9.8,
+    -12.2
+   ],
+   "rot_deg": -0.0,
+   "scale": 1.0206,
+   "resid_med_m": 9.3,
+   "spread": [
+    0.8677223358232271,
+    87.58214969043273
+   ],
+   "bend": {
+    "control_cells": 34,
+    "consistent_matches": 3270,
+    "heldout_rigid_m": 7.2,
+    "heldout_bend_m": 7.4,
+    "max_move_m": 22.9,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  }
+ },
+ "grounds_agree_m": 14.2,
+ "cross": {
+  "asis_m": 18.1,
+  "shift_m": 16.1,
+  "bend_m": null,
+  "n": 3782,
+  "within_25m": {
+   "asis": 0.655,
+   "shift": 0.67,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 8.5 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9917822673917238,
+   -0.011058184752273706
+  ],
+  "t": [
+   3.2599118586528837,
+   4.121820332158505
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

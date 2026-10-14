@@ -1,0 +1,154 @@
+{
+ "site": "trematon-castle-q7838051",
+ "sheet": "os1inch",
+ "label": "Ordnance Survey One-inch map, Revised New Series (c. 1900)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4999,
+   "inliers": 1071,
+   "fraction": 0.214,
+   "asis_fraction": 0.188,
+   "asis_err_m": 70.5,
+   "rigid_err_m": 66.8,
+   "shift_m": 29.3,
+   "shift_en_m": [
+    -24.1,
+    16.7
+   ],
+   "rot_deg": 2.67,
+   "scale": 1.0395,
+   "resid_med_m": 13.7,
+   "spread": [
+    0.5942443427083954,
+    127.74607164110988
+   ],
+   "bend": {
+    "control_cells": 7,
+    "consistent_matches": 3324,
+    "heldout_rigid_m": 10.4,
+    "heldout_bend_m": 6.3,
+    "max_move_m": 31.1
+   }
+  },
+  "relief": {
+   "matches": 4990,
+   "inliers": 2214,
+   "fraction": 0.444,
+   "asis_fraction": 0.335,
+   "asis_err_m": 32.1,
+   "rigid_err_m": 26.9,
+   "shift_m": 17.9,
+   "shift_en_m": [
+    -11.3,
+    13.8
+   ],
+   "rot_deg": 0.76,
+   "scale": 0.9896,
+   "resid_med_m": 13.6,
+   "spread": [
+    0.6971625134524354,
+    162.37061884368435
+   ],
+   "bend": {
+    "control_cells": 44,
+    "consistent_matches": 3786,
+    "heldout_rigid_m": 16.9,
+    "heldout_bend_m": 8.4,
+    "max_move_m": 45.3
+   }
+  }
+ },
+ "grounds_agree_m": 13.1,
+ "cross": {
+  "asis_m": 32.1,
+  "shift_m": 35.4,
+  "bend_m": 39.7,
+  "n": 4732,
+  "within_25m": {
+   "asis": 0.353,
+   "shift": 0.331,
+   "bend": 0.229
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 35% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   1.0383704921805306,
+   0.048482405688100805
+  ],
+  "t": [
+   -20.015919854196078,
+   -51.41269620472284
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   800,
+   800
+  ],
+  "cp": [
+   [
+    608.63,
+    282.15
+   ],
+   [
+    672.95,
+    195.86
+   ],
+   [
+    676.95,
+    269.59
+   ],
+   [
+    684.11,
+    379.4
+   ],
+   [
+    768.62,
+    37.78
+   ],
+   [
+    762.02,
+    199.96
+   ],
+   [
+    755.91,
+    273.9
+   ]
+  ],
+  "cd": [
+   [
+    -9.1,
+    16.25
+   ],
+   [
+    -5.16,
+    15.76
+   ],
+   [
+    -4.43,
+    8.57
+   ],
+   [
+    -11.59,
+    4.91
+   ],
+   [
+    3.52,
+    -0.49
+   ],
+   [
+    0.14,
+    -1.84
+   ],
+   [
+    -10.17,
+    -2.21
+   ]
+  ]
+ }
+}

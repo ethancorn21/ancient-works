@@ -1,0 +1,96 @@
+{
+ "site": "kastell-lostmarc-h-q22925755",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4997,
+   "inliers": 628,
+   "fraction": 0.126,
+   "asis_fraction": 0.023,
+   "asis_err_m": 117.9,
+   "rigid_err_m": 71.8,
+   "shift_m": 129.6,
+   "shift_en_m": [
+    -93.8,
+    -89.5
+   ],
+   "rot_deg": -4.21,
+   "scale": 1.0943,
+   "resid_med_m": 16.0,
+   "spread": [
+    0.6888763370761359,
+    224.9990256116828
+   ],
+   "bend": {
+    "control_cells": 97,
+    "consistent_matches": 3087,
+    "heldout_rigid_m": 80.3,
+    "heldout_bend_m": 8.4,
+    "max_move_m": 152.3,
+    "why": "bend would move ground 152 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4992,
+   "inliers": 1129,
+   "fraction": 0.226,
+   "asis_fraction": 0.005,
+   "asis_err_m": 127.7,
+   "rigid_err_m": 47.6,
+   "shift_m": 115.3,
+   "shift_en_m": [
+    -106.2,
+    -44.9
+   ],
+   "rot_deg": -0.2,
+   "scale": 1.002,
+   "resid_med_m": 17.3,
+   "spread": [
+    0.6138740186383234,
+    270.4779733457982
+   ],
+   "bend": {
+    "control_cells": 103,
+    "consistent_matches": 3371,
+    "heldout_rigid_m": 24.9,
+    "heldout_bend_m": 8.0,
+    "max_move_m": 148.7,
+    "why": "bend would move ground 149 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 46.3,
+ "cross": {
+  "asis_m": 129.0,
+  "shift_m": 81.8,
+  "bend_m": null,
+  "n": 4991,
+  "within_25m": {
+   "asis": 0.005,
+   "shift": 0.109,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 0% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   1.0913245167241843,
+   -0.08033496486836714
+  ],
+  "t": [
+   -231.15903036112587,
+   80.67396136175867
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

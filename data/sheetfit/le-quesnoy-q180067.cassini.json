@@ -1,0 +1,56 @@
+{
+ "site": "le-quesnoy-q180067",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 812,
+   "fraction": 0.162,
+   "asis_fraction": 0.017,
+   "asis_err_m": 128.1,
+   "rigid_err_m": 107.2,
+   "shift_m": 151.5,
+   "shift_en_m": [
+    -151.2,
+    8.0
+   ],
+   "rot_deg": 17.68,
+   "scale": 0.6005,
+   "resid_med_m": 14.7,
+   "spread": [
+    0.532258285103352,
+    208.74469360620404
+   ],
+   "bend": {
+    "control_cells": 51,
+    "consistent_matches": 3187,
+    "heldout_rigid_m": 23.8,
+    "heldout_bend_m": 10.0,
+    "max_move_m": 144.3,
+    "why": "bend would move ground 144 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "no independent check: no relief"
+ },
+ "params": {
+  "s": [
+   0.5721219452849435,
+   0.18240427192698086
+  ],
+  "t": [
+   459.03393253989844,
+   237.46864947707417
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   2000,
+   2000
+  ]
+ }
+}

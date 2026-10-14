@@ -1,0 +1,96 @@
+{
+ "site": "danebury-hill-camp-q677333",
+ "sheet": "os1inch",
+ "label": "Ordnance Survey One-inch map, Revised New Series (c. 1900)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 1604,
+   "fraction": 0.321,
+   "asis_fraction": 0.174,
+   "asis_err_m": 47.2,
+   "rigid_err_m": 37.7,
+   "shift_m": 18.7,
+   "shift_en_m": [
+    10.2,
+    15.6
+   ],
+   "rot_deg": 2.7,
+   "scale": 0.9894,
+   "resid_med_m": 16.8,
+   "spread": [
+    0.6631470578682831,
+    257.0628366540983
+   ],
+   "bend": {
+    "control_cells": 137,
+    "consistent_matches": 3897,
+    "heldout_rigid_m": 23.8,
+    "heldout_bend_m": 5.2,
+    "max_move_m": 85.9,
+    "why": "bend would move ground 86 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4999,
+   "inliers": 1556,
+   "fraction": 0.311,
+   "asis_fraction": 0.135,
+   "asis_err_m": 48.5,
+   "rigid_err_m": 36.5,
+   "shift_m": 31.7,
+   "shift_en_m": [
+    28.1,
+    14.7
+   ],
+   "rot_deg": 1.55,
+   "scale": 0.9934,
+   "resid_med_m": 16.0,
+   "spread": [
+    0.7172099607035871,
+    340.97812486505364
+   ],
+   "bend": {
+    "control_cells": 124,
+    "consistent_matches": 4026,
+    "heldout_rigid_m": 23.2,
+    "heldout_bend_m": 6.4,
+    "max_move_m": 95.0,
+    "why": "bend would move ground 95 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 17.9,
+ "cross": {
+  "asis_m": 48.5,
+  "shift_m": 42.9,
+  "bend_m": null,
+  "n": 4999,
+  "within_25m": {
+   "asis": 0.135,
+   "shift": 0.264,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 14% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.9883330257350926,
+   0.04661433363218119
+  ],
+  "t": [
+   56.86707538345706,
+   -43.553823361674844
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

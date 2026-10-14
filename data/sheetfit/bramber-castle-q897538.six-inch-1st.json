@@ -1,0 +1,86 @@
+{
+ "site": "bramber-castle-q897538",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4996,
+   "inliers": 4765,
+   "fraction": 0.954,
+   "asis_fraction": 0.94,
+   "asis_err_m": 8.1,
+   "rigid_err_m": 7.6,
+   "shift_m": 2.0,
+   "shift_en_m": [
+    -0.0,
+    2.0
+   ],
+   "rot_deg": 0.09,
+   "scale": 1.0049,
+   "resid_med_m": 7.3,
+   "spread": [
+    0.7028286984133011,
+    126.29951736403474
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4994,
+   "inliers": 4964,
+   "fraction": 0.994,
+   "asis_fraction": 0.983,
+   "asis_err_m": 6.7,
+   "rigid_err_m": 5.8,
+   "shift_m": 2.0,
+   "shift_en_m": [
+    2.0,
+    -0.5
+   ],
+   "rot_deg": -0.16,
+   "scale": 0.9994,
+   "resid_med_m": 5.8,
+   "spread": [
+    0.7025517535845374,
+    126.35695635605488
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 3.2,
+ "cross": {
+  "asis_m": 6.7,
+  "shift_m": 6.5,
+  "bend_m": null,
+  "n": 4994,
+  "within_25m": {
+   "asis": 0.983,
+   "shift": 0.981,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 6.7 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0048824968165735,
+   0.001618791217271661
+  ],
+  "t": [
+   -0.900970885152454,
+   -3.0764537815471646
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

@@ -1,0 +1,96 @@
+{
+ "site": "barkhale-camp-causewayed-enclosure-q17645213",
+ "sheet": "os1inch",
+ "label": "Ordnance Survey One-inch map, Revised New Series (c. 1900)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4997,
+   "inliers": 960,
+   "fraction": 0.192,
+   "asis_fraction": 0.145,
+   "asis_err_m": 63.4,
+   "rigid_err_m": 60.4,
+   "shift_m": 94.5,
+   "shift_en_m": [
+    92.8,
+    -17.8
+   ],
+   "rot_deg": -1.54,
+   "scale": 1.0818,
+   "resid_med_m": 15.1,
+   "spread": [
+    0.37066724079681634,
+    204.0963963003687
+   ],
+   "bend": {
+    "control_cells": 98,
+    "consistent_matches": 3588,
+    "heldout_rigid_m": 25.0,
+    "heldout_bend_m": 5.9,
+    "max_move_m": 146.8,
+    "why": "bend would move ground 147 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4997,
+   "inliers": 1956,
+   "fraction": 0.391,
+   "asis_fraction": 0.289,
+   "asis_err_m": 37.3,
+   "rigid_err_m": 33.1,
+   "shift_m": 7.2,
+   "shift_en_m": [
+    -4.8,
+    -5.3
+   ],
+   "rot_deg": -0.71,
+   "scale": 0.9674,
+   "resid_med_m": 14.7,
+   "spread": [
+    0.5632751636544779,
+    290.7492055343938
+   ],
+   "bend": {
+    "control_cells": 176,
+    "consistent_matches": 4015,
+    "heldout_rigid_m": 22.6,
+    "heldout_bend_m": 6.5,
+    "max_move_m": 123.6,
+    "why": "bend would move ground 124 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 98.4,
+ "cross": {
+  "asis_m": 37.3,
+  "shift_m": 98.6,
+  "bend_m": null,
+  "n": 4997,
+  "within_25m": {
+   "asis": 0.289,
+   "shift": 0.028,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 29% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   1.0813702223555675,
+   -0.02904420800162682
+  ],
+  "t": [
+   4.506378203803388,
+   -24.07839728088431
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

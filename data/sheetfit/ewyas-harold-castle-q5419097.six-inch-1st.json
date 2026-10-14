@@ -1,0 +1,86 @@
+{
+ "site": "ewyas-harold-castle-q5419097",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4997,
+   "inliers": 4997,
+   "fraction": 1.0,
+   "asis_fraction": 1.0,
+   "asis_err_m": 6.2,
+   "rigid_err_m": 3.1,
+   "shift_m": 5.9,
+   "shift_en_m": [
+    -2.1,
+    5.5
+   ],
+   "rot_deg": 0.08,
+   "scale": 0.9971,
+   "resid_med_m": 3.1,
+   "spread": [
+    0.8385667919587391,
+    139.25999082066176
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4996,
+   "inliers": 4996,
+   "fraction": 1.0,
+   "asis_fraction": 1.0,
+   "asis_err_m": 4.0,
+   "rigid_err_m": 2.5,
+   "shift_m": 3.2,
+   "shift_en_m": [
+    -1.4,
+    2.9
+   ],
+   "rot_deg": 0.05,
+   "scale": 1.0004,
+   "resid_med_m": 2.5,
+   "spread": [
+    0.9097087611739917,
+    151.1521826445065
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 2.7,
+ "cross": {
+  "asis_m": 4.0,
+  "shift_m": 4.0,
+  "bend_m": null,
+  "n": 4996,
+  "within_25m": {
+   "asis": 1.0,
+   "shift": 1.0,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 4.0 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9970718439666719,
+   0.0014613602091369884
+  ],
+  "t": [
+   -0.2140826132292517,
+   -3.3033718071888636
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

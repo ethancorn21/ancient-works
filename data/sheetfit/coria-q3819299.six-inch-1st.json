@@ -1,0 +1,90 @@
+{
+ "site": "coria-q3819299",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4999,
+   "inliers": 4721,
+   "fraction": 0.944,
+   "asis_fraction": 0.891,
+   "asis_err_m": 7.9,
+   "rigid_err_m": 7.5,
+   "shift_m": 10.0,
+   "shift_en_m": [
+    4.1,
+    9.2
+   ],
+   "rot_deg": -0.09,
+   "scale": 1.0121,
+   "resid_med_m": 7.2,
+   "spread": [
+    0.4719692824945236,
+    153.45174289622014
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4999,
+   "inliers": 4341,
+   "fraction": 0.868,
+   "asis_fraction": 0.813,
+   "asis_err_m": 14.3,
+   "rigid_err_m": 10.3,
+   "shift_m": 6.4,
+   "shift_en_m": [
+    5.0,
+    3.9
+   ],
+   "rot_deg": -0.37,
+   "scale": 0.995,
+   "resid_med_m": 8.9,
+   "spread": [
+    0.8448461731959163,
+    256.2366075894015
+   ],
+   "bend": {
+    "control_cells": 160,
+    "consistent_matches": 4883,
+    "heldout_rigid_m": 8.2,
+    "heldout_bend_m": 2.7,
+    "max_move_m": 24.0
+   }
+  }
+ },
+ "grounds_agree_m": 5.4,
+ "cross": {
+  "asis_m": 14.3,
+  "shift_m": 16.9,
+  "bend_m": null,
+  "n": 4999,
+  "within_25m": {
+   "asis": 0.813,
+   "shift": 0.762,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 7.9 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0121155677464506,
+   -0.0016356049112709265
+  ],
+  "t": [
+   -4.598931313322684,
+   -11.689253723290486
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   1066,
+   1066
+  ]
+ }
+}

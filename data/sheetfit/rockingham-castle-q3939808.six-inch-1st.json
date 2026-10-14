@@ -1,0 +1,86 @@
+{
+ "site": "rockingham-castle-q3939808",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4993,
+   "inliers": 4841,
+   "fraction": 0.97,
+   "asis_fraction": 0.955,
+   "asis_err_m": 9.3,
+   "rigid_err_m": 7.5,
+   "shift_m": 4.1,
+   "shift_en_m": [
+    3.1,
+    2.7
+   ],
+   "rot_deg": -0.42,
+   "scale": 0.9966,
+   "resid_med_m": 7.3,
+   "spread": [
+    0.7960190266164879,
+    133.68231379960872
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4993,
+   "inliers": 4833,
+   "fraction": 0.968,
+   "asis_fraction": 0.936,
+   "asis_err_m": 7.5,
+   "rigid_err_m": 6.6,
+   "shift_m": 3.1,
+   "shift_en_m": [
+    1.4,
+    2.8
+   ],
+   "rot_deg": -0.39,
+   "scale": 1.0012,
+   "resid_med_m": 6.4,
+   "spread": [
+    0.8373418865063251,
+    138.0593104980129
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 1.7,
+ "cross": {
+  "asis_m": 7.5,
+  "shift_m": 6.8,
+  "bend_m": null,
+  "n": 4993,
+  "within_25m": {
+   "asis": 0.936,
+   "shift": 0.942,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 7.5 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9965248182448782,
+   -0.007290619592320084
+  ],
+  "t": [
+   1.0457270348945398,
+   1.0724016209826257
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

@@ -1,0 +1,91 @@
+{
+ "site": "britzgyberg-oppidum-q14627810",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4993,
+   "inliers": 348,
+   "fraction": 0.07,
+   "asis_fraction": 0.006,
+   "asis_err_m": 175.1,
+   "rigid_err_m": 39.1,
+   "shift_m": 497.6,
+   "shift_en_m": [
+    -184.0,
+    -462.3
+   ],
+   "rot_deg": 4.06,
+   "scale": 0.4052,
+   "resid_med_m": 11.6,
+   "spread": [
+    0.4495939918985245,
+    108.53614136189171
+   ],
+   "bend": {
+    "why": "matches cover only 2 consistent cells of 80 m"
+   }
+  },
+  "relief": {
+   "matches": 4984,
+   "inliers": 366,
+   "fraction": 0.073,
+   "asis_fraction": 0.0,
+   "asis_err_m": 173.3,
+   "rigid_err_m": 140.2,
+   "shift_m": 122.1,
+   "shift_en_m": [
+    -117.0,
+    35.0
+   ],
+   "rot_deg": -19.48,
+   "scale": 0.7121,
+   "resid_med_m": 13.4,
+   "spread": [
+    0.3504992039282798,
+    175.90397284192483
+   ],
+   "bend": {
+    "control_cells": 15,
+    "consistent_matches": 2462,
+    "heldout_rigid_m": 10.0,
+    "heldout_bend_m": 9.0,
+    "max_move_m": 147.3,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  }
+ },
+ "grounds_agree_m": 501.8,
+ "cross": {
+  "asis_m": 225.1,
+  "shift_m": 155.9,
+  "bend_m": null,
+  "n": 2129,
+  "within_25m": {
+   "asis": 0.0,
+   "shift": 0.015,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 0% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.4041522798549687,
+   0.028716340396660954
+  ],
+  "t": [
+   315.6264217426724,
+   915.982061659815
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

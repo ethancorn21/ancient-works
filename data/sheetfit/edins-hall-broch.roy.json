@@ -1,0 +1,155 @@
+{
+ "site": "edins-hall-broch",
+ "sheet": "roy",
+ "label": "Roy's Military Survey of Scotland",
+ "m_per_px": 1.5,
+ "grounds": {
+  "aerial": {
+   "matches": 4994,
+   "inliers": 123,
+   "fraction": 0.025,
+   "asis_fraction": 0.0,
+   "asis_err_m": 139.5,
+   "rigid_err_m": 223.1,
+   "shift_m": 573.3,
+   "shift_en_m": [
+    239.2,
+    521.0
+   ],
+   "rot_deg": -21.61,
+   "scale": 0.9273,
+   "resid_med_m": 15.5,
+   "spread": [
+    0.2640420734830663,
+    61.91532778086995
+   ],
+   "bend": {
+    "control_cells": 7,
+    "consistent_matches": 695,
+    "heldout_rigid_m": 39.1,
+    "heldout_bend_m": 13.4,
+    "max_move_m": 61.0
+   }
+  },
+  "relief": {
+   "matches": 4995,
+   "inliers": 153,
+   "fraction": 0.031,
+   "asis_fraction": 0.0,
+   "asis_err_m": 171.2,
+   "rigid_err_m": 173.9,
+   "shift_m": 329.1,
+   "shift_en_m": [
+    126.8,
+    303.7
+   ],
+   "rot_deg": -73.42,
+   "scale": 0.8359,
+   "resid_med_m": 14.9,
+   "spread": [
+    0.280158803671768,
+    68.93327075768681
+   ],
+   "bend": {
+    "control_cells": 7,
+    "consistent_matches": 695,
+    "heldout_rigid_m": 76.6,
+    "heldout_bend_m": 14.7,
+    "max_move_m": 196.5,
+    "why": "bend would move ground 197 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 244.6,
+ "cross": {
+  "asis_m": 637.0,
+  "shift_m": 189.0,
+  "bend_m": 201.8,
+  "n": 722,
+  "within_25m": {
+   "asis": 0.001,
+   "shift": 0.006,
+   "bend": 0.0
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 0% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.8621466009491048,
+   -0.34152591026905627
+  ],
+  "t": [
+   37.29560680162493,
+   -59.68782868692054
+  ],
+  "m_per_px": 1.5,
+  "smooth": 2.0,
+  "size": [
+   1200,
+   1200
+  ],
+  "cp": [
+   [
+    1258.64,
+    612.81
+   ],
+   [
+    1317.59,
+    611.3
+   ],
+   [
+    1408.22,
+    579.22
+   ],
+   [
+    1556.83,
+    671.68
+   ],
+   [
+    1571.0,
+    755.06
+   ],
+   [
+    1627.02,
+    834.92
+   ],
+   [
+    1625.57,
+    915.66
+   ]
+  ],
+  "cd": [
+   [
+    -0.91,
+    -52.18
+   ],
+   [
+    2.1,
+    -38.99
+   ],
+   [
+    14.25,
+    -40.77
+   ],
+   [
+    -19.29,
+    -42.2
+   ],
+   [
+    -8.6,
+    -22.46
+   ],
+   [
+    -9.14,
+    -11.65
+   ],
+   [
+    7.91,
+    -6.22
+   ]
+  ]
+ }
+}

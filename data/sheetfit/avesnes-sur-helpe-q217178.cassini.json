@@ -1,0 +1,56 @@
+{
+ "site": "avesnes-sur-helpe-q217178",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4995,
+   "inliers": 371,
+   "fraction": 0.074,
+   "asis_fraction": 0.003,
+   "asis_err_m": 159.5,
+   "rigid_err_m": 51.2,
+   "shift_m": 473.2,
+   "shift_en_m": [
+    -434.7,
+    -186.8
+   ],
+   "rot_deg": -13.55,
+   "scale": 0.6887,
+   "resid_med_m": 15.6,
+   "spread": [
+    0.13823441682807186,
+    110.94844705374364
+   ],
+   "bend": {
+    "control_cells": 6,
+    "consistent_matches": 1486,
+    "heldout_rigid_m": 10.2,
+    "heldout_bend_m": 12.4,
+    "max_move_m": 17.8,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "no independent check: no relief"
+ },
+ "params": {
+  "s": [
+   0.6695297158752911,
+   -0.1613410466678633
+  ],
+  "t": [
+   -265.5972070619033,
+   678.6359172175871
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   2000,
+   2000
+  ]
+ }
+}

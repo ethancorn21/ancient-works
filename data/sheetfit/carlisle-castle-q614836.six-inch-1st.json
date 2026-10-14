@@ -1,0 +1,86 @@
+{
+ "site": "carlisle-castle-q614836",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4993,
+   "inliers": 4562,
+   "fraction": 0.914,
+   "asis_fraction": 0.882,
+   "asis_err_m": 8.8,
+   "rigid_err_m": 8.4,
+   "shift_m": 5.0,
+   "shift_en_m": [
+    4.4,
+    -2.4
+   ],
+   "rot_deg": -0.26,
+   "scale": 1.0008,
+   "resid_med_m": 7.6,
+   "spread": [
+    0.7547009254965406,
+    127.78356196335372
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4997,
+   "inliers": 4277,
+   "fraction": 0.856,
+   "asis_fraction": 0.844,
+   "asis_err_m": 11.5,
+   "rigid_err_m": 10.3,
+   "shift_m": 5.6,
+   "shift_en_m": [
+    1.4,
+    -5.4
+   ],
+   "rot_deg": -0.21,
+   "scale": 0.9976,
+   "resid_med_m": 9.2,
+   "spread": [
+    0.5614666279751044,
+    102.71855648897338
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 4.2,
+ "cross": {
+  "asis_m": 11.5,
+  "shift_m": 11.5,
+  "bend_m": null,
+  "n": 4743,
+  "within_25m": {
+   "asis": 0.889,
+   "shift": 0.894,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 8.8 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.000794023675991,
+   -0.00460714893037926
+  ],
+  "t": [
+   1.4756647371781946,
+   2.647097332897875
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

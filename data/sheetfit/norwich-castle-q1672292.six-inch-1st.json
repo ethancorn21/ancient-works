@@ -1,0 +1,86 @@
+{
+ "site": "norwich-castle-q1672292",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4996,
+   "inliers": 4893,
+   "fraction": 0.979,
+   "asis_fraction": 0.969,
+   "asis_err_m": 11.2,
+   "rigid_err_m": 4.5,
+   "shift_m": 10.0,
+   "shift_en_m": [
+    4.7,
+    8.8
+   ],
+   "rot_deg": 0.03,
+   "scale": 1.0026,
+   "resid_med_m": 4.4,
+   "spread": [
+    0.8739083785904557,
+    143.50297121369272
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4994,
+   "inliers": 4878,
+   "fraction": 0.977,
+   "asis_fraction": 0.975,
+   "asis_err_m": 10.8,
+   "rigid_err_m": 5.7,
+   "shift_m": 8.1,
+   "shift_en_m": [
+    5.5,
+    5.9
+   ],
+   "rot_deg": 0.1,
+   "scale": 1.0012,
+   "resid_med_m": 5.6,
+   "spread": [
+    0.9545785269596515,
+    156.3341511693818
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 3.0,
+ "cross": {
+  "asis_m": 10.8,
+  "shift_m": 5.5,
+  "bend_m": null,
+  "n": 4994,
+  "within_25m": {
+   "asis": 0.975,
+   "shift": 0.959,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 10.8 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0025787976804683,
+   0.00043813942006033297
+  ],
+  "t": [
+   2.593717287075901,
+   -6.6386274032098065
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

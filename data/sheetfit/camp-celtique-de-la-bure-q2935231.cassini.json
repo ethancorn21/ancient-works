@@ -1,0 +1,142 @@
+{
+ "site": "camp-celtique-de-la-bure-q2935231",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4988,
+   "inliers": 244,
+   "fraction": 0.049,
+   "asis_fraction": 0.022,
+   "asis_err_m": 104.6,
+   "rigid_err_m": 91.7,
+   "shift_m": 75.8,
+   "shift_en_m": [
+    -26.7,
+    70.9
+   ],
+   "rot_deg": -2.4,
+   "scale": 0.9294,
+   "resid_med_m": 14.2,
+   "spread": [
+    0.2794952404247433,
+    177.13893479112673
+   ],
+   "bend": {
+    "control_cells": 6,
+    "consistent_matches": 1047,
+    "heldout_rigid_m": 16.0,
+    "heldout_bend_m": 7.7,
+    "max_move_m": 39.1
+   }
+  },
+  "relief": {
+   "matches": 4984,
+   "inliers": 204,
+   "fraction": 0.041,
+   "asis_fraction": 0.004,
+   "asis_err_m": 165.4,
+   "rigid_err_m": 85.5,
+   "shift_m": 268.3,
+   "shift_en_m": [
+    -245.1,
+    -109.0
+   ],
+   "rot_deg": -54.78,
+   "scale": 1.1361,
+   "resid_med_m": 14.0,
+   "spread": [
+    0.48636182772442293,
+    219.83311315218342
+   ],
+   "bend": {
+    "why": "matches cover only 5 consistent cells of 80 m"
+   }
+  }
+ },
+ "grounds_agree_m": 283.0,
+ "cross": {
+  "asis_m": 165.7,
+  "shift_m": 182.1,
+  "bend_m": 183.3,
+  "n": 1127,
+  "within_25m": {
+   "asis": 0.016,
+   "shift": 0.0,
+   "bend": 0.0
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 2% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.9285696560874394,
+   -0.038859277656227424
+  ],
+  "t": [
+   -0.6418969280523061,
+   17.327749835471067
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ],
+  "cp": [
+   [
+    305.92,
+    369.12
+   ],
+   [
+    363.9,
+    287.68
+   ],
+   [
+    366.73,
+    358.72
+   ],
+   [
+    407.82,
+    300.58
+   ],
+   [
+    1444.81,
+    780.39
+   ],
+   [
+    1470.71,
+    986.01
+   ]
+  ],
+  "cd": [
+   [
+    9.87,
+    -13.18
+   ],
+   [
+    8.53,
+    -19.2
+   ],
+   [
+    2.49,
+    -2.11
+   ],
+   [
+    4.29,
+    -9.66
+   ],
+   [
+    -22.47,
+    -5.68
+   ],
+   [
+    -14.44,
+    -5.57
+   ]
+  ]
+ }
+}

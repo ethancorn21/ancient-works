@@ -1,0 +1,86 @@
+{
+ "site": "raby-castle-q4583646",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4994,
+   "inliers": 4919,
+   "fraction": 0.985,
+   "asis_fraction": 0.973,
+   "asis_err_m": 9.2,
+   "rigid_err_m": 5.1,
+   "shift_m": 8.3,
+   "shift_en_m": [
+    1.8,
+    8.1
+   ],
+   "rot_deg": 0.09,
+   "scale": 1.0028,
+   "resid_med_m": 5.0,
+   "spread": [
+    0.9465059762224681,
+    155.5720969346938
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4996,
+   "inliers": 4979,
+   "fraction": 0.997,
+   "asis_fraction": 0.992,
+   "asis_err_m": 8.0,
+   "rigid_err_m": 3.5,
+   "shift_m": 6.6,
+   "shift_en_m": [
+    2.7,
+    6.1
+   ],
+   "rot_deg": 0.04,
+   "scale": 0.9991,
+   "resid_med_m": 3.5,
+   "spread": [
+    0.9351515921007243,
+    148.90197680961674
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 2.2,
+ "cross": {
+  "asis_m": 8.0,
+  "shift_m": 3.6,
+  "bend_m": null,
+  "n": 4996,
+  "within_25m": {
+   "asis": 0.992,
+   "shift": 0.987,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 8.0 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0028479349494346,
+   0.0015097762337852446
+  ],
+  "t": [
+   0.8434352184001104,
+   -6.572110879693513
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

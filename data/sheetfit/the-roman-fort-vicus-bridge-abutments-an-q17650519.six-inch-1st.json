@@ -1,0 +1,86 @@
+{
+ "site": "the-roman-fort-vicus-bridge-abutments-an-q17650519",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 4959,
+   "fraction": 0.992,
+   "asis_fraction": 0.958,
+   "asis_err_m": 10.8,
+   "rigid_err_m": 6.4,
+   "shift_m": 10.1,
+   "shift_en_m": [
+    -0.9,
+    10.1
+   ],
+   "rot_deg": 0.07,
+   "scale": 0.9988,
+   "resid_med_m": 6.3,
+   "spread": [
+    0.8746523709205722,
+    206.49256701057905
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4999,
+   "inliers": 4983,
+   "fraction": 0.997,
+   "asis_fraction": 0.991,
+   "asis_err_m": 6.3,
+   "rigid_err_m": 4.9,
+   "shift_m": 3.3,
+   "shift_en_m": [
+    -1.4,
+    3.0
+   ],
+   "rot_deg": -0.2,
+   "scale": 1.0009,
+   "resid_med_m": 4.9,
+   "spread": [
+    0.910215734136606,
+    206.95807366824033
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 7.1,
+ "cross": {
+  "asis_m": 6.3,
+  "shift_m": 8.3,
+  "bend_m": null,
+  "n": 4999,
+  "within_25m": {
+   "asis": 0.991,
+   "shift": 0.98,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 6.3 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9987932301802215,
+   0.0012892064337940185
+  ],
+  "t": [
+   0.3409520177873344,
+   -6.733279355139141
+  ],
+  "m_per_px": 1.500682128240109,
+  "smooth": 2.0,
+  "size": [
+   733,
+   733
+  ]
+ }
+}

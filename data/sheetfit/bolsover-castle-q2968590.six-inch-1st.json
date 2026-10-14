@@ -1,0 +1,86 @@
+{
+ "site": "bolsover-castle-q2968590",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 4440,
+   "fraction": 0.888,
+   "asis_fraction": 0.875,
+   "asis_err_m": 8.4,
+   "rigid_err_m": 7.4,
+   "shift_m": 4.7,
+   "shift_en_m": [
+    -3.6,
+    3.0
+   ],
+   "rot_deg": -0.37,
+   "scale": 1.0055,
+   "resid_med_m": 6.5,
+   "spread": [
+    0.9104011990485892,
+    137.36082408744724
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4996,
+   "inliers": 4642,
+   "fraction": 0.929,
+   "asis_fraction": 0.911,
+   "asis_err_m": 7.7,
+   "rigid_err_m": 7.1,
+   "shift_m": 2.8,
+   "shift_en_m": [
+    1.4,
+    2.4
+   ],
+   "rot_deg": -0.21,
+   "scale": 0.9916,
+   "resid_med_m": 6.6,
+   "spread": [
+    0.9644708724762414,
+    152.17472098499803
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 5.0,
+ "cross": {
+  "asis_m": 7.7,
+  "shift_m": 9.0,
+  "bend_m": null,
+  "n": 4996,
+  "within_25m": {
+   "asis": 0.911,
+   "shift": 0.905,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 7.7 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0054772580741775,
+   -0.006506213528478596
+  ],
+  "t": [
+   -5.618972710511608,
+   -1.7108663408577998
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

@@ -1,0 +1,86 @@
+{
+ "site": "maiden-castle-q1232816",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4999,
+   "inliers": 4555,
+   "fraction": 0.911,
+   "asis_fraction": 0.905,
+   "asis_err_m": 7.0,
+   "rigid_err_m": 5.6,
+   "shift_m": 3.3,
+   "shift_en_m": [
+    1.2,
+    3.1
+   ],
+   "rot_deg": 0.15,
+   "scale": 0.9997,
+   "resid_med_m": 5.2,
+   "spread": [
+    0.8040209008448747,
+    266.23494379492854
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 5000,
+   "inliers": 4984,
+   "fraction": 0.997,
+   "asis_fraction": 0.992,
+   "asis_err_m": 6.0,
+   "rigid_err_m": 5.3,
+   "shift_m": 3.2,
+   "shift_en_m": [
+    0.7,
+    -3.1
+   ],
+   "rot_deg": 0.09,
+   "scale": 0.9961,
+   "resid_med_m": 5.2,
+   "spread": [
+    0.7596141983874556,
+    272.04520485212964
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 6.2,
+ "cross": {
+  "asis_m": 6.0,
+  "shift_m": 6.4,
+  "bend_m": null,
+  "n": 5000,
+  "within_25m": {
+   "asis": 0.992,
+   "shift": 0.988,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 6.0 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.999660381467674,
+   0.002604276540946088
+  ],
+  "t": [
+   2.354363876029965,
+   -3.2493593521263464
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   1066,
+   1066
+  ]
+ }
+}

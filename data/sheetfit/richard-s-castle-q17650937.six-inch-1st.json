@@ -1,0 +1,86 @@
+{
+ "site": "richard-s-castle-q17650937",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4993,
+   "inliers": 4756,
+   "fraction": 0.953,
+   "asis_fraction": 0.916,
+   "asis_err_m": 9.5,
+   "rigid_err_m": 7.0,
+   "shift_m": 9.8,
+   "shift_en_m": [
+    -4.7,
+    8.6
+   ],
+   "rot_deg": 0.31,
+   "scale": 1.0089,
+   "resid_med_m": 6.8,
+   "spread": [
+    0.5516634186773259,
+    89.1569949726479
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4993,
+   "inliers": 4752,
+   "fraction": 0.952,
+   "asis_fraction": 0.944,
+   "asis_err_m": 4.9,
+   "rigid_err_m": 3.6,
+   "shift_m": 5.9,
+   "shift_en_m": [
+    -5.7,
+    1.4
+   ],
+   "rot_deg": 0.08,
+   "scale": 1.005,
+   "resid_med_m": 3.6,
+   "spread": [
+    0.5886187319485157,
+    94.55243599203146
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 7.3,
+ "cross": {
+  "asis_m": 4.9,
+  "shift_m": 8.0,
+  "bend_m": null,
+  "n": 4827,
+  "within_25m": {
+   "asis": 0.977,
+   "shift": 0.981,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 4.9 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0089148115363253,
+   0.005509351505989484
+  ],
+  "t": [
+   -4.0122644970537475,
+   -9.573136414992678
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

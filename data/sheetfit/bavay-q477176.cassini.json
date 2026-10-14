@@ -1,0 +1,56 @@
+{
+ "site": "bavay-q477176",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4992,
+   "inliers": 544,
+   "fraction": 0.109,
+   "asis_fraction": 0.007,
+   "asis_err_m": 152.4,
+   "rigid_err_m": 114.7,
+   "shift_m": 171.7,
+   "shift_en_m": [
+    31.7,
+    -168.8
+   ],
+   "rot_deg": -1.17,
+   "scale": 1.1865,
+   "resid_med_m": 14.6,
+   "spread": [
+    0.5304756104454177,
+    247.6950242737623
+   ],
+   "bend": {
+    "control_cells": 64,
+    "consistent_matches": 2538,
+    "heldout_rigid_m": 20.3,
+    "heldout_bend_m": 5.4,
+    "max_move_m": 132.5,
+    "why": "bend would move ground 133 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "no independent check: no relief"
+ },
+ "params": {
+  "s": [
+   1.1862886917829856,
+   -0.024285049364438486
+  ],
+  "t": [
+   -178.90003540059695,
+   6.752707637336613
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   2000,
+   2000
+  ]
+ }
+}

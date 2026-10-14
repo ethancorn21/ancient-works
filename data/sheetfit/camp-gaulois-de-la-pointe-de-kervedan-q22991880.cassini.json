@@ -1,0 +1,56 @@
+{
+ "site": "camp-gaulois-de-la-pointe-de-kervedan-q22991880",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4996,
+   "inliers": 656,
+   "fraction": 0.131,
+   "asis_fraction": 0.073,
+   "asis_err_m": 111.2,
+   "rigid_err_m": 77.7,
+   "shift_m": 34.4,
+   "shift_en_m": [
+    -32.6,
+    -11.0
+   ],
+   "rot_deg": 9.86,
+   "scale": 1.2444,
+   "resid_med_m": 16.8,
+   "spread": [
+    0.6531601981110783,
+    196.85487397231137
+   ],
+   "bend": {
+    "control_cells": 75,
+    "consistent_matches": 2573,
+    "heldout_rigid_m": 20.6,
+    "heldout_bend_m": 7.5,
+    "max_move_m": 201.7,
+    "why": "bend would move ground 202 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "no independent check: no relief"
+ },
+ "params": {
+  "s": [
+   1.2260498098413253,
+   0.21312685938842924
+  ],
+  "t": [
+   -42.92529558954374,
+   -340.2986368861317
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

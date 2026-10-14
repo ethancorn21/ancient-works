@@ -1,0 +1,96 @@
+{
+ "site": "chateau-de-fecamp-q2969286",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4997,
+   "inliers": 1127,
+   "fraction": 0.226,
+   "asis_fraction": 0.003,
+   "asis_err_m": 146.3,
+   "rigid_err_m": 53.9,
+   "shift_m": 90.8,
+   "shift_en_m": [
+    35.8,
+    83.4
+   ],
+   "rot_deg": 24.1,
+   "scale": 0.8276,
+   "resid_med_m": 15.5,
+   "spread": [
+    0.6821108926786449,
+    259.2494563392497
+   ],
+   "bend": {
+    "control_cells": 72,
+    "consistent_matches": 3882,
+    "heldout_rigid_m": 23.0,
+    "heldout_bend_m": 7.5,
+    "max_move_m": 122.6,
+    "why": "bend would move ground 123 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4996,
+   "inliers": 692,
+   "fraction": 0.139,
+   "asis_fraction": 0.005,
+   "asis_err_m": 150.3,
+   "rigid_err_m": 52.1,
+   "shift_m": 190.5,
+   "shift_en_m": [
+    -190.3,
+    -8.4
+   ],
+   "rot_deg": 10.08,
+   "scale": 0.8937,
+   "resid_med_m": 17.0,
+   "spread": [
+    0.42804830948342326,
+    151.2702829603212
+   ],
+   "bend": {
+    "control_cells": 43,
+    "consistent_matches": 2537,
+    "heldout_rigid_m": 20.3,
+    "heldout_bend_m": 7.3,
+    "max_move_m": 85.3,
+    "why": "bend would move ground 85 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 244.0,
+ "cross": {
+  "asis_m": 158.2,
+  "shift_m": 294.6,
+  "bend_m": null,
+  "n": 3921,
+  "within_25m": {
+   "asis": 0.006,
+   "shift": 0.002,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 1% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.7554548364975994,
+   0.3379898957886714
+  ],
+  "t": [
+   501.856940011308,
+   -158.13903184539163
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

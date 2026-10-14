@@ -1,0 +1,86 @@
+{
+ "site": "aesica-q4688554",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4997,
+   "inliers": 4748,
+   "fraction": 0.95,
+   "asis_fraction": 0.883,
+   "asis_err_m": 6.6,
+   "rigid_err_m": 7.9,
+   "shift_m": 5.7,
+   "shift_en_m": [
+    3.8,
+    -4.3
+   ],
+   "rot_deg": -0.47,
+   "scale": 0.999,
+   "resid_med_m": 7.7,
+   "spread": [
+    0.9377558037979313,
+    270.80892968655183
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4997,
+   "inliers": 4235,
+   "fraction": 0.848,
+   "asis_fraction": 0.829,
+   "asis_err_m": 8.7,
+   "rigid_err_m": 9.0,
+   "shift_m": 6.0,
+   "shift_en_m": [
+    2.3,
+    -5.5
+   ],
+   "rot_deg": -0.48,
+   "scale": 0.9978,
+   "resid_med_m": 7.6,
+   "spread": [
+    0.7984540505880554,
+    243.43578536243538
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 1.9,
+ "cross": {
+  "asis_m": 8.7,
+  "shift_m": 9.1,
+  "bend_m": null,
+  "n": 4997,
+  "within_25m": {
+   "asis": 0.829,
+   "shift": 0.829,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 6.6 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9990060036622347,
+   -0.008117178827853679
+  ],
+  "t": [
+   -1.239100390557113,
+   7.6999743679911505
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   1066,
+   1066
+  ]
+ }
+}

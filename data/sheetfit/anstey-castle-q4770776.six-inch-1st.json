@@ -1,0 +1,86 @@
+{
+ "site": "anstey-castle-q4770776",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4999,
+   "inliers": 4809,
+   "fraction": 0.962,
+   "asis_fraction": 0.936,
+   "asis_err_m": 8.4,
+   "rigid_err_m": 7.1,
+   "shift_m": 3.7,
+   "shift_en_m": [
+    2.2,
+    3.0
+   ],
+   "rot_deg": -0.38,
+   "scale": 0.9999,
+   "resid_med_m": 6.9,
+   "spread": [
+    0.640251909915735,
+    123.96895945289634
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4999,
+   "inliers": 4994,
+   "fraction": 0.999,
+   "asis_fraction": 0.99,
+   "asis_err_m": 4.3,
+   "rigid_err_m": 3.8,
+   "shift_m": 2.3,
+   "shift_en_m": [
+    2.2,
+    -0.7
+   ],
+   "rot_deg": 0.06,
+   "scale": 0.997,
+   "resid_med_m": 3.8,
+   "spread": [
+    0.8412743768127728,
+    153.4787976416693
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 3.7,
+ "cross": {
+  "asis_m": 4.3,
+  "shift_m": 4.0,
+  "bend_m": null,
+  "n": 4999,
+  "within_25m": {
+   "asis": 0.99,
+   "shift": 0.966,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 4.3 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9998692240837002,
+   -0.006574469184384062
+  ],
+  "t": [
+   -0.27912861086963675,
+   -0.20442028299158915
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

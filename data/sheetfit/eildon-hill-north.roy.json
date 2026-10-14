@@ -1,0 +1,96 @@
+{
+ "site": "eildon-hill-north",
+ "sheet": "roy",
+ "label": "Roy's Military Survey of Scotland",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4991,
+   "inliers": 478,
+   "fraction": 0.096,
+   "asis_fraction": 0.005,
+   "asis_err_m": 157.9,
+   "rigid_err_m": 59.9,
+   "shift_m": 182.3,
+   "shift_en_m": [
+    162.8,
+    -82.1
+   ],
+   "rot_deg": -14.47,
+   "scale": 0.856,
+   "resid_med_m": 16.8,
+   "spread": [
+    0.3650630883018016,
+    189.0273797146516
+   ],
+   "bend": {
+    "control_cells": 74,
+    "consistent_matches": 2715,
+    "heldout_rigid_m": 81.2,
+    "heldout_bend_m": 8.0,
+    "max_move_m": 170.7,
+    "why": "bend would move ground 171 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4990,
+   "inliers": 231,
+   "fraction": 0.046,
+   "asis_fraction": 0.004,
+   "asis_err_m": 181.7,
+   "rigid_err_m": 42.8,
+   "shift_m": 237.6,
+   "shift_en_m": [
+    230.7,
+    -56.6
+   ],
+   "rot_deg": -12.76,
+   "scale": 1.1749,
+   "resid_med_m": 10.5,
+   "spread": [
+    0.7105015860187811,
+    141.91131541146052
+   ],
+   "bend": {
+    "control_cells": 10,
+    "consistent_matches": 799,
+    "heldout_rigid_m": 6.3,
+    "heldout_bend_m": 6.1,
+    "max_move_m": 19.6,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  }
+ },
+ "grounds_agree_m": 72.5,
+ "cross": {
+  "asis_m": 213.3,
+  "shift_m": 189.3,
+  "bend_m": null,
+  "n": 933,
+  "within_25m": {
+   "asis": 0.023,
+   "shift": 0.015,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 2% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.8288288726564161,
+   -0.21389476488699116
+  ],
+  "t": [
+   72.91700231961437,
+   375.44380621796915
+  ],
+  "m_per_px": 1.5006002400960383,
+  "smooth": 2.0,
+  "size": [
+   1666,
+   1666
+  ]
+ }
+}

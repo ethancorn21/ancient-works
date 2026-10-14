@@ -1,0 +1,86 @@
+{
+ "site": "alignement-du-camp-de-la-justice-q22965925",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4992,
+   "inliers": 222,
+   "fraction": 0.044,
+   "asis_fraction": 0.014,
+   "asis_err_m": null,
+   "rigid_err_m": null,
+   "shift_m": 969.4,
+   "shift_en_m": [
+    -905.5,
+    346.0
+   ],
+   "rot_deg": 32.14,
+   "scale": 0.5201,
+   "resid_med_m": 9.9,
+   "spread": [
+    0.5228758687766716,
+    79.64296791229322
+   ],
+   "bend": {
+    "why": "matches cover only 5 consistent cells of 80 m"
+   }
+  },
+  "relief": {
+   "matches": 4996,
+   "inliers": 633,
+   "fraction": 0.127,
+   "asis_fraction": 0.0,
+   "asis_err_m": null,
+   "rigid_err_m": null,
+   "shift_m": 562.6,
+   "shift_en_m": [
+    -539.0,
+    161.2
+   ],
+   "rot_deg": -20.09,
+   "scale": 0.2496,
+   "resid_med_m": 10.8,
+   "spread": [
+    0.9591931363921066,
+    159.4663483725093
+   ],
+   "bend": {
+    "why": "matches cover only 5 consistent cells of 80 m"
+   }
+  }
+ },
+ "grounds_agree_m": 410.5,
+ "cross": {
+  "asis_m": 984.2,
+  "shift_m": 172.5,
+  "bend_m": null,
+  "n": 1243,
+  "within_25m": {
+   "asis": 0.0,
+   "shift": 0.014,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "no consistent matches on the aerial"
+ },
+ "params": {
+  "s": [
+   0.4403950102194636,
+   0.2766627866286015
+  ],
+  "t": [
+   -236.50031531520003,
+   -119.682159909147
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

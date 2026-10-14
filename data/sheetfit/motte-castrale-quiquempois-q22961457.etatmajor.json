@@ -1,0 +1,56 @@
+{
+ "site": "motte-castrale-quiquempois-q22961457",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4986,
+   "inliers": 364,
+   "fraction": 0.073,
+   "asis_fraction": 0.058,
+   "asis_err_m": 121.8,
+   "rigid_err_m": 108.1,
+   "shift_m": 51.7,
+   "shift_en_m": [
+    -49.0,
+    16.5
+   ],
+   "rot_deg": -13.71,
+   "scale": 0.9449,
+   "resid_med_m": 13.8,
+   "spread": [
+    0.5027151849195834,
+    118.78213524052617
+   ],
+   "bend": {
+    "control_cells": 8,
+    "consistent_matches": 1897,
+    "heldout_rigid_m": 62.1,
+    "heldout_bend_m": 32.8,
+    "max_move_m": 221.4,
+    "why": "bend would move ground 221 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "no independent check: no relief"
+ },
+ "params": {
+  "s": [
+   0.9179999214466845,
+   -0.22393669602885613
+  ],
+  "t": [
+   -105.78255796120696,
+   105.88147035700626
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   800,
+   800
+  ]
+ }
+}

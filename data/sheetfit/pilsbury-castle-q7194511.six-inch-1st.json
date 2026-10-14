@@ -1,0 +1,86 @@
+{
+ "site": "pilsbury-castle-q7194511",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 4980,
+   "fraction": 0.996,
+   "asis_fraction": 0.972,
+   "asis_err_m": 8.6,
+   "rigid_err_m": 5.6,
+   "shift_m": 6.9,
+   "shift_en_m": [
+    -4.1,
+    5.6
+   ],
+   "rot_deg": 0.01,
+   "scale": 0.9996,
+   "resid_med_m": 5.5,
+   "spread": [
+    0.8687453942561483,
+    154.27149655909463
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4988,
+   "inliers": 4530,
+   "fraction": 0.908,
+   "asis_fraction": 0.863,
+   "asis_err_m": 10.3,
+   "rigid_err_m": 8.3,
+   "shift_m": 6.7,
+   "shift_en_m": [
+    -5.5,
+    3.9
+   ],
+   "rot_deg": -0.01,
+   "scale": 0.9914,
+   "resid_med_m": 7.5,
+   "spread": [
+    0.8284634052845643,
+    137.48879010387873
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 2.2,
+ "cross": {
+  "asis_m": 10.3,
+  "shift_m": 8.3,
+  "bend_m": null,
+  "n": 4988,
+  "within_25m": {
+   "asis": 0.863,
+   "shift": 0.893,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 8.6 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9996442303906419,
+   0.00014055892083055736
+  ],
+  "t": [
+   -2.5842042226842477,
+   -3.6576081324161285
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

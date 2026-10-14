@@ -1,0 +1,91 @@
+{
+ "site": "chateau-d-olivet-q2968304",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4992,
+   "inliers": 614,
+   "fraction": 0.123,
+   "asis_fraction": 0.03,
+   "asis_err_m": 108.8,
+   "rigid_err_m": 70.3,
+   "shift_m": 58.2,
+   "shift_en_m": [
+    -57.6,
+    8.5
+   ],
+   "rot_deg": -37.98,
+   "scale": 0.8897,
+   "resid_med_m": 14.9,
+   "spread": [
+    0.4303626287263583,
+    101.19506697478023
+   ],
+   "bend": {
+    "why": "matches cover only 2 consistent cells of 80 m"
+   }
+  },
+  "relief": {
+   "matches": 4993,
+   "inliers": 1129,
+   "fraction": 0.226,
+   "asis_fraction": 0.121,
+   "asis_err_m": 42.4,
+   "rigid_err_m": 15.4,
+   "shift_m": 199.3,
+   "shift_en_m": [
+    -156.3,
+    123.6
+   ],
+   "rot_deg": 5.64,
+   "scale": 0.5679,
+   "resid_med_m": 10.2,
+   "spread": [
+    0.3933781835057698,
+    49.869699587562465
+   ],
+   "bend": {
+    "control_cells": 7,
+    "consistent_matches": 1740,
+    "heldout_rigid_m": 4.7,
+    "heldout_bend_m": 11.1,
+    "max_move_m": 17.8,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  }
+ },
+ "grounds_agree_m": 151.6,
+ "cross": {
+  "asis_m": 67.3,
+  "shift_m": 217.0,
+  "bend_m": null,
+  "n": 4446,
+  "within_25m": {
+   "asis": 0.136,
+   "shift": 0.011,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 14% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.7012555509965467,
+   -0.5475162925140393
+  ],
+  "t": [
+   -157.08540272321895,
+   329.9783318743378
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   800,
+   800
+  ]
+ }
+}

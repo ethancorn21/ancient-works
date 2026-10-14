@@ -1,0 +1,95 @@
+{
+ "site": "binchester-roman-fort-q4913955",
+ "sheet": "os1inch",
+ "label": "Ordnance Survey One-inch map, Revised New Series (c. 1900)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4997,
+   "inliers": 1408,
+   "fraction": 0.282,
+   "asis_fraction": 0.076,
+   "asis_err_m": 57.0,
+   "rigid_err_m": 39.8,
+   "shift_m": 47.0,
+   "shift_en_m": [
+    24.3,
+    40.2
+   ],
+   "rot_deg": 0.75,
+   "scale": 0.9998,
+   "resid_med_m": 15.8,
+   "spread": [
+    0.8497578935606727,
+    389.3946619756287
+   ],
+   "bend": {
+    "control_cells": 108,
+    "consistent_matches": 3413,
+    "heldout_rigid_m": 21.9,
+    "heldout_bend_m": 8.1,
+    "max_move_m": 114.5,
+    "why": "bend would move ground 114 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4997,
+   "inliers": 2283,
+   "fraction": 0.457,
+   "asis_fraction": 0.251,
+   "asis_err_m": 39.9,
+   "rigid_err_m": 27.1,
+   "shift_m": 30.3,
+   "shift_en_m": [
+    25.1,
+    16.9
+   ],
+   "rot_deg": -0.79,
+   "scale": 1.0149,
+   "resid_med_m": 16.3,
+   "spread": [
+    0.7243265155694065,
+    365.4737768442039
+   ],
+   "bend": {
+    "control_cells": 126,
+    "consistent_matches": 4108,
+    "heldout_rigid_m": 20.1,
+    "heldout_bend_m": 5.8,
+    "max_move_m": 52.8
+   }
+  }
+ },
+ "grounds_agree_m": 23.3,
+ "cross": {
+  "asis_m": 39.9,
+  "shift_m": 37.9,
+  "bend_m": null,
+  "n": 4972,
+  "within_25m": {
+   "asis": 0.252,
+   "shift": 0.285,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 25% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.9997595361575842,
+   0.013123882164288173
+  ],
+  "t": [
+   34.97654410102756,
+   -50.54088869303702
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

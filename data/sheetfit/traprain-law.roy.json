@@ -1,0 +1,91 @@
+{
+ "site": "traprain-law",
+ "sheet": "roy",
+ "label": "Roy's Military Survey of Scotland",
+ "m_per_px": 1.5,
+ "grounds": {
+  "aerial": {
+   "matches": 4986,
+   "inliers": 384,
+   "fraction": 0.077,
+   "asis_fraction": 0.003,
+   "asis_err_m": 144.1,
+   "rigid_err_m": 47.7,
+   "shift_m": 154.0,
+   "shift_en_m": [
+    -22.0,
+    152.5
+   ],
+   "rot_deg": -0.28,
+   "scale": 0.9455,
+   "resid_med_m": 13.3,
+   "spread": [
+    0.23127522869080888,
+    38.837459486731305
+   ],
+   "bend": {
+    "why": "matches cover only 5 consistent cells of 80 m"
+   }
+  },
+  "relief": {
+   "matches": 4998,
+   "inliers": 530,
+   "fraction": 0.106,
+   "asis_fraction": 0.034,
+   "asis_err_m": 141.1,
+   "rigid_err_m": 105.0,
+   "shift_m": 129.3,
+   "shift_en_m": [
+    39.3,
+    -123.1
+   ],
+   "rot_deg": -39.65,
+   "scale": 1.1132,
+   "resid_med_m": 13.5,
+   "spread": [
+    0.6447778615045289,
+    79.6578331726272
+   ],
+   "bend": {
+    "control_cells": 22,
+    "consistent_matches": 2158,
+    "heldout_rigid_m": 32.1,
+    "heldout_bend_m": 10.3,
+    "max_move_m": 97.5,
+    "why": "bend would move ground 98 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 282.3,
+ "cross": {
+  "asis_m": 130.1,
+  "shift_m": 189.2,
+  "bend_m": null,
+  "n": 3812,
+  "within_25m": {
+   "asis": 0.045,
+   "shift": 0.017,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 4% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.9454811951533135,
+   -0.004656469973619164
+  ],
+  "t": [
+   5.287640579843407,
+   -77.97453328817659
+  ],
+  "m_per_px": 1.5,
+  "smooth": 2.0,
+  "size": [
+   800,
+   800
+  ]
+ }
+}

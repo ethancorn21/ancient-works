@@ -1,0 +1,86 @@
+{
+ "site": "sedgwick-castle-q17645407",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4997,
+   "inliers": 4716,
+   "fraction": 0.944,
+   "asis_fraction": 0.929,
+   "asis_err_m": 9.7,
+   "rigid_err_m": 9.5,
+   "shift_m": 2.6,
+   "shift_en_m": [
+    2.6,
+    0.5
+   ],
+   "rot_deg": 0.15,
+   "scale": 1.0015,
+   "resid_med_m": 9.1,
+   "spread": [
+    0.9634867473218167,
+    141.01827020545403
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4998,
+   "inliers": 4957,
+   "fraction": 0.992,
+   "asis_fraction": 0.989,
+   "asis_err_m": 7.2,
+   "rigid_err_m": 5.9,
+   "shift_m": 2.5,
+   "shift_en_m": [
+    2.3,
+    -1.2
+   ],
+   "rot_deg": -0.28,
+   "scale": 1.0008,
+   "resid_med_m": 5.8,
+   "spread": [
+    0.8410935263277539,
+    146.4803722755023
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 1.7,
+ "cross": {
+  "asis_m": 7.2,
+  "shift_m": 6.7,
+  "bend_m": null,
+  "n": 4998,
+  "within_25m": {
+   "asis": 0.989,
+   "shift": 0.989,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 7.2 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0015269352670222,
+   0.002535923863247005
+  ],
+  "t": [
+   1.9931968458420197,
+   -1.3910107892685195
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

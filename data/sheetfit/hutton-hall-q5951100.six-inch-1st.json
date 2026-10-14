@@ -1,0 +1,86 @@
+{
+ "site": "hutton-hall-q5951100",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 4660,
+   "fraction": 0.932,
+   "asis_fraction": 0.881,
+   "asis_err_m": 8.1,
+   "rigid_err_m": 6.2,
+   "shift_m": 8.1,
+   "shift_en_m": [
+    2.5,
+    7.7
+   ],
+   "rot_deg": -0.18,
+   "scale": 0.9989,
+   "resid_med_m": 5.7,
+   "spread": [
+    0.7891168549126408,
+    273.50886772123107
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4999,
+   "inliers": 4711,
+   "fraction": 0.942,
+   "asis_fraction": 0.917,
+   "asis_err_m": 7.5,
+   "rigid_err_m": 4.8,
+   "shift_m": 5.1,
+   "shift_en_m": [
+    3.2,
+    4.0
+   ],
+   "rot_deg": -0.08,
+   "scale": 0.9952,
+   "resid_med_m": 4.5,
+   "spread": [
+    0.9015080792672335,
+    318.71823222625363
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 3.8,
+ "cross": {
+  "asis_m": 7.5,
+  "shift_m": 6.7,
+  "bend_m": null,
+  "n": 4999,
+  "within_25m": {
+   "asis": 0.917,
+   "shift": 0.934,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 7.5 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9988812794717201,
+   -0.0030726483511252702
+  ],
+  "t": [
+   0.6146324892363246,
+   -2.9293908252163954
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   1066,
+   1066
+  ]
+ }
+}

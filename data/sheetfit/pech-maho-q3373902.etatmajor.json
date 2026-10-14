@@ -1,0 +1,95 @@
+{
+ "site": "pech-maho-q3373902",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 1025,
+   "fraction": 0.205,
+   "asis_fraction": 0.191,
+   "asis_err_m": 53.7,
+   "rigid_err_m": 53.5,
+   "shift_m": 18.8,
+   "shift_en_m": [
+    18.7,
+    1.7
+   ],
+   "rot_deg": -2.27,
+   "scale": 1.0217,
+   "resid_med_m": 15.4,
+   "spread": [
+    0.6800242775232168,
+    339.5828410913087
+   ],
+   "bend": {
+    "control_cells": 166,
+    "consistent_matches": 3863,
+    "heldout_rigid_m": 38.0,
+    "heldout_bend_m": 6.8,
+    "max_move_m": 137.7,
+    "why": "bend would move ground 138 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4996,
+   "inliers": 1430,
+   "fraction": 0.286,
+   "asis_fraction": 0.244,
+   "asis_err_m": 43.3,
+   "rigid_err_m": 39.1,
+   "shift_m": 22.5,
+   "shift_en_m": [
+    -4.9,
+    -22.0
+   ],
+   "rot_deg": 0.42,
+   "scale": 1.0322,
+   "resid_med_m": 16.3,
+   "spread": [
+    0.5897770895765967,
+    315.6239971184546
+   ],
+   "bend": {
+    "control_cells": 156,
+    "consistent_matches": 3523,
+    "heldout_rigid_m": 29.8,
+    "heldout_bend_m": 6.8,
+    "max_move_m": 66.0
+   }
+  }
+ },
+ "grounds_agree_m": 33.4,
+ "cross": {
+  "asis_m": 43.3,
+  "shift_m": 51.8,
+  "bend_m": null,
+  "n": 4953,
+  "within_25m": {
+   "asis": 0.246,
+   "shift": 0.127,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 25% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   1.0208982964537843,
+   -0.04039106602870724
+  ],
+  "t": [
+   -30.319379611596602,
+   13.898250342884708
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

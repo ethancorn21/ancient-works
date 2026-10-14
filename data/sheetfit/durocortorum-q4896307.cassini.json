@@ -1,0 +1,95 @@
+{
+ "site": "durocortorum-q4896307",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4997,
+   "inliers": 419,
+   "fraction": 0.084,
+   "asis_fraction": 0.001,
+   "asis_err_m": 158.1,
+   "rigid_err_m": 71.6,
+   "shift_m": 300.0,
+   "shift_en_m": [
+    291.0,
+    72.8
+   ],
+   "rot_deg": 10.67,
+   "scale": 0.7777,
+   "resid_med_m": 15.3,
+   "spread": [
+    0.4365765811932589,
+    180.41883003957994
+   ],
+   "bend": {
+    "control_cells": 17,
+    "consistent_matches": 2691,
+    "heldout_rigid_m": 117.9,
+    "heldout_bend_m": 11.0,
+    "max_move_m": 160.3,
+    "why": "bend would move ground 160 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4994,
+   "inliers": 478,
+   "fraction": 0.096,
+   "asis_fraction": 0.011,
+   "asis_err_m": 146.7,
+   "rigid_err_m": 32.3,
+   "shift_m": 293.8,
+   "shift_en_m": [
+    -191.9,
+    222.4
+   ],
+   "rot_deg": -29.61,
+   "scale": 0.7866,
+   "resid_med_m": 12.8,
+   "spread": [
+    0.6772142918298647,
+    134.78852316761873
+   ],
+   "bend": {
+    "control_cells": 18,
+    "consistent_matches": 823,
+    "heldout_rigid_m": 12.1,
+    "heldout_bend_m": 8.4,
+    "max_move_m": 37.8
+   }
+  }
+ },
+ "grounds_agree_m": 505.5,
+ "cross": {
+  "asis_m": 156.6,
+  "shift_m": 221.4,
+  "bend_m": null,
+  "n": 4133,
+  "within_25m": {
+   "asis": 0.013,
+   "shift": 0.0,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 1% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.7642350374922621,
+   0.1440492140488033
+  ],
+  "t": [
+   594.8878013846665,
+   0.6016333896789092
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

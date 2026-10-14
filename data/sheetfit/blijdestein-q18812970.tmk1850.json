@@ -1,0 +1,91 @@
+{
+ "site": "blijdestein-q18812970",
+ "sheet": "tmk1850",
+ "label": "Topographic and Military Map of the Netherlands (TMK, c. 1850)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4995,
+   "inliers": 377,
+   "fraction": 0.075,
+   "asis_fraction": 0.009,
+   "asis_err_m": 136.0,
+   "rigid_err_m": 102.5,
+   "shift_m": 81.2,
+   "shift_en_m": [
+    76.0,
+    -28.7
+   ],
+   "rot_deg": -38.8,
+   "scale": 0.6722,
+   "resid_med_m": 18.2,
+   "spread": [
+    0.5505364874314425,
+    133.9782562800571
+   ],
+   "bend": {
+    "why": "matches cover only 0 consistent cells of 80 m"
+   }
+  },
+  "relief": {
+   "matches": 4991,
+   "inliers": 362,
+   "fraction": 0.073,
+   "asis_fraction": 0.005,
+   "asis_err_m": 110.5,
+   "rigid_err_m": 190.2,
+   "shift_m": 352.7,
+   "shift_en_m": [
+    330.5,
+    -123.2
+   ],
+   "rot_deg": 13.09,
+   "scale": 0.8355,
+   "resid_med_m": 11.9,
+   "spread": [
+    0.3249621873988376,
+    50.048104441165364
+   ],
+   "bend": {
+    "control_cells": 7,
+    "consistent_matches": 1222,
+    "heldout_rigid_m": 23.3,
+    "heldout_bend_m": 26.1,
+    "max_move_m": 232.4,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  }
+ },
+ "grounds_agree_m": 271.5,
+ "cross": {
+  "asis_m": 162.8,
+  "shift_m": 227.1,
+  "bend_m": null,
+  "n": 2157,
+  "within_25m": {
+   "asis": 0.013,
+   "shift": 0.017,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 1% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.5238465535166655,
+   -0.42115606625112084
+  ],
+  "t": [
+   97.9664360862393,
+   387.631614336054
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   800,
+   800
+  ]
+ }
+}

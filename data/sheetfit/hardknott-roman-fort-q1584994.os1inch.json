@@ -1,0 +1,96 @@
+{
+ "site": "hardknott-roman-fort-q1584994",
+ "sheet": "os1inch",
+ "label": "Ordnance Survey One-inch map, Revised New Series (c. 1900)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 2290,
+   "fraction": 0.458,
+   "asis_fraction": 0.092,
+   "asis_err_m": 47.6,
+   "rigid_err_m": 27.7,
+   "shift_m": 33.4,
+   "shift_en_m": [
+    20.7,
+    26.2
+   ],
+   "rot_deg": -0.21,
+   "scale": 0.9794,
+   "resid_med_m": 14.8,
+   "spread": [
+    0.6848125412164342,
+    275.5723951207493
+   ],
+   "bend": {
+    "control_cells": 168,
+    "consistent_matches": 4297,
+    "heldout_rigid_m": 18.6,
+    "heldout_bend_m": 5.1,
+    "max_move_m": 127.1,
+    "why": "bend would move ground 127 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4999,
+   "inliers": 1237,
+   "fraction": 0.247,
+   "asis_fraction": 0.044,
+   "asis_err_m": 81.7,
+   "rigid_err_m": 67.6,
+   "shift_m": 36.6,
+   "shift_en_m": [
+    16.2,
+    32.8
+   ],
+   "rot_deg": 0.36,
+   "scale": 0.9961,
+   "resid_med_m": 12.6,
+   "spread": [
+    0.5842362287370139,
+    256.0977703299945
+   ],
+   "bend": {
+    "control_cells": 89,
+    "consistent_matches": 3440,
+    "heldout_rigid_m": 18.1,
+    "heldout_bend_m": 7.9,
+    "max_move_m": 146.8,
+    "why": "bend would move ground 147 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 8.0,
+ "cross": {
+  "asis_m": 83.0,
+  "shift_m": 66.6,
+  "bend_m": null,
+  "n": 4863,
+  "within_25m": {
+   "asis": 0.045,
+   "shift": 0.197,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 4% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.9793644871894596,
+   -0.0035797466407782885
+  ],
+  "t": [
+   34.33752235783273,
+   -6.8505390471562535
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

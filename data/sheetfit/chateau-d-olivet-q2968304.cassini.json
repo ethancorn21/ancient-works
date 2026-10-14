@@ -1,0 +1,96 @@
+{
+ "site": "chateau-d-olivet-q2968304",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4992,
+   "inliers": 659,
+   "fraction": 0.132,
+   "asis_fraction": 0.008,
+   "asis_err_m": 139.6,
+   "rigid_err_m": 99.2,
+   "shift_m": 204.5,
+   "shift_en_m": [
+    11.0,
+    -204.2
+   ],
+   "rot_deg": -10.85,
+   "scale": 0.8664,
+   "resid_med_m": 12.4,
+   "spread": [
+    0.5947615082176102,
+    64.58429380111926
+   ],
+   "bend": {
+    "control_cells": 6,
+    "consistent_matches": 2258,
+    "heldout_rigid_m": 13.9,
+    "heldout_bend_m": 30.1,
+    "max_move_m": 142.7,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  },
+  "relief": {
+   "matches": 4987,
+   "inliers": 941,
+   "fraction": 0.189,
+   "asis_fraction": 0.017,
+   "asis_err_m": 119.5,
+   "rigid_err_m": 78.8,
+   "shift_m": 31.3,
+   "shift_en_m": [
+    -31.2,
+    -2.4
+   ],
+   "rot_deg": 4.89,
+   "scale": 0.5614,
+   "resid_med_m": 14.0,
+   "spread": [
+    0.5129053664210472,
+    100.15405190106071
+   ],
+   "bend": {
+    "control_cells": 8,
+    "consistent_matches": 3898,
+    "heldout_rigid_m": 11.8,
+    "heldout_bend_m": 13.6,
+    "max_move_m": 29.6,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  }
+ },
+ "grounds_agree_m": 206.2,
+ "cross": {
+  "asis_m": 124.1,
+  "shift_m": 166.7,
+  "bend_m": null,
+  "n": 4903,
+  "within_25m": {
+   "asis": 0.017,
+   "shift": 0.0,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 2% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.850892156954892,
+   -0.1630154767786504
+  ],
+  "t": [
+   5.408878402176185,
+   329.0582740194674
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   800,
+   800
+  ]
+ }
+}

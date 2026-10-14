@@ -1,0 +1,56 @@
+{
+ "site": "lille-q648",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4993,
+   "inliers": 294,
+   "fraction": 0.059,
+   "asis_fraction": 0.004,
+   "asis_err_m": 193.1,
+   "rigid_err_m": 150.2,
+   "shift_m": 515.1,
+   "shift_en_m": [
+    -346.1,
+    381.4
+   ],
+   "rot_deg": 26.73,
+   "scale": 1.105,
+   "resid_med_m": 13.3,
+   "spread": [
+    0.11778437257986654,
+    44.04774022799536
+   ],
+   "bend": {
+    "control_cells": 17,
+    "consistent_matches": 984,
+    "heldout_rigid_m": 50.1,
+    "heldout_bend_m": 9.3,
+    "max_move_m": 208.3,
+    "why": "bend would move ground 208 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "no independent check: no relief"
+ },
+ "params": {
+  "s": [
+   0.9868632867498983,
+   0.4970330524879153
+  ],
+  "t": [
+   164.07060923885547,
+   -865.3356198834894
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   2000,
+   2000
+  ]
+ }
+}

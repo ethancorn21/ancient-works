@@ -1,0 +1,56 @@
+{
+ "site": "valenciennes-q163795",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4996,
+   "inliers": 347,
+   "fraction": 0.069,
+   "asis_fraction": 0.001,
+   "asis_err_m": 135.7,
+   "rigid_err_m": 108.2,
+   "shift_m": 140.4,
+   "shift_en_m": [
+    -118.8,
+    -74.9
+   ],
+   "rot_deg": 3.13,
+   "scale": 0.9868,
+   "resid_med_m": 14.0,
+   "spread": [
+    0.2163456587611894,
+    107.27460882653601
+   ],
+   "bend": {
+    "control_cells": 28,
+    "consistent_matches": 1023,
+    "heldout_rigid_m": 16.6,
+    "heldout_bend_m": 4.2,
+    "max_move_m": 230.5,
+    "why": "bend would move ground 230 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "no independent check: no relief"
+ },
+ "params": {
+  "s": [
+   0.9853166685801624,
+   0.05394776155631143
+  ],
+  "t": [
+   -50.20656170124933,
+   35.59190110614451
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   2000,
+   2000
+  ]
+ }
+}

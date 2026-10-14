@@ -1,0 +1,95 @@
+{
+ "site": "tap-o-noth",
+ "sheet": "roy",
+ "label": "Roy's Military Survey of Scotland",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4993,
+   "inliers": 795,
+   "fraction": 0.159,
+   "asis_fraction": 0.001,
+   "asis_err_m": 203.7,
+   "rigid_err_m": 229.1,
+   "shift_m": 244.3,
+   "shift_en_m": [
+    -203.9,
+    134.6
+   ],
+   "rot_deg": -155.73,
+   "scale": 0.6253,
+   "resid_med_m": 13.4,
+   "spread": [
+    0.384812138745318,
+    55.13938953773365
+   ],
+   "bend": {
+    "control_cells": 22,
+    "consistent_matches": 2389,
+    "heldout_rigid_m": 51.9,
+    "heldout_bend_m": 7.6,
+    "max_move_m": 170.3,
+    "why": "bend would move ground 170 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4986,
+   "inliers": 708,
+   "fraction": 0.142,
+   "asis_fraction": 0.0,
+   "asis_err_m": 183.7,
+   "rigid_err_m": 51.2,
+   "shift_m": 113.9,
+   "shift_en_m": [
+    -27.9,
+    -110.4
+   ],
+   "rot_deg": -170.61,
+   "scale": 0.7343,
+   "resid_med_m": 13.2,
+   "spread": [
+    0.5696841181805063,
+    125.01335226571592
+   ],
+   "bend": {
+    "control_cells": 17,
+    "consistent_matches": 2184,
+    "heldout_rigid_m": 11.3,
+    "heldout_bend_m": 7.8,
+    "max_move_m": 45.1
+   }
+  }
+ },
+ "grounds_agree_m": 301.7,
+ "cross": {
+  "asis_m": 684.6,
+  "shift_m": 183.9,
+  "bend_m": null,
+  "n": 1630,
+  "within_25m": {
+   "asis": 0.001,
+   "shift": 0.04,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 0% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   -0.5700764360291058,
+   -0.25704497415943905
+  ],
+  "t": [
+   345.361229201337,
+   579.9382117218803
+  ],
+  "m_per_px": 1.500682128240109,
+  "smooth": 2.0,
+  "size": [
+   733,
+   733
+  ]
+ }
+}

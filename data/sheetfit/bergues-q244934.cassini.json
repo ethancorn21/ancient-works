@@ -1,0 +1,96 @@
+{
+ "site": "bergues-q244934",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4997,
+   "inliers": 678,
+   "fraction": 0.136,
+   "asis_fraction": 0.035,
+   "asis_err_m": 91.9,
+   "rigid_err_m": 97.2,
+   "shift_m": 31.3,
+   "shift_en_m": [
+    -31.0,
+    4.3
+   ],
+   "rot_deg": 1.44,
+   "scale": 0.8078,
+   "resid_med_m": 15.5,
+   "spread": [
+    0.6205475720910947,
+    222.20894719728926
+   ],
+   "bend": {
+    "control_cells": 90,
+    "consistent_matches": 2980,
+    "heldout_rigid_m": 57.5,
+    "heldout_bend_m": 10.2,
+    "max_move_m": 141.1,
+    "why": "bend would move ground 141 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4994,
+   "inliers": 446,
+   "fraction": 0.089,
+   "asis_fraction": 0.055,
+   "asis_err_m": 69.9,
+   "rigid_err_m": 144.8,
+   "shift_m": 44.1,
+   "shift_en_m": [
+    -39.9,
+    18.7
+   ],
+   "rot_deg": -4.74,
+   "scale": 0.8092,
+   "resid_med_m": 13.6,
+   "spread": [
+    0.7555215937730451,
+    160.0074003810613
+   ],
+   "bend": {
+    "control_cells": 54,
+    "consistent_matches": 2062,
+    "heldout_rigid_m": 22.6,
+    "heldout_bend_m": 7.7,
+    "max_move_m": 229.2,
+    "why": "bend would move ground 229 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 16.9,
+ "cross": {
+  "asis_m": 82.5,
+  "shift_m": 196.9,
+  "bend_m": null,
+  "n": 4224,
+  "within_25m": {
+   "asis": 0.066,
+   "shift": 0.066,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 7% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.8075139609743258,
+   0.02033461921381268
+  ],
+  "t": [
+   181.86796864105162,
+   167.8141680531087
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   2000,
+   2000
+  ]
+ }
+}

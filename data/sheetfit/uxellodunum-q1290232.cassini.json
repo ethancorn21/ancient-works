@@ -1,0 +1,91 @@
+{
+ "site": "uxellodunum-q1290232",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4995,
+   "inliers": 878,
+   "fraction": 0.176,
+   "asis_fraction": 0.005,
+   "asis_err_m": 147.2,
+   "rigid_err_m": 102.9,
+   "shift_m": 250.5,
+   "shift_en_m": [
+    107.6,
+    226.2
+   ],
+   "rot_deg": -22.72,
+   "scale": 0.7396,
+   "resid_med_m": 14.5,
+   "spread": [
+    0.3817771002635229,
+    200.1153602203117
+   ],
+   "bend": {
+    "control_cells": 51,
+    "consistent_matches": 3374,
+    "heldout_rigid_m": 47.9,
+    "heldout_bend_m": 8.7,
+    "max_move_m": 142.8,
+    "why": "bend would move ground 143 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4997,
+   "inliers": 342,
+   "fraction": 0.068,
+   "asis_fraction": 0.034,
+   "asis_err_m": 91.7,
+   "rigid_err_m": 89.2,
+   "shift_m": 72.2,
+   "shift_en_m": [
+    34.9,
+    63.2
+   ],
+   "rot_deg": 6.25,
+   "scale": 0.8898,
+   "resid_med_m": 14.8,
+   "spread": [
+    0.8976296556209267,
+    343.0320341820007
+   ],
+   "bend": {
+    "why": "matches cover only 4 consistent cells of 80 m"
+   }
+  }
+ },
+ "grounds_agree_m": 178.5,
+ "cross": {
+  "asis_m": 112.0,
+  "shift_m": 279.5,
+  "bend_m": null,
+  "n": 3534,
+  "within_25m": {
+   "asis": 0.048,
+   "shift": 0.005,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 5% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.6822112879269261,
+   -0.28559354353528377
+  ],
+  "t": [
+   133.31142069607984,
+   256.5111607259369
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

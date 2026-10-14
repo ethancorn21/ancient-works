@@ -1,0 +1,170 @@
+{
+ "site": "de-thombe-q2359601",
+ "sheet": "tmk1850",
+ "label": "Topographic and Military Map of the Netherlands (TMK, c. 1850)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4991,
+   "inliers": 965,
+   "fraction": 0.193,
+   "asis_fraction": 0.036,
+   "asis_err_m": 106.5,
+   "rigid_err_m": 52.0,
+   "shift_m": 43.8,
+   "shift_en_m": [
+    -32.7,
+    29.2
+   ],
+   "rot_deg": 8.32,
+   "scale": 0.7024,
+   "resid_med_m": 14.1,
+   "spread": [
+    0.3353114481199673,
+    109.11472097452642
+   ],
+   "bend": {
+    "control_cells": 9,
+    "consistent_matches": 3472,
+    "heldout_rigid_m": 25.3,
+    "heldout_bend_m": 13.8,
+    "max_move_m": 57.1
+   }
+  },
+  "relief": {
+   "matches": 4997,
+   "inliers": 2076,
+   "fraction": 0.415,
+   "asis_fraction": 0.232,
+   "asis_err_m": 45.0,
+   "rigid_err_m": 33.0,
+   "shift_m": 34.5,
+   "shift_en_m": [
+    11.4,
+    32.6
+   ],
+   "rot_deg": -2.53,
+   "scale": 0.9995,
+   "resid_med_m": 14.6,
+   "spread": [
+    0.629813280815146,
+    138.2395593306337
+   ],
+   "bend": {
+    "control_cells": 29,
+    "consistent_matches": 4015,
+    "heldout_rigid_m": 16.5,
+    "heldout_bend_m": 11.3,
+    "max_move_m": 45.7
+   }
+  }
+ },
+ "grounds_agree_m": 44.2,
+ "cross": {
+  "asis_m": 45.0,
+  "shift_m": 78.4,
+  "bend_m": 72.0,
+  "n": 4915,
+  "within_25m": {
+   "asis": 0.236,
+   "shift": 0.066,
+   "bend": 0.07
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 24% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.6950342652893492,
+   0.10167654899955014
+  ],
+  "t": [
+   129.90853059858807,
+   52.162358310373364
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   800,
+   800
+  ],
+  "cp": [
+   [
+    141.91,
+    192.49
+   ],
+   [
+    200.58,
+    116.79
+   ],
+   [
+    200.25,
+    191.89
+   ],
+   [
+    194.9,
+    278.22
+   ],
+   [
+    183.39,
+    358.67
+   ],
+   [
+    606.19,
+    114.25
+   ],
+   [
+    660.27,
+    113.19
+   ],
+   [
+    645.66,
+    197.33
+   ],
+   [
+    642.81,
+    273.07
+   ]
+  ],
+  "cd": [
+   [
+    8.47,
+    -9.46
+   ],
+   [
+    -0.56,
+    -25.27
+   ],
+   [
+    0.64,
+    -21.08
+   ],
+   [
+    2.49,
+    3.76
+   ],
+   [
+    0.86,
+    10.23
+   ],
+   [
+    -7.02,
+    -52.58
+   ],
+   [
+    -6.8,
+    -49.47
+   ],
+   [
+    -17.54,
+    -42.31
+   ],
+   [
+    -15.55,
+    -28.77
+   ]
+  ]
+ }
+}

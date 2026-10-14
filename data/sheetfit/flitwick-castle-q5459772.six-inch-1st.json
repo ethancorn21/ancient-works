@@ -1,0 +1,91 @@
+{
+ "site": "flitwick-castle-q5459772",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4990,
+   "inliers": 2633,
+   "fraction": 0.528,
+   "asis_fraction": 0.446,
+   "asis_err_m": 26.2,
+   "rigid_err_m": 20.8,
+   "shift_m": 13.8,
+   "shift_en_m": [
+    0.4,
+    13.8
+   ],
+   "rot_deg": 0.57,
+   "scale": 1.0154,
+   "resid_med_m": 11.5,
+   "spread": [
+    0.5246822575303242,
+    87.54830259828861
+   ],
+   "bend": {
+    "control_cells": 60,
+    "consistent_matches": 4109,
+    "heldout_rigid_m": 11.7,
+    "heldout_bend_m": 6.5,
+    "max_move_m": 104.3,
+    "why": "bend would move ground 104 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4996,
+   "inliers": 4458,
+   "fraction": 0.892,
+   "asis_fraction": 0.862,
+   "asis_err_m": 8.9,
+   "rigid_err_m": 9.6,
+   "shift_m": 6.1,
+   "shift_en_m": [
+    -5.2,
+    -3.1
+   ],
+   "rot_deg": -0.7,
+   "scale": 0.9928,
+   "resid_med_m": 8.6,
+   "spread": [
+    0.5079232688882459,
+    84.35373422496667
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 17.8,
+ "cross": {
+  "asis_m": 8.9,
+  "shift_m": 13.7,
+  "bend_m": null,
+  "n": 4996,
+  "within_25m": {
+   "asis": 0.862,
+   "shift": 0.766,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 8.9 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0153425235462914,
+   0.010059140045448035
+  ],
+  "t": [
+   -1.1275131311827842,
+   -15.956104603106015
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

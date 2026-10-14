@@ -1,0 +1,86 @@
+{
+ "site": "cairnpapple-hill",
+ "sheet": "roy",
+ "label": "Roy's Military Survey of Scotland",
+ "m_per_px": 1.502,
+ "grounds": {
+  "aerial": {
+   "matches": 4988,
+   "inliers": 570,
+   "fraction": 0.114,
+   "asis_fraction": 0.001,
+   "asis_err_m": 174.7,
+   "rigid_err_m": 101.6,
+   "shift_m": 285.6,
+   "shift_en_m": [
+    101.0,
+    267.2
+   ],
+   "rot_deg": 18.92,
+   "scale": 0.5886,
+   "resid_med_m": 14.8,
+   "spread": [
+    0.22882924854175396,
+    35.52070585317023
+   ],
+   "bend": {
+    "why": "matches cover only 5 consistent cells of 80 m"
+   }
+  },
+  "relief": {
+   "matches": 4986,
+   "inliers": 467,
+   "fraction": 0.094,
+   "asis_fraction": 0.001,
+   "asis_err_m": 121.1,
+   "rigid_err_m": 97.6,
+   "shift_m": 37.6,
+   "shift_en_m": [
+    25.8,
+    -27.4
+   ],
+   "rot_deg": 2.82,
+   "scale": 0.8446,
+   "resid_med_m": 14.6,
+   "spread": [
+    0.3697900964562801,
+    82.62470815854851
+   ],
+   "bend": {
+    "why": "matches cover only 4 consistent cells of 80 m"
+   }
+  }
+ },
+ "grounds_agree_m": 304.0,
+ "cross": {
+  "asis_m": 121.5,
+  "shift_m": 351.7,
+  "bend_m": null,
+  "n": 2991,
+  "within_25m": {
+   "asis": 0.002,
+   "shift": 0.004,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 0% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.5568079944491635,
+   0.19086799587809988
+  ],
+  "t": [
+   278.40821794363103,
+   -93.90208417663769
+  ],
+  "m_per_px": 1.5015015015015014,
+  "smooth": 2.0,
+  "size": [
+   666,
+   666
+  ]
+ }
+}

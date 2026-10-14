@@ -1,0 +1,91 @@
+{
+ "site": "chateau-de-labrit-q2969604",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4990,
+   "inliers": 444,
+   "fraction": 0.089,
+   "asis_fraction": 0.069,
+   "asis_err_m": 68.2,
+   "rigid_err_m": 111.2,
+   "shift_m": 95.0,
+   "shift_en_m": [
+    81.7,
+    -48.4
+   ],
+   "rot_deg": 11.92,
+   "scale": 0.899,
+   "resid_med_m": 11.5,
+   "spread": [
+    0.6184418485382108,
+    57.49576838182353
+   ],
+   "bend": {
+    "control_cells": 6,
+    "consistent_matches": 2069,
+    "heldout_rigid_m": 108.7,
+    "heldout_bend_m": 21.8,
+    "max_move_m": 143.6,
+    "why": "bend would move ground 144 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4983,
+   "inliers": 387,
+   "fraction": 0.078,
+   "asis_fraction": 0.001,
+   "asis_err_m": 226.6,
+   "rigid_err_m": 230.7,
+   "shift_m": 399.7,
+   "shift_en_m": [
+    -20.3,
+    399.2
+   ],
+   "rot_deg": -19.81,
+   "scale": 0.7788,
+   "resid_med_m": 11.5,
+   "spread": [
+    0.8832648532847823,
+    62.73982919022474
+   ],
+   "bend": {
+    "why": "matches cover only 5 consistent cells of 80 m"
+   }
+  }
+ },
+ "grounds_agree_m": 459.1,
+ "cross": {
+  "asis_m": 167.4,
+  "shift_m": 169.6,
+  "bend_m": null,
+  "n": 1487,
+  "within_25m": {
+   "asis": 0.004,
+   "shift": 0.009,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 0% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.8796133515200834,
+   0.18564254647309217
+  ],
+  "t": [
+   204.15842117795705,
+   22.281400183579393
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   800,
+   800
+  ]
+ }
+}

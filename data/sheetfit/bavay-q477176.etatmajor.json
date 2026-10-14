@@ -1,0 +1,56 @@
+{
+ "site": "bavay-q477176",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4997,
+   "inliers": 860,
+   "fraction": 0.172,
+   "asis_fraction": 0.1,
+   "asis_err_m": 58.5,
+   "rigid_err_m": 91.3,
+   "shift_m": 39.0,
+   "shift_en_m": [
+    -30.4,
+    24.5
+   ],
+   "rot_deg": 2.01,
+   "scale": 0.8963,
+   "resid_med_m": 15.2,
+   "spread": [
+    0.5132180868250873,
+    216.96830473435853
+   ],
+   "bend": {
+    "control_cells": 139,
+    "consistent_matches": 3473,
+    "heldout_rigid_m": 28.5,
+    "heldout_bend_m": 6.6,
+    "max_move_m": 184.5,
+    "why": "bend would move ground 185 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "no independent check: no relief"
+ },
+ "params": {
+  "s": [
+   0.8957477268612315,
+   0.031458977697390235
+  ],
+  "t": [
+   105.33923793354302,
+   48.25357554900297
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   2000,
+   2000
+  ]
+ }
+}

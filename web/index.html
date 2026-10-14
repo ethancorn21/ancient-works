@@ -693,7 +693,7 @@ const DRAWING = new Set(['plan', 'drawing', 'view']);
 const ROUGH = new Set(['cassini', 'roy']);
 const rough = x => x.kind === 'map' && ROUGH.has(x.file.split('.')[0]);
 // Ethan 2026-10-14: sheets are measured against today's aerial and LiDAR (fit/sheetfit.py); a sheet that could not be
-// confirmed on today's ground is listed but never opened by default, and every checked sheet says what was done
+// confirmed on today's ground opens only when the site has no confirmed sheet, and every checked sheet says what was done
 const unsure = x => x.check && x.check.use === 'unsure';
 const checkNote = x => !x.check ? '' : x.check.use === 'unsure' ? 'not confirmed on today\'s ground'
   : x.check.use === 'shift' ? `aligned to today's ground, moved ${Math.round(x.check.moved_m)} m`
@@ -875,7 +875,9 @@ function select(id) {
     // its latest old map (every site with one is a coloured pin now, Ethan 2026-10-10; all are 150+ years old, and
     // the later surveys sit closest on today's roads, e.g. the État-major against Cassini's sketch)
     if (!(s.id in S.depSel)) {
-      const ds = S.dep[s.id] || [], d = ds.find(x => DRAWING.has(x.kind)) || ds.filter(x => x.kind === 'map' && !rough(x) && !unsure(x)).pop();
+      // a sheet confirmed on today's ground first; an unconfirmed one (labelled) only when there is nothing better
+      const ds = S.dep[s.id] || [], maps = ds.filter(x => x.kind === 'map' && !rough(x));
+      const d = ds.find(x => DRAWING.has(x.kind)) || maps.filter(x => !unsure(x)).pop() || maps.pop();
       if (d) S.depSel[s.id] = d.file;
     }
     applyDep(s); if (S.sel === id && !B.open) renderSite(s);

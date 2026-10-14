@@ -1,0 +1,95 @@
+{
+ "site": "bethlehem-q2523914",
+ "sheet": "tmk1850",
+ "label": "Topographic and Military Map of the Netherlands (TMK, c. 1850)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 2767,
+   "fraction": 0.553,
+   "asis_fraction": 0.018,
+   "asis_err_m": 71.6,
+   "rigid_err_m": 21.8,
+   "shift_m": 71.8,
+   "shift_en_m": [
+    68.5,
+    21.2
+   ],
+   "rot_deg": 0.34,
+   "scale": 0.98,
+   "resid_med_m": 13.1,
+   "spread": [
+    0.7033978854788617,
+    291.2825129907737
+   ],
+   "bend": {
+    "control_cells": 118,
+    "consistent_matches": 4768,
+    "heldout_rigid_m": 17.6,
+    "heldout_bend_m": 4.9,
+    "max_move_m": 88.3,
+    "why": "bend would move ground 88 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4999,
+   "inliers": 3523,
+   "fraction": 0.705,
+   "asis_fraction": 0.001,
+   "asis_err_m": 64.5,
+   "rigid_err_m": 19.1,
+   "shift_m": 65.1,
+   "shift_en_m": [
+    60.5,
+    24.1
+   ],
+   "rot_deg": 0.57,
+   "scale": 0.9846,
+   "resid_med_m": 15.5,
+   "spread": [
+    0.7862654282055036,
+    289.86331971112634
+   ],
+   "bend": {
+    "control_cells": 132,
+    "consistent_matches": 4805,
+    "heldout_rigid_m": 18.1,
+    "heldout_bend_m": 4.1,
+    "max_move_m": 40.8
+   }
+  }
+ },
+ "grounds_agree_m": 8.5,
+ "cross": {
+  "asis_m": 64.5,
+  "shift_m": 21.4,
+  "bend_m": null,
+  "n": 4999,
+  "within_25m": {
+   "asis": 0.001,
+   "shift": 0.564,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "shift",
+  "why": "relief matches 64.5 m as laid -> 21.4 m (shift)"
+ },
+ "params": {
+  "s": [
+   0.9800127150281112,
+   0.005870970302514849
+  ],
+  "t": [
+   84.06296772183521,
+   -12.7605473497417
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1200,
+   1200
+  ]
+ }
+}

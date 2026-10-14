@@ -1,0 +1,86 @@
+{
+ "site": "little-solsbury-hill-q548780",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 4964,
+   "fraction": 0.993,
+   "asis_fraction": 0.974,
+   "asis_err_m": 7.8,
+   "rigid_err_m": 5.3,
+   "shift_m": 6.2,
+   "shift_en_m": [
+    4.4,
+    4.4
+   ],
+   "rot_deg": -0.14,
+   "scale": 1.0027,
+   "resid_med_m": 5.3,
+   "spread": [
+    0.9461965216200147,
+    312.13269883498987
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 5000,
+   "inliers": 4994,
+   "fraction": 0.999,
+   "asis_fraction": 0.998,
+   "asis_err_m": 4.9,
+   "rigid_err_m": 3.1,
+   "shift_m": 3.3,
+   "shift_en_m": [
+    3.3,
+    -0.1
+   ],
+   "rot_deg": -0.04,
+   "scale": 1.0021,
+   "resid_med_m": 3.1,
+   "spread": [
+    0.9745075968555037,
+    340.04026563408706
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 4.6,
+ "cross": {
+  "asis_m": 4.9,
+  "shift_m": 5.6,
+  "bend_m": null,
+  "n": 5000,
+  "within_25m": {
+   "asis": 0.998,
+   "shift": 0.994,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 4.9 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0027088000773794,
+   -0.002536800853866959
+  ],
+  "t": [
+   0.10248487681762608,
+   -3.0089640051940303
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   1066,
+   1066
+  ]
+ }
+}

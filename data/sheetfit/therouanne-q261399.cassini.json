@@ -1,0 +1,95 @@
+{
+ "site": "therouanne-q261399",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4996,
+   "inliers": 368,
+   "fraction": 0.074,
+   "asis_fraction": 0.006,
+   "asis_err_m": 180.5,
+   "rigid_err_m": 82.4,
+   "shift_m": 261.3,
+   "shift_en_m": [
+    -104.7,
+    -239.4
+   ],
+   "rot_deg": -3.5,
+   "scale": 0.9256,
+   "resid_med_m": 16.3,
+   "spread": [
+    0.8688921578116823,
+    218.15306657704323
+   ],
+   "bend": {
+    "control_cells": 24,
+    "consistent_matches": 1598,
+    "heldout_rigid_m": 29.2,
+    "heldout_bend_m": 10.0,
+    "max_move_m": 121.0,
+    "why": "bend would move ground 121 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4987,
+   "inliers": 363,
+   "fraction": 0.073,
+   "asis_fraction": 0.001,
+   "asis_err_m": 180.4,
+   "rigid_err_m": 64.2,
+   "shift_m": 378.0,
+   "shift_en_m": [
+    -297.9,
+    -232.7
+   ],
+   "rot_deg": -5.16,
+   "scale": 0.8277,
+   "resid_med_m": 15.0,
+   "spread": [
+    0.17790504775859106,
+    93.24378503734454
+   ],
+   "bend": {
+    "control_cells": 17,
+    "consistent_matches": 935,
+    "heldout_rigid_m": 11.7,
+    "heldout_bend_m": 6.8,
+    "max_move_m": 40.6
+   }
+  }
+ },
+ "grounds_agree_m": 193.3,
+ "cross": {
+  "asis_m": 280.7,
+  "shift_m": 155.4,
+  "bend_m": null,
+  "n": 2152,
+  "within_25m": {
+   "asis": 0.003,
+   "shift": 0.005,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 0% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.9238380184946977,
+   -0.05652119361408602
+  ],
+  "t": [
+   -85.02772484701302,
+   372.0800456728947
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   2000,
+   2000
+  ]
+ }
+}

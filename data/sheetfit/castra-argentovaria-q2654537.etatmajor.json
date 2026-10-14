@@ -1,0 +1,96 @@
+{
+ "site": "castra-argentovaria-q2654537",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4995,
+   "inliers": 1598,
+   "fraction": 0.32,
+   "asis_fraction": 0.048,
+   "asis_err_m": 71.7,
+   "rigid_err_m": 42.1,
+   "shift_m": 85.2,
+   "shift_en_m": [
+    15.5,
+    83.7
+   ],
+   "rot_deg": -2.74,
+   "scale": 1.0952,
+   "resid_med_m": 13.8,
+   "spread": [
+    0.6619796792951306,
+    199.9910057733111
+   ],
+   "bend": {
+    "control_cells": 106,
+    "consistent_matches": 3609,
+    "heldout_rigid_m": 15.3,
+    "heldout_bend_m": 7.4,
+    "max_move_m": 157.0,
+    "why": "bend would move ground 157 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4996,
+   "inliers": 1418,
+   "fraction": 0.284,
+   "asis_fraction": 0.2,
+   "asis_err_m": 50.0,
+   "rigid_err_m": 33.5,
+   "shift_m": 52.2,
+   "shift_en_m": [
+    -2.2,
+    52.2
+   ],
+   "rot_deg": -2.25,
+   "scale": 0.961,
+   "resid_med_m": 16.1,
+   "spread": [
+    0.4337089625614659,
+    191.74697152835026
+   ],
+   "bend": {
+    "control_cells": 144,
+    "consistent_matches": 3388,
+    "heldout_rigid_m": 25.5,
+    "heldout_bend_m": 6.3,
+    "max_move_m": 122.5,
+    "why": "bend would move ground 123 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 36.1,
+ "cross": {
+  "asis_m": 50.0,
+  "shift_m": 75.9,
+  "bend_m": null,
+  "n": 3874,
+  "within_25m": {
+   "asis": 0.258,
+   "shift": 0.139,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 26% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   1.0939244478966608,
+   -0.052401598644309884
+  ],
+  "t": [
+   -101.52252251298432,
+   -116.96385740860144
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

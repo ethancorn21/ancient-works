@@ -1,0 +1,96 @@
+{
+ "site": "argentomagus-q2860982",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4993,
+   "inliers": 361,
+   "fraction": 0.072,
+   "asis_fraction": 0.009,
+   "asis_err_m": 185.2,
+   "rigid_err_m": 102.1,
+   "shift_m": 270.7,
+   "shift_en_m": [
+    -206.4,
+    175.2
+   ],
+   "rot_deg": 21.4,
+   "scale": 0.6317,
+   "resid_med_m": 16.9,
+   "spread": [
+    0.8661338801832535,
+    198.53627816349558
+   ],
+   "bend": {
+    "control_cells": 8,
+    "consistent_matches": 1356,
+    "heldout_rigid_m": 10.9,
+    "heldout_bend_m": 18.2,
+    "max_move_m": 26.1,
+    "why": "bend does not predict held-out matches clearly better than the rigid fit"
+   }
+  },
+  "relief": {
+   "matches": 4986,
+   "inliers": 354,
+   "fraction": 0.071,
+   "asis_fraction": 0.004,
+   "asis_err_m": 162.6,
+   "rigid_err_m": 89.8,
+   "shift_m": 122.0,
+   "shift_en_m": [
+    112.8,
+    -46.6
+   ],
+   "rot_deg": 12.81,
+   "scale": 0.9647,
+   "resid_med_m": 10.9,
+   "spread": [
+    0.1639414703069712,
+    112.24135337565434
+   ],
+   "bend": {
+    "control_cells": 21,
+    "consistent_matches": 1181,
+    "heldout_rigid_m": 21.3,
+    "heldout_bend_m": 7.9,
+    "max_move_m": 227.1,
+    "why": "bend would move ground 227 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 388.7,
+ "cross": {
+  "asis_m": 165.9,
+  "shift_m": 449.4,
+  "bend_m": null,
+  "n": 1989,
+  "within_25m": {
+   "asis": 0.011,
+   "shift": 0.001,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 1% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.5881763673123933,
+   0.2305323033732003
+  ],
+  "t": [
+   307.4895718664526,
+   -30.16584631744101
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

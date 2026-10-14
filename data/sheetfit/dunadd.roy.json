@@ -1,0 +1,91 @@
+{
+ "site": "dunadd",
+ "sheet": "roy",
+ "label": "Roy's Military Survey of Scotland",
+ "m_per_px": 1.502,
+ "grounds": {
+  "aerial": {
+   "matches": 4993,
+   "inliers": 407,
+   "fraction": 0.082,
+   "asis_fraction": 0.007,
+   "asis_err_m": 164.4,
+   "rigid_err_m": 9.8,
+   "shift_m": 121.5,
+   "shift_en_m": [
+    -50.8,
+    -110.3
+   ],
+   "rot_deg": -171.53,
+   "scale": 1.0279,
+   "resid_med_m": 11.5,
+   "spread": [
+    0.587611252708397,
+    62.834280842972596
+   ],
+   "bend": {
+    "control_cells": 18,
+    "consistent_matches": 1437,
+    "heldout_rigid_m": 61.0,
+    "heldout_bend_m": 11.3,
+    "max_move_m": 146.3,
+    "why": "bend would move ground 146 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4987,
+   "inliers": 438,
+   "fraction": 0.088,
+   "asis_fraction": 0.0,
+   "asis_err_m": 180.3,
+   "rigid_err_m": 26.6,
+   "shift_m": 124.5,
+   "shift_en_m": [
+    70.0,
+    103.0
+   ],
+   "rot_deg": 136.88,
+   "scale": 0.845,
+   "resid_med_m": 15.5,
+   "spread": [
+    0.7236068992016033,
+    103.3814569722601
+   ],
+   "bend": {
+    "why": "matches cover only 5 consistent cells of 80 m"
+   }
+  }
+ },
+ "grounds_agree_m": 245.1,
+ "cross": {
+  "asis_m": 756.3,
+  "shift_m": 152.2,
+  "bend_m": null,
+  "n": 1963,
+  "within_25m": {
+   "asis": 0.0,
+   "shift": 0.03,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 0% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   -1.0167031243238815,
+   -0.151461735970473
+  ],
+  "t": [
+   587.2812305806287,
+   795.4854067397322
+  ],
+  "m_per_px": 1.5015015015015014,
+  "smooth": 2.0,
+  "size": [
+   666,
+   666
+  ]
+ }
+}

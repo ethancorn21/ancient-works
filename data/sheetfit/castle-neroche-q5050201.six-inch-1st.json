@@ -1,0 +1,86 @@
+{
+ "site": "castle-neroche-q5050201",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 4961,
+   "fraction": 0.993,
+   "asis_fraction": 0.973,
+   "asis_err_m": 5.4,
+   "rigid_err_m": 3.4,
+   "shift_m": 5.0,
+   "shift_en_m": [
+    1.0,
+    4.9
+   ],
+   "rot_deg": 0.09,
+   "scale": 1.0017,
+   "resid_med_m": 3.4,
+   "spread": [
+    0.8083619885378744,
+    284.70368810443364
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4999,
+   "inliers": 4993,
+   "fraction": 0.999,
+   "asis_fraction": 0.996,
+   "asis_err_m": 4.9,
+   "rigid_err_m": 2.7,
+   "shift_m": 3.5,
+   "shift_en_m": [
+    3.1,
+    1.5
+   ],
+   "rot_deg": -0.0,
+   "scale": 0.9999,
+   "resid_med_m": 2.7,
+   "spread": [
+    0.9506434848531534,
+    334.7881431330599
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 4.0,
+ "cross": {
+  "asis_m": 4.9,
+  "shift_m": 4.7,
+  "bend_m": null,
+  "n": 4999,
+  "within_25m": {
+   "asis": 0.996,
+   "shift": 0.995,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 4.9 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0016899477847563,
+   0.0015479271079233857
+  ],
+  "t": [
+   0.5646796740953413,
+   -4.971694527038631
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   1066,
+   1066
+  ]
+ }
+}

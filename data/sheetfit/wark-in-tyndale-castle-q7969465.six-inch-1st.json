@@ -1,0 +1,86 @@
+{
+ "site": "wark-in-tyndale-castle-q7969465",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4998,
+   "inliers": 4878,
+   "fraction": 0.976,
+   "asis_fraction": 0.96,
+   "asis_err_m": 8.8,
+   "rigid_err_m": 7.5,
+   "shift_m": 4.2,
+   "shift_en_m": [
+    -3.6,
+    2.0
+   ],
+   "rot_deg": 0.48,
+   "scale": 1.0097,
+   "resid_med_m": 7.4,
+   "spread": [
+    0.7753595560130122,
+    138.84758938297688
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4995,
+   "inliers": 4952,
+   "fraction": 0.991,
+   "asis_fraction": 0.988,
+   "asis_err_m": 8.1,
+   "rigid_err_m": 7.6,
+   "shift_m": 1.3,
+   "shift_en_m": [
+    -0.9,
+    0.9
+   ],
+   "rot_deg": -0.05,
+   "scale": 0.998,
+   "resid_med_m": 7.6,
+   "spread": [
+    0.558529745377809,
+    107.46492895751551
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 2.9,
+ "cross": {
+  "asis_m": 8.1,
+  "shift_m": 8.8,
+  "bend_m": null,
+  "n": 4995,
+  "within_25m": {
+   "asis": 0.988,
+   "shift": 0.982,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 8.1 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.00969942069057,
+   0.00838841951833897
+  ],
+  "t": [
+   -2.780516525317248,
+   -6.144686639204329
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

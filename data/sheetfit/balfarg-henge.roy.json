@@ -1,0 +1,95 @@
+{
+ "site": "balfarg-henge",
+ "sheet": "roy",
+ "label": "Roy's Military Survey of Scotland",
+ "m_per_px": 1.502,
+ "grounds": {
+  "aerial": {
+   "matches": 4992,
+   "inliers": 1045,
+   "fraction": 0.209,
+   "asis_fraction": 0.015,
+   "asis_err_m": 109.7,
+   "rigid_err_m": 86.0,
+   "shift_m": 57.9,
+   "shift_en_m": [
+    -31.4,
+    48.6
+   ],
+   "rot_deg": 6.02,
+   "scale": 0.8728,
+   "resid_med_m": 15.7,
+   "spread": [
+    0.6395594969074182,
+    102.02666945806337
+   ],
+   "bend": {
+    "control_cells": 26,
+    "consistent_matches": 3434,
+    "heldout_rigid_m": 16.9,
+    "heldout_bend_m": 9.7,
+    "max_move_m": 127.7,
+    "why": "bend would move ground 128 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4992,
+   "inliers": 967,
+   "fraction": 0.194,
+   "asis_fraction": 0.018,
+   "asis_err_m": 148.4,
+   "rigid_err_m": 46.9,
+   "shift_m": 27.3,
+   "shift_en_m": [
+    26.5,
+    -6.6
+   ],
+   "rot_deg": 16.5,
+   "scale": 0.7135,
+   "resid_med_m": 14.6,
+   "spread": [
+    0.7565126357347391,
+    126.83946638969793
+   ],
+   "bend": {
+    "control_cells": 39,
+    "consistent_matches": 3145,
+    "heldout_rigid_m": 23.8,
+    "heldout_bend_m": 9.9,
+    "max_move_m": 63.6
+   }
+  }
+ },
+ "grounds_agree_m": 80.0,
+ "cross": {
+  "asis_m": 153.1,
+  "shift_m": 113.2,
+  "bend_m": null,
+  "n": 3708,
+  "within_25m": {
+   "asis": 0.024,
+   "shift": 0.009,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 2% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.8679910368171072,
+   0.09153219994724744
+  ],
+  "t": [
+   53.54551653072262,
+   -18.901266571609995
+  ],
+  "m_per_px": 1.5015015015015014,
+  "smooth": 2.0,
+  "size": [
+   666,
+   666
+  ]
+ }
+}

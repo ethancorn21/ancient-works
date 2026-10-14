@@ -1,0 +1,90 @@
+{
+ "site": "inchtuthil",
+ "sheet": "scot-6-first",
+ "label": "Ordnance Survey six-inch map, Scotland, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 4746,
+   "fraction": 0.949,
+   "asis_fraction": 0.876,
+   "asis_err_m": 11.6,
+   "rigid_err_m": 9.0,
+   "shift_m": 8.3,
+   "shift_en_m": [
+    3.6,
+    7.5
+   ],
+   "rot_deg": -0.25,
+   "scale": 1.0066,
+   "resid_med_m": 8.6,
+   "spread": [
+    0.7927789778014545,
+    224.01786422289717
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4999,
+   "inliers": 4059,
+   "fraction": 0.812,
+   "asis_fraction": 0.546,
+   "asis_err_m": 23.6,
+   "rigid_err_m": 13.1,
+   "shift_m": 17.5,
+   "shift_en_m": [
+    15.8,
+    -7.6
+   ],
+   "rot_deg": -0.24,
+   "scale": 1.0191,
+   "resid_med_m": 10.8,
+   "spread": [
+    0.7141923156883726,
+    230.39731406384118
+   ],
+   "bend": {
+    "control_cells": 225,
+    "consistent_matches": 4516,
+    "heldout_rigid_m": 10.5,
+    "heldout_bend_m": 4.6,
+    "max_move_m": 25.9
+   }
+  }
+ },
+ "grounds_agree_m": 19.4,
+ "cross": {
+  "asis_m": 23.6,
+  "shift_m": 23.8,
+  "bend_m": null,
+  "n": 4999,
+  "within_25m": {
+   "asis": 0.546,
+   "shift": 0.541,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 11.6 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0065866506292593,
+   -0.004344153387870816
+  ],
+  "t": [
+   -2.675936315795423,
+   -6.018160259019845
+  ],
+  "m_per_px": 1.5005359056806002,
+  "smooth": 2.0,
+  "size": [
+   933,
+   933
+  ]
+ }
+}

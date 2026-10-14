@@ -1,0 +1,86 @@
+{
+ "site": "totternhoe-castle-q7828481",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4997,
+   "inliers": 4129,
+   "fraction": 0.826,
+   "asis_fraction": 0.793,
+   "asis_err_m": 11.4,
+   "rigid_err_m": 11.8,
+   "shift_m": 3.0,
+   "shift_en_m": [
+    -2.3,
+    2.0
+   ],
+   "rot_deg": 0.34,
+   "scale": 0.992,
+   "resid_med_m": 9.8,
+   "spread": [
+    0.7923151322497098,
+    132.632848666121
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4995,
+   "inliers": 4277,
+   "fraction": 0.856,
+   "asis_fraction": 0.843,
+   "asis_err_m": 10.2,
+   "rigid_err_m": 10.0,
+   "shift_m": 3.3,
+   "shift_en_m": [
+    -2.5,
+    2.1
+   ],
+   "rot_deg": -0.18,
+   "scale": 0.995,
+   "resid_med_m": 8.6,
+   "spread": [
+    0.715287711481566,
+    120.64305767893559
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 0.2,
+ "cross": {
+  "asis_m": 10.2,
+  "shift_m": 10.0,
+  "bend_m": null,
+  "n": 4995,
+  "within_25m": {
+   "asis": 0.843,
+   "shift": 0.844,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 10.2 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9919921036606772,
+   0.005938884872666759
+  ],
+  "t": [
+   2.2082079972478246,
+   -0.7611898263080419
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

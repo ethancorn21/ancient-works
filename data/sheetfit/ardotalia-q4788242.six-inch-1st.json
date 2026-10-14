@@ -1,0 +1,86 @@
+{
+ "site": "ardotalia-q4788242",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 4859,
+   "fraction": 0.972,
+   "asis_fraction": 0.948,
+   "asis_err_m": 8.1,
+   "rigid_err_m": 6.4,
+   "shift_m": 7.5,
+   "shift_en_m": [
+    1.7,
+    7.3
+   ],
+   "rot_deg": -0.12,
+   "scale": 0.9984,
+   "resid_med_m": 6.3,
+   "spread": [
+    0.8460363234643651,
+    266.1523767150912
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4998,
+   "inliers": 4772,
+   "fraction": 0.955,
+   "asis_fraction": 0.946,
+   "asis_err_m": 7.0,
+   "rigid_err_m": 6.0,
+   "shift_m": 3.4,
+   "shift_en_m": [
+    3.0,
+    1.6
+   ],
+   "rot_deg": -0.03,
+   "scale": 1.002,
+   "resid_med_m": 5.8,
+   "spread": [
+    0.8068383334704712,
+    283.8750982157117
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 5.8,
+ "cross": {
+  "asis_m": 7.0,
+  "shift_m": 7.9,
+  "bend_m": null,
+  "n": 4998,
+  "within_25m": {
+   "asis": 0.946,
+   "shift": 0.936,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 7.0 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9983808028214143,
+   -0.0020972384994584277
+  ],
+  "t": [
+   0.8615116088533206,
+   -2.8989275556728096
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   1066,
+   1066
+  ]
+ }
+}

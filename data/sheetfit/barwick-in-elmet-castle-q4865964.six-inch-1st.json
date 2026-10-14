@@ -1,0 +1,86 @@
+{
+ "site": "barwick-in-elmet-castle-q4865964",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 5000,
+   "inliers": 4789,
+   "fraction": 0.958,
+   "asis_fraction": 0.941,
+   "asis_err_m": 9.7,
+   "rigid_err_m": 6.3,
+   "shift_m": 5.8,
+   "shift_en_m": [
+    0.9,
+    5.8
+   ],
+   "rot_deg": 0.05,
+   "scale": 0.9944,
+   "resid_med_m": 6.1,
+   "spread": [
+    0.7459687765096062,
+    229.68951003997262
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4999,
+   "inliers": 4913,
+   "fraction": 0.983,
+   "asis_fraction": 0.973,
+   "asis_err_m": 5.1,
+   "rigid_err_m": 3.9,
+   "shift_m": 3.2,
+   "shift_en_m": [
+    2.5,
+    2.0
+   ],
+   "rot_deg": -0.08,
+   "scale": 0.9978,
+   "resid_med_m": 3.9,
+   "spread": [
+    0.7917961692526876,
+    295.62700709115245
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 4.1,
+ "cross": {
+  "asis_m": 5.1,
+  "shift_m": 6.4,
+  "bend_m": null,
+  "n": 4999,
+  "within_25m": {
+   "asis": 0.973,
+   "shift": 0.979,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 5.1 m of today's ground"
+ },
+ "params": {
+  "s": [
+   0.9944007473837069,
+   0.0008491611788258768
+  ],
+  "t": [
+   4.063025998024663,
+   -1.314514298128251
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   1066,
+   1066
+  ]
+ }
+}

@@ -1,0 +1,95 @@
+{
+ "site": "norham-castle-q388705",
+ "sheet": "roy",
+ "label": "Roy's Military Survey of Scotland",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4991,
+   "inliers": 808,
+   "fraction": 0.162,
+   "asis_fraction": 0.002,
+   "asis_err_m": 178.6,
+   "rigid_err_m": 99.8,
+   "shift_m": 210.0,
+   "shift_en_m": [
+    105.3,
+    -181.6
+   ],
+   "rot_deg": -3.24,
+   "scale": 0.8503,
+   "resid_med_m": 14.5,
+   "spread": [
+    0.4833353322325045,
+    55.673183340094916
+   ],
+   "bend": {
+    "control_cells": 23,
+    "consistent_matches": 3298,
+    "heldout_rigid_m": 91.8,
+    "heldout_bend_m": 7.4,
+    "max_move_m": 221.5,
+    "why": "bend would move ground 221 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4982,
+   "inliers": 437,
+   "fraction": 0.088,
+   "asis_fraction": 0.039,
+   "asis_err_m": 114.1,
+   "rigid_err_m": 68.9,
+   "shift_m": 198.2,
+   "shift_en_m": [
+    -16.6,
+    -197.5
+   ],
+   "rot_deg": 0.51,
+   "scale": 1.2685,
+   "resid_med_m": 14.2,
+   "spread": [
+    0.26973523517761444,
+    32.18612153048456
+   ],
+   "bend": {
+    "control_cells": 15,
+    "consistent_matches": 1562,
+    "heldout_rigid_m": 29.2,
+    "heldout_bend_m": 11.3,
+    "max_move_m": 59.5
+   }
+  }
+ },
+ "grounds_agree_m": 122.9,
+ "cross": {
+  "asis_m": 135.2,
+  "shift_m": 164.1,
+  "bend_m": null,
+  "n": 2682,
+  "within_25m": {
+   "asis": 0.072,
+   "shift": 0.012,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 7% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.8489434017233334,
+   -0.04804344714086885
+  ],
+  "t": [
+   97.63661440141757,
+   174.07430765156494
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

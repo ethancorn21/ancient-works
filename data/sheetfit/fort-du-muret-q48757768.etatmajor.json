@@ -1,0 +1,96 @@
+{
+ "site": "fort-du-muret-q48757768",
+ "sheet": "etatmajor",
+ "label": "Etat-major map of France (1820-1866)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4994,
+   "inliers": 634,
+   "fraction": 0.127,
+   "asis_fraction": 0.039,
+   "asis_err_m": 102.3,
+   "rigid_err_m": 71.9,
+   "shift_m": 27.7,
+   "shift_en_m": [
+    24.1,
+    13.6
+   ],
+   "rot_deg": 7.13,
+   "scale": 0.9029,
+   "resid_med_m": 16.1,
+   "spread": [
+    0.4878906350738432,
+    203.44360265377148
+   ],
+   "bend": {
+    "control_cells": 90,
+    "consistent_matches": 3371,
+    "heldout_rigid_m": 51.7,
+    "heldout_bend_m": 9.3,
+    "max_move_m": 152.8,
+    "why": "bend would move ground 153 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4991,
+   "inliers": 540,
+   "fraction": 0.108,
+   "asis_fraction": 0.063,
+   "asis_err_m": 114.9,
+   "rigid_err_m": 114.6,
+   "shift_m": 97.1,
+   "shift_en_m": [
+    67.9,
+    -69.4
+   ],
+   "rot_deg": 4.73,
+   "scale": 0.8935,
+   "resid_med_m": 14.8,
+   "spread": [
+    0.6030708283341181,
+    399.9450526447948
+   ],
+   "bend": {
+    "control_cells": 46,
+    "consistent_matches": 3076,
+    "heldout_rigid_m": 101.1,
+    "heldout_bend_m": 6.3,
+    "max_move_m": 177.2,
+    "why": "bend would move ground 177 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 93.8,
+ "cross": {
+  "asis_m": 127.5,
+  "shift_m": 97.0,
+  "bend_m": null,
+  "n": 4507,
+  "within_25m": {
+   "asis": 0.07,
+   "shift": 0.029,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 7% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.895937142990454,
+   0.11200301914069648
+  ],
+  "t": [
+   196.91682225502007,
+   -19.994575051590942
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

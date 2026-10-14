@@ -1,0 +1,91 @@
+{
+ "site": "kastell-lostmarc-h-q22925755",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4995,
+   "inliers": 534,
+   "fraction": 0.107,
+   "asis_fraction": 0.028,
+   "asis_err_m": 149.0,
+   "rigid_err_m": 93.6,
+   "shift_m": 259.3,
+   "shift_en_m": [
+    -71.6,
+    -249.2
+   ],
+   "rot_deg": -4.09,
+   "scale": 1.2551,
+   "resid_med_m": 14.3,
+   "spread": [
+    0.5491915392442864,
+    206.43290138261662
+   ],
+   "bend": {
+    "control_cells": 105,
+    "consistent_matches": 2580,
+    "heldout_rigid_m": 34.4,
+    "heldout_bend_m": 5.6,
+    "max_move_m": 174.8,
+    "why": "bend would move ground 175 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4991,
+   "inliers": 366,
+   "fraction": 0.073,
+   "asis_fraction": 0.001,
+   "asis_err_m": 165.8,
+   "rigid_err_m": 182.0,
+   "shift_m": 756.0,
+   "shift_en_m": [
+    170.0,
+    736.6
+   ],
+   "rot_deg": 42.99,
+   "scale": 0.2158,
+   "resid_med_m": 11.9,
+   "spread": [
+    0.5101642646298039,
+    113.78467868700208
+   ],
+   "bend": {
+    "why": "matches cover only 0 consistent cells of 80 m"
+   }
+  }
+ },
+ "grounds_agree_m": 1015.0,
+ "cross": {
+  "asis_m": 184.7,
+  "shift_m": 173.7,
+  "bend_m": null,
+  "n": 1485,
+  "within_25m": {
+   "asis": 0.003,
+   "shift": 0.007,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 0% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   1.251903777438937,
+   -0.08946251983209257
+  ],
+  "t": [
+   -344.7092969062526,
+   119.26283912341881
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   1600,
+   1600
+  ]
+ }
+}

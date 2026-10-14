@@ -1,0 +1,86 @@
+{
+ "site": "ludlow-castle-q576369",
+ "sheet": "six-inch-1st",
+ "label": "Ordnance Survey six-inch map, England and Wales, 1st edition",
+ "m_per_px": 1.501,
+ "grounds": {
+  "aerial": {
+   "matches": 4997,
+   "inliers": 4886,
+   "fraction": 0.978,
+   "asis_fraction": 0.949,
+   "asis_err_m": 8.9,
+   "rigid_err_m": 3.7,
+   "shift_m": 9.3,
+   "shift_en_m": [
+    -8.6,
+    3.4
+   ],
+   "rot_deg": -0.02,
+   "scale": 1.0075,
+   "resid_med_m": 3.6,
+   "spread": [
+    0.8561338062037843,
+    139.66250247302094
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  },
+  "relief": {
+   "matches": 4997,
+   "inliers": 4987,
+   "fraction": 0.998,
+   "asis_fraction": 0.995,
+   "asis_err_m": 8.2,
+   "rigid_err_m": 4.9,
+   "shift_m": 5.3,
+   "shift_en_m": [
+    -5.1,
+    1.4
+   ],
+   "rot_deg": -0.38,
+   "scale": 1.0,
+   "resid_med_m": 4.9,
+   "spread": [
+    0.8026119795723452,
+    140.12323148949721
+   ],
+   "bend": {
+    "why": "already lines up"
+   }
+  }
+ },
+ "grounds_agree_m": 4.0,
+ "cross": {
+  "asis_m": 8.2,
+  "shift_m": 6.1,
+  "bend_m": null,
+  "n": 4997,
+  "within_25m": {
+   "asis": 0.995,
+   "shift": 0.99,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "as is",
+  "why": "already within 8.2 m of today's ground"
+ },
+ "params": {
+  "s": [
+   1.0075428575429193,
+   -0.0003656923718283692
+  ],
+  "t": [
+   -7.8490750769368365,
+   -4.175891691825409
+  ],
+  "m_per_px": 1.5009380863039399,
+  "smooth": 2.0,
+  "size": [
+   533,
+   533
+  ]
+ }
+}

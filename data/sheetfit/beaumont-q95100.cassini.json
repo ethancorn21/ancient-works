@@ -1,0 +1,96 @@
+{
+ "site": "beaumont-q95100",
+ "sheet": "cassini",
+ "label": "Cassini map of France (1756-1815)",
+ "m_per_px": 1.0,
+ "grounds": {
+  "aerial": {
+   "matches": 4997,
+   "inliers": 555,
+   "fraction": 0.111,
+   "asis_fraction": 0.002,
+   "asis_err_m": 186.3,
+   "rigid_err_m": 104.6,
+   "shift_m": 390.6,
+   "shift_en_m": [
+    389.6,
+    -27.8
+   ],
+   "rot_deg": -10.43,
+   "scale": 0.5036,
+   "resid_med_m": 14.1,
+   "spread": [
+    0.4810505873198449,
+    250.76402641622371
+   ],
+   "bend": {
+    "control_cells": 20,
+    "consistent_matches": 3178,
+    "heldout_rigid_m": 71.5,
+    "heldout_bend_m": 8.3,
+    "max_move_m": 153.1,
+    "why": "bend would move ground 153 m past the rigid fit (cap 80)"
+   }
+  },
+  "relief": {
+   "matches": 4987,
+   "inliers": 317,
+   "fraction": 0.064,
+   "asis_fraction": 0.005,
+   "asis_err_m": 154.4,
+   "rigid_err_m": 164.9,
+   "shift_m": 290.0,
+   "shift_en_m": [
+    285.8,
+    49.3
+   ],
+   "rot_deg": -12.91,
+   "scale": 0.7624,
+   "resid_med_m": 8.0,
+   "spread": [
+    0.6088398236435232,
+    182.58129344889892
+   ],
+   "bend": {
+    "control_cells": 25,
+    "consistent_matches": 1361,
+    "heldout_rigid_m": 6.5,
+    "heldout_bend_m": 4.5,
+    "max_move_m": 208.6,
+    "why": "bend would move ground 209 m past the rigid fit (cap 80)"
+   }
+  }
+ },
+ "grounds_agree_m": 129.3,
+ "cross": {
+  "asis_m": 363.6,
+  "shift_m": 124.6,
+  "bend_m": null,
+  "n": 2628,
+  "within_25m": {
+   "asis": 0.01,
+   "shift": 0.08,
+   "bend": null
+  }
+ },
+ "decision": {
+  "use": "unsure",
+  "why": "only 1% of relief matches within 25 m as laid, and no fix confirmed"
+ },
+ "params": {
+  "s": [
+   0.4953052110202508,
+   -0.09116148357033924
+  ],
+  "t": [
+   803.172589759406,
+   623.6145831438059
+  ],
+  "m_per_px": 1.0,
+  "smooth": 2.0,
+  "size": [
+   2000,
+   2000
+  ]
+ }
+}
