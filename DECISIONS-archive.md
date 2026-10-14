@@ -2694,6 +2694,15 @@ Step: main unmoved since iter 90's sync (1dcbc06; main...agent/a = 0/8, all book
 - Outcome: Status: done re-filed per the note. Next note, if any: old-signature red = stale (run it on the merged tree, cite the corrected PITFALLS entry); a new red = the 120 step-2 A/B (my files = fit/src_roman_horsley.py + data/books/lists|triage/britanniaromanao00hors.*) + the 306c/306d precedent; 3rd failed attempt at the same blocker -> ask_human + blocked.
 
 
+<!-- task 207b -->
+# Task 207b maclauchlan
+
+## 2026-10-13 207b DECISION: iteration 204 - the driver's auto-unblock did not lift the owner's "Stop 207"; no work started; filed ask_human 007 against this task (same question as open 006/207a), set Status: blocked again
+- The driver put 207b back to in-progress (ffe11d4) purely because no request was open against 207b itself - its safety valve for a blocked task that nothing would ever resume. It is not a lift: the lead's block (62455ad, "the owner said 'Stop 207'. Do not start until the owner lifts it.") is verbatim in the task file, the owner's stop is the newest word on record (no lift in the inbox, lead notes or DECISIONS), and request 006 (sibling 207a, 10-13 17:19 UTC, still open) already asks the same question for BOTH subtasks, recommending (a) it stands. Same resolution as 207a's iteration 203: the owner's word outranks the driver's dispatch.
+- Verified the task is a true blank slate on this branch before deciding: no fit/src_roman_maclauchlan.py; no data/books/triage/memoirwrittendu00maclgoog.* or lists/*.json (the per-book artifacts); data/raw/books/ has only cached bookreader.json + metadata.json for both IA copies (1858 original memoirwrittendu00maclgoog, 171 leaves; 1971 reprint memoirwrittendur0000henr, hOCR); no roman staging files (files_roman/classified_roman/extras_roman) and no docs/lead_roman.md exist yet. So (a) the stop stands costs nothing - no fetch, no LLM minute, nothing to unwind; (b) lifted resumes at the hand-over recipe step 2 (module + fetch).
+- Filed ask_human request 007 (.agent/asks/007.md, blocking, task: 207b) with recommendation (a) the stop stands; one answer covers 006 + 007. Status set back to blocked: stable now that a request is open against the task (driver rule), and it matches the lead's 62455ad. The harness's "keep the status as it is" note was read as "do not close the task out" - blocked-with-open-request is the state the lead wrote and the stuck rule prescribes. Tests not run: no code written this session (task file + journal only); suite unchanged at the recorded baseline 1/155/1 (lone red = agent a's in-flight 307 placement test).
+
+
 <!-- task 207c -->
 # Task 207c roy
 
