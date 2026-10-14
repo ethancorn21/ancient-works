@@ -119,7 +119,7 @@ SITES = {
     # Q1342: P625 (-80.0, 40.441667) = downtown (downtown at the confluence); P131 Allegheny County;
     # enwiki "Pittsburgh". NAME-SEARCH TRAP (the Barnard-Castle class, the 236a Q60 note): the first
     # "Pittsburgh" search hit WITH coordinates is Q235034 University of Pittsburgh (-79.953274,
-    # 40.444565, ~4.7 km west of the city point) - within the 50 km flag so --verify does not flag it,
+    # 40.444565, ~4.0 km east of the city point) - within the 50 km flag so --verify does not flag it,
     # but a record --live caption route would store the university's point, not the city's. The staged
     # rows hand-record the city's P625 instead (dist 0).
     "Q1342": dict(id="pittsburgh-q1342", name="Pittsburgh", named="Pittsburgh",

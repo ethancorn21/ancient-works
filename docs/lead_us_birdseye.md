@@ -74,9 +74,9 @@ close-out) that its own table stands on: label, every P625 value (flagged when >
 table point), P373, P131 (with labels), the enwiki article, and the first name-search hit with
 coordinates (what `record --live` would resolve for the caption route). No P625 flag fired on any
 of the fourteen (Q62's two P625s are 2.0-2.4 km from its refined table point - the point is a
-refinement, not a P625; Q23197's is 721 m NE; the ten new-city points ARE the P625s, dist 0). Two
+refinement, not a P625; Q23197's is 721 m SE; the ten new-city points ARE the P625s, dist 0). Two
 search traps (the Barnard-Castle class, the 236a Q60 note): **Pittsburgh** -> Q235034 University
-of Pittsburgh (~4.7 km west of the city point) and **Chicago** -> Q131252 University of Chicago
+of Pittsburgh (~4.0 km east of the city point) and **Chicago** -> Q131252 University of Chicago
 (~10.5 km south) - both within the 50 km flag, so the run does not flag them, but `record --live`
 would store the university's point instead of the city's; the staged rows hand-record the city's
 P625 (dist 0), and both traps are recorded on the Q1342/Q1297 SITES comments and site notes.
@@ -430,8 +430,8 @@ same hand-written annotations) and `File:Thaddeus M. Fowler - Pittsburgh, Pennsy
 (7206x4806, Adam Cuerden) - one row per sheet, the LOC scan is staged.
 
 **Name-search trap (the Barnard-Castle class, the 236a Q60 note):** the first "Pittsburgh"
-name-search hit with coordinates is Q235034 University of Pittsburgh (-79.953274, 40.444565, ~4.7 km
-west of the city point) - within the 50 km flag, so `--verify` does not flag it, but `record --live`'s
+name-search hit with coordinates is Q235034 University of Pittsburgh (-79.953274, 40.444565, ~4.0 km
+east of the city point) - within the 50 km flag, so `--verify` does not flag it, but `record --live`'s
 caption route would store the university's point instead of the city's. The staged row hand-records
 the city's P625 (dist 0); the trap is recorded on the Q1342 SITES comment and site note.
 
