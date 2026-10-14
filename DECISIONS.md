@@ -19,6 +19,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 ## Archived decisions
 
 497 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
+496 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
 
 - 000 plan (18 entries)
 - 001 fit-gate (10 entries)
@@ -375,3 +376,62 @@ practical rules; today's run corroborated it exactly).
 - Denver box (box 5) ticked: it is the only city-scoped box and every condition of it is verified (staged in this task's files; live --verify re-check with transcript in the lead doc; the pick still live on Commons and Public domain at the stage re-check; its test passes). Boxes 1-4 span all four cities and stay open until close.
 - The Denver landing commit carries: tests/test_src_us_birdseye_batch4.py, tests/golden/src_us_birdseye_batch4_sample.json, the task file (Touches line + box 5 + hand-over), this DECISIONS record and the restored pngs. The module/staging/lead-doc half was already in the driver's 3562737 commit (the working tree was committed at the iteration-160 context limit; the content was verified, not rebuilt).
 - Next: St. Paul (city 2) per the hand-over's playbook (QID research with the name-search traps, then the pool, then the landing pattern).
+## 2026-10-14 307bc DECISION: the post-235 re-run is green (part 4 66 s, full suite 177/1/0) - 307b's box 5 ticked and 307b set done; filed 242 for the 307d screenshot drift
+235 is in this branch (the driver merged main at 8c967c8 before this session: the
+`_pick_place` fix plus the `_survives_page_filter` / `_page_auto_select` helpers at
+tests/test_fit_queue.py:1517-1558). Verified everything by running code; machine date
+2026-10-14 (still 2026, so part 4's `at` startswith-'2026-' assert and the year-relative
+150-year cutoff are unaffected). No code files changed this session - memory/task files
+only; web/fitkit.js needed nothing, as the task's notes expected (the iteration-256 red
+run had already shown every behaviour check [ok]; the only red sub-check was the
+seed's dep-visibility, which the 235 pick fix addresses upstream).
+
+Pre-run pick simulation (PITFALLS rule (a) - `_pick_place` is a pure function over
+committed inputs): oswestry-castle-q20713795, idx 3 of the current 180-entry queue,
+plan earthworkenglan01allcgoog_n0119_1 (bar 0.1646 m/px, rot 0, coarse false). The two
+earlier entries: idx 0 fort-ancient (line-ineligible), idx 1 marietta (skipped by
+EXACTLY the 235 rule - no-page-showable-dep: her only depiction is a 1904 USGS topo,
+filtered by surveyOldEnough with cutoff 2026-150=1876), idx 2 forthill (ineligible).
+Oswestry's surviving depictions: the 1842 six-inch map (auto-selected by the page's
+select() rule); the 1900 one-inch filtered. The 307d picker (_picker in
+test_owner_check.py) also simulated: A = idx 3 oswestry / n0119_1 (bar 0.1646),
+B = idx 8 devil-s-dyke / n0662_1 (picture_size 0.7201) - the SAME site+plan the
+307d docs section names ("on the 241-entry queue of 2026-10-13 that was entry 38 ...
+and entry 45"); the bba5961 queue re-export (241 -> 180 entries) shifted the indices
+38/45 -> 3/8, and the docs text is a dated snapshot, so it is not stale.
+
+Runs:
+- part 4: tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser =
+  1 passed in 66.21 s (headless Chrome, full temp tree, ephemeral port, GUARD: the only
+  server-log noise is the known harmless /tiles/relief 404s). All sub-checks green
+  including the seed's dep-layer visibility (the 1842 map's layer hidden while placed,
+  restored by Cancel) that had been red since 6ce742f.
+- full suite: 177 passed, 1 skipped, 0 failed (527 s) - exactly 235's recorded baseline
+  (177/1/0); the iteration-256 159/1/1 was the pre-235 baseline (the suite grew with
+  235's helpers and merged 212/302g work). No other red, so box 2 required no filing.
+
+307b closed: box 5 ticked with the above evidence in 307b's (new, final) hand-over;
+Status: done. Parent 307's hand-over got the done note: all four subtasks (307a, 307b,
+307c, 307d) are done, so the parent is ready for the driver to return it.
+
+Side matter (the iteration-256 307b hand-over asked for a judgment): the 307d
+screenshot drift is MEANINGFUL and is not just data movement. At session start six of
+the ten 307d_*.png were dirty against HEAD, and HEAD itself differs from main on
+exactly those six (the driver's sweep had committed the iteration-256 re-renders into
+this branch, 1cff9fc). HEAD-vs-worktree pixel compare (threshold 32): the four
+saved/reload views (A_4/A_5/B_4/B_5) differ 24-36%, card/placed 0.1-0.2%. Then a
+same-data A/B: re-ran test_owner_check.py one hour later on the identical tree
+(2 passed, 67 s) and compared run-1 vs run-2 PNGs: saved/reload differ 28.6-33.6% of
+pixels between runs, card/placed/gestured 0-1.25%. Visual inspection of the A_4 pair
+(same site panel, same selected depiction, same 85% opacity): the map view and the
+overlay rectangle are shifted slightly relative to each other - the captures land
+mid-transition (the map view is not settled at shot time). So: (1) the docs' PNGs
+drift ~30% per full-suite run, (2) any branch that ran the suite is dirty on them
+(the b14918f binary-conflict episode), (3) they no longer correspond to the 307d-
+acceptance bytes. Filed tasks/242-owner-check-stable-shots.md (Depends on: 307d;
+Touches: tests/test_owner_check.py, docs/site_flow.md, docs/site_flow/) to settle the
+map before those captures and replace the unconditional per-run in-checkout copy with
+an explicit refresh flag. Updated the PITFALLS 307d-PNG entry with the measurement
+and the 242 pointer; its restore-main-bytes workaround remains the rule until 242
+merges - applied it this session (git checkout main -- docs/site_flow/307d_*.png)
+before committing.
