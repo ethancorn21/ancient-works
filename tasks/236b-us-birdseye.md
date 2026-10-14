@@ -34,90 +34,93 @@ staging files, the way 213 staged Civitates.
 
 ## Hand-over
 
-(2026-10-14, iteration 183, agent a) **Batch 2 research COMPLETE (5 cities picked, all same-sheet
-eyeballs done) and the module's SITES/SOURCES are EDITED (UNCOMMITTED - the harness saved them);
-what remains is: verify -> stage -> lead doc -> golden -> tests -> commit.** 9 cities staged so far;
-14 after batch 2 lands.
+(2026-10-14, iteration 184, agent a) **Batch 2 LANDED: 14 cities staged (4 owner + 5 batch 1 + 5
+batch 2), 21 file rows, all verified (14-QID --verify clean, --check 21/21 PASS, module tests 5/5,
+full suite 177/1/0 green in 517 s).** The context limit hit before the commit: all of it is in the
+working tree (the driver will sweep it like it did 183's). What remains: (0) the commit, (A) the
+batch-2 lead doc (five city sections + the 14-QID verify transcript + the Staging section), (B)
+batch 3 and up (the last 11 cities for box 4, which ticks at >=25 cities total).
 
-### DONE-182-REMOVED
-  (docs/site_flow/307d_A_4-saved.png, 307d_A_5-reload.png, 307d_B_5-reload.png) - both sides are the
-  307d screenshot test's own output (it rewrites the pngs every run); resolved to main's version
-  (the other agents' finished work), ran the full suite in the merged tree (**177 passed, 1 skipped,
-  0 failed in 518 s** - the 307d test passed, no flake), which regenerated 5 pngs (the 3 conflicts +
-  307d_A_1-card + 307d_B_4-saved); staged the fresh output and committed the merge (the 306g-style
-  disclosure is in the commit message + DECISIONS). Text files auto-merged cleanly.
-- **Batch 1's loose ends closed with eyeballs (181's item 3):** the 3 non-LOC same-sheet scans the
-  module claims were NEVER eyeballed in 181 (its verification download script had a syntax error and
-  never ran) are now ALL CONFIRMED same-sheet against the staged LOC scans (1280 px thumbs from
-  w/thumb.php, project UA, 2 s apart; files in /tmp/aw236b_chk182_*.jpg, may be wiped):
-  - Philadelphia `File:Bird's-eye view of Philadelphia - drawn and engraved expressly for Harper's
-    Weekly from sketches by Theodore R. Davis. LCCN2012645607.jpg` (10173x7287) = same sheet as staged
-    LOC 75694509 (identical Harper's title block, grid, Delaware islands/ships; different physical
-    copy: ragged margins, different hand-written accession numbers).
-  - Pittsburgh `File:Pittsburgh 1902.jpg` (7256x4856, a 2010 scan, identical dimensions + same
-    hand-written annotations) and `File:Thaddeus M. Fowler - Pittsburgh, Pennsylvania 1902.jpg`
-    (7206x4806, Adam Cuerden, different copy) = same sheet as staged LOC 75696521 (identical
-    PITTSBURGH./PENNSYLVANIA./1902 block, numbered index, FOWLER & MOYER copyright line).
-  - BONUS (found while at it): Boston `File:1902 birds-eye view map of Boston featuring Beach and
-    Clarridge Company.jpg` (8288x5712) = same sheet as staged LOC 75694559 (identical title block,
-    key, B&C factory vignette).
-  All module comments stand as written - NO softening needed, no code change.
-- **Lead doc rewritten for batch 1 (EDIT APPLIED, UNCOMMITTED in the working tree):**
-  docs/lead_us_birdseye.md - (a) the QID-verification section now carries the 9-QID transcript from
-  the fresh `--verify` run (all clean; Pittsburgh's first search hit = Q235034 University of
-  Pittsburgh, within the 50 km flag; Baltimore P131 has Maryland + Province of Maryland); (b) FIVE
-  new city sections inserted before Staging (Boston/Philadelphia/Baltimore/Pittsburgh/Cincinnati,
-  each: STAGED with date/artist/resolution/angle + same-sheet eyeball notes, DROP with reasons,
-  RESERVED where applicable, the Pittsburgh trap called out); (c) "Staging and checks" now says 16
-  views (11 owner + 5 batch-1), the 5 site rows in extras_us_birdseye.jsonl, the 16-line --check
-  transcript (re-run this session: exit 0, 16/16 PASS), and "Not done yet: 16 more cities (25 total,
-  9 done)" with the next candidates (Louisville, St. Louis, Chicago, Detroit, Milwaukee, ...).
+### State of the files (post-184)
 
-### State of the files (post-182)
-
-- fit/src_us_birdseye.py: 9 SITES (4 shared via SHARED_SITES + 5 batch-1: boston-q100,
-  philadelphia-q1345, baltimore-q5092, pittsburgh-q1342, cincinnati-q43196), 16 SOURCES; UNCHANGED
-  this session. data/catalog/extras_us_birdseye.jsonl: 5 site rows. data/commons/files_us_birdseye
-  .jsonl + classified: 16 rows each. tests/golden/src_us_birdseye_sample.json: 16-row pin.
-- docs/lead_us_birdseye.md: the 182 edit (above) is UNCOMMITTED - the harness saved it.
-- Transcripts (may be wiped, re-run to regenerate): /tmp/aw236b_verify_182.txt (9-QID),
-  /tmp/aw236b_check_182.txt (16-line --check); /tmp/aw236b_b1.json + b1.py = batch-1 pool builder
-  (query forms + keep()/gate filter; batch 2 should rebuild its own pool the same way).
-- Test state at hand-over: module tests 5/5 green after 181's edit; full suite 177/1/0 green on the
-  merged tree THIS session (before the lead-doc edit - the doc is not test-covered; nothing in
-  fit/pipeline/tests reads it). No code changed since the green run.
+- fit/src_us_birdseye.py: 14 SITES (batch 1: boston-q100, philadelphia-q1345, baltimore-q5092,
+  pittsburgh-q1342, cincinnati-q43196; batch 2: louisville-q43668, st-louis-q38022, chicago-q1297,
+  detroit-q12439, milwaukee-q37836) and 21 SOURCES. Unchanged this session (183's edit was committed
+  by the driver in 3d367d5). Its comments carry the batch-2 picks, the same-sheet scans and the drop
+  reasons - the source of truth for the lead doc.
+- data/catalog/extras_us_birdseye.jsonl: 10 site rows (+5 this session); data/commons/
+  files_us_birdseye.jsonl and classified_us_birdseye.jsonl: 21 rows each (+5 this session). All new
+  rows verified (the 184 DECISIONS entry has the details).
+- tests/golden/src_us_birdseye_sample.json: the 21-row pin (regenerated this session - intended).
+- tests/test_src_us_birdseye.py: extended for batch 2 this session (SITES/extras/years/points/named
+  tables + len(files) 21 + docstrings) - 5/5 green.
+- docs/lead_us_birdseye.md: still at the batch-1-complete state (only 183's one-line typo fix since)
+  - the batch-2 sections are NOT written. That is work A.
+- Transcripts (may be wiped; re-run to regenerate): /tmp/aw236b_verify_184.txt (14 QIDs, all clean),
+  /tmp/aw236b_check_184.txt (21-line --check, exit 0), /tmp/aw236b_stage_184.txt, /tmp/aw236b_dry_184
+  .txt.
+- Batch-2 research (may be wiped; all regenerable): /tmp/aw236b_b2.py (the pool builder: per-city
+  Commons file-namespace searches, 6 plain-phrase forms + the St. Louis "Saint Louis bird's eye view"
+  form, each + " filetype:bitmap"; commons.info 50/call at 1/s; keep() + 600-char caption gate +
+  Public domain + >=4000 px wide), /tmp/aw236b_b2.json (full pool with per-file metadata),
+  /tmp/aw236b_b2_cands.json (the 22 good candidates), /tmp/aw236b_b2_thumbs/ (the 1280 px thumbs
+  183 eyeballed).
 
 ### NEXT (exact, in order)
 
-1. Re-read the three edited lead-doc regions with fresh eyes (the doc was written under a context
-   limit): the QID-verification block (must match /tmp/aw236b_verify_182.txt word-for-word, or re-run
-   `--verify`), the five city sections, the Staging-and-checks block (the transcript must match
-   /tmp/aw236b_check_182.txt or a fresh `--check`). Then commit it: `git add docs/lead_us_birdseye.md
-   && git commit -m "236b: batch 1 complete - lead doc: 9-QID verify transcript, five city sections
-   (STAGED/DROP/RESERVED, same-sheet eyeballs), 16-view staging section"`.
-2. `.venv/bin/python -m pytest tests/test_src_us_birdseye.py -q` (expect 5 passed) and the full
-   `.venv/bin/python -m pytest -q` (expect 177/1/0; if the 307d pngs regenerate again, carry them in
-   the commit with the 306g disclosure, as 37a26ee/af5c91a did).
-3. The 182 DECISIONS close-out entry was appended this session (after the 306 entry) - extend it
-   only if steps 1-2 change the outcome (e.g. a test red).
-4. **Batch 2 (~5 more cities; 16 remain after batch 2):** Louisville, St. Louis, Chicago, Detroit,
-   Milwaukee, then Kansas City... - same per-city procedure as batch 1 (181's DECISIONS entry is the
-   playbook): (1) catalog QID check first (sites.jsonl + extras.jsonl + extras_us_cities.jsonl -
-   never two sites for one QID); (2) Commons file-namespace search (plain-phrase forms: "bird's-eye
-   view of <city>", "<city> bird's eye view", "<city> birdseye", + "Birds' eye view of <city>", each
-   + " filetype:bitmap" - the batch-1 query set in /tmp/aw236b_b1.py; commons.info 50/call at 1/s,
-   keep() + the 600-char caption gate); (3) pick the ONE steepest view (near-vertical, grid legible,
-   PD, >= ~4000 px wide; DROP pictorial/regional/fort-close-up/photo/street-car-map; dedupe same-sheet
-   scans by EYEBALLING 1280 px thumbs, one row per sheet, keep the LOC/largest scan); (4) verify QID
-   live with `--verify` (watch the Barnard-Castle trap - Pittsburgh is the in-table example);
-   (5) SITES + SOURCES entry; (6) `--dry`, stage, `--check` (exit 0); (7) lead-doc section per city +
-   re-run `--verify` (append the growing transcript); (8) `--golden` then the module tests + full
-   suite. Box 4 ticks at >=25 cities total; then Status: done.
+0. **Commit the uncommitted batch-2 work** (only if the driver has not already swept it - check
+   `git status`): the working tree holds data/catalog/extras_us_birdseye.jsonl (+5 site rows),
+   data/commons/files_us_birdseye.jsonl and classified_us_birdseye.jsonl (+5 rows each),
+   tests/golden/src_us_birdseye_sample.json (the 21-row pin), tests/test_src_us_birdseye.py (the
+   batch-2 table extension), this task file, DECISIONS.md, and the five regenerated
+   docs/site_flow/307d_*.png (the 307d screenshot test rewrites them every full-suite run; the
+   bytes vary between runs). Commit them together: "236b: batch 2 landed - staged Louisville, St.
+   Louis, Chicago, Detroit, Milwaukee (10 site rows / 21 file rows), 14-QID verify clean, golden +
+   tests extended, suite 177/1/0 - the 307d pngs are this session's test output, not 236b work".
+   Then step A.
+A. **Batch-2 lead doc** (box 1's per-view coverage for the five new views; all in
+   docs/lead_us_birdseye.md):
+   1. Replace the "QID verification" section (line ~69, currently the 9-QID transcript) with a fresh
+      14-QID transcript: re-run `.venv/bin/python fit/src_us_birdseye.py --verify` (184's run =
+      /tmp/aw236b_verify_184.txt: all clean, zero flags; the two in-flag name-search traps are
+      Pittsburgh -> Q235034 and Chicago -> Q131252; St. Louis P131 = Missouri only; Milwaukee P131 =
+      three counties).
+   2. Insert five city sections after the Cincinnati section and before "Staging and checks"
+      (Louisville, St. Louis, Chicago, Detroit, Milwaukee), in the batch-1 style: the STAGED view
+      (date / artist / publisher / resolution / apparent angle + the same-sheet scans from the module
+      comments) plus the DROP list with reasons per non-staged candidate - derive each reason from
+      the pool metadata (/tmp/aw236b_b2.json: license, dims, desc) and 183's eyeballs (the thumbs are
+      still on disk in /tmp/aw236b_b2_thumbs/; if wiped, re-download the 1280 px thumbs and re-
+      eyeball - the pool builder regenerates everything). Known from the module comments: St. Louis =
+      seven "(... detail)" tiles + DPLA mirrors (No restrictions, not PD) + two book-print
+      photographs; Chicago = the 1893 chromolithograph (the same view in colors); Detroit = four
+      further scans of the staged sheet; Louisville = the .tif twin + the 1876 sheet; Milwaukee =
+      further 1872 scans + the 1879/1858/1882 views.
+   3. Update "Staging and checks": 21 views (11 owner + 5 batch 1 + 5 batch 2), the 10 site rows in
+      extras_us_birdseye.jsonl, a fresh 21-line --check transcript (re-run --check), and "not done
+      yet: 11 more cities (25 total, 14 done)".
+   4. Commit: "236b: batch 2 complete - lead doc: 14-QID verify transcript, five city sections
+      (STAGED/DROP), 21-view staging section".
+B. **Batch 3 (~5 cities; ~6 remain after it - box 4 ticks at >=25 cities total, then Status: done)**:
+   candidates: Kansas City first, then New Orleans, Denver, St. Paul, Minneapolis, Cleveland, ...
+   (the LOC Panoramic collection, 1847-1929; a city with no usable view gets a lead-doc note and the
+   next candidate). Same per-city procedure as batches 1/2 (181's playbook, restated in the 184
+   DECISIONS entry): (1) QID check against sites.jsonl + extras.jsonl + extras_us_cities.jsonl +
+   web/data/sites.json (never two sites for one QID); (2) pool search (plain-phrase forms +
+   " filetype:bitmap", commons.info 50/call at 1/s, keep() + gate + PD + >=4000 px); (3) pick the
+   ONE steepest view (near-vertical, grid legible, PD, >= ~4000 px wide; DROP pictorial/regional/
+   fort-close-up/photo/street-car-map/railway-sheet; eyeball 1280 px thumbs to dedupe same-sheet
+   scans, one row per sheet, keep the LOC/largest scan); (4) verify the QID live with --verify
+   (watch name-search traps - Chicago's is the in-table example); (5) SITES + SOURCES entries;
+   (6) --dry, stage, --check (exit 0); (7) lead-doc section per city + re-run --verify (the
+   transcript grows); (8) --golden, then the module tests + the full suite (extend the test tables
+   exactly as 184 did).
 
 ### Rules (unchanged)
 
 NEVER write the canonical files (data/commons/files.jsonl etc. - that is 236c); NEVER touch 236a's
 extras_us_cities.jsonl (read-only; the module's _shared_site enforces it); run live commands under
 .venv/bin/python (system python3 has no numpy; the module top stays stdlib-only); batch size ~5
-cities/session to fit the context limit; the golden sample is the contract (`--golden` only for an
-intended change).
+cities/session to fit the context limit; the golden sample is the contract (--golden only for an
+intended change); the full suite rewrites the five docs/site_flow/307d_*.png every run - if the
+bytes change, carry them in the commit with the 306g-style disclosure (the 184 commit did).
