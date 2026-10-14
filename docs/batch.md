@@ -1,20 +1,20 @@
 # The cover (212): the last uncovered sites, the final sync, the report
 
-at: 2026-10-13T20:38:24.316604+00:00
+at: 2026-10-14T17:32:08.111691+00:00
 
 Built sites: 499. 3 site(s) still have neither - the invariant is broken, see the items.
 
-Fit documents: 70 total: 21 hand (the golden set), 0 human-saved (by:hand outside it), 49 automatic (by:agent: batch + matcher + line-saved)
+Fit documents: 71 total: 22 hand (the golden set), 0 human-saved (by:hand outside it), 49 automatic (by:agent: batch + matcher + line-saved)
 
 ## Counts (one bucket per built site; a fitted site can also carry an item for its other pictures)
 
-- fit: hand (the golden set): 19
+- fit: hand (the golden set): 20
 - fit: human-saved: 0
 - fit: automatic: 33
 - review item: 200
-- no picture found: 244
+- no picture found: 243
 - uncovered (needs attention): 3
-- review items open on the page: 457 (of 480 item files)
+- review items open on the page: 456 (of 480 item files)
 
 ## Sample of automatically accepted fits (for the human's 18/20 check)
 
@@ -222,7 +222,6 @@ Seed: 20261012 (the sample below is reproducible from it: random.Random(20261012
 | nanih-waiya-q6963605 (nanih-waiya-q6963605) | wikidata Q6963605; no Commons category; P180 depictions of Q6963605: 0 of 1 file(s) checked; title searches: ""Nanih Waiya" plan", ""Nanih Waiya" map OR survey", ""Nanih Waiya" engraving OR drawing OR view OR prospect -"style of"" (0 hits); 2026-10-13 |
 | navio-roman-fort-q17667745 (navio-roman-fort-q17667745) | wikidata Q17667745; no Commons category; P180 depictions of Q17667745: 0 of 2 file(s) checked; title searches: ""Navio Roman fort" plan", ""Navio Roman fort" map OR survey", ""Navio Roman fort" engraving OR drawing OR view OR prospect -"style of"" (0 hits); 2026-10-13 |
 | norwood-mound-q7061637 (norwood-mound-q7061637) | wikidata Q7061637; Commons category 'Norwood Mound' (5 files); P180 depictions of Q7061637: 0 of 5 file(s) checked; title searches: ""Norwood Mound" plan", ""Norwood Mound" map OR survey", ""Norwood Mound" engraving OR drawing OR view OR prospect -"style of"" (0 hits); 2026-10-13 |
-| numancia (numancia) | web/data/plans.json (1166 rows, matched by the sites field) |
 | ocmulgee-mounds-national-historical-park-q1517500 (ocmulgee-mounds-national-historical-park-q1517500) | wikidata Q1517500; Commons category 'Ocmulgee Mounds National Historical Park' (201 files); P180 depictions of Q1517500: 0 of 192 file(s) checked; title searches: ""Ocmulgee Mounds National Historical Park" plan", ""Ocmulgee Mounds National Historical Park" map OR survey", ""Ocmulgee Mounds National Historical Park" engraving OR drawing OR view OR prospect -"style of"" (4 hits); 2026-10-13 |
 | odd-fellows-cemetery-mound-q7077319 (odd-fellows-cemetery-mound-q7077319) | wikidata Q7077319; Commons category 'Odd Fellows' Cemetery Mound' (3 files); P180 depictions of Q7077319: 0 of 3 file(s) checked; title searches: ""Odd Fellows' Cemetery Mound" plan", ""Odd Fellows' Cemetery Mound" map OR survey", ""Odd Fellows' Cemetery Mound" engraving OR drawing OR view OR prospect -"style of"" (0 hits); 2026-10-13 |
 | oldorp-q931301 (oldorp-q931301) | wikidata Q931301; Commons category 'Oldorp' (5 files); P180 depictions of Q931301: 0 of 5 file(s) checked; title searches: ""Oldorp" plan", ""Oldorp" map OR survey", ""Oldorp" engraving OR drawing OR view OR prospect -"style of"" (0 hits); 2026-10-13 |
