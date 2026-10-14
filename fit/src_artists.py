@@ -305,12 +305,16 @@ def stage(dry=False):
             m = meta.get(title) or {}
             if not m.get("url"):
                 raise SystemExit(f"not on Commons (title changed?): {title}")
+            want = x.get("date")
+            if want and c.year_of(title, m) != c.year_of(title, {"date": want}):
+                # the known drawing date on the row, the page value kept as date_commons (the Gouda/Zwolle precedent:
+                # Zwolle's 1980 RCE-album reproduction row reads date "circa 1560", date_commons 1980). keep() must
+                # see this m: it judges the DRAWING's year, so a post-1925 reproduction of a c. 1550 drawing passes
+                # exactly as the done Zwolle row did (sources.py swaps before its keep() gate).
+                m = dict(m, date=want, date_commons=m.get("date"))
             if not c.keep(title, m):
                 raise SystemExit(f"commons.keep() would drop {title!r}: fix the table or record the drop "
                                  f"in docs/lead_artists.md")
-            want = x.get("date")
-            if want and c.year_of(title, m) != c.year_of(title, {"date": want}):
-                m = dict(m, date=want, date_commons=m.get("date"))  # a scan whose page lost the drawing's date
             f = {"site": sid, "qid": qid, "title": title, "year": c.year_of(title, m), "wd_plan": False,
                  "cat": site.get("cat"), "name": src["label"].format(name=label),
                  "by": f"fit/src_artists.py {name}", **m}
