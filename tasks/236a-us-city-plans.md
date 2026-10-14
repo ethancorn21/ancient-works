@@ -48,63 +48,114 @@ the original or a facsimile of it, its date, its licence, and its resolution bef
 
 ## Hand-over
 
-(2026-10-13, iteration 151, agent a - **Nashville RESEARCH COMPLETE (live, no repo edits). Verdicts in the
-DECISIONS entry below/next: stage 4 rows on a new nashville-q23197 site - 1804 Clayton map (date swap 1804),
-1860 Haydon, the O.M. Poe LOC map (date swap to the LOC-verified year), the 1861-65 Official Histories atlas
-plate CXIV with Fort Negley (date swap to the atlas year). NO Fort Negley fort site: no fort-only plan on
-Commons (photos/views only; the 3 Fletcher views = 236b leads). Tests last ran 7/7 green in 150 - nothing
-changed since, so still 7/7. NEXT SESSION: the two web date checks, then apply like 145-150, then tick box 3.**
+(2026-10-13, iteration 152, agent a - **BOTH OPEN DATE CHECKS ANSWERED (live, NO repo edits). 1a: the Poe LOC map gets NO date swap - the page date "1860s" IS the LOC-verified drawing date (loc.gov item: "[186-]"/1860); the notation in its signature is the SHEET SIZE "(17x29.)", not a year (151's "1864" was a misread; verified by full-res crop). 1b: the Defenses plate swaps to 1895 - the David Rumsey/IA group 1780.000 this scan comes from is cataloged 1895 ("Julius Bien & Co., Lith., N.Y. (1891-1895)"); the plate header reads "ATLAS TO ACCOMPANY THE OFFICIAL HISTORIES OF THE UNION AND CONFEDERATE ARMIES 1861-1865" (151's "UNITED STATES" was a misread); panels surveyed Nov 30 - Dec 1864. Staging the first edition (1884-85) could NOT be verified online from this machine (all routes blocked - see below) so the row takes 1895. Tests last ran 7/7 green in 150, nothing changed since. The ONLY thing left of box 3: the site point (the Clayton 1804 map was downloaded but not yet looked at - /tmp is gone), then apply like 145-150.**
 
 ### Current state
-- Q23197 + Q5471744 verified live via pipeline/catalog_wd (the robust WD path; catalog_wd's disk cache
-  holds the answers in data/raw/catalog/wd/ so re-runs are free): both clean - label, single P625, P373,
-  P131, enwiki, first name-search hit with P625 = the QID itself (no trap). Exact greps: no Q23197, no
-  "nashville", no Q5471744 in data/catalog/sites.jsonl, data/catalog/extras.jsonl,
-  data/catalog/extras_us_cities.jsonl or web/data/sites.json (the only canonical hit is the unrelated
-  "Nashville I" gorget at castalian-springs-mound-site-q5049584 - no collision). Q5471744's P373 = Commons
-  category "Fort Negley" (12 files: photos + the 3 Fletcher litho views; no plan).
-- fit/src_us_cities.py UNCHANGED (3 sites Q60/Q61/Q62, 11 rows; staged 3/11/11; --check 11/11; golden 3/11/11).
-  The stage/verify/check/golden pattern needs no structural change.
+- Repo UNTOUCHED this session (all research was web + /tmp). Staged files still 3/11/11; fit/src_us_cities.py
+  still 3 sites Q60/Q61/Q62, 11 rows; --check 11/11; golden 3/11/11; tests 7/7 from 150.
+- Q23197 + Q5471744 verified facts from 151 stand (catalog_wd disk cache, data/raw/catalog/wd/):
+  Q23197 label "Nashville", ONE P625 (-86.774444, 36.162222) = downtown EAST of the Cumberland, P373
+  ['Nashville, Tennessee'], P131 [('Davidson County','Q1177705')], enwiki 'Nashville, Tennessee', no trap;
+  Q5471744 (Fort Negley) ONE P625 (-86.774658, 36.145097), P373 ['Fort Negley'] = photos + 3 Fletcher views,
+  no plan. No catalog collision (151 greps).
+- **1a (Poe map) VERDICT: no swap.** Live-checked https://www.loc.gov/item/2003630459/?fo=json (needs a
+  browser User-Agent; the web_fetch tool gets 403): item date "186?", created_published "[186-]", dates
+  facet 1860, creator "Poe, O. M. (Orlando Metcalfe), 1832-1895", desc: "...Signed in ink handwriting at
+  bottom: From Chief Eng'rs Office, H'd Qu'rs Mil'y Div'n of the Mis., O.M. Poe, Capt. & Actg. Chf. Eng'r.
+  ...LC Civil War maps (2nd ed.), 433.2". The Commons page date "1860s" (QS +1860-00-00/8) IS that same
+  LOC dating - a drawing date, not an upload date. I downloaded the 19690x11294 original (PIL needs
+  Image.MAX_IMAGE_PIXELS = None - it exceeds the 178 M-px bomb limit) and read the signature at full res:
+  it is "From Chief Eng'rs Office / H'd Qu'rs Mil'y Div'n of the Mis. / O. M. Poe / Capt. & Actg Chf Eng'r
+  (17x29.)" - **"(17x29.)" is the sheet size (17x29 inches, the LC cataloguing convention), NOT a year**
+  (151 read "1864" in the 1280 px thumbnail - wrong). No signed year exists, so no known-date swap; the row
+  keeps date "1860s" -> year_of 1860 (the YEAR regex finds the 4-digit year; "2003630459" in the title does
+  not match) -> keep() passes (<= 1925). Row: date "1860s", NO date_commons (that key only appears when a
+  swap is applied).
+- **1b (Defenses plate) VERDICT: swap dict(date="1895").** The file's Commons description links the David
+  Rumsey group: image 1780.113 in group 1780.000, and cites "LC Civil War maps (2nd ed.), 99; Civil War maps
+  in the National Archives, 8; Phillips, 1353; LeGear. Atlases of the United States, 266". The exact title
+  re-confirmed (the "..." is literal, 3 dots): `File:Defenses of Chattanooga, Tenn. Battery Erwin ... Battery
+  Coolidge. Defenses of Nashville, Tenn. Capitol (IA dr defenses-of-chattanooga-tenn-battery-erwin-battery-
+  coolidge-defenses-01104241).jpg` (1536x886, Public domain; the IA item itself is gone - archive.org
+  /details/ 404, /metadata/ empty; but sibling dr_ items of the same group survive on IA with the group's
+  catalog record: e.g. dr_map-of-the-united-states-of-america-showing-the-boundaries-of-the-union-and-
+  01104300: title "...Julius Bien & Co., Lith., N.Y. (1891-1895)", date 1895, creators incl. "United States.
+  War Department", publisher U.S. GPO, collection david-rumsey-map-collection). AbeBooks: "BIEN, Julius.
+  1895"; Rumsey listing: "1895. Atlas to accompany the official records of the Union and Confederate
+  armies". I read the plate at full res (downloaded via Special:FilePath): header = "ATLAS TO ACCOMPANY THE
+  OFFICIAL HISTORIES OF THE UNION AND CONFEDERATE ARMIES 1861-1865" (151's "UNITED STATES" was a misread;
+  this is the first edition's title) + "PLATE C-X-" (Roman numeral CXIII or CXVIII at this resolution; 151
+  read CXIV). Nine panels: 1 Battery Erwin + 2 Battery Coolidge (Chattanooga); 3 Nashville Magazine Battery
+  ("Dec. 1864", Eng. Capt. J.S. Wheatley), 4 Nashville Capitol ("Nov. 30, 1864", Eng. Capt. J. St. Clair
+  Morton), 5 Fort Dan McCook ("Dec 21, 1864"), 6 Fort Morton ("Dec. 1864", Eng. Capt. H.K. Wright), 7 Fort
+  Hill ("Dec. 1, 1864", incl. a small "Plan of Nashville, Tenn."), 8 Fort Nashville, 9 the Nashville Heights
+  ("Dec. 1864") - 7 of 9 Nashville, the Fort Negley panel among them, as 151 recorded. **Row date = 1895**
+  (the dated copy this scan comes from; the first edition's 1884-85 could not be verified online from this
+  machine - routes tried and dead: LOC search API (quoted phrases return 0 hits, keyword AND ranks the
+  atlas out of top results), HathiTrust (Cloudflare "Just a moment"), Google Books API (quota exceeded),
+  David Rumsey (reCAPTCHA "Verify Access"), IA /download/ of the 1961/1989 LOC catalog books (401 =
+  lending-restricted items; the 1961 ed. is the "2nd ed." the citation means, its p.99 would settle it but
+  is unreachable). So the lead doc records: first edition 1884-85 per the plate's own header title (not
+  online-verified from this machine), scanned copy 1895 = the row's date; the drawings themselves are the
+  Nov 30 - Dec 1864 surveys. 1895 is outside the 1660-1880 window by 15 years - acceptable here: this is a
+  Civil War fortification plan (the task Notes' explicit exception; the DC 1865 ring precedent), and the
+  151 verdict staged it on that basis.)
+- **Site point (the last open decision):** the 1804 Clayton map (the oldest staged drawing) shows the 1790s
+  town at the Cumberland/Tennessee confluence, WEST of the Cumberland; the P625 (-86.7744, 36.1622) sits
+  EAST of the river, so the 147/148 drawn-extent-center precedent applies: a P625-centered 2000 m town box
+  (hw 1000 m) likely misses the confluence, so refine the point to the center of the old town's drawn
+  extent. I downloaded the full-res Clayton original (2557x1913, 1.78 MB) to /tmp/usn152_clayton.jpg but hit
+  the context limit before looking at it - /tmp is gone. NEXT SESSION re-downloads it (Commons title
+  `File:1804 Map of Nashville published 1880.jpg`, url
+  https://upload.wikimedia.org/wikipedia/commons/0/0c/1804_Map_of_Nashville_published_1880.jpg), looks at
+  the drawn extent (the town between the Cumberland and the Rich Branch, the old fort at the corner, White
+  Hall, the ferry landings), then fixes the point with Nominatim landmarks (the Cumberland-Tennessee
+  confluence, the Rich Branch mouth, the Cumberland's west bank near the town; the old Fort Nashborough
+  site) and records the choice + why in the lead doc, as 147/148 did for SF. Both candidates leave every
+  P625 <50 km from the point (no --verify flag); the evidence tie stores the table point (dist_m 0.0) so
+  --check is offline-safe either way.
 
-### EXACT next steps: apply the 151 verdicts (the 145-150 pattern), then done
-1. **Two web date checks FIRST (the only research still open):**
-   a. LOC item https://www.loc.gov/item/2003630459/ for the Poe map (page says only "1860s" precision 8; the
-      map's own signature reads "O.M. Poe, Capt. & Actg. Chf. Eng'r" and a year I read as 1864 in the
-      1280px thumbnail). -> known-date swap dict(date="<year>") (the 1791 L'Enfant precedent).
-   b. The atlas behind the Defenses plate: David Rumsey image 1780.113 / group 1780.000
-      (https://www.davidrumsey.com/loc/1780.113 404'd - try the group page or web-search "Official Histories
-      of the United States Armies 1861-1865 atlas" + "Bien" / "Plate CXIV" / "Fort Negley"; the plate header
-      reads "ATLAS TO ACCompany THE OFFICIAL HISTORIES OF THE UNIED STATES ARMIES 1861-1865, PLATE CXIV").
-      Confirm the atlas publication year (1884/85?) for the row's date swap; the panels carry 1864/1865
-      surveyed dates - record both in the lead doc. **If neither date can be verified, DROP the plate** (it
-      has no page date and NO PLANWORD in its title, so undated keep() would fail) and stage the other 3.
-2. **Apply (one session):** fit/src_us_cities.py: docstring += Nashville; SITES += Q23197 (id
-   "nashville-q23197", name "Nashville", named "Nashville", kind "town", region "United States", place
-   "Davidson County, Tennessee", wikipedia https://en.wikipedia.org/wiki/Nashville,_Tennessee, aerial note
-   like the others + the oversize-sheet review-item note: the Haydon/Poe/Defenses sheets span the city and
-   its fort ring far beyond the 2 km box -> likely review items, the NY 1811 / DC 1865 ring precedents - no
-   extent field: the extras row has no such field (pipeline/catalog.py:686 sets extent_m from the site's
-   box, not from the row); SOURCES += clayton_1804 (dict(date="1804")), haydon_1860, poe (dict(date="<1a>")),
-   defenses (dict(date="<1b>")), all p="plan"). **Site point:** the 1804 map (the oldest drawing) shows the
-   town at the Cumberland/Tennessee confluence (thumbnail: the grid between the Cumberland and Rich Branch,
-   old fort at the corner, White Hall, Nashville Inn) - west of the P625 downtown (-86.7744, 36.1622, which
-   sits EAST of the Cumberland). Decide P625 vs a refined point at the old town's center (the 147/148
-   precedent: center of the drawn extent, e.g. Nominatim-verified midpoint of the confluence corner and the
-   1804 town's far edge) so the 2 km box (hw = width_m/2 of the 2000 m town kind) covers the old town;
-   whichever is chosen, all P625s are <50 km away (no --verify flag) and the evidence tie stores the table
-   point (dist_m 0.0) so --check is offline-safe. Record which + why in the lead doc.
+### EXACT next steps: settle the site point, apply the verdicts (the 145-150 pattern), then done
+1. **Site point (the only research left):** re-download the Clayton 1804 map (url above), look at the drawn
+   extent, fix the nashville-q23197 point (P625 vs refined center of the drawn extent; Nominatim landmarks:
+   the Cumberland-Tennessee confluence, the Rich Branch mouth, the Cumberland's west bank by the town) so
+   the 2000 m town box (hw 1000 m) covers the old town; record the choice + why in the lead doc (the 147/148
+   SF pattern).
+2. **Apply (one session):** fit/src_us_cities.py: docstring += Nashville (replace "Nashville follows in a
+   later session"); SITES += Q23197 (id "nashville-q23197", name "Nashville", named "Nashville", kind
+   "town", region "United States", place "Davidson County, Tennessee", wikipedia
+   https://en.wikipedia.org/wiki/Nashville,_Tennessee, point = step-1 decision, note like the others' aerial
+   note + the oversize-sheet review-item note: the Haydon/Poe/Defenses sheets span the city and its fort
+   ring far beyond the 2 km box -> likely review items, the NY 1811 / DC 1865 ring precedents; no extent
+   field - the extras row has none, pipeline/catalog.py:686 sets extent_m from the site box); SOURCES +=
+   clayton_1804 (dict(date="1804") - page "1880" = Clayton book publication), haydon_1860 (no swap - page
+   "1860" = drawing date), poe (NO swap - page "1860s" = the LOC-verified drawing date; row date "1860s",
+   no date_commons), defenses (dict(date="1895") - page date empty, so date_commons ""), all p="plan").
+   Exact file titles (case-sensitive; the "..." in the Defenses title is literal):
+   `File:1804 Map of Nashville published 1880.jpg`; `File:1860 Haydon map of City of Nashville and
+   Edgefield.jpg`; `File:Map of Nashville, Tennessee. LOC 2003630459.jpg`; `File:Defenses of Chattanooga,
+   Tenn. Battery Erwin ... Battery Coolidge. Defenses of Nashville, Tenn. Capitol (IA dr
+   defenses-of-chattanooga-tenn-battery-erwin-battery-coolidge-defenses-01104241).jpg`.
 3. **Run:** live --verify (4 QIDs, expect no flag, no trap) + live stage (expect "1 new sites, 4 new
    pictures; build (236c): nashville-q23197") + offline --check (expect 15 rows, 15 pass) + --golden
    (4 extras / 15 files / 15 classified). Live under .venv/bin/python; --check plain python3.
 4. **Tests:** tests/test_src_us_cities.py - row asserts 11->15, PASS-line list += 4, qid-table += Q23197
    (incl. the point decision), extras ids += nashville-q23197, years dict += the 4 titles (1804, 1860,
-   <poe year>, <atlas year> - the two swaps give the known years, not the page values; the 1804 row's
-   date_commons is "1880", the plate's is empty), named_by_qid += {Q23197: "Nashville"}; then
+   1860, 1895 - the Clayton and Defenses swaps give the known years, NOT the page values: the Clayton row's
+   date_commons is "1880", the Defenses row's date_commons is ""/absent, the Poe row keeps date "1860s",
+   the Haydon row date "1860"), named_by_qid += {Q23197: "Nashville"}; then
    `.venv/bin/python -m pytest tests/test_src_us_cities.py tests/test_region.py -q` (expect 7/7; the
    full-suite caveat stands: agent c's test_fit_queue failure).
-5. **Lead doc:** docs/lead_us_cities.md += `## Nashville (Q23197)` (site point + decision, per-candidate
-   STAGED/DROP with exact titles + reasons, the Fort Negley record: no plan on Commons, Q5471744 facts,
-   the 3 Fletcher views as 236b leads, the 15-PASS transcript). Header: "four cities staged; box 3 done".
+5. **Lead doc:** docs/lead_us_cities.md += `## Nashville (Q23197)` (site point + decision; per-candidate
+   STAGED/DROP with exact titles + reasons, incl. for the Poe map: LOC item 2003630459 verified "[186-]",
+   signature has NO year - "(17x29.)" is the sheet size - so no swap; for the Defenses plate: the atlas
+   (Rumsey group 1780.000, image 1780.113) cataloged 1895 (IA sibling-item record "Julius Bien & Co.,
+   Lith., N.Y. (1891-1895)", AbeBooks, Rumsey), first edition 1884-85 per the plate's own header (not
+   online-verified from this machine - the blocked routes are listed in the 152 DECISIONS entry), panels
+   surveyed Nov 30 - Dec 1864, 7 of 9 Nashville, 1895 outside the 1660-1880 window but a Civil War
+   fortification plan = a drawing per the task Notes (DC 1865 ring precedent); the Fort Negley record: no
+   plan on Commons, Q5471744 facts, the 3 Fletcher views as 236b leads; the 15-PASS transcript). Header:
+   "four cities staged; box 3 done".
 6. **Done:** tick box 3, set Status: done, commit as 236a. (236b bird's-eye and 236c consolidation are
    separate tasks.)
 
