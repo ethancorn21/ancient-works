@@ -70,12 +70,81 @@ SHARED_SITES = {
 
 # New cities this task stages (only cities 236a does not stage - check data/catalog/
 # extras_us_cities.jsonl on main before adding one): hand-verified site facts, the pipeline/sources.py
-# slug rule (id = slug + "-" + qid-lower), region "United States" (REGION_NAME in
-# pipeline/build_catalog.py carries the display name), kind "town" = 2000 m box, aerial_ok true
+# slug rule (id = slug + "-" + qid-lower, pipeline/catalog.py:slug), region "United States" (REGION_NAME
+# in pipeline/build_catalog.py carries the display name), kind "town" = 2000 m box, aerial_ok true
 # (aerial-photograph ground: no open LiDAR over a built-up city, bare-earth LiDAR erases the streets).
-# The note records the view's apparent angle so 236c/the matcher can order oblique views (the task
-# Notes). Filled in batch 2+ (>= 25 cities total with the four shared above).
-SITES = {}
+# The note records the staged view's apparent angle so 236c/the matcher can order oblique views (the
+# task Notes). Batch 1 (verified live 2026-10-14, --verify re-checks; per-view STAGED/DROP verdicts in
+# docs/lead_us_birdseye.md): Boston, Philadelphia, Baltimore, Pittsburgh, Cincinnati; >= 25 cities total
+# with the four shared above, the remaining batches as they are added.
+SITES = {
+    # Q100: P625 (-71.057778, 42.360278) = downtown (the old town center / Faneuil Hall); P131 Suffolk
+    # County; enwiki "Boston"; no name-search trap (the first search hit with coordinates is the city).
+    "Q100": dict(id="boston-q100", name="Boston", named="Boston",
+                 lon=-71.057778, lat=42.360278,
+                 place="Suffolk County, Massachusetts", region="United States", kind="town",
+                 wikipedia="https://en.wikipedia.org/wiki/Boston",
+                 note="aerial-photograph ground (no open LiDAR over the built-up city: bare-earth LiDAR "
+                      "erases the streets); the street grid, the harbour and Charles-River shorelines and "
+                      "the parks carry the fit; the 1902 staged sheet is a steep near-vertical view (the "
+                      "grid dense and legible, a printed key of landmarks) spanning the whole city far "
+                      "beyond the 2000 m town box, so its fit is likely to end a review item (the 236a "
+                      "NY-1811 / DC-ring precedent)"),
+    # Q1345: P625 (-75.163611, 39.952778) = downtown (Center City); P131 Philadelphia County; enwiki
+    # "Philadelphia"; no name-search trap.
+    "Q1345": dict(id="philadelphia-q1345", name="Philadelphia", named="Philadelphia",
+                  lon=-75.163611, lat=39.952778,
+                  place="Philadelphia County, Pennsylvania", region="United States", kind="town",
+                  wikipedia="https://en.wikipedia.org/wiki/Philadelphia",
+                  note="aerial-photograph ground (no open LiDAR over the built-up city: bare-earth LiDAR "
+                       "erases the streets); the street grid, the Schuylkill and Delaware shorelines and "
+                       "the squares carry the fit; the 1872 staged sheet is the steepest (near-vertical) "
+                       "view staged for the city, drawn from the Schuylkill side with the grid legible to "
+                       "the northern suburbs, spanning well beyond the 2000 m town box, so its fit is "
+                       "likely to end a review item (the 236a NY-1811 / DC-ring precedent)"),
+    # Q5092: P625 (-76.615, 39.286389) = downtown (the Inner Harbour / old town); P131 Maryland (the city
+    # is no county of its own - unlike Philadelphia, the place is written "Baltimore City, Maryland" from
+    # P373 + the state); enwiki "Baltimore"; no name-search trap.
+    "Q5092": dict(id="baltimore-q5092", name="Baltimore", named="Baltimore",
+                  lon=-76.615, lat=39.286389,
+                  place="Baltimore City, Maryland", region="United States", kind="town",
+                  wikipedia="https://en.wikipedia.org/wiki/Baltimore",
+                  note="aerial-photograph ground (no open LiDAR over the built-up city: bare-earth LiDAR "
+                       "erases the streets); the street grid, the Inner-Harbour and Patapsco shorelines and "
+                       "the parks carry the fit; the 1880 staged sheet is a steep oblique view drawn from "
+                       "the south with the Inner Harbour in the foreground, spanning the whole city beyond "
+                       "the 2000 m town box, so its fit is likely to end a review item (the 236a NY-1811 / "
+                       "DC-ring precedent)"),
+    # Q1342: P625 (-80.0, 40.441667) = downtown (downtown at the confluence); P131 Allegheny County;
+    # enwiki "Pittsburgh". NAME-SEARCH TRAP (the Barnard-Castle class, the 236a Q60 note): the first
+    # "Pittsburgh" search hit WITH coordinates is Q235034 University of Pittsburgh (-79.953274,
+    # 40.444565, ~4.7 km west of the city point) - within the 50 km flag so --verify does not flag it,
+    # but a record --live caption route would store the university's point, not the city's. The staged
+    # rows hand-record the city's P625 instead (dist 0).
+    "Q1342": dict(id="pittsburgh-q1342", name="Pittsburgh", named="Pittsburgh",
+                  lon=-80.0, lat=40.441667,
+                  place="Allegheny County, Pennsylvania", region="United States", kind="town",
+                  wikipedia="https://en.wikipedia.org/wiki/Pittsburgh",
+                  note="aerial-photograph ground (no open LiDAR over the built-up city: bare-earth LiDAR "
+                       "erases the streets); the street grid, the river confluence and the bridges carry "
+                       "the fit; the 1902 staged sheet is a steep oblique view drawn from the south with "
+                       "the Allegheny/Monongahela confluence in the foreground and a printed index, "
+                       "spanning the whole city beyond the 2000 m town box, so its fit is likely to end a "
+                       "review item (the 236a NY-1811 / DC-ring precedent); the name-search trap above "
+                       "applies to this city"),
+    # Q43196: P625 (-84.5125, 39.1) = downtown (the Old City / riverfront); P131 Hamilton County; enwiki
+    # "Cincinnati"; no name-search trap.
+    "Q43196": dict(id="cincinnati-q43196", name="Cincinnati", named="Cincinnati",
+                   lon=-84.5125, lat=39.1,
+                   place="Hamilton County, Ohio", region="United States", kind="town",
+                   wikipedia="https://en.wikipedia.org/wiki/Cincinnati",
+                   note="aerial-photograph ground (no open LiDAR over the built-up city: bare-earth LiDAR "
+                        "erases the streets); the street grid, the Ohio shoreline and the hillside blocks "
+                        "carry the fit; the 1900 staged sheet is a steep view drawn from the south with "
+                        "the Ohio in the foreground, spanning the whole city and its hillside suburbs "
+                        "beyond the 2000 m town box, so its fit is likely to end a review item (the 236a "
+                        "NY-1811 / DC-ring precedent)"),
+}
 
 # New York (checked live 2026-10-14; per-file STAGED/DROP verdicts in docs/lead_us_birdseye.md). The
 # 1674 Vardel view is a genuine bird's-eye view but outside the collection's 1847-1929 range (recorded,
@@ -165,6 +234,42 @@ CENTENNIAL_1897 = [
      "Q23197", "Nashville", dict(date="1897")),
 ]
 
+# Batch 1 new cities (checked live 2026-10-14; per-view STAGED/DROP verdicts in docs/lead_us_birdseye.md).
+# One row per city: the steepest, best-scanned view of the collection; the shallower same-genre views
+# and the non-view pool (street-car maps, fort close-ups, pictorials, photographs) are DROPS recorded
+# in the lead doc (the four-cities precedent).
+BOSTON_1902 = [
+    # steep near-vertical whole-city view (Geo. H. Walker & Co., 1902, LC Panoramic 279.1): the grid
+    # dense and legible, a printed key of numbered landmarks, the harbour in the foreground; the page
+    # date (1902) matches the drawing's year, no swap
+    ("File:Bird's eye view of Boston. LOC 75694559.jpg", "Q100", "Boston", dict()),
+]
+PHILADELPHIA_1872 = [
+    # the steepest view staged for the city (Theodore R. Davis, the Harper's Weekly supplement of
+    # June 15, 1872, 1872, LC Panoramic 828): near-vertical, drawn from the Schuylkill side, the grid
+    # legible from the old town to the northern suburbs; the 10173x7287 non-LOC scan is the same sheet
+    # (one row per sheet, the LOC scan staged)
+    ("File:Bird's eye view of Philadelphia. LOC 75694509.jpg", "Q1345", "Philadelphia", dict()),
+]
+BALTIMORE_1880 = [
+    # steep oblique from the south (C.R. Parsons, Currier & Ives, 1880): the whole city, the Inner
+    # Harbour in the foreground, the dense grid, a printed key of landmarks
+    ("File:The City of Baltimore - sketched and drawn by C.R. Parsons. LCCN90715972.jpg",
+     "Q5092", "Baltimore", dict()),
+]
+PITTSBURGH_1902 = [
+    # steep oblique from the south (T.M. Fowler for James Moyer, 1902, LC Panoramic 833): the whole
+    # city at the confluence, the rivers and bridges in the foreground, a printed index of landmarks;
+    # the two non-LOC 1902 Fowler scans are the same sheet (one row per sheet, the LOC scan staged)
+    ("File:Pittsburgh, Pennsylvania 1902. LOC 75696521.jpg", "Q1342", "Pittsburgh", dict()),
+]
+CINCINNATI_1900 = [
+    # steep from the south (John L. Trout, Henderson Lithographing Co., 1900, LC Panoramic 685): the
+    # whole city, the Ohio in the foreground, the hillside blocks dense and legible; the DPLA
+    # 10000x6459 scan is the same sheet (one row per sheet, the larger LOC scan staged)
+    ("File:Panoramic view, city of Cincinnati, U.S.A. 1900. LOC 75694914.jpg", "Q43196", "Cincinnati", dict()),
+]
+
 SOURCES = {
     "bachmann_1874": dict(rows=BACHMANN_1874, p="birdseye",
                           label="{name}, the Bachmann bird's-eye view (1874)"),
@@ -188,6 +293,16 @@ SOURCES = {
                        label="{name}, the C. Merriman Peter bird's-eye view (1914)"),
     "centennial_1897": dict(rows=CENTENNIAL_1897, p="birdseye",
                             label="{name}, the Tennessee Centennial Exposition bird's-eye view (1897)"),
+    "boston_1902": dict(rows=BOSTON_1902, p="birdseye",
+                        label="{name}, the Walker bird's-eye view (1902)"),
+    "philadelphia_1872": dict(rows=PHILADELPHIA_1872, p="birdseye",
+                              label="{name}, the Davis bird's-eye view (1872)"),
+    "baltimore_1880": dict(rows=BALTIMORE_1880, p="birdseye",
+                           label="{name}, the Parsons bird's-eye view (1880)"),
+    "pittsburgh_1902": dict(rows=PITTSBURGH_1902, p="birdseye",
+                            label="{name}, the Fowler bird's-eye view (1902)"),
+    "cincinnati_1900": dict(rows=CINCINNATI_1900, p="birdseye",
+                            label="{name}, the Trout bird's-eye view (1900)"),
 }
 
 
