@@ -141,75 +141,104 @@ Herancourt / I. Monasch near-vertical sheet (LOC 75694644).** Cleveland: NOT yet
 the per-city playbook. (The pool search shows which survived the gates; do not trust this note,
 verify live.)
 
+
 ## Hand-over
-(2026-10-14, iteration 167, agent c - session 8 of 240: Minneapolis (city 3) LANDING complete in
-the working tree; only the R5 restore + commit are left. The 1885 W. V. Herancourt / I. Monasch
-sheet (`File:Minneapolis, Minnesota. LOC 75694644.jpg`, 13152x9408, PD) is staged as site
-`minneapolis-q36091` (Q36091): module, the batch-4 staging files (3/3/3), the lead doc (new
-Minneapolis section: STAGED bullet + the full 50-row DROP list + QID facts + the session-8
---verify transcript verbatim; Staging section now 3 views / 3 site rows, Not-done-yet names only
-Cleveland), the golden (3/3/3), the test extension (batch4 5/5, file pure ASCII). All live steps
-green: --verify (Q36091 clean - no TRAP, the first P625 name-search hit is the city itself; the
-expected São Paulo TRAP repeats for Q28848), --dry (1/1), stage (live commons.info re-check
-passed), --check (3/3 PASS caption_coords, no join problems). The FULL suite ran to completion
-AFTER all edits (R6): 182 passed, 1 skipped, 0 failed in 520.82 s (/tmp/aw240_suite_167.log) -
-EXACTLY the 164 baseline (182P/1S/0F, main HEAD 8678c8a); the skip is the known one, no reds.)
+(2026-10-14, iteration 168, agent c - session 9 COMPLETE: the R5 restore of the seven 307d pngs
+re-encoded by the iteration-167 full-suite run is committed (9620f1f); the Minneapolis landing
+itself already rides in the driver's commit 6cb8ca9 (session 8's uncommitted work). THREE of FOUR
+cities are landed and committed: Denver (Q16554), St. Paul (Q28848), Minneapolis (Q36091). The
+branch is clean; the last full suite (167) = 182 passed / 1 skipped / 0 failed = the 164 baseline.
+NEXT = session 10: CLEVELAND (city 4) RESEARCH.)
 
-**NEXT (session 9) - in this exact order, then STOP and do nothing else this session:**
-1. `git status --short` + `git diff main --stat -- docs/site_flow/` to see which (up to ten)
-docs/site_flow/307d_*.png the full-suite run re-encoded.
-2. `git checkout main -- docs/site_flow/` (R5: restore them to main's bytes; then
-   `git diff main -- docs/site_flow/` must be clean) - the context-limit notice blocked me from
-   running this, so it is the first git command of session 9.
-3. `git add -A && git commit -m "240: Minneapolis landed (batch 4 city 3) - the 1885
-   Herancourt/Monasch sheet"` (if the driver already committed the uncommitted work after
-   iteration 167, the re-encoded 307d pngs ride in that commit - step 2's restore is then its own
-   small commit; never amend).
-4. Stop. (Bookkeeping DECISIONS.md + this hand-over were committed separately in session 8.)
+**State (verified this session):**
+- Staged in the batch4 files (3/3/3 rows): `denver-q16554` (the 1908 Birdseye View Publishing Co.
+  sheet, `File:Bird's eye view of Denver, Colorado, 1908. LOC 75693133.jpg`, 19338x13294),
+  `st-paul-q28848` (the 1906 Robert M. Saint sheet, `File:Bird's eye view of St. Paul, Minnesota.
+  LOC 75694650.jpg`), `minneapolis-q36091` (the 1885 W. V. Herancourt / I. Monasch sheet,
+  `File:Minneapolis, Minnesota. LOC 75694644.jpg`, 13152x9408). Lead doc
+  docs/lead_us_birdseye_batch4.md: three city sections + Staging section (3 views / 3 site rows;
+  the Not-done-yet pointer names only CLEVELAND for 240). Golden 3/3/3. batch4 tests 5/5
+  (re-run green this session, 2.34 s). Module fit/src_us_birdseye_batch4.py: SITES at line 79
+  (3 QIDs), no SHARED machinery, known_sites() at line 276 reads SITES_JSONL + EXTRAS + 236a's
+  extras + 236b's extras + 241's (absent) batch5 extras + web/data/sites.json.
+- **main has moved past the 164 merge-base (8678c8a)** - agent a's 238 work is on main (its
+  hand-over says DONE). There is NO merge of main onto this branch yet (no merge commit on
+  agent/c); the driver's main->branch sync is the driver's job - I never merge/rebase myself
+  (team-mode rule). FIRST CHECK OF SESSION 10: `git diff main --stat -- docs/site_flow/` - if
+  main's 307d bytes moved again since my restore (main's own re-encode jitter; task 242 will
+  settle it), `git checkout main -- docs/site_flow/` again BEFORE running anything that hashes
+  docs/ (the full suite does). My restore used main's current bytes, so a merge into current
+  main sees identical bytes on both sides for all seven files (no binary conflict).
+- **/tmp (still alive at session end; wiper-prone - rebuild recipes: entry-165 pool/QID scripts,
+  entry-166 the 13152 px original crops):** /tmp/aw240_mpls_qid.py (the QID script template -
+  sys.path already points at this checkout), /tmp/aw240_mpls_pool.py (the pool template),
+  /tmp/aw240_mpls_thumbs.py + /tmp/aw240_mpls_thumbs/, the /tmp/aw240_m885_* crops (the
+  Minneapolis original + the 500 px grid reference), the /tmp/aw240_sp_* St. Paul set, the
+  verify/dry/stage/check transcripts for iterations 160/163/167, the suite logs 161-167. The
+  /tmp/aw236b_b3_dvr* (Denver) research set is still present too.
 
-**Then CLEVELAND (city 4) - session 10 RESEARCH:**
-1. **QID playbook** (the /tmp/aw240_mpls_qid.py script is the template; save the transcript):
-   first-guess QID from a "Cleveland, Ohio" search + the label check - the mislabel trap has
-   now hit three of four cities (a person, a person, a monastery); every P625 value (flag >50
-   km from the downtown); P373 (write the place from the county + the state - Cleveland is in
-   Cuyahoga County, Ohio); P131, P17, enwiki; the name-search limit 20 with distances for
-   EVERY P625 hit (in-city institution traps - Cleveland has big hospitals, a big university,
-   an airport; other-state namesakes: Cleveland TN (the big one near Knoxville), TX, MS, WI;
-   foreign: Cleveland, County Monaghan, Ireland - record the first P625 hit: if it is NOT the
-   city itself it is a TRAP line the --verify must show); no existing site holds the QID
-   (catalog sites.jsonl, extras.jsonl, 236a's and 236b's extras files, 241's
-   extras_us_birdseye_batch5.jsonl when it exists, web/data/sites.json); verify the slug
-   (catalog.slug("Cleveland")).
-2. **Pool** (the /tmp/aw240_mpls_pool.py template with CITIES=["Cleveland"]; six plain-phrase
-   forms + " filetype:bitmap", srnamespace 6, srlimit 40; dedupe; the caption/keep()/Public
-   domain/>=4000 px gates; 1280 px thumbs eyeballed one by one). The pick = the steepest
-   (near-vertical), best-scanned whole-city view (the caption names the city). Cleveland sits
-   on the Cuyahoga at the Lake Erie shore - check every sheet's lake side and orientation.
-3. **LANDING (session 11, the proven pattern):** module edit (the SITES entry with the full
-   comment block + the row-list + the SOURCES entry + the docstring/SITES-header updates) ->
-   --verify (4 QIDs; save the transcript verbatim for the lead doc) -> --dry -> stage (live
-   commons.info; if the pick vanished or is no longer PD, take the next-best pool candidate
-   and record the swap) -> --check (expect 4/4 PASS caption_coords, no join problems; append
-   the transcript to the Staging section) -> lead doc (the Cleveland section + the Staging
-   section to 4 views / 4 site rows, the Not-done-yet pointer then names only 241's cities) ->
-   --golden (4/4/4) -> test extension (the same substitution pattern, keep the file pure
-   ASCII) -> the batch4 tests -> the FULL suite -> `git checkout main -- docs/site_flow/`
-   (R5) -> commit.
-4. **CLOSE (after Cleveland lands):** full-suite tail = the baseline (182P/1S/0F at 164 -
-   diff the failing SET, not the number, if main has moved); --check all PASS, no join
-   problems; the four ids/QIDs collide with nothing (the known_sites() guard + the test);
-   tick acceptance boxes 1-4 (each after its test passes); the lead doc's Staging section
-   final (4 views / 4 site rows); Status: done.
+**NEXT (session 10) - CLEVELAND (city 4) RESEARCH, in this exact order, all under
+.venv/bin/python:**
+1. **QID playbook** (clone /tmp/aw240_mpls_qid.py -> /tmp/aw240_cle_qid.py; save the transcripts
+   /tmp/aw240_cle_qid_168.txt + _qid2_168.txt): first-guess QID from a "Cleveland, Ohio" search
+   + the label check - the mislabel trap has now hit 3 of 4 cities (Denver's Q3101 a person,
+   St. Paul's Q16842 a person, Minneapolis's Q3094 a Romanian monastery); every P625 value with
+   precision (flag any >50 km from the downtown); P373 (a string is the usual US quirk -
+   Cleveland is in Cuyahoga County, Ohio -> place "Cuyahoga County, Ohio"); P131 with labels,
+   P17, enwiki; the name-search "Cleveland" limit 20 with the distance from the city's P625 for
+   EVERY P625-bearing hit (in-city institution traps - Cleveland has big hospitals, a big
+   university, an airport; other-state namesakes: Cleveland TN (the big one near Knoxville),
+   TX, MS, WI; foreign: Cleveland, County Monaghan, Ireland - record the FIRST P625 hit: if it
+   is NOT the city itself it is the TRAP line the --verify must show); no existing site holds
+   the QID (catalog sites.jsonl, catalog/extras.jsonl, 236a's extras_us_cities.jsonl, 236b's
+   extras_us_birdseye.jsonl, 241's batch5 file when it exists, web/data/sites.json); verify the
+   slug with the module's own slug rule (catalog.slug("Cleveland") - expect "cleveland").
+2. **Pool** (clone /tmp/aw240_mpls_pool.py -> /tmp/aw240_cle_pool.py with CITIES=["Cleveland"];
+   the six plain-phrase forms + `filetype:bitmap`, srnamespace 6, srlimit 40; dedupe; the gates:
+   caption names the city AND commons.keep() judged AFTER any known-date swap AND license
+   "Public domain" AND width >= 4000; eyeball every good item's 1280 px thumb one by one -
+   /tmp/aw240_mpls_thumbs.py is the thumb template). The pick = the steepest (near-vertical),
+   best-scanned whole-city view (the caption names the city). Cleveland sits on the Cuyahoga at
+   the Lake Erie shore - check every sheet's lake side and orientation; MEASURE the apparent-
+   angle claim before writing it (the entry-166 grid-crop recipe: download the original, crop
+   full + quadrants + river zone, draw a 500 px white grid with coordinate labels).
+3. **Record:** the full DECISIONS entry (QID facts + pool counts + the eyeball verdicts with
+   per-item drop reasons) + a hand-over pointing at session 11's landing edit list.
+
+**Then LANDING (session 11, the proven pattern - the entry-167 steps verbatim):** module edit
+(the SITES QID entry with the full comment block + the CLEVELAND_<YEAR> row-list + the SOURCES
+entry + docstring/SITES-header updates) -> --verify (4 QIDs; save the transcript verbatim for
+the lead doc) -> --dry (expect 1 new site, 1 new picture) -> stage (live commons.info re-check;
+if the pick vanished or is no longer PD, take the next-best pool candidate and record the swap)
+-> --check (expect 4/4 PASS caption_coords, no join problems; append the transcript to the
+Staging section) -> lead doc (the Cleveland section: STAGED bullet + the full DROP list + the
+QID-facts paragraph + the --verify transcript verbatim; the Staging section to 4 views / 4
+site rows; the Not-done-yet pointer then names only 241's batch 5 - the prep R9 candidate order
+after Cleveland is Omaha (skipped in 236b with no recorded drop reason - re-run its pool search
+and record the verdict), Indianapolis, Columbus, Memphis - confirm against the live search
+order when writing it) -> --golden (4/4/4) -> test extension (the same substitution pattern -
+the PASS-key list, the SITES-id/years/points/named dicts, the date assertion - keep the file
+pure ASCII) -> batch4 tests -> the FULL suite (~9 min; start it only after ALL edits per R6,
+then `git checkout main -- docs/site_flow/` (R5) and commit "240: Cleveland landed (batch 4
+city 4) - the <YEAR> <artist> sheet". Baseline: 182P/1S/0F at 164 with main HEAD 8678c8a - if
+main has moved, diff the failing SET, not the number) -> commit.
+
+**CLOSE (session 12, after Cleveland lands):** the full-suite tail = the baseline (diff the
+failing set if main has moved); --check ends all PASS, no join problems; the four staged
+ids/QIDs collide with nothing (the known_sites() guard + the test); tick acceptance boxes 1-4
+(each after its test passes); the lead doc's Staging section final (4 views / 4 site rows; the
+Not-done-yet names only 241); box 5 (Denver, researched) stays ticked - it was re-verified live
+by the 167 --verify run (Denver clean). Status: done.
 
 **Rules that bite (unchanged from the task Notes):** never write the canonical files (236c);
-236a's and 236b's files are read-only (the module's cross-check enforces); live commands under
+236a's and 236b's files are read-only (the module's cross-checks enforce); live commands under
 .venv/bin/python (the module top stays stdlib-only; /tmp scripts repoint sys.path at this
 checkout); the golden regenerates only via --golden; tests never bind fixed network ports or
 write outside the project and the temp dir; every full-suite run re-encodes up to ten
-docs/site_flow/307d_*.png - restore main's bytes before EVERY commit (R5) and never edit
-suite-hashed files mid-run (R6: data/ minus raw, web/data top level, docs/, specs/, tests/
-are snapshotted - finish all edits, THEN run, restore, commit; DECISIONS.md and tasks/ are
-NOT in the snapshot set, so the bookkeeping can be written while the suite runs); /tmp
-artifacts are wiper-prone - the rebuild recipes are in the DECISIONS records (entry-165: the
-pool/QID scripts; entry-166: the 13152 px original crops). The full-suite run takes ~9 min -
-start it, do the bookkeeping, check the log tail before committing.
+docs/site_flow/307d_*.png - restore main's bytes before EVERY commit that follows a run (R5);
+never edit suite-hashed files mid-run (R6: data/ minus raw, web/data top level, docs/, specs/,
+tests/ are snapshotted - finish all edits, THEN run, restore, commit; DECISIONS.md and tasks/
+are NOT in the snapshot set, so the bookkeeping can be written while the suite runs); /tmp
+artifacts are wiper-prone - the rebuild recipes are in the DECISIONS records; never git
+merge/rebase/reset/stash or switch branches (team mode - the driver syncs main; this prompt
+asks for no merge work).
