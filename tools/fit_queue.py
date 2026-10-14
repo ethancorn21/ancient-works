@@ -165,13 +165,16 @@ def _synth_row(c, site_id):
 def _candidates(site_id, rows, item_cands):
     """The site's candidate pictures keyed by plan id: the plans.json rows naming it plus its item
     candidates, deduped by plan (a plan in both resolves to the plans row: the richer one). File
-    order, plans rows first."""
+    order, plans rows first. A picture the item marks dropped (the lead's or the owner's "not this
+    structure", fit/matchfit.py skips it too) is no candidate, whichever store names it."""
+    dropped = {c["plan"] for c in item_cands if c.get("dropped")}
     out = {}
     for r in rows:
-        if r.get("id") and site_id in (r.get("sites") or []):
+        if r.get("id") and site_id in (r.get("sites") or []) and r["id"] not in dropped:
             out.setdefault(r["id"], r)
     for c in item_cands:
-        out.setdefault(c["plan"], _synth_row(c, site_id))
+        if c["plan"] not in dropped:
+            out.setdefault(c["plan"], _synth_row(c, site_id))
     return out
 
 

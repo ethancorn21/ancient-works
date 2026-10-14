@@ -156,43 +156,55 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
 .verdicts button:disabled { color: var(--rule); cursor: not-allowed; }
 .marker.scan .sq { background: var(--sheet); border-style: dashed; }
 
-/* ---------- markers: small notched arrowheads, tip on the site's point (Ethan 2026-10-11: "like an old arrowhead",
-   a contracting-stem / notched head; task 308). The .sq span holds the silhouette (AH in the script) at the tier's
-   size and colour; Finder search areas (.scan) keep the dashed square at the area's corner. */
+/* ---------- markers: map pins, tip on the site's point, each with a pointed street-sign label (Ethan 2026-10-13: the
+   notched arrowhead of 2026-10-11 read as a heart; wants a pointer icon and an EU direction-sign label). The .sq span
+   holds the pin silhouette (PIN in the script) at the tier's size and colour; Finder search areas (.scan) keep the
+   dashed square at the area's corner. */
 .marker { display: flex; align-items: center; cursor: pointer; background: none; border: 0; padding: 0; position: absolute; top: 0; left: 0; }
-/* only the arrowhead and a showing label take clicks: a hidden label once widened its button, so clicking Old Sarum's
+/* only the pin and a showing label take clicks: a hidden label once widened its button, so clicking Old Sarum's
    square from z6 opened Taunton Castle, 90 km west (Ethan 2026-10-10). The flex keeps the button box to its one
-   in-flow child (.sq) - the tip-anchored marker below relies on the box being exactly the arrowhead.
+   in-flow child (.sq) - the tip-anchored marker below relies on the box being exactly the pin.
    MapLibre parks marker elements at the canvas origin and places them with their inline transform (the vendor css
    does the same: .maplibregl-marker { position: absolute; top: 0; left: 0 }); this restates it explicitly, because a
    flowing position (relative/static) stacks the markers in DOM order and the transform then lands them hundreds to
    thousands of px from their sites (found while doing 308). */
 .marker { pointer-events: none; } .marker .sq, .marker .tag { pointer-events: auto; }
 .marker.t4 { z-index: 4; } .marker.t3 { z-index: 3; } .marker.t2 { z-index: 2; } .marker.t1 { z-index: 1; }
-/* --mks is the tier colour the arrowhead silhouette is painted with (.ah below); the plain background stays for .scan */
+/* --mks is the tier colour the pin silhouette is painted with (.pin below); the plain background stays for .scan */
 .marker .sq { width: 11px; height: 11px; border: 1.5px solid var(--ink); background: var(--survey); --mks: var(--survey); }
 /* tiers by score (TIERS in the script): bigger and darker = older overlays that line up with the ground.
    plain = no overlay 150+ years old (LiDAR or the photograph only), shown only with More sites */
-.marker.t4 .sq { width: 15px; height: 15px; border-width: 2px; background: #8A1230; --mks: #8A1230; }
-.marker.t3 .sq { width: 13px; height: 13px; background: var(--survey); --mks: var(--survey); }
-.marker.t2 .sq { width: 11px; height: 11px; background: #E2697F; --mks: #E2697F; }
-.marker.t1 .sq { width: 9px; height: 9px; background: #F4B4C0; --mks: #F4B4C0; }
-.marker.plain .sq { width: 7px; height: 7px; border-width: 1.5px; background: var(--sheet); --mks: var(--sheet); }
-/* the arrowhead: the 100x100 svg scaled to the tier box, filled with the tier colour, one non-scaling ink outline at
-   every size (crisp on retina); the square's border/background look moves onto the path. Must stay after the tier
-   rules above: equal specificity, the .ah declarations win by order. */
-.marker .sq.ah, .tiers .sq.ah { border: 0; background: none; }
-.marker .sq.ah svg, .tiers .sq.ah svg { display: block; width: 100%; height: 100%; overflow: visible; }
-.marker .sq.ah path, .tiers .sq.ah path { fill: var(--mks, var(--survey)); stroke: var(--ink); stroke-width: 1.2px; vector-effect: non-scaling-stroke; }
+.marker.t4 .sq { width: 14px; height: 19px; border-width: 2px; background: #8A1230; --mks: #8A1230; }
+.marker.t3 .sq { width: 12px; height: 17px; background: var(--survey); --mks: var(--survey); }
+.marker.t2 .sq { width: 11px; height: 15px; background: #E2697F; --mks: #E2697F; }
+.marker.t1 .sq { width: 9px; height: 13px; background: #F4B4C0; --mks: #F4B4C0; }
+.marker.plain .sq { width: 7px; height: 10px; border-width: 1.5px; background: var(--sheet); --mks: var(--sheet); }
+/* the plumb bob: the 72x100 svg scaled to the tier box, filled with the tier colour, one non-scaling ink outline at every
+   size (crisp on retina). Must stay after the tier rules above: equal specificity,
+   the .pin declarations win by order. */
+.marker .sq.pin, .tiers .sq.pin { border: 0; background: none; }
+/* a pin the zoom gate or the declutter holds back (syncMarkers sets data-off) fades out, then leaves the hit-test; maplibre
+   writes opacity on the marker element itself (globe occlusion), so the fade is on its children */
+.marker .sq, .marker .tag { transition: opacity .3s; }
+.marker[data-off] { visibility: hidden; transition: visibility 0s .3s; }
+.marker[data-off] .sq, .marker[data-off] .tag { opacity: 0; }
+.marker .sq.pin svg, .tiers .sq.pin svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.marker .sq.pin path, .tiers .sq.pin path { fill: var(--mks, var(--survey)); stroke: var(--ink); stroke-width: 1.2px; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
 .marker.t4 .tag { font-weight: 700; }
 .tiers { display: flex; align-items: center; gap: 6px; font: 11.5px var(--label); letter-spacing: .04em; color: var(--ink-2); }
 .tiers .sq { display: inline-block; border: 1.5px solid var(--ink); }
-.tiers .t4 { width: 15px; height: 15px; background: #8A1230; --mks: #8A1230; } .tiers .t3 { width: 13px; height: 13px; background: var(--survey); --mks: var(--survey); }
-.tiers .t2 { width: 11px; height: 11px; background: #E2697F; --mks: #E2697F; } .tiers .t1 { width: 9px; height: 9px; background: #F4B4C0; --mks: #F4B4C0; }
-.tiers .plain { width: 7px; height: 7px; background: var(--sheet); --mks: var(--sheet); }
-/* the label hangs to the right of the arrowhead, centred on the site point (the tip, at the button's bottom edge);
-   the .scan marker is centred on its corner, so its label is centred on the marker instead */
-.marker .tag { position: absolute; left: 100%; top: 100%; transform: translateY(-50%); margin-left: 5px; padding: 1px 6px; background: var(--sheet); border: 1px solid var(--ink); font: 600 11px var(--label); letter-spacing: .08em; text-transform: uppercase; color: var(--ink); white-space: nowrap; }
+.tiers .t4 { width: 14px; height: 19px; background: #8A1230; --mks: #8A1230; } .tiers .t3 { width: 12px; height: 17px; background: var(--survey); --mks: var(--survey); }
+.tiers .t2 { width: 11px; height: 15px; background: #E2697F; --mks: #E2697F; } .tiers .t1 { width: 9px; height: 13px; background: #F4B4C0; --mks: #F4B4C0; }
+.tiers .plain { width: 7px; height: 10px; background: var(--sheet); --mks: var(--sheet); }
+/* the label is a street sign in the EU direction-sign style (Wegweiser): a box whose left end comes to a point, aimed at
+   the pin, centred on the pin's head (36% down its box); the .scan marker has no pin, so its sign is centred on the
+   square instead. The ink outline is the sign itself clipped to the pointed shape with the paper face (::before) clipped
+   1px inside it, so the point is outlined as evenly as the straight edges; the sign is 20px tall so the point is 45deg. */
+.marker .tag { position: absolute; left: 100%; top: 36%; transform: translateY(-50%); margin-left: 3px; box-sizing: border-box; height: 20px; padding: 0 8px 0 15px; line-height: 20px;
+  background: var(--ink); clip-path: polygon(0 50%, 10px 0, 100% 0, 100% 100%, 10px 100%);
+  font: 600 11px/20px var(--label); letter-spacing: .08em; text-transform: uppercase; color: var(--ink); white-space: nowrap; }
+.marker .tag::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--sheet);
+  clip-path: polygon(1.4px 50%, 10.4px 1px, calc(100% - 1px) 1px, calc(100% - 1px) calc(100% - 1px), 10.4px calc(100% - 1px)); }
 .marker.scan .tag { top: 50%; }
 
 .maplibregl-ctrl-attrib { font: 10.5px var(--label) !important; background: rgba(248, 244, 232, .85) !important; }
@@ -341,7 +353,7 @@ const map = new maplibregl.Map({
     ],
     sky: { 'atmosphere-blend': ['interpolate', ['linear'], ['zoom'], 0, 1, 5, 1, 7, 0] },
   },
-  // over the Atlantic: the Ohio plates and the European sites (most of the arrowheads) both on the first view
+  // over the Atlantic: the Ohio plates and the European sites (most of the pins) both on the first view
   center: [-35, 45], zoom: 2.3, maxZoom: 18, attributionControl: false,
 });
 // on phones the bottom sheet covers the lower half: centre the globe in the visible part
@@ -403,6 +415,7 @@ function applyLayers(site) {
     map.setLayoutProperty(id, 'visibility', S.plateMode === mode && S.plateOpacity > 0 ? 'visible' : 'none');
     map.setPaintProperty(id, 'raster-opacity', S.plateOpacity);
   }
+  if (B.site === site) syncBlock();
 }
 function applyRelief() {
   let v = null;
@@ -423,6 +436,7 @@ function moveplate(site) {
   const pc = alignedCorners(site);
   map.getSource(`ink-${site.id}`).setCoordinates(pc);
   map.getSource(`paper-${site.id}`).setCoordinates(pc);
+  if (B.site === site) syncBlock();
 }
 /* ---------- old maps and aerials (pipeline/topo.py, pipeline/depict.py -> data/sites/<id>/depictions.json) ---------- */
 // plain surveys (maps, aerials, USGS topos) only when at least 150 years old: the point is how little the works changed
@@ -439,7 +453,7 @@ async function loadDeps(s) {
 function applyDep(s) {
   if (!S.loaded.has(s.id)) return;
   const id = `dep-${s.id}`, d = (S.dep[s.id] || []).find(x => x.file === S.depSel[s.id]);
-  if (!d) { if (map.getLayer(id)) map.setLayoutProperty(id, 'visibility', 'none'); return; }
+  if (!d) { if (map.getLayer(id)) map.setLayoutProperty(id, 'visibility', 'none'); if (B.site === s) syncBlock(); return; }
   const url = `data/sites/${s.id}/${S.depMode === 'ink' && d.ink ? d.ink : d.file}`;
   const coordinates = shiftCorners(d.corners, S.depAlign[depKey(s, d)], s.lat);
   if (!map.getSource(id)) {
@@ -452,6 +466,7 @@ function applyDep(s) {
   S.depUrl[id] = url;
   map.setLayoutProperty(id, 'visibility', 'visible');
   map.setPaintProperty(id, 'raster-opacity', S.depOpacity);
+  if (B.site === s) syncBlock();
 }
 const depKey = (s, d) => `${s.id}.${d.file}`;
 function setDep(s, file) {
@@ -471,10 +486,17 @@ for (const [ev, fn] of [['mousedown', dragStart], ['touchstart', dragStart], ['m
 // with an overlay at least 150 years old show until the viewer asks for more ("More sites": LiDAR or photograph only).
 // Today (277 scored): t4 = Bergues 1545, Mayburgh 1769, Old Sarum 1761; t3 = the 1848 plates; t2 = plans of c.1900 on
 // an 1840s Ordnance Survey sheet; t1 = old survey sheets only (Etat-major 1.0, Cassini alone 0.2).
-const AH = '<svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 99L8 40L34 12L50 24L66 12L92 40Z"/></svg>';  // the marker: a notched contracting-stem arrowhead, tip at the bottom
+// the marker: a plumb bob (Ethan 2026-10-13: "I like Bob"; the surveyor's weight whose point marks the exact spot), tip at the
+// bottom, drawn in the 72x100 frame (x 14..86) and filled with the tier colour by the .pin rules
+const PIN = '<svg viewBox="14 0 72 100" aria-hidden="true"><path d="M40 1H60V13L82 31V42L50 99L18 42V31L40 13Z"/></svg>';
+const PIN_H = { t4: 19, t3: 17, t2: 15, t1: 13, plain: 10 }, PIN_W = { t4: 14, t3: 12, t2: 11, t1: 9, plain: 7 };  // px, as in the .marker.tN .sq rules
 const TIERS = [[2.5, 't4'], [1.6, 't3'], [1.2, 't2'], [0.01, 't1']];
 const tierOf = s => (TIERS.find(t => (s.score || 0) >= t[0]) || [0, 'plain'])[1];
-const LABEL_FROM = { t4: 0, t3: 3, t2: 5, t1: 7, plain: 9 };  // zoom from which a tier's names show
+// zoom from which a tier's pins and names show (Ethan 2026-10-13: fully zoomed out only the best sites, more as the view fills;
+// Europe was one pile at the first view). Pins also hold back while a better pin is within PIN_GAP px (syncMarkers).
+const PIN_FROM = { t4: 0, t3: 3, t2: 4, t1: 5.5, plain: 7 };
+const LABEL_FROM = { t4: 0, t3: 3.5, t2: 5, t1: 7, plain: 9 };
+const PIN_GAP = [13, 17];  // px: closer than this, horizontally and vertically, and the lower-ranked pin waits for more zoom
 const markers = [];
 let syncMarkers = () => {};
 function shown(s) {  // on the map: scored sites, the rest only with More sites; the kind chips filter both
@@ -484,32 +506,41 @@ function addMarkers() {
   for (const s of S.sites) {
     const el = document.createElement('button');
     el.className = `marker ${tierOf(s)}`; el.type = 'button'; el.setAttribute('aria-label', `Open ${s.name}`);
-    el.innerHTML = `<span class="sq ah">${AH}</span><span class="tag">${esc(s.name)}</span>`;
+    el.innerHTML = `<span class="sq pin">${PIN}</span><span class="tag">${esc(s.name)}</span>`;
     el.addEventListener('click', e => { e.stopPropagation(); select(s.id); });
-    // anchored at the arrowhead's tip (the button's bottom centre) on the site's coordinate; the default offset would
+    // anchored at the pin's tip (the button's bottom centre) on the site's coordinate; the default offset would
     // lift the tip, so it is passed explicitly
     markers.push({ id: s.id, el, m: new maplibregl.Marker({ element: el, anchor: 'bottom', offset: [0, 0] }).setLngLat([s.lon, s.lat]).addTo(map) });
   }
-  // arrowheads stay clickable at every zoom (Ethan 2026-10-10: the markers used to vanish past ~z12.5, so a site could not be
-  // opened from close in); only the open site's own arrowhead goes, as it would sit on its overlay. A label (not its
-  // arrowhead) hides when it would overlap another arrowhead or a label already placed; higher tiers are placed first.
+  // pins stay clickable at every zoom they show at (Ethan 2026-10-10: the markers used to vanish past ~z12.5, so a site could not
+  // be opened from close in); only the open site's own pin goes, as it would sit on its overlay. Zoomed out, a tier's pins wait
+  // for PIN_FROM, and among the rest a pin waits while a higher-scored pin sits within PIN_GAP of it. A label (not its pin)
+  // hides when it would overlap another pin or a label already placed; higher tiers are placed first.
+  markers.sort((a, b) => ((S.byId[b.id] || {}).score || 0) - ((S.byId[a.id] || {}).score || 0));  // best first
   syncMarkers = () => {
-    const z = map.getZoom(), pts = new Map(), placed = [], on = [];
+    const z = map.getZoom(), pts = new Map(), placed = [], on = [], grid = new Map();
     for (const k of markers) {
       const s = S.byId[k.id];
       if (!s) continue;  // a Finder search area's marker (addScanAreas): always shown
-      const vis = shown(s) && k.id !== S.sel;
-      k.el.style.display = vis ? '' : 'none';
-      if (vis) { pts.set(k, map.project(k.m.getLngLat())); on.push(k); }
+      let vis = shown(s) && k.id !== S.sel && z >= PIN_FROM[tierOf(s)];
+      if (vis) {
+        const p = map.project(k.m.getLngLat()), cx = Math.floor(p.x / PIN_GAP[0]), cy = Math.floor(p.y / PIN_GAP[1]);
+        for (let i = cx - 1; i <= cx + 1 && vis; i++) for (let j = cy - 1; j <= cy + 1 && vis; j++)
+          for (const q of grid.get(i + ',' + j) || []) if (Math.abs(q.x - p.x) < PIN_GAP[0] && Math.abs(q.y - p.y) < PIN_GAP[1]) { vis = false; break; }
+        if (vis) { const key = cx + ',' + cy; if (!grid.has(key)) grid.set(key, []); grid.get(key).push(p); pts.set(k, p); on.push(k); }
+      }
+      if (vis) delete k.el.dataset.off; else k.el.dataset.off = '1';
     }
-    // the head hangs above the tip (the point): the box covers the tallest 15 px head plus its outline
-    const marks = on.map(k => { const p = pts.get(k); return [p.x - 8, p.y - 16, p.x + 8, p.y + 1, k]; });
-    for (const k of on.sort((a, b) => (S.byId[b.id].score || 0) - (S.byId[a.id].score || 0))) {
+    // the pin hangs above the tip (the point): the box covers the tallest 19 px pin plus its outline
+    const marks = on.map(k => { const p = pts.get(k); return [p.x - 8, p.y - 21, p.x + 8, p.y + 1, k]; });
+    for (const k of on) {  // best first
       const s = S.byId[k.id], tag = k.el.querySelector('.tag'), p = pts.get(k);
       if (z < LABEL_FROM[tierOf(s)]) { tag.style.visibility = 'hidden'; continue; }
-      const box = [p.x + 6, p.y - 10, p.x + 12 + tag.offsetWidth, p.y + 10];
+      // the 20 px sign sits right of the pin, centred on its head (36% down the pin: .marker .tag)
+      const tr = tierOf(s), cy = p.y - PIN_H[tr] * 0.64;
+      const box = [p.x + PIN_W[tr] / 2 + 2, cy - 11, p.x + PIN_W[tr] / 2 + 5 + tag.offsetWidth, cy + 11];
       const over = b => box[0] < b[2] && box[2] > b[0] && box[1] < b[3] && box[3] > b[1];
-      // a label may cover the arrowheads of lower tiers; it yields to arrowheads of its own tier or higher
+      // a label may cover the pins of lower tiers; it yields to pins of its own tier or higher
       const hit = placed.some(over) || marks.some(b => b[4] !== k && over(b) && (S.byId[b[4].id].score || 0) >= (s.score || 0));
       tag.style.visibility = hit ? 'hidden' : '';
       if (!hit) placed.push(box);
@@ -581,7 +612,7 @@ function siteEntries() {
     <p class="group-title">${esc(g)} <span>${groups[g].length}</span></p>
     <ul class="legend-list">${groups[g].map(s => `
       <li><button class="entry" data-id="${esc(s.id)}">
-        <span class="tiers"><span class="sq ah ${tierOf(s)}">${AH}</span></span>
+        <span class="tiers"><span class="sq pin ${tierOf(s)}">${PIN}</span></span>
         <span><span class="name">${esc(s.name)}</span><span class="desc">${esc([s.kind ? kindLabel(s.kind) : '', s.place].filter(Boolean).join(', '))}.${s.oldest ? ` Oldest overlay ${s.oldest}${s.overlays > 1 ? `, ${s.overlays} in all` : ''}.` : ''}${s.lidar === false ? ' Aerial photograph only.' : ''}</span></span>
       </button></li>`).join('')}</ul>`).join('') + (cm.length ? `
     <p class="group-title">From the catalog <span>${cm.length === 40 ? 'first 40' : cm.length}</span></p>
@@ -607,7 +638,7 @@ function renderList() {
     </div>
     ${S.tab === 'finder' ? finderHome() : `
     <p class="fit">${S.sites.filter(x => x.score > 0).length} sites with an old drawing or map, at least 150 years old, laid on today's ground. Bigger and darker: older, and truer to the ground.</p>
-    <div class="tiers" aria-label="Marker key"><span class="sq ah t4">${AH}</span><span class="sq ah t3">${AH}</span><span class="sq ah t2">${AH}</span><span class="sq ah t1">${AH}</span><span>older, truer &rarr; newer, rougher</span>${S.more ? `<span class="sq ah plain">${AH}</span><span>LiDAR or photo only</span>` : ''}</div>
+    <div class="tiers" aria-label="Marker key"><span class="sq pin t4">${PIN}</span><span class="sq pin t3">${PIN}</span><span class="sq pin t2">${PIN}</span><span class="sq pin t1">${PIN}</span><span>older, truer &rarr; newer, rougher</span>${S.more ? `<span class="sq pin plain">${PIN}</span><span>LiDAR or photo only</span>` : ''}</div>
     <div class="kinds" role="group" aria-label="Kind of earthwork">
       <button data-kind="all" aria-pressed="${C.kind === 'all'}">All</button>
       ${Object.entries(KGROUP).map(([k, v]) => `<button data-kind="${k}" aria-pressed="${C.kind === k}"><i style="background:${v[1]}"></i>${esc(v[0])}</button>`).join('')}
@@ -811,7 +842,7 @@ function renderSite(s) {
   $('#p-paper').onclick = () => setPlateMode('paper', s);
   wireAlign('p', () => S.align[s.id], a => { S.align[s.id] = a; }, () => moveplate(s), `plates/${s.id}`, 'Saved. This is now the plate position for this site.');
 }
-function setTab(block) { const a = $('#t-map'), b = $('#t-block'); if (a && b) { a.setAttribute('aria-pressed', String(!block)); b.setAttribute('aria-pressed', String(block)); } }
+function setTab(block) { const a = $('#t-map'), b = $('#t-block'); if (a && b) { a.setAttribute('aria-pressed', String(!block)); b.setAttribute('aria-pressed', String(block)); } if (block) syncBlock(); }
 function alignDesc(a) {
   if (!a || (!a.dx && !a.dy && !a.rot && a.scale === 1)) return 'Showing the fit.';
   const dir = (v, p, n) => v ? `${Math.abs(v)} m ${v > 0 ? p : n}` : null;
@@ -829,7 +860,7 @@ function select(id) {
   S.sel = id; F.sel = null; F.cand = null; ensureSite(s); applyAll(); renderSite(s); syncMarkers();
   loadDeps(s).then(() => {
     // a site opens with its old drawing showing, unless this viewer chose otherwise for the site; without a drawing, with
-    // its latest old map (every site with one is a coloured arrowhead now, Ethan 2026-10-10; all are 150+ years old, and
+    // its latest old map (every site with one is a coloured pin now, Ethan 2026-10-10; all are 150+ years old, and
     // the later surveys sit closest on today's roads, e.g. the État-major against Cassini's sketch)
     if (!(s.id in S.depSel)) {
       const ds = S.dep[s.id] || [], d = ds.find(x => DRAWING.has(x.kind)) || ds.filter(x => x.kind === 'map').pop();
@@ -976,8 +1007,10 @@ function drawPlan() {
     g.fillStyle = hollow ? '#2B2724' : '#fff'; g.font = '700 11px "Archivo Narrow", sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
     g.fillText(label, px, py + 0.5);
   };
-  P.pairs.forEach((p, i) => pin(p.u, p.v, String(i + 1), false));
-  if (P.pending) pin(P.pending.u, P.pending.v, String(P.pairs.length + 1), true);
+  // placed (fitkit.js): the first five pairs are the drawing's frame, not pins; the owner's pins count from 1
+  const skip = P.placed ? 5 : 0;
+  P.pairs.forEach((p, i) => { if (i >= skip) pin(p.u, p.v, String(i + 1 - skip), false); });
+  if (P.pending) pin(P.pending.u, P.pending.v, String(P.pairs.length + 1 - skip), true);
   if (P.cropMode && P.cropA) { g.fillStyle = '#2B2724'; g.fillRect(P.cropA[0] * k + x - 3, P.cropA[1] * k + y - 3, 6, 6); }
 }
 function makeInk() {
@@ -1348,7 +1381,7 @@ addEventListener('keydown', e => {
 });
 
 /* ---------- isometric block diagram ---------- */
-const B = { open: false, site: null, renderer: null, scene: null, camera: null, az: Math.PI * 0.75, el: 0.62, zoom: 1.3, gap: 1, plate: true, dirty: true, raf: 0, radius: 1, center: null };
+const B = { open: false, site: null, renderer: null, scene: null, camera: null, az: Math.PI * 0.75, el: 0.62, zoom: 1.3, gap: 0, plate: true, dirty: true, raf: 0, radius: 1, center: null };
 const FACE = { ns: 0xD8BCD5, ew: 0xB996B6, cut: 0xF2B5C4, ink: 0x2B2724 };
 
 function loadImage(url) { return new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = () => rej(new Error('Could not load ' + url)); im.src = url; }); }
@@ -1387,7 +1420,8 @@ function buildPiece(site, H, r0, r1, ve, base, tex, inkTex, cutNorth, cutSouth) 
   top.setAttribute('position', new THREE.BufferAttribute(pos, 3));
   top.setAttribute('uv', new THREE.BufferAttribute(uv, 2));
   top.setIndex(new THREE.BufferAttribute(idx, 1));
-  group.add(new THREE.Mesh(top, new THREE.MeshBasicMaterial({ map: tex })));
+  const ground = new THREE.Mesh(top, new THREE.MeshBasicMaterial({ map: tex }));
+  ground.name = 'ground'; group.add(ground);
   if (inkTex) {
     const m = new THREE.Mesh(top, new THREE.MeshBasicMaterial({ map: inkTex, transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 }));
     m.name = 'plate'; m.renderOrder = 2; group.add(m);
@@ -1421,16 +1455,18 @@ async function openBlock(s) {
   B.open = true; setTab(true);
   $('#sheet').hidden = false;
   if (narrow()) $('#panel').classList.add('collapsed');
-  if (B.site === s && B.scene) { resizeBlock(); B.dirty = true; loop(); return; }
+  if (B.site === s && B.scene) { resizeBlock(); B.dirty = true; loop(); syncBlock(); return; }
   B.site = s; $('#loading').hidden = false; $('#loading').textContent = 'Building the block…';
   const ve = verticalExaggeration(s), [W, Hm] = s.size_m;
   $('#sheet-left').textContent = s.plate ? `${s.plate.label} · Squier & Davis 1848` : 'Ancient Works';
   $('#cap-title').textContent = `Isometric block diagram of the ${s.name.replace(/^the /i, '')}, ${s.place}`;
   $('#cap-sub').textContent = `Ground from ${s.lidar_credit || 'USGS 3DEP LiDAR, 1 m'}. Block ${(W / 1000).toFixed(1)} by ${(Hm / 1000).toFixed(1)} km; vertical exaggeration ×${ve}; contour interval ${s.block.contour_m} m.`;
-  renderExplain(s, ve);
+  B.drapeKeys = []; B.groundKind = null; renderExplain(s, ve);
   try {
-    const [H, tex, inkTex] = await Promise.all([heights(s), loadTexture(`data/sites/${s.id}/${s.block.top}`), s.plate ? loadTexture(`data/sites/${s.id}/${s.plate.ink}`) : null]);
+    const [H, tex, drape] = await Promise.all([heights(s), groundTexture(s), drapeCanvas(s)]);
     if (B.site !== s) return;
+    const inkTex = new THREE.CanvasTexture(drape.canvas); inkTex.anisotropy = 4;
+    B.drapeTex = inkTex; B.groundTex = tex; B.groundKind = tex.kind; B.drapeKeys = drape.keys; renderExplain(s, ve);
     if (!B.renderer) {
       B.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
       B.renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
@@ -1439,9 +1475,11 @@ async function openBlock(s) {
     }
     const scene = new THREE.Scene();
     const base = 0.24 * Math.min(W, Hm), cut = Math.round(s.block.h * 0.5);
+    // closed (the default, owner 2026-10-13): one whole block, no seam; "Open the section" swaps in the two cut halves
+    const whole = buildPiece(s, H, 0, s.block.h - 1, ve, base, tex, inkTex, false, false);
     const north = buildPiece(s, H, 0, cut, ve, base, tex, inkTex, false, true);
     const south = buildPiece(s, H, cut, s.block.h - 1, ve, base, tex, inkTex, true, false);
-    south.name = 'south'; scene.add(north, south);
+    whole.name = 'whole'; north.name = 'north'; south.name = 'south'; scene.add(whole, north, south);
     B.scene = scene; B.ve = ve; B.base = base; B.center = new THREE.Vector3(0, base * 0.6, 0);
     B.radius = 0.5 * Math.hypot(W, Hm * 1.15, base * 2);
     B.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, -B.radius * 10, B.radius * 10);
@@ -1451,22 +1489,110 @@ async function openBlock(s) {
   } catch (e) { $('#loading').textContent = 'The block could not be built: ' + e.message; }
 }
 function closeBlock() { B.open = false; $('#sheet').hidden = true; cancelAnimationFrame(B.raf); setTab(false); }
+
+/* The block carries what the map shows (owner 2026-10-13: "when we go into block diagram it needs
+   to stay pinned to that spot ... when you rotate it around it sticks"). The block's top is the
+   site's EPSG:3857 box (site.corners), the same frame every overlay's four corners live in, so each
+   overlay layer the map has visible for the site (the old drawing or survey sheet, the plate, at
+   their own opacity and after any nudge) is drawn into one canvas in the block's frame by the
+   affine through three of its corners - exact for the parallelograms every plan fit produces, the
+   same as the map's own image source - and that canvas is draped on the terrain. */
+const DRAPE_IMG = new Map();
+function drapeImage(url) { if (!DRAPE_IMG.has(url)) DRAPE_IMG.set(url, loadImage(url).catch(e => { DRAPE_IMG.delete(url); throw e; })); return DRAPE_IMG.get(url); }
+async function drapeCanvas(s) {
+  const W = 2048, H = Math.max(2, Math.round(2048 * s.size_m[1] / s.size_m[0]));
+  const c = document.createElement('canvas'); c.width = W; c.height = H;
+  const g = c.getContext('2d'), keys = [];
+  const [tl, , br] = s.corners.map(merc), px = ([x, y]) => [(x - tl[0]) / (br[0] - tl[0]) * W, (tl[1] - y) / (tl[1] - br[1]) * H];
+  const want = [`dep-${s.id}`, `paper-${s.id}`, `ink-${s.id}`];
+  const ids = (map.getStyle().layers || []).map(l => l.id).filter(id => want.includes(id));  // the map's own stacking order
+  for (const id of ids) {
+    if (map.getLayoutProperty(id, 'visibility') === 'none') continue;
+    const src = map.getSource(id), op = map.getPaintProperty(id, 'raster-opacity') ?? 1;
+    if (!src || !src.url || !src.coordinates || !(op > 0)) continue;
+    let im; try { im = await drapeImage(src.url); } catch { continue; }
+    const [p0, p1, , p3] = src.coordinates.map(q => px(merc(q))), iw = im.naturalWidth, ih = im.naturalHeight;
+    // the block is shrunk onto the screen, so hairline ink one texel wide fades to nothing (Arbor Low's plan
+    // vanished): the layer is drawn at full strength with a 2-texel spread, then laid on at its opacity
+    const t = document.createElement('canvas'); t.width = W; t.height = H;
+    const tg = t.getContext('2d');
+    for (const [dx, dy] of [[0, 0], [1, 0], [0, 1], [1, 1], [-1, 0], [0, -1], [-1, -1], [1, -1], [-1, 1]]) {
+      tg.setTransform((p1[0] - p0[0]) / iw, (p1[1] - p0[1]) / iw, (p3[0] - p0[0]) / ih, (p3[1] - p0[1]) / ih, p0[0] + dx, p0[1] + dy);
+      tg.drawImage(im, 0, 0);
+    }
+    g.save(); g.globalAlpha = op; g.drawImage(t, 0, 0); g.restore();
+    if (id.startsWith('dep-')) { const d = (S.dep[s.id] || []).find(x => x.file === S.depSel[s.id]); if (d) keys.push(d.label || d.file); }
+    else if (s.plate) keys.push(`${s.plate.label}, Squier & Davis 1848`);
+  }
+  return { canvas: c, keys: [...new Set(keys)] };
+}
+// the block's ground follows the map's: the plate-style relief surface, or the site's aerial photograph
+async function groundTexture(s) {
+  if (S.ground === 'imagery') {
+    try { const t = await loadTexture(`data/sites/${s.id}/imagery.jpg`); t.kind = 'imagery'; return t; } catch {}
+    try { const t = new THREE.CanvasTexture(await satCanvas(s)); t.anisotropy = 4; t.kind = 'imagery'; return t; } catch {}
+  }
+  const t = await loadTexture(`data/sites/${s.id}/${s.block.top}`); t.kind = 'relief'; return t;
+}
+// a site without its own imagery.jpg: the map's satellite tiles (the 'sat' source) stitched over the
+// block's box, at the deepest zoom that keeps the picture within 2048 px
+async function satCanvas(s) {
+  const url = map.getStyle().sources.sat.tiles[0], R = 20037508.342789244;
+  const [tl, , br] = s.corners.map(merc);
+  let z = 19; while (z > 1 && (br[0] - tl[0]) / (2 * R / 2 ** z / 256) > 2048) z--;
+  const tm = 2 * R / 2 ** z, tx = x => (x + R) / tm, ty = y => (R - y) / tm;
+  const x0 = Math.floor(tx(tl[0])), x1 = Math.floor(tx(br[0])), y0 = Math.floor(ty(tl[1])), y1 = Math.floor(ty(br[1]));
+  if ((x1 - x0 + 1) * (y1 - y0 + 1) > 400) throw new Error('too many tiles');
+  const W = Math.round((tx(br[0]) - tx(tl[0])) * 256), H = Math.round((ty(br[1]) - ty(tl[1])) * 256);
+  const c = document.createElement('canvas'); c.width = W; c.height = H;
+  const g = c.getContext('2d'), jobs = [];
+  for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) jobs.push(new Promise(res => {
+    const im = new Image(); im.crossOrigin = 'anonymous';
+    im.onload = () => { g.drawImage(im, Math.round((x - tx(tl[0])) * 256), Math.round((y - ty(tl[1])) * 256), 256, 256); res(); };
+    im.onerror = () => res();
+    im.src = url.replace('{z}', z).replace('{x}', x).replace('{y}', y);
+  }));
+  await Promise.all(jobs);
+  return c;
+}
+let _drapeT = 0;
+function syncBlock() {
+  if (!B.open || !B.scene || !B.site) return;
+  clearTimeout(_drapeT);
+  _drapeT = setTimeout(async () => {
+    const s = B.site, kind = S.ground === 'imagery' ? 'imagery' : 'relief';
+    const [drape, tex] = await Promise.all([drapeCanvas(s), kind !== B.groundKind ? groundTexture(s) : null]);
+    if (B.site !== s || !B.scene) return;
+    const t = new THREE.CanvasTexture(drape.canvas); t.anisotropy = 4;
+    if (tex) { B.groundTex && B.groundTex.dispose(); B.groundTex = tex; B.groundKind = tex.kind; }
+    B.scene.traverse(o => { if (o.name === 'plate') o.material.map = t; if (tex && o.name === 'ground') o.material.map = tex; if (o.material) o.material.needsUpdate = true; });
+    B.drapeTex && B.drapeTex.dispose(); B.drapeTex = t;
+    B.drapeKeys = drape.keys; renderExplain(s, B.ve); B.dirty = true;
+  }, 120);
+}
 $('#sheet-close').onclick = closeBlock;
-function applyGap() { const south = B.scene && B.scene.getObjectByName('south'); if (south) { south.position.z = B.gap * 0.14 * B.site.size_m[1]; B.dirty = true; } }
+function applyGap() {
+  if (!B.scene) return;
+  const [whole, north, south] = ['whole', 'north', 'south'].map(n => B.scene.getObjectByName(n));
+  whole.visible = !B.gap; north.visible = south.visible = !!B.gap;
+  south.position.z = B.gap * 0.14 * B.site.size_m[1]; B.dirty = true;
+}
 function applyPlate() { if (B.scene) { B.scene.traverse(o => { if (o.name === 'plate') o.visible = B.plate; }); B.dirty = true; } }
 function renderExplain(s, ve) {
+  const keys = B.drapeKeys || [], img = B.groundKind === 'imagery';
   $('#explain').innerHTML = `
     <p class="section-title">Explanation</p>
-    <div class="key"><span class="swatch" style="background:linear-gradient(90deg,#96807a,#FAF4E4)"></span><span><b>Ground surface</b><i>Shaded LiDAR relief with contours every ${s.block.contour_m} m; heavier line every ${s.block.contour_m * 5} m</i></span></div>
-    <div class="key"><span class="swatch" style="background:#C4DEDC"></span><span><b>Water</b><i>Rivers, ponds, quarry lakes</i></span></div>
-    ${s.plate ? `<div class="key"><span class="swatch" style="background:linear-gradient(transparent 40%, var(--survey) 40% 60%, transparent 60%), var(--sheet)"></span><span><b>Survey of 1848</b><i>${esc(s.plate.label)}, fitted to the LiDAR walls</i></span></div>` : ''}
-    <div class="key"><span class="swatch" style="background:#F2B5C4"></span><span><b>Section</b><i>Cut through the middle of the block; walls show as bumps in its top edge</i></span></div>
+    ${img ? `<div class="key"><span class="swatch" style="background:linear-gradient(90deg,#5b6b4a,#a9a184)"></span><span><b>Ground surface</b><i>The site's aerial photograph, laid on the LiDAR heights</i></span></div>`
+      : `<div class="key"><span class="swatch" style="background:linear-gradient(90deg,#96807a,#FAF4E4)"></span><span><b>Ground surface</b><i>Shaded LiDAR relief with contours every ${s.block.contour_m} m; heavier line every ${s.block.contour_m * 5} m</i></span></div>
+    <div class="key"><span class="swatch" style="background:#C4DEDC"></span><span><b>Water</b><i>Rivers, ponds, quarry lakes</i></span></div>`}
+    ${keys.map(k => `<div class="key"><span class="swatch" style="background:linear-gradient(transparent 40%, var(--survey) 40% 60%, transparent 60%), var(--sheet)"></span><span><b>Old drawing</b><i>${esc(k)}, where the map has it</i></span></div>`).join('')}
+    ${B.gap ? `<div class="key"><span class="swatch" style="background:#F2B5C4"></span><span><b>Section</b><i>Cut through the middle of the block; walls show as bumps in its top edge</i></span></div>` : ''}
     <div class="key"><span class="swatch" style="background:linear-gradient(90deg,#D8BCD5 50%,#B996B6 50%)"></span><span><b>Block sides</b><i>No geology implied; the ground below the surface is not mapped here</i></span></div>
-    ${s.plate ? `<label class="toggle"><input type="checkbox" id="b-plate" ${B.plate ? 'checked' : ''}> Show the 1848 survey</label>` : ''}
+    ${keys.length ? `<label class="toggle"><input type="checkbox" id="b-plate" ${B.plate ? 'checked' : ''}> Show the old drawing</label>` : `<p class="fit">No old drawing is showing on the map; pick one in the site panel and it is laid on the block too.</p>`}
     <label class="toggle"><input type="checkbox" id="b-gap" ${B.gap ? 'checked' : ''}> Open the section</label>
-    <p class="fit">Vertical exaggeration ×${ve}. Elevations ${s.block.zmin.toFixed(0)}–${s.block.zmax.toFixed(0)} m above sea level.</p>`;
+    <p class="fit">Vertical exaggeration ×${ve}. Elevations ${s.block.zmin.toFixed(0)}–${s.block.zmax.toFixed(0)} m above sea level. The drawing, the ground and the opacity follow the map: change them in the site panel.</p>`;
   const p = $('#b-plate'); if (p) p.onchange = e => { B.plate = e.target.checked; applyPlate(); };
-  $('#b-gap').onchange = e => { B.gap = e.target.checked ? 1 : 0; applyGap(); };
+  $('#b-gap').onchange = e => { B.gap = e.target.checked ? 1 : 0; applyGap(); renderExplain(s, ve); };
 }
 function resizeBlock() {
   if (!B.renderer) return;
