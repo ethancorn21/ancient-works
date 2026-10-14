@@ -7,9 +7,11 @@ machine cannot reach loc.gov, so the files are fetched from their Wikimedia Comm
 236b route, its lead doc docs/lead_us_birdseye.md). The 25-city total spans 236b's 16 + 240's four
 + 241's five; 236c consolidates every staging set into the canonical data and checks the total.
 The candidate order (240's lead-doc "Not done yet" pointer, continuing the 181 candidate list of
-the 236b lead doc): Omaha (landed first: the 1868 E. Ruger sheet - the 236b silent-skip question
-resolves stageable: it fell out of 236b's batch order, its pool has a strong pick), Indianapolis,
-Columbus, Memphis, then whatever the collection's search order adds to reach five. This task
+the 236b lead doc): Omaha (LANDED first: the 1868 E. Ruger sheet - the 236b silent-skip question
+resolves stageable: it fell out of 236b's batch order, its pool has a strong pick), Indianapolis
+(LANDED: the 1925 E. G. Spink Company sheet - the only whole-city view in its pool, the DPLA /
+Indiana State Library scan), Columbus, Memphis, then whatever the collection's search order adds
+to reach five. This task
 owes FIVE staged cities, not specifically these - a city with no usable view gets a lead-doc
 note and the next candidate.
 
@@ -79,10 +81,12 @@ NO_BOOKS = os.path.join(ROOT, "data", "books", ".no-books")  # never exists: che
 # (240's lead-doc "Not done yet" pointer, continuing the 181 candidate list of the 236b lead
 # doc): Omaha (LANDED, city 1 of 5 - the 1868 E. Ruger sheet; the 236b silent-skip question
 # resolves stageable: it fell out of 236b's batch order, its pool has a strong pick),
-# Indianapolis, Columbus, Memphis, then whatever the collection's search order
-# adds to reach five (each new entry verified live, --verify re-checks; per-view STAGED/DROP
-# verdicts in docs/lead_us_birdseye_batch5.md). This task owes FIVE staged cities, not
-# specifically these - a city with no usable view gets a lead-doc note and the next candidate.
+# Indianapolis (LANDED, city 2 of 5 - the 1925 E. G. Spink Company sheet, the only whole-city
+# view in its pool; the DPLA / Indiana State Library scan), Columbus, Memphis, then whatever the
+# collection's search order adds to reach five (each new entry verified live, --verify re-checks;
+# per-view STAGED/DROP verdicts in docs/lead_us_birdseye_batch5.md). This task owes FIVE staged
+# cities, not specifically these - a city with no usable view gets a lead-doc note and the next
+# candidate.
 SITES = {
     # Q43199: P625 = ONE 30 m value (-95.9375, 41.25861111111111) - the downtown core (no
     # refinement needed). P373 is the STRING "Omaha, Nebraska" (a Wikidata quirk, not a country
@@ -109,6 +113,36 @@ SITES = {
                         "hill-horizon band across the top - the city grid fills the sheet beyond "
                         "the 2000 m town box, so its fit is likely to end a review item (the 236a "
                         "NY-1811 / DC-ring precedent)"),
+    # Q6346: P625 = ONE 31 m value (-86.158055555556, 39.768611111111) - the downtown core (no
+    # refinement needed). P373 is the STRING "Indianapolis" (a Wikidata quirk, not even the
+    # "city, state" form - the place is written from the county + the state); P131 = Q506230
+    # Marion County (the only one, + the state) - hence place "Marion County, Indiana"; P17 = Q30
+    # (a proper entity); enwiki "Indianapolis" (BARE - no state suffix, unlike Omaha's "Omaha,
+    # Nebraska"). Name search at limit 5 AND limit 20 (the 241 session-5 research run): NO TRAP -
+    # the first hit with P625, what record --live would store, is Q6346 itself (dist 0; the #1
+    # hit outright at both limits); the hits that never come first: the Indianapolis Museum of
+    # Art (Q1117704, an in-city institution - the Pittsburgh/Chicago trap class), USS
+    # Indianapolis (Q600180, P625 = her sinking place in the Pacific), Indy Art Center
+    # (Q15960623, in-city), the Indianapolis Motor Speedway (Q172732, in Speedway IN), the
+    # Indianapolis 500 race (Q8032, Speedway), Indianapolis, Oklahoma (Q18153410, another
+    # state), Sidney & Lois Eskenazi Hospital (Q2311793, in-city). The first-guess Q16556 was
+    # caught as PHOENIX, Arizona - the first-guess mislabel trap (the real city is Q6346). No
+    # existing site holds the QID (checked at the 241 session-5 run in the catalog, extras,
+    # 236a's, 236b's and 240's extras files and web/data/sites.json); site id
+    # indianapolis-q6346 (catalog.slug("Indianapolis") = "indianapolis", verified).
+    "Q6346": dict(id="indianapolis-q6346", name="Indianapolis", named="Indianapolis",
+                  lon=-86.158055555556, lat=39.768611111111,
+                  place="Marion County, Indiana", region="United States", kind="town",
+                  wikipedia="https://en.wikipedia.org/wiki/Indianapolis",
+                  note="aerial-photograph ground (no open LiDAR over the built-up city: bare-earth "
+                       "LiDAR erases the streets); the street grid and the White River carry the "
+                       "fit; the 1925 E. G. Spink Company sheet is the steepest (near-vertical) - "
+                       "in fact the ONLY - whole-city view in the pool: drawn from a high vantage "
+                       "to the south (the White River side) - the river a band along the sheet's "
+                       "bottom, Union Station and the Hotel Spink lower-centre, the grid running "
+                       "up to the State Fair Grounds at the top (north) - no horizon band - the "
+                       "city grid fills the sheet beyond the 2000 m town box, so its fit is "
+                       "likely to end a review item (the 236a NY-1811 / DC-ring precedent)"),
 }
 
 # The per-view source rows land here as each city lands, keyed by <city>_<year> like the batch-4
@@ -142,9 +176,43 @@ OMAHA_1868 = [
     ("File:Bird's eye view of the city of Omaha, Nebraska 1868. LOC 73693495.tif", "Q43199", "Omaha", dict()),
 ]
 
+# Indianapolis (batch 5, city 2; checked live 2026-10-14; the pool 43 unique / 2 gate-pass - both
+# pages of the one DPLA sheet, per-view STAGED/DROP verdicts in
+# docs/lead_us_birdseye_batch5.md). One row per city: the steepest (near-vertical), best-scanned
+# whole-city view of the collection; the non-view pool (Civil-War letter scans, other-city sheets
+# and views, campus/district close-ups, book text pages, postcards, photographs, maps, too-small
+# scans, licence rejects) are DROPS recorded in the lead doc (the 236b/240 precedent).
+SPINK_1925 = [
+    # 1925 (the sheet prints NO year in either banner and the Commons page date is EMPTY - the
+    # DPLA template's date = is blank, no LCCN on the page; the drawing's year 1925 stands on
+    # ISL's own record "Date of Original: 1925" (item ISL_IND_MapS_Indpls_1925, whose call number
+    # is the sheet's own lower-right shelf label) + the sheet's own page-2 content (taxes paid
+    # 1919-1924, an appraisal at Dec. 31, 1923 -> printed 1925) - the Zwolle-style swap: the row
+    # carries the known date and keeps the page's empty value as date_commons): the E. G. Spink
+    # Company sheet, page 1 of the DPLA / Indiana State Library scan
+    # (DPLA d442b7431e1f90b2c13fb4f957e8026f), 11153x7986, Public domain: the banners read
+    # "BIRD'S-EYE VIEW OF INDIANAPOLIS" (top) and "SHOWING SPINK APARTMENTS, HOTELS, OFFICE AND
+    # INDUSTRIAL BUILDINGS" (bottom) - THE ONLY whole-city view in the pool and the only scan of
+    # the sheet on Commons (no LOC-mirror found in four extra searches) - near-vertical: drawn
+    # from a high vantage to the SOUTH (the White River side) - the river band along the sheet's
+    # bottom edge, Union Station and the Hotel Spink vignettes lower-centre, the grid running up
+    # to the "STATE FAIR GROUNDS" band at the top (north) with cemeteries, parks and rail lines
+    # around - no horizon band (steeper than the Omaha 1905 "panoramic" dupe class); the grid
+    # fills the sheet beyond the 2000 m town box, so its fit is likely to end a review item
+    # (the 236a NY-1811 / DC-ring precedent). A real-estate promo sheet (ISL subject includes
+    # "Adve[rtisements]") - recorded; it IS a whole-city view per its own title. Page 2 (the same
+    # sheet) = a text page (the Spink bond-department announcement, the "SPINK IDEA", a
+    # chronological history 1914-1924, the taxes paid 1919-1924) - dropped, one row per sheet.
+    # 1925 is exactly commons.MAX_YEAR - keep() passes at the boundary (y <= MAX_YEAR), the last
+    # year the bird's-eye route accepts.
+    ("File:Bird's-eye view of Indianapolis showing Spink apartments, hotels, office and industrial buildings - DPLA - d442b7431e1f90b2c13fb4f957e8026f (page 1).jpg", "Q6346", "Indianapolis", dict(date="1925")),
+]
+
 SOURCES = {
     "omaha_1868": dict(rows=OMAHA_1868, p="birdseye",
                        label="{name}, the E. Ruger / Chicago Lithographing Co. bird's-eye view (1868)"),
+    "indianapolis_1925": dict(rows=SPINK_1925, p="birdseye",
+                              label="{name}, the E. G. Spink Company bird's-eye view (1925)"),
 }
 
 

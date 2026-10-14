@@ -1313,6 +1313,11 @@ Why: keep() judges via year_of(title, m), which reads m["date"] (the page/scan d
       album reproduction of a c. 1560 drawing) is the template; any staging module that gates before swapping
       silently drops exactly those reproductions.
 
+#### year_of()/keep() expect m["date"] to be str (or absent) - an int date field crashes them with AttributeError
+Where: `pipeline/commons.py` (`year_of`, `keep`, `info`); every staging module doing a Zwolle-style swap (the row's extra dict: `fit/src_us_birdseye.py`, `fit/src_us_birdseye_batch4.py`, `fit/src_us_birdseye_batch5.py`, `fit/src_van_deventer.py`, ...)
+Symptom: a staging run dies inside `year_of` with `AttributeError: 'int' object has no attribute 'split'` (the traceback points at `d = raw.split("date QS")[0]`) whenever the row's extra dict passes an int year (e.g. `dict(date=1925)`) instead of a string
+Why/fix: `year_of` does `raw = m.get("date") or ""; d = raw.split(...)` - it is written for strings only, and the swap condition evaluates `year_of(title, {"date": want})` before keep(). The known date goes on the row as a STRING (`dict(date="1925")`); the row then carries `date="1925"` (str) and `year=1925` (int, from year_of's return). The batch-5 `indianapolis_1925` row is the template (caught at 241 iteration 178: the landing spec wrote an int; it was changed to a string before staging).
+
 ### pipeline/books.py, pipeline/books_ia.py (the book machinery)
 
 #### civitatesorbiste00brau's hOCR page index is misaligned with the jp2 leaf sequence - page_texts is unreliable for this book

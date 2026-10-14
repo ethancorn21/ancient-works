@@ -97,88 +97,49 @@ restore main's bytes before committing (the PITFALLS test_owner_check entry); on
 
 
 ## Hand-over
-(2026-10-14, iteration 177, agent c - **INDIANAPOLIS RESEARCH complete; the LANDING is this
-session's one step** (city 2/5). The Omaha landing is committed (driver commit 01de446; 177
-re-verified in-session: module tests 5/5, --check 1/1/1 green, tree clean - nothing left from
-176's uncommitted tree). The full research record and landing spec are in the 177 DECISIONS
-entry; the QID/pool scripts, the full-res downloads and crops survive in /tmp (aw241_indy_*).
+(2026-10-14, iteration 178, agent c - **INDIANAPOLIS LANDING complete and committed (city 2/5);
+the COLUMBUS research is the next step** (city 3/5). The full landing record (deviation note on
+the date type, transcripts, test changes) is in the 178 DECISIONS entry; the per-city playbook
+is in the task Notes above and unchanged.
 
-**INDIANAPOLIS research verdicts (details in the 177 DECISIONS entry):**
-- **QID = Q6346** (NOT Q16556 - my first-guess was live-verified to be **Phoenix**: the
-  first-guess mislabel trap). Label "Indianapolis"; P625 ONE value (-86.158055555556,
-  39.768611111111, ~31 m) - no refinement; P373 = the STRING "Indianapolis" (the usual US
-  quirk, even bare - no "city, state" form) -> place "Marion County, Indiana" (P131 = Q506230
-  Marion County only); P17 = Q30; enwiki = "Indianapolis" (BARE - no state suffix, unlike
-  Omaha) -> wikipedia https://en.wikipedia.org/wiki/Indianapolis. Name search at limit 5 AND
-  20: first P625 hit = Q6346 itself at BOTH limits -> NO TRAP (in-city institutions - IMA,
-  Eskenazi Hospital, Indy Art Center - the USS Indianapolis sinking spot, the Speedway
-  facilities and the Oklahoma namesake never come first). No existing site holds Q6346 (all
-  catalog/extras/236a/236b/240 extras files and web/data/sites.json clean). slug =
-  "indianapolis" -> **site id indianapolis-q6346**.
-- **PICK = page 1 of the E. G. Spink Company sheet** (DPLA item
-  d442b7431e1f90b2c13fb4f957e8026f, contributed by the Indiana State Library; title "Bird's-eye
-  view of Indianapolis showing Spink apartments, hotels, office and industrial buildings",
-  11153x7986, Public domain NoC-US): the ONLY whole-city view in the 43-row pool (41 gate-fail
-  drops + the page-2 same-sheet text page) and the ONLY scan of the sheet on Commons (no
-  LOC-mirror found in four extra searches). Near-vertical: vantage from the south (the White
-  River band along the bottom edge, Union Station + Hotel Spink lower-centre, the grid up to
-  the State Fair Grounds at the top; no horizon band). The banners print NO year; the Commons
-  page date is EMPTY; **drawing year = 1925** (ISL "Date of Original" 1925 + the sheet's own
-  page-2 tax table 1919-1924 / Dec-31-1923 appraisal; the ISL shelf label "912.772 IMaI25e
-  (1925)" is printed on the sheet's lower right). **1925 is exactly commons.MAX_YEAR - keep()
-  passes at the boundary (y <= MAX_YEAR); do NOT "correct" it to another year.** The sheet is
-  a real-estate promo (ISL subject: Advertisements) - recorded; it is still a whole-city view
-  per its own title.
+**State after 178 (all committed; tree clean):**
+- Module fit/src_us_birdseye_batch5.py: SITES = {Q43199 Omaha, Q6346 Indianapolis}, SOURCES =
+  omaha_1868 + indianapolis_1925; both cities marked LANDED in the header/SITES comments.
+  The indianapolis_1925 row's extra dict carries **date="1925" as a STRING** (the Zwolle-style
+  swap; commons.year_of() crashes on an int date - do not "fix" it to an int).
+- Staging files at 2/2/2; --check green (2/2/2, no join problems); golden 2/2/2 (the indy
+  date_commons normalizes to "0000-00-00"); lead doc carries the Indianapolis section (STAGED
+  bullet + the 42-item DROP list + the QID-facts paragraph + the 1925 date evidence), the
+  session-6 --verify transcript and the updated Staging/Not-done-yet sections.
+- Tests: the five functions extended in place; the negative control stays on files[0] = the
+  Omaha row (the 176 pattern - do NOT rebind it).
+- Full suite 190P/1S/0F (541 s, in-session); the four re-encoded 307d pngs were restored to
+  main's bytes before the commit.
 
-**Landing, exact steps (mirrors 176; live commands under .venv/bin/python):**
-1. Module edit (fit/src_us_birdseye_batch5.py): SITES["Q6346"] = dict(id="indianapolis-q6346",
-   name="Indianapolis", named="Indianapolis", lon=-86.158055555556, lat=39.768611111111,
-   place="Marion County, Indiana", region="United States", kind="town",
-   wikipedia="https://en.wikipedia.org/wiki/Indianapolis", note=<the staged view's apparent
-   angle: near-vertical, vantage from the south across the grid to the State Fair Grounds,
-   Union Station / White River at the bottom; the city grid fills the sheet beyond the 2000 m
-   town box -> the fit is likely to end a review item, the 236a NY-1811 / DC-ring precedent>)
-   with the full QID-facts comment (the 175/176 SITES-comment shape: the Q6346 facts, the
-   Q16556=Phoenix mislabel caught, the name-search verdict, the no-collision check);
-   SPINK_1925 = [("File:Bird's-eye view of Indianapolis showing Spink apartments, hotels,
-   office and industrial buildings - DPLA - d442b7431e1f90b2c13fb4f957e8026f (page 1).jpg",
-   "Q6346", "Indianapolis", dict(date=1925))] (the Zwolle-style swap: the page has no date, so
-   the row's date = 1925 and date_commons = the page's empty value);
-   SOURCES["indianapolis_1925"] = dict(rows=SPINK_1925, p="birdseye",
-   label="{name}, the E. G. Spink Company bird's-eye view (1925)"); header comment marks
-   Indianapolis LANDED (city 2 of 5).
-2. --verify (live): expect 2 QIDs (Q43199, Q6346), NO FLAG / NO TRAP on Q6346 (first
-   name-search hit = itself); P625 printed = the table point. Copy the transcript VERBATIM
-   into the lead doc's QID section.
-3. --dry then stage (live commons.info re-check): expect "staged: 1 new sites, 1 new pictures"
-   (+ the build line naming indianapolis-q6346); keep() passes AT the boundary (1925 <= 1925);
-   the caption gate passes (the title prints "Indianapolis"); the file row gets year=1925,
-   date=1925, date_commons="" (the page has no date).
-4. --check (offline): expect both rows PASS caption_coords + "evidence: 2 rows, 2 pass, 0
-   fail, 0 no-tie", zero join lines. Copy the transcript VERBATIM into the lead doc's Staging
-   section (running count becomes "2 views / 2 site rows so far of the final five").
-5. Lead doc (docs/lead_us_birdseye_batch5.md): the Indianapolis city section = the STAGED
-   bullet (page 1: the banner wording, the ISL shelf label, the 1925 date evidence = the ISL
-   record + the sheet's own tax table / appraisal, page 2 = the same-sheet text page) + the
-   full 42-item DROP list (the 41 gate-fails grouped as in the 177 entry + page 2) + the
-   QID-facts paragraph (incl. the Q16556=Phoenix mislabel) + the verbatim --verify transcript;
-   update the Not-done-yet pointer (next: Columbus, Memphis, then the collection's search
-   order; New Orleans skipped - 236b's).
-6. --golden (2/2/2; date_commons normalizes to "0000-00-00" in the golden - intended).
-7. Tests (tests/test_src_us_birdseye_batch5.py, the 236b/240 shape): test 1's key list += the
-   Indianapolis PASS line; test 4's SITES/years/points/named tables += Indianapolis (year
-   1925, point -86.158055555556/39.768611111111, named "Indianapolis") + the date check WITH
-   the Zwolle swap (year 1925 + date_commons "0000-00-00"); test 5's negative control STAYS on
-   files[0] = the Omaha row (the batch4 "Denver row" pattern - do NOT rebind it).
-8. Module tests (expect 6/6) -> FULL suite in-session BLOCKING (.venv/bin/python -m pytest -q;
-   R2: the driver's 241 baseline is 0 failing - any red first goes to the PITFALLS Esri-flake /
-   pytest-temp-tree entries + an isolated re-run). The run re-encodes up to ten
-   docs/site_flow/307d_*.png: restore main's bytes (git checkout -- docs/site_flow/) BEFORE the
-   commit (R5). Commit: "241: Indianapolis landed (batch-5 city 2/5) - the 1925 E. G. Spink
-   Company sheet (DPLA/Indiana State Library) - the only whole-city view in the pool".
-9. Then: COLUMBUS research (3/5) next session, Memphis (4/5), then one more from the
-   collection's search order (5/5); the Staging section ends at the total (25 = 16 + 4 + 5, or
-   a recorded shortfall) with the 236c note.
+**Next: COLUMBUS research (city 3/5)** - then Memphis (4/5), then one more from the
+collection's search order (5/5). The playbook (the 175/177 pattern): (1) RESEARCH: the QID
+(Wikidata: the label - first-guess mislabels are the usual trap class (Q16556=Phoenix was
+exactly that for Indianapolis); every P625 value; P373 - a string is the usual US quirk, write
+the place from county + state; P131, P17, enwiki; the name-search trap check at limit 5 AND 20;
+record everything in the SITES comment; MEASURE distance claims with fit/evidence.hav_m; check
+no existing site holds the QID - catalog, extras, 236a's/236b's/240's extras files, THIS task's
+batch5 extras (Omaha + Indianapolis now), web/data/sites.json) + the pool (the six plain-phrase
+forms + "filetype:bitmap", srnamespace 6, srlimit 40, deduped; gates: commons.keep() judged
+AFTER any known-date swap, the caption names the city (books_match.norm over title + desc),
+Public domain, >= 4000 px; eyeball EVERY gate-pass item one by one - the gate is a substring
+match, PITFALLS fit/). Columbus caveat: the LOC Panoramic pool may mix Columbus (Ohio) and
+Columbus (Indiana) - disambiguate each sheet from its caption (the state in the banner, the
+LCCN) and record the choice in the lead doc. Save scripts/logs under /tmp/aw241_col_*.
+(2) LANDING (mirror 178/176): module edit (SITES entry + the full QID-facts comment, the
+<CITY>_<YEAR> row list, the SOURCES entry, mark LANDED in the comments) -> --verify (expect 3
+QIDs; NO FLAG/TRAP on the new one; transcript verbatim into the lead doc's QID section) ->
+--dry -> stage (live commons.info re-check) -> --check (expect "evidence: 3 rows, 3 pass,
+0 fail, 0 no-tie", zero join lines; verbatim into the lead doc) -> lead-doc section (STAGED
+bullet + the full DROP list with exact titles + the QID-facts paragraph + the running count
+"3 views / 3 site rows so far of the final five") -> --golden (3/3/3) -> tests (key list,
+SITES/years/points/named tables, the row's date check; negative control stays on files[0]) ->
+module tests 5/5 -> FULL suite in-session BLOCKING (restore the re-encoded 307d pngs first) ->
+commit.
 
 **Rules (unchanged):** never write the canonical files (236c); 236a's/236b's/240's files
 read-only; live commands under .venv/bin/python (module top stays stdlib-only); the golden is
