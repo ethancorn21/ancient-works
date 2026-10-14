@@ -1,8 +1,18 @@
-Status: open
+Status: dropped
 Depends on: 230
 Touches: tests/test_matchfit_station.py, tests/fixtures/matchfit_station/
 
 # 243: Re-record the 302f matcher-station fixtures after 230's index rebuild drifted the input hashes
+
+## Dropped (2026-10-14, iteration 216, agent a)
+
+Absorbed into 230 itself. The driver rejected 230's done-claim (a423d19) naming this
+task's two tests as new failures - but they failed because of 230's own index rebuild,
+so a separate task with "Depends on: 230" was a deadlock (the driver cannot accept 230
+while 243's tests are red, and 243 cannot run until 230 is accepted). 230 added the two
+paths to its own Touches line and re-recorded the fixtures itself (record.py against the
+live ELoFTR, 2026-10-14 23:15Z): index_row re-stamped 4c7be2d0 -> 003d1d77, replay
+validated, test_matchfit_station 2/2 green on 230's branch. Nothing left for this task.
 
 ## Goal
 230's book-index rebuild (37edbfb, the 211 consolidation re-run) re-stamped
