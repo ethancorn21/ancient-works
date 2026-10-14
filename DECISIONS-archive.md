@@ -6065,6 +6065,140 @@ unsure e2e).
     so the change is outside the test path - zero new reds. Task done in one session.
 
 
+<!-- task 302f -->
+# Task 302f matcher-station-test
+
+## 2026-10-13 302f DECISION: iteration 210 - investigation only; the fixture is keyed by the sha256 of the exact request body matchfit.match sends, and the test's stub reuses that key, so no image code runs in the stub
+    No code written this session (context limit during design; the full trace is in the task
+    hand-over). Design decisions taken, so the next session does not re-litigate them:
+    - Fixture format (tests/fixtures/matchfit_station/records.json + records_unsure.json):
+      {"header": {...}, "responses": {sha256(exact request body): <verbatim live /match JSON>}}.
+      matchfit.match sends json.dumps({"image0": b64(PNG of the plan crop), "image1": b64(PNG of
+      the ground window), "threshold": 0.2, "max_side": 1024}); the recorder monkeypatches
+      urllib.request.urlopen to record (body sha256 -> response) while matchfit.fit_row runs
+      live against 127.0.0.1:8091 (twice, for a stability check), and the test's in-process
+      stub answers POST /match by the same key. Same .venv PIL (12.3.0) + same source bytes on
+      both sides => same PNG bytes => same key; a missing key 500s and the test's stderr==""
+      assertion fails loudly. 15 requests per fit_row (3 grounds x 5 windows); RoMa needs no
+      responses (ROMA_URL points at a dead ephemeral port; reachable()'s except Exception swallows
+      the guard's AssertionError).
+    - Unsure variant: deterministic permutation (np.random.default_rng(7)) of the ground-side
+      keypoints of every response whose candidate has >= 10 inliers (frozen heldout: six-inch
+      x0.5 = 15, x0.35 = 22 - BOTH must be broken, since fit_row's strict-greater best would
+      otherwise stay confident on x0.5); the script asserts the perturbed best lands at
+      3..9 inliers (frozen values say 8, six-inch x0.7, rot -43.51) and records the exact
+      "not sure: N consistent points (need 10)" line in the header; the test asserts that line
+      verbatim (N from the header, never hardcoded).
+    - GUARD variant: patch socket.socket.connect and connect_ex to pass through only
+      (127.0.0.1, stub_port) (allowed port via env GUARD_ALLOW) and raise AssertionError
+      otherwise; do NOT patch socket.create_connection to dead (it must flow through to the
+      patched instance connect). The test_site_done/test_fit_queue full-dead guard is the
+      template.
+    - The unsure branch's published review.json must NOT be asserted equal to the repo's
+      current web/data/review.json (457 items may have drifted from what export recomputes
+      today): the test recomputes the baseline by calling fit/review.py export in-process on a
+      second clean tmp copy and expects exactly baseline + the badbury entry (same name sort).
+    - Tmp tree inputs (all verified to exist in this checkout): the code dirs tools/ fit/
+      pipeline/; web/data/{sites,plans,review}.json; a REAL copy of web/data/sites/badbury...
+      (it is a symlink to another checkout - copy os.path.realpath); data/db/platefits (all 70,
+      then delete the badbury doc); data/review (all 481); data/books/index.jsonl (evidence +
+      propose), data/commons/files.jsonl, data/catalog/sites.jsonl (export's name fallback -
+      missing => stderr warning, and the test asserts stderr == ""), data/sites/<SID>/site.json
+      (no "plate" field: is_pre_fit False), data/raw/books/earthworkenglan01allcgoog/full/
+      n0132.jpg (3367x5050, exactly the row's size => every scale factor 1.0).
+    - Confident-branch file effects: the matcher doc replaces nothing in the store (the hand doc
+      was deleted in the tmp only), build() REBUILDS the same-named plan_*.webp/_ink.webp and
+      replaces the same-file plan depiction (both year 1908), so drawings stays 1 -> the entry
+      line is "drawings 1 -> 1" in BOTH branches; no review item is created in the confident
+      branch (batch never runs) => export never runs => review.json byte-identical.
+
+## 2026-10-13 302f DECISION: iteration 211 - design fully verified against the current code (matchfit/site_done/batch_us/review/plan_fit/propose/build_site all re-read; heldout + index + depictions re-checked live); recorder left as a truncated stub to rewrite; expected stdout is 11 lines confident / 8 lines unsure (the 210 note's "9" was wrong); the sites.json entry recomputes to the same 1.45 but only just - the recorder must verify
+- This session read the whole chain with fresh eyes and confirmed the 210 design end to end;
+  three corrections that change the recorder's asserts:
+  1. The unsure branch's expected stdout is 8 lines, not 9 (210's count included a non-existent
+     "fit written" line): no-model, site, not-sure, sent-to-queue, entry, review, summary, done.
+  2. build_site.marks() recomputes score/oldest/overlays from depictions: hand fit rms 5.99 ->
+     score 1.45 (the repo's value); the matcher's ~3 m residuals give 1.4535 -> rounds back to
+     1.45, but the margin is narrow. The recorder MUST assert post-run site entry == repo entry
+     (parsed); if any marker field moves, the test relaxes to field-level asserts (drawings==1)
+     and records the actuals in the fixture header instead of whole-entry equality.
+  3. propose.propose_for's default root is the importing module's own ROOT: in the recorder's
+     IN-PROCESS site_done run it reads the CHECKOUT's data (same bytes as the tree copies made
+     the same moment); in the subprocess it reads the tree copies. Same input -> same output,
+     but the recorder should note which copy it read in the header so a future drift is visible.
+- matchfit_heldout.candidates(root, site, row, url) is the right offline-replay vehicle (it
+  calls mf.match/mf.ransac, so patching mf.match answers all 15 windows; the frozen
+  data/matchfit/heldout/results.json "docs" dict is the checkpoint: badbury best = six-inch
+  x0.35, 22/61, rot 3.62, resid 3.1, corner 58.6, centre 2.9; both six-inch x0.5 (15) and x0.35
+  (22) need their ground keypoints permuted for the unsure variant - fit_row keeps the
+  strict-greater best, so one would survive otherwise).
+- Environment re-verified this session: ELoFTR 127.0.0.1:8091 healthy (RTX 5060 Ti), RoMa 8092
+  refused (curl exit 7), .venv py3.12.3, hand doc/row/site entry/depictions/index row as
+  recorded in the 210 hand-over. The full-suite baseline was started in the background (nohup,
+  log /tmp/aw302f_baseline.log, ~5 min); check it in the next session (rerun if the log is
+  incomplete) before adding my test, to diff new reds.
+- State on disk: tests/fixtures/matchfit_station/record.py is a TRUNCATED STUB (ends in a bogus
+  `import matchfit_holdout_dummy`, no body) - the session hit the context limit mid-write.
+  NEXT SESSION: rewrite record.py from the design in the task hand-over (complete: tree
+  builder, live double-run with urlopen recording keyed by sha256 of the exact request body,
+  offline replay via the mf.match fake, in-process site_done runs for both branches,
+  perturbation loop with seed 7+, header with input hashes for the test's drift detector);
+  run it live once; commit both fixtures + the script; then write tests/test_matchfit_
+  station.py per the hand-over's test design (two tests; ephemeral-port in-process stub;
+  pass-through guard variant; drift-checked queue counts); run it; then the full suite diffed
+  against the baseline; tick the six boxes as verified.
+
+## 2026-10-14 302f DECISION: iteration 125 - record.py REWRITTEN from scratch per the 211 design (complete on disk, unrun, uncommitted); the live run is the next step
+No test written yet. This session re-verified the entire 210/211 design against the current
+merged tree and replaced the truncated stub with the complete recorder:
+- build_tree (lockstep with the test's): tools/ fit/ pipeline/ (no pycache), web/data/
+  {sites,plans,review}.json, web/data/sites/SID copied from os.path.realpath (it is a symlink
+  to the lead's /home/agent/projects/ancient-works), data/review (all 481), data/books/
+  index.jsonl, data/commons/files.jsonl, data/catalog/sites.jsonl, data/sites/SID/site.json,
+  data/raw/books/earthworkenglan01allcgoog/full/n0132.jpg, data/db/platefits (all; the badbury
+  hand doc unlinked when delete_hand_doc). ROOT = parents[3] (124 correction 1); realpath copy
+  (124 correction 2).
+- Live phase: urlopen patched (sha256 of the exact /match body -> parsed response + response-
+  bytes hash, per run) around mfh.candidates run twice; then offline replay with mf.match
+  faked (body rebuilt exactly: mf._b64 + json.dumps, threshold 0.2, max_side 1024 -> same
+  key), mf.reachable patched (True only for None/MATCHER_URL), mf.ROMA_URL = dead ephemeral
+  port. Then two IN-PROCESS site_done runs (importlib; same module objects) on fresh trees
+  T1/T2: confident fixture, and the unsure variant (ground keypoints of every >=10-inlier
+  response permuted with np.random.default_rng(seed); seeds 7..36 until the offline fit_row
+  best lands at 3..9 inliers - fit_row's best exists only at >=3, so 3..9 gives exactly the
+  "not sure: N consistent points" line; "nothing consistent" is explicitly rejected).
+- Facts verified by running this session: ELoFTR healthy (RTX 5060 Ti), RoMa refused (exit
+  7); propose_for SUCCEEDS for this row in-process (coarse False, bar scale 0.1902 m/px, rot
+  0.0, 5 pairs) -> the unsure item candidate gets all six proposal fields, pairs []; n0132.jpg
+  3367x5050 L; six-inch 1066x1066 RGBA, relief/os1inch 1600x1600; site entry 1/1.45/1842/2;
+  depictions 3; NO badbury item (481 files, 480 with a site field - review.export's n_total
+  counts only those: baseline 456/480, after the unsure run 457/481); the frozen held-out
+  (2026-10-12) matches (best six-inch x0.35 61/22/3.62/3.1; the two >=10 responses are six-
+  inch x0.5=15 and x0.35=22; unperturbed best six-inch x0.7=8 rot -43.51). PRE-CHECK:
+  review.export on a scratch tree = 456/480, stderr clean (so the err=="" asserts should
+  hold). Full-suite baseline COMPLETE at /tmp/aw302f_baseline.log: 1 failed (test_fit_queue::
+  test_placement_gestures_and_save_in_the_browser - agent a's 307bb, on main, not mine), 157
+  passed, 1 skipped, 324.50 s.
+- record.py details that would trip a reader: _save uses default=float (ransac rot is
+  np.float64); the seed loop restores mf.match to the original afterwards; the header records
+  input_hashes (hand doc, plan image, site dir, sites/plans/index/catalog row extracts,
+  site.json, data/review combined) for the test's drift detector, and the in-process runs
+  hash the checkout surface before/after to prove they write nothing outside the trees.
+- NEXT (exact): run `.venv/bin/python tests/fixtures/matchfit_station/record.py` live; on
+  success commit the recorder + both fixtures; then write tests/test_matchfit_station.py per
+  the TEST DESIGN block in the task hand-over (ephemeral-port stub, pass-through GUARD
+  variant, subprocess, confident + unsure tests, drift preconditions); full suite diffed
+  against the baseline; tick the six boxes. Known risks at run time: GPU drift (recorded,
+  non-fatal), line-shape asserts (fail loudly with actual stdout), site_entry_equal narrow
+  margin (1.4535 -> 1.45), seed landing.
+
+## 2026-10-14 302f DECISION: iteration 127 - the 126-session work verified on disk (fixtures + 340-line test, committed by the driver); the test passes first try; full suite running for the no-new-reds box
+Iteration 126 (whose session was cut before writing memory) had ALREADY: (a) run record.py live against ELoFTR 127.0.0.1:8091 and committed the recorder + both fixtures (fde3954: 15 responses each, offline replay identical to live, 0 live-vs-frozen discrepancies, confident 11-line FIT 22/61 six-inch x0.35, unsure seed 7 lands 8 inliers, item page 457/481; live response bytes drifted slightly between the two live runs but the parsed candidates are identical - recorded in the header), and (b) written tests/test_matchfit_station.py (340 lines) - that one was still uncommitted; the driver committed it in 330a9f4. This session verified both against the design with fresh eyes (all recorder helpers the test imports exist: SID/PLAN/DOCID/SITE_DIR/build_tree/_input_hashes/_checkout_surface/_hash_surface; import-safe at module level), then ran it: 2 passed in 55.92 s, zero changes to the test needed. Verified fixture header facts against the acceptance boxes: confident expected_stdout line 3 = "FIT (eloftr) 22/61 points on six-inch-1st.webp x0.35, rot 3.6 deg, 0.23 m/px, residual 3 m" (11 lines total, "drawings 1 -> 1", "no review item"); frozen_heldout.best = six-inch x0.35 61/22/3.62/3.1 corner 58.6 centre 2.9 with live_vs_frozen_discrepancies [] ; unsure expected_stdout line 3 = "not sure: 8 consistent points (need 10) [six-inch-1st.webp x0.7, rot -44]" (8 lines, page "457 open of 481", item candidate why "no model answer" pairs []). Both stubs serve exactly the 15 recorded /match responses + 1 /health, RoMa at a dead ephemeral port, pass-through guard - the no-network proof. Full suite (baseline /tmp/aw302f_baseline.log: 1 failed placement_gestures (agent a's 307bb, on main, not mine) / 157 passed / 1 skipped / 324.50 s) running for the box-6 diff.
+
+## 2026-10-14 302f DECISION: iteration 127 (conclusion) - 302f DONE, all six boxes verified and ticked; committed the task file only (agent a's 307d PNGs left in the working tree, uncommitted from this branch)
+Full suite finished: 168 passed / 1 skipped / 0 failed (499.89 s) - strictly better than the /tmp/aw302f_baseline.log yardstick (1 failed test_fit_queue placement_gestures - agent a's 307bb work, since fixed on main / 157 passed / 1 skipped), so box 6's "no new reds" holds with room to spare. Isolated verification that MY test alone is hermetic: git status snapshot before and after a lone tests/test_matchfit_station.py run (2 passed, 55.62 s) is byte-identical; the only working-tree dirt from the full-suite run is the six docs/site_flow/ PNGs regenerated by agent a's 307d test (test_owner_check writes them every run; the files are in 307d's Touches, so I left them uncommitted here and committed only tasks/302f-matcher-station-test.md + DECISIONS.md from this branch). Status: done. If the test later fails with the drift-detector message, the remedy is recorded in the hand-over: rerun record.py in the working phase (live ELoFTR), commit refreshed fixtures; nothing in the test is hardcoded.
+
+
 <!-- task 303 -->
 # Task 303 fit-provenance
 
