@@ -48,16 +48,55 @@ the original or a facsimile of it, its date, its licence, and its resolution bef
 
 ## Hand-over
 
-(2026-10-13, iteration 152, agent a - **BOTH OPEN DATE CHECKS ANSWERED (live, NO repo edits). 1a: the Poe LOC map gets NO date swap - the page date "1860s" IS the LOC-verified drawing date (loc.gov item: "[186-]"/1860); the notation in its signature is the SHEET SIZE "(17x29.)", not a year (151's "1864" was a misread; verified by full-res crop). 1b: the Defenses plate swaps to 1895 - the David Rumsey/IA group 1780.000 this scan comes from is cataloged 1895 ("Julius Bien & Co., Lith., N.Y. (1891-1895)"); the plate header reads "ATLAS TO ACCOMPANY THE OFFICIAL HISTORIES OF THE UNION AND CONFEDERATE ARMIES 1861-1865" (151's "UNITED STATES" was a misread); panels surveyed Nov 30 - Dec 1864. Staging the first edition (1884-85) could NOT be verified online from this machine (all routes blocked - see below) so the row takes 1895. Tests last ran 7/7 green in 150, nothing changed since. The ONLY thing left of box 3: the site point (the Clayton 1804 map was downloaded but not yet looked at - /tmp is gone), then apply like 145-150.**
+(2026-10-13, iteration 155, agent a - **MAIN MERGED (commit 3093e4e, 12/12 tests green). Site-point research in progress: Fort Nashborough = Q5471739, P625 (36.164167, -86.774444) [Wikidata, prec 0.001; Wikipedia infobox same; OSM way 130910783 same] = the Clayton 1804 "former Fort" at the town's SW corner, 217 m NORTH of the city P625; the Clayton map read (the river band at the bottom = the rivers' corner, the Rich Branch enters east of the town; see below). Verdict on the point NOT yet settled - needs a 2-anchor georef of the Clayton map + the Haydon 1860 cross-check. /tmp downloads are gone again - re-download URLs below.**
 
 ### Current state
-- Repo UNTOUCHED this session (all research was web + /tmp). Staged files still 3/11/11; fit/src_us_cities.py
-  still 3 sites Q60/Q61/Q62, 11 rows; --check 11/11; golden 3/11/11; tests 7/7 from 150.
+- **Merge done (3093e4e):** `git merge main` conflicted only in web/data/review.json. Resolved to MAIN's side
+  (byte-identical): main's port commit bba5961 is the newer, complete export (at 10-14 02:54) - it drops
+  fort-ancient-q5470727 (RESOLVED: the port added data/db/platefits/fort-ancient...n0076_1.json, so the item
+  leaves the open queue) and carries numancia's owner "Not this" candidate c_0fa271e2444f7bfc (data/db/notthis/
+  + data/review/numancia.c_0fa271e2444f7bfc.json; old data/review/numancia.json deleted on main). My branch's
+  copy was the same 457-item set with only a stale at-timestamp (10-13 20:37) - no unique items, nothing lost.
+  Read-only re-computation of open/closed from merged data/review + platefits = 456 = export, 0 plans lost.
+  Tests 12/12 green (src_us_cities, region, serve). My staged files still 3/11/11; --check 11/11 from 150.
+- **Site-point research (155, all live):**
+  - **Fort Nashborough = Q5471739** ("former stockade in Nashville, Tennessee"): P625 (36.164167, -86.774444),
+    precision 0.001 (~111 m); P131 Q1509 (US). Wikipedia infobox = the same 36.16417/-86.77444 and says a
+    replica stands "along First Avenue North, several hundred meters from the original site". OSM way
+    130910783 (historic=fort, wikidata=Q5471739) = the same spot (36.1642, -86.7754). So the fort - the Clayton
+    map's "D Cross's owner / Stone House / former Fort" at the town's SW corner - sits 217 m NORTH of the
+    city P625 (36.162222, -86.774444), same longitude.
+  - **Clayton 1804 map READ (1400 px rendering of the full 2557x1913):** the river band runs along the BOTTOM
+    of the drawing; the fort is on it at the town's SW corner, where the river bends; the town (numbered
+    buildings 1-20, Market/Main St, White Hall, Nashville Inn, Dr Henning's) is NORTH of the river; the
+    **Rich Branch** enters from the top-right and flows south into the river EAST of the town (its confluence
+    is in the drawing's SE corner, next to the "Cumberland River" label - the map's author labels the whole
+    band "Cumberland River"); "Johnson's House, Ferry & Keel Boat Landing" is at the western river edge;
+    Cemetery / "now Capitol Hill" (the Walker house) / Judge McNairy's / Sulphur Spring extend the drawing
+    well NORTH of the town. Hypothesis: the bottom band is the rivers' corner (the Tennessee running
+    SW->E into the Cumberland), so the 1804 town sits on the NE side of the corner and the P625 point
+    (217 m south of the fort) likely falls INSIDE the drawn extent - but the hand-drawn, not-to-scale sketch
+    must be georeferenced before the verdict (147/148 precedent: point = center of the drawn extent).
+  - **OSM river data around the CBD is unreliable - do not trust it for this decision:** api.openstreetmap.org
+    /map (0.02 deg boxes) + /way/40806685/full ("Cumberland River") give a downtown "hook"
+    (36.177,-86.781) -> (36.161,-86.747) that puts the river EAST of P625 at 36.162 lat (contradicting 151's
+    "P625 east of the Cumberland") and no Tennessee River in the SW boxes at all; the confluence is not
+    cleanly mapped. Nissan Stadium (way 58759639) is (36.1665, -86.7713) - NE of the CBD, not at a river corner.
+    Use the old maps + Wikidata, not OSM, for the point decision.
+  - **OVERPASS IS DEAD FROM THIS MACHINE** (PITFALLS added): overpass-api.de -> HTTP 406 even with a UA;
+    kumi.systems -> XHTML error page. Use api.openstreetmap.org instead: /map?bbox=... (bbox <= ~0.02x0.02
+    deg or it hits the 50000-node limit) and /way/{id}/full for single ways.
+  - **Haydon 1860 downloaded but NOT yet looked at** (context limit). Re-download URLs (both verified live 155):
+    Clayton: https://upload.wikimedia.org/wikipedia/commons/0/0c/1804_Map_of_Nashville_published_1880.jpg
+    (2557x1913); Haydon: https://upload.wikimedia.org/wikipedia/commons/d/da/1860_Haydon_map_of_City_of_Nashville_and_Edgefield.jpg
+    (10000x6082, 10.4 MB). PIL lives in the PROJECT .venv, not system python3: run `.venv/bin/python` and set
+    Image.MAX_IMAGE_PIXELS = None (the Haydon trips PIL's 178 M-px limit).
 - Q23197 + Q5471744 verified facts from 151 stand (catalog_wd disk cache, data/raw/catalog/wd/):
-  Q23197 label "Nashville", ONE P625 (-86.774444, 36.162222) = downtown EAST of the Cumberland, P373
-  ['Nashville, Tennessee'], P131 [('Davidson County','Q1177705')], enwiki 'Nashville, Tennessee', no trap;
-  Q5471744 (Fort Negley) ONE P625 (-86.774658, 36.145097), P373 ['Fort Negley'] = photos + 3 Fletcher views,
-  no plan. No catalog collision (151 greps).
+  Q23197 label "Nashville", ONE P625 (-86.774444, 36.162222), P373 ['Nashville, Tennessee'], P131
+  [('Davidson County','Q1177705')], enwiki 'Nashville, Tennessee', no trap; Q5471744 (Fort Negley) ONE
+  P625 (-86.774658, 36.145097), P373 ['Fort Negley'] = photos + 3 Fletcher views, no plan. No catalog
+  collision (151 greps). (151's "P625 EAST of the Cumberland" was an assumption from the confused OSM data -
+  re-express the lead doc's point note from the map evidence instead.)
 - **1a (Poe map) VERDICT: no swap.** Live-checked https://www.loc.gov/item/2003630459/?fo=json (needs a
   browser User-Agent; the web_fetch tool gets 403): item date "186?", created_published "[186-]", dates
   facet 1860, creator "Poe, O. M. (Orlando Metcalfe), 1832-1895", desc: "...Signed in ink handwriting at
@@ -116,11 +155,20 @@ the original or a facsimile of it, its date, its licence, and its resolution bef
   --check is offline-safe either way.
 
 ### EXACT next steps: settle the site point, apply the verdicts (the 145-150 pattern), then done
-1. **Site point (the only research left):** re-download the Clayton 1804 map (url above), look at the drawn
-   extent, fix the nashville-q23197 point (P625 vs refined center of the drawn extent; Nominatim landmarks:
-   the Cumberland-Tennessee confluence, the Rich Branch mouth, the Cumberland's west bank by the town) so
-   the 2000 m town box (hw 1000 m) covers the old town; record the choice + why in the lead doc (the 147/148
-   SF pattern).
+1. **Site point (the only research left, CONTINUED from 155):** re-download both maps (URLs above; .venv
+   PIL + MAX_IMAGE_PIXELS=None). (a) Crop the Clayton full-res around the fort marker (the small-image
+   (390,800) of 1400x1047 -> full-res ~(720,1465)) and around the SE corner (Rich Branch confluence, small
+   ~(1250,850) -> full-res ~(2275,1552)); record their pixel coords. (b) Get the Rich Branch's modern
+   confluence coordinates: Nominatim "Rich Branch" failed in 155 - try the OSM API /map?bbox=-86.77,36.15,-86.75,36.17
+   (0.02x0.02 deg fits the 50k-node limit) and look for a waterway named "Rich Branch" (the Edgefield area,
+   east of the CBD). (c) Georef the Clayton drawing with the 2 anchors (fort = 36.164167,-86.774444; the
+   confluence) as a linear map, compute the drawn extent's center (SW corner at the fort, NE at the
+   Cemetery/McNairy hill, W at the Johnson ferry, E at the Rich Branch). (d) Cross-check on the Haydon 1860
+   (to-scale, has a scale bar): find the 1804 core area (the dense old grid WEST of the Rich Branch, around
+   the fort corner) and its extent; the two should agree to a couple hundred m. (e) VERDICT: point = P625
+   if the 2000 m box (hw 1000 m) covers the drawn extent with margin, else the center of the drawn extent
+   (147/148 precedent); record the choice + why in the lead doc. Both candidates leave every P625 <50 km
+   away and the evidence tie stores the table point, so --verify/--check are offline-safe either way.
 2. **Apply (one session):** fit/src_us_cities.py: docstring += Nashville (replace "Nashville follows in a
    later session"); SITES += Q23197 (id "nashville-q23197", name "Nashville", named "Nashville", kind
    "town", region "United States", place "Davidson County, Tennessee", wikipedia
