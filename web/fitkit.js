@@ -311,8 +311,10 @@ function _fkHint() {
     const turn = `Scale ${P.anchor.mpx.toFixed(2)} m per page pixel, turned ${P.anchor.rot > 0 ? '+' : ''}${P.anchor.rot.toFixed(1)}°.`;
     if (pins.length < 3) fl.textContent = `${turn} ${pins.length ? `${pins.length} pin${pins.length > 1 ? 's' : ''}: ${pins.length === 1 ? 'the drawing slides onto it' : 'two pins set the place, scale and turn exactly'}; a third shows whether the drawing is true.` : ''}`;
     else {
-      const r = simFit(pins).resid;
-      fl.innerHTML = `${turn} Your ${pins.length} pins agree within ${Math.ceil(Math.max(...r))} m: ` +
+      // how far each pin is from where the drawing now puts that spot (a move after pinning shows here)
+      const k = Math.cos(P.anchor.lat * Math.PI / 180);
+      const r = pins.map(p => { const a = _fkAt(P.anchor, p.u, p.v), b = merc([p.lon, p.lat]); return Math.hypot(a[0] - b[0], a[1] - b[1]) * k; });
+      fl.innerHTML = `${turn} Your ${pins.length} pins sit within ${Math.ceil(Math.max(...r))} m of the drawing: ` +
         r.map((m, i) => `<span class="${m > 15 ? 'bad' : ''}">${i + 1}: ${m.toFixed(0)} m</span>`).join(' · ') +
         (Math.max(...r) > 15 ? '. A pin far off the others is on the wrong spot, or the drawing is not true there: Undo it.' : '.');
     }
@@ -347,7 +349,7 @@ async function _fkNotThis() {
   $('#fknot').disabled = true; if (st) st.textContent = 'Recording…';
   try { await S.db.doc(`notthis/${id}`).set({ site: s.id, plan: r.id, title: r.title || '', at: new Date().toISOString() }); }
   catch (e) { if (st) st.textContent = `Could not record it (${e.message}).`; $('#fknot').disabled = false; return; }
-  _fkNotSet.add(id);
+  _fkNotSet.add(id); lsSet('aw.notThis.last', { id, title: r.title || '' });
   // the PUT returns after the server has rebuilt web/data/fit_queue.json without the picture
   if (typeof FQ !== 'undefined') { FQ.loaded = false; await fqLoad(); }
   if (fromQueue && fqPending()[0]) { endFit(false); await fqPlace(); return; }  // the next queued picture (this site's next, or the next site)
@@ -364,6 +366,25 @@ const _fkNotSet = new Set();
 (async () => {
   try { const r = await fetch('api/db/notthis'); if (r.ok) for (const d of (await r.json()).docs || []) _fkNotSet.add(d.id); } catch {}
 })();
+// the queue honours the set at once too (a queue file rebuilt elsewhere, e.g. on the VM, may predate the drop)
+const _fkPending = fqPending;
+fqPending = function () { return _fkPending().filter(e => !(e.best && _fkNotSet.has(`${e.site}.${e.best.plan}`))); };
+// the last "not this" can be taken back from the queue card (the db doc deleted: the server lifts the drop)
+const _fkPatch = fqPatch;
+fqPatch = function () {
+  _fkPatch();
+  const last = lsGet('aw.notThis.last', null), card = document.getElementById('fqcard');
+  if (!last || !card || !_fkNotSet.has(last.id) || $('#fknotundo')) return;
+  const b = document.createElement('button'); b.id = 'fknotundo';
+  b.textContent = `Undo "not this" (${(last.title || last.id).slice(0, 40)})`;
+  b.onclick = async () => {
+    b.disabled = true;
+    try { await S.db.doc(`notthis/${last.id}`).delete(); } catch { b.disabled = false; return; }
+    _fkNotSet.delete(last.id); lsSet('aw.notThis.last', null);
+    FQ.loaded = false; await fqLoad();
+  };
+  (card.querySelector('.tools') || card).appendChild(b);
+};
 const _fkPlanMatches = planMatches;
 planMatches = function () {
   const out = _fkPlanMatches();
@@ -420,7 +441,7 @@ function _fkOnWheel(e) {
   if (!dy) return;
   if (performance.now() - _fkWheelAt > 600) _fkPush(false);  // one undo step per wheel burst
   _fkWheelAt = performance.now();
-  _fkAbsorb();  // a corner dragged since the last transform joins the anchor first
+  if (P.pairs.length <= 5) _fkAbsorb();  // a corner dragged since the last transform joins the anchor first (never over pins: they would pull it back)
   if (e.altKey) P.anchor.rot += dy * 0.01;             // 1 degree per 100-unit notch
   else P.anchor.mpx *= Math.exp(-dy * 0.0015);         // the page canvas's own factor: wheel-up grows
   _fkReemitLive();
