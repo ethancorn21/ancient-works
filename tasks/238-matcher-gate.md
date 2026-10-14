@@ -1,4 +1,4 @@
-Status: in-progress
+Status: done
 # 238: Every matcher fit goes through the frozen 001 gate
 Depends on: 302f, 302g
 Touches: fit/matchfit.py, tests/test_matchfit_gate.py, docs/gate.md, tests/fixtures/matchfit_station/records.json, tests/test_matchfit_station.py
@@ -31,14 +31,20 @@ re-tuning; this task adds no threshold, no clause, no exception for the matcher'
       consensus; the gate: large median residual, radial gradient — the registered 15% scale
       miss, section 9, is the class only the gate catches). No threshold or rule change
       anywhere else in the file.
-- [ ] `tests/test_matchfit_gate.py` (new file; no network: the matcher's `/match` answers come
+- [x] `tests/test_matchfit_gate.py` (new file; no network: the matcher's `/match` answers come
       from recorded fixtures behind the ephemeral-port stub idiom of `tests/conftest.py`;
       `fit_gate` itself is numpy-only): one candidate that passes the judge but fails a gate
       clause produces no document and the refusal reason; one candidate that passes both
       produces a document whose score is the gate's median; and the 22 golden hand-fit
       documents and all 49 existing matcher documents in the real checkout are byte-unchanged
-      after the test.
-- [ ] The suite has no new reds against the newest driver loop-start note in PROGRESS.md.
+      after the test. (Implemented strictly stronger than the stated idiom: the test opens NO
+      socket at all - the recorded answers replay through the recorder's `_fake_match` in
+      process; `fit_gate` is numpy-only. See the test's docstring.)
+- [x] The suite has no new reds against the newest driver loop-start note in PROGRESS.md.
+      (Measured this session, box 5: baseline BEFORE the new file 177 passed / 1 skipped /
+      0 failed - the 2026-10-13 note's fit_queue red had since been fixed in main, so the
+      branch baseline is fully green and matches the 307bc loop-start note; AFTER: 180 passed
+      / 1 skipped / 0 failed = baseline + the 3 new tests, zero failures.)
 
 ## Notes
 - `pipeline/fit_gate.py`: `gate(pairs, transform=None) -> (verdict, stats {n, med, slope_o,
@@ -69,84 +75,82 @@ test anyway and must expect the post-238 fixture. If the driver prefers 239 to o
 
 ## Hand-over
 
-(2026-10-14, iteration 205, agent a - step 4 done: docs/gate.md section 10 appended (pure append,
-boxes 1-3 ticked); next session = step 5, write tests/test_matchfit_gate.py and run the full suite)
+(2026-10-14, iteration 206, agent a - DONE: all five boxes ticked, Status: done; the driver
+re-checks (boxes ticked + suite green). If reopened: re-run
+`.venv/bin/python -m pytest tests/test_matchfit_gate.py tests/test_matchfit_station.py -q -p no:cacheprovider`;
+the station test is the fixture drift sentinel (its _drift vs records.json input_hashes).
 
-STATE: steps 1-4 of the 201 plan DONE, boxes 1-3 ticked. (1) _settle extraction (acbd056).
-(2) The gate feature (69470fe): _settle runs the frozen 001 gate (batch_us.gate_placement on the
-doc's own pairs, transform=None - no claimed placement, the gate solves the canonical similarity)
-between judge and write; a refusal becomes the candidate's refusal (the gate's clause verbatim,
-the existing why print/entry path, no document); an accept writes the doc with score = the gate's
-median and the matcher block gains "resid_m": round(raw matcher residual, 1); run() takes an
-optional results list ({site, plan, outcome written|refused|dry, path, why, kind} per candidate).
-(3) The 302f station fixture refresh (8af2d91) - branch suite green again.
-(4) This session: docs/gate.md section 10 "The matcher's fit as a gate input (238, 2026-10-14)"
-appended (pure append, +45 lines; sections 1-9 byte-identical; no threshold/rule change - the
-section-1 registration stands). The section: the input (up-to-8 spread-selected inlier pairs,
-transform=None = the section-4 "true" case and the batch's own convention; doc score = the gate's
-median, badbury 0.0; resid_m = the raw matcher residual); the two refusal stages (judge:
-weak/rotated/near-line consensus; gate: large median residual, radial gradient, degeneracy);
-the section-7 restatement (a consistent global error passes, uniform 15% scale included -
-measured; the review queue and the 18/20 sample are the backstops).
-REMAINING: step 5 ONLY - tests/test_matchfit_gate.py (TEST DESIGN below) + the FULL suite
-(box 5: no NEW reds against the newest driver loop-start note in PROGRESS.md - 307bc, 2026-10-14:
-177 passed / 1 skipped / 0 failed; measure the actual baseline at session start). If green:
-tick boxes 4-5 and set Status: done.
+WHAT IS SHIPPED (all merged into this branch, one commit per step, see git log):
+- fit/matchfit.py: _settle runs the frozen 001 gate (batch_us.gate_placement on the doc's own
+  normalized pairs, transform=None) between judge and write. Refusal -> no document, the
+  candidate's refusal carries the gate's clause verbatim (why print + results entry); accept ->
+  doc score = the gate's median residual, matcher block gains resid_m (the raw matcher
+  residual). run(results=None) appends one {site, plan, outcome written|refused|dry, path, why,
+  kind} entry per candidate (239 consumes this).
+- docs/gate.md section 10 (pure append; section 1's registration and section 2's rule unchanged):
+  the input, the two refusal stages' division of failures, the section-7 limit measured for
+  this input (a uniform 15% scale re-solves and PASSES; only mutually-inconsistent anchors
+  fail, med 96.8 > 45).
+- tests/fixtures/matchfit_station/records.json refreshed (8af2d91) for the doc-shape change
+  (score 0.0, resid_m, the two 'gate 0.0 m' lines, depiction source); the 15 recorded /match
+  responses, records_unsure.json and the input hashes are untouched.
+- tests/test_matchfit_gate.py (this session, 3 tests, 38 s, zero sockets):
+  1. passes-both: the recorded badbury ELoFTR answer replayed in-process (rec._fake_match(
+     fixture["responses"]) - the RESPONSES dict, not the fixture; mf.reachable =
+     lambda url=None: False) through the real mf.run on the recorder's tmp tree: the doc is
+     written, {k:v | k != at} byte-equal to the 302f fixture doc, score recomputed in-test as
+     fit_gate.gate(doc["pairs"], None) (accept, med 0.009029976684642005 -> 0.0), resid_m 3.1,
+     results entry {written, why None, kind eloftr}, stdout byte-identical to the fixture's
+     FIT line.
+  2. passes-judge / fails-gate (SYNTHETIC, recorded fixture untouched): wrap mf.fit_row and
+     perturb the RETURNED pairs' ground points - all 8, +/-200 m east alternating in spread
+     order, Mercator about their centroid. The judge cannot see it (its inputs are computed
+     before the pairs exist, fit_row; verified 205). The gate refuses: no document, why
+     "median residual 96.81302368864387 m > 45.0 m" byte-compared against a fresh
+     batch_us.gate_placement(_norm_pairs(perturbed), None) recomputation (score 96.8 >
+     MED_MAX), printed line carries the clause + "[six-inch-1st.webp x0.35, rot 4]".
+  3. the documented limit (docs sec 10): the 8 recorded pairs scaled 1.15x uniformly about
+     their centroid -> ACCEPT, med 0.012385761943715991 (score 0.0): a consistent global
+     scale error is invisible to a transform=None gate; the review queue and the 18/20 sample
+     are the backstops.
+  Hermeticity (a fixture over both run tests): rec._checkout_surface() (the WHOLE
+  data/db/platefits - all 71 docs = the 22 golden hand docs + all 49 matcher docs; the review
+  queue; the real badbury site dir behind the checkout's symlink; the site/plans/review JSON)
+  sha256-pinned before and after each run: byte-identical. No fixed ports (no sockets at all -
+  the conftest stub idiom minus the network), no writes outside the tmp trees.
+- PITFALLS filed: patching matchfit.reachable for an offline replay needs a lambda returning
+  False - a bare False (the 202/205 hand-over shorthand) raises TypeError: 'bool' object is
+  not callable, because run() calls reachable(roma) WITH the argument.
 
-MEASURED (iteration 205, throwaway offline script; reproducible from the fixture's 8 pairs in
-records.json header.confident doc.pairs - perturb in Mercator about the centroid of the 8 ground
-points, then re-round to 1 dp u/v + 7 dp lon/lat as batch_us._norm_pairs does):
-- as-recorded, transform=None: ACCEPT med 0.009029976684642005, slope_o 4.371e-05, io 8.427e-04 -> doc score 0.0.
-- uniform 1.15x scale about centroid: ACCEPT med 0.0124 (score 0.0).
-- radial (non-uniform) 15% / 50% at the edge (factor 1 + f*rho/rho_max): ACCEPT med 2.274
-  (slope_o 0.0093, io −0.67) / 7.593 (slope_o 0.0247, io −2.25) -> scores 2.3 / 7.6.
-  (With transform=None the gate cannot see a scale-shaped error at any measured magnitude -
-  docs section 10 states this.)
-- ALL 8 anchors offset ±200 m E, alternating in spread order: REJECT med 96.8075 (why "median
-  residual 96.80754... m > 45.0 m"; slope_o 0.437, io +18.6) - agrees with 201's 96.80919
-  (normalized pairs) / 203's 96.81302 (raw pairs pre-normalization) to <0.01 m. The hand-over's
-  earlier "4 of 8" phrasing was loose: 4-of-8 variants measure 48.4-60.3 (also med-clause rejects);
-  all-8-alternating is the construction that pins 96.8.
+VERIFIED (measured this session): my 3 tests 3 passed / 38.2 s; full suite baseline BEFORE the
+new file 177 passed / 1 skipped / 0 failed (493.9 s; the 2026-10-13 loop-start note's
+fit_queue::test_placement_gestures red is absent - fixed in main by the 307 work, so the
+measured baseline equals the 307bc note's 177/1/0); full suite AFTER 180 passed / 1 skipped /
+0 failed (530.7 s) = baseline + the 3 new tests, zero failures. Box 5 holds.
 
-TEST DESIGN (tests/test_matchfit_gate.py, decided 201, confirmed 203, refined 205; write into its docstring):
-- Idiom: the recorder's OFFLINE replay - rec._fake_match(fixture["responses"]) (NOT the whole
-  fixture - PITFALLS fit/) + patching mf.reachable -> False (no RoMa). Import the recorder like
-  test_matchfit_station.py does (importlib spec_from_file_location; rec.SID/PLAN/DOCID; its
-  build_tree(tmp, delete_hand_doc=True) builds the badbury tmp tree - site, plan row, grounds).
-  No network at all (never touches a socket - stronger than the ephemeral-port stub, say so in
-  the docstring), no subprocess, no fixed ports, nothing written outside the tmp trees.
-- Candidate 1 (passes both): the recorded badbury ELoFTR answer through mf.run(tree, [SID],
-  results=[...]) -> doc written; doc["score"] == round(fit_gate.gate(doc["pairs"], None)[1]["med"], 1)
-  recomputed IN the test (0.0); doc["matcher"] = the 7 old keys + resid_m 3.1; results entry
-  {outcome "written", path, why None, kind "eloftr"}; the FIT stdout line (capture stdout around
-  the in-process run) byte-identical to the FIT line in records.json header.confident
-  expected_stdout (the "FIT (eloftr) 22/61 ..." line - extract it from the fixture, don't hard-code).
-- Candidate 2 (passes judge / fails gate): SYNTHETIC (labelled synthetic in the docstring; the
-  recorded fixture is untouched): wrap mf.fit_row and perturb the RETURNED pairs' ground points
-  (lon/lat) - all 8, ±200 m E alternating in spread order, Mercator about their centroid, re-round
-  as _norm_pairs - then run as candidate 1. Assert: no doc file; results entry {outcome "refused",
-  path None, why == the gate's clause}; byte-compare why against a fresh
-  batch_us.gate_placement(perturbed pairs normalized, None) recomputation in the test; the printed
-  line contains that clause and the "[six-inch-1st.webp x0.35, rot 4]" bracket. Do NOT assert any
-  review item (the upsert belongs to the site_done line, not a bare run). The perturbation cannot
-  change the judge's verdict: in fit_row every judge input (inliers, rot, spread, resid_m) is
-  computed from the /match response + RANSAC on image px BEFORE pairs is assembled, and the judge
-  runs on best inside fit_row (verified 205, removed the re-read item).
-- Candidate 3 (hermeticity): sha256 every data/db/platefits/*.json and data/review/*.json of the
-  CHECKOUT before the runs and assert byte-identical after (rec._checkout_surface/_hash_surface
-  idiom or a plain {path: sha256} dict; covers the 49 matcher docs + the 22 golden hand docs;
-  all runs happen in the tmp trees). Also assert the checkout's web/data/sites/ is untouched.
-- Candidate 4 (backs docs section 10's limit statement): the 8 doc pairs scaled 1.15x uniformly
-  about their centroid (Mercator) PASS the gate: fit_gate.gate(pairs, None) == ACCEPT, med ~0.012
-  (recompute in-test; do not hard-code the float beyond a tolerance).
-- Expected runtime: a few seconds (pure in-process replay).
-- After writing: run the new test, then the FULL suite (.venv/bin/python -m pytest tests/ -q
-  -p no:cacheprovider). Box 5 = no NEW reds against the 307bc baseline (the driver's loop-start
-  note in PROGRESS.md may list known reds - compare against it, not against a green ideal).
+UNCOMMITTED (the harness saved the working tree; commit it first thing next session):
+- tests/test_matchfit_gate.py - NEW FILE, FINAL form. Verified this session: 3 passed / 38.8 s
+  standalone (that run is AFTER the last edit, which only removed an unused import; the 180-passed
+  full-suite run used the identical logic). The full suite has not been re-run with the final
+  bytes - trivially equivalent (unused import), but if cheap for the driver, a re-run settles it.
+- PITFALLS.md - one entry appended under fit/: the reachable-lambda patch trap (bare False ->
+  TypeError: 'bool' object is not callable, because run() calls reachable(roma) WITH the argument).
 
-PITFALLS relevant here (all filed under fit/; search PITFALLS.md): _fake_match takes
-fixture["responses"]; np.abs on an (n,2) point array is per-element - use the complex magnitude
-(and (n,1)*(n,2) broadcasts to (n,n,2)); hand_fit_docs.sha256 = 22 by:hand docs + 19
-data/sites/<id>/site.json (the store is 71 = 22 hand + 49 agent + 0 unmarked, so the golden does
-NOT cover the matcher docs - candidate 3's own snapshot does).
+EXACT NEXT STEP (one small session, or the head of the 239 session - 239 may not start before
+238 merges, so the commit must land first): commit the two uncommitted files, e.g.
+`git add tests/test_matchfit_gate.py PITFALLS.md && git commit -m "238: tests/test_matchfit_gate.py -
+the matcher's fit through the frozen gate, hermetic (zero sockets): the recorded fit passes both
+(judge then gate, doc score = the gate's median 0.0), a synthetic judge-passing/gate-failing fit
+writes no document with the gate's clause, the transform=None scale limit, the checkout pinned"`
+then stop. The task is done (all boxes ticked, Status: done) and awaits the driver's re-check
+(boxes ticked + suite green). If the driver rejects the done claim, the reasons will be in
+DECISIONS.md / the task file - act on those, do not re-derive. No other work remains in 238.
+
+PITFALLS relevant here (all under fit/ in PITFALLS.md): _fake_match takes fixture["responses"]
+(the flat sha->response dict, not the fixture); patching mf.reachable needs a lambda returning
+False, not a bare False (new this session); np.abs on an (n,2) array is per-element; the
+data/db/platefits store is 71 = 22 by:hand + 49 agent + 0 unmarked (the golden does NOT cover the
+matcher docs - this test's hermeticity fixture snapshots all 71); the per-site web/data/sites
+dirs are mostly symlinks into the shared store (382 of them) - hash the recorder's checkout
+surface, never the whole web/data/sites tree.
 
