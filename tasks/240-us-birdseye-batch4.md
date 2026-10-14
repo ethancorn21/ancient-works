@@ -88,10 +88,10 @@ exact output; the lead doc carries it verbatim in the QID section) -> --dry -> s
 commons.info re-check) -> --check (save the transcript; the Staging section carries it verbatim)
 -> lead-doc section (STAGED bullet with the view's facts + the full DROP list + the QID-facts
 paragraph) -> --golden -> test extension (mirror tests/test_src_us_birdseye.py: the no_network
-socket-blocking fixture; the PASS-key list; the SITES-id / extras-id / year / point / named tables;
-the golden compare) -> module tests -> the FULL suite (restore the 307d pngs first, below) ->
-commit. The lead doc's Staging section ends with the Not-done-yet pointer to 241 naming the next
-two or three candidates (the 236b precedent).
+socket-blocking fixture; the PASS-key list; the SITES-id / extras-id / year / point / named
+tables; the golden compare) -> module tests -> the FULL suite (restore the 307d pngs first,
+below) -> commit. The lead doc's Staging section ends with the Not-done-yet pointer to 241 naming
+the next two or three candidates (the 236b precedent).
 
 **Rules (unchanged from 236b):** NEVER write the canonical files (data/catalog/extras.jsonl,
 data/commons/files.jsonl, classified.jsonl - that is 236c); NEVER touch 236a's or 236b's files
@@ -142,159 +142,160 @@ the per-city playbook. (The pool search shows which survived the gates; do not t
 verify live.)
 
 ## Hand-over
-(2026-10-14, iteration 165, agent c - session 6 of 240: Minneapolis (city 3) RESEARCHED this
-session - QID Q36091 verified live (first-guess Q3094 is a Romanian monastery - the third
-mislabel trap; the name search's first P625 hit = the city itself, 0.0 km - no trap), pool
-50 unique / 20 good, all 9 Minneapolis sheets eyeballed one by one, PICK = the 1885 W. V.
-Herancourt / I. Monasch near-vertical sheet (LOC 75694644, 13152x9408 - the steepest
-whole-city view in the pool). The session ended at the context limit AFTER the records
-(DECISIONS entry, this hand-over, the task-Notes line, a new PITFALLS entry) were written: the
-PITFALLS.md edit is still UNCOMMITTED in the working tree - fold it into the landing commit.
-NO tests ran this session (research only); last test state = the St. Paul-landing run
-(iteration 164): 182P/1S/0F, batch4 tests 5/5. NEXT (session 7): the Minneapolis LANDING (the
-pattern below); then Cleveland (city 4) research + landing; then CLOSE.)
+(2026-10-14, iteration 166, agent c - session 7 of 240: Minneapolis (city 3) LANDING in progress.
+This session did the fresh-eyes ORIENTATION MEASUREMENT of the 13152 px original (step 0 of the
+landing pattern): verdict - the sheet's top faces ~NNW/N (U ~330-350 deg), drawn from a high
+vantage on the SOUTH/SOUTHWEST of the city (west bank, below the downtown), looking north
+(slightly west); the big on-sheet suspension bridge IS the 3rd Street bridge (confirmed by form).
+No task file was touched (git tree clean; last test state 182P/1S/0F at 164, batch4 5/5).
+NEXT: run the landing steps 1-6 exactly as recorded below / in the DECISIONS entry "240 DECISION:
+iteration 166"; then Cleveland (research, session 8; landing, session 9); then CLOSE.)
 
-**State NOW (all committed on agent/c; the St. Paul landing commit 09c3c01 tops the branch
-log):**
-1. **Module** fit/src_us_birdseye_batch4.py: SITES = Denver (Q16554) + St. Paul (Q28848);
-   SOURCES = denver_1908 + st_paul_1906. Staging files 2/2/2. The Minneapolis SITES entry
-   (Q36091) + the MINNEAPOLIS_1885 row-list + the SOURCES minneapolis_1885 entry are NOT yet
-   added - that is the landing's module edit. The lead doc is complete for Denver + St. Paul
-   (the Staging section's Not-done-yet pointer already names Minneapolis + Cleveland for 240).
-2. **Test** tests/test_src_us_birdseye_batch4.py (5 offline tests, all green): the PASS-key
-   list = Denver + St. Paul; the SITES-id / extras / years / points / named_by_qid tables
-   hold both cities; the golden 2/2/2 pins both.
-3. **Baselines (R1):** merged-tree 177P/1S/0F; the Denver-landing and St. Paul-landing runs
-   were both 182P/1S/0F (main has not moved since R1; main HEAD = 8678c8a). No known reds on
-   this tree. The full suite takes ~9 min.
-4. **Minneapolis facts (researched this session; the full record = the DECISIONS entry "240
-   DECISION: iteration 165" + the /tmp/aw240_mpls_* artifacts, wiper-prone - rebuild recipes
-   below and in the 162/163 entries):**
-   - **QID Q36091** (the first-guess Q3094 is a Romanian monastery - the mislabel
-     trap, caught by the label check): label "Minneapolis"; P625 = ONE 30 m value
-     (-93.26916666666666, 44.981944444444444) the downtown core (no refinement); P373 = the
-     STRING "Minneapolis" (BARE - the US quirk in its extreme: place written "Hennepin
-     County, Minnesota" from P131 + the state); P131 = Hennepin County (Q486229) ONLY; P17 =
-     Q30; enwiki "Minneapolis"; name search: first P625 hit = the city itself (0.0 km) - NO
-     trap line expected from --verify (Denver's pattern); the in-city institutions (0.4-4.5
-     km) and the metro/airport rank behind the city; other P625 hits: Minneapolis, Kansas
-     (746.9 km), Minneapolis, NC (1370.2 km). No existing site holds Q36091 (all five files,
-     0 hits). Site id = **minneapolis-q36091** (slug verified live).
-   - **PICK = `File:Minneapolis, Minnesota. LOC 75694644.jpg`** (13152x9408, PD; page date
-     1885 = the drawing's year - no Zwolle swap; LC Panoramic (2nd ed.) 396; W. V. Herancourt
-     (draughtsman) + I. Monasch (publisher); banner "BIRD'S EYE VIEW OF MINNEAPOLIS, MINN.
-     1885 POPULATION 71,235"; the steepest near-vertical whole-city view in the pool - the
-     built-up city fills the whole frame, no horizon band). Orientation for the note field
-     (the 1280 px thumb read; MEASURE against the 13152 px original at landing - the St. Paul
-     landing needed a fresh-eyes orientation correction): drawn from a high vantage on the
-     SW; the Mississippi runs along the sheet's lower/right edge (the flow exits at the
-     upper-left, toward St. Paul); the 1885 city proper (west bank) is the dense side, the
-     east-bank farmland (pre-1909 Saint Anthony) is the fine-grid side; the Minnesota River
-     enters from the west/southwest edge. Same-sheet scan: the 13152x9408 .tif twin.
-   - **Pool drops (all 50 accounted for; the per-item reasons go into the lead doc at
-     landing):** 1867 "Minneapolis and Saint Anthony" LOC 73693455 (+ .tif) - the twin-cities
-     sheet (both pre-merger cities, oblique, pre-annexation scope); 1879 "Panoramic view ...
-     1879" LOC 75694642 (+ .tif) - the "Looking north west" oblique; 1879 DPLA 7ccb8501 - a
-     second printing of the SAME 1879 sheet (the M&StL Railway Co. edition); 1891 A.M.R. Smith
-     & Geo. Renger LOC 75694646 (3 scans: the LOC .jpg, the LOC 75694905 "1/4 size" photocopy
-     .jpg/.tif, the DPLA 30b065a3 copy) - near-vertical but recedes to a horizon, shallower
-     than the 1885 pick; 1907 "Looking southwest from Guaranty Bldg." LCCN2013647302 (+ .tif)
-     - a PHOTOGRAPHIC panorama strip (F.L. Wisthof Photo), low vantage, downtown close-up - a
-     photograph, not a drawn bird's-eye view; 1886 "View of Minneapolis - engraved ...
-     Hageboeck" LCCN2008677251 .tif (12816x9504; the 1024 px .jpg twin too small) - an oblique
-     riverfront-CORRIDOR view (the 3rd Street suspension bridge in the foreground), not a
-     whole-city bird's-eye view; DPLA 396e002a "Bird's Eye View of the Minneapolis Public
-     Library System" - a schematic library-branch map (the MHL); DPLA 5a20a334 "Minneapolis
-     Perspective Map - GIANT Post Card" - a 1937 Langwith postcard (beyond the 1929 edge; a
-     street map, not a bird's-eye view); search noise: the Knowles + Eldridge Winona Co. farm
-     plates (the same David Rumsey plates that landed in St. Paul's pool), the 1500 Venice
-     view (held by the Minneapolis Institute of Art), the Yellowstone Poole Bros. 1898 map.
-     The 30 non-good: ten DPLA 2144-2227 px scans (incl. the Flour Milling District
-     2191x2813 - the item St. Paul's DROP list attributed to THIS pool, confirmed to belong
-     here - and the University of Minnesota campus sheet), NBY postcards 825/824 px, the
-     1904 photo 3072 px, Superior WI x2 (caption gate), the cul-de-sac (CC0, 3992 px), MCAD
-     (CC BY 3.0, 600 px), "Downtown Minneapolis" DPLA 6016x4763 (keep=0 - undated; also a
-     downtown close-up), Lake Minnetonka (gate, 2195 px), the Venice Google Art Project trio
-     (keep=0 - 1500 predates the window) + the 800 px detail, three Yellowstone covers, the
-     two 2026 Rebel Loon (CC0), Kapkap (CC BY 4.0, gate), the Dark-eyed Junco (CC BY 2.0,
-     600 px).
+**Minneapolis LANDING - exact next steps (all recorded in the DECISIONS entry "240 DECISION:
+iteration 166"; mirror the St. Paul landing of iterations 163-164):**
+1. **Optional quick read** of /tmp/aw240_m885_trestle.jpg (x 0-3000, y 3800-5000 of the original)
+   to close the viaduct-identity question (a label would pin it; do NOT block on it).
+2. **Module edit** fit/src_us_birdseye_batch4.py: (a) the SITES Q36091 entry with the full comment
+   block (the entry-165 facts: first-guess Q3094 = Căldărușani Monastery, Romania - the third
+   mislabel trap (a monastery); label "Minneapolis"; P625 ONE 30 m value
+   (-93.26916666666666, 44.981944444444444) the downtown core, no refinement; P373 the BARE STRING
+   "Minneapolis" (the US quirk in its extreme); P131 = Hennepin County (Q486229) ONLY; P17 = Q30;
+   enwiki "Minneapolis"; name search NO first-hit trap - first P625 hit = the city itself, 0.0 km
+   (Denver's pattern; in-city institutions rank behind: H.C. Medical Center 1.2 km, MIA 2.6,
+   MCAD 2.8, Great Northern Depot 0.4, Heart Institute 3.3, North/South Community HS 2.8/4.5,
+   metro 6.5, MSP airport 11.7; other P625 hits: Minneapolis KS 746.9 km, Minneapolis NC
+   1370.2 km); no existing site holds Q36091 (all five files, checked 165); site id
+   minneapolis-q36091 (slug "minneapolis" verified); name = "Minneapolis" (the caption prints the
+   full name - no short-form gate issue); place = "Hennepin County, Minnesota") with the note:
+   "aerial-photograph ground (no open LiDAR over the built-up city: bare-earth LiDAR erases the
+   streets); the street grid and the Mississippi carry the fit; the 1885 staged sheet is the
+   steepest (near-vertical) whole-city view in the pool (the built-up city fills the whole frame,
+   no horizon band), drawn from a high vantage on the south/southwest of the city (the west bank,
+   below the downtown) - the sheet faces ~NNW: the Mississippi enters upper-left (the rapids
+   below the falls, the long arch viaduct and its weir) and runs to the lower-right toward the
+   confluence (off-sheet past the bottom edge); the dense west-bank downtown core sits upper-left
+   of the 3rd Street suspension bridge (the two-tower masonry span at the sheet's mid-right), the
+   brickyard and the river's downstream bend fill the lower right - spanning the whole city
+   beyond the 2000 m town box, so its fit is likely to end a review item (the 236a NY-1811 /
+   DC-ring precedent)"; (b) the MINNEAPOLIS_1885 row-list (one row:
+   ("File:Minneapolis, Minnesota. LOC 75694644.jpg", "Q36091", "Minneapolis", dict()) - NO date=
+   entry: page date 1885 = the drawing's year, no Zwolle swap; the 13152x9408 .tif twin is the
+   same sheet) with the comment block (1885; LC Panoramic maps (2nd ed.), 396; 13152x9408,
+   Public domain; artists W. V. Herancourt (draughtsman) + I. Monasch (publisher); banner
+   "BIRD'S EYE VIEW OF MINNEAPOLIS, MINN. 1885 POPULATION 71,235"; the orientation measurement
+   summary - the session-7 fresh-eyes verdict above; the 1891 Smith & Renger and the 1879 sheet
+   are shallower - one row per sheet, the LOC .jpg staged); (c) the SOURCES entry
+   ("minneapolis_1885": dict(rows=MINNEAPOLIS_1885, p="birdseye", label="{name}, the W. V.
+   Herancourt / I. Monasch bird's-eye view (1885)")); (d) the module docstring and SITES-header
+   comment city-list updates (mirror the St. Paul edits of iteration 163 - substitution A there).
+3. **LIVE (all under .venv/bin/python):** --verify (3 QIDs: Denver clean; St. Paul the expected
+   São Paulo trap line; Q36091 expects NO trap line - if one appears, record it and re-check the
+   QID; save the output verbatim for the lead doc) -> --dry (expect 1 new site, 1 new picture)
+   -> stage (live commons.info re-check; if the pick vanished or is no longer PD, take the
+   next-best pool candidate - the 1891 A.M.R. Smith & Geo. Renger sheet LOC 75694646 - and record
+   the swap) -> --check (expect 3/3 PASS caption_coords, no join problems; append the transcript
+   to the Staging section) -> --golden (3/3/3).
+4. **Lead doc** docs/lead_us_birdseye_batch4.md: the Minneapolis section (STAGED bullet with the
+   view's facts + the apparent-angle note; the DROP list - the entry-165 DROPS paragraph plus the
+   30 non-good rows covered the way the St. Paul section did; the QID-facts paragraph; this
+   session's --verify transcript verbatim) + the Staging section counts to 3 views / 3 site rows
+   (the Not-done-yet pointer then names only CLEVELAND).
+5. **Test extension** tests/test_src_us_birdseye_batch4.py (mirror the entry-163 St. Paul
+   substitution pattern A-E, adapted: the module-header docstring line; the --check PASS-key list
+   (+ "minneapolis-q36091|File:Minneapolis, Minnesota. LOC 75694644.jpg");
+   test_sites_table_and_staged_rows' SITES-id dict + docstring; the years/points/named_by_qid
+   dicts; the date assertion) - keep the file pure ASCII (zero U+2018/2019/201C/201D).
+6. **Verify + commit:** the batch4 tests, then the FULL suite (.venv/bin/python -m pytest -q
+   -p no:cacheprovider; last state 182P/1S/0F at 164, main HEAD 8678c8a - if main has moved, diff
+   the failing set, not the number; ~9 min - start it, do the bookkeeping, check the log tail
+   before committing), then `git checkout main -- docs/site_flow/` (R5: restore the re-encoded
+   307d pngs to main's bytes) and COMMIT "240: Minneapolis landed (batch 4 city 3) - the 1885
+   Herancourt/Monasch sheet".
 
-**Landing pattern (proven twice - Denver, St. Paul; reuse verbatim for Minneapolis, then
-Cleveland):**
-0. **First:** if `git status` still shows the session-6 PITFALLS.md edit (the blank-crop
-   quirk entry), it goes into this session's landing commit; if /tmp was wiped, rebuild the
-   Minneapolis artifacts from the 162/163/165 DECISIONS records before eyeballing anything
-   again.
-1. **Module edit:** the SITES entry (full comment block: first-guess mislabel, every P625,
-   P373 string, P131, enwiki, name-search TRAP lines, the no-existing-site check across the
-   catalog + extras + 236a's + 236b's extras + web/data/sites.json, the slug; name = the
-   caption's short form; place = P131 + state) + the <CITY>_<YEAR> row-list (a date= entry
-   ONLY for a Zwolle swap - Minneapolis needs none) + the SOURCES entry (label "{name}, the
-   {artist} bird's-eye view ({year})") + the module docstring and SITES-header comment (the
-   city list).
-2. **Live:** --verify (save the exact output verbatim for the lead doc's QID section; for
-   Minneapolis NO trap line is expected - if one appears, record it and re-check the QID)
-   -> --dry -> stage (live commons.info re-check; if the pick vanished or is no longer PD,
-   take the next-best pool candidate and record the swap) -> --check (append the transcript
-   to the Staging section; expect all PASS caption_coords, no join problems) -> ALSO MEASURE
-   the sheet's orientation here (fresh eyes on the 13152 px original: the river's flow, the
-   Minnesota River's entry, the dense vs farmland sides) before writing the note-field angle
-   claim.
-3. **Lead doc:** the city section (STAGED bullet: year, artist, size, PD, page, apparent
-   angle; the DROP list covering every unique pool row with its reason; the QID-facts
-   paragraph) + the Staging section's counts (3 views / 3 site rows after this landing).
-4. **Close:** --golden -> extend the test (the PASS key, SITES ids, years, points,
-   named_by_qid, the date assertion, the header docstring's city list) -> the module tests ->
-   the FULL suite (.venv/bin/python -m pytest -q -p no:cacheprovider; expect 182P/1S/0F while
-   main is unchanged - if main has moved, diff the new count against the failing set, not the
-   number) -> git checkout main -- docs/site_flow/ (R5: restore the re-encoded 307d pngs) ->
-   commit "240: Minneapolis landed (batch 4 city 3) - the 1885 Herancourt/Monasch sheet".
+**Orientation measurement (session 7, this iteration - the evidence):** the original was
+re-downloaded to /tmp/aw240_mpls_885_orig.jpg (25.7 MB, 13152x9408; the URL is in
+/tmp/aw240_mpls_pool.json; PIL needs warnings.filterwarnings("ignore") - DecompressionBomb,
+123.7 MP > 89.5 MP limit). Crops (all /tmp, wiper-prone; rebuild = LANCZOS-resize to 2400 px wide
+from the orig): _full.jpg, _qnw/_qne/_qsw/_qse.jpg (quadrants), _banner.jpg, _strip1..4.jpg
+(river zone y 4200-8200 in 4 full-width segments), _susp1.jpg (x 2600-4800, y 4400-6400),
+_susp2b.jpg (x 6200-8400, y 4800-6600), _farleft.jpg (x 0-2600, y 4400-6800), _farright.jpg
+(x 8800-11600, y 5200-7800), _corner.jpg (x 9000-13152, y 6800-9408), _confl.jpg (x 7000-10500,
+y 6200-8600), _grid.jpg (x 0-13152, y 4000-9408, 500 px white grid + coordinate labels - the
+measurement reference), _mill.jpg (x 0-1600, y 4800-7200, contrast +15%), _weir.jpg (x 0-3800,
+y 4400-6000), _trestle.jpg (x 0-3000, y 3800-5000, NOT yet read). Findings (original-pixel
+coordinates; the image border is at y~9350, the banner "MINNEAPOLIS, MINNESOTA." at y~9750
+below it, the signature "W. Herancourt, Del. August 1885" + "I. Monasch, Minneapolis" at the
+bottom): the wide river runs diagonally from upper-left (x 0, y~4700) to the bottom edge, exiting
+at x~10500-11500 (the confluence is OFF-SHEET); upper-left end = a long stone arch viaduct
+(~11 arches, a passenger train on it) + an iron trestle above/behind it, crossing wide fast
+(white) water (x 0-3500, y 4400-5200) with a straight white band (weir / the lower lip of a drop)
+just below; a small meandering CREEK (a minor tributary, NOT a big river - the session-6
+"the Minnesota River enters from the west/southwest edge" claim is DROPPED) runs from the
+viaduct zone through the near-side city (a street bridge over it, x~1400-1800, y~5300-5600) and
+drops a small cascade (x~1400-1700, y~6200-7800) into the main water; at the far left a big
+brick/stone mill with a WATERWHEEL (no readable label) and a tall-spired church; a SMALL
+two-tower suspension bridge near the viaduct (x~3100-3370, y~5500-6200) - identity unresolved
+(the 1885 Mississippi had only the 3rd Street suspension, so it may cross the creek or be a
+stylised near-duplicate); THE BIG two-tower masonry suspension bridge (x~6950-9000,
+y~5900-6400; towers with an arch between them) = the 3rd Street suspension bridge (1876 type) -
+confirmed by form; a lattice truss bridge follows (x~9000-9550, y~6300-6700); the dense DOWNTOWN
+CORE cluster (the big multi-story white buildings) is on the FAR (upper) side of the river,
+upper-left of the 3rd Street bridge (core cluster centre ~x 3000, y 4500; the 3rd St span centre
+~x 8000, y 6250); the "HENNEPIN STEAM LAUNDRY" label on that far bank = Hennepin Avenue = the
+WEST bank => the core is the west-bank downtown. MEASUREMENT (on _grid.jpg): 3rd St bridge ->
+river exit: geographic 3rd St -> confluence bearing 108.7 deg ESE, on-sheet 136.4 deg => U =
+330 deg (NNW); core -> 3rd St: geographic 281 deg WNW, on-sheet 289.4 deg => U = 352 deg (N);
+viaduct -> 3rd St: U = 250 deg, the OUTLIER - and the on-sheet viaduct-bridge distance (6400 px)
+is ~3x the sheet's own ~2 km/1000 px scale for the 1.7 km falls-bridge distance, so the viaduct
+is NOT the Stone Arch at the falls' foot (44.9957, -93.2588) - it is further out on the west
+(identity still open - the _trestle.jpg crop is the remaining lead). CONSENSUS U ~330-350 deg:
+the top of the sheet faces ~NNW/N; the vantage is on the south/southwest side of the city (west
+bank, above the river below the 3rd Street bridge), looking north (slightly west). This refines
+the session-6 thumb read ("from a high vantage on the SW"): keep "south/southwest", drop any
+claim of looking east/northeast.
 
-**Research pattern (session 8, Cleveland):** (a) QID: clone /tmp/aw240_mpls_qid.py (itself a
-clone of the 236b dvr_qid pattern, repointed at this checkout; rebuild from the 162/163/165
-DECISIONS records if /tmp was wiped) - first-guess QID + label check (the mislabel trap has
-now hit three of four cities: a person, a person, a monastery), every P625 value, P373 (write
-the place from the county + state), P131, P17, enwiki, the limit-20 name search with
-distances for every P625 hit (Cleveland: check in-city institution traps and the other-state
-/ foreign namesakes; record TRAP lines exactly as St. Paul's); save the transcript. (b) Pool:
-/tmp/aw240_mpls_pool.py with CITIES=["Cleveland"] (six plain-phrase forms + "
-filetype:bitmap", srnamespace 6, srlimit 40; dedupe; the
-keep/caption/Public-domain/>=4000 px gates; 1280 px thumbs eyeballed one by one; artifacts
-under /tmp, re-verifiable). The pick = the steepest (near-vertical), best-scanned whole-city
-view (the caption names the city). Cleveland sits on the Cuyahoga at Lake Erie - check every
-sheet's lake side (the twin-city caution had no effect this time: the St. Paul side of the
-1885 sheet is pre-annexation farmland).
+**After Minneapolis lands:** CLEVELAND (city 4) - session 8 RESEARCH (the QID playbook:
+first-guess QID + label check - the mislabel trap has now hit three of four cities: a person, a
+person, a monastery; every P625; P373 (write the place from the county + state); P131, P17,
+enwiki; the limit-20 name search with distances for every P625 hit - Cleveland: check in-city
+institution traps and the other-state/foreign namesakes; no existing site holds the QID; slug;
+save the transcript. Pool: the /tmp/aw240_mpls_pool.py template with CITIES=["Cleveland"] (six
+plain-phrase forms + " filetype:bitmap", srnamespace 6, srlimit 40; dedupe; the
+keep/caption/Public-domain/>=4000 px gates; 1280 px thumbs eyeballed one by one). The pick = the
+steepest (near-vertical), best-scanned whole-city view (the caption names the city). Cleveland
+sits on the Cuyahoga at Lake Erie - check every sheet's lake side.) then session 9 LANDING (the
+same pattern as Minneapolis; the note field records the apparent angle).
 
-**After Cleveland (city 4) lands: CLOSE** - final full-suite run = the baseline; --check all
-PASS, no join problems; the four ids/QIDs collide with nothing (the known_sites() guard +
-the test); extend the test tables to the full set (four keys/ids/years/points/named);
-tick boxes 1-4 (each after its test passes); the lead doc's Staging section final (4 views /
-4 site rows; the Not-done-yet pointer then names only 241's cities); Status: done.
+**CLOSE (after Cleveland lands):** final full-suite run = the baseline; --check all PASS, no join
+problems; the four ids/QIDs collide with nothing (the known_sites() guard + the test); the test
+tables extended to the full set (four keys/ids/years/points/named); tick boxes 1-4 (each after
+its test passes); the lead doc's Staging section final (4 views / 4 site rows; the Not-done-yet
+pointer then names only 241's cities); Status: done.
 
 **Rules that bite (unchanged from the task Notes):** never write the canonical files (236c);
-236a's and 236b's files are read-only (the module's cross-check enforces); live commands
-under .venv/bin/python (the module top stays stdlib-only; /tmp scripts repoint sys.path at
-this checkout); the golden regenerates only via --golden; tests never bind fixed network
-ports or write outside the project and the temp dir; every full-suite run re-encodes up to
-ten docs/site_flow/307d_*.png - restore main's bytes before EVERY commit (R5) and never edit
-suite-hashed files mid-run (R6: data/ minus raw, web/data top level, docs/, specs/, tests/
-are snapshotted - finish all edits, THEN run, restore, commit; the memory files DECISIONS.md
-and tasks/ are NOT in the snapshot set, so the bookkeeping can be written while the suite
-runs); /tmp artifacts are wiper-prone - the rebuild recipes are in the task Notes and the
-162/163/165 DECISIONS entries. The full-suite run takes ~9 min - start it, then do the
-bookkeeping; check the log tail before committing.
+236a's and 236b's files are read-only (the module's cross-check enforces); live commands under
+.venv/bin/python (the module top stays stdlib-only; /tmp scripts repoint sys.path at this
+checkout); the golden regenerates only via --golden; tests never bind fixed network ports or
+write outside the project and the temp dir; every full-suite run re-encodes up to ten
+docs/site_flow/307d_*.png - restore main's bytes before EVERY commit (R5) and never edit
+suite-hashed files mid-run (R6: data/ minus raw, web/data top level, docs/, specs/, tests/ are
+snapshotted - finish all edits, THEN run, restore, commit; the memory files DECISIONS.md and
+tasks/ are NOT in the snapshot set, so the bookkeeping can be written while the suite runs);
+/tmp artifacts are wiper-prone - the rebuild recipes are in the entry-165 and entry-166
+DECISIONS records. The full-suite run takes ~9 min - start it, then do the bookkeeping; check
+the log tail before committing.
 
 ### Also written to PROGRESS.md (moved here by the driver)
 
 # PROGRESS (generated by the driver before every session)
 
 Hand-over notes live in each task's `## Hand-over` section at the end of its task file: write yours in your
-task file (for a subtask, read its parent's too).
+task file (for a subtask, read your parent's too).
 
 ## Tasks in flight
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
 - `tasks/236-us-cities.md` (split)
-- `tasks/240-us-birdseye-batch4.md` (open) - hand-over: (2026-10-14, iteration 164, agent c - session 5 of 240: St. Paul (city 2) LANDED this
+- `tasks/240-us-birdseye-batch4.md` (open) - hand-over: (2026-10-14, iteration 165, agent c - session 6 of 240: Minneapolis (city 3) RESEARCHED this
 - `tasks/241-us-birdseye-batch5.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
 
 ## Next open tasks
@@ -330,23 +331,4 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
 
 ### 2026-10-11 DRIVER: test suite failing at loop start (3 tests)
     tests/test_batch_eu.py::test_union_check
-    tests/test_batch_eu.py::test_union_full_coverage_live
-    tests/test_serve.py::test_platefits_docs_match_sites
-
-### 2026-10-12/13 306d DECISION: iteration 161 - bury-castle judged WRONG and removed the 303 way (line written, removal executed, then reverted for a true A/B); the 306c-style worktree A/B is INVALID in this project (locally-built site data is not in git)
-- Re-verified the 160 hand-over's numbers with fresh measurements BEFORE deleting (AGENTS.md: check facts by running code). Confirmed: 8 pairs = 4 distinct points on a 100-px grid ladder (three on u=100; the 200-px and 100-px lat steps span 0.0053896/0.0017967 deg = 1.5:1 per pixel, no similarity can hit; the page's simFit (exact port) gives resid 10.9-39 m, 2.634 m/px, +1.06 deg - identical to the committed shot's [eval] line). CORRECTIONS to the 160 hand-over: the real hillfort is ~20 m NW of the site point (not '+22 E / -55 N'), its hachured ring is ~80-90 m across (not ~130 m), so the drawn ring (277-342 m at 2.634 m/px, centred at raw (240-248,115) -> (-3.5187, 51.0370) = E -218..-239, N +531) is ~3.5x too big and 554-582 m N-NW (N23-25W) of the real one - on a small hachured wood hill. The 160 '~2x / 535-576 m' survives as a range (540-576 -> 554-582), the direction and the verdict are unchanged. Extra independent check: the plate's own 'SCALE OF FEET 0-300' bar measures ~1.45 m/px vs the fit's 2.634 (1.8x). Distances must be geographic (dx=dlon*111194.9266*cos(lat0), dy=dlat*110900), NOT raw Mercator units (my first pass computed 916 m for the 576 m distance that way).
-- Executed the 303 way exactly as 306c did (fit/review.py API, no hand-edited JSON): upsert_item(root,'bury-castle-q5001077',[entry]) with entry = {plan, title, url, pairs (the doc's 8), coarse:false, evidence (from the data/commons/files.jsonl row: rec evidence/1, kind category, checked 2026-10-10, site_cat/file_cat 'Bury Castle, Somerset'), label '1911', cite, ref, size, place_reason '306d audit 2026-10-12: ... Document deleted.'} appended to the existing item (lead n0136_1 kept first, filename unchanged), then deleted data/db/platefits/bury-castle-q5001077.c_de779031cda8a0dc.json, then export(root,'bury-castle-q5001077') (333 open of 346). Only 3 files changed (D doc, M item, M web/data/review.json) - no other site's item touched; the site was already covered for the union check (its item was already open in the page file before the upsert).
-- Wrote the 306d block (header + the bury-castle line) into docs/site_flow.md after the 306c block (header is tense-neutral: 17 more lines to come in batches; box 1 ticked - 36 shots re-listed this session).
-- TESTS (full suite, main checkout, --ignore=tests/test_gate.py, -p no:cacheprovider, with my changes): 10 failed, 130 passed, 1 skipped (251 s). The 10: test_fit_queue.py::test_placement_gestures_and_save_in_the_browser (FAILED at the seed check, dep:null) + 9 that are agent a's in-flight work already on main (test_merge new_sites_are_complete/new_site_golden_samples = 211's open 222-228 gate; src_artists/limes/mackenzie/numancia/wiltshire_stukeley stage+check tests = the 224 family). Baseline in my task file (123/1, 2026-10-12) is STALE - main has since merged 211/223/224/307 work and the suite grew to 141 tests.
-- A/B attempt 1 (worktree at HEAD in /tmp/aw306d_ab): INVALID - web/data/sites/ is mostly gitignored (58 tracked files vs 389 site dirs in the main checkout; the per-site web data + data/raw are local build artifacts), so a fresh worktree lacks stonehenge etc. and fails 3 tests deterministically (site_done_line FileNotFoundError '/tmp/aw306d_ab/web/data/sites/stonehenge-q39671', fit_provenance line_refuses_unmarked_non_auto_doc, fit_queue save_runs) that pass in the main checkout; its placement_gestures 'vacuous ERROR' there is also unprovable (no local depictions). PITFALLS candidate: never A/B this project in a bare worktree/checkout - do it in the main checkout with the changed files temporarily at HEAD. (The worktree is still registered; remove it: git worktree remove --force /tmp/aw306d_ab && git worktree prune.)
-... (1.9 KB more: `grep -n -A 200 -F '## 2026-10-12/13 306d DECISION: iteration 161 - bury-castle judged WRONG and removed the 303 way (line written, removal executed, then reverted for a true A/B); the 306c-style worktree A/B is INVALID in this project (locally-built site data is not in git)' DECISIONS.md`)
-
-### 2026-10-13 DRIVER: test suite failing at loop start (1 tests)
-    tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
-    tests/test_fit_queue.py:1749: AssertionError
-    =========================== short test summary info ============================
-    FAILED tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
-    1 failed, 159 passed, 1 skipped in 424.53s (0:07:04)
-    (full test output: .agent/reports/last-test-output.txt)
-
-### 2026-10-14 240 (agent c, iteration 165) HAND-OVER STATE: Minneapolis (city 3) RESEARCHED - QID Q36091 (first-guess Q3094 a Romanian monastery; no name-search trap), pool 50/20 all eyeballed, PICK = the 1885 Herancourt/Monasch near-vertical sheet (LOC 75694644); records committed (DECISIONS entry + task file); PITFALLS.md edit (blank-crop quirk) left in the working tree for the landing session; next = the Minneapolis LANDING (session 7).
+    tests/test_batch_eu.py::
