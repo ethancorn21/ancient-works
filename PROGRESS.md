@@ -4,7 +4,6 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/000-plan.md` (in-progress) - hand-over: Done (iteration 13, 2026-10-10). The plan update for the two GOAL.md changes is complete and 000 is
 - `tasks/207b-maclauchlan.md` (blocked) - hand-over: (2026-10-13, iteration 204, agent c - NO work on this task. The driver auto-put it back to
 - `tasks/207c-roy.md` (blocked) - hand-over: (2026-10-13, iteration 205, agent c - NO work on this task. The driver auto-put it back to
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
@@ -29,7 +28,54 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-13 000 DECISION: plan re-checked for the 2026-10-13 GOAL change - the matcher is the only automatic placement (238/239 added; boxes re-ticked)
+GOAL.md changed 2026-10-13 23:39 (driver reopen commit 116aba2): point 2 rewritten - the ONLY
+automatic placement is the purpose-built image matcher (fit/matchfit.py: MatchAnything RoMa +
+ELoFTR) against a georeferenced ground image (the LiDAR relief, or an old survey sheet already
+placed on the map); the local Qwen models never place a drawing and never write point pairs or
+coordinates; fit/batch_us.py / fit/batch_eu.py's model fitting pass is retired; automatic
+fitting runs on LiDAR sites only (fits on aerial photographs alone mostly do not line up),
+aerial-only sites keep their review items; every matcher fit goes to the gate (point 3); the
+matcher's ~1-in-10 yield (49 fits: 35 RoMa + 14 ELoFTR; 37 on old survey sheets, 12 on the LiDAR
+relief) is recorded in GOAL's "What is known". The lead's port d286196 (10-13 18:57, before the
+reopen) had already updated GOAL.md and exactly ONE PLAN.md tech-choice bullet; the rest of the
+plan (current state, architecture, module map, task map, assumptions) was still the 2026-10-10
+wording ("the local model does the fitting itself") - iteration 157 (agent a) finished that.
+
+Investigation (all facts run, not reasoned): 49 matcher docs in data/db/platefits (0 against
+imagery.jpg; 5 against Etat-Major sheets on sites WITHOUT relief.jpg); 22 non-matcher docs =
+the golden's 22 hand docs (41 lines = 22 docs + 19 site.json, Fort Ancient included after the
+lead's port); 499 sites (425 with relief.jpg, 0 aerial-only, 74 with neither image); 1510 plans
+rows; 456 review items in web/data/review.json; site_done._fit still runs batch_us.run_sites as
+the model second pass (--working / --model-json); matchfit.run writes a doc on judge() silence
+with score = the raw median matcher residual - the frozen 001 gate (pipeline/fit_gate.py) is
+never run on matcher docs (gate(pairs, transform=None) solves the canonical similarity; the
+matcher's RANSAC refit is the same least squares over its inliers, so the gate is directly
+applicable); cover.py (212, in flight) refuses --working at the CLI but still forwards
+--model-json to the line.
+
+Decisions: (1) The two gaps between the new GOAL and the code became two new agent tasks, one
+module each, serialized after the 302f/302g validation of the current line (agent c's, open):
+238 = the gate between the matcher's judge and the doc write (frozen rule, no re-tuning; one
+appended docs/gate.md section; the gate's `why` exposed per candidate), 239 = the vision
+fitting pass retired (the batch's _sheet/_model_prompt/_parse_answer/llm_model/recorded_model
+deleted; the line's second pass becomes the matcher-reason upsert; --working/--model-json off
+the line, batch_eu and cover.py's loop forwarding; tests + docs/site_flow.md step 1 updated).
+239 depends on 212 because cover.py is 212's in-flight file, not for code reasons. (2) The
+"LiDAR sites only" ruling is read TOGETHER WITH the preceding sentence (ground = "the LiDAR
+relief, or an old survey sheet already placed on the map"): placement against a placed sheet
+stays allowed even without LiDAR (5 of the 49 current fits are exactly that); excluded =
+aerial-only ground (no relief, no placed sheet) - a guard on this VM (0 such sites), not a
+cleanup. Stated as PLAN assumption 10 with the stricter variant noted as a one-line change in
+fit/matchfit.grounds. Not ask_human: the reading does not change the plan's shape, and GOAL's
+own 49-fits count includes the 5 sheet-only fits. (3) Deterministic-yield assumption 11 +
+out-of-scope: no re-running refused pictures, no loosening judge/gate thresholds as a yield
+strategy. (4) Box 5 fix: 302a/308/309 (all done, agent-created) lacked the one-line
+`Depends on:` (302a removed it deliberately at done; 308/309 never had it) - `Depends on:
+none` added; a format line, not a goal/acceptance edit.
+
+Commit state: f828ce0 committed tasks/000 (boxes ticked, Status done, hand-over), tasks/238,
+... (1.0 KB more: `grep -n -A 200 -F '## 2026-10-13 000 DECISION: plan re-checked for the 2026-10-13 GOAL change - the matcher is the only automatic placement (238/239 added; boxes re-ticked)' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
@@ -53,20 +99,3 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
     FAILED tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
     1 failed, 159 passed, 1 skipped in 424.53s (0:07:04)
     (full test output: .agent/reports/last-test-output.txt)
-
-## Where I am (iteration 157, agent a, task 000 - written at the context limit)
-
-The 2026-10-13 23:39 GOAL change (point 2: the image matcher is the ONLY automatic placement,
-never a language model) is fully planned in tasks/000-plan.md. Done and committed in f828ce0:
-tasks/238-matcher-gate.md (every matcher fit through the frozen 001 gate; deps 302f, 302g) and
-tasks/239-retire-vision-fit.md (the vision-model fitting pass retired; deps 238, 212, 302f,
-302g) created; 000's seven boxes re-verified and ticked, Status: done; `Depends on: none`
-format line added to done tasks 302a/308/309. The DECISIONS.md entry above records the
-investigation facts and the decisions (incl. the LiDAR-only reading = PLAN assumption 10).
-STILL UNCOMMITTED in the working tree: PLAN.md (the seven plan edits - current state 2026-13,
-matcher-station architecture, module map, task map points 1/2/3, assumptions 10-11,
-out-of-scope, waves 6-8). NEXT 000 SESSION (one small step): `git add -A && git commit -m
-"000: plan re-checked for the 2026-10-13 GOAL change - the matcher is the only automatic
-placement (238/239 added; boxes re-ticked)"` (check `git status` first; the only expected
-change is PLAN.md), then stop. No code or tests touched; suite state per the loop-start note
-above (the 212/235 red is pre-existing to 000).
