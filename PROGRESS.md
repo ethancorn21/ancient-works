@@ -6,6 +6,7 @@ task file (for a subtask, read its parent's too).
 ## Tasks in flight
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
 - `tasks/212-cover-final.md` (in-progress) - hand-over: (2026-10-13, iteration 255, agent a, written at the context limit -
+- `tasks/236b-us-birdseye.md` (open) - hand-over: (2026-10-14, iteration 178, agent a - FIRST session: research only, live. NO repo file touched yet - no
 - `tasks/236-us-cities.md` (split)
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
 - `tasks/307bc-reverify-place-mode.md` (open) - hand-over: (2026-10-13, iteration 256, agent a - first session: the task was filed as the driver
@@ -15,13 +16,17 @@ task file (for a subtask, read its parent's too).
 ## Next open tasks
 - `tasks/230-roman-merge-rerun.md`
 - `tasks/235-placement-test-dep-pick.md`
-- `tasks/236b-us-birdseye.md`
+- `tasks/236c-us-cities-merge.md`
 
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-14 236b DECISION: iteration 178 - FIRST session (research only, live): LOC Panoramic Maps verified as the source but loc.gov is 403 from this machine -> fetch via Commons mirrors only; candidate pool built for the four owner cities (95/10/56/5 good for NYC/DC/SF/Nashville); per-city STAGED sets decided after eyeballing thumbnails (NYC 3, DC 2, SF 3, Nashville 1-2); no repo file touched yet - next session writes fit/src_us_birdseye.py and stages
+- **Collection:** the LOC "Panoramic Maps" collection (loc.gov/collections/panoramic-maps, ~1,500 US bird's-eye views 1847-1929, public domain) is the source, but loc.gov is UNREACHABLE from this machine (HTTP 403 CloudFront bot block on the collection page, both via the web_fetch tool and direct urllib with the project UA). A Wayback snapshot (2025-01-02) of the page renders (item list: Date, Contributor, "LC Panoramic maps (2nd ed.)" Phillips numbers, "raster image" links) but its extracted text has no description block, so the size/range/licence stand on GOAL.md's statement + the item-record pattern. DECISION: files are fetched from the Wikimedia Commons mirrors (the project's established route - 236a/artists/kip all go via Commons extmetadata), never loc.gov IIIF (403); the lead doc records this as the "how files are fetched" answer for box 1. PITFALLS candidate: loc.gov returns 403 to this machine (the web_fetch tool AND direct urllib); use Wayback snapshots or the Commons mirrors instead.
+- **Commons organization (live):** NYC's bird's-eye files live in "Category:Bird's eye view maps of New York City" and its DECADE subcategories ("1850s...1910s bird's eye view maps of New York City", ~102 members each; the top level holds only ~12 files + a 932-member oddity subcat "New-York. Birds' eye view, looking south from Union Square"). DC's in "Category:Bird's eye view maps of Washington, D.C." (175 direct files, no subcats). SF and Nashville have NO bird's-eye category (only "Views of ..." photo subcats) - the route there is file-namespace full-text search ("bird's-eye view of San Francisco" worked; intitle-quoted queries found nothing).
+- **Pool:** ~383 unique candidate titles fetched with commons.info (the 50/call + 1/s pace handled it in <1 min), filtered by commons.keep() + the caption gate (norm(city short name) in norm(title + 600-char desc), the exact check_caption contract) -> 95 good (NYC), 10 (DC), 56 (SF), 5 (Nashville). The temp files /tmp/aw236b_candidates.json (titles+meta) and /tmp/aw236b_good.json (the good lists) may be wiped; they re-derive from the queries recorded in 236b's hand-over.
+... (5.4 KB more: `grep -n -A 200 -F '## 2026-10-14 236b DECISION: iteration 178 - FIRST session (research only, live): LOC Panoramic Maps verified as the source but loc.gov is 403 from this machine -> fetch via Commons mirrors only; candidate pool built for the four owner cities (95/10/56/5 good for NYC/DC/SF/Nashville); per-city STAGED sets decided after eyeballing thumbnails (NYC 3, DC 2, SF 3, Nashville 1-2); no repo file touched yet - next session writes fit/src_us_birdseye.py and stages' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
