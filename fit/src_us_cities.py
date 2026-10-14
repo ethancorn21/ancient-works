@@ -1,9 +1,10 @@
 """Old plans of US cities (task 236a, GOAL.md point 5: a city plan or a fortification plan is a drawing): the
 hand-checked file -> QID table for the old plans of New York - the 1660 Castello plan, the 1767 Ratzer map,
-the 1811 Commissioners' Plan (bird's-eye) and the 1865 Viele map - and of Washington DC - the 1791 L'Enfant
-plan (as its 1792 first-printed edition), the 1792 Ellicott plan and the 1865 Civil War defences map -
-staged into this task's own staging files the way src_artists.py does. San Francisco and Nashville follow
-in later sessions; 236c consolidates the staged rows into the canonical data and builds the sites.
+the 1811 Commissioners' Plan (bird's-eye) and the 1865 Viele map - of Washington DC - the 1791 L'Enfant plan
+(as its 1792 first-printed edition), the 1792 Ellicott plan and the 1865 Civil War defences map - and of San
+Francisco - the 1849 Eddy survey map, the 1850 first-published map and the 1854 Eddy 'full and complete'
+sheet - staged into this task's own staging files the way src_artists.py does. Nashville follows in a later
+session; 236c consolidates the staged rows into the canonical data and builds the sites.
 
 usage: src_us_cities.py --verify     re-verify every table QID (SITES) against Wikidata
                                    (label, every P625 value, P373, P131, enwiki, the first name-search hit
@@ -82,6 +83,26 @@ SITES = {
                      "individuals (Fort Bayard Q3077774, Fort DeRussy Q5471024, Fort Totten Q18150335, "
                      "Fort Marcy Q61784495, Fort Foote Q14691922, all part_of Q5124610 'Civil War defenses of "
                      "Washington, D.C.' - data/catalog/sites.jsonl)"),
+    # Q62 (verified 2026-10-13 via pipeline/catalog_wd; --verify re-checks): TWO P625 values
+    # (-122.41944444444445, 37.775) and (-122.41638888888889, 37.7775), both downtown, ~2-2.4 km SW of the
+    # table point (no >50 km flag from --verify). The point is REFINED, not a P625: every staged plan draws
+    # the old town's peninsula - the street grid's NW corner (today's Washington & Jones, the old North
+    # Beach tip) down to Rincon Point (today's Spear St between Harrison and Folsom - the corner of the old
+    # bay) plus the 1850s growth - so the point is the midpoint of those two web-verified tips (enwiki
+    # 'Rincon Point (San Francisco)' + Nominatim street segments; the corner interpolated): the center of
+    # the drawn extent, ~(-122.403, 37.792). A P625-centered 4 km box would leave the bay tip outside it;
+    # the midpoint box covers tip to tip (the NY/DC extent decision: oversize sheets end as review items,
+    # not wider boxes).
+    "Q62": dict(id="san-francisco-q62", name="San Francisco", named="San Francisco",
+                lon=-122.40289, lat=37.79213,
+                place="San Francisco County, California", region="United States", kind="town",
+                wikipedia="https://en.wikipedia.org/wiki/San_Francisco",
+                note="aerial-photograph ground (no open LiDAR over the built-up city: bare-earth LiDAR erases "
+                     "the streets); the street grid, the bay shoreline (the 1854 sheet's red water-front "
+                     "line), the squares and the hills carry the fit; the 1849-1854 sheets draw the old "
+                     "peninsula tip to tip inside the 2000 m town box - the point is the midpoint of the two "
+                     "drawn tips (Washington & Jones / Rincon Point), not a P625 (see the SITES comment); "
+                     "the 1854 sheet's 1850s growth (the Center Street grid to the SW) also sits in the box"),
 }
 
 # New York leads (checked live 2026-10-13; the per-file STAGED/DROP verdicts - including the 1916
@@ -130,6 +151,30 @@ DEFENCES = [
     ("File:Map of the defences of Washington. LOC 88690674.jpg", "Q61", "Washington, D.C.", dict()),
 ]
 
+# San Francisco leads (checked live 2026-10-13; the per-file STAGED/DROP verdicts - including the Ringgold
+# 1849 town plan that is NOT on Commons (navy charts only) and the Henry Bill 1856/1858 view map that
+# belongs to 236b - are in docs/lead_us_cities.md). All three print "San Francisco" in the title
+# (the named-place gate, fit/evidence.py check_caption).
+EDDY_1849 = [
+    # the 1849 Eddy survey map - THE ORIGINAL manuscript (LOC's presentation copy, Dec. 31st 1849),
+    # pen-and-ink and watercolor on cloth: the whole old town, North Beach to Rincon Point, 1:6,600
+    ("File:Official map of San Francisco compiled from the field notes of the official re-survey made by "
+     "Wm. M. Eddy. surveyor of the town of San Francisco. LOC 77692722.jpg", "Q62", "San Francisco", dict()),
+]
+MAP_1850 = [
+    # the 1850 map body: "MAP OF THE CITY OF SAN FRANCISCO CALIFORNIA - COPIED FROM ORIGINALS WITH
+    # CORRECTIONS AND ADDITIONS - 1850" (Sun Lithographic Est., NY) - the first map published after the
+    # Eddy map (the inset shows the Apollo storeship, from Joseph P. Beach's journal)
+    ("File:Map of San Francisco, Apollo storeship at the bottom.jpg", "Q62", "San Francisco", dict()),
+]
+EDDY_1854 = [
+    # the 1854 Eddy 'full and complete' sheet (the map itself is dated January 15th 1854; the file page
+    # lost the drawing's date, so the known survey date is on the row - the Zwolle precedent)
+    ("File:Official map of the City of San Francisco, Full and complete to the present date. Compiled by "
+     "Wm., M. Eddy. City Surveyor. (IA dr official-map-of-the-city-of-san-francisco-full-and-complete-to-"
+     "the-present-5870000).jpg", "Q62", "San Francisco", dict(date="1854")),
+]
+
 SOURCES = {
     "castello": dict(rows=CASTELLO, p="plan",
                      label="{name}, the Castello plan (1660 Dutch survey of New Amsterdam)"),
@@ -143,6 +188,12 @@ SOURCES = {
                      label="{name}, Andrew Ellicott's plan (1792, the first official plan)"),
     "defences_1865": dict(rows=DEFENCES, p="plan",
                           label="{name}, the Civil War defences (1865 map of the fortification ring)"),
+    "eddy_1849": dict(rows=EDDY_1849, p="plan",
+                     label="{name}, the Eddy survey map (1849, the original)"),
+    "map_1850": dict(rows=MAP_1850, p="plan",
+                    label="{name}, the first published map (1850, 'Copied From Originals')"),
+    "eddy_1854": dict(rows=EDDY_1854, p="plan",
+                     label="{name}, the Eddy 'full and complete' sheet (1854)"),
 }
 
 

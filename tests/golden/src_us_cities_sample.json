@@ -55,6 +55,30 @@
    "p_plan": 1.0,
    "site": "washington-q61",
    "title": "File:Map of the defences of Washington. LOC 88690674.jpg"
+  },
+  {
+   "by": "hand",
+   "p_birdseye": 0.0,
+   "p_photo": 0.0,
+   "p_plan": 1.0,
+   "site": "san-francisco-q62",
+   "title": "File:Official map of San Francisco compiled from the field notes of the official re-survey made by Wm. M. Eddy. surveyor of the town of San Francisco. LOC 77692722.jpg"
+  },
+  {
+   "by": "hand",
+   "p_birdseye": 0.0,
+   "p_photo": 0.0,
+   "p_plan": 1.0,
+   "site": "san-francisco-q62",
+   "title": "File:Map of San Francisco, Apollo storeship at the bottom.jpg"
+  },
+  {
+   "by": "hand",
+   "p_birdseye": 0.0,
+   "p_photo": 0.0,
+   "p_plan": 1.0,
+   "site": "san-francisco-q62",
+   "title": "File:Official map of the City of San Francisco, Full and complete to the present date. Compiled by Wm., M. Eddy. City Surveyor. (IA dr official-map-of-the-city-of-san-francisco-full-and-complete-to-the-present-5870000).jpg"
   }
  ],
  "extras": [
@@ -85,6 +109,20 @@
    "region": "United States",
    "source": "fit/src_us_cities.py le_1791",
    "wikipedia": "https://en.wikipedia.org/wiki/Washington,_D.C."
+  },
+  {
+   "aerial_ok": true,
+   "id": "san-francisco-q62",
+   "kind": "town",
+   "lat": 37.79213,
+   "lon": -122.40289,
+   "name": "San Francisco",
+   "note": "aerial-photograph ground (no open LiDAR over the built-up city: bare-earth LiDAR erases the streets); the street grid, the bay shoreline (the 1854 sheet's red water-front line), the squares and the hills carry the fit; the 1849-1854 sheets draw the old peninsula tip to tip inside the 2000 m town box - the point is the midpoint of the two drawn tips (Washington & Jones / Rincon Point), not a P625 (see the SITES comment); the 1854 sheet's 1850s growth (the Center Street grid to the SW) also sits in the box",
+   "place": "San Francisco County, California",
+   "qid": "Q62",
+   "region": "United States",
+   "source": "fit/src_us_cities.py eddy_1849",
+   "wikipedia": "https://en.wikipedia.org/wiki/San_Francisco"
   }
  ],
  "files": [
@@ -321,6 +359,106 @@
    "w": 2800,
    "wd_plan": false,
    "year": 1865
+  },
+  {
+   "artist": "Eddy, William M.; Brady, John",
+   "by": "fit/src_us_cities.py eddy_1849",
+   "cat": null,
+   "date": "1849",
+   "desc": "Manuscript; pen-and-ink, watercolor, and pencil corrections. Sectioned and mounted on cloth backing. Cadastral map. \"Presented to the Senators and Representatives from California by Wm. M. Eddy, city surveyor, San Francisco, Dec. 31st 1849.\" \"N.B. pink line, boundary of original survey as made by J. O'Farrel, c.e.\" Annotated on verso: San Francisco, city of 1849. Millard Fillmore. Available also through the Library of Congress Web site as a raster image. Vault AACR2: 100; 440/1; 651/1; 650/2",
+   "evidence": {
+    "checked": "0000-00-00",
+    "dist_m": 0.0,
+    "kind": "caption_coords",
+    "named_place": "San Francisco",
+    "place_label": "San Francisco",
+    "place_lat": 37.79213,
+    "place_lon": -122.40289,
+    "place_qid": "Q62",
+    "rec": "evidence/1",
+    "site_lat": 37.79213,
+    "site_lon": -122.40289
+   },
+   "h": 8480,
+   "license": "Public domain",
+   "mime": "image/jpeg",
+   "name": "San Francisco, the Eddy survey map (1849, the original)",
+   "page": "https://commons.wikimedia.org/wiki/File:Official_map_of_San_Francisco_compiled_from_the_field_notes_of_the_official_re-survey_made_by_Wm._M._Eddy._surveyor_of_the_town_of_San_Francisco._LOC_77692722.jpg",
+   "qid": "Q62",
+   "site": "san-francisco-q62",
+   "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/Official_map_of_San_Francisco_compiled_from_the_field_notes_of_the_official_re-survey_made_by_Wm._M._Eddy._surveyor_of_the_town_of_San_Francisco._LOC_77692722.jpg/1280px-thumbnail.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "title": "File:Official map of San Francisco compiled from the field notes of the official re-survey made by Wm. M. Eddy. surveyor of the town of San Francisco. LOC 77692722.jpg",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/7/74/Official_map_of_San_Francisco_compiled_from_the_field_notes_of_the_official_re-survey_made_by_Wm._M._Eddy._surveyor_of_the_town_of_San_Francisco._LOC_77692722.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "w": 6454,
+   "wd_plan": false,
+   "year": 1849
+  },
+  {
+   "artist": "Sun Lithographic Establishment, New York, N.Y",
+   "by": "fit/src_us_cities.py map_1850",
+   "cat": null,
+   "date": "1850-01-01",
+   "desc": "Map of San Francisco, 1850, Apollo storeship at the bottom. From Joseph P. Beach's journal from New York to San Francisco, son of Moses Yale Beach, New York Sun",
+   "evidence": {
+    "checked": "0000-00-00",
+    "dist_m": 0.0,
+    "kind": "caption_coords",
+    "named_place": "San Francisco",
+    "place_label": "San Francisco",
+    "place_lat": 37.79213,
+    "place_lon": -122.40289,
+    "place_qid": "Q62",
+    "rec": "evidence/1",
+    "site_lat": 37.79213,
+    "site_lon": -122.40289
+   },
+   "h": 1536,
+   "license": "Public domain",
+   "mime": "image/jpeg",
+   "name": "San Francisco, the first published map (1850, 'Copied From Originals')",
+   "page": "https://commons.wikimedia.org/wiki/File:Map_of_San_Francisco,_Apollo_storeship_at_the_bottom.jpg",
+   "qid": "Q62",
+   "site": "san-francisco-q62",
+   "thumb": "https://upload.wikimedia.org/wikipedia/commons/7/74/Map_of_San_Francisco%2C_Apollo_storeship_at_the_bottom.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+   "title": "File:Map of San Francisco, Apollo storeship at the bottom.jpg",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/7/74/Map_of_San_Francisco%2C_Apollo_storeship_at_the_bottom.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "w": 1238,
+   "wd_plan": false,
+   "year": 1850
+  },
+  {
+   "artist": "Eddy, William, M. \n Moody, Edwin \n Brady, John B.",
+   "by": "fit/src_us_cities.py eddy_1854",
+   "cat": null,
+   "date": "1854",
+   "date_commons": "0000-00-00",
+   "desc": "Zoomable full resolution image available at  davidrumsey.com .  This image  5870.000  is a part of image group  5870.000 .  Map printed without color. With red lines added by hand. Outer red line is water front. Inner red line is shore line. Shows block and lot numbers, and wards. Note on the lower corner reads: E.M. Sleator, Canvassing Agent, 529 Shotwell St., San Francisco, Map coloring neatly done.  Map printed without color. With red lines added by hand. Outer red line is water front. Inner red line is shore line. Shows block and lot numbers, and wards. Note on the lower corner: E.M. Sleat",
+   "evidence": {
+    "checked": "0000-00-00",
+    "dist_m": 0.0,
+    "kind": "caption_coords",
+    "named_place": "San Francisco",
+    "place_label": "San Francisco",
+    "place_lat": 37.79213,
+    "place_lon": -122.40289,
+    "place_qid": "Q62",
+    "rec": "evidence/1",
+    "site_lat": 37.79213,
+    "site_lon": -122.40289
+   },
+   "h": 10560,
+   "license": "Public domain",
+   "mime": "image/jpeg",
+   "name": "San Francisco, the Eddy 'full and complete' sheet (1854)",
+   "page": "https://commons.wikimedia.org/wiki/File:Official_map_of_the_City_of_San_Francisco,_Full_and_complete_to_the_present_date._Compiled_by_Wm.,_M._Eddy._City_Surveyor._(IA_dr_official-map-of-the-city-of-san-francisco-full-and-complete-to-the-present-5870000).jpg",
+   "qid": "Q62",
+   "site": "san-francisco-q62",
+   "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2a/Official_map_of_the_City_of_San_Francisco%2C_Full_and_complete_to_the_present_date._Compiled_by_Wm.%2C_M._Eddy._City_Surveyor._%28IA_dr_official-map-of-the-city-of-san-francisco-full-and-complete-to-the-present-5870000%29.jpg/1280px-thumbnail.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "title": "File:Official map of the City of San Francisco, Full and complete to the present date. Compiled by Wm., M. Eddy. City Surveyor. (IA dr official-map-of-the-city-of-san-francisco-full-and-complete-to-the-present-5870000).jpg",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Official_map_of_the_City_of_San_Francisco%2C_Full_and_complete_to_the_present_date._Compiled_by_Wm.%2C_M._Eddy._City_Surveyor._%28IA_dr_official-map-of-the-city-of-san-francisco-full-and-complete-to-the-present-5870000%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "w": 8830,
+   "wd_plan": false,
+   "year": 1854
   }
  ]
 }
