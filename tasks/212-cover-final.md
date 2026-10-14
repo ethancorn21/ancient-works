@@ -1,7 +1,8 @@
-Status: in-progress
+Status: done
 # 212: Cover - the last uncovered sites, the final sync, the report
 Depends on: 203a, 203b, 211, 235
 Touches: fit/cover.py, data/db/platefits/ (the loop's matcher writes docs; the line check may delete a pattern doc; the sync may stamp by:agent into an unmarked auto doc), data/review/, web/data/review.json, data/commons/files.jsonl, data/commons/classified.jsonl, web/data/plans.json, web/data/sites.json, web/data/sites/, docs/batch.md, tests/test_cover.py
+Split: no - all six boxes were already built (212a/212b/212c done and driver-accepted) and re-verified on the current tree; the only remaining work was the final fetch/sync/report/verify sequence on files that only this task writes (it is the one page-facing sync), gated on 235, which is now merged (344aa0c). No unbuilt work is left to hand to another agent: 232/233/234 (the tasks that waited on 212) are already done, and the one open dependent (239) is double-blocked on 238 anyway.
 
 ## Goal
 
@@ -63,8 +64,8 @@ check, and the "no picture found" list.
   127.0.0.1:8091 is reachable from this VM; RoMa on 8092 is not, and site_done works without it).
   The vision-model batch fit invented its points (301) and must not place anything. An unsure matcher
   result goes to the review item, as site_done already does.
-- 211's new pictures are in the canonical files but most have no local copy, so they are not in
-  web/data/plans.json yet (still 1168 rows on main): `python pipeline/commons.py thumbs` fetches rows
+- 211's new pictures are in the canonical files but most have no local copy, so they are not
+  in web/data/plans.json yet (still 1168 rows on main): `python pipeline/commons.py thumbs` fetches rows
   with a `thumb`; the Limes rows carry only a full-file `url` (upload.wikimedia.org) - fetch those too
   (the original, or a standard thumbnail width), then `tools/export_plans.py`. The lead did this on the
   owner's Mac (1168 -> 1296 rows, plus the Civitates/Merian full pages); data/raw is gitignored, so
@@ -76,217 +77,189 @@ Split into 212a (search + no-picture items), 212b (sync), 212c (report) after 5 
 
 ## Hand-over
 
-(2026-10-13, iteration 255, agent a, written at the context limit -
-**investigation of the driver's done-claim rejection (0b4dd2d) is COMPLETE and
-recorded; the task now waits on 235.**) 
+(2026-10-14, iteration 198, agent a, written at the context limit -
+**Status: DONE. The closing pass was re-run on the post-235 tree and every box
+re-verified green. The only uncommitted changes are web/data/review.json
+(`at` stamp only - open set byte-identical to HEAD) and docs/batch.md (fresh
+report @2026-10-14T17:32). The next agent commits them with the task file; no
+further 212 work exists.**)
 
-**Where I am:** the driver rejected the iter-254 done claim on one test:
-tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser. I
-verified the driver was FACTUALLY RIGHT (my iter-253/254 "pre-existing"
-attribution was wrong): 212b's final sync (6ce742f, Oct 13 06:31 - 306d's own
-attribution) deleted marietta's last doc (her 301 pattern doc
-b24849959_n0195_1), which flipped her to line-eligible and moved the test's
-derived pick from oswestry (idx 36, green - 1842 map page-visible) to
-marietta (idx 29, red - only a 1904 USGS topo, hidden by the page's
-surveyOldEnough filter -> dep:null at the seed check). Every tree since has
-been red. The doc deletion itself was correct (306c audit + 301 pattern
-class; marietta stays covered by her open item; the 0/499 invariant holds),
-so there is nothing to roll back. The real defect is `_pick_place` not
-mirroring the page's filter - that is tasks/235's file and goal.
+**Why done now (the driver's split directive answered):** the driver asked to
+split what is not built. Nothing is built-but-unfinished: all six boxes were
+already built (212a/212b/212c done, driver-accepted) and the sole blocker -
+235, whose `_pick_place` fix cured the one red test behind the rejected
+done claim - is done and merged into this branch (344aa0c, Oct 14 12:12). The
+remainder was the fetch/sync/report/verify sequence on files only 212 writes
+(the one page-facing sync) - not parallelizable, and done this session. So
+the task carries `Split: no - <reason>` under its Touches line instead of new
+parts. The "other open tasks waiting on this" premise is stale: 232/233/234
+are already done (they ran on main while 212 was in-progress); the only open
+dependent is 239, double-blocked on 238 anyway.
 
-**Changes made this session (committed with this hand-over unless noted):**
-- tasks/212-cover-final.md: `Depends on:` now carries 235 (235 is open; its
-deps 306e+307d are both done; it is in the driver's "Next open tasks");
-hand-over rewritten. Status left in-progress (the driver reschedules on the
-Depends line; it brings 212 back when 235 merges).
-- DECISIONS.md: full causal record ("the driver's rejection was factually
-right..." - includes the green/red episode timeline, the b9cbc46 side-note,
-and the return recipe).
-- PITFALLS.md: the tests/test_fit_queue.py entry corrected (its "a 307 bug,
-never a local change" claim is disproven) and merged with the new fact:
-any doc-deletion sync/audit can move `_pick_place`; simulate it before and
-after (it's a pure function over committed inputs).
+**What ran this session (all on the current tree, all 212's own phases):**
+1. `fit/cover.py fetch`: the canonical data/commons/files.jsonl is COMPLETE -
+   1030/1030 kept rows have local copies (data/raw -> store symlink),
+   0 fetched, plans.json re-exported byte-identical (1510 rows). The 39 rows
+   without local copies live in the PER-FAMILY files_*.jsonl staging files
+   (23 us_birdseye, 15 us_cities, 1 roman) - those enter the canonical file
+   only via their families' consolidation tasks (236c etc.), not via 212.
+2. `fit/cover.py sync`: 71 docs over 53 sites, ALL "skipped: overlay already
+   current" - zero doc mutation (no delete/stamp/refuse/fail). review.json
+   re-exported: 456 open of 480, open set IDENTICAL to HEAD (only the `at`
+   byte moved, 07:09 -> 17:31 UTC).
+3. `fit/cover.py report`: docs/batch.md fresh. Moves vs the Oct 13 report:
+   71 docs = 22 hand-golden / 0 human-saved / 49 automatic; bucket
+   hand 19->20 = fort-ancient (its squi n0076 doc is by:hand, owner-saved via
+   the 307d owner check, restored by lead port c72706b Oct 13 22:38, which
+   also added it to tests/golden/hand_fit_docs.sha256 -> now 41 lines =
+   22 hand docs + 19 site.json); no-picture 244->243 = numancia (233 re-keyed
+   its item to numancia.c_0fa271e2444f7bfc.json: 1 candidate, no no_picture
+   mark, open -> review-item bucket); uncovered still 3 = fudge/highbank/
+   hopeton (site.json-plate drawings=1 sites - the report's bucket is
+   doc/item-based, see the PITFALLS entry to file below).
 
-**Tests as last run (this session, current tree):** golden
-`sha256sum -c tests/golden/hand_fit_docs.sha256` 40/40 OK; tests/test_cover.py
-6/6 (41.3 s); tests/test_review.py 5/5 (50.6 s); `_pick_place()` re-simulated
-= marietta (idx 29 of 241). NOT re-run this session: the full suite, and the
-placement test itself (it is red; known and expected until 235). 
+**Tests/measurements as last run (this session, current tree - ALL GREEN):**
+- `sha256sum -c tests/golden/hand_fit_docs.sha256`: exit 0, 41/41 OK (the
+  original 40 lines byte-identical; the new fort-ancient line matches).
+- `_pick_place()` (from tests/ import test_fit_queue): returns
+  oswestry-castle-q20713795 / earthworkenglan01allcgoog_n0119_1 - 235's fix
+  works; the placement test is green.
+- FULL SUITE: `.venv/bin/python -m pytest -q -p no:cacheprovider` with
+  TMPDIR=/tmp/loop-ancient-works.a -> **177 passed, 1 skipped, 0 failed**
+  (505 s) - matches 235's claimed 177/1/0; the driver's baseline file
+  (.agent/reports/test-baseline.txt) is EMPTY, so the suite gate for the
+  done claim passes.
+- Served invariant (the box-6 substance, measured on the served files):
+  499 built sites, 456 in the served open list, **0 violations** (every site
+  drawings >= 1 or open item; fudge/highbank/hopeton via drawings=1;
+  aesica/alligator via their doc-derived-open items - a naive memo-field
+  check miscounts 454, the product's review.resolved_doc rule gives 456).
 
-**Current hypothesis:** once 235 lands its `_pick_place` fix, the pick on
-THIS tree is oswestry-castle (idx 38: propose, unresolved item, 3-pair
-candidate, local page, zero docs, 1842 map page-visible, 1900 map filtered)
--> the test goes green with no further data change -> 212's done re-claim
-passes the driver's suite gate. 
+**Box status (all six stay ticked - re-verified above):** 1-2 = 212a's run,
+unchanged (searches.json, the 243 no-picture items with exact searched
+records, 107 staged rows with the 200 evidence field); 3 = sync all-current +
+golden 41/41; 4 = sync's full export (456 open) + test_review's page test in
+the suite; 5 = fresh docs/batch.md (seed 20261012; same 49-doc auto-union, so
+the 20-sample table is byte-identical to the previous report - reproducibility
+checked by test_cover in the suite); 6 = the written port-0 test stays WAIVED
+per the lead's 212b say-so (driver-accepted precedent for the identical tick;
+the 212b task file is in git: `git show 45675c9:tasks/212b-cover-sync.md`),
+substance measured as above.
 
-**Exact next step (when the driver brings 212 back, i.e. after 235 merges):**
-1. Re-simulate `_pick_place()` (a few seconds: import tests/test_fit_queue.py,
-call it). If it is NOT oswestry, the world moved - re-run the analysis in
-the DECISIONS entry first.
-2. Run the full suite (expect fully green per 235's box 3).
-3. Re-verify the boxes: golden sha256, the 0/499 invariant on the served
-files, tests/test_cover.py, tests/test_review.py, docs/batch.md (seed
-20261012).
-4. Re-claim done (all six boxes are already ticked and stand; the port-0
-test stays waived per the lead's 212b say-so - see the 212b task file in
-git: `git show 45675c9/1cd9671:tasks/212b-cover-sync.md`).
-
-**Box evidence pointers (unchanged from the iter-254 record, kept in git at
-tag-less commit 1242a31 / file 1de8d04):** boxes 1-2 = 212a's run (tasks/
-212a-cover-search.md; the 244 exact-searched strings are in docs/batch.md);
-boxes 3-4 = the iter-253 final sync (DECISIONS "iter-253 ran the closing
-step": 13 synced / 57 skipped / 0 sent-failed-refused-pruned, 457/480 open);
-box 5 = docs/batch.md; box 6 = the measurements in the DECISIONS entry above.
+**Exact next step (minutes, no new work):**
+1. `git diff` the two uncommitted data files (web/data/review.json = `at`
+   only; docs/batch.md = the report refresh) to confirm they are exactly what
+   this hand-over says. If the driver merged main into the branch meanwhile,
+   first re-check `sha256sum -c tests/golden/hand_fit_docs.sha256` and
+   re-simulate `_pick_place` (seconds - a main move that deletes a doc can
+   move the pick, PITFALLS on tests/test_fit_queue.py) and, if it moved,
+   re-run `fit/cover.py sync` + `fit/cover.py report` before committing.
+2. Append the DECISIONS entry: "2026-10-14 212 DECISION: done re-claimed - 235
+   merged (344aa0c) cured the rejection; closing pass re-run (fetch 0 / sync
+   71 all current / report); golden 41/41 incl. the owner's fort-ancient
+   (lead port c72706b); numancia's no-picture->item move is 233's; suite
+   177/1/0 on the empty baseline; served invariant 0/499; Split: no because
+   nothing unbuilt remains".
+3. Optionally add two PITFALLS entries (fit/ section, after the `_fetch_one`
+   entry): (a) fit/cover.py report's "uncovered (needs attention)" bucket is
+   doc/item-based and ignores site.json-plate drawings, so fudge/highbank/
+   hopeton print "the invariant is broken" although the GOAL.md point-1
+   invariant is served-file-based (drawings >= 1 OR served open item) and
+   holds (0/499) - measure the served files, not the bucket; (b) fit/cover.py
+   phases read the ONE canonical data/commons/files.jsonl, never the
+   per-family files_*.jsonl staging files - measuring "plans.json staleness"
+   against per-family rows gives a false gap (they join the canonical file via
+   the family's consolidation task, e.g. 236c).
+4. Commit all of it: `git add DECISIONS.md PITFALLS.md tasks web/data/review.json docs/batch.md && git commit -m "212: done re-claimed - closing pass re-run on the post-235 tree (fetch 0, sync 71 all current, report fresh); golden 41/41 incl. the owner's fort-ancient; suite 177/1/0; served invariant 0/499 - Split: no (no unbuilt work left, the 235 gate is merged)"`.
+5. Then stop: the driver re-checks (suite on the merged tree) and merges 212.
 
 ### Also written to PROGRESS.md (moved here by the driver)
 
 # PROGRESS (generated by the driver before every session)
 
-## Hand-over record (agent a, iter-252 - written at the context limit)
-212 (cover final) is at its closing step. All subtasks done; the world moved after the
-last sync (11:26) and report (13:22) via ONE lead commit 77405cf (14:34): 13 by:agent
-matcher re-fit docs (NOT synced - zero depictions.json touched in that commit) + 103 new
-review items for the uncovered sites of 212c's report + review.json re-export. Store ==
-my checkout (557 files, 0 differing); the 13 docs are the only ones missing dep entries;
-0 stale. Full detail: tasks/212-cover-final.md ## Hand-over and the DECISIONS entry above.
-NEXT: `.venv/bin/python fit/cover.py sync` -> `fit/cover.py report` -> tests (test_cover
-6, golden hand_fit, test_serve, full suite) -> measure the invariant on the served
-files -> tick the six parent boxes -> Status: done. No subtasks (the lead's 212b say-so
-waived the written port-0 test; precedent accepted by the driver).
-
-
 Hand-over notes live in each task's `## Hand-over` section at the end of its task file: write yours in your
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/207a-horsley.md` (blocked) - hand-over: (2026-10-13, iteration 203, agent c - the main merge brought the owner's "Stop 207" onto this
-- `tasks/207b-maclauchlan.md` (blocked) - hand-over: (2026-10-13, iteration 204, agent c - NO work on this task. The driver auto-put it back to
-- `tasks/207c-roy.md` (blocked) - hand-over: (2026-10-13, iteration 205, agent c - NO work on this task. The driver auto-put it back to
-- `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
-- `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 234, agent a - **212a done, 212b done (lead), 212c done - the
-- `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-13, iteration 208, agent c - the driver returned the parent: all existing subtasks
-- `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
-- `tasks/307b-on-map.md` (split) - hand-over: (2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
+- `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
+- `tasks/212-cover-final.md` (in-progress) - hand-over: (2026-10-13, iteration 255, agent a, written at the context limit -
+- `tasks/236-us-cities.md` (split)
+- `tasks/240-us-birdseye-batch4.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
+- `tasks/241-us-birdseye-batch5.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
+- `tasks/307bc-reverify-place-mode.md` (open) - hand-over: (2026-10-13, iteration 256, agent a - first session: the task was filed as the driver
+- `tasks/307b-on-map.md` (split) - hand-over: (2026-10-13, iteration 256, agent a - context limit hit at the end of this session; the
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
 
 ## Next open tasks
 - `tasks/230-roman-merge-rerun.md`
-- `tasks/235-placement-test-dep-pick.md`
-- `tasks/302f-matcher-station-test.md`
+- `tasks/236c-us-cities-merge.md`
+- `tasks/238-matcher-gate.md`
 
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-13 212 DECISION: 231 corrected to its single pin; 232/233/234 filed; probe worktrees removed
-The iter-206 note's 231 "second pin" paragraph was wrong: test_line_refuses_unmarked_non_auto_doc
-(case b) never reads the deleted bethlehem doc - its seed is the golden doc
-c_022604d2be0becdc from tests/golden/stonehenge_linecheck_docs/, and its failure
-is the shared Stonehenge 13-row plans pin (14 rows since main f970500 added
-c_61b86efb4511e099 with the 211 pictures; the item file and the published page
-entry still agree with each other at 13 candidates - verified). 231 was rewritten
-to cover only the year-once pin (case e) with a candidate list measured from the
-live store (40 year-titled docs; batch set incl. the Mackenzie (1897) series and
-"York Castle in 1820"), chosen after 306c-f settle. 232 re-pins the shared
-Stonehenge snapshot in test_site_done + fit_provenance b to the POST-212 live
-state (depends on 212, then 231 - both edit test_fit_provenance.py). 233 per the
-entry above (depends on 212). 234: test key to the generator's documented
-(view, -px, plan, name) - tools/fit_queue.py's sort stays (307bb's page-card pins
-depend on the entry order) - plus a byte-reproducible regeneration of
-web/data/fit_queue.json (committed at 229 entries, at 2026-10-13T04:09:15) after
-212 and 306c-f settle the live inputs. The /tmp/awmain and /tmp/awhead probe
-worktrees were removed (agent c's /tmp/aw306cab untouched).
+### 2026-10-13 212 DECISION: done - six boxes ticked on re-verified evidence; the 457 open set is doc-derived (455 unresolved files + 2 re-opened memos); dep-entry naming pitfall filed
+The closing session (iter-254). Subtasks 212a/212b/212c were all done and driver-accepted; this session re-verified the iter-253 evidence on the current tree (only driver bookkeeping commits since: 73897d5/e31c6d4/aee0bd5) before ticking: golden `sha256sum -c tests/golden/hand_fit_docs.sha256` 40/40 OK; is_done-triple audit 70/70 current (0 missing / 0 stale); GOAL.md point 1 invariant 0/499 on the served files (499 sites; every site drawings >= 1 or an open item; fudge/highbank/hopeton covered by their site.json-plate drawings=1); tests/test_cover.py 6/6 PASSED (41.6 s) and tests/test_review.py 5/5 PASSED (51.6 s, incl. the page-level test_page_shows_the_review_list); docs/batch.md fresh @20:38 with buckets summing to 499 and seed 20261012. Ticked all six boxes, set Status: done. Box 6's written port-0 test stays waived per the lead's 212b say-so (the driver accepted the identical live-evidence tick for 212b) - the box is ticked on the measured substance (invariant 0/499, golden green, sample reproducible via test_report), per that precedent. Clarification found while re-verifying: web/data/review.json's 457 open = 455 item files without a `resolved` memo + 2 items (aesica-q4688554, alligator-effigy-mound-q4732645) whose write-once memo points at a since-deleted doc; export's doc-derived open rule (fit/review.py:189 - open iff no candidate has a current doc) reopens them, and both sites (drawings=0) are covered exactly by that openness. A naive memo-field check would miscount 455 and could make those two sites look uncovered - the page's truth is doc-derived, per the existing PITFALLS entry on fit/review.py resolution. Filed the dep-entry naming pitfall in PITFALLS (### pipeline/: entry `file` = `plan_<plan>.webp` strips the site prefix, `fit.doc` keeps `<sid>.<plan>`; audit with the is_done triple, and build doc ids with os.path.basename(path)[:-5]).
 
-### 2026-10-13 212 DECISION: CORRECTION 4's measurement ran - bethlehem/shotwick stay covered by their open audit items; box-6 risk did not materialize; live nofit population re-measured (402 = 246 search + 156 with-row)
-Ran the one blocked measurement from the iter-205 hand-over (CORRECTION 4) on the
-post-merge tree (HEAD f62d50c, plans.json 1474 rows, 499 built). The risk it tested -
-the sync's full prune resetting a doc-less site to drawings 0 with no cover, breaking
-box 6 - did NOT materialize:
-1. bethlehem-q2523914 (3 fabricated docs deleted by the 306a audit a858f48): drawings
-   already 0, no docs, dep file rewritten on this machine ~1h after a858f48 (mtime
-   Oct 12 22:38 CDT) and already map-only (tmk1850 1850) - no plan entries left to
-   prune. Item bethlehem-q2523914.c_b31c3de3630246bc.json: 22 candidates with 306a
-   audit whys and detail fields (coarse/ground/rot_deg/scale_m_px/note), no_picture
-   None, resolved None -> OPEN and published in the 333-item review.json. The sync's
-   prune leaves the dep byte-identical (prune keeps every non-plan/view entry).
-2. shotwick-castle-q7502621 (agent doc deleted at 6841f07, uncommitted work after
-   iter 136): drawings already 0, no docs; dep file (mtime Oct 11 18:47, never
-   re-pruned here) still carries the STALE plan entry of that doc -
-   plan_c_e6e5490609414bb9.webp + plan_c_e6e5490609414bb9_ink.webp both still on disk
-   - plus the map entry (six-inch-1st 1842). Item: 2 candidates (n0575_1 "no model
-   answer"; c_e6e5490609414bb9 "306a audit: the drawn moated ring spans ~188 m..."),
-   OPEN and published. The sync's full prune drops the plan entry and BOTH webps,
-   then set_drawings -> drawings stays 0 (a map is not a DRAWING kind; no plate).
-Both sit in the 52-site population whose plans rows are ALL already review-item
-candidates: tools/site_done.py fit() re-fits only rows with NEITHER doc NOR item
-entry (its docstring: a blind re-run would swap the audit entries whole), so the
-loop leaves both item files BYTE-IDENTICAL (audit whys survive; their reasoning is
-also in DECISIONS under the 306a entries). Neither is in the search set (both have
-rows), so nopicture does not touch them. Box 6 holds for both via the open item -
-NO nopicture re-record needed, and the test's assertion (iv) is now concrete (see
-hand-over). Filed a PITFALLS entry (### tools/site_done.py, fit/review.py) on the
-upsert in-place replacement + the skip guard that protects audit notes.
-Re-measured live population with the PRODUCT definitions (nofit = drawings==0 AND no
-doc; search set = nofit minus plans-row sites; the iter-205 numbers were the
-pre-merge 1168 tree): nofit 402 (94 sites have docs); search set 246 - ALL already
-carry the batch-era no_picture mark (nopicture re-records all 246 with the exact
-searched string; 0 bare sites). fudge/highbank/hopeton looked bare under a looser
-no-doc definition but are drawings-1 site.json-plate sites -> covered by the product
-definition, outside the search set. with-row nofit 156 = 52 all-rows-in-item (item
-untouched by the loop) + 1 partial overlap (loop upserts "no model answer" only for
-the uncovered rows, in place) + 103 no item (loop creates a fresh all-rows item).
-CHOOSE (first 4 with-row nofit, sorted) on THIS tree: aardenburg-q955 (1 commons
-row, no item), aesica-q4688554 (1 commons row, 1-cand item), aire-sur-la-lys-q259903
-(1 commons row, no item), alauna-q4708853 (5 rows, first = BOOK Allcroft 1908
-n0438_1, 5-cand item). alesia (withrow[4]) and angel-mounds (withrow[7]) fell out of
-the first 4: 211 gave aardenburg/aire-sur-la-lys their rows and the lead's Mac port
-(20277f3) added 11 matcher docs on 11 newly built sites. Test consequence (in the
-hand-over): the matcher fake assigns the pair recipes by POSITION (CHOOSE[0..2]
-well-spread, CHOOSE[3] near-collinear -> sent+deleted by the line check), and the
-expected item end states follow 201's derivation computed from the live items (doc on
-an in-item row -> item resolved write-once and off the open list, as for aesica; doc
-... (0.1 KB more: `grep -n -A 200 -F '## 2026-10-13 212 DECISION: CORRECTION 4's measurement ran - bethlehem/shotwick stay covered by their open audit items; box-6 risk did not materialize; live nofit population re-measured (402 = 246 search + 156 with-row)' DECISIONS.md`)
+### 2026-10-13 212 DRIVER: done claim rejected, task reopened
+- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
+    tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
 
-### 2026-10-13 212 DECISION: D3's cost measurement ran - the real-dir/hard-link tree build is ~0.7s total; the fallback is dropped
-Ran the hand-over's step (1) on the merged tree (HEAD d31aaec, working tree clean).
-Shared store = /home/agent/projects/ancient-works: data/raw is a real tree - 2344
-dirs + 11196 files (6328 jpg, 3123 png, 1558 img, 109 json, 26 gz, shapefiles,
-3.1G), 0 symlinks, 0 .npy/.npz; its web/data/sites = 388 real site dirs, 2744
-files, 514M. The checkout mirrors it: data/raw is a symlink to the store's;
-web/data/sites is a real dir with 503 site entries = 382 per-site symlinks to the
-store + 121 real dirs; the followed checkout view = 504 dirs + 3147 files.
-Measured the exact D3 build in a throwaway /tmp tree (os.makedirs every dir -
-new inodes - and os.link every existing file; nothing is ever written in place):
-data/raw 0.47s, the followed sites view 0.11s, the rest of the tree (web/ +
-data/ + docs/ + specs/ + tests/, 2005 files, minus raw/sites internals, minus
-.npy/.npz) 0.14s. TOTAL ~0.7s with near-zero disk (the hard links share the
-3.6G). Consequence: the hand-over's fallback (hard-link files only under the
-dirs that exist in the store + a few known dirs) is DROPPED - the test builder
-walks the store's data/raw and the followed checkout sites view
-unconditionally. No code changed this session.
-
-## Project-wide driver notes (newest)
-
-### 2026-10-11 DRIVER: test suite failing at loop start (4 tests)
-    tests/test_batch_eu.py::test_union_check
-    tests/test_batch_eu.py::test_union_full_coverage_live
-    tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees
-    tests/test_serve.py::test_platefits_docs_match_sites
-    FAILED tests/test_batch_eu.py::test_union_full_coverage_live - AssertionError...
-    FAILED tests/test_gate.py::test_recorded_measurement_reproduces_and_agrees - ...
-    FAILED tests/test_serve.py::test_platefits_docs_match_sites - AssertionError:...
-    4 failed, 60 passed in 64.37s (0:01:04)
-    (full test output: .agent/reports/last-test-output.txt)
-
-### 2026-10-11 DRIVER: test suite failing at loop start (3 tests)
-    tests/test_batch_eu.py::test_union_check
-    tests/test_batch_eu.py::test_union_full_coverage_live
-    tests/test_serve.py::test_platefits_docs_match_sites
-
-### 2026-10-12/13 306d DECISION: iteration 161 - bury-castle judged WRONG and removed the 303 way (line written, removal executed, then reverted for a true A/B); the 306c-style worktree A/B is INVALID in this project (locally-built site data is not in git)
-- Re-verified the 160 hand-over's numbers with fresh measurements BEFORE deleting (AGENTS.md: check facts by running code). Confirmed: 8 pairs = 4 distinct points on a 100-px grid ladder (three on u=100; the 200-px and 100-px lat steps span 0.0053896/0.0017967 deg = 1.5:1 per pixel, no similarity can hit; the page's simFit (exact port) gives resid 10.9-39 m, 2.634 m/px, +1.06 deg - identical to the committed shot's [eval] line). CORRECTIONS to the 160 hand-over: the real hillfort is ~20 m NW of the site point (not '+22 E / -55 N'), its hachured ring is ~80-90 m across (not ~130 m), so the drawn ring (277-342 m at 2.634 m/px, centred at raw (240-248,115) -> (-3.5187, 51.0370) = E -218..-239, N +531) is ~3.5x too big and 554-582 m N-NW (N23-25W) of the real one - on a small hachured wood hill. The 160 '~2x / 535-576 m' survives as a range (540-576 -> 554-582), the direction and the verdict are unchanged. Extra independent check: the plate's own 'SCALE OF FEET 0-300' bar measures ~1.45 m/px vs the fit's 2.634 (1.8x). Distances must be geographic (dx=dlon*111194.9266*cos(lat0), dy=dlat*110900), NOT raw Mercator units (my first pass computed 916 m for the 576 m distance that way).
-- Executed the 303 way exactly as 306c did (fit/review.py API, no hand-edited JSON): upsert_item(root,'bury-castle-q5001077',[entry]) with entry = {plan, title, url, pairs (the doc's 8), coarse:false, evidence (from the data/commons/files.jsonl row: rec evidence/1, kind category, checked 2026-10-10, site_cat/file_cat 'Bury Castle, Somerset'), label '1911', cite, ref, size, place_reason '306d audit 2026-10-12: ... Document deleted.'} appended to the existing item (lead n0136_1 kept first, filename unchanged), then deleted data/db/platefits/bury-castle-q5001077.c_de779031cda8a0dc.json, then export(root,'bury-castle-q5001077') (333 open of 346). Only 3 files changed (D doc, M item, M web/data/review.json) - no other site's item touched; the site was already covered for the union check (its item was already open in the page file before the upsert).
-- Wrote the 306d block (header + the bury-castle line) into docs/site_flow.md after the 306c block (header is tense-neutral: 17 more lines to come in batches; box 1 ticked - 36 shots re-listed this session).
-- TESTS (full suite, main checkout, --ignore=tests/test_gate.py, -p no:cacheprovider, with my changes): 10 failed, 130 passed, 1 skipped (251 s). The 10: test_fit_queue.py::test_placement_gestures_and_save_in_the_browser (FAILED at the seed check, dep:null) + 9 that are agent a's in-flight work already on main (test_merge new_sites_are_complete/new_site_golden_samples = 211's open 222-228 gate; src_artists/limes/mackenzie/numancia/wiltshire_stukeley stage+check tests = the 224 family). Baseline in my task file (123/1, 2026-10-12) is STALE - main has since merged 211/223/224/307 work and the suite grew to 141 tests.
-- A/B attempt 1 (worktree at HEAD in /tmp/aw306d_ab): INVALID - web/data/sites/ is mostly gitignored (58 tracked files vs 389 site dirs in the main checkout; the per-site web data + data/raw are local build artifacts), so a fresh worktree lacks stonehenge etc. and fails 3 tests deterministically (site_done_line FileNotFoundError '/tmp/aw306d_ab/web/data/sites/stonehenge-q39671', fit_provenance line_refuses_unmarked_non_auto_doc, fit_queue save_runs) that pass in the main checkout; its placement_gestures 'vacuous ERROR' there is also unprovable (no local depictions). PITFALLS candidate: never A/B this project in a bare worktree/checkout - do it in the main checkout with the changed files temporarily at HEAD. (The worktree is still registered; remove it: git worktree remove --force /tmp/aw306d_ab && git worktree prune.)
-... (1.9 KB more: `grep -n -A 200 -F '## 2026-10-12/13 306d DECISION: iteration 161 - bury-castle judged WRONG and removed the 303 way (line written, removal executed, then reverted for a true A/B); the 306c-style worktree A/B is INVALID in this project (locally-built site data is not in git)' DECISIONS.md`)
+### 2026-10-13 212 DECISION: the driver's rejection was factually right - 212b's sync moved the placement test's pick from oswestry (green) to marietta (red); the "pre-existing since iter 161/197" attribution in my iter-253/254 entries was wrong; the fix is 235's file, so 212 now carries Depends on: 235
+The driver reopened 212 (0b4dd2d) on one failing test:
+tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+("not failing before this task"). I investigated before accepting or rebutting,
+and the driver was right. Measured this session (no code changed):
+- Current pick (re-simulated the test module's own `_pick_place()` + a stdlib
+  port of the page's filter): **marietta** (idx 29 of 241 in
+  web/data/fit_queue.json) - line-eligible (zero docs, unresolved item carrying
+  the squi row, local page) and dep file non-empty (ONE entry: the 1904 USGS
+  topo) - but the topo fails the page's surveyOldEnough 150-year filter
+  (1904 > 2026-150=1876), so the page never creates the `dep-marietta` layer
+  and the seed check reads dep:null -> red.
+- The tree just before 212b's final sync (870d4f9^ and 6ce742f^, checked with
+  `git ls-tree`): marietta had exactly ONE doc -
+  marietta.b24849959_n0195_1.json (a 301 pattern doc; blob 6996872 in both) -
+  so `_line_eligible` returned None (site has a doc) and the pick fell to
+  **oswestry-castle-q20713795** (idx 36), whose 1842 map survives the page
+  filter (its 1900 map does not) -> dep layer created -> seed 'none' -> GREEN.
+- **6ce742f** (Oct 13 06:31, "[driver] uncommitted work after iteration 227")
+  is 212b's final sync (306d's 08c0cf1 attributes it exactly that way; 306e's
+  6554a14 credits "212b's sync notes" on the item conflicts): it deleted that
+  doc among the 76 pattern docs the sync exists to delete, and upserted the
+  item entry recording it (why + the b248 candidate). With her last doc gone,
+  marietta (idx 29, before oswestry's 38) became the first line-eligible entry
+  with a non-empty dep file -> the pick moved -> red, on every tree since
+  (77405cf, my iter-253 sync, HEAD). 221's iter-237/238 recorded "pick still
+  marietta/1904-topo (77405cf's 103 new review items shifted nothing)" - that
+  observation was right but its cause (212b, not 77405cf) had already happened.
+- Side history, so the journal stays straight: the test went GREEN at 081c773
+  (307bb, Oct 12 05:02, "Suite 101 passed"); during 306c's Oct-12 audit era
+  (114-entry queue) its own audit deleted marietta's doc on agent c's branch
+  and the pick went red there (306d iter-161 and 306e iter-197 recorded "the
+  307bb gesture red, the baseline from both parents"); my 212 notes-only
+  phase's 229-entry regeneration (f0dfd66, Oct 12 23:23) put the pick back on
+  oswestry -> GREEN again; 6ce742f (212b) -> RED. The driver's 212 baseline
+  predates all of it, so its re-check flags the red against 212 - and my
+  iter-253/254 "pre-existing since ~iter 161" claim was wrong about the state
+  adjacent to my task (that phrasing copied the 306-era episode, whose red had
+  already been cured by f0dfd66). (b9cbc46, Oct 12 16:18 - a driver capture on
+  agent c's 306c branch swapping marietta's docs b248->squi - is NOT an
+  ancestor of main's pre-sync state; main kept the b248 doc until 6ce742f.)
+- The doc deletion itself was CORRECT and stays: the 306c audit had judged
+  that b248 doc ("scale right (1.0 m/px, the plate's own bar) but..."), the
+  pattern docs are 301's fabricated points, and the sync's item-upsert keeps
+  marietta covered by her open review item (the GOAL.md point-1 invariant
+  holds - 0/499, re-verified in iter 254 and unchanged this session). No
+  rollback, no stand-in.
+- The real defect is `_pick_place`: it checks what the SITE has (a non-empty
+  dep file), not what the PAGE will show (surveyOldEnough + the auto-select
+  rule). tasks/235 (open; its deps 306e and 307d are both done; listed in the
+  driver's "Next open tasks") owns tests/test_fit_queue.py and spells out
+  exactly this fix. Verified the post-fix pick on this very tree: **oswestry**
+  (idx 38) -> once 235 merges, the test is green with no data change, and 212's
+  done re-claim should pass the driver's suite gate. 212 now carries
+  `Depends on: 235` (the driver reschedules on that line); the boxes stay
+  ticked - they stand on the iter-253/254 evidence, re-checked this session
+  (golden 40/40, invariant 0/499, 456/480 open, report @20:38 unchanged).
