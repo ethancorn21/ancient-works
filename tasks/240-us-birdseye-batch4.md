@@ -140,105 +140,174 @@ vertical sheet (LOC 75694650). Minneapolis is RESEARCHED (iteration 165 - the DE
 Herancourt / I. Monasch near-vertical sheet (LOC 75694644).** Cleveland: NOT yet researched. Run
 the per-city playbook. (The pool search shows which survived the gates; do not trust this note,
 verify live.)
-
-
 ## Hand-over
-(2026-10-14, iteration 168, agent c - session 9 COMPLETE: the R5 restore of the seven 307d pngs
-re-encoded by the iteration-167 full-suite run is committed (9620f1f); the Minneapolis landing
-itself already rides in the driver's commit 6cb8ca9 (session 8's uncommitted work). THREE of FOUR
-cities are landed and committed: Denver (Q16554), St. Paul (Q28848), Minneapolis (Q36091). The
-branch is clean; the last full suite (167) = 182 passed / 1 skipped / 0 failed = the 164 baseline.
-NEXT = session 10: CLEVELAND (city 4) RESEARCH.)
+(2026-10-14, iteration 169, agent c - session 10 COMPLETE: CLEVELAND (city 4) RESEARCH done - QID
+Q37320 (the "Cleveland, Ohio" search's first hit IS the city: the batch's first clean first-guess;
+the memorized Q131855 was a roadster (bicycle), caught by the label check), pool 51 unique / 9
+good with every thumb eyeballed, THE PICK = the 1877 A. Ruger / Shober & Carqueville sheet
+(`File:Birds eye view of Cleveland, Ohio 1877. LOC 73694507.jpg`, 10704x6544, PD) - the steepest
+near-vertical whole-city view in the pool, drawn from a high vantage OVER LAKE ERIE (south of the
+city) looking north. NO project file touched this session (research only); branch clean;
+docs/site_flow clean vs main. NEXT = session 11: CLEVELAND LANDING.)
 
 **State (verified this session):**
 - Staged in the batch4 files (3/3/3 rows): `denver-q16554` (the 1908 Birdseye View Publishing Co.
-  sheet, `File:Bird's eye view of Denver, Colorado, 1908. LOC 75693133.jpg`, 19338x13294),
-  `st-paul-q28848` (the 1906 Robert M. Saint sheet, `File:Bird's eye view of St. Paul, Minnesota.
-  LOC 75694650.jpg`), `minneapolis-q36091` (the 1885 W. V. Herancourt / I. Monasch sheet,
-  `File:Minneapolis, Minnesota. LOC 75694644.jpg`, 13152x9408). Lead doc
-  docs/lead_us_birdseye_batch4.md: three city sections + Staging section (3 views / 3 site rows;
-  the Not-done-yet pointer names only CLEVELAND for 240). Golden 3/3/3. batch4 tests 5/5
-  (re-run green this session, 2.34 s). Module fit/src_us_birdseye_batch4.py: SITES at line 79
-  (3 QIDs), no SHARED machinery, known_sites() at line 276 reads SITES_JSONL + EXTRAS + 236a's
-  extras + 236b's extras + 241's (absent) batch5 extras + web/data/sites.json.
-- **main has moved past the 164 merge-base (8678c8a)** - agent a's 238 work is on main (its
-  hand-over says DONE). There is NO merge of main onto this branch yet (no merge commit on
-  agent/c); the driver's main->branch sync is the driver's job - I never merge/rebase myself
-  (team-mode rule). FIRST CHECK OF SESSION 10: `git diff main --stat -- docs/site_flow/` - if
-  main's 307d bytes moved again since my restore (main's own re-encode jitter; task 242 will
-  settle it), `git checkout main -- docs/site_flow/` again BEFORE running anything that hashes
-  docs/ (the full suite does). My restore used main's current bytes, so a merge into current
-  main sees identical bytes on both sides for all seven files (no binary conflict).
-- **/tmp (still alive at session end; wiper-prone - rebuild recipes: entry-165 pool/QID scripts,
-  entry-166 the 13152 px original crops):** /tmp/aw240_mpls_qid.py (the QID script template -
-  sys.path already points at this checkout), /tmp/aw240_mpls_pool.py (the pool template),
-  /tmp/aw240_mpls_thumbs.py + /tmp/aw240_mpls_thumbs/, the /tmp/aw240_m885_* crops (the
-  Minneapolis original + the 500 px grid reference), the /tmp/aw240_sp_* St. Paul set, the
-  verify/dry/stage/check transcripts for iterations 160/163/167, the suite logs 161-167. The
-  /tmp/aw236b_b3_dvr* (Denver) research set is still present too.
+  sheet), `st-paul-q28848` (the 1906 Robert M. Saint sheet), `minneapolis-q36091` (the 1885 W. V.
+  Herancourt / I. Monasch sheet) - unchanged this session. Lead doc docs/lead_us_birdseye_batch4.md:
+  three city sections + Staging section (3 views / 3 site rows; the Not-done-yet pointer names only
+  CLEVELAND for 240). Golden 3/3/3. batch4 tests 5/5 (re-run this session, 2.34 s, offline). Module
+  fit/src_us_birdseye_batch4.py: SITES at line 79 (3 QIDs), known_sites() at line 276 (SITES_JSONL +
+  EXTRAS + 236a's + 236b's + 241's absent batch5 + web sites).
+- `git diff main --stat -- docs/site_flow/` = clean (the driver's 26aca9f merge brought main's
+  bytes; no R5 restore was needed this session). The 241 batch5 file is still absent (241 not
+  started) - the module's forward read tolerates it.
 
-**NEXT (session 10) - CLEVELAND (city 4) RESEARCH, in this exact order, all under
-.venv/bin/python:**
-1. **QID playbook** (clone /tmp/aw240_mpls_qid.py -> /tmp/aw240_cle_qid.py; save the transcripts
-   /tmp/aw240_cle_qid_168.txt + _qid2_168.txt): first-guess QID from a "Cleveland, Ohio" search
-   + the label check - the mislabel trap has now hit 3 of 4 cities (Denver's Q3101 a person,
-   St. Paul's Q16842 a person, Minneapolis's Q3094 a Romanian monastery); every P625 value with
-   precision (flag any >50 km from the downtown); P373 (a string is the usual US quirk -
-   Cleveland is in Cuyahoga County, Ohio -> place "Cuyahoga County, Ohio"); P131 with labels,
-   P17, enwiki; the name-search "Cleveland" limit 20 with the distance from the city's P625 for
-   EVERY P625-bearing hit (in-city institution traps - Cleveland has big hospitals, a big
-   university, an airport; other-state namesakes: Cleveland TN (the big one near Knoxville),
-   TX, MS, WI; foreign: Cleveland, County Monaghan, Ireland - record the FIRST P625 hit: if it
-   is NOT the city itself it is the TRAP line the --verify must show); no existing site holds
-   the QID (catalog sites.jsonl, catalog/extras.jsonl, 236a's extras_us_cities.jsonl, 236b's
-   extras_us_birdseye.jsonl, 241's batch5 file when it exists, web/data/sites.json); verify the
-   slug with the module's own slug rule (catalog.slug("Cleveland") - expect "cleveland").
-2. **Pool** (clone /tmp/aw240_mpls_pool.py -> /tmp/aw240_cle_pool.py with CITIES=["Cleveland"];
-   the six plain-phrase forms + `filetype:bitmap`, srnamespace 6, srlimit 40; dedupe; the gates:
-   caption names the city AND commons.keep() judged AFTER any known-date swap AND license
-   "Public domain" AND width >= 4000; eyeball every good item's 1280 px thumb one by one -
-   /tmp/aw240_mpls_thumbs.py is the thumb template). The pick = the steepest (near-vertical),
-   best-scanned whole-city view (the caption names the city). Cleveland sits on the Cuyahoga at
-   the Lake Erie shore - check every sheet's lake side and orientation; MEASURE the apparent-
-   angle claim before writing it (the entry-166 grid-crop recipe: download the original, crop
-   full + quadrants + river zone, draw a 500 px white grid with coordinate labels).
-3. **Record:** the full DECISIONS entry (QID facts + pool counts + the eyeball verdicts with
-   per-item drop reasons) + a hand-over pointing at session 11's landing edit list.
+**Cleveland research record (the full detail: DECISIONS entry "240 DECISION: iteration 169"):**
+- **QID = Q37320** (live, .venv/bin/python /tmp/aw240_cle_qid.py; transcripts
+  /tmp/aw240_cle_qid_169.txt + _qid2_169.txt): label "Cleveland"; P625 = ONE 30 m value
+  (-81.69472222222223, 41.49916666666667) the central CBD (no refinement needed); P373 = the STRING
+  "Cleveland, Ohio" (the usual US quirk); P131 = Q251267 Cuyahoga County (the only one) -> place
+  "Cuyahoga County, Ohio"; P17 = Q30; enwiki "Cleveland". The "Cleveland, Ohio" name search's first
+  hit is the city itself (clean first-guess - first of the batch: Denver Q3101 a person, St. Paul
+  Q16842 a person, Minneapolis Q3094 a Romanian monastery, Cleveland clean); the memorized Q131855
+  is a ROADSTER (bicycle, no P625) - a memory error caught by the label check. Name search
+  "Cleveland" (limit 20): NO first-hit trap - the first hit with P625 is Q37320 itself (0 km, the
+  Denver/Minneapolis pattern); the in-city institution traps rank behind it (Cleveland State
+  University 1.7 km, Cleveland Clinic 6.1, Cleveland Museum of Art 7.0, Cleveland Guardians 0.9,
+  Cleveland Browns 0.9); other states (TN 756.0, GA 788.6, Quebec 901.4, MS 1172.0, OK 1400.0) and
+  Tasmania 15993.8. No existing site holds the QID (the 169 scan: catalog sites/extras, 236a's and
+  236b's extras, 241's absent file, this task's own file, web/data/sites.json - none). Site id =
+  **cleveland-q37320** (catalog.slug("Cleveland") = "cleveland", verified live).
+- **Pool** (live: /tmp/aw240_cle_pool.py + .json; transcript /tmp/aw240_cle_pool_169.log): 51
+  unique / 9 good; all 9 thumbs (1280 px) eyeballed one by one (/tmp/aw240_cle_thumbs/). Three
+  distinct Cleveland (Ohio) sheets: the 1853 John W. Hill sheet (11831x8413, DPLA - a mid-steepness
+  oblique drawn from Ohio City across the Cuyahoga; the pool's OLDEST whole-city view), **THE 1877
+  sheet (the pick, below)**, the 1887 C.H. Vogt & Son sheet (6632x5125/5128, two scans - shallower,
+  bigger sky band; its banner prints only "CLEVELAND, OHIO." - the year 1887 comes from the LC
+  record alone).
+- **THE PICK: `File:Birds eye view of Cleveland, Ohio 1877. LOC 73694507.jpg`** (10704x6544,
+  Public domain; page date 1877 = the drawing's year - the sheet's own copyright line - no Zwolle
+  swap; LC Panoramic maps (2nd ed.), 687.2): THE steepest (near-vertical) whole-city view in the
+  pool - verified on the 19.4 MB original (crops /tmp/aw240_cle_77_* + /tmp/aw240_c77_*): the
+  rotated street grid legible across the WHOLE frame (lakefront to the farmland horizon). Banner
+  "BIRDS EYE VIEW OF CLEVELAND / OHIO 1877" (three lines, no apostrophe) bottom-centre; "A. RUGER,
+  ARTIST" at the image's lower-left corner; "LITH. BY SHOBER & CARQÉVILLE CHICAGO" lower left (the
+  accent on the E - the row label keeps the ASCII "Carqueville"); "ENTERED ACCORDING TO ACT OF
+  CONGRESS BY J. J. STONER MADISON WIS." lower right; the LC stamp "Division of Maps / FEB 28 1941 /
+  Library of Congress" + the handwritten call number "G4084 .C5A3 1877 .R8 / Rug 157". Orientation
+  (measured on the original): drawn from a high vantage OVER LAKE ERIE (south of the city; the
+  lake with its sailing/steam traffic fills the bottom band) looking NORTH - sheet up = north,
+  confirmed three ways (the Cuyahoga enters from the north, the Chippewa to its east, the lake to
+  the south - no mirroring possible): the Cuyahoga meanders in from the upper centre (the north)
+  to its MOUTH at the sheet's centre-right, crossed by the multi-arch Washington Avenue viaduct
+  (label "WASHINGTON" on the sheet) and a truss bridge, the "UNION PASSANGER DOCK" (spelled so) on
+  the WEST side of the mouth; the dense downtown core (Public Square with its fountain, on the
+  bluff above the lakefront - the site's P625 point sits right at it) at the sheet's centre just
+  left of the mouth; the Woodland / Catholic / Cleveland cemeteries and the factory stacks on the
+  farmland horizon at the top; the "SUPERIOR" street label lower-left; the "CHIPPEWA RIVER" meander
+  upper-right. Twins (one row per sheet, the LOC .jpg staged): the same-scan .tif and the
+  DPLA-family "Cleveland 1877.jpg" (the same 10704x6544 sheet, a wider index crop).
+- **DROPS (all 42 non-good + the 5 good non-picks, grouped; per-item detail in the 169 DECISIONS
+  entry):** the 1884 Molitor Mississippi River sheet (the regional three-band view; "Cleveland"
+  only as the publisher's place - it passed the caption gate via the desc, but it is not a city
+  view); the 1923 Fairchild "airplane view of the heart of the east end" (a rotogravure of a 1923
+  airplane photo of the Euclid/Cedar/E 105th neighbourhood - a district close-up, not the whole
+  city); the 1890 Lucien Burleigh "Cleveland, N.Y." sheet (the village on Oneida Lake, Onondaga
+  County - a DIFFERENT Cleveland: the same-city-name trap class); the 1853 Hill and the 1887 Vogt &
+  Son sheets (shallower than the pick); the DPLA district close-ups (Municipal Stadium, City
+  Hospital, Rockefeller Park x2, the Art Museum / Wade Park, the Edgewater bathing beach, the Union
+  Terminal aeroplane view - all "No restrictions" and < 4000 px); the industrial-ad scans (Adams
+  Paint 2015, Dixie Foundry 1930 - keep() fails); the other-city scans (Canton Ohio 1913 - the
+  caption gate rejects it correctly; Hancock and Houghton Michigan - CC BY; Walrus Island - caption
+  gate + 1821 px); the false search hits (the Israël Silvestre palace views, the Mackinac book
+  sheet, the eight 1864 Lowes letters).
 
-**Then LANDING (session 11, the proven pattern - the entry-167 steps verbatim):** module edit
-(the SITES QID entry with the full comment block + the CLEVELAND_<YEAR> row-list + the SOURCES
-entry + docstring/SITES-header updates) -> --verify (4 QIDs; save the transcript verbatim for
-the lead doc) -> --dry (expect 1 new site, 1 new picture) -> stage (live commons.info re-check;
-if the pick vanished or is no longer PD, take the next-best pool candidate and record the swap)
--> --check (expect 4/4 PASS caption_coords, no join problems; append the transcript to the
-Staging section) -> lead doc (the Cleveland section: STAGED bullet + the full DROP list + the
-QID-facts paragraph + the --verify transcript verbatim; the Staging section to 4 views / 4
-site rows; the Not-done-yet pointer then names only 241's batch 5 - the prep R9 candidate order
-after Cleveland is Omaha (skipped in 236b with no recorded drop reason - re-run its pool search
-and record the verdict), Indianapolis, Columbus, Memphis - confirm against the live search
-order when writing it) -> --golden (4/4/4) -> test extension (the same substitution pattern -
-the PASS-key list, the SITES-id/years/points/named dicts, the date assertion - keep the file
-pure ASCII) -> batch4 tests -> the FULL suite (~9 min; start it only after ALL edits per R6,
-then `git checkout main -- docs/site_flow/` (R5) and commit "240: Cleveland landed (batch 4
-city 4) - the <YEAR> <artist> sheet". Baseline: 182P/1S/0F at 164 with main HEAD 8678c8a - if
-main has moved, diff the failing SET, not the number) -> commit.
+**/tmp (still alive at session end; wiper-prone):** /tmp/aw240_cle_qid.py + the two QID transcripts;
+/tmp/aw240_cle_pool.py + /tmp/aw240_cle_pool.json + _169.log; /tmp/aw240_cle_thumbs.py + _169.log +
+/tmp/aw240_cle_thumbs/ (9 jpgs); /tmp/aw240_cle_77_orig.jpg (19.4 MB) + the _77_{full,qnw,qne,qsw,
+qse,strip,banner} crops; /tmp/aw240_c77_{title,copyr,banner_left,rivers,mouth,dtown}.jpg;
+/tmp/aw240_cle_87_orig.jpg (6.8 MB) + the _87_* crops. The mpls/dvr research sets from sessions
+1-9 are still present too. Rebuild: clone the mpls scripts (QID: sys.path + the QID/TERM constants;
+pool: CITIES=["Cleveland"]; thumbs: the key + the paths).
+
+**NEXT (session 11) - CLEVELAND LANDING, in this exact order (all live commands under
+.venv/bin/python; the proven entry-167 pattern, adapted for Cleveland):**
+1. **Module edit** (the ONLY code change, fit/src_us_birdseye_batch4.py): (a) the SITES "Q37320"
+   entry with the full comment block (in the Denver/Minneapolis comment style: first-guess - the
+   memorized Q131855 a roadster (bicycle), caught by the label check, while the "Cleveland, Ohio"
+   search's first hit is the city itself; P625 one 30 m value; P373 the string; P131 Cuyahoga only
+   -> place; P17 Q30; enwiki; NO first-hit trap (first P625 hit = the city, 0 km) with the in-city
+   institution list; no existing site holds the QID (the 169 scan); slug verified) +
+   id="cleveland-q37320", name="Cleveland", named="Cleveland", lon=-81.69472222222223,
+   lat=41.49916666666667, place="Cuyahoga County, Ohio", region="United States", kind="town",
+   wikipedia="https://en.wikipedia.org/wiki/Cleveland", note = the aerial-photograph-ground
+   boilerplate + "the street grid, the Cuyahoga and the Lake Erie shoreline carry the fit; the
+   1877 staged sheet is the steepest (near-vertical) whole-city view in the pool, drawn from a high
+   vantage over Lake Erie (south of the city) looking north - the Cuyahoga meanders in from the
+   upper centre to its mouth centre-right (the Washington Avenue arch viaduct and a truss bridge
+   over it, the Union Passenger Dock west of the mouth), the dense downtown core (Public Square
+   with its fountain) at the sheet's centre just left of the mouth, the rotated grid legible to the
+   farmland horizon, the lake with its ship traffic along the bottom - spanning the whole city
+   beyond the 2000 m town box, so its fit is likely to end a review item (the 236a NY-1811 /
+   DC-ring precedent)". (b) the CLEVELAND_1877 row-list: ONE row ("File:Birds eye view of
+   Cleveland, Ohio 1877. LOC 73694507.jpg", "Q37320", "Cleveland", dict()) - NO date= entry (page
+   date 1877 = drawing year, no Zwolle swap) - with the sheet-facts comment (banner, artist,
+   lithographer, copyright line, LC call number, the twins). (c) the SOURCES entry
+   "cleveland_1877": dict(rows=CLEVELAND_1877, p="birdseye",
+   label="{name}, the A. Ruger / Shober & Carqueville bird's-eye view (1877)") - the label stays
+   ASCII (the sheet's accented "CARQÉVILLE" goes in the comment and the lead doc only). (d)
+   docstring + SITES-header updates (the "Cleveland follows in candidate order" lines become
+   "Cleveland (the 1877 A. Ruger / Shober & Carqueville sheet)"; four cities). The module itself
+   may carry non-ASCII in comments (it already does - Căldărușani); only the TEST FILE must stay
+   pure ASCII.
+2. **--verify** (4 QIDs; save the transcript verbatim to /tmp/aw240_verify_169.txt for the lead
+   doc; expect: Q16554 no trap; Q28848 the expected Q17 São Paulo TRAP line (8953 km); Q36091 no
+   trap; Q37320 no trap - the first hit with P625 is the city itself).
+3. **--dry** (expect "staged: 1 new sites, 1 new pictures" with cleveland-q37320 -81.69472222222223
+   41.49916666666667 Cuyahoga County, Ohio).
+4. **stage** (live commons.info re-check; if the pick vanished or is no longer PD, take the next-best
+   pool candidate - the 1887 Vogt & Son sheet (File:Cleveland, Ohio. LOC 75694918.jpg) - and record
+   the swap in the lead doc + the SITES comment).
+5. **--check** (expect 4/4 PASS caption_coords, no join problems; save the transcript and append
+   it to the Staging section).
+6. **Lead doc** (docs/lead_us_birdseye_batch4.md): the Cleveland section (in the format of the
+   Denver/St. Paul/Minneapolis sections: the STAGED bullet with the view's facts + the orientation
+   measurement; the full DROP list - all 47 pool rows, grouped like Minneapolis's; the QID-facts
+   paragraph; the --verify transcript verbatim in the QID section); the Staging section to
+   **4 views / 4 site rows** (4 PASS lines; "4 rows, 4 pass, 0 fail, 0 no-tie"); the Not-done-yet
+   pointer rewritten: 240 is DONE (4/4), the remaining cities go to 241 (batch 5, the final five:
+   Omaha (skipped in 236b with no recorded drop reason - re-run its pool search and record the
+   verdict), Indianapolis, Columbus, Memphis, then whatever the collection's search order adds to
+   reach five - confirm against the live search order when writing it).
+7. **--golden** (4/4/4).
+8. **Test extension** (tests/test_src_us_birdseye_batch4.py, mirroring the entry-163/167
+   substitution pattern A-E: the module-header docstring reference; the --check PASS-key list +
+   "cleveland-q37320|File:Birds eye view of Cleveland, Ohio 1877. LOC 73694507.jpg"; the
+   test_sites_table_and_staged_rows docstring + SITES-id dict; the years/points/named_by_qid
+   dicts; the Cleveland 1877 date assertion). Keep the file PURE ASCII (zero non-ASCII bytes;
+   verify byte-by-byte; ast.parse OK).
+9. **batch4 tests** (expect 5/5) -> **the FULL suite** (~9 min; start it ONLY after ALL edits per
+   R6, then `git checkout main -- docs/site_flow/` (R5), then commit "240: Cleveland landed (batch
+   4 city 4) - the 1877 A. Ruger / Shober & Carqueville sheet". Baseline 182P/1S/0F at 164 (main
+   HEAD 8678c8a) - main has moved since (238's d89e329 etc. now in this branch via 26aca9f): if
+   anything fails, diff the FAILING SET against the baseline, not the number; the 307d re-encode
+   jitter is handled by the R5 restore.
 
 **CLOSE (session 12, after Cleveland lands):** the full-suite tail = the baseline (diff the
-failing set if main has moved); --check ends all PASS, no join problems; the four staged
-ids/QIDs collide with nothing (the known_sites() guard + the test); tick acceptance boxes 1-4
-(each after its test passes); the lead doc's Staging section final (4 views / 4 site rows; the
-Not-done-yet names only 241); box 5 (Denver, researched) stays ticked - it was re-verified live
-by the 167 --verify run (Denver clean). Status: done.
+failing set if main moved); --check ends all PASS, no join problems; the four staged ids/QIDs
+collide with nothing (the known_sites() guard + the test); tick acceptance boxes 1-4 (each after
+its test passes); the lead doc's Staging section final (4 views / 4 site rows; the Not-done-yet
+names only 241); box 5 (Denver, researched) stays ticked (re-verified live by the 167 --verify
+run and the 169 QID research). Status: done.
 
 **Rules that bite (unchanged from the task Notes):** never write the canonical files (236c);
 236a's and 236b's files are read-only (the module's cross-checks enforce); live commands under
 .venv/bin/python (the module top stays stdlib-only; /tmp scripts repoint sys.path at this
-checkout); the golden regenerates only via --golden; tests never bind fixed network ports or
-write outside the project and the temp dir; every full-suite run re-encodes up to ten
+checkout); the golden regenerates only via --golden; tests never bind fixed network ports or write
+outside the project and the temp dir; every full-suite run re-encodes up to ten
 docs/site_flow/307d_*.png - restore main's bytes before EVERY commit that follows a run (R5);
 never edit suite-hashed files mid-run (R6: data/ minus raw, web/data top level, docs/, specs/,
-tests/ are snapshotted - finish all edits, THEN run, restore, commit; DECISIONS.md and tasks/
-are NOT in the snapshot set, so the bookkeeping can be written while the suite runs); /tmp
-artifacts are wiper-prone - the rebuild recipes are in the DECISIONS records; never git
-merge/rebase/reset/stash or switch branches (team mode - the driver syncs main; this prompt
-asks for no merge work).
+tests/ are snapshotted - finish all edits, THEN run, restore, commit; DECISIONS.md and tasks/ are
+NOT in the snapshot set); /tmp artifacts are wiper-prone - the rebuild recipes are in the
+DECISIONS records; never git merge/rebase/reset/stash or switch branches (team mode - the driver
+syncs main; this prompt asks for no merge work).
