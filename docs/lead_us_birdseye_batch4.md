@@ -45,6 +45,31 @@ No FLAG / TRAP line on the Denver QID: the single P625 IS the table point (dist 
 name-search hit with coordinates is the city itself (the 236b Pittsburgh/Chicago university traps
 do not recur here).
 
+The St. Paul landing (the 240 session-4 run 2026-10-14, verbatim; re-verifies both batch-4 QIDs
+now staged):
+
+```
+checked 2026-10-14 - 2 QIDs (Wikidata)
+  Q16554  'Denver'  (site id: denver-q16554, new (this task))
+      P625: [(-104.98472222222, 39.739166666667)]  (table site point: -104.984722, 39.739167)
+      P373: ['Denver, Colorado']
+      P131: [('Colorado', 'Q1261'), ('Denver County', 'Q13052701')]  (table place: 'Denver County, Colorado')
+      enwiki: 'Denver'  (table wikipedia: 'https://en.wikipedia.org/wiki/Denver')
+      search 'Denver': first hit with P625 is Q16554 'Denver' (-104.98472222222, 39.739166666667)
+  Q28848  'Saint Paul'  (site id: st-paul-q28848, new (this task))
+      P625: [(-93.093611111111, 44.944166666667)]  (table site point: -93.093611, 44.944167)
+      P373: ['Saint Paul, Minnesota']
+      P131: [('Ramsey County', 'Q491201')]  (table place: 'Ramsey County, Minnesota')
+      enwiki: 'Saint Paul, Minnesota'  (table wikipedia: 'https://en.wikipedia.org/wiki/Saint_Paul,_Minnesota')
+      search 'St. Paul': first hit with P625 is Q174 'São Paulo' (-46.633947222222, -23.550394444444)   <- TRAP: 8953 km, the live record would store a conflict (kind none)
+```
+
+The Q28848 TRAP line is the expected, recorded outcome (the 236b Pittsburgh/Chicago class):
+searching "St. Paul" at limit 5, the first hit WITH P625 is Q174 São Paulo (8953 km, measured);
+the second hit is Q28848 itself (0 km). The single P625 is the table point (dist 0, no FLAG) and
+the hand-recorded `caption_coords` tie (dist 0) is the guard - `record --live` is never run for
+these rows.
+
 ## The evidence field (as in 236a/236b)
 
 As in the 236b doc: every staged row carries a hand-recorded `caption_coords` tie in the exact key
@@ -142,27 +167,111 @@ The drawing's vantage, the Twenty-Third Street Viaduct, sits ~1.3 km north of th
 (23rd-street lat 39.7508 - P625 39.739167 = 0.0116 deg x 110900 m/deg = 1287 m, measured
 2026-10-14).
 
+## St. Paul (site `st-paul-q28848`, this task's point = the verified P625; 1 view staged)
+
+**STAGED** (one row per sheet; dupes dropped):
+
+- `File:St. Paul, Minn. LOC 75694650.jpg` - 1906, Robert M. Saint, 9888x5600, Public domain
+  (LC Panoramic maps (2nd ed.), 411). **Steep near-vertical whole-city view drawn from a high
+  vantage on the east (the Minnesota side) looking west**: the banner reads "St. Paul, Minn." and
+  the sheet's own "COPYRIGHT 1906: BY ROBT M. SAINT, ST. PAUL." (lower right) - the page date
+  (1906) is the drawing's year (no Zwolle-style swap). The Minnesota (from the east, lower
+  right) and the Mississippi (from the south, lower left) meet at the sheet's lower centre; the
+  joined river runs diagonally up-right (north), the dense 1906 downtown grid (the Capitol, the
+  big warehouse blocks) sits centre-right on the Mississippi's WEST bank, the spreading city
+  grid beyond it, and the farmland horizon across the top of the sheet (the west) - the drawn
+  extent spans the whole city beyond the 2000 m town box, so its fit is likely to end a review
+  item (the 236a NY-1811 / DC-ring precedent). The sheet faces ~WSW (orientation verified at
+  the 240 session-4 run: the confluence -> downtown bearing is 293 deg (WNW) and the downtown
+  cluster sits up-RIGHT of the confluence on the sheet, so the sheet's up direction is ~WSW;
+  the Mississippi approaches the confluence from the south and the Minnesota from the east, so
+  the rivers cannot be mirrored). **Same-sheet scan (one row per sheet, the LOC .jpg staged):
+  the 9888x5600 `.tif` twin** - eyeballed, identical sheet.
+
+**DROP (with reasons):** the **1883 H. Brosius sheet** (LOC 84690615, 12384x8160, LC Panoramic
+409.1, "Pop. 75,000", "H. Brosius, del.") - steep Birdseye-style oblique with a row of facades
+across the top (the second steepest whole-city view in the pool): one row per city, the 1906 is
+steeper (near-vertical). The **1874 Ellsbury / Green sheet** (LOC 75694648 .jpg/.tif,
+9408x4912, LC 409) - steep oblique from the west bluffs looking east (third). The **1888 ice-
+palace / winter-carnival souvenir** (LOC 78693710, 9040x5392, Marr & Richards / Baker Collins &
+Co., LC 409.2) - high-angle but far: the city a small central cluster, the sheet mostly
+surrounding farmland (the 1888 ice palace on the Minnesota). The **1853 Thompson Ritchie
+chromolithograph** (LOC 78693711, 6608x4832, "10 Oct 1853", LC 406.1) - a scenic river
+panorama, the city a thin band on the horizon. The **1873 A. Haagenberg panorama strip** (LOC
+75694649, 8016x2832, LC 408) - a river-level panorama strip (flat). The **1907 F. L. Wright
+PHOTOGRAPH** (LCCN2013647319 .jpg/.tif, 6668x2240, "Birds eye view of St. Paul free public
+baths") - a photo of the riverside free public baths (the photo + Bohn-class precedent). The
+**1915 PHOTOGRAPH** (LCCN2007662304 .tif, 4161x700, "Birdseye view of St. Paul from Cathedral
+Tower") - a photograph panorama strip from the cathedral tower. **Three search-noise rows that
+pass the text gate but are not St. Paul** ("St. Paul" only in a book description / church /
+railroad name): the Knowles farm-residence (Whitewater Tp. WI, 5676x6645) and the Eldridge
+fruit-farm (Winona MN, 5900x6645) - both from A. T. Andreas's farm-residence book, whose
+deluxe edition "added views of Minneapolis, St. Paul, and Winona" - and the Oconomowoc / Waukesha
+lake-region ad (LOC 77694096, 11105x6199, Marr & Richards, 1890; "St. Paul" only in the
+Chicago, Milwaukee & St. Paul Railway name). **St. Paul sheets passing the gates but rejected
+on size (< 4000 px wide):** the 1893 "looking west from Dayton's Bluff" (LOC 75694647 .jpg/.tif,
+3312x2552, Brown, Treacy & Co.), the 1904 state capitol (LCCN2003675026 .jpg/.tif, 1536x807),
+the 1908 Cedar Street towards the capitol (LCCN94505319 .jpg/.tif, 3243x4096 - a street-level
+close-up), and the two NBY postcards (423551 817x506 / 423552 820x505 - also keep() rejects).
+**Other-city / noise rows (caption-gate rejects or not this city):** 1870 Buffalo (LOC
+LCCN2005686636 .jpg/.tif, 1536x1309 - "from scaffolding of St. Paul's Cathedral tower" -
+"St. Paul" = a cathedral name, and it is Buffalo), the 1888 "federal government" sheet
+(1880x2572, No restrictions - gate reject), London 1905 (CC BY 2.0, 3285x2052) + 1887 Central
+London (5226x3773, gate reject) + the 1910 Christmas-card "Birds Eye View of City" (CC BY 2.0,
+1971x3097), Bovill ID 1911 (CC BY 2.0, 1500x938), Valparaiso IN x3 (1920 / 1910 / 1911, CC BY
+2.0), Delaware OH x2 (DPLA, No restrictions; "St. Paul's" = a church), Columbus OH 1872 (LOC
+84690606, gate reject), Saint Boniface MB 1880 (gate reject), Fargo 1876 (760x440, gate
+reject), Syracuse 1908 (864x499), Staten Island (NYPL, gate reject); the St Paul's
+(London cathedral) items (1875 "St Paul's old" from Francis Bond; 1873/1540 "St Paul's and the
+Neighbourhood"; 2015 Cathedral Dome CC BY-SA 4.0; 2021 Brewer-Ludgate CC BY-SA 4.0); the 2012
+capitol photo (CC BY 2.0, 1477x971); the **Minneapolis Flour Milling District sheet (DPLA,
+2191x2813, gate reject) - belongs to Minneapolis's (city 3) pool, not a St. Paul drop**; and
+the non-view rows (the 1922 Yellowstone road-log book sheet, No restrictions; the Vitanje
+postcard; the two NARA cofferdam photographs, 3000x1786, keep() rejects; the Macau 大三巴牌坊
+photo, CC BY-SA 4.0; the 1907 "highest priced half mile of real estate" sheet, No restrictions
+- gate reject).
+
+**The QID's facts** (verified live at the 240 session-4 run; the transcript is in the QID
+section above): Q28848, label "Saint Paul" (the capital of Minnesota and seat of Ramsey
+County; the first-guess QID Q16842 is a PERSON - Sami Niemi - caught by the label check, the
+usual first-guess trap class), enwiki "Saint Paul, Minnesota". P625 = ONE value (-93.093611,
+44.944167, 30 m) - the downtown/Capitol at the river confluence (no refinement needed). P373 =
+the STRING "Saint Paul, Minnesota" (a Wikidata quirk, not a country entity - the place is
+written from the county + the state). P131 = Q491201 Ramsey County (the only one) - hence
+place "Ramsey County, Minnesota". P17 = Q30 (a proper entity). Name search: **TRAP** - the
+first hit with P625 for "St. Paul" is Q174 São Paulo (8953.4 km - the 236b Pittsburgh/Chicago
+trap class), the second hit is Q28848 itself (0 km). Other P625 hits (nearest first): Iowa
+481.9 km, Nebraska 601.4, Missouri 705.1, Kansas 843.7, Indiana 867.9, Arkansas 1015.7,
+Alberta 1648.0, Alaska 5255.5, Wiltshire 6330.8, Aachen 6847.7, Erding 7346.6, HK college
+12045.7 - no local near-miss (unlike Kansas City's 10.2 km twin). No existing site holds the
+QID (checked at the 240 session-4 run in the catalog, extras, 236a's and 236b's extras files
+and web/data/sites.json); the site id `st-paul-q28848` is the catalog slug rule
+(catalog.slug("St. Paul") = "st-paul", verified), and the SITES name is "St. Paul" (NOT "Saint
+Paul") - the caption gate needs the short form the banner prints ("st paul" is not a substring
+of "saint paul"; the 236b St. Louis precedent).
+
 ## Staging and checks (2026-10-14)
 
-All batch-4 cities staged so far are in this task's own files only: **1 view** (Denver) in
-`data/commons/files_us_birdseye_batch4.jsonl` (files.jsonl shape + the 200 evidence field) and
-`data/commons/classified_us_birdseye_batch4.jsonl` (`p_birdseye: 1.0`, `by: "hand"`); the site row
-is in `data/catalog/extras_us_birdseye_batch4.jsonl`. `--check` (offline, no network), the 240
-session-1 run:
+All batch-4 cities staged so far are in this task's own files only: **2 views** (Denver, St.
+Paul) in `data/commons/files_us_birdseye_batch4.jsonl` (files.jsonl shape + the 200 evidence
+field) and `data/commons/classified_us_birdseye_batch4.jsonl` (`p_birdseye: 1.0`, `by:
+"hand"`); the site rows are in `data/catalog/extras_us_birdseye_batch4.jsonl`. `--check`
+(offline, no network), the 240 session-4 run:
 
 ```
 PASS caption_coords  denver-q16554|File:Bird's eye view of Denver, Colorado, 1908. LOC 75693133.jpg
-evidence: 1 rows, 1 pass, 0 fail, 0 no-tie
+PASS caption_coords  st-paul-q28848|File:St. Paul, Minn. LOC 75694650.jpg
+evidence: 2 rows, 2 pass, 0 fail, 0 no-tie
 ```
 
-No join problems (the file row names the staged site; classified rows 1:1; no staged id or QID
+No join problems (the file rows name the staged sites; classified rows 1:1; no staged id or QID
 collides with an existing site - the module's `known_sites()` reads the catalog, extras, 236a's,
 236b's and 241's extras files plus web/data/sites.json on every run). The golden sample
-`tests/golden/src_us_birdseye_batch4_sample.json` pins the staged rows (regenerated only via the
-module's `--golden` for an intended change).
+`tests/golden/src_us_birdseye_batch4_sample.json` pins the staged rows (2/2/2; regenerated only
+via the module's `--golden` for an intended change).
 
-**Not done yet - St. Paul, Minneapolis, Cleveland (this task), then 241's batch 5:** this task
-(240) closes at **4 staged cities**. The remaining cities of the 25 total go to **241** (batch 5:
+**Not done yet - Minneapolis, Cleveland (this task), then 241's batch 5:** this task (240) closes
+at **4 staged cities**. The remaining cities of the 25 total go to **241** (batch 5:
 the final five; its own module `fit/src_us_birdseye_batch5.py` copies THIS one, its staging files
 `*_us_birdseye_batch5.jsonl`, lead doc, test and golden; it reads THIS task's
 `extras_us_birdseye_batch4.jsonl` as the forward no-op becomes a real read - a QID can never sit

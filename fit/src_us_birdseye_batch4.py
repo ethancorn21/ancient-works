@@ -5,8 +5,8 @@ batch, so 240 and 241 build in parallel) - staged from the Library of Congress "
 collection (about 1,500 US bird's-eye views, 1847-1929, public domain; this machine cannot reach
 loc.gov, so the files are fetched from their Wikimedia Commons mirrors - the 236b route, its lead
 doc docs/lead_us_birdseye.md): Denver (the 1908 Birdseye View Publishing Co. sheet, looking south
-from the Twenty-Third Street Viaduct) first; St. Paul, Minneapolis, Cleveland follow in candidate
-order. The 25-city total spans 236b's 16 + 240's four + 241's five; 236c consolidates every
+from the Twenty-Third Street Viaduct) and St. Paul (the 1906 Robert M. Saint sheet) first;
+Minneapolis, Cleveland follow in candidate order. The 25-city total spans 236b's 16 + 240's four + 241's five; 236c consolidates every
 staging set into the canonical data and checks the total.
 
 This module is a COPY of fit/src_us_birdseye.py (236b's module) - the template it keeps in sync
@@ -70,8 +70,8 @@ NO_BOOKS = os.path.join(ROOT, "data", "books", ".no-books")  # never exists: che
 # in pipeline/build_catalog.py carries the display name), kind "town" = 2000 m box, aerial_ok true
 # (aerial-photograph ground: no open LiDAR over a built-up city, bare-earth LiDAR erases the
 # streets). Batch 4 (verified live 2026-10-14, --verify re-checks; per-view STAGED/DROP verdicts in
-# docs/lead_us_birdseye_batch4.md): Denver (the next candidate after 236b's twelve new cities);
-# St. Paul, Minneapolis, Cleveland follow in candidate order (the task owes FOUR staged cities, not
+# docs/lead_us_birdseye_batch4.md): Denver (the next candidate after 236b's twelve new cities) and St. Paul (the 1906 Robert M. Saint
+# sheet); Minneapolis, Cleveland follow in candidate order (the task owes FOUR staged cities, not
 # specifically these four - a city with no usable view gets a lead-doc note and the next
 # candidate).
 SITES = {
@@ -99,6 +99,32 @@ SITES = {
                         "horizon, a printed landmark index - spanning the whole city beyond the "
                         "2000 m town box, so its fit is likely to end a review item (the 236a "
                         "NY-1811 / DC-ring precedent)"),
+    # Q28848: P625 = ONE 30 m value (-93.093611, 44.944167) - the downtown/Capitol at the river
+    # confluence (no refinement needed). P373 is the STRING "Saint Paul, Minnesota" (a Wikidata
+    # quirk, not a country entity - the place is written from the county + the state); P131 =
+    # Q491201 Ramsey County (the only one) - hence place "Ramsey County, Minnesota"; P17 = Q30 (a
+    # proper entity); enwiki "Saint Paul, Minnesota". The first-guess QID Q16842 is a PERSON (Sami
+    # Niemi) - caught by the label check (the usual first-guess trap class). Name search "St.
+    # Paul": TRAP - the first hit with P625 is Q174 São Paulo (8953 km), the second is Q28848
+    # itself (0 km) - the 236b Pittsburgh/Chicago class (the hand-recorded caption_coords with
+    # dist 0 is the guard). No existing site holds the QID (checked at the 240 session-4 run in
+    # the catalog, extras, 236a's and 236b's extras files and web/data/sites.json); site id
+    # st-paul-q28848 (catalog.slug("St. Paul") = "st-paul", verified). The SITES name is "St. Paul"
+    # (NOT "Saint Paul") - the caption gate needs the short form the sheet's banner prints ("st
+    # paul" is not a substring of "saint paul"; the 236b St. Louis precedent).
+    "Q28848": dict(id="st-paul-q28848", name="St. Paul", named="St. Paul",
+                   lon=-93.093611, lat=44.944167,
+                   place="Ramsey County, Minnesota", region="United States", kind="town",
+                   wikipedia="https://en.wikipedia.org/wiki/Saint_Paul,_Minnesota",
+                   note="aerial-photograph ground (no open LiDAR over the built-up city: bare-earth "
+                        "LiDAR erases the streets); the street grid, the Minnesota and Mississippi "
+                        "rivers carry the fit; the 1906 staged sheet is the steepest (near-vertical) "
+                        "whole-city view in the pool, drawn from a high vantage on the east (the "
+                        "Minnesota side) looking west - the river confluence at the bottom of the "
+                        "sheet, the dense downtown grid centre-right on the Mississippi's west "
+                        "bank, the farmland horizon across the top (the west) - spanning the whole "
+                        "city beyond the 2000 m town box, so its fit is likely to end a review item "
+                        "(the 236a NY-1811 / DC-ring precedent)"),
 }
 
 # Denver (batch 4, city 1; checked live 2026-10-14; the pool 65 unique / 33 good, per-view
@@ -122,9 +148,35 @@ DENVER_1908 = [
     ("File:Bird's eye view of Denver, Colorado, 1908. LOC 75693133.jpg", "Q16554", "Denver", dict()),
 ]
 
+# St. Paul (batch 4, city 2; checked live 2026-10-14; the pool 51 unique / 13 good, per-view
+# STAGED/DROP verdicts in docs/lead_us_birdseye_batch4.md). One row per city: the steepest,
+# best-scanned whole-city view of the collection; the shallower same-genre sheets and the non-view
+# pool (river-level panorama strips, river panoramas, district close-ups, photographs, too-small
+# scans, other-city sheets, licence rejects) are DROPS recorded in the lead doc (the 236b
+# precedent).
+ST_PAUL_1906 = [
+    # 1906 (Robert M. Saint, LC Panoramic maps (2nd ed.), 411; 9888x5600, Public domain): banner
+    # "St. Paul, Minn."; the sheet's own copyright "COPYRIGHT 1906: BY ROBT M. SAINT, ST. PAUL."
+    # (lower right) - the page date (1906) is the drawing's year (no Zwolle-style swap).
+    # THE steepest (near-vertical) whole-city view in the pool: drawn from a high vantage on the
+    # east side (the Minnesota side) looking west - the confluence of the Minnesota (from the
+    # east, lower right) and the Mississippi (from the south, lower left) at the sheet's lower
+    # centre, the joined river running diagonally up-right (north), the dense 1906 downtown grid
+    # (the Capitol, the big warehouse blocks) centre-right on the Mississippi's WEST bank, the
+    # spreading city grid beyond it and the farmland horizon across the top of the sheet (the
+    # west). (Orientation verified at the 240 session-4 run: the confluence -> downtown bearing
+    # is 293 deg (WNW) and the downtown cluster sits up-RIGHT of the confluence on the sheet =>
+    # the sheet's up direction is ~WSW; the Mississippi approaches the confluence from the south
+    # and the Minnesota from the east, so the rivers cannot be mirrored.) The 9888x5600 .tif
+    # twin is the same sheet - one row per sheet, the LOC .jpg staged.
+    ("File:St. Paul, Minn. LOC 75694650.jpg", "Q28848", "St. Paul", dict()),
+]
+
 SOURCES = {
     "denver_1908": dict(rows=DENVER_1908, p="birdseye",
                         label="{name}, the Birdseye View Publishing Co. bird's-eye view (1908)"),
+    "st_paul_1906": dict(rows=ST_PAUL_1906, p="birdseye",
+                        label="{name}, the Robert M. Saint bird's-eye view (1906)"),
 }
 
 
