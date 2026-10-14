@@ -483,7 +483,14 @@ for (const [ev, fn] of [['mousedown', dragStart], ['touchstart', dragStart], ['m
 // with an overlay at least 150 years old show until the viewer asks for more ("More sites": LiDAR or photograph only).
 // Today (277 scored): t4 = Bergues 1545, Mayburgh 1769, Old Sarum 1761; t3 = the 1848 plates; t2 = plans of c.1900 on
 // an 1840s Ordnance Survey sheet; t1 = old survey sheets only (Etat-major 1.0, Cassini alone 0.2).
-const PIN = '<svg viewBox="14 0 72 100" aria-hidden="true"><path d="M50 99C46 90 14 58 14 36A36 36 0 0 1 86 36C86 58 54 90 50 99Z"/><circle cx="50" cy="36" r="13"/></svg>';  // the marker: a map pin, tip at the bottom (the 100x100 frame cropped to the pin's 72 px width)
+// candidate silhouettes, all in the pin's 72x100 frame (x 14..86), tip at (50,99); ?pin=<name> picks one while the shape is being chosen
+const SHAPES = {
+  pin: '<path d="M50 99C46 90 14 58 14 36A36 36 0 0 1 86 36C86 58 54 90 50 99Z"/><circle cx="50" cy="36" r="13"/>',
+  point: '<path d="M50 99C60 83 79 62 85 39L70 33L63 5H37L30 33L15 39C21 62 40 83 50 99Z"/>',
+  bob: '<path d="M43 1H57V12L74 29V40L50 99L26 40V29L43 12Z"/>',
+  arrow: '<path d="M50 99L14 58H38V4H62V58H86Z"/>',
+};
+const PIN = `<svg viewBox="14 0 72 100" aria-hidden="true">${SHAPES[new URLSearchParams(location.search).get('pin')] || SHAPES.pin}</svg>`;  // the marker, tip at the bottom (the 100x100 frame cropped to 72 px wide)
 const PIN_H = { t4: 19, t3: 17, t2: 15, t1: 13, plain: 10 }, PIN_W = { t4: 14, t3: 12, t2: 11, t1: 9, plain: 7 };  // px, as in the .marker.tN .sq rules
 const TIERS = [[2.5, 't4'], [1.6, 't3'], [1.2, 't2'], [0.01, 't1']];
 const tierOf = s => (TIERS.find(t => (s.score || 0) >= t[0]) || [0, 'plain'])[1];
