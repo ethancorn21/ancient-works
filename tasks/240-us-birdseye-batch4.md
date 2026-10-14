@@ -133,83 +133,131 @@ hash), other-city rejects (Golden, Pueblo, Canon City, Greeley, Gunnison, Leadvi
 Colorado Springs + Manitou), too-small (Kilburn, CO Denver 1889, the Great Plains book sheets),
 the CC BY-SA 1907 sheet, and the 2021 Union Station photo (beyond the 1925 MAX_YEAR).
 
-**St. Paul, Minneapolis, Cleveland: NOT yet researched.** Run the per-city playbook. (All three
-have classic bird's-eye views in the LOC collection - the pool search shows which survived the
-gates; do not trust this note, verify live.)
-
+**St. Paul is RESEARCHED (iteration 162 - the full record is the DECISIONS entry "240 DECISION:
+iteration 162" and the hand-over below): QID Q28848, pick = the 1906 Robert M. Saint near-
+vertical sheet (LOC 75694650).** Minneapolis, Cleveland: NOT yet researched. Run the per-city
+playbook. (All three have classic bird's-eye views in the LOC collection - the pool search shows
+which survived the gates; do not trust this note, verify live.)
 
 ## Hand-over
-(2026-10-14, iteration 161, agent c - session 2 of 240: the merge was already committed by the
-driver (483d528); the R1 baseline is ESTABLISHED (177P/1S/0F); the batch4 test + golden are
-committed and the Denver landing is COMMITTED (boxes 1-4 stay open - they span all four cities;
-box 5 (Denver) is ticked). NEXT: St. Paul (city 2) - research QID + pool, then the landing.)
+(2026-10-14, iteration 162, agent c - session 3 of 240: St. Paul (city 2) RESEARCHED this
+session - QID Q28848 verified live (the first-guess Q16842 is a PERSON; the name search's first
+P625 hit is São Paulo, 8953 km - a TRAP to record), the pool is 51 unique / 13 good with all
+8 sheets (the 13 good items, same-sheet twins included) eyeballed, and the PICK is chosen (the 1906 Robert M. Saint near-vertical sheet,
+LOC 75694650). NEXT (session 4): the St. Paul LANDING - module edit, --verify, stage, --check,
+lead-doc section, --golden, test extension, full suite, commit.)
 
-**State NOW (all committed on agent/c):**
-1. **The batch4 module** fit/src_us_birdseye_batch4.py (clean mechanical copy of the 236b
-   template with the 5 prep changes; fresh-eyes diff confirmed this session) with SITES = Denver
-   (Q16554) only so far; SOURCES has denver_1908. Staging files: extras_us_birdseye_batch4.jsonl
-   (1 site row: denver-q16554, point (-104.984722, 39.739167), place "Denver County, Colorado"),
-   files_..._batch4.jsonl (1 row: the 1908 LOC 75693133 pick, year 1908, Public domain, evidence
-   caption_coords dist 0), classified_..._batch4.jsonl (1 row p_birdseye 1.0 by hand). All in the
-   driver's 3562737 commit.
+**State NOW (all committed on agent/c; the St. Paul research lives in this hand-over + the
+DECISIONS entry + the /tmp artifacts, NOT in any repo file yet):**
+1. **The batch4 module** fit/src_us_birdseye_batch4.py: SITES = Denver (Q16554) only so far;
+   SOURCES has denver_1908. Staging files: extras_us_birdseye_batch4.jsonl (1 site row:
+   denver-q16554), files_..._batch4.jsonl (1 row: the 1908 LOC 75693133 pick), classified
+   (1 row p_birdseye 1.0 by hand). The St. Paul SITES entry (Q28848) + ST_PAUL_1906 row-list
+   + SOURCES st_paul_1906 entry are NOT yet added - that is the landing's module edit.
 2. **The test** tests/test_src_us_birdseye_batch4.py (5 offline tests mirroring the 236b file;
-   the no_network socket-blocker; the PASS-key list = Denver key only so far, GROWS one entry per
-   city landing; the three-states 236c-merge test; the SITES/extras/files tables - the extras file
-   is EXACTLY the SITES set, one view per city; the Venice negative control (8673157 m); the
-   golden compare) and **the golden** tests/golden/src_us_birdseye_batch4_sample.json (1/1/1) -
-   committed this session with the Denver landing.
-3. **Baselines (R1, both in DECISIONS):** merged-tree baseline = 177P/1S/0F (the iteration-160
-   background run completed clean; it matches 236b's full-main-tree closeout). Post-landing
-   confirmation run this session = **182P/1S/0F** (/tmp/aw240_suite_161.log, 516 s) = baseline +
-   the 5 new tests, zero failures. The long-flagged red
-   test_fit_queue::test_placement_gestures_and_save_in_the_browser is GONE from the merged tree
-   (agent a's 235 fix 344aa0c landed on main) - this checkout's suite has NO known reds.
-4. **Lead doc** docs/lead_us_birdseye_batch4.md: complete for Denver (Fetch route; QID section
-   with the verbatim --verify transcript; evidence field; Denver STAGED + the full 16-item DROP
-   list + QID facts with the 1287 m viaduct measurement; Staging and checks with the verbatim
-   --check transcript at 1 view / 1 site row; the Not-done-yet pointer to 241 naming Omaha,
-   Indianapolis, Columbus, Memphis). The Staging section's running counts (1 view / 1 site row)
-   and the QID/Staging transcripts must be EXTENDED per landing (2/2, 3/3, 4/4).
-5. **307d pngs:** restored to main's bytes before both commits this session (R5); they re-encode
-   on EVERY full-suite run - restore again before every commit (`git checkout main --
-   docs/site_flow/`).
+   the PASS-key list = Denver key only so far, GROWS one entry per landing) and **the
+   golden** tests/golden/src_us_birdseye_batch4_sample.json (1/1/1) - both extend at the
+   St. Paul landing.
+3. **Baselines (R1, in DECISIONS):** merged-tree baseline = 177P/1S/0F; the Denver-landing
+   confirmation run = **182P/1S/0F** (/tmp/aw240_suite_161.log) = baseline + the 5 new tests.
+   This checkout's suite has NO known reds (the long-flagged test_fit_queue red is gone -
+   agent a's 235 fix landed on main). No suite ran this session; the tree is clean.
+4. **Lead doc** docs/lead_us_birdseye_batch4.md: complete for Denver (the verbatim --verify
+   transcript; Denver STAGED + 16-item DROP list + QID facts with the 1287 m viaduct
+   measurement; Staging at 1 view / 1 site row; the Not-done-yet pointer to 241 naming Omaha,
+   Indianapolis, Columbus, Memphis). The St. Paul section (STAGED bullet + DROP list + QID
+   facts) is written at the landing, then the Staging counts move to 2/2.
+5. **St. Paul RESEARCH RECORD (iteration 162; the full version is the DECISIONS entry):**
+   - **QID = Q28848** (label "Saint Paul"; the first-guess Q16842 is a PERSON - Sami Niemi,
+     caught by the label check). P625 = ONE 30 m value (-93.093611, 44.944167) - the
+     downtown/Capitol at the river confluence, no refinement needed; P373 = the STRING
+     "Saint Paul, Minnesota"; P131 = Ramsey County (Q491201) ONLY; P17 = Q30; enwiki
+     "Saint Paul, Minnesota". **NAME-SEARCH TRAP (expect the TRAP line in --verify, the 236b
+     Pittsburgh/Chicago precedent):** search "St. Paul" (limit 20) - the first hit WITH P625
+     is **Q174 São Paulo (8953.4 km)**; the second hit is Q28848 itself (0.0 km). Other P625
+     hits (nearest first): Iowa 481.9 km, Nebraska 601.4, Missouri 705.1, Kansas 843.7,
+     Indiana 867.9, Arkansas 1015.7, Alberta 1648.0, Alaska 5255.5, Wiltshire 6330.8,
+     Aachen 6847.7, Erding 7346.6, HK college 12045.7 - no local near-miss. No existing site
+     holds Q28848 (checked catalog sites.jsonl + extras.jsonl + 236a's + 236b's extras +
+     web/data/sites.json). Site id = **st-paul-q28848** (catalog.slug("St. Paul") =
+     "st-paul", verified); the SITES name is "St. Paul" (NOT "Saint Paul" - the caption gate
+     needs the short form: "st paul" is not a substring of "saint paul"; the 236b St. Louis
+     precedent); `place` = "Ramsey County, Minnesota" (P131 + state).
+   - **Pool:** 51 unique titles (the six plain-phrase forms + " filetype:bitmap"), 13 good
+     (caption + keep + Public domain + >= 4000 px). **THE PICK: `File:St. Paul, Minn.
+     LOC 75694650.jpg`** (1906; artist "Saint, Robert M."; 9888x5600; Public domain; page
+     date 1906 = the banner's "Copyright 1906 by Roert M. Saint, St. Paul" - no Zwolle swap;
+     LC Panoramic maps (2nd ed.), 411; banner "St. Paul, Minn."): the steepest (near-vertical)
+     whole-city view in the pool - drawn from the high ground SE of the river confluence
+     looking NW: the dense grid legible from the rivers (the Minnesota bottom-left, the
+     Mississippi bottom-right, the confluence/downtown centre-right) to the farmland horizon
+     across the top of the sheet (the northwest); the sheet faces NW so west is left and the
+     Mississippi is right - no mirroring. Same-sheet scan: the 9888x5600 .tif twin (one row
+     per sheet, the LOC .jpg staged).
+   - **DROPs (12 other pool sheets; the per-item reasons are in the DECISIONS entry):** the
+     1883 LOC 84690615 (12384x8160, "H. Brosius, del.", LC 409.1, "Pop. 75,000" - steep
+     Birdseye-style, second steepest), the 1874 LOC 75694648 (9408x4912, Ellsbury/Green,
+     LC 409 - steep oblique from the west bluffs looking east, third), the 1853
+     LOC 78693711 (6608x4832 chromo "10 Oct 1853" - a scenic river panorama, the city a thin
+     band on the horizon), the 1873 LOC 75694649 (8016x2832, A. Haagenberg - a river-level
+     panorama strip, flat), the 1888 LOC 78693710 (9040x5392, Baker Collins & Co. - high-angle
+     but far: the city a small central cluster, the sheet mostly surrounding farmland, the
+     1888 ice palace on the Minnesota), the 1907 LCCN2013647319 (6668x2240 PHOTOGRAPH of the
+     riverside free public baths, F.L. Photo) + .tif, the 1915 LCCN2007662304 (4161x700
+     PHOTOGRAPH panorama strip from the Cathedral Tower), the 3 noise rows (the Knowles
+     farm-residence Whitewater Tp. WI, the Eldridge farm-residence Winona MN, the Oconomowoc/
+     Waukesha WI lake-region ad - "St. Paul" only in a church/railroad name). Non-good rows
+     (recorded in the lead doc with their size/license reasons): 1893 Dayton's Bluff 3312 px
+     (+ .tif), 1904 state capitol 1536 px (+ .tif), 1908 Cedar Street 3243 px (+ .tif), NBY
+     423551/423552 817/820 px, and the ~30 other-city/noise rows (the Minneapolis Flour
+     Milling District sheet belongs to city 3's pool; the 1893/1904/1908 close-ups are
+     justifiably dropped on size alone - eyeball them at the landing only if their wording
+     needs the content).
+   - **/tmp artifacts (wiper-prone):** /tmp/aw240_sp_qid.py + _qid_162.txt + _qid2_162.txt
+     (the Q28848 facts transcript), /tmp/aw240_sp_pool.py + .json (the 51-row pool) +
+     _pool_162.log, /tmp/aw240_sp_thumbs.py + /tmp/aw240_sp_thumbs/ (the 13 good thumbs).
+     Rebuild recipes: the 236b dvr_qid clone (repoint sys.path at this checkout; QID arg;
+     limit-20 search; all-P625-hit distances) and the 236b dvr clone (CITIES=["St. Paul"]).
 
-**Exact next steps (St. Paul, city 2 - one session pair, the proven 189-194 pattern):**
-1. **RESEARCH (live; /tmp artifacts wiper-prone - rebuild from the recipes if wiped):**
-   - QID: clone /tmp/aw236b_b3_dvr_qid.py (repoint its sys.path at THIS checkout - it points at
-     ancient-works.a) and run under .venv/bin/python: the label (St. Paul, Minnesota - the
-     first-guess mislabel is the usual trap), EVERY P625 value with precision, P373 (a string is
-     the usual US quirk - write the place from the county + state), P131 with labels, P17,
-     enwiki, and the name search: other St. Pauls (St. Paul, Louisiana; St. Paul, South Carolina)
-     and big in-city institutions are the trap class (Pittsburgh/Chicago university precedent in
-     the 236b module comments) - record the first hit with P625 + measured distance (hav_m +
-     geographic dx/dy, NOT raw Mercator). Check no existing site holds the QID (catalog
-     sites.jsonl + extras.jsonl + 236a's + 236b's extras files + web/data/sites.json).
-   - Pool: clone /tmp/aw236b_b3_dvr.py for the city name (the SIX plain-phrase Commons
-     file-namespace forms + " filetype:bitmap", srnamespace 6, srlimit 40; dedupe; gates: caption
-     names the city AND commons.keep() (judged AFTER any Zwolle known-date swap) AND license
-     "Public domain" AND width >= 4000). Eyeball every good item's 1280-px thumb one by one
-     (upload.wikimedia thumb endpoint, project UA, paced - upload.wikimedia rate-limits raw
-     downloads separately from the API). THE PICK = the steepest (near-vertical), best-scanned
-     whole-city view (Public domain, >= 4000 px, caption names the city); one row per sheet
-     (same-sheet scans recorded, the best scan staged); record EVERY non-staged pool item with
-     its reason.
-2. **LANDING (exactly as Denver):** module edit (SITES entry with the full comment block + a
-   batch-4-city-2 comment + the `<CITY>_<YEAR>` row-list + the SOURCES entry) -> --verify (save
-   the EXACT output; append it to the lead doc's QID section; expect no FLAG/TRAP or refine the
-   point and record why) -> --dry -> stage (live commons.info re-check; a vanished/no-longer-PD
-   pick fails loud -> box 5's swap: next-best pool candidate, recorded) -> --check (append the
-   transcript to Staging) -> lead-doc St. Paul section (STAGED bullet with the view's facts +
-   the full DROP list + the QID-facts paragraph; update the Staging counts) -> --golden ->
-   extend the test (PASS-key list + the SITES/extras/years/points/named tables) -> module tests
-   -> the FULL suite (.venv/bin/python -m pytest -q -p no:cacheprovider; expect = previous run
-   + new tests) -> restore the re-encoded 307d pngs (R5) -> commit "240: St. Paul landed
-   (batch 4 city 2) - <the view>".
-3. **Then Minneapolis (city 3) and Cleveland (city 4)** the same way. **After Cleveland: close**
-   - final full-suite run = baseline, --check all PASS no join problems, the four ids/QIDs
-   collide with nothing (the known_sites() guard + the test), extend the test tables to the full
-   set, boxes 1-4 tickable (each after its test passes), the lead doc's Staging section final
-   (4 views / 4 site rows), Status: done.
+**Exact next steps (the St. Paul LANDING, session 4 - exactly the Denver pattern):**
+1. **Module edit:** the SITES Q28848 entry (full comment block: the Q16842 mislabel, every
+   P625, P373 string, P131, enwiki, the name-search TRAP, the no-existing-site check, the
+   slug; name "St. Paul", point = P625, place "Ramsey County, Minnesota", wikipedia
+   https://en.wikipedia.org/wiki/St._Paul,_Minnesota, note = aerial-photograph ground + the
+   staged view's apparent angle: near-vertical, drawn SE looking NW) + the
+   ST_PAUL_1906 = [("File:St. Paul, Minn. LOC 75694650.jpg", "Q28848", "St. Paul", dict()),]
+   row-list (no date= entry - page date = drawing year) + the SOURCES "st_paul_1906" entry
+   (label "{name}, the Robert M. Saint bird's-eye view (1906)").
+2. --verify (save the EXACT output verbatim for the lead doc's QID section; Q28848: P625
+   dist 0, P373 string, P131 Ramsey County, enwiki; EXPECT one TRAP line: first name-search
+   hit with P625 = Q174 São Paulo 8953.4 km - that is the expected/recorded outcome, not a
+   failure; the hand-recorded caption_coords dist 0 is the guard). --dry (expect the St. Paul
+   site + picture) -> stage (live commons.info re-check; if the pick vanished or is no longer
+   PD, take the 1883 sheet as the swap per box 5 and record the swap in the lead doc) ->
+   --check (append the transcript to Staging; expect 2/2 PASS caption_coords, no join
+   problems).
+3. **Lead-doc St. Paul section** (mirror the Denver one): STAGED bullet (1906, Robert M.
+   Saint, 9888x5600, PD, LC Panoramic (2nd ed.) 411, near-vertical drawn SE looking NW, the
+   same-sheet .tif twin) + the full DROP list + the QID-facts paragraph (the Q16842
+   mislabel, every P625, P373 string, P131, enwiki, the name-search TRAP with the measured
+   São Paulo distance + the full hit table) + append the verbatim --verify transcript to the
+   QID section; update the Staging section to 2 views / 2 site rows with the fresh --check
+   transcript; keep the Not-done-yet pointer (Minneapolis, Cleveland remain; 241's
+   candidates after that).
+4. --golden (2/2/2) -> extend the test (the PASS-key list gains "st-paul-q28848|File:St.
+   Paul, Minn. LOC 75694650.jpg"; the SITES-id/extras/years/points/named tables gain the
+   St. Paul rows - point = (-93.093611, 44.944167), year 1906, no date_commons) -> module
+   tests -> the FULL suite (.venv/bin/python -m pytest -q -p no:cacheprovider; expect = the
+   182P/1S/0F run's count + any new tests, zero failures; NO snapshot-set edits while it
+   runs, R6) -> restore the re-encoded 307d pngs to main's bytes (R5: `git checkout main --
+   docs/site_flow/`) -> commit "240: St. Paul landed (batch 4 city 2) - the 1906 Robert M.
+   Saint sheet".
+5. **Then Minneapolis (city 3) and Cleveland (city 4)** the same way (a research session +
+   a landing session each). **After Cleveland: close** - final full-suite run = baseline,
+   --check all PASS no join problems, the four ids/QIDs collide with nothing (the
+   known_sites() guard + the test), extend the test tables to the full set, boxes 1-4
+   tickable (each after its test passes), the lead doc's Staging section final (4 views /
+   4 site rows), Status: done.
 
 **Rules that bite (unchanged from the task Notes):** never write the canonical files (236c);
 236a's and 236b's files are read-only (the module's cross-check enforces); live commands under
@@ -218,6 +266,6 @@ at ancient-works.a - repoint); golden regenerates only via --golden; tests never
 ports or write outside project + temp; every full-suite run re-encodes up to ten 307d pngs -
 restore main's bytes before EVERY commit (R5) and never edit suite-hashed files mid-run (R6:
 data/ minus raw, web/data top level, docs/, specs/, tests/ are snapshotted - finish all edits,
-THEN run, restore, commit). /tmp artifacts (aw236b_b3_dvr*, aw240_*_160/161.*) are wiper-prone;
-the recipes in the Notes + prep section 1 rebuild them. The full-suite run takes ~9 min - start
-it, then do the bookkeeping; check the log tail before committing.
+THEN run, restore, commit). /tmp artifacts (aw236b_b3_dvr*, aw240_sp_*) are wiper-prone;
+the recipes in the Notes + prep section 1 + the DECISIONS entry rebuild them. The full-suite
+run takes ~9 min - start it, then do the bookkeeping; check the log tail before committing.
