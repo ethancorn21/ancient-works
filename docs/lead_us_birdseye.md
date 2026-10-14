@@ -68,26 +68,33 @@ the DC 1921/1883/1886 sheets span far beyond it, so their fits are likely to end
 
 ## QID verification (re-checked 2026-10-14, `.venv/bin/python fit/src_us_birdseye.py --verify`)
 
-The four shared QIDs were first verified by 236a (docs/lead_us_cities.md, 2026-10-13/14); the ten
-new-city QIDs were verified when their cities were added. This is 236b's re-check (at the batch-2
-close-out) that its own table stands on: label, every P625 value (flagged when >50 km from the
-table point), P373, P131 (with labels), the enwiki article, and the first name-search hit with
-coordinates (what `record --live` would resolve for the caption route). No P625 flag fired on any
-of the fourteen (Q62's two P625s are 2.0-2.4 km from its refined table point - the point is a
-refinement, not a P625; Q23197's is 721 m SE; the ten new-city points ARE the P625s, dist 0). Two
-search traps (the Barnard-Castle class, the 236a Q60 note): **Pittsburgh** -> Q235034 University
-of Pittsburgh (~4.0 km east of the city point) and **Chicago** -> Q131252 University of Chicago
-(~10.5 km south) - both within the 50 km flag, so the run does not flag them, but `record --live`
-would store the university's point instead of the city's; the staged rows hand-record the city's
-P625 (dist 0), and both traps are recorded on the Q1342/Q1297 SITES comments and site notes.
-Baltimore's P131 carries two values (Maryland and the historic Province of Maryland): the city is
-no county of its own, so its place is written "Baltimore City, Maryland" from P373 + the state.
-St. Louis's P131 carries **only Missouri** (an independent city, no county of its own), hence
-"St. Louis City, Missouri". Milwaukee's P131 carries **three counties** (Milwaukee / Washington /
-Waukesha - the city point sits in Milwaukee County). The transcript (14 QIDs, sorted, verbatim):
+The four shared QIDs were first verified by 236a (docs/lead_us_cities.md, 2026-10-13/14); the
+new-city QIDs were verified when their cities were added. This is 236b's re-check (re-run at the
+batch-3 close-out, with the Kansas City QID added) that its own table stands on: label, every P625
+value (flagged when >50 km from the table point), P373, P131 (with labels), the enwiki article, and
+the first name-search hit with coordinates (what `record --live` would resolve for the caption
+route). No P625 flag fired on any of the fifteen (Q62's two P625s are 2.0-2.4 km from its refined
+table point - the point is a refinement, not a P625; Q23197's is 721 m SE; the eleven new-city
+points ARE the P625s, dist 0). Two search traps (the Barnard-Castle class, the 236a Q60 note):
+**Pittsburgh** -> Q235034 University of Pittsburgh (~4.0 km east of the city point) and **Chicago**
+-> Q131252 University of Chicago (~10.5 km south) - both within the 50 km flag, so the run does not
+flag them, but `record --live` would store the university's point instead of the city's; the staged
+rows hand-record the city's P625 (dist 0), and both traps are recorded on the Q1342/Q1297 SITES
+comments and site notes. **Kansas City** has no search trap: the first hit with P625 is Q41819
+itself (dist 0); the second hit is the twin city Q486472 Kansas City, Kansas (Wyandotte County,
+P625 (-94.676389, 39.106667)) - 10.2 km away (8.0 km west and 6.3 km north of the city's point,
+measured 2026-10-14). **Q41819's P131 carries four counties** (Jackson / Cass / Clay / Platte - all
+Missouri, the city straddles all four; the P625 point sits in Jackson County, hence place "Jackson
+County, Missouri"), and its **P373 is the STRING "Kansas City, Missouri"** (a Wikidata quirk, not a
+country entity - the place is written from the county + the state). The other P131s as before:
+Baltimore's carries two values (Maryland and the historic Province of Maryland) - the city is no
+county of its own, so its place is written "Baltimore City, Maryland" from P373 + the state;
+St. Louis's carries **only Missouri** (an independent city, no county of its own), hence "St. Louis
+City, Missouri"; Milwaukee's carries **three counties** (Milwaukee / Washington / Waukesha - the
+city point sits in Milwaukee County). The transcript (15 QIDs, sorted, verbatim):
 
 ```
-checked 2026-10-14 - 14 QIDs (Wikidata)
+checked 2026-10-14 - 15 QIDs (Wikidata)
   Q100  'Boston'  (site id: boston-q100, new (this task))
       P625: [(-71.05777777777777, 42.360277777777775)]  (table site point: -71.057778, 42.360278)
       P373: ['Boston']
@@ -136,6 +143,12 @@ checked 2026-10-14 - 14 QIDs (Wikidata)
       P131: [('Missouri', 'Q1581')]  (table place: 'St. Louis City, Missouri')
       enwiki: 'St. Louis'  (table wikipedia: 'https://en.wikipedia.org/wiki/St._Louis')
       search 'St. Louis': first hit with P625 is Q38022 'St. Louis' (-90.19944444444444, 38.62638888888889)
+  Q41819  'Kansas City'  (site id: kansas-city-q41819, new (this task))
+      P625: [(-94.583333333333, 39.05)]  (table site point: -94.583333, 39.05)
+      P373: ['Kansas City, Missouri']
+      P131: [('Jackson County', 'Q127238'), ('Cass County', 'Q485204'), ('Clay County', 'Q484474'), ('Platte County', 'Q489897')]  (table place: 'Jackson County, Missouri')
+      enwiki: 'Kansas City, Missouri'  (table wikipedia: 'https://en.wikipedia.org/wiki/Kansas_City,_Missouri')
+      search 'Kansas City': first hit with P625 is Q41819 'Kansas City' (-94.583333333333, 39.05)
   Q43196  'Cincinnati'  (site id: cincinnati-q43196, new (this task))
       P625: [(-84.5125, 39.1)]  (table site point: -84.5125, 39.1)
       P373: ['Cincinnati, Ohio']
@@ -666,15 +679,70 @@ Whitehall / Saint Boniface / Columbus sheets (litho by Beck & Pauli / Fowler & B
 Vogt, Milwaukee), the Ishpeming bpl scan (CC BY), the Bovill postcard (CC BY), the US Cellular
 Arena photo, the IA book pages.
 
+## Kansas City (site `kansas-city-q41819`, this task's point = the verified P625; 1 view staged)
+
+**STAGED** (one row per sheet; dupes dropped):
+
+- `File:Bird's eye view of Kansas City, Missouri. Jan'y. 1869. LOC 73693480.jpg` - 1869 (Jan'y),
+  drawn by A. Ruger, photographed by A. C. Christy, published by Merchant's Lithographing Company /
+  Ruger & Stoner, 8752x6912, Public domain (LC Panoramic maps (2nd ed.), 428). **Steep oblique
+  whole-city view drawn from high ground across the Missouri (looking south over the city)**: the
+  river and its rail bridges and steamboats in the foreground, the grid dense and legible out to
+  the rural outskirts, the "KANSAS CITY / MISSOURI / 1869" cartouche with a landmark index at the
+  bottom; the drawn extent spans the whole city beyond the 2000 m town box, so its fit is likely to
+  end a review item. **The 8752x6912 `.tif` is the same-sheet twin (eyeballed 2026-10-14, the batch-3
+  close-out) - one row per sheet, the `.jpg` staged.** The page date (1869) matches the drawing (no
+  Zwolle-style swap).
+
+**DROP (with reasons):** the 1895 Koch "Panoramic view of the west bottoms, Kansas City, Missouri
+& Kansas showing stock yards, packing & wholesale houses" (LOC 75694656 .jpg/.tif, 15487x10139,
+LC Panoramic 429) - a near-vertical **close-up of the West Bottoms stockyard/packinghouse
+district** (an inset "Reid Bro's. Pk'g. Co. L't'd."), not a whole-city view (the Fort-Negley
+close-up class). The **Fred Harvey NBY strips** - `File:Bird's-eye-view business section of Kansas
+City (NBY 23194).jpg` / `(NBY 23195).jpg` (822-823x524), `File:Bird's-eye-View of Kansas City,
+showign Missouri River, Fred Harvey (NBY 5561).jpg` (829x521), `File:Bird's-eye view of business
+district, Kansas City, Mo. Fred Harvey series. (NBY 21319).jpg` / `(NBY 21320).jpg` (822-824x
+526-527) - **too small** (< 4000 px). The **too-small district views** - `File:Bird's eye view,
+Kansas City, Mo. from Gillham Road LCCN2007662439.tif` (1909, 2984x665), `File:Birds eye view, west
+bottoms from Cursy Coats (i.e., Kersey Coates) Drive, Kansas City, Mo LCCN2007662437.tif` (1909,
+3101x680), `File:Kansas city mo 1869.gif` (546x432). The **KC&N railway sheets** - `File:Birds eye
+view of St. Louis - showing the new line of the St. Louis, Kansas City & Northern Ry. running into
+the Union Depot. LOC 82695092.jpg` / `.tif` (1876, 7560x3944) and the three DPLA scans of the same
+sheet (5843-6335 px wide) - **St. Louis views** already dropped in the St. Louis section (search
+noise: the title names Kansas City only in the railway's name). The **other Kansas-city sheets** in
+the pool (Lawrence, Leavenworth, Topeka, Wyandotte, Atchison, Ottawa, Baxter Springs, Great Bend,
+Hiawatha, Herington, Meade) - fail the caption gate on their own city names. **Gate/keep rejects:**
+the twenty-one Dutch Rijksmuseum "Plattegrond" RP-P files (keep passes, CC0 - the titles name Dutch
+cities, not Kansas City), the two Vernonia (Oregon) strips (1929, beyond the 1925 MAX_YEAR), the
+John T. Birdseye portrait pair (the NO regex - a portrait, not a map), the three Union Pacific
+"Great Plains" book sheets (the text-page one passes the caption gate - the description says the
+view extends "from Omaha and Kansas City on the east to Cheyenne and Denver on the west" - but it
+is a **regional sheet**: a 24-page overland-route book with a full-color birdseye of both states on
+the verso, Kansas City a small part of the frame - the DC 1861 Bohn regional-drop precedent), a
+2014 cloud photo (CC BY-SA, beyond MAX_YEAR) and a 2018 guitar photo (CC0, beyond MAX_YEAR -
+bird's-eye *maple* wood).
+
+**The QID's facts** (verified live 2026-10-14; the transcript is in the QID section above): Q41819,
+enwiki "Kansas City, Missouri". P625 = the city's only normal-rank value (-94.583333, 39.05, 1/60
+deg precision - the raw claims dump carries 50 more suppressed-rank 30 m values that the API hides;
+the point sits in the city's southern part, but the 1869 sheet's drawn extent covers the 2000 m
+town box, so no refinement). P131 = four counties (Jackson / Cass / Clay / Platte - all Missouri,
+the city straddles all four; the point sits in Jackson County, hence place "Jackson County,
+Missouri"). P373 = the string "Kansas City, Missouri" (a Wikidata quirk, not a country entity -
+the place is written from the county + the state). Name search: no trap (the first hit with P625
+is Q41819 itself, dist 0); the second hit is the twin city Q486472 Kansas City, Kansas (Wyandotte
+County, P625 (-94.676389, 39.106667)) - 10.2 km away (8.0 km west and 6.3 km north of the city's
+point, measured).
+
 ## Staging and checks (2026-10-14)
 
-All fourteen cities staged so far are in this task's own files only: **21 views** total (11 for
-the four owner-named cities - NYC 3, DC 3, SF 4, Nashville 1 - plus one for each of the ten
-batch-1 and batch-2 cities) in `data/commons/files_us_birdseye.jsonl` (files.jsonl shape + the 200
-evidence field) and `data/commons/classified_us_birdseye.jsonl` (`p_birdseye: 1.0`, `by: "hand"`);
-the ten new-city site rows are in `data/catalog/extras_us_birdseye.jsonl` (the four owner
-cities' sites come from 236a's file, above). `--check` (offline, no network), re-run at the
-batch-2 close-out 2026-10-14:
+All fifteen cities staged so far are in this task's own files only: **22 views** total (11 for
+the four owner-named cities - NYC 3, DC 3, SF 4, Nashville 1 - plus one for each of the eleven
+batch-1, batch-2 and batch-3 cities) in `data/commons/files_us_birdseye.jsonl` (files.jsonl shape +
+the 200 evidence field) and `data/commons/classified_us_birdseye.jsonl` (`p_birdseye: 1.0`,
+`by: "hand"`); the eleven new-city site rows are in `data/catalog/extras_us_birdseye.jsonl` (the
+four owner cities' sites come from 236a's file, above). `--check` (offline, no network), re-run at
+the batch-3 close-out 2026-10-14:
 
 ```
 PASS caption_coords  new-york-q60|File:New York - drawn by J. Bachmann ; print by G. Schlegel, 97 William St. N.Y. LCCN98508526.jpg
@@ -698,18 +766,19 @@ PASS caption_coords  st-louis-q38022|File:Bird's-Eye View of St. Louis, MO. (ful
 PASS caption_coords  chicago-q1297|File:Bird's eye view of Chicago, 1892. LOC 75693206.jpg
 PASS caption_coords  detroit-q12439|File:Birds eye view-showing about three miles square-of the central portion of the city of Detroit, Michigan. LOC 76693077.jpg
 PASS caption_coords  milwaukee-q37836|File:Milwaukee, Wis. LOC 76693067.jpg
-evidence: 21 rows, 21 pass, 0 fail, 0 no-tie
+PASS caption_coords  kansas-city-q41819|File:Bird's eye view of Kansas City, Missouri. Jan'y. 1869. LOC 73693480.jpg
+evidence: 22 rows, 22 pass, 0 fail, 0 no-tie
 ```
 
 No join problems (every file row names an existing site - the four shared ids via 236a's file,
-the ten new ids staged above; classified rows 1:1; the golden sample `tests/golden/
-src_us_birdseye_sample.json` pins the 21 rows, regenerated at the stage).
+the eleven new ids staged above; classified rows 1:1; the golden sample `tests/golden/
+src_us_birdseye_sample.json` pins the 22 rows, regenerated at the stage).
 
-**Not done yet (next sessions):** the 25-cities box - **11 more US cities** (25 total, 14 done),
+**Not done yet (next sessions):** the 25-cities box - **10 more US cities** (25 total, 15 done),
 each a NEW site in `extras_us_birdseye.jsonl` (region "United States", kind "town", aerial_ok
 true, the point = the city's verified P625 or a recorded refinement, the note recording the
 view's apparent angle), one best view per city, found by the file-namespace search route above
-and QID-verified with `--verify` before staging. The next candidates (in order): **Kansas City,
-New Orleans, Denver, St. Paul, Minneapolis, Cleveland**, ... (the LOC Panoramic collection,
-1847-1929; a city with no usable view gets a lead-doc note and the next candidate). **Do NOT
-write the canonical files - that is 236c.**
+and QID-verified with `--verify` before staging. The next candidates (in order): **New Orleans,
+Denver, St. Paul, Minneapolis, Cleveland**, ... (the LOC Panoramic collection, 1847-1929; a city
+with no usable view gets a lead-doc note and the next candidate). **Do NOT write the canonical
+files - that is 236c.**

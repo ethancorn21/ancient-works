@@ -76,8 +76,9 @@ SHARED_SITES = {
 # The note records the staged view's apparent angle so 236c/the matcher can order oblique views (the
 # task Notes). Batch 1 (verified live 2026-10-14, --verify re-checks; per-view STAGED/DROP verdicts in
 # docs/lead_us_birdseye.md): Boston, Philadelphia, Baltimore, Pittsburgh, Cincinnati. Batch 2 (checked
-# live 2026-10-14): Louisville, St. Louis, Chicago, Detroit, Milwaukee. >= 25 cities total with the four
-# shared above, the remaining batches as they are added.
+# live 2026-10-14): Louisville, St. Louis, Chicago, Detroit, Milwaukee. Batch 3 (checked live
+# 2026-10-14): Kansas City. >= 25 cities total with the four shared above, the remaining batches as
+# they are added.
 SITES = {
     # Q100: P625 (-71.057778, 42.360278) = downtown (the old town center / Faneuil Hall); P131 Suffolk
     # County; enwiki "Boston"; no name-search trap (the first search hit with coordinates is the city).
@@ -216,6 +217,29 @@ SITES = {
                         "the 1872 staged sheet is a steep near-vertical view drawn from the lake with the "
                         "grid dense and legible, Lake Michigan in the lower right and a printed key of "
                         "landmarks, spanning the whole city beyond the 2000 m town box, so its fit is "
+                        "likely to end a review item (the 236a NY-1811 / DC-ring precedent)"),
+
+    # ---- batch 3 (checked live 2026-10-14; per-view STAGED/DROP verdicts in docs/lead_us_birdseye.md) ----
+    # Q41819: P625 (-94.583333, 39.05) is the city's ONLY normal-rank value (1/60-deg precision; the raw
+    # claims dump carries 50 more suppressed-rank 30 m values that the API hides) - the point sits in the
+    # city's southern part, but the 1869 sheet's drawn extent covers the 2000 m town box, so no
+    # refinement. P131 = FOUR counties (Q127238 Jackson / Q485204 Cass / Q484474 Clay / Q489897 Platte,
+    # all Missouri - the city straddles all four; the point sits in Jackson County); P373 is the STRING
+    # "Kansas City, Missouri" (a Wikidata quirk, not a country entity - the place is written from the
+    # county + the state anyway); enwiki "Kansas City, Missouri". The name search has NO trap (the first
+    # hit with P625 is Q41819 itself, dist 0); the second hit is the twin city Q486472 Kansas City,
+    # Kansas (Wyandotte County, P625 (-94.676389, 39.106667)) - 10.2 km away (8.0 km west and 6.3 km
+    # north of the city's point, measured 2026-10-14).
+    "Q41819": dict(id="kansas-city-q41819", name="Kansas City", named="Kansas City",
+                   lon=-94.583333, lat=39.05,
+                   place="Jackson County, Missouri", region="United States", kind="town",
+                   wikipedia="https://en.wikipedia.org/wiki/Kansas_City,_Missouri",
+                   note="aerial-photograph ground (no open LiDAR over the built-up city: bare-earth LiDAR "
+                        "erases the streets); the street grid, the Missouri and its bridges carry the fit; "
+                        "the 1869 staged sheet is a steep oblique view drawn from high ground across the "
+                        "Missouri (looking south over the city) with the river and its rail bridges and "
+                        "steamboats in the foreground, the grid dense and legible out to the rural "
+                        "outskirts, spanning the whole city beyond the 2000 m town box, so its fit is "
                         "likely to end a review item (the 236a NY-1811 / DC-ring precedent)"),
 }
 
@@ -394,6 +418,22 @@ MILWAUKEE_1872 = [
      "Q37836", "Milwaukee", dict()),
 ]
 
+# Batch 3 new cities (checked live 2026-10-14; per-view STAGED/DROP verdicts in
+# docs/lead_us_birdseye.md). One row per city: the steepest, best-scanned view of the collection; the
+# non-view pool (district close-ups, too-small scans, railway sheets, other-city sheets, gate/keep
+# rejects) are DROPS recorded in the lead doc (the batch-1 precedent).
+KANSASCITY_1869 = [
+    # the only whole-city view of the city through the gate: steep oblique drawn from high ground
+    # across the Missouri (looking south over the city), the river and its rail bridges and steamboats
+    # in the foreground, the grid dense and legible out to the rural outskirts, the "KANSAS CITY /
+    # MISSOURI / 1869" cartouche with a landmark index at the bottom, "DRAWN BY A. RUGER", "PHOTOGRAPHED
+    # BY A. C. CHRISTY" (Merchant's Lithographing Company / Ruger & Stoner, LC Panoramic maps (2nd
+    # ed.), 428); the 8752x6912 .tif is the same-sheet twin (one row per sheet, the .jpg staged); the
+    # page date 1869 matches the drawing (no Zwolle-style swap)
+    ("File:Bird's eye view of Kansas City, Missouri. Jan'y. 1869. LOC 73693480.jpg",
+     "Q41819", "Kansas City", dict()),
+]
+
 SOURCES = {
     "bachmann_1874": dict(rows=BACHMANN_1874, p="birdseye",
                           label="{name}, the Bachmann bird's-eye view (1874)"),
@@ -437,6 +477,8 @@ SOURCES = {
                          label="{name}, the Calvert bird's-eye view (1889)"),
     "milwaukee_1872": dict(rows=MILWAUKEE_1872, p="birdseye",
                            label="{name}, the Bailey bird's-eye view (1872)"),
+    "kansascity_1869": dict(rows=KANSASCITY_1869, p="birdseye",
+                            label="{name}, the Ruger bird's-eye view (1869)"),
 }
 
 

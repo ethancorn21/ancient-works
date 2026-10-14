@@ -167,6 +167,14 @@
    "p_plan": 0.0,
    "site": "milwaukee-q37836",
    "title": "File:Milwaukee, Wis. LOC 76693067.jpg"
+  },
+  {
+   "by": "hand",
+   "p_birdseye": 1.0,
+   "p_photo": 0.0,
+   "p_plan": 0.0,
+   "site": "kansas-city-q41819",
+   "title": "File:Bird's eye view of Kansas City, Missouri. Jan'y. 1869. LOC 73693480.jpg"
   }
  ],
  "extras": [
@@ -309,6 +317,20 @@
    "region": "United States",
    "source": "fit/src_us_birdseye.py milwaukee_1872",
    "wikipedia": "https://en.wikipedia.org/wiki/Milwaukee"
+  },
+  {
+   "aerial_ok": true,
+   "id": "kansas-city-q41819",
+   "kind": "town",
+   "lat": 39.05,
+   "lon": -94.583333,
+   "name": "Kansas City",
+   "note": "aerial-photograph ground (no open LiDAR over the built-up city: bare-earth LiDAR erases the streets); the street grid, the Missouri and its bridges carry the fit; the 1869 staged sheet is a steep oblique view drawn from high ground across the Missouri (looking south over the city) with the river and its rail bridges and steamboats in the foreground, the grid dense and legible out to the rural outskirts, spanning the whole city beyond the 2000 m town box, so its fit is likely to end a review item (the 236a NY-1811 / DC-ring precedent)",
+   "place": "Jackson County, Missouri",
+   "qid": "Q41819",
+   "region": "United States",
+   "source": "fit/src_us_birdseye.py kansascity_1869",
+   "wikipedia": "https://en.wikipedia.org/wiki/Kansas_City,_Missouri"
   }
  ],
  "files": [
@@ -1005,6 +1027,39 @@
    "w": 11952,
    "wd_plan": false,
    "year": 1872
+  },
+  {
+   "artist": "Ruger, A.; Christy, A. C.; Merchant'S Lithographing Company; Ruger & Stoner",
+   "by": "fit/src_us_birdseye.py kansascity_1869",
+   "cat": null,
+   "date": "1869",
+   "desc": "Perspective map not drawn to scale. \"Photographed by A. C. Christy.\" LC Panoramic maps (2nd ed.), 428 Available also through the Library of Congress Web site as a raster image. Includes ill. and index to points of interest. Vault AACR2: 100; 651/1; 710/2; 710/3",
+   "evidence": {
+    "checked": "0000-00-00",
+    "dist_m": 0.0,
+    "kind": "caption_coords",
+    "named_place": "Kansas City",
+    "place_label": "Kansas City",
+    "place_lat": 39.05,
+    "place_lon": -94.583333,
+    "place_qid": "Q41819",
+    "rec": "evidence/1",
+    "site_lat": 39.05,
+    "site_lon": -94.583333
+   },
+   "h": 6912,
+   "license": "Public domain",
+   "mime": "image/jpeg",
+   "name": "Kansas City, the Ruger bird's-eye view (1869)",
+   "page": "https://commons.wikimedia.org/wiki/File:Bird%27s_eye_view_of_Kansas_City,_Missouri._Jan%27y._1869._LOC_73693480.jpg",
+   "qid": "Q41819",
+   "site": "kansas-city-q41819",
+   "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/61/Bird%27s_eye_view_of_Kansas_City%2C_Missouri._Jan%27y._1869._LOC_73693480.jpg/1280px-Bird%27s_eye_view_of_Kansas_City%2C_Missouri._Jan%27y._1869._LOC_73693480.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "title": "File:Bird's eye view of Kansas City, Missouri. Jan'y. 1869. LOC 73693480.jpg",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/6/61/Bird%27s_eye_view_of_Kansas_City%2C_Missouri._Jan%27y._1869._LOC_73693480.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "w": 8752,
+   "wd_plan": false,
+   "year": 1869
   }
  ]
 }

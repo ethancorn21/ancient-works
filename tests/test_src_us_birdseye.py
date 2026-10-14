@@ -5,13 +5,14 @@ for a QID) - New York: the 1874 Bachmann, the 1879 Will L. Taylor and the 1907 O
 Washington DC: the 1883 Sachse, the 1886 B.H. Warner & Co. and the 1921 Olsen views; San Francisco:
 the 1854 Henry Bill (the oldest staged view of the city), the 1868 Goddard, the 1878 Parsons/
 Currier & Ives and the 1914 C. Merriman Peter views; Nashville: the 1897 Tennessee Centennial
-Exposition view - plus batches 1 and 2 of the new cities, each a NEW site in this task's own extras
-file (one steepest view per city): batch 1: Boston the 1902 Walker, Philadelphia the 1872
+Exposition view - plus batches 1, 2 and 3 of the new cities, each a NEW site in this task's own
+extras file (one steepest view per city): batch 1: Boston the 1902 Walker, Philadelphia the 1872
 Davis/Harper's Weekly, Baltimore the 1880 Parsons, Pittsburgh the 1902 Fowler and Cincinnati the 1900
 Trout views; batch 2: Louisville the 1883 Clarke/Levyau sheet (the International Exposition two-panel
 composite), St. Louis the 1858 Palmatary (the steepest and oldest view staged for the city), Chicago
-the 1892 Peter Roy, Detroit the 1889 Calvert and Milwaukee the 1872 Bailey views - into this task's
-own files (files/classified _us_birdseye.jsonl; extras _us_birdseye.jsonl holds the ten new-cities
+the 1892 Peter Roy, Detroit the 1889 Calvert and Milwaukee the 1872 Bailey views; batch 3: Kansas
+City the 1869 Ruger view (the only whole-city view of the city through the gate) - into this task's
+own files (files/classified _us_birdseye.jsonl; extras _us_birdseye.jsonl holds the eleven new-cities
 site rows). The tests are offline: a socket-blocking fixture makes any network fetch fail loud, so
 the evidence check runs from the stored fields only (200's fail-closed box). The negative control
 pins the trap the hand record exists for: a staged row with a foreign place point (Venice) instead
@@ -50,7 +51,7 @@ def no_network(monkeypatch):
 
 def test_check_staged_files_join_and_pass(capsys):
     """src_us_birdseye --check, offline: the staged files join (every file row names an existing site
-    - the four shared ids via 236a's read-only extras file, the new-cities ids (batches 1 and 2) via
+    - the four shared ids via 236a's read-only extras file, the new-cities ids (batches 1-3) via
     this task's own extras file - no site re-used under two ids, (site, title) unique, no clash with the
     canonical files.jsonl, classified rows 1:1, every new-cities site has a picture) and every staged
     row PASSes the evidence
@@ -76,7 +77,8 @@ def test_check_staged_files_join_and_pass(capsys):
                 "philadelphia-q1345|File:Bird's eye view of Philadelphia. LOC 75694509.jpg",
                 "baltimore-q5092|File:The City of Baltimore - sketched and drawn by C.R. Parsons. LCCN90715972.jpg",
                 "pittsburgh-q1342|File:Pittsburgh, Pennsylvania 1902. LOC 75696521.jpg",
-                "cincinnati-q43196|File:Panoramic view, city of Cincinnati, U.S.A. 1900. LOC 75694914.jpg"):
+                "cincinnati-q43196|File:Panoramic view, city of Cincinnati, U.S.A. 1900. LOC 75694914.jpg",
+                "kansas-city-q41819|File:Bird's eye view of Kansas City, Missouri. Jan'y. 1869. LOC 73693480.jpg"):
         assert f"PASS caption_coords  {key}" in out, f"missing PASS line for {key}:\n{out}"
 
 
@@ -89,7 +91,7 @@ def test_check_staged_three_states(tmp_path, monkeypatch, capsys):
     by a DIFFERENT row - still fails loud, naming exactly that problem and no other. The four shared
     city ids stay known in every state via 236a's read-only extras file (the monkeypatched canonical
     files never held them; 236c's real merge adds them there too, which the guard treats as a no-op
-    self reference, as in 236a's test). The new-cities' sites (batches 1 and 2) sit in this task's own
+    self reference, as in 236a's test). The new-cities' sites (batches 1-3) sit in this task's own
     extras file: the site-level guards (a staged id/QID held by a different site) apply to them, as in
     236a's test."""
     staged_files = src_us_birdseye._load(src_us_birdseye.FILES_BIRDS)
@@ -161,10 +163,11 @@ def test_shared_table_and_staged_rows():
     """The hand-checked tables and the staged rows are exactly them: the four owner cities use
     236a's site ids (new-york-q60, washington-q61, san-francisco-q62, nashville-q23197) - never a
     second site for a QID - and _shared_site resolves each against 236a's read-only staged file
-    (a drift fails loud, offline); batches 1 and 2 of the new cities each stage one NEW site
+    (a drift fails loud, offline); batches 1-3 of the new cities each stage one NEW site
     (boston-q100, philadelphia-q1345, baltimore-q5092, pittsburgh-q1342, cincinnati-q43196,
-    louisville-q43668, st-louis-q38022, chicago-q1297, detroit-q12439, milwaukee-q37836 - region
-    "United States", kind "town", aerial_ok true) and one steepest view each; the staged file rows are
+    louisville-q43668, st-louis-q38022, chicago-q1297, detroit-q12439, milwaukee-q37836,
+    kansas-city-q41819 - region "United States", kind "town", aerial_ok true) and one steepest view
+    each; the staged file rows are
     exactly the module's source rows: the known drawing/publication dates are on the rows where the
     file page lost them or printed the copyright year (the 1897 Centennial view: page 1896 kept as
     date_commons; the 1854 Bill view: the page is undated, the year from the title), and every row's
@@ -182,7 +185,7 @@ def test_shared_table_and_staged_rows():
         "Q100": "boston-q100", "Q1345": "philadelphia-q1345", "Q5092": "baltimore-q5092",
         "Q1342": "pittsburgh-q1342", "Q43196": "cincinnati-q43196",
         "Q43668": "louisville-q43668", "Q38022": "st-louis-q38022", "Q1297": "chicago-q1297",
-        "Q12439": "detroit-q12439", "Q37836": "milwaukee-q37836"}
+        "Q12439": "detroit-q12439", "Q37836": "milwaukee-q37836", "Q41819": "kansas-city-q41819"}
     for s in src_us_birdseye.SITES.values():
         assert s["region"] == "United States" and s["kind"] == "town" and s["named"]
         assert s["note"]  # the staged view's apparent angle, for 236c/the matcher's fit order
@@ -198,13 +201,13 @@ def test_shared_table_and_staged_rows():
         "boston-q100": "Q100", "philadelphia-q1345": "Q1345", "baltimore-q5092": "Q5092",
         "pittsburgh-q1342": "Q1342", "cincinnati-q43196": "Q43196",
         "louisville-q43668": "Q43668", "st-louis-q38022": "Q38022", "chicago-q1297": "Q1297",
-        "detroit-q12439": "Q12439", "milwaukee-q37836": "Q37836"}  # the four owner cities' sites come from 236a's file, not this task's
+        "detroit-q12439": "Q12439", "milwaukee-q37836": "Q37836", "kansas-city-q41819": "Q41819"}  # the four owner cities' sites come from 236a's file, not this task's
     assert all(s["region"] == "United States" and s["kind"] == "town" and s["aerial_ok"] is True for s in extras)
 
     files = src_us_birdseye._load(src_us_birdseye.FILES_BIRDS)
     want = {(r[0], r[1]) for src in src_us_birdseye.SOURCES.values() for r in src["rows"]}
     assert {(r["title"], r["qid"]) for r in files} == want
-    assert len(files) == 21
+    assert len(files) == 22
     years = {"File:New York - drawn by J. Bachmann ; print by G. Schlegel, 97 William St. N.Y. "
              "LCCN98508526.jpg": 1874,
              "File:The city of New York. LOC 75694818.jpg": 1879,
@@ -228,7 +231,8 @@ def test_shared_table_and_staged_rows():
              "File:Bird's-Eye View of St. Louis, MO. (full view).jpg": 1858,
              "File:Bird's eye view of Chicago, 1892. LOC 75693206.jpg": 1892,
              "File:Birds eye view-showing about three miles square-of the central portion of the city of Detroit, Michigan. LOC 76693077.jpg": 1889,
-             "File:Milwaukee, Wis. LOC 76693067.jpg": 1872}
+             "File:Milwaukee, Wis. LOC 76693067.jpg": 1872,
+             "File:Bird's eye view of Kansas City, Missouri. Jan'y. 1869. LOC 73693480.jpg": 1869}
     # the 236a site points (verified there) and the new-cities' P625s (verified here): the stored
     # evidence point must be the site's own point
     points = {"new-york-q60": (-74.006111, 40.712778), "washington-q61": (-77.036667, 38.895),
@@ -238,12 +242,12 @@ def test_shared_table_and_staged_rows():
               "cincinnati-q43196": (-84.5125, 39.1),
               "louisville-q43668": (-85.751389, 38.256111), "st-louis-q38022": (-90.199444, 38.626389),
               "chicago-q1297": (-87.627778, 41.881944), "detroit-q12439": (-83.0475, 42.331667),
-              "milwaukee-q37836": (-87.95, 43.05)}
+              "milwaukee-q37836": (-87.95, 43.05), "kansas-city-q41819": (-94.583333, 39.05)}
     named_by_qid = {"Q60": "New York", "Q61": "Washington", "Q62": "San Francisco", "Q23197": "Nashville",
                     "Q100": "Boston", "Q1345": "Philadelphia", "Q5092": "Baltimore",
                     "Q1342": "Pittsburgh", "Q43196": "Cincinnati",
                     "Q43668": "Louisville", "Q38022": "St. Louis", "Q1297": "Chicago",
-                    "Q12439": "Detroit", "Q37836": "Milwaukee"}
+                    "Q12439": "Detroit", "Q37836": "Milwaukee", "Q41819": "Kansas City"}
     for r in files:
         assert r["year"] == years[r["title"]]
         assert r["site"] in points and r["qid"] in named_by_qid
