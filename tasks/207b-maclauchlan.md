@@ -51,19 +51,155 @@ location is in the plate.
 
 ## Lead note (2026-10-13)
 Blocked: the owner said "Stop 207". Do not start until the owner lifts it.
+(2026-10-13: LIFTED - the owner answered ask_human 006/007 (both asking whether the stop
+still stands) with "b" = the stop is lifted; 207a was completed on that lift (7e9c829) and
+207c dropped on the owner's answer to ask 008. This note records the stop as made.)
 
 ## Hand-over
-(2026-10-13, iteration 204, agent c - NO work on this task. The driver auto-put it back to
-in-progress because no open request was registered against 207b itself; that is a mechanical
-safety valve, not a lift of the owner's stop. The lead's block (62455ad, "the owner said
-'Stop 207'. Do not start until the owner lifts it.") and the owner's word are the newest on
-record, and no lift has come through (checked inbox, lead notes, DECISIONS). This session
-filed ask_human request 007 (.agent/asks/007.md) against this task - the same question as
-open request 006 (sibling 207a, 10-13 17:19 UTC), which covers both subtasks; one answer
-applies to both. Status is set back to blocked, which is stable now that a request is open
-against the task (driver rule: a blocked task waits while its request is open). Tests:
-none run this session - no code written (task file + journal only); the suite is unchanged
-at the recorded baseline 1/155/1 (the lone red is agent a's in-flight 307 placement test).)
+(2026-10-13, iteration 122, agent c - investigation session; the 204 hand-over's "waiting
+on the lift" text is OBSOLETE: the stop is lifted (asks 006/007 both answered "b", 10-13
+14:35 console). No code changed this session, no tests run (suite last green 158
+passed/1 skipped on the merged tree, 7e9c829; this task's files untouched). The session
+established that the previous plan's list-source premise is WRONG and changed the plan -
+see Findings below.)
+
+**State (verified on this branch this session).**
+- `fit/src_roman_maclauchlan.py` EXISTS (240 lines; built after the 204 hand-over went
+  stale): register/fetch/status/triage/djvu/list legs done; `MACLAUCHLAN_PLATES = None`
+  (list not transcribed); --stage/--check/--golden "not built yet". Its docstring still
+  claims the list comes from the 1971 reprint's hOCR - that premise is now known to be
+  WRONG (Finding 1); the module needs the pivot to the HAND_FIGS pattern.
+- 1858 original `memoirwrittendu00maclgoog`: ALL 171 triage pages fetched (gitignored raw
+  store); stage A done: 171 rows / 0 errors in
+  `data/books/triage/memoirwrittendu00maclgoog.A.jsonl` (row: {n, leaf, out:{page_type,
+  numbers, caption}, parse, s, img_size}; n = 0-based triage-file index = bookreader flat
+  index; leaf = leafNum = n+1). Non-text flags: n78 plate_site_plan "BRAMPTO"; n90
+  other_illustration (Willow Holm caption); n93 plate_site_plan "FIG. 4 / Sandridge & Co.
+  Litho London"; n111 figure_site_plan (Housesteads gateway 1856); n129
+  other_illustration ("MARKS ON ROMAN TILES, BINCHESTER"). No stage F/B yet; no
+  `data/books/lists/memoirwrittendu00maclgoog.*`; NO roman staging files exist yet
+  (files_roman/classified_roman/extras_roman all absent); docs/lead_roman.md exists but
+  holds only the dropped-Roy section (no Maclauchlan section yet).
+- LLM replicas: 8080 and 8081 answer, 8082 down (checked this session).
+
+**Findings (all verified this session; they change the plan).**
+1. **`memoirwrittendur0000henr` (the "1971 reprint") is NOT Maclauchlan.** Its IA record
+   title claims Maclauchlan's Watling Street survey (1971), but the actual scan content
+   (hOCR leaves AND the cached djvu.txt) is Linda Nochlin's *Realism* (1971 Pelican).
+   The item was re-scanned 2024-01-31 (RePublisher log) - contaminated/mislabeled.
+   UNUSABLE; the reprint-based list-OCR strategy of the 204 hand-over is dead.
+2. **The 1858 original has NO printed list of plates.** Full djvu.xml digest of all 171
+   leaves: Google notice (leaf 1), blank leaves, title page (~leaf 10-12, Bradbury &
+   Evans, Whitefriars), preface, two memoirs (Roman Wall n~14-119; Watling Street
+   n~120-165), TABLE OF STATIONS (n116), INDEX OF NAMES OF PLACES (n117-119), trailing
+   blanks (n166-171). No LIST/PLATES heading anywhere. So per books_lists' own fallback
+   (the 207a/Horsley precedent, accepted that way): **list = the plates' own printed
+   headings, transcribed by eye, as a `books_lists.HAND_FIGS[IA]` table**
+   (`fig|title|page|kind|kind_by`, copy the `HORSEY_FIGS` shape from
+   fit/src_roman_horsley.py) - NOT `books_lists.PLATES`. Task box 2's wording ("printed
+   list / PLATES pattern") is satisfied in intent this way (same as 207a); note the
+   deviation in the lead doc.
+3. **Exactly FIVE small-format plate leaves exist** (bookreader.json: all other leaves
+   3290-3294x5178-5190; these five are 985x1431): **n0078, n0090, n0093, n0111, n0115**
+   (0-based triage indices). Front-matter blanks (n0001-0003, 0005-0006, 0008) and the
+   trailing n0165-n0170 are full-size blanks; n0004 = a handwritten collection slip
+   ("Roman Wall... Watling Street... Maclauchlan", "9188"), n0007 = a handwritten
+   presentation page ("Presented to Wesleyan College by the Duke of Northumberland... 19th
+   July 1859") - neither is a plate. n0128 = the Watling Street memoir's display title
+   page (full-size, not a plate). So the complete plate set of the book is those five
+   leaves; the only other illustration is n129's inline "marks on Roman tiles,
+   Binchester" (full-size page, needs an eye check).
+4. **Plate inventory by eye so far** (contact sheet of all candidates built this session
+   at /tmp/macl_candidates.png, plus direct full reads):
+   - **n0090 (leaf 91) READ IN FULL = the Willow Holm plate**: caption "Plan, Section,
+     and Elevation of the Roman Wall, in Willow Holm, Carlisle, on the line of outlet
+     Sewer, 440 Yards from the West mouth of the Sewer. Reduced from M'Me Kie's Section,
+     taken Sep't 7th 1858." - an ELEVATION + transverse SECTION of the WALL (labels A-F,
+     "Scale, 4 Feet to an Inch", "H. M. L. delin. / Sandridge & Co. Litho. London").
+     **A wall section, NOT a named-fort plan -> kind o, NOT staged** (parent Notes: wall
+     sections are not sites; it depicts the wall at a place, not a fort structure).
+   - **n0078 (leaf 79) = the BRAMPTON plan** (rectangular fort plan, "BRAMPTON" label +
+     scale bar; between printed pages 64 and 65; the book's next heading is "BRAMPTON. -
+     DOUBTFUL POSITION OF ABALLAVA") - **kind s candidate** (a named place with a
+     location: Brampton, doubtful site of Aballava).
+   - **n0093 (leaf 94) = the FIG. 4 lithograph** (stage A saw two figures: a small plan
+     upper-left, a larger drawing lower-right; "FIG. 4" + "Sandridge & Co. Litho
+     London") - **kind s candidate; caption NOT yet transcribed by eye** (read it next
+     session).
+   - **n0111 (leaf 112) = the GATEWAY plate**: "GATEWAY RECENTLY DISCOVERED NEAR
+     HOUSESTEADS (Borcovicus) in 1856, represented on Trajan's Column..." + Horsley /
+     Archaeologia refs - **kind s candidate** (a named structure: the gateway at
+     Housesteads = Borcovicus, an existing catalog site) - verify by eye next session.
+   - **n0115 (leaf 116) = the TABLE OF STATIONS** (small landscape table) - kind o,
+     never staged.
+   - **djvu.xml leaf text DRIFTS ~1 from the bookreader/physical sequence in the Willow
+     Holm region**: the caption's OCR sits at djvu leaf 90 and the page-75 STANWIX text
+     at leaf 91, while the actual plate is on the neighbouring bookreader leaf (n0089
+     read nearly blank; n0090 = the Willow Holm plate). The civitates hOCR-drift pitfall,
+     in its djvu-variant form. **Consequence: for this book, trust the IMAGES (and
+     bookreader leafNum) for plate identity, not djvu.xml per-leaf text; cross-check
+     image-to-image.** The Brampton region is unaffected (both leaves there OCR-blank).
+5. **Only other Maclauchlan on IA: `henrymaclauchlan0000macl`** (2015 Wanney Books,
+   "Henry MacLauchlan's Dere Street: a new presentation of his 1851 'Memoir ... Watling
+   Street'"; hOCR + djvu present, but LCP/ACS lending-restricted - images probably not
+   downloadable). Optional secondary cross-check for the Watling Street memoir only; NOT
+   for the Roman Wall part; don't block on it.
+6. **Stage A under-calling is ~0 among the plate leaves** (it flagged 4 of the 5 small
+   leaves + the one full-size inline illustration), and the size census shows no hidden
+   full-size plates - **stage F is probably not needed**; stage B still runs on the
+   kind-s leaves.
+
+**Exact next steps (in order).**
+1. Read the full triage images of n0078, n0093, n0111 (and n0129, n0115 for the record)
+   and transcribe each plate's printed caption/heading verbatim (the five small leaves
+   are 985x1431 native, so triage size is near full-res; if a caption is still
+   unreadable, fetch via `books.iiif_url(page, k)`).
+2. Fix each plate's kind: s = named fort/structure plan to stage (n0078, n0093, n0111
+   expected; n0090 = o wall section; n0115 = o table; n129 = o inline, unless its image
+   shows a real plan of a named place).
+3. Rewrite the module's list leg to the HAND_FIGS pattern: `MACLAUCHLAN_FIGS` string
+   (the 5 small leaves + n129 if it qualifies), register() injects
+   `books_lists.HAND_FIGS[IA]` (drop the PLATES injection and the djvu page_texts swap -
+   first confirm in `books_lists.cmd_ocrmap` that HAND_FIGS books map by leaf n with no
+   OCR; the Horsley module relies on that branch); update the module docstring (Finding
+   1: the reprint is Nochlin's Realism; Finding 2: no printed list; Finding 4: the djvu
+   drift).
+4. `--list` -> `data/books/lists/memoirwrittendu00maclgoog.json` + `.map.json` (commit
+   both); then `books.cmd_triage_b([KEY])` (8080/8081 up) on A's site pages + the kind-s
+   leaves; then `books_lists.validate_book(KEY)` recall -> a NEW "## Maclauchlan" section
+   in docs/lead_roman.md (never the shared validation.json / index.jsonl - 211 owns
+   those).
+5. Stage the kind-s rows (n0078, n0093, n0111) into files_roman.jsonl +
+   classified_roman.jsonl ("plan" by hand) + extras_roman.jsonl only for sites not in the
+   catalog (Brampton/Aballava: check data/catalog/sites.jsonl + extras.jsonl first - the
+   206 England roman_fort rows and the 6 no-QID extras per the parent hand-over;
+   Housesteads/Borcovicus = existing QID row; n0093 depends on its caption). 200
+   evidence field per row (the plate's printed caption is the tie: list entry / caption
+   / coordinates distance + checked date); book date 1858 on the row (title page; the
+   survey ran 1857-59 - record the discrepancy in the lead doc). Append-only, idempotent
+   (204/205 pattern); rows tagged with this book's key. 207a's 807-809 tasks will add
+   Horsley rows to the same shared files - keep appending only, never rewrite existing
+   lines.
+6. `--check` (offline join + fit/evidence.py over this book's rows) + `--golden` +
+   `tests/test_src_roman_maclauchlan.py` (no_network fixture as in
+   tests/test_src_van_deventer.py; join + evidence check + golden sample
+   tests/golden/src_roman_maclauchlan_sample.json). The 90% box: 3 kind-s plans staged of
+   3 staged-eligible plates (n0090 wall section + n0115 table + n129 inline = the
+   accounted-for rest, each named in the lead doc) = 100%.
+
+**Re-read next session:** `pipeline/books_lists.py:cmd_ocrmap` - confirm the HAND_FIGS
+branch maps by leaf n without any OCR/page_texts (the Horsley module relies on it);
+`fit/src_roman_horsley.py` - the exact pattern to copy (register/list_cmd shapes);
+`data/catalog/sites.jsonl` + `data/catalog/extras.jsonl` - look up the Borcovicus /
+Housesteads QID row and check whether an Aballava/Brampton entry already exists before
+creating an extras row.
+
+**PITFALLS to add** (once the steps settle): (a) `memoirwrittendur0000henr` = Linda
+Nochlin's *Realism* (1971), NOT the 1971 Maclauchlan facsimile - IA item title/content
+mismatch; never use it. (b) Maclauchlan 1858 original: no printed plate list; exactly
+five small-format (985x1431) plate leaves n0078/n0090/n0093/n0111/n0115; its djvu.xml
+per-leaf text drifts ~1 from bookreader leafNum in the Willow Holm region (leaf 90/91) -
+key per-leaf lookups on the images, not the djvu text.
 
 **State (verified on this branch this session; a true blank slate, nothing to unwind).**
 - No `fit/src_roman_maclauchlan.py`; no `data/books/triage/memoirwrittendu00maclgoog.*`,
