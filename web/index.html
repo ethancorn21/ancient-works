@@ -976,8 +976,10 @@ function drawPlan() {
     g.fillStyle = hollow ? '#2B2724' : '#fff'; g.font = '700 11px "Archivo Narrow", sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
     g.fillText(label, px, py + 0.5);
   };
-  P.pairs.forEach((p, i) => pin(p.u, p.v, String(i + 1), false));
-  if (P.pending) pin(P.pending.u, P.pending.v, String(P.pairs.length + 1), true);
+  // placed (fitkit.js): the first five pairs are the drawing's frame, not pins; the owner's pins count from 1
+  const skip = P.placed ? 5 : 0;
+  P.pairs.forEach((p, i) => { if (i >= skip) pin(p.u, p.v, String(i + 1 - skip), false); });
+  if (P.pending) pin(P.pending.u, P.pending.v, String(P.pairs.length + 1 - skip), true);
   if (P.cropMode && P.cropA) { g.fillStyle = '#2B2724'; g.fillRect(P.cropA[0] * k + x - 3, P.cropA[1] * k + y - 3, 6, 6); }
 }
 function makeInk() {

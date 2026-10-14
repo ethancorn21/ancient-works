@@ -135,10 +135,30 @@ function _fkReemit(anchor) {
    mousedown; a NON-placed page keeps the map's own behaviour, because each guard
    returns before its preventDefault). touchPan and touchRotate stay on: the box
    hands the gestures the MOUSE; a phone can still re-centre the map. */
+/* Owner 2026-10-13: "you can't move around the map ... I need to be able to move around
+   both". Placed now splits the mouse instead of taking it: a press ON the drawing moves
+   the drawing (dragPan is switched off for that one press, in the capture phase, before
+   MapLibre's own container listener sees it), a press OFF it pans the map; the plain
+   wheel zooms the map, shift+wheel scales and alt+wheel turns the drawing (both stopped
+   in the capture phase so the map does not zoom too); right-drag still rotates the map.
+   Only double-click and box zoom stay off while placed. */
 function _fkSetGestures(on) {
-  for (const h of [map.dragPan, map.scrollZoom, map.touchZoomRotate, map.doubleClickZoom, map.boxZoom])
-    on ? h.enable() : h.disable();
-  map.getCanvas().style.cursor = on ? '' : 'grab';
+  for (const h of [map.doubleClickZoom, map.boxZoom]) on ? h.enable() : h.disable();
+  map.dragPan.enable(); map.scrollZoom.enable();
+  map.getCanvas().style.cursor = '';
+}
+
+/* The drawing's outline on screen: the four re-emitted map_box corners (pairs 0..3),
+   projected. A press inside it moves the drawing; outside, the map. */
+function _fkInside(x, y) {
+  if (P.pairs.length < 4) return false;
+  const q = P.pairs.slice(0, 4).map(p => map.project([p.lon, p.lat]));
+  let inside = false;
+  for (let i = 0, j = 3; i < 4; j = i++) {
+    const a = q[i], b = q[j];
+    if ((a.y > y) !== (b.y > y) && x < (b.x - a.x) * (y - a.y) / (b.y - a.y) + a.x) inside = !inside;
+  }
+  return inside;
 }
 
 /* The placement goes away - close (back / Cancel / save all end in endFit) or a new
@@ -149,7 +169,7 @@ function _fkSetGestures(on) {
    resets them; _fkLastN is refreshed so a later sync has the right floor. */
 function _fkDeactivate() {
   if (!P.placed) return;
-  P.placed = false; P.anchor = null; P.anchorStack = [];
+  P.placed = false; P.anchor = null; P.anchorStack = []; P.hist = [];
   _fkLastN = P.pairs.length;
   _fkDragStop();
   _fkSetGestures(true);
@@ -197,6 +217,58 @@ function _fkApply() {
   P.pairs = [];
   for (const p of _fkReemit(P.anchor).concat(pins)) { P.pairs.push(p); addPairMarker(p); }
   _fkLastN = P.pairs.length;
+  _fkStyleMarks();
+}
+
+/* The five re-emitted pairs are the drawing's frame, not the owner's pins: the owner read
+   them as pins 1-5 (2026-10-13). Corners show as small hollow handles, the centre not at
+   all, and the owner's own pins are numbered from 1. */
+function _fkStyleMarks() {
+  P.marks.forEach((m, i) => {
+    const el = m.getElement();
+    if (i < 5) { el.classList.add('fk-handle'); el.textContent = ''; el.style.display = i === 4 ? 'none' : ''; }
+    else { el.classList.remove('fk-handle'); el.textContent = String(i - 4); el.style.display = ''; }
+  });
+}
+
+/* Where page point (u, v) lands under an anchor, in Mercator metres (the _fkReemit map). */
+function _fkAt(a, u, v) {
+  const [zx0, zy0] = merc([a.lon, a.lat]), k = Math.cos(a.lat * Math.PI / 180), t = a.rot * Math.PI / 180;
+  const ar = a.mpx / k * Math.cos(t), ai = a.mpx / k * Math.sin(t), dr = u - a.u0, di = a.v0 - v;
+  return [zx0 + ar * dr - ai * di, zy0 + ai * dr + ar * di];
+}
+
+/* The owner's pins decide the placement on their own (2026-10-13 "nothing aligns"): before,
+   each pin was least-squared together with the five frame pairs, so one pin pulled the
+   drawing a sixth of the way. One pin: the drawing slides so that spot lands exactly
+   (scale and turn kept). Two or more: their own similarity fit sets the centre, scale and
+   turn. */
+function _fkFromPins() {
+  const pins = P.pairs.slice(5);
+  if (!pins.length || !P.anchor) return;
+  if (pins.length === 1) {
+    const p = pins[0], now = _fkAt(P.anchor, p.u, p.v), want = merc([p.lon, p.lat]), c = merc([P.anchor.lon, P.anchor.lat]);
+    [P.anchor.lon, P.anchor.lat] = unmerc([c[0] + want[0] - now[0], c[1] + want[1] - now[1]]);
+    return;
+  }
+  const f = simFit(pins);
+  const [lon, lat] = unmerc(f.at(P.anchor.u0, P.anchor.v0));
+  P.anchor = { u0: P.anchor.u0, v0: P.anchor.v0, lon, lat, mpx: f.mpx, rot: f.rot };
+}
+
+/* One undo history for everything done while placed (2026-10-13 "there's no undo"):
+   every move, wheel burst and pin pushes the anchor it replaced; Undo (the panel button,
+   or Cmd/Ctrl+Z) pops the last one, removing the pin if it was a pin. */
+let _fkWheelAt = 0;
+function _fkPush(pin) { (P.hist ||= []).push({ anchor: { ...P.anchor }, pin }); }
+function _fkUndo() {
+  if (P.pending) { P.pending = null; refit(); return; }
+  const e = (P.hist || []).pop();
+  if (!e) return;
+  if (e.pin && P.pairs.length > 5) { P.pairs.pop(); P.marks.pop()?.remove(); }
+  P.anchor = { ...e.anchor };
+  _fkApply();
+  refit();
 }
 
 /* The sync the wrapped refit runs whenever the pair count changes while placed (a
@@ -209,12 +281,12 @@ function _fkApply() {
 function _fkSync() {
   const n = P.pairs.length;
   if (n > _fkLastN) {
-    for (let i = 0; i < n - _fkLastN; i++) P.anchorStack.push({ ...P.anchor });
-    _fkAbsorb();
+    _fkPush(true);
+    _fkFromPins();
     _fkApply();
   } else if (n < _fkLastN) {
-    let drop = _fkLastN - n;
-    while (drop-- > 0 && P.anchorStack.length) P.anchor = { ...P.anchorStack.pop() };
+    // Clear (or the page's own pop): the drawing stays where it stands; pin steps leave the history
+    P.hist = (P.hist || []).filter(e => !e.pin);
     _fkApply();
   }
 }
@@ -227,12 +299,90 @@ function _fkSync() {
 function _fkHint() {
   if (!P.placed || !P.anchor) return;
   $('#fithint').textContent =
-    `${P.anchor.mpx.toFixed(2)} m per page pixel, turned ${P.anchor.rot > 0 ? '+' : ''}${P.anchor.rot.toFixed(1)}°` +
-    ' · drag to move · wheel to scale · shift+wheel to turn';
+    `${P.anchor.mpx.toFixed(2)} m per page pixel, turned ${P.anchor.rot > 0 ? '+' : ''}${P.anchor.rot.toFixed(1)}°`;
   const st = document.querySelector('#body .step');
-  if (st) st.textContent = 'Drag the drawing on the map to move it; the wheel scales it, shift+wheel turns it. ' +
-    'To pin an exact spot, click it on the page, then on the map.';
+  if (st) st.innerHTML = P.pending ? 'Now click the same spot on the map.' :
+    'Drag <b>on</b> the drawing to move it; drag anywhere else to move the map. ' +
+    '<b>Shift</b>+wheel scales the drawing, <b>Alt</b>+wheel turns it; the plain wheel zooms the map, right-drag turns the map. ' +
+    'To pin an exact spot, click it on the page (Bigger), then on the map.';
+  // the fit line: the owner's pins only (the frame pairs always agree with themselves)
+  const pins = P.pairs.slice(5), fl = [...document.querySelectorAll('#body p.fit')].find(p => /^(Scale|Perspective)/.test(p.textContent));
+  if (fl) {
+    const turn = `Scale ${P.anchor.mpx.toFixed(2)} m per page pixel, turned ${P.anchor.rot > 0 ? '+' : ''}${P.anchor.rot.toFixed(1)}°.`;
+    if (pins.length < 3) fl.textContent = `${turn} ${pins.length ? `${pins.length} pin${pins.length > 1 ? 's' : ''}: ${pins.length === 1 ? 'the drawing slides onto it' : 'two pins set the place, scale and turn exactly'}; a third shows whether the drawing is true.` : ''}`;
+    else {
+      const r = simFit(pins).resid;
+      fl.innerHTML = `${turn} Your ${pins.length} pins agree within ${Math.ceil(Math.max(...r))} m: ` +
+        r.map((m, i) => `<span class="${m > 15 ? 'bad' : ''}">${i + 1}: ${m.toFixed(0)} m</span>`).join(' · ') +
+        (Math.max(...r) > 15 ? '. A pin far off the others is on the wrong spot, or the drawing is not true there: Undo it.' : '.');
+    }
+  }
+  const u = $('#fundo');
+  if (u) { u.disabled = !(P.hist && P.hist.length) && !P.pending; u.onclick = _fkUndo; u.title = 'Cmd/Ctrl+Z'; }
 }
+
+/* Skip and "Not this structure" sit in the fit panel itself (2026-10-13: "once you're in the
+   place the drawing option there's no way to skip it ... you have to go out zoom out then
+   say skip"; Machu Picchu's pictures are walls and archways, not the site). Skip shows for a
+   site from the Ready to fit queue: it skips the site and opens the next one in place.
+   "Not this structure" shows for any picture: it is recorded in the db (notthis/<site>.<plan>;
+   the server marks the review candidate dropped, so the matcher never tries it and the queue
+   never offers it again) and moves on - the next queued site, or this site's plan list. */
+function _fkTools() {
+  if (!P.active || !P.plan || !P.site || $('#fknot')) return;
+  const save = $('#fsave'); if (!save) return;
+  const queued = typeof FQ !== 'undefined' && fqPending()[0] && fqPending()[0].site === P.site.id;
+  const row = document.createElement('div');
+  row.className = 'tools';
+  row.innerHTML = `${queued ? '<button id="fkskip">Skip this site</button>' : ''}<button id="fknot" title="The picture does not show this site (a detail, a building, another place)">Not this structure</button>`;
+  save.parentElement.before(row);
+  if ($('#fkskip')) $('#fkskip').onclick = () => { fqSkip(); _fkNext(); };
+  $('#fknot').onclick = _fkNotThis;
+}
+async function _fkNotThis() {
+  const s = P.site, r = P.plan, st = $('#fitst');
+  if (!S.db) { if (st) st.textContent = 'The page is not connected to its server; nothing was recorded.'; return; }
+  const id = `${s.id}.${r.id}`;
+  const fromQueue = !!$('#fkskip');
+  $('#fknot').disabled = true; if (st) st.textContent = 'Recording…';
+  try { await S.db.doc(`notthis/${id}`).set({ site: s.id, plan: r.id, title: r.title || '', at: new Date().toISOString() }); }
+  catch (e) { if (st) st.textContent = `Could not record it (${e.message}).`; $('#fknot').disabled = false; return; }
+  _fkNotSet.add(id);
+  // the PUT returns after the server has rebuilt web/data/fit_queue.json without the picture
+  if (typeof FQ !== 'undefined') { FQ.loaded = false; await fqLoad(); }
+  if (fromQueue && fqPending()[0]) { endFit(false); await fqPlace(); return; }  // the next queued picture (this site's next, or the next site)
+  endFit(false); startFit(s);  // opened from the site: back to its plan list, without this picture
+}
+function _fkNext() {
+  if (fqPending()[0]) { endFit(false); fqPlace(); }
+  else endFit();
+}
+
+/* The owner's "not this" set, loaded once: the plan list and the queue leave them out at once
+   (the server's queue rebuild does the same for the file). */
+const _fkNotSet = new Set();
+(async () => {
+  try { const r = await fetch('api/db/notthis'); if (r.ok) for (const d of (await r.json()).docs || []) _fkNotSet.add(d.id); } catch {}
+})();
+const _fkPlanMatches = planMatches;
+planMatches = function () {
+  const out = _fkPlanMatches();
+  return P.site ? out.filter(r => !_fkNotSet.has(`${P.site.id}.${r.id}`)) : out;
+};
+
+const _fkRenderFit = renderFit;
+renderFit = function () {
+  const out = _fkRenderFit();
+  _fkTools();
+  _fkHint();
+  return out;
+};
+
+addEventListener('keydown', e => {
+  if (!P.placed || !(e.metaKey || e.ctrlKey) || e.key.toLowerCase() !== 'z' || e.shiftKey) return;
+  if (e.target.closest && e.target.closest('input, textarea')) return;
+  e.preventDefault(); _fkUndo();
+});
 
 /* One refit per frame at most: a wheel or a drag fires many events per frame, and
    the refit re-renders the pane - the pointer is on the map canvas (a sibling of
@@ -264,11 +414,14 @@ function _fkScheduleApply() {
    anchor - absorbed by the next pin or transform. */
 function _fkOnWheel(e) {
   if (!P.placed || !P.active || !P.plan || !P.img || !P.anchor) return;  // a non-placed page keeps the map's own wheel zoom
-  e.preventDefault();
-  const dy = e.deltaY;
+  if (!e.shiftKey && !e.altKey) return;  // the plain wheel zooms the map
+  e.preventDefault(); e.stopPropagation();  // capture phase: MapLibre's scroll zoom never sees it
+  const dy = e.deltaY || e.deltaX;  // macOS turns a shift+wheel into a horizontal scroll (deltaX)
   if (!dy) return;
+  if (performance.now() - _fkWheelAt > 600) _fkPush(false);  // one undo step per wheel burst
+  _fkWheelAt = performance.now();
   _fkAbsorb();  // a corner dragged since the last transform joins the anchor first
-  if (e.shiftKey) P.anchor.rot += dy * 0.01;           // 1 degree per 100-unit notch
+  if (e.altKey) P.anchor.rot += dy * 0.01;             // 1 degree per 100-unit notch
   else P.anchor.mpx *= Math.exp(-dy * 0.0015);         // the page canvas's own factor: wheel-up grows
   _fkReemitLive();
   _fkScheduleApply();
@@ -277,6 +430,8 @@ function _fkOnDown(e) {
   if (e.button !== 0 || !P.placed || !P.active || !P.plan || !P.img || !P.anchor) return;
   if (e.target.closest('.maplibregl-marker')) return;  // a marker press is the page's own drag flow
   const r = map.getCanvas().getBoundingClientRect();
+  if (!_fkInside(e.clientX - r.left, e.clientY - r.top)) return;  // off the drawing: the map pans
+  map.dragPan.disable();  // capture phase, before MapLibre's container listener: this press is the drawing's
   const u = map.unproject([e.clientX - r.left, e.clientY - r.top]);  // {lng, lat} object -> the [lon, lat] array the page's merc destructures
   _fkDrag = { x: e.clientX - r.left, y: e.clientY - r.top,
               ll: [u.lng, u.lat], lon: P.anchor.lon, lat: P.anchor.lat, moved: false };
@@ -292,6 +447,7 @@ function _fkOnMove(e) {
     if (Math.hypot(x - _fkDrag.x, y - _fkDrag.y) < 4) return;  // 4 px > the map's 3-px click tolerance
     _fkDrag.moved = true;
     if (P.pending) P.pending = null;  // a drag is not a pin
+    P.anchor.lon = _fkDrag.lon; P.anchor.lat = _fkDrag.lat; _fkPush(false); // one undo step per drag
   }
   // the anchor absolute to the press-down: anchor = anchor-at-down + (pointer now -
   // pointer at down), in Mercator metres. NOT an increment on the current anchor - a
@@ -310,10 +466,16 @@ function _fkOnUp() {
   _fkDragStop();
 }
 function _fkDragStop() {
-  if (_fkDrag) _fkDrag = null;
+  if (_fkDrag) { _fkDrag = null; map.dragPan.enable(); }
   removeEventListener('mousemove', _fkOnMove);
   removeEventListener('mouseup', _fkOnUp);
-  map.getCanvas().style.cursor = P.placed ? 'grab' : '';
+  map.getCanvas().style.cursor = '';
+}
+/* The cursor says which one a press will move: a hand over the drawing. */
+function _fkHover(e) {
+  if (!P.placed || _fkDrag || !P.anchor) return;
+  const r = map.getCanvas().getBoundingClientRect();
+  map.getCanvas().style.cursor = _fkInside(e.clientX - r.left, e.clientY - r.top) ? 'move' : '';
 }
 
 /* Place mode: the queue entry of this site (if any) carries a starting placement for
@@ -348,9 +510,10 @@ function _fkActivate() {
   // the earlier overlay goes while place mode is open; the endFit wrapper brings it back
   if (map.getLayer('dep-' + site.id)) map.setLayoutProperty('dep-' + site.id, 'visibility', 'none');
   // a fresh start (every path into openPlan reset via startFit): clear anyway, then seed
-  P.pairs = []; P.pending = null; P.marks.forEach(m => m.remove()); P.marks = [];
-  for (const p of _fkReemit(P.anchor)) { P.pairs.push(p); addPairMarker(p); }  // numbered 1..5, draggable, like the map-click path
+  P.pairs = []; P.pending = null; P.marks.forEach(m => m.remove()); P.marks = []; P.hist = [];
+  for (const p of _fkReemit(P.anchor)) { P.pairs.push(p); addPairMarker(p); }  // the frame: 4 corner handles + the hidden centre
   _fkLastN = P.pairs.length;
+  _fkStyleMarks();
   _fkSetGestures(false);
   refit();
 }
@@ -393,8 +556,12 @@ refit = function () {
 };
 
 const _fkContainer = map.getCanvasContainer();
-_fkContainer.addEventListener('wheel', _fkOnWheel, { passive: false });
-_fkContainer.addEventListener('mousedown', _fkOnDown);
+// capture phase: these run before MapLibre's own listeners on the same container (the event's
+// target is the canvas inside it), so a press on the drawing can switch dragPan off in time and a
+// modified wheel can be stopped before the map zooms
+_fkContainer.addEventListener('wheel', _fkOnWheel, { passive: false, capture: true });
+_fkContainer.addEventListener('mousedown', _fkOnDown, { capture: true });
+_fkContainer.addEventListener('mousemove', _fkHover);
 
 /* The working space (task 307c): "it's super cluttered ... there's like no working space".
    While placing, the map is the surface: the page picture shrinks to a small reference card
@@ -405,6 +572,8 @@ _fkContainer.addEventListener('mousedown', _fkOnDown);
 const _fkStyle = document.createElement('style');
 _fkStyle.textContent = `
   #fitbig { display: none; }
+  .gpin.fk-handle { width: 9px; height: 9px; border-radius: 0; background: var(--sheet, #fff); border: 1.5px solid var(--survey); }
+  #body p.fit span.bad { color: var(--survey); font-weight: 700; }
   body.placing #fitbig { display: inline-block; }
   body.placing .fitpane:not(.big) { top: auto; left: auto; right: 12px; bottom: 36px; width: 300px; height: 240px; }
   body.placing .fitpane.min:not(.big) { height: auto; }
