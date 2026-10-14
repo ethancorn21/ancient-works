@@ -113,6 +113,11 @@ Symptom: the driver reopens a done claim with "Team project: these tasks can nev
 Why: the line is machine-parsed for task-id tokens, not read as prose - any number in an explanation counts as a dependency, and the format spec (a bare comma list or `none`) exists so the parser never sees prose. A `NNNx` self-token is a self-loop (can never start); a `(none - a record; ... 307b/307c ...)` tokenizes as real deps on the wrong direction.
 What to do: keep the line a bare comma-separated id list (or `none`); put the why in the hand-over or DECISIONS.md (000 iteration 158 stripped the prose from 212, 212a, 307a - the rationales already lived in each file's hand-over, so only the lines changed; verify with a token scan that no pending task is in a cycle before claiming a plan done).
 
+#### Editing a file the test suite hashes mid-run fails its integrity checks (the working tree must be stable while pytest runs)
+Where: any in-flight full-suite run (`.venv/bin/python -m pytest tests/ ...`) in this checkout vs. edits to files inside its snapshot set: data/ (minus the raw symlink), web/data top level, docs/, specs/, tests/ (tests/test_cover.py::test_checkout_integrity snapshots before/after the cover run; other tests assert on committed content of the same dirs)
+Symptom: `FAILED tests/test_cover.py::test_checkout_integrity - AssertionError: checkout files changed by the phases: ['docs/lead_roman.md']` with before/after sha256 differing - even though nothing in the run itself touched the file; 2026-10-14 (808) hit it by appending the lead accounting to docs/lead_roman.md while the suite was running in the same checkout.
+Why/fix: the suite takes file snapshots at test start and compares at test end; a human/agent edit in between reads as "the run changed it". Commit (or defer) every working-tree edit BEFORE starting a verification run, and never start a long run while you still plan to edit: re-run the suite on the stable tree - the red that looks like your data change is usually just your own keystrokes. (Team mode note: other checkouts run their own suites, but TMPDIR is per-checkout, so cross-checkout interference is not the cause - this one is self-inflicted.)
+
 ## This machine and its environment
 
 Installed software and versions, paths, ports, network, what is blocked.
