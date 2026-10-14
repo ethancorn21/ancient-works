@@ -6,19 +6,24 @@ task file (for a subtask, read its parent's too).
 ## Tasks in flight
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
 - `tasks/236-us-cities.md` (split)
+- `tasks/238-matcher-gate.md` (in-progress) - hand-over: (2026-10-14, iteration 201, agent a - measurement session; branch in sync with main at start;
 - `tasks/240-us-birdseye-batch4.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
 - `tasks/241-us-birdseye-batch5.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
 
 ## Next open tasks
 - `tasks/230-roman-merge-rerun.md`
 - `tasks/236c-us-cities-merge.md`
-- `tasks/238-matcher-gate.md`
+- `tasks/239-retire-vision-fit.md`
 
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-14 238 DECISION: iteration 201 - measurement session: all prep assumptions re-verified against current main; the new doc score measures 0.0 (gate median of the self-consistent 8 pairs); the task Notes' "15%-scale variant fails the gate" is FALSE for transform=None (uniform AND radial scale distortions both pass) - the fails-gate test case will be a 4-anchor +-200 m offset (median clause "median residual 96.809... m > 45.0 m"); 302f fixture refresh is mandatory in 238's window and both 239-declared files were added to 238's Touches with a Proposed changes note; no production code changed this session
+- Setup: branch agent/a in sync with main at session start (only driver sync commits ahead; git diff main empty on all relevant files). Deps 302f/302g both done. Prep note tasks/prep/238.md read first; every assumption checked against the tree (fit/matchfit.py, pipeline/fit_gate.py, fit/batch_us.py gate_placement/_norm_pairs/write_doc, tests/fixtures/matchfit_station/{record.py,records.json,records_unsure.json}, tests/test_matchfit_station.py, docs/gate.md, tests/golden/hand_fit_docs.sha256, tools/site_done.py, pipeline/plan_fit.py source_line/build).
+- Assumption verdicts: A1-A7 hold (incl. conftest.py has NO matcher stub - the ephemeral-port stub idiom is in test_matchfit_station.py itself, and the recorder's _fake_match is an offline-replay variant). A8 was WRONG in detail: the golden file's 41 lines are 22 by:hand docs + 19 hand-fit data/sites/<id>/site.json files (fit/batch_us.write_golden's docstring confirms), NOT "22 by:hand + 19 by:None docs"; the store holds exactly 71 docs = 49 by:agent/fitter:matcher + 22 by:hand, zero by:None; all 41 golden hashes match on the current tree. A9 holds (docs/gate.md ends at section 9, 259 lines; the new section is ## 10).
+- Measured offline (throwaway /tmp/aw238_meas.py, .venv, 302f recorded responses replayed in-process, RoMa unreachable, checkout surface hash-verified unchanged): fit_row = 22/61, rot 3.62, resid 3.078, spread (0.138,125.3), judge silent; the 8 spread-selected pairs round to exactly the fixture doc's pairs (replay deterministic). fit_gate.gate(pairs, None): raw pairs med 7.08e-10; the doc's rounded pairs med 0.009029976684642005, slope_o 4.37e-05, io 8.4e-04 -> ACCEPT, new score = 0.0 (was 3.1). Depiction source: "(gate score 0.0 m)" (the "within 1 m" = ceil(0.017) is unchanged). 302f fixture delta when the gate lands: doc.score 3.1->0.0, doc.matcher + "resid_m": 3.1, depiction.source and expected_stdout lines 6/9 "gate 3.1 m"->"gate 0.0 m"; lines 0,2,3,4,5,7,8,10, site_entry (equal True), spread_pairs, all responses, and the whole unsure fixture unchanged (its item: why "no model answer", gate_score None - 239's turf).
+... (3.7 KB more: `grep -n -A 200 -F '## 2026-10-14 238 DECISION: iteration 201 - measurement session: all prep assumptions re-verified against current main; the new doc score measures 0.0 (gate median of the self-consistent 8 pairs); the task Notes' "15%-scale variant fails the gate" is FALSE for transform=None (uniform AND radial scale distortions both pass) - the fails-gate test case will be a 4-anchor +-200 m offset (median clause "median residual 96.809... m > 45.0 m"); 302f fixture refresh is mandatory in 238's window and both 239-declared files were added to 238's Touches with a Proposed changes note; no production code changed this session' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
