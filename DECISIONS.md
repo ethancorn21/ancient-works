@@ -19,6 +19,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 ## Archived decisions
 
 432 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
+433 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
 
 - 000 plan (18 entries)
 - 001 fit-gate (10 entries)
@@ -32,6 +33,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 - 205 kip (10 entries)
 - 206 mackenzie-p212 (34 entries)
 - 207a horsley (13 entries)
+- 207a horsley (16 entries)
 - 207c roy (3 entries)
 - 208 limes (8 entries)
 - 209 wiltshire (1 entry)
@@ -597,3 +599,52 @@ practical rules; today's run corroborated it exactly).
 - **Haydon 1860 fresh re-survey (supersedes the 163 pixel estimates; the 161 Clayton pixels stand).** Whole-sheet overview (0.3 scale) + two grid crops (the red grid labels are FULL-SHEET coordinates): (1) the sheet is NORTH-UP with a slight tilt - the blue band is the KENTUCKY (runs from the corner up-left = N-NW, matching the Kentucky coming from the north; 163's "Tennessee band" was the Kentucky), the hatched band from the right is the CUMBERLAND (from the E, with the spaced-out C U M B E R L A N D R I V E R letters; 163's "D R I V E R" = "RIVER"), the hatched stub to the lower-left of the corner is the downstream TENNESSEE (S-SW, matching reality). All three directions confirm north-up - no mirror, no 180-degree rotation. (2) The confluence V is at full-sheet ~(2950-3100, 4500-4700) (the (0,3400)-(3600,5600) crop puts the join at ~(2950-3050, 4550-4650)); 163's (2950,5240) is ~600-700 px too far south (it measured the hatched band's outer/downstream edge, not the V). (3) The STATE CAPITOL (dark block in the green square, label below) is at full ~(4890-4910, 3110-3180) (the (3400,2200)-(6400,4400) crop puts it at grid intersection x=4900, y=3100-3200); 163's (5000,3250) is ~100 px E / ~100 px S off. (4) The 163 "fort corner" (3980,3850) is the SW corner of the 1860 BUILT-UP riverfront (near the "WHARF" label), NOT the fort: in the (3650,3550)-(4550,4200) crop the dense grid's actual SW corner sits at the crop's left edge ~(3670-3700, 3880-3900) by the vertical "MILTON ST" label. The fort itself (36.164167,-86.774444) is demolished and not drawn in 1860 - its site is the NE corner of the 1796 original plat, which must be pinned on the map (crop (2900,3800)-(4400,4600) @1.5) or used as a CHECK point instead of an anchor. (5) The 163 Rich-Branch mouth pixel (6150-6300, 4000-4100) is WRONG: the (6000,3900)-(6500,4150) @2 crop shows only the Cumberland's north bank (pale center, hatched edge) with ADAMS/TAYLOR/MILL ST above it - no stream there. The mouth is to the WEST along the red riverfront; re-search x 4500-6000, y 3700-3950 (crop (4400,3650)-(6200,4000) @1.5 50).
 - **Route decided (recorded in the hand-over):** pin the three Haydon pixels at close-up (confluence V, capitol, 1796-plat NE corner) -> least-squares similarity (2-3 anchors, ENU metres at (36.163,-86.775)) with per-anchor residuals -> checks (projected Cumberland centerline vs the re-fetched way 40806685 full geometry + the Nominatim west centroid (36.1712410,-86.8998905); Nominatim street spot checks; projected fort on the old-grid corner) -> project the Rich Branch mouth -> Clayton 2-anchor similarity (fort (718,1345) -> Q5471739; mouth (2282,1597) -> the Haydon-derived mouth) projecting all 161 anchors + the town-extent corners -> 155/161 verdict (P625 box vs center of the extent) -> cross-checks -> record -> apply (155-era steps 2-6, next session).
 - **PITFALLS to file when convenient (164):** (a) OSM /map?bbox is alive again (400 node-limit on big bboxes; 0.01-0.03 deg boxes fine) - the 161/163 "410 Gone" entries are not durable, retest per call; (b) Tennessee River relation 2182503 skips the Nashville stretch (no way within ~5 km of the city) - do not use it for Nashville river geometry; the corner = untagged V node 303579826 inside the mis-named way 40806685; (c) Nominatim bounded river searches in dense urban viewboxes return the Greenway park/cycleway, never the river way - use /map?bbox for urban waterway geometry; (d) (from 161/163, still unfiled) PIL's 178 M-px limit -> Image.MAX_IMAGE_PIXELS = None; Overpass dead on all public instances from this VM (api.de 406, mail.ru 504, kumi XHTML); (e) process fact: a hand-over header that claims details are "below" but the body was never rewritten loses them forever - write details before the header, or not at all.
+## 2026-10-14 302f DECISION: iteration 125 - record.py REWRITTEN from scratch per the 211 design (complete on disk, unrun, uncommitted); the live run is the next step
+No test written yet. This session re-verified the entire 210/211 design against the current
+merged tree and replaced the truncated stub with the complete recorder:
+- build_tree (lockstep with the test's): tools/ fit/ pipeline/ (no pycache), web/data/
+  {sites,plans,review}.json, web/data/sites/SID copied from os.path.realpath (it is a symlink
+  to the lead's /home/agent/projects/ancient-works), data/review (all 481), data/books/
+  index.jsonl, data/commons/files.jsonl, data/catalog/sites.jsonl, data/sites/SID/site.json,
+  data/raw/books/earthworkenglan01allcgoog/full/n0132.jpg, data/db/platefits (all; the badbury
+  hand doc unlinked when delete_hand_doc). ROOT = parents[3] (124 correction 1); realpath copy
+  (124 correction 2).
+- Live phase: urlopen patched (sha256 of the exact /match body -> parsed response + response-
+  bytes hash, per run) around mfh.candidates run twice; then offline replay with mf.match
+  faked (body rebuilt exactly: mf._b64 + json.dumps, threshold 0.2, max_side 1024 -> same
+  key), mf.reachable patched (True only for None/MATCHER_URL), mf.ROMA_URL = dead ephemeral
+  port. Then two IN-PROCESS site_done runs (importlib; same module objects) on fresh trees
+  T1/T2: confident fixture, and the unsure variant (ground keypoints of every >=10-inlier
+  response permuted with np.random.default_rng(seed); seeds 7..36 until the offline fit_row
+  best lands at 3..9 inliers - fit_row's best exists only at >=3, so 3..9 gives exactly the
+  "not sure: N consistent points" line; "nothing consistent" is explicitly rejected).
+- Facts verified by running this session: ELoFTR healthy (RTX 5060 Ti), RoMa refused (exit
+  7); propose_for SUCCEEDS for this row in-process (coarse False, bar scale 0.1902 m/px, rot
+  0.0, 5 pairs) -> the unsure item candidate gets all six proposal fields, pairs []; n0132.jpg
+  3367x5050 L; six-inch 1066x1066 RGBA, relief/os1inch 1600x1600; site entry 1/1.45/1842/2;
+  depictions 3; NO badbury item (481 files, 480 with a site field - review.export's n_total
+  counts only those: baseline 456/480, after the unsure run 457/481); the frozen held-out
+  (2026-10-12) matches (best six-inch x0.35 61/22/3.62/3.1; the two >=10 responses are six-
+  inch x0.5=15 and x0.35=22; unperturbed best six-inch x0.7=8 rot -43.51). PRE-CHECK:
+  review.export on a scratch tree = 456/480, stderr clean (so the err=="" asserts should
+  hold). Full-suite baseline COMPLETE at /tmp/aw302f_baseline.log: 1 failed (test_fit_queue::
+  test_placement_gestures_and_save_in_the_browser - agent a's 307bb, on main, not mine), 157
+  passed, 1 skipped, 324.50 s.
+- record.py details that would trip a reader: _save uses default=float (ransac rot is
+  np.float64); the seed loop restores mf.match to the original afterwards; the header records
+  input_hashes (hand doc, plan image, site dir, sites/plans/index/catalog row extracts,
+  site.json, data/review combined) for the test's drift detector, and the in-process runs
+  hash the checkout surface before/after to prove they write nothing outside the trees.
+- NEXT (exact): run `.venv/bin/python tests/fixtures/matchfit_station/record.py` live; on
+  success commit the recorder + both fixtures; then write tests/test_matchfit_station.py per
+  the TEST DESIGN block in the task hand-over (ephemeral-port stub, pass-through GUARD
+  variant, subprocess, confident + unsure tests, drift preconditions); full suite diffed
+  against the baseline; tick the six boxes. Known risks at run time: GPU drift (recorded,
+  non-fatal), line-shape asserts (fail loudly with actual stdout), site_entry_equal narrow
+  margin (1.4535 -> 1.45), seed landing.
+
+## 2026-10-14 302f DECISION: iteration 127 - the 126-session work verified on disk (fixtures + 340-line test, committed by the driver); the test passes first try; full suite running for the no-new-reds box
+Iteration 126 (whose session was cut before writing memory) had ALREADY: (a) run record.py live against ELoFTR 127.0.0.1:8091 and committed the recorder + both fixtures (fde3954: 15 responses each, offline replay identical to live, 0 live-vs-frozen discrepancies, confident 11-line FIT 22/61 six-inch x0.35, unsure seed 7 lands 8 inliers, item page 457/481; live response bytes drifted slightly between the two live runs but the parsed candidates are identical - recorded in the header), and (b) written tests/test_matchfit_station.py (340 lines) - that one was still uncommitted; the driver committed it in 330a9f4. This session verified both against the design with fresh eyes (all recorder helpers the test imports exist: SID/PLAN/DOCID/SITE_DIR/build_tree/_input_hashes/_checkout_surface/_hash_surface; import-safe at module level), then ran it: 2 passed in 55.92 s, zero changes to the test needed. Verified fixture header facts against the acceptance boxes: confident expected_stdout line 3 = "FIT (eloftr) 22/61 points on six-inch-1st.webp x0.35, rot 3.6 deg, 0.23 m/px, residual 3 m" (11 lines total, "drawings 1 -> 1", "no review item"); frozen_heldout.best = six-inch x0.35 61/22/3.62/3.1 corner 58.6 centre 2.9 with live_vs_frozen_discrepancies [] ; unsure expected_stdout line 3 = "not sure: 8 consistent points (need 10) [six-inch-1st.webp x0.7, rot -44]" (8 lines, page "457 open of 481", item candidate why "no model answer" pairs []). Both stubs serve exactly the 15 recorded /match responses + 1 /health, RoMa at a dead ephemeral port, pass-through guard - the no-network proof. Full suite (baseline /tmp/aw302f_baseline.log: 1 failed placement_gestures (agent a's 307bb, on main, not mine) / 157 passed / 1 skipped / 324.50 s) running for the box-6 diff.
+
+## 2026-10-14 302f DECISION: iteration 127 (conclusion) - 302f DONE, all six boxes verified and ticked; committed the task file only (agent a's 307d PNGs left in the working tree, uncommitted from this branch)
+Full suite finished: 168 passed / 1 skipped / 0 failed (499.89 s) - strictly better than the /tmp/aw302f_baseline.log yardstick (1 failed test_fit_queue placement_gestures - agent a's 307bb work, since fixed on main / 157 passed / 1 skipped), so box 6's "no new reds" holds with room to spare. Isolated verification that MY test alone is hermetic: git status snapshot before and after a lone tests/test_matchfit_station.py run (2 passed, 55.62 s) is byte-identical; the only working-tree dirt from the full-suite run is the six docs/site_flow/ PNGs regenerated by agent a's 307d test (test_owner_check writes them every run; the files are in 307d's Touches, so I left them uncommitted here and committed only tasks/302f-matcher-station-test.md + DECISIONS.md from this branch). Status: done. If the test later fails with the drift-detector message, the remedy is recorded in the hand-over: rerun record.py in the working phase (live ELoFTR), commit refreshed fixtures; nothing in the test is hardcoded.

@@ -1,12 +1,126 @@
-Status: open
+Status: done
 Depends on: none
 # 302f: The matcher station end to end - the line on one hand-fit site's files, no network
 Touches: tests/
 
 ## Hand-over
 
-(2026-10-13, iteration 211, agent c - all code read and traced THIS session (fresh eyes, current
-branch after the 302e merge); the complete verified design is below. ON DISK NOW: only
+(2026-10-14, iteration 127, agent c - **DONE, all six boxes ticked, verified.**
+- tests/fixtures/matchfit_station/record.py + records.json + records_unsure.json: committed
+  (fde3954, from the iteration-126 live run against ELoFTR 127.0.0.1:8091): 15 /match responses
+  each, keyed by sha256 of the exact request body; offline replay identical to live; 0
+  live-vs-frozen discrepancies (frozen best six-inch-1st.webp x0.35 61/22/3.62 deg/3.1 m, corner
+  58.6 / centre 2.9; the two live runs' response BYTES drifted slightly but parsed candidates
+  identical - recorded in the header). Unsure variant: seed 7 permutation lands 8 inliers, page
+  457/481.
+- tests/test_matchfit_station.py (340 lines, committed 330a9f4): two tests (confident 11-line
+  FIT at 22/61 / unsure 8-line "not sure: 8 consistent points (need 10)") run site_done as a
+  subprocess on tmp trees, in-process stub on an ephemeral loopback port serving only the
+  fixture, RoMa at a dead ephemeral port, pass-through GUARD allowing only the stub port. Both
+  pass (55.6 s, zero changes needed on first run this session). Checkout untouched by my test
+  (before/after git status identical; in-test hash-surface asserts).
+- Full suite: **168 passed, 1 skipped, 0 failed** (499.89 s) - strictly better than the baseline
+  /tmp/aw302f_baseline.log (1 failed placement_gestures / 157 passed / 1 skipped): that red was
+  agent a's 307bb and is green on main now. No new reds.
+- ONE TEAM-NOTE for anyone reading this branch's `git status`: the six modified docs/site_flow/
+  PNGs in the working tree are agent a's 307d screenshots (test_owner_check regenerates them on
+  every full-suite run); they belong to 307d (its Touches), were left uncommitted here and MUST
+  NOT be committed from this branch (my commit covers only the task file + DECISIONS.md).
+- If this test ever fails with "the fixture's inputs drifted ... (rerun record.py)": the drift
+  detector detected a repo change since the recording - rerun `record.py` in the working phase
+  (live ELoFTR at 127.0.0.1:8091 required), commit the refreshed fixtures; the test's expected
+  stdouts/counts live in the fixture headers, nothing is hardcoded here. The 210/211/125
+  design-trace text below is preserved for reference only.)
+
+**State of iteration 125 (fresh-eyes re-verification, all on the current tree):**
+- ELoFTR UP: 127.0.0.1:8091/health = {model: zju-community/matchanything_eloftr, device: RTX
+  5060 Ti}; RoMa :8092 REFUSED (exit 7). .venv current (PIL, numpy, skimage all import).
+- Inputs verified: n0132.jpg 3367x5050 (mode L); grounds relief.jpg 1600x1600 RGB,
+  six-inch-1st.webp 1066x1066 RGBA, os1inch.webp 1600x1600 RGB (3 grounds x 5 windows = 15
+  requests); hand doc (4 pairs, by: hand, size present, crop [300,1380,2900,3330],
+  at 2026-10-10T17:38:04); plans row (map_box [0.107,0.278,0.857,0.658], size [3367,5050]);
+  index row (evidence present, scale_bar true, north 0.0); **propose_for SUCCEEDS in-process
+  (coarse False, ground relief, scale_m_px 0.1902, rot_deg 0.0, scale_source bar, note about the
+  scale bar, 5 pairs) -> the unsure item candidate carries all six proposal fields, pairs [];**
+  site entry drawings 1 / score 1.45 / oldest 1842 / overlays 2; depictions = 3 entries (six-inch
+  1842, os1inch 1900, hand plan 1908); NO badbury review item (481 item files, 480 with a site
+  field); NO badbury in the published review.json (456 open).
+- Frozen held-out (data/matchfit/heldout/results.json, at 2026-10-12T02:58:37) ALL HOLDS: 15
+  candidates; best six-inch-1st.webp x0.35 = 61 matches / 22 inliers / rot 3.62 / resid 3.1;
+  the EXACT two >=10-inlier responses to permute for the unsure variant: six-inch x0.5 (15) and
+  x0.35 (22); the unperturbed six-inch x0.7 (8, rot -43.51) and relief x0.25 (7) keep the best
+  at 3..9, so the expected unsure line is "not sure: 8 consistent points (need 10) [six-inch-1st
+  .webp x0.7, rot -44]" (unless a seed pushes a perturbed one to 9 - the recorder loops seeds
+  7..36 and records the one that lands).
+- PRE-CHECK RAN: review.export on a scratch tree (all 481 item files + platefits store +
+  sites.json + catalog) = 456 open of 480, **stderr clean** -> the recorder's err=="" asserts
+  should hold (n_total counts only items WITH a site field: 480, not 481 - one repo item has no
+  site field; the unsure run's counts will be 457/481, the test's baseline export 456/480).
+- Full-suite baseline COMPLETE: /tmp/aw302f_baseline.log = **1 failed (test_fit_queue.py::
+  test_placement_gestures_and_save_in_the_browser - agent a's 307bb work, on main, NOT mine),
+  157 passed, 1 skipped, 324.50 s**. That is the yardstick for "no new reds" (the driver's
+  159-passed note is from the pre-eb12e59 tree).
+
+**record.py on disk (read it before running; it is complete):** ROOT = parents[3] (the 124
+  correction); the site dir is copied from os.path.realpath (symlink to the lead's
+  /home/agent/projects/ancient-works - the 124 correction); build_tree lists in lockstep with
+  the test's (tools/, fit/, pipeline/, web/data/{sites,plans,review}.json, web/data/sites/SID
+  real copy, data/review all, data/books/index.jsonl, data/commons/files.jsonl,
+  data/catalog/sites.jsonl, data/sites/SID/site.json, data/raw/books/.../n0132.jpg,
+  data/db/platefits all, unlink badbury doc when delete_hand_doc); live phase patches
+  urllib.request.urlopen (records sha256(body)->response JSON AND response-bytes hash per run,
+  for the stability verdict) and runs mfh.candidates TWICE; offline replay patches mf.match
+  with a fake that rebuilds the exact body (mf._b64 + json.dumps, same key) and patches
+  mf.reachable (True only for None/MATCHER_URL) and mf.ROMA_URL (dead ephemeral port);
+  in-process site_done runs (importlib, same module objects) on fresh trees T1 (confident) / T2
+  (unsure) with contextlib capture; _save uses default=float (ransac rot is np.float64);
+  header records input_hashes (hand doc, plan image, site dir, sites/plans/index/catalog rows,
+  site.json, data/review combined) for the test's drift detector. Known risks at run time:
+  (a) live GPU drift vs frozen (recorded, not fatal - box 1 allows it); (b) the confident run's
+  11-line shape / unsure 8-line shape (asserts fail loudly with the actual stdout printed -
+  read it, correct the expected shape in the header, re-run); (c) site_entry_equal (score
+  1.4535 -> 1.45 is a narrow margin - if False, the test relaxes to field asserts and the
+  header records actuals); (d) seed 7 may not land 3..9 (the loop tries up to 36).
+
+**EXACT NEXT STEPS (one or two sessions):**
+1. `.venv/bin/python tests/fixtures/matchfit_station/record.py` (needs ELoFTR up; ~2-5 min;
+   prints a live-vs-frozen table and both stdouts; on failure it keeps the scratch tree and
+   prints the actual stdout). Verify the two fixture JSONs land in tests/fixtures/
+   matchfit_station/ (records.json: header.confident; records_unsure.json: header.unsure;
+   both: header.frozen_heldout/live_runs/offline_replay/input_hashes + 15 responses).
+2. `git add tests/fixtures/matchfit_station && git commit` the recorder + fixtures.
+3. Write tests/test_matchfit_station.py per the TEST DESIGN in the preserved 211 block below
+   (ephemeral-port ThreadingHTTPServer stub keyed by sha256(body); GUARD passes through only
+   (127.0.0.1, GUARD_ALLOW port) - patch socket.socket.connect AND connect_ex, NOT
+   create_connection; subprocess [sys.executable, "-c", GUARD, tree/tools/site_done.py, SID],
+   cwd=tree, env MATCHER_URL/ROMA_URL(dead)/GUARD_ALLOW; two tests, confident + unsure, with
+   the drift-detector preconditions and the file-effect asserts as designed; the unsure test's
+   baseline = build_tree WITHOUT doc deletion, in-process review.export must give
+   (n_open-1, n_total-1) of the fixture's recorded 457/481, i.e. 456/480).
+4. Run my test until green; FULL suite (`.venv/bin/python -m pytest -q -p no:cacheprovider`);
+   diff failures against /tmp/aw302f_baseline.log (only the placement_gestures red allowed);
+   tick the six boxes as verified; commit "302f: ...".
+
+**Preserved 210/211 design (valid unless superseded above):**
+
+(2026-10-14, iteration 124, agent c - re-verified the ENTIRE 210/211 design against the current
+merged tree (eb12e59: agent a's 212/236a/307d work on main): every line-shape, module behavior
+and data fact holds; TWO corrections found (below). No code written this session (context limit
+before the rewrite). ON DISK NOW: only
+
+(2026-10-13, iteration 211, preserved for the complete design - the recorder design in the next
+paragraph and the test design that follows are still valid and were re-verified this session;
+detail entries 210/211 in DECISIONS.md carry the full trace.)
+
+**Corrections from this session (apply when writing record.py):**
+1. ROOT in record.py must be `Path(__file__).resolve().parents[3]` - the old note's `parents[2]`
+   is tests/ (the file sits in tests/fixtures/matchfit_station/). The committed stub has the
+   parents[2] bug; rewrite it, don't patch it.
+2. web/data/sites/badbury-rings-q798831 symlinks to /home/agent/projects/ancient-works (the
+   lead's original project dir): copy os.path.realpath of it (a real dir lands in the tree).
+   (The 210 note's "another checkout" = this dir; same fact.)
+
+**Re-verified this session (fresh eyes, current tree):**
 `tests/fixtures/matchfit_station/record.py` as a TRUNCATED STUB - it ends with a bogus line
 `import matchfit_holdout_dummy  # noqa: F401` and has no body: REWRITE IT FROM SCRATCH (the
 design is complete below; the stub is worthless except for its docstring). No tests run yet;
@@ -15,10 +129,7 @@ still running at session end - CHECK IT; if incomplete, rerun: `.venv/bin/python
 -p no:cacheprovider > /tmp/aw302f_baseline.log 2>&1` ~5 min) before adding my test, so I can
 diff new reds. Nothing else in the tree changed.)
 
-**Verified this session (fresh eyes, current tree):** ELoFTR LIVE 127.0.0.1:8091/health ->
-{model: zju-community/matchanything_eloftr, device: RTX 5060 Ti}; RoMa 8092 refused (curl exit
-7). .venv py3.12.3. Hand doc + row + site entry + depictions.json + heldout + index row all
-re-verified (see 210 hand-over details preserved below). Additionally verified:
+**Re-verified this session (fresh eyes, current tree) - all of the following still true:**
 - matchfit_heldout.candidates(root, site, row, url) returns ALL 15 candidates (matches, inliers,
   rot, resid_m, pairs in row frame; rot/resid only when ransac kept >=3; seconds each). It calls
   mf.match/mf.ransac/mf._merc - patching mf.match makes it a faithful offline replay. Importing
@@ -224,7 +335,7 @@ a confident fit empties `uncovered`, so the vision batch never runs at all: the 
 network the line touches in the test is the stub itself.
 
 ## Acceptance criteria
-- [ ] Committed fixture from a one-off working-phase run against the live ELoFTR
+- [x] Committed fixture from a one-off working-phase run against the live ELoFTR
       (127.0.0.1:8091; verified reachable at iteration 208): the raw /match responses for
       every (plan image, ground image, window) pair of badbury's fit_row, keyed by the
       sha256 of the exact PNG bytes matchfit.match sends (plus threshold 0.2 / max_side
@@ -233,33 +344,39 @@ network the line touches in the test is the stub itself.
       replay must reproduce - badbury 22 inliers / 58.6 m on six-inch x0.35). If the live
       replay disagrees with the frozen checkpoint, record the discrepancy; regenerate
       only if the matcher's output is stably different.
-- [ ] tests/test_matchfit_station.py (new file): starts the stub in-process on an
+- [x] tests/test_matchfit_station.py (new file): starts the stub in-process on an
       ephemeral loopback port (conftest.py's server idiom, bind port 0), points the
       subprocess's MATCHER_URL at it and ROMA_URL at a dead ephemeral port (RoMa
       deterministically absent: matchfit.run's second pass skips), and runs
-      tools/site_done.py --root <tmp> as a subprocess. The tmp root copies badbury's
+      tools/site_done.py --root <tmp> as a subprocess (the guard runs the tree copy of the
+      script with cwd=tree, so the tree IS the root). The tmp root copies badbury's
       files (the site dir, the site's sites.json entry, the plans row, the golden
       document) with the document DELETED so the single candidate is uncovered.
-- [ ] Subprocess socket guard (a variant of tests/test_fit_queue.py's GUARD): any
+- [x] Subprocess socket guard (a variant of tests/test_fit_queue.py's GUARD): any
       connection attempt to anything other than the stub's loopback port fails loudly -
       that is the "no network" proof.
-- [ ] Confident branch: the stub replays the recorded 22-inlier six-inch candidate (and
+- [x] Confident branch: the stub replays the recorded 22-inlier six-inch candidate (and
       the rest of badbury's recorded responses). The test asserts: site_done exits 0;
       the subprocess stdout carries the matcher's FIT (eloftr) line for n0132_1; the tmp
       root gained a document badbury-rings-q798831.earthworkenglan01allcgoog_n0132_1.json
       with by:"agent", auto:true, fitter:"matcher" and its matcher block (model, inliers,
       matches, ground, window, rot_deg, spread); the line's sync built it into the tmp map
       (the spread guard passes on the recorded spread, so no refusal); exit code 0.
-- [ ] Unsure branch (a fresh tmp copy, fixture variant with the best candidate under 10
+- [x] Unsure branch (a fresh tmp copy, fixture variant with the best candidate under 10
       inliers): the test asserts: the subprocess stdout carries the matcher's
-      "not sure: N consistent points (need 10)" line for that candidate; no document is
-      written for it; the candidate appears in the tmp review item with a reason (the
-      batch's own, e.g. "no model answer", from the socket-dead vision pass); no map
-      overlay for it; exit code 0 - that is the parent's box-3 contract "unsure goes to
-      the queue with the reason, never to the map", end to end.
-- [ ] The real checkout stays byte-identical after the test (the tmp root is the only
-      writer; git status clean), and the suite has no new reds against the newest driver
-      loop-start note.
+      "not sure: N consistent points (need 10)" line for that candidate (N=8, verbatim from
+      the fixture header, never hardcoded); no document is written for it; the candidate
+      appears in the tmp review item with a reason (the batch's own, "no model answer",
+      from the socket-dead vision pass) plus the scale-bar proposal; no map overlay for it;
+      exit code 0 - that is the parent's box-3 contract "unsure goes to the queue with the
+      reason, never to the map", end to end.
+- [x] The real checkout stays byte-identical after the test (the tmp root is the only
+      writer: before/after `git status` of a lone test run identical, in-test hash-surface
+      asserts on every data surface), and the suite has no new reds against the newest
+      driver loop-start note - it has NO reds: 168 passed / 1 skipped / 0 failed vs the
+      baseline's 1 failed (agent a's 307bb placement_gestures, since fixed on main) / 157
+      passed / 1 skipped. (The six modified docs/site_flow/ PNGs in the full-suite working
+      tree are agent a's 307d screenshots, regenerated by the merged 307d test, not by mine.)
 
 ### Also written to PROGRESS.md (moved here by the driver)
 
