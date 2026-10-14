@@ -122,7 +122,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 - `tests/conftest.py` (112 lines) - Test harness for Ancient Works: the real product, end to end. Exports: get, get_json, put_json, copy_web, served, golden_sites.
 
 ## tests/fixtures/matchfit_station/
-- `tests/fixtures/matchfit_station/record.py` (43 lines) - One-off fixture recorder for tests/test_matchfit_station.py (task 302f, working phase).
+- `tests/fixtures/matchfit_station/record.py` (535 lines) - One-shot recorder for the matcher-station test fixtures (task 302f, working phase only). Exports: build_tree L125-153, main L277-286.
 
 ## tests/
 - `tests/test_batch.py` (181 lines) - The batch, parent (task 203 box 6, GOAL.md point 1): the final coverage check over the original site set. Exports: no_network L48-53, coverage L94-124, test_original_set_is_the_reports_union L130-150, test_original_sites_still_covered L153-181.
