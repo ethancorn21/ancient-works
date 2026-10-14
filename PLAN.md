@@ -6,26 +6,30 @@ under a minute; acceptance of automatic fits is decided by a validated numerical
 tied to its place with machine-checkable evidence; and the map keeps growing with new sites that come with
 their own old pictures.
 
-## Current state (2026-10-10)
+## Current state (2026-10-13)
 
-- 384 built sites; **25 fitted drawings** (19 of them from 20 documents in `data/db/platefits/`, the human's
-  hand fits — the reference nothing may ever change).
-- The page (`web/index.html`, served by `server/serve.py`) already renders built sites, red squares for the
-  fitted ones, live LiDAR relief, and a working plate-fitting tool (click pairs → PUT `/api/db/platefits/…` →
-  `pipeline/plan_fit.py` builds the overlay → the page polls it).
-- 1166 candidate pictures in `web/data/plans.json` (8 old books indexed in `data/books/`, 1490 harvested
-  Commons rows in `data/commons/`); 25 are fitted, the rest are not.
-- Fully automatic fitting (wall extraction + wide search) **failed its pre-registered test, 0/5**
-  (`docs/autofit.md`); fitting by matching point pairs is the method that works (25 hand fits prove it).
-- Eight named growth leads in GOAL.md (Van Deventer's remaining 64 towns, Kip's bird's-eye views, Mackenzie
-  p. 212, the Roman books, the German Limes reports, Hoare/Stukeley/Petrie for Wiltshire, Numancia's
-  excavation plans, artists' aerial and bird's-eye views), none of them verified as free and
-  machine-readable yet.
-- GOAL.md changed twice on 2026-10-10 (21:11 and 22:58) and this plan was re-checked the same day
-  (iteration 12): a new point 2 (the local model does the fitting itself, the way the 25 hand fits were
-  made) and a new growth lead (artists' views: Leonardo's Imola plan, Barbari's Venice, Braun & Hogenberg,
-  Merian). The owner's copy of the map also now colours sites whose only overlay is a survey sheet
-  150 or more years old; GOAL states explicitly that this does not change this goal.
+- 499 built sites (up from 384: the growth leads added sites, 211); **57 of them have a fitted drawing**:
+  22 hand fits (the human's — the reference nothing may ever change; the golden's 41 lines) and **49
+  matcher fits on 35 sites** (35 MatchAnything-RoMa + 14 ELoFTR; 37 matched against an old survey sheet
+  already placed on the map, 12 against the LiDAR relief, 0 against the aerial photograph).
+- The page (`web/index.html`, served by `server/serve.py`) renders the built sites, the fitted overlays,
+  live LiDAR relief, the plate-fitting tool and the review section; 456 review items in the open queue
+  (`web/data/review.json`).
+- 1510 candidate pictures in `web/data/plans.json` (the old books plus the Commons harvest); the fitted
+  minority above, the rest unfitted or in the queue.
+- Every fitting method before the matcher failed its own test: fully automatic fitting (wall extraction
+  + wide search, `docs/autofit.md`) 0/5; the vision-model batch fit (203a/203b, 2026-10-11, ~100 fits)
+  was the model's fabricated pattern class (301; the 306a-f look audits found nearly all of them wrong
+  and 212b deleted them); the hand-built ink fit (302a/302b) landed 231-2204 m off on the held-out hand
+  fits. The pretrained cross-modality matcher (`fit/matchfit.py`, the lead, 2026-10-11) is the first
+  method whose placements are right where it is confident: it places about **1 picture in 10**, an old
+  drawing matching an old survey sheet far better than LiDAR shading.
+- GOAL.md changed a third time (2026-10-13 23:39; the driver reopened this task): point 2 now names the
+  image matcher as the ONLY automatic placement and retires the vision-model fitting pass (owner:
+  "the image matching model should be the only thing that's doing the matching"); its numbers record
+  the 49 matcher fits and the ~1-in-10 yield. The 2026-10-10 changes (the model-fitting point 2, the
+  artists' lead) stand as history; assumption 9 (the owner's-copy survey-sheet colouring) is unchanged.
+  This session (iteration 157) finished re-checking the plan against that change.
 
 ## Architecture
 
@@ -54,30 +58,41 @@ fit/src_*.py (204-210)       "evidence" field:       │   site by their        
                                     scale bar / north arrow / site-centre anchor plus a few pairs -
                                     a starting point, never a fit (GOAL point 2)
                                                      ▼
-fit/batch_us.py / batch_eu.py (203a/203b): the fitkit sheet (the picture's crop next to the site's
-ground - relief, or the aerial photograph where there is no LiDAR - both gridded) -> the local
-vision model (pipeline/llm.py) reads the grid labels, finds the same features on both (wall
-corners, gate gaps, bastion tips, road junctions, church footprints, river crossings), records
->= 4 point pairs
-                                                     ▼
-                             pipeline/plan_fit.py (existing similarity solver)
+fit/matchfit.py (the lead, 2026-10-11): the ONLY automatic placement. The plan's map-box crop against
+every georeferenced ground image of the site - the LiDAR relief (relief.jpg), the aerial photograph
+and the old survey sheets already placed on the map (depictions kind "map": OS six-inch / one-inch,
+Cassini, Etat-Major) - whole and as centred windows (the site box is often 3-4x the plan's extent);
+MatchAnything-ELoFTR first (inliers >= 10, rotation within 30 deg of north, the near-line spread
+guard), then MatchAnything-RoMa on the pictures ELoFTR is not sure of (match fraction >= 0.4, the
+same spread guard). RANSAC similarity on the matched points; a document is written only when both
+the matcher's judge AND the frozen 001 gate accept (238)
                                                      ▼
                                     the gate (001, validated on held-out hand fits)
-                                    accept ──► data/db/platefits/<site>.<plan>.json (auto, with score)
-                                    refuse / could not fit ──► data/review/<site>.<plan>.json (fit/review.py, 201)
+                                    accept ──► data/db/platefits/<site>.<plan>.json (auto, fitter: matcher, gate score)
+                                    judge refusal / gate refusal / LiDAR rule ──► data/review/<site>.<plan>.json (fit/review.py, 201)
                                                      │
-                              the review queue is for gate refusals, pictures the model could
-                              not fit, and sites with no picture found (GOAL points 1-2) - not a
-                              plan for every site. The human opens the item on the page
-                              (web/review.js, 201), drags the pairs, saves through the fit tool
+                              the review queue is for the gate's and the judge's refusals, the
+                              pictures the matcher could not place and sites with no picture
+                              found (GOAL points 1-2) - not a plan for every site. The human
+                              opens the item on the page (web/review.js, 201), drags the pairs,
+                              saves through the fit tool. The Qwen models never appear in this
+                              path: they find, classify and tie pictures and write code (GOAL
+                              point 2, 2026-10-13; the lead note on 212). Automatic placement
+                              runs on LiDAR sites only (239, assumption 10): a site whose
+                              georeferenced ground is the aerial photograph alone keeps its
+                              review items for the human. (The batch's vision-model fitting
+                              pass - fitkit sheet -> model -> pairs -> gate, 203a/203b - is
+                              RETIRED by 239; the batch keeps the queue upsert, the no-picture
+                              record and the report.)
                                                      ▼
                           platefits document (human-saved) → overlay → red square → item resolved
 ```
 
 Page-facing flow: `fit/merge.py` (211) consolidates the per-source rows, runs the existing
 `build_catalog.py`/`export_plans.py`, so new sites and pictures appear in `web/data/sites.json` and
-`web/data/plans.json` — the page renders them with no page change. `fit/cover.py` (212) re-runs the batch
-over the new material, builds the page's review list, and writes the final report.
+`web/data/plans.json` — the page renders them with no page change. `fit/cover.py` (212) re-runs the
+matcher-first loop over the new material (the lead note on 212: the loop's fit is the matcher, the
+vision model is refused at its CLI), builds the page's review list, and writes the final report.
 
 Module map (one module per task, so agents never collide):
 
@@ -87,7 +102,8 @@ Module map (one module per task, so agents never collide):
 | `fit/evidence.py` | 200 | record + offline-check the place-tie evidence of every picture row |
 | `fit/review.py` | 201 | the review queue: item format, page section (`web/review.js`), resolution |
 | `fit/propose.py` | 202 | the starting point per (site, picture) the model's fit pass begins from: scale / north / centre anchor plus a few pairs - a starting point, never a fit (GOAL point 2) |
-| `fit/batch_us.py` / `fit/batch_eu.py` | 203a / 203b | the model's fitting loop over the built sites (US / rest of world): per candidate picture, fitkit sheet -> model records >= 4 matched-feature pairs -> solver -> gate; each writes its report (`docs/batch_us.md` / `docs/batch_eu.md`); the parent 203, on return, checks the original site set is fully covered |
+| `fit/batch_us.py` / `fit/batch_eu.py` | 203a / 203b (done) | the 2026-10-11 vision-model fitting loop over the built sites; its model pass (fitkit sheet -> model -> pairs -> gate) is RETIRED by 239 (GOAL 2026-10-13): what remains is the review-item upsert (the matcher's recorded reason, never a model's), the no-picture record and the report (`docs/batch_us.md` / `docs/batch_eu.md` stay the historical record of the 203 runs) |
+| `fit/matchfit.py` | the lead (2026-10-11); 302a/302b/302e (the method family and the held-out measurements), 302f (the station end to end, no network), 302g (the Stonehenge run), 238 (the gate on its fits) | the only automatic placement: MatchAnything RoMa/ELoFTR correspondences between the plan and the site's georeferenced ground images -> RANSAC similarity -> the judge (inliers/fraction, rotation, spread) -> the frozen 001 gate (238) -> a document (`fitter: matcher`) or the review item with the reason. (The lead also keeps exploratory companions outside the line: `matchfit2.py` (two-stage: coarse hit, then windows) and `matchfit_queue.py` (accept-rule sweep).) |
 | `fit/src_van_deventer.py`, `fit/src_kip.py`, `fit/src_mackenzie.py`, `fit/src_roman.py`, `fit/src_limes.py`, `fit/src_wiltshire.py`, `fit/src_numancia.py`, `fit/src_artists.py` | 204-210, 213 | the eight growth leads: find, verify age + free access, tie, stage rows in its own staging files and its own `docs/lead_<name>.md` (book leads write per-book artifacts only; 213 uses the book machinery only if Civitates/Merian turn out to be IA books) |
 | `fit/merge.py` | 211 | consolidate per-source rows into the canonical files; rebuild the book index (the shared one, once); build the new sites; refresh the page data; consolidate the lead statuses into `docs/sources.md` |
 | `fit/src_<lead>.py` (check/stage guards only) | 222-228 (one per module: 222 van_deventer, 223 kip, 224 mackenzie, 225 limes, 226 numancia, 227 stukeley, 228 artists) | accept the staging rows once 211 has merged them: a staged row identical to its canonical twin is an already-merged no-op, a different row with the same key still fails loud, known-site self-references are not collisions |
@@ -154,6 +170,21 @@ Module map (one module per task, so agents never collide):
    sites whose only overlay is a survey sheet 150 or more years old. GOAL states this does not change this
    goal (survey sheets are not drawings; the number to grow is the count of fitted drawings), so this
    project does not add that colouring (out of scope).
+10. **The LiDAR-only ruling, read with the sentence before it.** The 2026-10-13 owner ruling "automatic
+   fitting runs on LiDAR sites only" is read together with the preceding one (the ground image is "the
+   LiDAR relief, or an old survey sheet already placed on the map"): the matcher may place on a site that
+   has the LiDAR relief, and it may also place against an old survey sheet already placed on the map —
+   even when the site has no LiDAR (5 of the 49 current fits are exactly that, French sites whose only
+   placed ground is the Etat-Major sheet). What is excluded is a site whose georeferenced ground is the
+   aerial photograph alone — no LiDAR relief and no placed sheet: its pictures keep their review items
+   for the human. On this VM the exclusion is a guard, not a cleanup: 425 sites have a relief, 0 are
+   aerial-only, 74 have neither image yet. (239 implements it; the stricter reading — the aerial never a
+   placement ground, even on LiDAR sites — would be a one-line change in `fit/matchfit.grounds`.)
+11. **The matcher's yield is a property of the ground image, not of re-running.** The matcher is
+   deterministic: the same picture against the same ground image gives the same answer, so re-running it
+   on a picture it already refused cannot place it. A better yield needs a better ground image (more and
+   better placed survey sheets) or a better matcher — never a language model placing points, and never
+   loosening the frozen judge or gate thresholds.
 
 ## Out of scope
 
@@ -165,14 +196,17 @@ Module map (one module per task, so agents never collide):
   publishing; ground photographs; historic aerials; anything touching the private Finder/Amazon data
   (`web/data/scan`, `web/data/amazon`, `data/finder`, `data/db/marks|surveyseen|verdicts`); changing or
   deleting the existing hand fits.
+- Re-running the matcher on pictures it already refused, or loosening the matcher's judge / the gate's
+  thresholds, as a yield strategy (both frozen; assumption 11). The ~1-in-10 yield is a property of the
+  ground images: an old drawing matches an old survey sheet far better than LiDAR shading.
 
 ## Task map (every point of GOAL.md)
 
 | GOAL.md point | delivered by |
 |---|---|
-| 1. every built site has a fitted drawing **or a ready review item** | 201 (the queue + page), 203a/203b (the model's fitting loop over all built sites), 204-210 + 213 (pictures for the new sites), 211 (build), 212 (final cover: no site left without a fit or an item) |
-| 2. the local model does the fitting itself (fitkit sheet, grid labels, >= 4 matched-feature pairs; a scale/north/centre-only placement is a starting point, not a fit; the queue is overflow, not a plan for every site) | 202 (the starting point), 203a/203b (the loop: sheet -> model -> solver -> gate), 201 (the queue receives the refusals and the could-not-fit), 001 (every model fit passes the gate) |
-| 3. a fit is accepted by numbers via a gate validated on held-out hand fits; 18/20 of a 20-sample of auto fits must be right | 001 (the gate), 203a/203b (their reports list the seeded 20-sample for the human check; 212 keeps it current until 999 checks it) |
+| 1. every built site has a fitted drawing **or a ready review item** | 201 (the queue + page), the matcher station on the one-site line (`fit/matchfit.py`, wired by 300/301, tested by 302f, run on Stonehenge by 302g), 204-210 + 213 (pictures for the new sites), 211 (build), 212 (final cover: the matcher-first loop; no site left without a fit or an item) |
+| 2. the image matcher does the fitting, never a language model (the only automatic placement is `fit/matchfit.py`: MatchAnything RoMa/ELoFTR against a georeferenced ground image; a fit is kept only when enough matched points agree; the Qwen models find, classify and tie pictures and write code, never place; the batch's model fitting pass is retired; automatic fitting runs on LiDAR sites only; the queue receives what the matcher could not place) | `fit/matchfit.py` (the lead's module), 302a/302b/302e (the method family and its held-out measurements, done), 302f (the matcher station end to end, no network), 302g (Stonehenge on the matcher-first line: the run, the browser check, the plain statement), 238 (every matcher fit passes the frozen 001 gate), 239 (the vision-model fitting pass retired: no model in the batch, no model pass in the line; the LiDAR-only rule; the queue records the matcher's reasons), 212 (the cover loop is matcher-first), 201 (the queue) |
+| 3. a fit is accepted by numbers via a gate validated on held-out hand fits; 18/20 of a 20-sample of auto fits must be right | 001 (the gate), 238 (every matcher fit passes it: the matcher's own judge is not the gate), 212 (`docs/batch.md` keeps the seeded 20-sample of the automatically accepted fits — now the matcher's — current until 999 checks it) |
 | 4. every picture tied to its place with machine-checkable evidence in its row | 200 (the checker), 204-210 + 213 (each lead records the evidence of its rows), 211 (consolidates) |
 | 5. the map grows: the eight leads, each verified before use | 204 Van Deventer, 205 Kip, 206 Mackenzie p. 212, 207 Roy/Horsley/Maclauchlan, 208 German Limes, 209 Hoare/Stukeley/Petrie, 210 Numancia, 213 artists' views (Leonardo's Imola, Barbari's Venice, Braun & Hogenberg, Merian); 211 builds them |
 | 6. the page shows what changed without breaking anything | 201 (review section, only page change), 211 (new sites/pictures via the existing data files), 212 (the fit documents become overlays and drawings counts), every task's test re-runs the served page |
@@ -190,6 +224,17 @@ Module map (one module per task, so agents never collide):
 Most waves have two or more tasks (4 / 7 / 3 / 2 / 1). A task with unmet `Depends on:` simply waits; the
 driver hands each agent whatever else is open. The book leads (207/209) are in separate waves only
 because they share the `data/books/` directory, not because one needs the other's output.
+
+### The remaining work (2026-10-13: the matcher's line and the retirement)
+
+Waves 1-5 above are history (done or in their closing steps). The queue's tail, after the GOAL change of
+2026-10-13:
+
+| wave | tasks | why they can run together |
+|---|---|---|
+| 6 | **302f** (the matcher station end to end, no network), **302g** (Stonehenge on the matcher-first line), **235** (the placement test's pick mirrors the page's filter), **212** (in flight, closing on 235) | 302f writes only its new test + fixtures; 302g only its docs/data/web records; 235 only its own test file; 212 its own module — no file shared |
+| 7 | **238** (every matcher fit through the frozen 001 gate) | waits on wave 6: it changes what `matchfit.run` writes, and 302f/302g record the current behaviour of the line. One module (`fit/matchfit.py`) plus its own new test and one appended `docs/gate.md` section |
+| 8 | **239** (the vision-model fitting pass retired: the batch's model path and the line's second pass) | waits on 238 (it consumes the matcher's per-candidate refusal reasons) and on 212 (in flight: `fit/cover.py`'s loop still forwards the batch's `--model-json`; 212's closing step lands first). The batch, the line, `cover.py`'s forwarding and their tests are one module for this change; `docs/site_flow.md`'s step 1 is reworded (append-only for the other tasks' sections) |
 
 ## Test policy
 
