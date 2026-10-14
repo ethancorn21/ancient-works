@@ -1,6 +1,6 @@
 Status: open
 Depends on: 236b
-Touches: fit/src_us_birdseye_batch4.py, data/catalog/extras_us_birdseye_batch4.jsonl, data/commons/files_us_birdseye_batch4.jsonl, data/commons/classified_us_birdseye_batch4.jsonl, docs/lead_us_birdseye_batch4.md, tests/test_src_us_birdseye_batch4.py, tests/golden/src_us_birdseye_batch4_sample.json
+Touches: fit/src_us_birdseye_batch4.py, data/catalog/extras_us_birdseye_batch4.jsonl, data/commons/files_us_birdseye_batch4.jsonl, data/commons/classified_us_birdseye_batch4.jsonl, docs/lead_us_birdseye_batch4.md, tests/test_src_us_birdseye_batch4.py, tests/golden/src_us_birdseye_batch4_sample.json, docs/site_flow/307d_*.png (R5: restoring suite re-encodes to main's bytes before committing - never content changes)
 
 # 240: US bird's-eye views, batch 4 - Denver, St. Paul, Minneapolis, Cleveland
 
@@ -42,7 +42,7 @@ staging into the canonical data and checks the total.
       pins the staged rows (regenerated only via the module's --golden for an intended change); a
       full-suite run = baseline (restore the re-encoded docs/site_flow/307d_*.png to main's bytes
       before committing - the PITFALLS test_owner_check rule).
-- [ ] Denver is staged as researched (Q16554; the 1908 Birdseye View Publishing Co. sheet,
+- [x] Denver is staged as researched (Q16554; the 1908 Birdseye View Publishing Co. sheet,
       `File:Bird's eye view of Denver, Colorado, 1908. LOC 75693133.jpg`, looking south from the
       Twenty-Third Street Viaduct): the Notes below carry the full research record; the first
       session re-verifies it live (--verify) and, if the pick is gone from Commons or no longer PD,
@@ -137,117 +137,87 @@ the CC BY-SA 1907 sheet, and the 2021 Union Station photo (beyond the 1925 MAX_Y
 have classic bird's-eye views in the LOC collection - the pool search shows which survived the
 gates; do not trust this note, verify live.)
 
+
 ## Hand-over
-(2026-10-14, iteration 160, agent c - session 1 of 240; the merge is STAGED but NOT committed, the
-Denver landing is built in the working tree but untested - next session: commit the merge, record
-the baseline, write the test + golden, run the suites, commit the landing.)
+(2026-10-14, iteration 161, agent c - session 2 of 240: the merge was already committed by the
+driver (483d528); the R1 baseline is ESTABLISHED (177P/1S/0F); the batch4 test + golden are
+committed and the Denver landing is COMMITTED (boxes 1-4 stay open - they span all four cities;
+box 5 (Denver) is ticked). NEXT: St. Paul (city 2) - research QID + pool, then the landing.)
 
-**State NOW (all uncommitted; the harness saved the working tree):**
-0. **Working-tree noise to clear first:** the background baseline suite (see the Tests note below) was still running when the session ended and re-encoded 5 of the 307d pngs in the working tree (307d_A_1-card, A_4-saved, A_5-reload, B_4-saved, B_5-reload - `MM`/` M` in git status vs the staged main's bytes). The merge commit (step 1) stages only the index (main's bytes), so those re-encodes stay out of it; then **`git checkout -- docs/site_flow/`** to restore them before any further work (R5).
-1. **MERGE PENDING:** `git merge main` was run; the 4 binary conflicts (docs/site_flow/
-   307d_A_4-saved.png, A_5-reload.png, B_4-saved.png, B_5-reload.png) were resolved by taking
-   MAIN's bytes (the other agents' finished 307b work; our side was only test-re-encode jitter -
-   the R5 rule). Resolution is STAGED (git checkout main -- <the 4> + git add); PROGRESS/DECISIONS/
-   PITFALLS/docs/batch.md/tasks/212/tasks/235/tests/test_fit_queue.py/web/data/review.json
-   auto-merged. **First act next session: `git commit -m "merge main into agent/c: 307d png
-   conflicts resolved keeping main's bytes (test re-encode jitter)"`** (MERGE_HEAD is set; no other
-   changes staged - check with git status).
-2. **The batch4 module is BUILT and LIVE-VERIFIED:** fit/src_us_birdseye_batch4.py (full template
-   copy with the 5 prep changes: batch4 paths + EXTRAS_BIRDS_236B/_BATCH5 constants; known_sites()
-   reads the catalog + extras + 236a's + 236b's + 241's extras + web sites; NO SHARED_SITES;
-   by/source strings say fit/src_us_birdseye_batch4.py; docstring names the template). SITES has
-   Denver only (Q16554, denver-q16554, point (-104.984722, 39.739167), place "Denver County,
-   Colorado"); SOURCES has denver_1908 -> File:Bird's eye view of Denver, Colorado, 1908. LOC
-   75693133.jpg.
-3. **Denver is STAGED** (live runs all passed, transcripts in /tmp, may be wiped):
-   - `--verify` (live Wikidata): Q16554 'Denver'; ONE P625 (-104.98472222222, 39.739166666667) =
-     table point, NO FLAG; P373 string 'Denver, Colorado'; P131 Colorado + Denver County; enwiki
-     'Denver'; first name-search hit with P625 = Q16554 itself, NO TRAP. The verbatim transcript
-     is already spliced into the lead doc's QID section (/tmp/aw240_verify_160.txt).
-   - `--dry` + stage: "1 new sites, 1 new pictures", build (236c): denver-q16554. The pick is
-     live on Commons, keep() + caption gate + PD + 19338 px all pass; page date 1908 = drawing
-     year (no Zwolle swap; no date_commons on the row).
-   - `--check` (offline): exit 0, `PASS caption_coords denver-q16554|File:Bird's eye view of
-     Denver, Colorado, 1908. LOC 75693133.jpg`, `evidence: 1 rows, 1 pass, 0 fail, 0 no-tie`, no
-     join problems. Staged files: extras_us_birdseye_batch4.jsonl (1 row), files_us_birdseye_
-     batch4.jsonl (1 row: year 1908, Public domain, by/source fit/src_us_birdseye_batch4.py
-     denver_1908, evidence caption_coords dist 0), classified_..._batch4.jsonl (1 row p_birdseye
-     1.0 by hand). Verified byte-checked earlier this session (all good).
-   - Q16554 held by no existing site (catalog/extras/236a/236b extras + web/data/sites.json all
-     clean at session start); slug("Denver") = "denver" verified.
-   - The two un-eyeballed 194 thumbs were eyeballed OFFLINE this session (they survive in
-     /tmp/aw236b_b3_dvr_thumbs/): Arbor-Day Colfax avenue = district close-up (Colfax corridor +
-     Montclair subdivision, real-estate souvenir sheet); the "Healer" = a PHOTOGRAPH (street-car
-     crowd, title puns). Both drop wordings are finalized in the lead doc.
-4. **Lead doc WRITTEN:** docs/lead_us_birdseye_batch4.md (complete for Denver: Fetch route, QID
-   section with the verbatim transcript, evidence field, the Denver section with STAGED + full
-   16-item DROP list + QID facts, Staging and checks with the verbatim --check transcript, and
-   the **Not-done-yet pointer to 241** naming the remaining 3 of THIS task (St. Paul,
-   Minneapolis, Cleveland) and 241's next candidates **Omaha (skipped in 236b with no recorded
-   drop reason), Indianapolis, Columbus, Memphis** per the 181 candidate order).
+**State NOW (all committed on agent/c):**
+1. **The batch4 module** fit/src_us_birdseye_batch4.py (clean mechanical copy of the 236b
+   template with the 5 prep changes; fresh-eyes diff confirmed this session) with SITES = Denver
+   (Q16554) only so far; SOURCES has denver_1908. Staging files: extras_us_birdseye_batch4.jsonl
+   (1 site row: denver-q16554, point (-104.984722, 39.739167), place "Denver County, Colorado"),
+   files_..._batch4.jsonl (1 row: the 1908 LOC 75693133 pick, year 1908, Public domain, evidence
+   caption_coords dist 0), classified_..._batch4.jsonl (1 row p_birdseye 1.0 by hand). All in the
+   driver's 3562737 commit.
+2. **The test** tests/test_src_us_birdseye_batch4.py (5 offline tests mirroring the 236b file;
+   the no_network socket-blocker; the PASS-key list = Denver key only so far, GROWS one entry per
+   city landing; the three-states 236c-merge test; the SITES/extras/files tables - the extras file
+   is EXACTLY the SITES set, one view per city; the Venice negative control (8673157 m); the
+   golden compare) and **the golden** tests/golden/src_us_birdseye_batch4_sample.json (1/1/1) -
+   committed this session with the Denver landing.
+3. **Baselines (R1, both in DECISIONS):** merged-tree baseline = 177P/1S/0F (the iteration-160
+   background run completed clean; it matches 236b's full-main-tree closeout). Post-landing
+   confirmation run this session = **182P/1S/0F** (/tmp/aw240_suite_161.log, 516 s) = baseline +
+   the 5 new tests, zero failures. The long-flagged red
+   test_fit_queue::test_placement_gestures_and_save_in_the_browser is GONE from the merged tree
+   (agent a's 235 fix 344aa0c landed on main) - this checkout's suite has NO known reds.
+4. **Lead doc** docs/lead_us_birdseye_batch4.md: complete for Denver (Fetch route; QID section
+   with the verbatim --verify transcript; evidence field; Denver STAGED + the full 16-item DROP
+   list + QID facts with the 1287 m viaduct measurement; Staging and checks with the verbatim
+   --check transcript at 1 view / 1 site row; the Not-done-yet pointer to 241 naming Omaha,
+   Indianapolis, Columbus, Memphis). The Staging section's running counts (1 view / 1 site row)
+   and the QID/Staging transcripts must be EXTENDED per landing (2/2, 3/3, 4/4).
+5. **307d pngs:** restored to main's bytes before both commits this session (R5); they re-encode
+   on EVERY full-suite run - restore again before every commit (`git checkout main --
+   docs/site_flow/`).
 
-**Tests: the baseline suite run is DOUBTFUL - re-establish it.** A full suite was started in the
-background right after the merge (.venv/bin/python -m pytest -q -p no:cacheprovider ->
-/tmp/aw240_suite_base_160.log; still running at the last check, ~7+ min in) BUT I then created
-files under data/ and docs/ MID-RUN - the suite's write-surface integrity snapshot may make that
-run show spurious failures (R6). Next session: read the tail of the log; if it finished and its
-failures match the known set (candidate: tests/test_fit_queue.py::test_placement_gestures_and_
-save_in_the_browser was the one red in this checkout's 2026-10-13 driver run, 1F/159P/1S of 161;
-main since grew a few tests via 307b work - the merged-tree baseline should be ~178-181 tests),
-record it as the R1 baseline (disclose the caveat). Otherwise RE-RUN the full suite now (after
-the merge commit, before adding the new test file) and record THAT as the baseline. The 236b
-full-main-tree closeout baseline was 177P/1S/0F.
+**Exact next steps (St. Paul, city 2 - one session pair, the proven 189-194 pattern):**
+1. **RESEARCH (live; /tmp artifacts wiper-prone - rebuild from the recipes if wiped):**
+   - QID: clone /tmp/aw236b_b3_dvr_qid.py (repoint its sys.path at THIS checkout - it points at
+     ancient-works.a) and run under .venv/bin/python: the label (St. Paul, Minnesota - the
+     first-guess mislabel is the usual trap), EVERY P625 value with precision, P373 (a string is
+     the usual US quirk - write the place from the county + state), P131 with labels, P17,
+     enwiki, and the name search: other St. Pauls (St. Paul, Louisiana; St. Paul, South Carolina)
+     and big in-city institutions are the trap class (Pittsburgh/Chicago university precedent in
+     the 236b module comments) - record the first hit with P625 + measured distance (hav_m +
+     geographic dx/dy, NOT raw Mercator). Check no existing site holds the QID (catalog
+     sites.jsonl + extras.jsonl + 236a's + 236b's extras files + web/data/sites.json).
+   - Pool: clone /tmp/aw236b_b3_dvr.py for the city name (the SIX plain-phrase Commons
+     file-namespace forms + " filetype:bitmap", srnamespace 6, srlimit 40; dedupe; gates: caption
+     names the city AND commons.keep() (judged AFTER any Zwolle known-date swap) AND license
+     "Public domain" AND width >= 4000). Eyeball every good item's 1280-px thumb one by one
+     (upload.wikimedia thumb endpoint, project UA, paced - upload.wikimedia rate-limits raw
+     downloads separately from the API). THE PICK = the steepest (near-vertical), best-scanned
+     whole-city view (Public domain, >= 4000 px, caption names the city); one row per sheet
+     (same-sheet scans recorded, the best scan staged); record EVERY non-staged pool item with
+     its reason.
+2. **LANDING (exactly as Denver):** module edit (SITES entry with the full comment block + a
+   batch-4-city-2 comment + the `<CITY>_<YEAR>` row-list + the SOURCES entry) -> --verify (save
+   the EXACT output; append it to the lead doc's QID section; expect no FLAG/TRAP or refine the
+   point and record why) -> --dry -> stage (live commons.info re-check; a vanished/no-longer-PD
+   pick fails loud -> box 5's swap: next-best pool candidate, recorded) -> --check (append the
+   transcript to Staging) -> lead-doc St. Paul section (STAGED bullet with the view's facts +
+   the full DROP list + the QID-facts paragraph; update the Staging counts) -> --golden ->
+   extend the test (PASS-key list + the SITES/extras/years/points/named tables) -> module tests
+   -> the FULL suite (.venv/bin/python -m pytest -q -p no:cacheprovider; expect = previous run
+   + new tests) -> restore the re-encoded 307d pngs (R5) -> commit "240: St. Paul landed
+   (batch 4 city 2) - <the view>".
+3. **Then Minneapolis (city 3) and Cleveland (city 4)** the same way. **After Cleveland: close**
+   - final full-suite run = baseline, --check all PASS no join problems, the four ids/QIDs
+   collide with nothing (the known_sites() guard + the test), extend the test tables to the full
+   set, boxes 1-4 tickable (each after its test passes), the lead doc's Staging section final
+   (4 views / 4 site rows), Status: done.
 
-**Exact next steps (one session should do all of 1-4; St. Paul is the following session pair):**
-1. Commit the pending merge (box 0, above). git status first; only the merge may be in flight.
-2. Establish the suite baseline as above; restore any re-encoded docs/site_flow/307d_*.png to
-   main's bytes (R5) before any commit.
-3. **Write tests/test_src_us_birdseye_batch4.py** mirroring tests/test_src_us_birdseye.py (311
-   lines, 6 offline tests; its header rationale can be adapted). Spec = prep notes section 3:
-   (a) autouse no_network fixture (monkeypatch socket.socket/create_connection/getaddrinfo to
-   raise - verbatim 236b pattern); (b) test_check_staged: check_staged() == 0, no "join:" line,
-   evidence "1 rows, 1 pass, 0 fail, 0 no-tie", the explicit PASS key list = ["denver-q16554|
-   File:Bird's eye view of Denver, Colorado, 1908. LOC 75693133.jpg"] (grows to 4 at close, this
-   key first); (c) test_check_staged_three_states: monkeypatch FILES_CANONICAL/EXTRAS/WEB_SITES/
-   SITES_JSONL to tmp_path files (236b's exact pattern): pre-merge absent -> 0; identical
-   content -> 0 no-op; same (site,title) key different row -> 1 naming exactly "join: staged
-   title already in the canonical files.jsonl: <k>" and no other join line; (d) test_sites_table_
-   and_staged_rows: SITES ids == slug-rule ids (denver-q16554 now; st-paul-q..., minneapolis-q...
-   , cleveland-q... at close), region "United States", kind "town", non-empty named/note, the
-   extras file == EXACTLY the SITES set (no owner-city rows at all), files rows == SOURCES rows
-   one per city, per-title year table (1908 now), evidence point == site's own point (site==place
-   == table point), named_place = caption name, dist_m 0.0, license Public domain, no Zwolle
-   swap assertions needed (the Denver row has no date_commons); (e) test_evidence_offline_and_
-   negative_control: evidence.check(FILES_BIRDS, NO_BOOKS, catalog=EXTRAS_BIRDS) exit 0 all
-   pass; temp one-row copy with a foreign point (Venice 12.33, 45.44 - the 236b control) must
-   FAIL "does not reproduce (<d> m)"; (f) test_golden_sample_matches_staged_rows: the golden
-   equals the normalized staged rows exactly. Use the module's real constants via import
-   (sys.path fit/ or importlib - mirror the 236b test file's imports exactly; its header
-   docstring carries the project rationale).
-4. **Generate the golden:** `.venv/bin/python fit/src_us_birdseye_batch4.py --golden` ->
-   tests/golden/src_us_birdseye_batch4_sample.json (1/1/1 rows). Run the new module test (expect
-   6 passed), then the FULL suite (.venv/bin/python -m pytest -q -p no:cacheprovider; expect =
-   baseline + 6, the known red(s) disclosed not fixed - the fix belongs to 235/212's chain),
-   restore the re-encoded 307d pngs to main's bytes, and COMMIT the Denver landing (module, the
-   3 staging jsonl, lead doc, test, golden; message "240: Denver landed (batch 4 city 1) - the
-   1908 Birdseye View Publishing Co. sheet..." per the per-city commit convention).
-5. Then St. Paul per the per-city playbook in the Notes (RESEARCH: QID + pool - St. Paul has the
-   name-search traps: other St. Pauls (LA, SC) + in-city institutions; then LANDING exactly as
-   Denver: module edit (SITES + SOURCES + a batch-4-city-2 comment) -> --verify (append the
-   transcript to the lead doc's QID section) -> --dry -> stage -> --check (append the transcript
-   to Staging) -> lead-doc St. Paul section (STAGED + full DROP list + QID facts) -> --golden ->
-   extend test keys/tables/counts -> module tests -> full suite (restore pngs) -> commit).
-
-**Rules that bite (unchanged from the task Notes):** never write canonical files (236c); 236a's
-and 236b's files are read-only (the module's cross-check enforces); live commands under
-.venv/bin/python (module top stdlib-only); golden regenerates only via --golden; tests never
-bind fixed ports or write outside project + temp; every full-suite run re-encodes up to ten
-307d pngs - restore main's bytes before EVERY commit (R5) and never edit suite-hashed files
-mid-run (R6: finish all edits, THEN run, restore, commit). /tmp artifacts (aw236b_b3_dvr*,
-aw240_verify/dry/stage/check_160.*) are wiper-prone; the recipes + this note rebuild them.
-
-**Box status:** none ticked yet (box 5's verify-before-stage part is DONE; boxes tick only after
-their tests pass). Re-read when picking up: fit/src_us_birdseye_batch4.py (fresh eyes on the
-shared-machinery removal - it must stay a clean mechanical copy of the template),
-tests/test_src_us_birdseye.py (the spec to mirror), the lead doc (verify the DROP list against
-/tmp/aw236b_b3_dvr.json if it survives).
+**Rules that bite (unchanged from the task Notes):** never write the canonical files (236c);
+236a's and 236b's files are read-only (the module's cross-check enforces); live commands under
+.venv/bin/python (module top stays stdlib-only; the /tmp qid/pool scripts point their sys.path
+at ancient-works.a - repoint); golden regenerates only via --golden; tests never bind fixed
+ports or write outside project + temp; every full-suite run re-encodes up to ten 307d pngs -
+restore main's bytes before EVERY commit (R5) and never edit suite-hashed files mid-run (R6:
+data/ minus raw, web/data top level, docs/, specs/, tests/ are snapshotted - finish all edits,
+THEN run, restore, commit). /tmp artifacts (aw236b_b3_dvr*, aw240_*_160/161.*) are wiper-prone;
+the recipes in the Notes + prep section 1 rebuild them. The full-suite run takes ~9 min - start
+it, then do the bookkeeping; check the log tail before committing.
