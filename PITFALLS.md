@@ -791,6 +791,16 @@ Where: de.wikipedia `action=query&list=search` (srsearch) and `action=query&titl
 Symptom: `srsearch 'Kastell Schirenhof Limes'` returns [] although the article "Kastell Schirenhof" exists (and "Kastelle von Neckarburken" exists as a PLURAL title covering two forts)
 Why: small-fort article titles on de.wiki vary ("Kastell X", "X (Kastell)", "Kastelle von X") and the "Limes" suffix is often absent, so a phrase query with extra tokens drops them below the search limit. For a known fort, query the direct title candidates with `pageprops=wikibase_item` (it returns the QID when the article carries one) and use srsearch only as a last resort.
 
+#### Wikidata through this machine's proxy intermittently returns 200 responses with a GZIP body urllib does not decode
+Where: the Wikidata API (`wbgetentities`, `wbsearchentities`) as called via this VM's HTTP proxy (`pipeline/commons.py:get`, `pipeline/catalog_wd.py`; 236a, 2026-10-13)
+Symptom: a few % of otherwise-valid calls (worse while several agents share the IP and hit Wikimedia at once) return HTTP 200 whose body is gzip-compressed; `json.loads` gets the raw bytes and dies with `json.JSONDecodeError: Expecting value: line 1 column 1 (char 0)`. A naive retry loop fails 3-4 times in a row before one call comes through plain; the same query a moment later succeeds. The Commons API (commons.wikimedia.org) was reliable all session.
+Why: the proxy occasionally hands back a gzip-encoded body that urllib does not auto-decode. Fix: send the request header `Accept-Encoding: identity`, or use `pipeline/catalog_wd.py` (disk cache + 20 retries + 429 backoff - it got through with visible "wd 429, waiting 47s" retries); that layer is the right tool for bulk Wikidata work from this machine.
+
+#### Commons file titles are case-sensitive: a title remembered with the wrong case returns empty imageinfo and looks deleted
+Where: the Commons `action=query&titles=...&prop=imageinfo` (`pipeline/commons.py:info`); 236a's Ratzer 1776 files, 2026-10-13
+Symptom: the batch query for `File:Plan of the City of New York by Ratzer, 1776.jpg` (capital-C "City") came back with no url - it looked deleted (stale search index), while the search list showed the real page `File:Plan of the city of New York by Ratzer, 1776.jpg` (lowercase "city") next door: live, PD, 2202x1446.
+Why: MediaWiki page titles are case-sensitive except in the first character; a mid-title "city"/"City" is a different page. When an expected file looks missing, search first (`srnamespace 6`) and use the exact title from the results, never the remembered one.
+
 ### fit/
 
 #### Python binds `/` and `%` at the same precedence (left-associative), and `or` binds below both

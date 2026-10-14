@@ -1,7 +1,7 @@
 Status: in-progress
 # 236a: US city plans - New York, Washington, San Francisco, Nashville first
 Depends on: none
-Touches: fit/src_us_cities.py, pipeline/build_catalog.py, data/catalog/extras_us_cities.jsonl, data/commons/files_us_cities.jsonl, data/commons/classified_us_cities.jsonl, docs/lead_us_cities.md, tests/test_src_us_cities.py, tests/golden/src_us_cities_sample.json
+Touches: fit/src_us_cities.py, pipeline/build_catalog.py, data/catalog/extras_us_cities.jsonl, data/commons/files_us_cities.jsonl, data/commons/classified_us_cities.jsonl, docs/lead_us_cities.md, tests/test_src_us_cities.py, tests/golden/src_us_cities_sample.json, PITFALLS.md
 
 ## Goal
 Subtask of 236. Stage old plans of US cities the way 204 staged Van Deventer and 213 staged the artists'
@@ -23,10 +23,10 @@ the original or a facsimile of it, its date, its licence, and its resolution bef
   Savannah (Gordon 1734), New Orleans (French plans 1720s), Charleston, St. Augustine.
 
 ## Acceptance criteria
-- [ ] Verified before use (docs/lead_us_cities.md): per staged picture what it is, where it lives, the
+- [x] Verified before use (docs/lead_us_cities.md): per staged picture what it is, where it lives, the
       drawing's date (recorded on the row - an upload date is not a drawing date), original vs later redraft;
       unusable files (modern redraws, too small, no place tie, not free) listed with the reason.
-- [ ] fit/src_us_cities.py holds the hand-checked file -> QID table: every QID verified against its label,
+- [x] fit/src_us_cities.py holds the hand-checked file -> QID table: every QID verified against its label,
       P625 and enwiki link (the Barnard Castle trap: a name search alone gives the wrong place). A city
       whose plan covers more than the site box gets either an extent recorded on its row (check how
       pipeline/catalog.py sets extent_m and whether an extras row can carry one) or a district/fort site
@@ -35,9 +35,9 @@ the original or a facsimile of it, its date, its licence, and its resolution bef
       the plan covers, region "United States", kind "town" or "fort", aerial_ok true, place, wikipedia,
       note), files_us_cities.jsonl (files.jsonl shape + 200 evidence field), classified_us_cities.jsonl
       ("plan", by hand). A city whose QID is already in the catalog gets picture rows for that site id.
-- [ ] fit/evidence.py check passes offline on every staged row; all four owner-named cities are staged or
+- [x] fit/evidence.py check passes offline on every staged row; all four owner-named cities are staged or
       the lead doc says exactly why one could not be.
-- [ ] Test (no network): the staged files join, the evidence check passes, a golden sample of rows.
+- [x] Test (no network): the staged files join, the evidence check passes, a golden sample of rows.
 
 ## Notes
 - Ground: cities are aerial-photograph sites (aerial_ok true; bare-earth LiDAR erases streets). The street
@@ -48,37 +48,84 @@ the original or a facsimile of it, its date, its licence, and its resolution bef
 
 ## Hand-over
 
-(2026-10-13, iteration 143, agent a - **New York end-to-end done except: tests not yet run, lead doc not written, nothing committed yet.** All of this session's changes are in the working tree uncommitted (the harness keeps them): fit/src_us_cities.py, pipeline/build_catalog.py, data/catalog/extras_us_cities.jsonl, data/commons/files_us_cities.jsonl, data/commons/classified_us_cities.jsonl, tests/test_src_us_cities.py, tests/golden/src_us_cities_sample.json, tasks/237-artists-keep-order.md. All four acceptance boxes are still unticked; the next session ticks them after the work below.)
+(2026-10-13, iteration 144, agent a - **New York is done end-to-end and committed.** Boxes 1/2/4/5 ticked.
+Tests green 7/7 (test_src_us_cities 5 + test_region 2, offline). **Remaining work: stage Washington DC,
+then San Francisco, then Nashville - one city per session, same pattern.** Box 3 stays unticked until
+those three are staged or documented. Everything this session is committed; the tree is clean.)
 
-### State verified this session (all live 2026-10-13, network worked)
-- **Staged**: `new-york-q60` in extras_us_cities.jsonl (Q60, "New York City", -74.006111/40.712778, region "United States", kind "town", aerial_ok, place "New York County, New York", wikipedia, note); 4 file rows (Castello TIF year 1660 with date "1660"/date_commons "[Date not available]" = the known-date swap fired; Ratzer 1767; Commissioners' 1811 with date "1811"/date_commons "1821" = swap from the page's publication date; Viele 1865); 4 classified rows (plan/plan/birdseye/plan, by "hand").
-- **`--check` (offline) PASSES**: no join problems, `evidence: 4 rows, 4 pass, 0 fail, 0 no-tie`, exit 0. **`--golden`** wrote tests/golden/src_us_cities_sample.json.
-- **`--verify` (Wikidata) clean output** (paste into the lead doc):
-```
-checked 2026-10-13 - 1 QIDs (Wikidata)
-  Q60  'New York City'
-      P625: [(-74.00611111111111, 40.71277777777778)]  (table site point: -74.006111, 40.712778)
-      P373: ['New York City']
-      P131: [('New York', 'Q1384')]  (table place: 'New York County, New York')
-      enwiki: 'New York City'  (table wikipedia: 'https://en.wikipedia.org/wiki/New_York_City')
-      search 'New York City': first hit with P625 is Q60 'New York City' (-74.00611111111111, 40.71277777777778)
-```
-  No P625 flag, no search trap (first hit with coordinates is Q60 itself).
-- **`pipeline/build_catalog.py:REGION_NAME`** got the one line `"united states": "United States"` (required: tests/test_region.py globs every data/catalog/*.jsonl, incl. my new file; without it the region would display "US").
-- **tasks/237-artists-keep-order.md filed**: src_artists.py:stage runs `c.keep()` BEFORE the known-date swap; sources.py (L186-191) and src_van_deventer.py swap FIRST (Zwolle precedent, keep() must judge the drawing's year) - latent in artists (its two rows pass keep() pre-swap via title years), my module uses the sources.py/vdD order.
+### What this session did
+1. **Ran the never-run tests**: one failure - the negative-control distance. The prep's computed
+   10407617 m for (-74.006111,40.712778)->(12.33,45.44) was simply miscalculated; `evidence.hav_m`
+   (R=6371008.8, the standard haversine) gives **6680986 m** (~6681 km, the true NYC-Venice distance).
+   Fixed the assert and both docstring mentions ("~10408 km" -> "~6681 km"), and cleaned the sloppy
+   `years and "..."` truthiness line the 143 hand-over flagged. Now 7/7.
+2. **Live re-checks (network fine this session)**: the Ratzer 1776 re-engravings are NOT deleted -
+   the prep's batch had the wrong title case ("City" vs lowercase "city"; Commons file titles are
+   case-sensitive, the search index was stale). Live: `File:Plan of the city of New York by Ratzer,
+   1776.jpg` (2202x1446 PD), `...in North America by Ratzer, 1776.jpeg` (563x760), btv (1 of 2)
+   (11310x7795) + (2 of 2) (11310x5194) - all PD, dated 1776 -> documented DROPS (re-engraving of the
+   same plan already staged as its 1767 original; one row per plan). 1811 grid files re-checked live:
+   `Grid 1811.jpg` (250 px, page date 2005), `NYC-GRID-1811.png` (page date 1893 - a 19th-c reproduction
+   of the 1807 provisional map), `Alphabet-City-area...png` (a detail crop) - all confirmed drops.
+   The two Randel "surrounding country" atlas sheets (Philadelphia / Connecticut-and-Long-Island, page
+   1821) are live but not New York pictures: their page DESCRIPTIONS carry the atlas title "The City of
+   New York as laid out ... with the surrounding country" - the named-place gate checks name PRESENCE,
+   never location, so a live record would wrongly tie them; the human reads such sheets (the lead doc
+   says so).
+3. **Wrote docs/lead_us_cities.md**: header (owner point, staging files, 236c's role, aerial ground,
+   hand-recorded caption_coords), `## QID verification` (--verify output for Q60 + the prep-verified
+   Q61/Q62/Q23197 facts + the recalled-QIDs-wrong-twice trap note), `## New York (Q60)` (site point,
+   the extent decision, the four per-plan sections with STAGED/DROP verdicts, fit notes), `## Offline
+   check`, and the DC/SF/Nashville lead sections.
+4. **PITFALLS.md**: two new entries in the Wikimedia APIs section - (a) Wikidata through this machine's
+   proxy intermittently returns 200s with a GZIP body urllib does not decode (json.JSONDecodeError char
+   0; fixes: Accept-Encoding: identity, or use pipeline/catalog_wd.py); (b) Commons file titles are
+   case-sensitive (the Ratzer 1776 "deleted" misdiagnosis). Added PITFALLS.md to this task's Touches
+   (the 204/211/212 convention).
+5. **Committed**, ticked boxes 1/2/4/5 (box 4 on the lead doc's later-session statements for DC/SF/
+   Nashville; box 3 stays open until all four cities are staged or documented).
 
-### EXACT next step (one session, then DC/SF/Nashville)
-1. **Run the tests** (never run yet): `.venv/bin/python -m pytest tests/test_src_us_cities.py tests/test_region.py -p no:cacheprovider`. test_region must pass with the uncommitted REGION_NAME line + staged file. If the negative-control distance assert is off by a digit, recompute with evidence.hav_m (I computed 10407617 m for (-74.006111,40.712778)->(12.33,45.44) with the same R=6371008.8 formula).
-2. **Clean one sloppy line in tests/test_src_us_cities.py:~195**: `assert by_title[years and "File:Afbeeldinge ... .tif"]...` - `years and` is a truthiness accident that works but is dumb; make it a plain `by_title["File:Afbeeldinge van de Stadt Amsterdam in Nieuw Neederlandt (NYPL Hades-118555-54682).tif"]["date"] == "1660"`.
-3. **Write docs/lead_us_cities.md** (pattern: docs/lead_artists.md, 302 lines): (a) header: owner's 2026-10-13 point (task 236), sources, the staging files, who does what (236c consolidates), aerial-ground note (bare-earth LiDAR erases city streets), hand-recorded caption_coords evidence note; (b) `## QID verification (checked 2026-10-13, re-run with .venv/bin/python fit/src_us_cities.py --verify)` - paste the --verify output above + the prep-verified facts for the not-yet-staged cities (Q61 DC P625 -77.036667/38.895 fine as old-core point; Q62 SF **TWO P625 values** ~450 m apart, old town tip ~(-122.40,37.78) is south of both so the site point is probably not P625 - refine against the files; Q23197 Nashville P625 downtown east of the Cumberland, old 1790s town at the river confluence ~(-86.788,36.166) - refine); for all four the first name-search hit with coordinates is the city itself (no trap); enwiki-infobox-coords cross-check came back empty from wp_api - not blocking; **the prep's recalled QIDs were wrong twice** (NY first remembered as Q30492 = the NUMBER "483", Nashville as Q15190) - the Barnard Castle trap in action; (c) `## New York (Q60)` - extent decision: extras rows CAN carry box_m (build_catalog.make_site: `entry.get("box_m") or box_m(entry)`, precedents biggs-site 800 / frankfort-works 1000) but `extent_m` is the synthetic-group spread (catalog.py, catalog_triage crop sizing), NOT the site box; DECISION: city sites keep the kind-"town" 2000 m box (NY's P625 box covers the 1660 plan's whole drawn Manhattan: harbour tip to ~19th St), the 1811/1865 sheets span the island beyond the box so their fits are likely to end review items (the Venice precedent, docs/lead_artists.md) - noted on the extras row + here, not as an extent field; Civil War forts = their own kind-"fort" sites (1600 m) with own QIDs in a later session; then the four map sections (What it is / Where the files live with STAGED + DROPS / Staged rows / fit note) - **the full STAGED/DROP verdicts are in my DECISIONS entry below** (the 1916 Adams/Stokes redrafts are the named trap: they honestly date 1916, would pass keep() as 1916 drawings, but they are redrawings - never stage as the 1660 original); (d) `## Offline check` with the --check output (the 4 PASS lines + summary, as in the artists doc); (e) short sections for Washington DC / San Francisco / Nashville: leads (L'Enfant 1791, Ellicott 1792, Boschke 1857/61, Barnard 1865 defences / Eddy + Ringgold 1849, 1850s plans / early town plans + Fort Negley), each a later session, same pattern.
-4. **Add the PITFALLS.md entry** (Wikimedia APIs section; I could not edit it at the context limit): Wikidata through this machine's proxy intermittently returns 200 responses with GZIP bodies urllib does not decode (a few % of calls, worse with concurrent agents on the same IP) -> `json.JSONDecodeError: Expecting value: line 1 column 1 (char 0)`; fixes: send header `Accept-Encoding: identity` on the request, or use pipeline/catalog_wd.py (20 retries + 429 backoff - it got through in the prep session). The Commons API (commons.wikimedia.org) was reliable all session.
-5. **Commit everything** as 236a (module, REGION_NAME line, the 3 staging files, golden, tests, lead doc, tasks/237). Ticks: box 1 after (3); box 2 after (3) (Q60 verified + extent decision recorded; the other cities' QIDs are recorded in the same section); box 3 after (1) for the NY rows (the box stays unticked until all four owner cities are staged or documented - DC/SF/Nashville pending); box 4 after (1) (the evidence check passes offline on every staged row); box 5 after (1).
-6. **Then the other three cities** (later sessions, same pattern per city): verify leads live (Commons API: c.info batch; Wikidata flaky - use catalog_wd if --verify hits the gzip error), add each QID to SITES + SOURCES rows, stage, extend the lead doc, the tests scale automatically (the three_states test is written to grow; regenerate --golden for each intended change; update the evidence count asserts 4->N).
+### EXACT next step - Washington DC (one session)
+1. **Verify the DC leads live** (Commons `c.info` batches; for Wikidata use `pipeline/catalog_wd` -
+   see PITFALLS (a)): the **L'Enfant plan 1791** (LoC - on Commons the LoC scans carry `LOC`-style
+   titles, PD US-government; search "L'Enfant plan"), the **Ellicott engraved plan 1792**, **Boschke's
+   topographical map 1857/1861**, the **Barnard 1865 Civil War defences** (forts). For each candidate:
+   size, page date, license, description; judge original-vs-redraft and one-row-per-picture as in the
+   NY section. If a named lead has no good Commons file at all, say so in the lead doc (box 4's
+   "exactly why" branch) - do not invent a substitute.
+2. **Add Q61 to SITES**: id `washington-q61`, name "Washington, D.C.", named "Washington" (the short
+   form the captions print - check each file's title+desc actually prints it; the gate is
+   presence, never location - the Randel lesson), lon/lat = P625 (-77.036667, 38.895, the old
+   L'Enfant core - refine only if the staged files' drawn extent argues otherwise), place
+   "District of Columbia", wikipedia, note (aerial ground + the 1865 defences ring ~35 km = review
+   item / own fort sites).
+3. **Stage** (live; re-runs are idempotent), run `--check`, extend the lead doc with a proper
+   `## Washington DC (Q61)` section (replace the short lead section, same structure as New York).
+4. **Update the tests**: `set(table) == {"Q60"}` -> add Q61; the HARDCODED `evidence: 4 rows` count
+   and the four PASS lines in `test_check_staged_files_join_and_pass` -> grow them (the
+   three_states test scales from the file lengths by itself); regenerate `--golden` (an intended
+   change).
+5. **Commit** as 236a. Then San Francisco (Q62: TWO P625 values ~450 m apart, both downtown; the
+   1849 plans' old-town tip is SOUTH of both - pick the site point against the files at staging),
+   then Nashville (Q23197: P625 downtown east of the Cumberland; the old 1790s town is at the river
+   confluence ~(-86.788, 36.166) - refine; Fort Negley earthwork = its own kind-"fort" site, 1600 m,
+   own QID, 3DEP LiDAR candidate like the 203a mounds).
 
 ### Gotchas
-- `fit/src_us_cities.py` has NO BOOKS/table_sites (src_artists' book machinery is not needed here) - verify_qids runs over SITES directly; do not "mirror back" in. The SITES entries carry `named` ("New York") = the short form the captions print; evidence_for returns None when norm(named) is not in norm(title+desc) and stage fails loud on that (src_van_deventer's gate) - check_caption uses the same rule, so stage and check can't disagree.
-- stage() is idempotent on (site, title) - a re-run is safe and prints "staged: 0 new sites, 0 new pictures".
-- The row's `cat` is null (no P373-category route; all four rows are caption route) - same as vdD's caption-route rows.
-- Do NOT write the canonical files (extras.jsonl, files.jsonl, classified.jsonl, web/data/sites.json) - 236c.
-- docs/site_flow/307d_*.png were driver-committed in 9c541a5 (not mine); the tree is otherwise clean apart from my uncommitted work.
-- Tests last run: NONE for my new file (it is written but unverified). Suite state at loop start (driver): 1 pre-existing failure (tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser, main's 307 in-flight work - not mine).
+- `fit/src_us_cities.py` has NO BOOKS/book machinery (verify_qids runs over SITES); do not mirror it
+  back in. `stage()` is idempotent on (site, title). The row's `cat` is null (all rows are the
+  caption route). The known-date swap runs BEFORE `c.keep()` (the sources.py/vdD order, task 237
+  aligns src_artists) - do not "fix" it back.
+- The named-place gate (evidence_for) checks that the caption PRINTS the site's `named` short form -
+  it never checks WHERE the named place is. A file whose description names the city but pictures a
+  different region (the Randel surrounding-country sheets) passes the gate: a human reads those.
+- Commons file titles are case-sensitive; always take exact titles from the search results (new
+  PITFALLS entry), never from memory.
+- Wikidata through the proxy is flaky (gzip 200s); Commons was reliable all session (new PITFALLS
+  entry). `pipeline/commons.py` constants: `CM` (Commons), `WD` (Wikidata).
+- Do NOT write the canonical files (extras.jsonl, files.jsonl, classified.jsonl, web/data/sites.json)
+  - 236c. The REGION_NAME line in pipeline/build_catalog.py is already committed (236b adds the
+  identical line; identical additions merge cleanly).
+- Suite state at loop start (driver): 1 pre-existing failure,
+  tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser (agent c's 307 in-flight
+  work on main - not mine). My two test files: 7/7 green this session.

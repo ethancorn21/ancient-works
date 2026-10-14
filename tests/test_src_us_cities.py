@@ -5,7 +5,7 @@ hand-verified QID table (New York City Q60; Washington DC, San Francisco and Nas
 sessions, 236c consolidates). The tests are offline: a socket-blocking fixture makes any network fetch fail
 loud, so the evidence check runs from the stored fields only (200's fail-closed box). The negative control
 pins the trap the hand record exists for: a staged row with a foreign place point (Venice) instead of the
-site's own point - ~10408 km away, a name-search-style resolution that record --live could store - must be
+site's own point - ~6681 km away, a name-search-style resolution that record --live could store - must be
 reported FAIL, never kept. The golden file (tests/golden/src_us_cities_sample.json) pins the staged rows as
 a whole; it is regenerated only via the module's --golden flag for an intended change. The
 check-staged test covers the three merge states of the --check guards hermetically - pre-merge; the
@@ -187,7 +187,7 @@ def test_qid_table_and_staged_rows():
         assert r["evidence"]["named_place"] == "New York"
     by_title = {r["title"]: r for r in files}
     # the known-drawing-date swaps: the page value kept as date_commons (the Zwolle precedent)
-    assert by_title[years and "File:Afbeeldinge van de Stadt Amsterdam in Nieuw Neederlandt (NYPL Hades-118555-54682).tif"]["date"] == "1660"
+    assert by_title["File:Afbeeldinge van de Stadt Amsterdam in Nieuw Neederlandt (NYPL Hades-118555-54682).tif"]["date"] == "1660"
     assert by_title["File:Afbeeldinge van de Stadt Amsterdam in Nieuw Neederlandt (NYPL Hades-118555-54682).tif"]["date_commons"] == "[Date not available]"
     assert by_title["File:Commissioners' Plan of 1811 by John Randel published in 1821.jpg"]["date"] == "1811"
     assert by_title["File:Commissioners' Plan of 1811 by John Randel published in 1821.jpg"]["date_commons"] == "1821"
@@ -196,7 +196,7 @@ def test_qid_table_and_staged_rows():
 def test_evidence_offline_and_negative_control(tmp_path):
     """fit/evidence.py's check over the staged rows, offline: exit 0, zero FAIL, every row PASS
     caption_coords. The negative control (never written into the staged files) is reported FAIL: the
-    Castello row with the Venice point instead of the site's own point - ~10408 km away, a
+    Castello row with the Venice point instead of the site's own point - ~6681 km away, a
     name-search-style resolution a live record could store - fails both the stored-distance reproduction
     and the 50 km tolerance (200's fails-closed box)."""
     code, text = evidence.check(src_us_cities.FILES_US_CITIES, src_us_cities.NO_BOOKS,
@@ -213,7 +213,7 @@ def test_evidence_offline_and_negative_control(tmp_path):
     code, text = evidence.check(str(f), src_us_cities.NO_BOOKS, catalog=src_us_cities.EXTRAS_US_CITIES)
     assert code == 1, text
     line = next(l for l in text.splitlines() if l.startswith("FAIL"))
-    assert "new-york-q60" in line and "does not reproduce (10407617 m)" in line, line
+    assert "new-york-q60" in line and "does not reproduce (6680986 m)" in line, line
     assert "evidence: 1 rows, 0 pass, 1 fail, 0 no-tie" in text, text
     assert castello["evidence"]["place_lon"] == -74.006111  # the staged row is untouched by the control
 
