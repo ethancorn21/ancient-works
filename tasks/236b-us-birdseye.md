@@ -34,11 +34,98 @@ staging files, the way 213 staged Civitates.
 
 ## Hand-over
 
-(2026-10-14, iteration 194, agent a) **Batch 3, city 3 = DENVER: RESEARCH DONE, nothing staged yet. No
-project file was touched this session (the tree is at the 193 baseline: module 16 QIDs / 23 rows, doc
-875 lines / 21 sections, suite baseline 177/1/0) - all research artifacts live in /tmp (below). The landing
-(module edit -> --verify -> stage -> --check -> doc splice -> --golden -> tests -> commit) is the whole of
-the next session.**
+(2026-10-14, iteration 195, agent a) **THE DRIVER-ORDERED SPLIT - IN FLIGHT, half done.** The driver
+ordered this session to split 236b (agent c idle 33 min, open tasks waiting on it). The chosen shape:
+**236b keeps what is already built and closes done (the parts depend on it, not vice versa - no cycle)**;
+the 9 remaining cities of the 25-city total (236b has 16: 4 shared + 12 new, 23 views / 12 site rows) go
+to new top-level tasks **240** (batch 4: Denver, St. Paul, Minneapolis, Cleveland) and **241** (batch 5:
+the final five, after 240), each with its OWN module + staging files + lead doc + test + golden
+(fit/src_us_birdseye_batch4/5.py, *_us_birdseye_batch4/5.jsonl, docs/lead_us_birdseye_batch4/5.md,
+tests/test_src_us_birdseye_batch4/5.py, tests/golden/src_us_birdseye_batch4/5_sample.json) so the two
+agents build in parallel. Denver (researched at 194, landing unrun) MOVES TO 240: its full research record
+was copied into 240's Notes so nothing lives only in /tmp. 25-total arithmetic: 16 + 4 + 5 = 25; the
+25-total box (236b's old box 4 clause) moves to 236c via its Proposed changes. **Why this way** (full
+rationale in the DECISIONS 195 entry): the "keeps what is built" direction applies (much is built); the
+"waits for the parts" direction would deadlock (236b's only open box is what the parts deliver); a
+Denver-only 236b done-claim unblocks agent c's 240 one session sooner than keeping Denver+St. Paul here.
+
+**DONE this session (committed in the hand-over commit):** tasks/240-us-birdseye-batch4.md WRITTEN
+(status open; Depends on: 236b; full goal + 5 boxes + Notes with the per-city playbook, the module-copy
+spec, the rules, and Denver's complete 194 research record: Q16554, the 1908 Birdseye View Publishing Co.
+pick LOC 75693133.jpg, the same-sheet scans, the 16-item drop list). A FULL-SUITE run was started in the
+background at session start (nohup, log **/tmp/aw236b_suite_195.log**, was pid 299881): it verifies the
+post-8bd9f18-sync tree before the done-claim; expected baseline 177 passed / 1 skipped / 0 failed (193).
+No other project file was touched this session.
+
+**NEXT SESSION (finish the split, in this order - all small bookkeeping edits):**
+1. **Check /tmp/aw236b_suite_195.log** (the run: `.venv/bin/python -m pytest tests/ -q
+   -p no:cacheprovider` on this branch): expect the 193 baseline (177/1/0) - main moved after the
+   8bd9f18 sync, so if it differs, that's the new baseline to record (no test reads tasks/*.md or
+   docs/, so the bookkeeping below cannot move it). If the run re-encoded any docs/site_flow/
+   307d_*.png, restore them to main's bytes before committing (PITFALLS test_owner_check rule).
+2. **Write tasks/241-us-birdseye-batch5.md** (lowest free number after 240; Status: open;
+   `Depends on: 240` - it continues the candidate order after 240's picks and its module's
+   known_sites() cross-check reads 240's staged files, so no QID sits on two sites; Touches =
+   the _batch5 file set listed above). Goal: stage the FINAL FIVE cities to reach the 25 total
+   (16 from 236b + 4 from 240 + 5 here), each a new site in its own staging files, one best view
+   per city; 236c consolidates. Boxes mirror 240's five, with: the module copy from
+   fit/src_us_birdseye_batch4.py (240's module, which itself is a copy of 236b's); its
+   known_sites() reading 236a's + 236b's + 240's extras files; and the final box: **five cities
+   staged (the 25 total), or, if the collection yields fewer usable candidates, each dropped
+   candidate recorded in the lead doc and the shortfall recorded for 236c's count**. Notes:
+   candidate order = whatever 240's lead-doc "Not done yet" pointer names (240 must write one -
+   it's in 240's Notes), else the LOC Panoramic collection's next cities in search order;
+   the same per-city playbook, rules and 307d-restore rule as 240's Notes (copy them).
+3. **Close 236b (this file):** line 1 `Status: open` -> `Status: done`; `Touches:` line ->
+   `Touches: docs/lead_us_birdseye.md` (the only file it still changes - the driver's trim rule;
+   the seven built files stand on main as the parts' template and are no longer this task's to
+   change); box 4 re-worded + TICKED: keep "fit/evidence.py check passes offline on every staged
+   row (23/23, the lead-doc transcript); the four owner-named cities each have at least one view
+   staged (all four do: NY 3, DC 3, SF 4, Nashville 1)" and note that the "at least 25 cities
+   staged in total" clause MOVED to 240/241 (this split) and is checked by 236c (its Proposed
+   changes) - the 207a moved-boxes precedent. Replace this Hand-over with the done-state note
+   (16 cities / 23 views / 12 site rows; the parts' files are theirs; if this task reopens it owns
+   only the built 16 - never re-stage Denver here, that is 240's).
+4. **docs/lead_us_birdseye.md**: replace the "**Not done yet (next sessions):** the 25-cities box -
+   **9 more US cities** ..." paragraph (end of the Staging section, ~line 860) with the split
+   pointer: the 9 remaining cities moved to 240 (batch 4: Denver, St. Paul, Minneapolis,
+   Cleveland) and 241 (batch 5: the final five), each its own module/staging/doc/tests; this doc
+   stays at 16 cities / 23 views; 236c consolidates all staging and checks the 25 total.
+5. **tasks/236c-us-cities-merge.md**: `Depends on: 236a, 236b` -> `Depends on: 236a, 236b, 240, 241`
+   (the driver's rule for depending tasks that need a part); add `## Proposed changes`: (a) box 1's
+   "the two new staging sets" should read "every staging set under the extras_/files_/classified_
+   prefixes" - fit/merge.py already globs them all (verified: its TARGETS globs prefix + "*.jsonl";
+   236a's extras_us_cities, 236b's *_us_birdseye, 240's *_us_birdseye_batch4, 241's
+   *_us_birdseye_batch5) and its Goal's "over 236a's and 236b's staging" likewise; (b) the 25-city
+   total (236b's old box 4) now lives here: box 1 or a new box - the consolidated new US city sites
+   total at least 25 (16 + 4 + 5), or the lead docs record a shortfall and 236c's hand-over records
+   the final count.
+6. **tasks/236-us-cities.md**: add `## Proposed changes`: 236b closed done at 16 cities at the split;
+   the remaining 9 went to 240/241 (their own modules/staging/docs, the parts gate 236c through its
+   Depends on); suggest box 1 read "236a, 236b, 240, 241 and 236c are done"; the 25-total check is in
+   236c's Proposed changes.
+7. **PLAN.md**: it has no 236 entry (house practice since the 302+ era: the task files are the
+   planning record; the "remaining work" section stops at wave 8) - add a short section after the
+   wave-8 table: "### The US cities family (236, added 2026-10-13; 236b split 2026-10-14)" with the
+   row: 236a (done), 236b (done at the split, 16 cities), 240 (batch 4), 241 (batch 5, after 240 -
+   candidate order + QID cross-check), 236c (after 240+241; alone writes the canonical files; checks
+   the 25 total) - why they can run together (disjoint module + staging + doc + test per task).
+8. **DECISIONS.md**: add the 195 entry if it is not already there (the driver may have archived my
+   earlier entries with this task's status changes - write it fresh, header "## 2026-10-14 236b
+   DECISION: iteration 195 - SPLIT ..."): the shape + rationale (in this hand-over's first
+   paragraph), the Denver-move to 240, the 25 arithmetic, the suite result from step 1, and the
+   file list of the split commit.
+9. **Commit**: `git add -A && git commit -m "236b: split closed (driver instruction) - done at 16
+   cities; 240 (batch 4: Denver, St. Paul, Minneapolis, Cleveland) + 241 (batch 5) take the
+   remaining 9 to the 25 total, each its own module/staging/doc/tests; 236c gains the 25-total
+   check"`. Then the driver puts 240/241 into main at once and agent c can start 240.
+
+**Rules that stay (for any return to this task or for 240/241):** never write the canonical files
+(236c); live commands under .venv/bin/python (system python3 has no numpy; module tops stdlib-
+only); the golden sample is the contract (--golden only for an intended change); tests never bind
+fixed network ports or write outside the project + temp dir; the full suite re-encodes up to ten
+docs/site_flow/307d_*.png every run - restore main's bytes before committing; measure every
+distance/direction claim before recording it.
 
 ### What 194 found (all artifacts in /tmp; re-verify anything you rely on)
 
