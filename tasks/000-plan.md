@@ -1,4 +1,4 @@
-Status: in-progress
+Status: done
 # 000: Plan the project from GOAL.md
 Depends on: none
 Touches: PLAN.md, CODEMAP.md, tasks/, requirements.in, requirements.txt, tests/, server/serve.py, PITFALLS.md, DECISIONS.md
@@ -69,52 +69,59 @@ The human changed GOAL.md. Update PLAN.md and the task queue to match: add tasks
 
 ## Hand-over
 
-(iteration 158, 2026-10-13, agent a - **the driver's rejection of the done claim is
-FIXED and 000 is re-claimed done.** One step this session: the task queue made
-schedulable again. No code, tests, plan content, or GOAL.md touched.)
+(iteration 159, 2026-10-14, agent a - **000 re-filed done.** One step this session: the driver's
+merge-conflict hold (2026-10-14 DRIVER note: "it cannot go into main yet: your branch conflicts
+with main ... in: PLAN.md") is resolved. Merged main, resolved the single conflict keeping both
+sides' intent, ran the full suite green on the merged tree, re-verified all seven boxes. No
+GOAL.md, no code, no other agent's task file touched.)
 
-**What happened:** the driver reopened 000 (commit 6955a66): "these tasks can never
-start, their `Depends on:` lines wait on each other: 212 (waits on 212 235), 239
-(waits on 212 238 302f 302g)". Root cause: the driver's scheduler tokenizes every
-`NNN`/`NNNx` on the one-line `Depends on:` line, prose included. The 212 session
-(69ed411 - my own task in the other checkout) had put an explanatory parenthetical
-on 212's line when it made 212 wait on 235; that prose contained "212's" and
-"212b's" - a self-dependency, and 239 (legitimately waiting on 212: cover.py is
-212's in-flight file) parked behind it. The driver's "waits on 212 235" is exactly
-the PENDING subset of the parsed tokens (the other six - 203a, 203b, 211, 301,
-306e, 307d - are done and dropped from the note), which reproduced the parse.
+**Conflict anatomy (diffed, not reasoned):** merge-base c72706b. Against that base main had
+changed exactly three places in PLAN.md: (1) the module-map Roman row -> per-book
+`fit/src_roman_horsley.py` / `fit/src_roman_maclauchlan.py` + the 207-split/Roy-drop note; (2)
+task-map line 5 -> "207 Horsley/Maclauchlan (Roy 1793 dropped 2026-10-13, owner's call - see
+Deviations)"; (3) the Deviations entry recording the 207c drop. Everything else that differed
+between the sides was my 2026-10-13 GOAL re-plan (5420291: current state 10-13, matcher-only
+architecture, batch retired, assumptions 10-11, waves 6-8, task-map lines 1-3). The one
+conflicted region was the module map (lines 105-112): I had rewritten the batch row, inserted
+the matchfit row and rewritten the src row; main had rewritten that same src row - adjacent
+edits became one conflict (main's side also carried the base batch row).
 
-**The fix (three `Depends on:` lines only; each file's hand-over body already
-carries the full rationale, so nothing moved):**
-- tasks/212-cover-final.md:3 -> `Depends on: 203a, 203b, 211, 235` (212 now waits
-  only on 235; 235's deps 306e+307d are done, so 212 starts when 235 merges)
-- tasks/212a-cover-search.md:3 -> `Depends on: 211, 203b` (parenthetical carried a
-  "212a" self-ref; done task)
-- tasks/307a-place-check.md:3 -> `Depends on: none` (was `(none - a record; ...
-  307b/307c/307d ... 309)` - tokenized as deps ON the live work, inverted intent;
-  done task)
+**The resolution (both sides' intent kept):**
+- batch_us/batch_eu row -> HEAD (mine): the model fitting pass is RETIRED by 239 (GOAL
+  2026-10-13). Main's side was the base text (the active model loop), which contradicted the
+  same merged file's tech choices and architecture (all matcher-first); main's 000 rework had
+  never updated that row, so mine is the newer intent.
+- matchfit row -> HEAD (mine; a new row with no main counterpart).
+- src row -> main's: the per-book Roman split is a fact on main (`fit/src_roman_horsley.py`
+  since the base, `fit/src_roman_maclauchlan.py` added by 207b; `fit/src_roman.py` never
+  existed - my row carried the stale base text).
+- main's three non-conflicting changes (line 5, the Deviations 207c entry) auto-merged and were
+  kept verbatim - they are the other agents' finished-work record.
+The merged 292-line PLAN.md was read whole: one coherent matcher-first plan with the 207c drop
+recorded. Every cross-reference resolves post-merge: 238/239 (my side) and 302f/302g (main's
+side) all exist as task files.
 
-**Verification (checker run over all 99 task files, not reasoned):** every
-`Depends on:` line is a bare comma list or `none`; every id names an existing task
-file; no self-references; the pending graph (24 tasks) has no cycle and no task
-that can never start. The 2026-10-13 GOAL re-plan stands as planned in iterations
-156-157: PLAN.md committed in 5420291 (matcher station, assumptions 10-11, waves
-6-8), tasks/238 + tasks/239 created in f828ce0, all seven boxes ticked.
+**Verification (run, not reasoned):** full suite on the real merged tree (.venv,
+-p no:cacheprovider): **166 passed / 1 skipped / 0 failed, 454 s** - better than the loop-start
+baseline (1 failed / 159 passed / 1 skipped): the fit_queue placement-gestures red is cleared
+on this tree (bba5961's e2e-only rewrite on main; the corrected PITFALLS entry says notes
+naming the old signature are stale) and the suite grew 159 -> 166 with 302f's merge. Queue
+checker over all 99 task files: no missing/malformed bare-list `Depends on:`/`Touches:` lines,
+every dep id names an existing file, no self-references, no cycle in the 14-task pending
+graph. 807/808/809 stay blocked on the owner's pending asks (unchanged; out of 000's scope).
+All seven acceptance boxes re-verified true against this tree.
 
-**Residual team-mode risk:** 212's other checkout may still carry the parenthetical
-on line 3, so a main<->branch merge can conflict on that one line; the resolution
-is always the bare list (the scheduler requires it) - the rationale stays in the
-hand-over body. PITFALLS now records the tokenizer fact (Agent tools and harness)
-so no session writes prose on that line again.
+**Commits:** merge = eeff0b8; this bookkeeping commit (000 Status: done + this hand-over +
+DECISIONS entry).
 
-**Tests:** not run this session (planner bookkeeping only; no code touched). Last
-driver loop-start suite note: 1 failed (tests/test_fit_queue.py::
-test_placement_gestures_and_save_in_the_browser - the known 235 red, pre-existing
-to 000), 159 passed, 1 skipped.
+**If the driver reopens 000 again:** the note in this file / DECISIONS says why. (a) Another
+merge-conflict hold -> same procedure: `git merge main`, resolve keeping both sides' intent
+(the planning world is mine; the merged-work facts are main's), run the full suite, commit,
+re-file done. (b) A GOAL.md change -> diff GOAL.md against the task map, update PLAN.md,
+create/drop tasks as needed (new leads take the next free 200-499 number with a bare one-line
+`Depends on:` + `Touches:` - the scheduler tokenizes every NNN/NNNx on that line; PITFALLS).
+(c) A content rejection -> fix exactly what the note names.
 
-**Current hypothesis / next step:** nothing outstanding on 000 itself. If the
-driver re-reopens it, the DECISIONS.md entry (2026-10-13 000 DECISION, iteration
-158) has the full record. If another GOAL.md change reopens 000: diff GOAL.md
-against PLAN.md's task map, edit only planner-created task files (never 001), new
-leads take the next free 200-499 number (240) with a bare one-line `Depends on:` +
-`Touches:`, re-check the seven boxes, re-set Status.
+**Next step:** none - 000 is done and the plan is current as of 2026-10-14. The queue tail
+(waves 6-8: 302f/302g/235/212 -> 238 -> 239) is in flight on the other agents' branches; a
+future GOAL change reopens this task.
