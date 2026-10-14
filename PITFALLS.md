@@ -1113,6 +1113,11 @@ Where: `tests/golden/hand_fit_docs.sha256`, `tests/golden/hand_fit_sites.txt`, `
 Symptom: the 41-line golden file looks like it could be 22 + 19 PLATEFITS docs (the prep note 238/A8 guessed "19 by:None docs" in the store); the second half is actually the 19 hand-fit SITES' old-style `data/sites/<id>/site.json` files (from `hand_fit_sites.txt`).
 Why: `write_golden` (docstring: "plus the 19 hand-fit sites' data/sites/<id>/site.json files") hashes exactly those two sets; the store itself holds 71 docs = 22 by:hand + 49 by:agent/fitter:matcher and zero unmarked, so a hermeticity check (238's test, candidate 3) should snapshot every `data/db/platefits/*.json` (all 71) and the golden separately, never assume the golden covers the matcher docs.
 
+#### Patching `matchfit.reachable` for an offline replay needs a lambda returning False - a bare `False` crashes the run
+Where: `fit/matchfit.py` (`run` calls `reachable(roma)` WITH the URL argument; `reachable(url=None)`), offline replays of the 302f/238 fixtures (`rec._fake_match`)
+Symptom: after `mf.reachable = False` (a shorthand the 238 hand-over notes used), `mf.run(...)` raises `TypeError: 'bool' object is not callable` on the first site - it looks like a matcher failure but it is the patch itself
+Why/how: `run` calls `reachable` with the RoMa URL as an argument, so the patch must be a callable: `mf.reachable = lambda url=None: False` (tests/test_matchfit_gate.py does exactly this; the 302f station test instead keeps the real `reachable` and points `ROMA_URL` at a dead ephemeral port, letting its `except Exception` turn the refused connection into False).
+
 ### pipeline/
 
 #### `llm.ask`'s default `url=URL` binds at def time - reassigning `llm.URL` after import does nothing
