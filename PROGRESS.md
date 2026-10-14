@@ -10,7 +10,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/307bc-reverify-place-mode.md` (open) - hand-over: (2026-10-13, iteration 256, agent a - first session: the task was filed as the driver
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-13, iteration 256, agent a - context limit hit at the end of this session; the
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
-- `tasks/808-horsley-stage.md` (open) - hand-over: (2026-10-14, iteration 150, agent c - BUILD SESSION (part 1 of 2): verified every fact the 149 build plan needs (all CONFIRMED, section V); made the f
+- `tasks/808-horsley-stage.md` (open) - hand-over: (2026-10-14, iteration 151, agent c - BUILD SESSION: the staging section is WRITTEN and DRY-VERIFIED; nothing is staged yet, everything uncommitted. T
 
 ## Next open tasks
 - `tasks/230-roman-merge-rerun.md`
