@@ -10,7 +10,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/307bc-reverify-place-mode.md` (open) - hand-over: (2026-10-13, iteration 256, agent a - first session: the task was filed as the driver
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-13, iteration 256, agent a - context limit hit at the end of this session; the
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
-- `tasks/808-horsley-stage.md` (open) - hand-over: (2026-10-14, iteration 148, agent c - RESEARCH SESSION #2, still NO code: every remaining fact settled or narrowed below; next session = BUILD, it can
+- `tasks/808-horsley-stage.md` (open) - hand-over: (2026-10-14, iteration 149, agent c - BUILD SESSION, NO code yet: the 148 plan's remaining web fetches are all DONE this session (item A below), so ne
 
 ## Next open tasks
 - `tasks/230-roman-merge-rerun.md`
