@@ -50,8 +50,8 @@ from conftest import copy_web
 
 ROOT = Path(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-CHROME = "/opt/google/chrome/chrome"
-NODE_MODULES = "/home/agent/tools/shot/node_modules"
+CHROME = os.environ.get("AW_CHROME", "/opt/google/chrome/chrome")
+NODE_MODULES = os.environ.get("AW_NODE_MODULES", "/home/agent/tools/shot/node_modules")
 AT = "2026-10-12T00:00:00.000Z"  # the done-map timestamp 307bb's card runs seed with
 
 # The page's own filter and default pick (web/index.html): surveys only at 150 years or older,
@@ -232,17 +232,25 @@ def _simfit(pairs):
     k = math.cos(math.radians(pairs[0]["lat"]))
     resid = [math.hypot(at(p["u"], p["v"]) [0] - z[0], at(p["u"], p["v"])[1] - z[1]) * k
              for p, z in zip(pairs, Z)]
-    return {"mpx": math.hypot(a0, a1) * k, "rot": math.degrees(math.atan2(a1, a0)), "resid": resid}
+    return {"mpx": math.hypot(a0, a1) * k, "rot": math.degrees(math.atan2(a1, a0)), "resid": resid, "at": at}
+
+
+def _unmerc(x, y):
+    """Web Mercator metres -> (lon, lat) degrees (the inverse of _merc)."""
+    R = 6378137.0
+    return math.degrees(x / R), math.degrees(2 * math.atan(math.exp(y / R)) - math.pi / 2)
 
 
 PROBE = r"""// node owner_probe.mjs <base_url> <site> <plan> <tree> <out_dir> <done_json> <item_file>
-// The owner's check (task 307d): the owner's save path in headless Chrome on the served private
-// tree: the card names the pick -> Place opens the placement on the works -> one drag, one wheel,
-// one shift+wheel (each checked against the page's own fit, as in 307bb) -> Save -> the one-site
-// line's four effects on the site view (the overlay on the map, the recoloured square, the item
-// resolved, the done map written, the card moved on to the next pending) -> a page reload, where
-// the fit loads back unchanged and the card still names the next pending. Prints one [eval] line
-// with every state, then every console/pageerror/reqfail line, RESULT PASS/FAIL, exit 0/1.
+// The owner's check (task 307d), end to end in headless Chrome on the served private tree, reading
+// only what the owner sees or gets (rewritten 2026-10-13, the owner's rule "no unit tests, only end
+// to end"): the page's DOM and pixels, where the drawing's corner handles are on screen, the map's
+// view (where a ground point is, which file a layer shows) and the files the server serves. Never
+// the page's own variables. The card names the pick -> Place puts the drawing on the works under
+// the toolbar -> one drag on the drawing, toolbar scale and turn -> Save on the toolbar -> the
+// overlay is on the map where the drawing was placed, the site's square takes its new tier, the
+// site leaves the open review list, the card moves on -> a reload shows the fit back. Prints one
+// [eval] line, then RESULT PASS/FAIL; exit 0/1.
 import { createRequire } from 'module';
 import { readFileSync } from 'fs';
 const require = createRequire(process.env.NODE_PATH + '/');
@@ -256,383 +264,153 @@ const check = (name, cond, info) => {
   console.log((cond ? '[ok] ' : '[FAIL] ') + name + (cond ? '' : ' :: ' + JSON.stringify(info)));
   if (!cond) failures.push(name);
 };
+const readJson = p => { try { return JSON.parse(readFileSync(p, 'utf8')); } catch { return null; } };
+const served = async path => (await fetch(url.replace(/\/$/, '') + '/' + path + '?t=' + Date.now())).json();
+// the marker tiers as the page draws them (web/index.html tierOf): score -> class
+const TIERS = [[2.5, 't4'], [1.6, 't3'], [1.2, 't2'], [0.01, 't1']];
+const tierOf = s => { for (const [lo, t] of TIERS) if ((s || 0) >= lo) return t; return 'plain'; };
 
-// installed as page globals once: the anchor's own similarity and the fit-vs-anchor checks the
-// gestures must keep true at every step (the 307bb helper, verbatim)
-const HELPERS = `
-  window._fkvAnchorAt = (a, u, v) => {
-    const [zx0, zy0] = merc([a.lon, a.lat]);
-    const k = Math.cos(a.lat * Math.PI / 180);
-    const t = a.rot * Math.PI / 180;
-    const ar = a.mpx / k * Math.cos(t), ai = a.mpx / k * Math.sin(t);
-    const dr = u - a.u0, di = a.v0 - v;
-    return [zx0 + ar * dr - ai * di, zy0 + ai * dr + ar * di];
-  };
-  window._fkvFitChecks = () => {
-    const a = P.anchor, f = P.fit, k = Math.cos(a.lat * Math.PI / 180);
-    const maxResid = f ? Math.max(...f.resid) : -1;
-    const [x0, y0, x1, y1] = P.crop;
-    const corners = [[x0, y0], [x1, y0], [x1, y1], [x0, y1]];
-    const src = map.getStyle().sources['fit-prev'] ? map.getStyle().sources['fit-prev'].coordinates : null;
-    let maxC = -1, closure = -1;
-    if (f && src) {
-      const ms = src.map(c => merc(c));
-      const exps = corners.map(([u, v]) => _fkvAnchorAt(a, u, v));
-      maxC = Math.max(...exps.map((z, i) => Math.hypot(ms[i][0] - z[0], ms[i][1] - z[1]))) * k;
-      closure = Math.hypot((ms[2][0] - (ms[1][0] + ms[3][0] - ms[0][0])),
-                           (ms[2][1] - (ms[1][1] + ms[3][1] - ms[0][1]))) * k;
-    }
-    return { dmpx: a ? Math.abs(f.mpx - a.mpx) : -1, drot: a ? Math.abs(f.rot - a.rot) : -1,
-             maxResid, maxCorner: maxC, closure };
-  };
-`;
+const queue = await served('data/fit_queue.json');
+const entries = queue.entries;
+const pick = entries.find(e => e.site === site);
+const propC = pick.propose.pairs[pick.propose.pairs.length - 1];  // the queue's starting centre [u, v, lon, lat]
+const pending = entries.filter(e => !(e.site in doneMap));
+const nextAfter = pending[pending.findIndex(e => e.site === site) + 1];
 
 const browser = await chromium.launch({ channel: 'chrome', headless: true,
-  args: ['--use-angle=metal', '--enable-gpu', '--ignore-gpu-blocklist'] });
-const page = await browser.newPage({ viewport: { width: 1200, height: 800 }, colorScheme: 'light' });
+  args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
+const page = await browser.newPage({ viewport: { width: 1280, height: 820 }, colorScheme: 'light' });
 const lines = [];
-const log1 = t => lines.push(t);
-page.on('console', m => log1('[console] ' + m.type() + ' ' + m.text()));
-page.on('pageerror', e => log1('[pageerror] ' + e.message));
-page.on('requestfailed', r => log1('[reqfail] ' + r.url() + ' ' + (r.failure() && r.failure().errorText)));
-// the card's done map seeded past the earlier queue entries puts the card on the pick (one object
-// argument: this playwright-core takes at most one; its keys must match the destructured names).
-// addInitScript runs on EVERY navigation (playwright's own semantics): seed only while the key is
-// absent, so the later page.reload() keeps _fqSaveFit's done mark instead of re-seeding it
+page.on('pageerror', e => lines.push('[pageerror] ' + e.message));
+page.on('requestfailed', r => lines.push('[reqfail] ' + r.url() + ' ' + (r.failure() && r.failure().errorText)));
+// seed the card past the earlier entries only once: the reload must keep what the page itself stored
 await page.addInitScript(({ done }) => {
   if (localStorage.getItem('aw.fitQueue.done')) return;
   try { localStorage.setItem('aw.fitQueue.done', JSON.stringify(done)); } catch {}
 }, { done: doneMap });
 await page.goto(url);
+await page.waitForSelector('#fqcard #fqplace', { timeout: 60000 });
 
-const boot = await page.evaluate(async () => {
-  let ok = false;
-  try {
-    const t0 = Date.now();
-    while (Date.now() - t0 < 60000) {
-      if (S.ready && S.sites.length && FQ.loaded && FQ.entries.length) { ok = true; break; }
-      await new Promise(r => setTimeout(r, 250));
-    }
-  } catch {}
-  return { ok, fitkit: typeof _fkReemit === 'function' && typeof _fkOnWheel === 'function' };
-});
-if (!boot.ok) { console.log('[FAIL] boot :: ' + JSON.stringify(boot)); process.exit(1); }
-check('boot: home view, fitkit loaded', boot.fitkit, boot);
-await page.evaluate(HELPERS);
-
-// ---- the card (home view): names the pick, its best row and the queue count
-const card1 = await page.evaluate(s => {
-  const c = document.getElementById('fqcard');
-  if (!c) return null;
-  const e = FQ.entries.find(x => x.site === s && x.best && x.best.row);
-  const name = (c.querySelector('.fq-site b') || {}).textContent || null;
-  const fit = (c.querySelector('.fit') || {}).textContent || '';
-  return { text: c.textContent, name, fit,
-           expectName: e ? (e.name || e.site) : null,
-           expectTitle: e ? (e.best.row.title || e.best.row.id) : null };
-}, site);
-check('the card names the pick and its best row (not another entry)',
-  !!card1 && !!card1.expectName && card1.name === card1.expectName &&
-  card1.fit.includes(card1.expectTitle), card1);
+const cardText = () => page.evaluate(() => { const c = document.getElementById('fqcard');
+  return c ? { name: (c.querySelector('.fq-site b') || {}).textContent || null, text: c.textContent } : null; });
+const card1 = await cardText();
+check('the card names the pick and its best row', !!card1 && card1.name === (pick.name || pick.site) &&
+  card1.text.includes(pick.best.row.title || pick.best.row.id), { card1, want: pick.name });
 await page.screenshot({ path: outdir + '/1-card.png' });
 
-// ---- place: the card's own button (307bb's seed, verbatim, plus the ground)
-await page.click('#fqplace', { timeout: 20000 });
-const placed = await page.evaluate(async () => {
-  const t0 = Date.now();
-  while (Date.now() - t0 < 60000) {
-    try { if (P.placed === true && P.img) return true; } catch {}
-    await new Promise(r => setTimeout(r, 250));
-  }
-  return false;
-});
-await sleep(2500); // let the fly-to settle
-check('place mode opened on the works', placed);
-const seed = await page.evaluate(id => {
-  const e = FQ.entries.find(x => x.site === id && x.propose);
-  const a = P.anchor, c = e.propose.pairs[e.propose.pairs.length - 1];
-  return { mpx: [a.mpx, e.propose.scale_m_px], rot: [a.rot, e.propose.rot_deg],
-           centre: [a.lon, a.lat, c[2], c[3]], n: P.pairs.length, nMarks: P.marks.length,
-           gestures: [map.dragPan.isEnabled(), map.scrollZoom.isEnabled(), map.touchZoomRotate.isEnabled(),
-                      map.doubleClickZoom.isEnabled(), map.boxZoom.isEnabled()],
-           dep: map.getLayer('dep-' + id) ? map.getLayoutProperty('dep-' + id, 'visibility') : null,
-           fitPrev: !!map.getSource('fit-prev'),
-           ground: S.ground, lidar: (S.byId[id] || {}).lidar,
-           hint: (document.getElementById('fithint') || {}).textContent };
-}, site);
-console.log('[seed] ' + JSON.stringify(seed));
-// the queue stores the propose rounded (7dp lon/lat, 1dp u/v, 4dp scale): least squares over the
-// five ROUNDED pairs recovers the anchor only to that rounding (measured: centre 1e-7 deg, scale
-// 2e-4, rot 1e-9), so the tolerance is the rounding, not exactness
-check('seed: anchor matches the propose (derived from the served queue file)',
-  Math.abs(seed.mpx[0] - seed.mpx[1]) < 1e-3 && Math.abs(seed.rot[0] - seed.rot[1]) < 1e-6 &&
-  Math.abs(seed.centre[0] - seed.centre[2]) < 1e-6 && Math.abs(seed.centre[1] - seed.centre[3]) < 1e-6, seed);
-check('seed: the five pairs and markers are on the map, the drawing preview is up',
-  seed.n === 5 && seed.nMarks === 5 && seed.fitPrev, seed);
-check('seed: the gestures own the mouse (map pan/zoom off), the earlier overlay hidden',
-  seed.gestures.every(v => v === false) && seed.dep === 'none', seed);
-check('seed: the ground is the site\'s own (LiDAR relief when lidar is not false)',
-  seed.ground === (seed.lidar === false ? 'imagery' : 'relief'), { ground: seed.ground, lidar: seed.lidar });
-check('seed: the panel readout shows the live scale and rotation',
-  seed.hint.includes(seed.mpx[0].toFixed(2)) && seed.hint.includes('m per page pixel'), seed);
+// ---- place
+const quad = () => page.evaluate(() => [...document.querySelectorAll('.gpin.fk-handle')]
+  .filter(el => el.style.display !== 'none').map(el => { const r = el.getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; }));
+const inside = (q, x, y) => { let c = false; for (let i = 0, j = q.length - 1; i < q.length; j = i++) {
+  const a = q[i], b = q[j]; if ((a[1] > y) !== (b[1] > y) && x < (b[0] - a[0]) * (y - a[1]) / (b[1] - a[1]) + a[0]) c = !c; } return c; };
+const groundOnScreen = ll => page.evaluate(ll => { const r = map.getCanvas().getBoundingClientRect(), q = map.project(ll); return [q.x + r.left, q.y + r.top]; }, ll);
+const layer = () => page.evaluate(s => ({ vis: map.getLayer('dep-' + s) ? map.getLayoutProperty('dep-' + s, 'visibility') : null,
+  src: map.getSource('dep-' + s) ? map.getSource('dep-' + s).url : null }), site);
+const before = await layer();
+await page.click('#fqplace');
+await page.waitForSelector('#fkbar', { timeout: 60000 });
+await page.waitForFunction(() => [...document.querySelectorAll('.gpin.fk-handle')].filter(el => el.style.display !== 'none').length === 4, null, { timeout: 30000 });
+await sleep(2500);
+const q0 = await quad(), c0 = await groundOnScreen([propC[2], propC[3]]);
+const sites0 = await served('data/sites.json');
+const entry0 = (sites0.sites || sites0).find(x => x.id === site) || {};
+check('place: the drawing opens on the works under the toolbar', q0.length === 4 && inside(q0, ...c0), { q0, c0 });
+check('place: the earlier overlay is hidden while placing', !before.vis || (await layer()).vis === 'none', before);
+check('place: the site\'s own ground is pressed (LiDAR relief unless the site has none)',
+  await page.evaluate(id => document.getElementById(id) ? document.getElementById(id).getAttribute('aria-pressed') === 'true' : true,
+    entry0.lidar === false ? 'g-imagery' : 'g-relief'));
 await page.screenshot({ path: outdir + '/2-placed.png' });
 
-// ---- (a) drag: the pointer's ground delta moves the anchor's centre (307bb, verbatim)
-const p0 = await page.evaluate(() => {
-  // a map-canvas point right of the fit pane, clear of the five markers
-  const r = map.getCanvas().getBoundingClientRect();
-  const cands = [1075, 1105, 1040, 1140, 1000].map(x => [x, 400]);
-  const proj = P.pairs.map(p => map.project([p.lon, p.lat]));
-  const hit = q => proj.some(m => Math.hypot(m.x - q[0], m.y - q[1]) < 30);
-  const q = cands.find(p => !hit(p)) || cands[0];
-  return { x: q[0] + r.left, y: q[1] + r.top, q, proj: proj.map(p => [p.x, p.y]) };
-});
-check('drag start point clear of markers',
-  Math.min(...p0.proj.map(m => Math.hypot(m[0] - p0.q[0], m[1] - p0.q[1]))) >= 30,
-  { q: p0.q, proj: p0.proj });
-const sx = p0.x + 30, sy = p0.y + 20;
-const dragStart = await page.evaluate(({ x0, y0, x1, y1 }) => {
-  // mirror the page's own drag math exactly: canvas-relative client point, unproject to a
-  // [lon, lat] array (unproject's {lng, lat} object does not pass to merc), anchor' =
-  // anchor + pointer delta in Mercator metres
-  const r = map.getCanvas().getBoundingClientRect();
-  const ll = (cx, cy) => { const u = map.unproject([cx - r.left, cy - r.top]); return [u.lng, u.lat]; };
-  const a0 = { ...P.anchor };
-  const a = merc(ll(x0, y0)), b = merc(ll(x1, y1)), h = merc([a0.lon, a0.lat]);
-  return { a0, expected: unmerc([h[0] + b[0] - a[0], h[1] + b[1] - a[1]]) };
-}, { x0: p0.x, y0: p0.y, x1: sx, y1: sy });
-await page.mouse.move(p0.x, p0.y);
-await page.mouse.down();
-await page.mouse.move(sx, sy, { steps: 2 });
-await page.mouse.up();
-await sleep(400); // rAF-coalesced refit
-const dragOut = await page.evaluate(() => ({
-  a: P.anchor, fit: _fkvFitChecks(),
-  pairs4: { u: P.pairs[4].u, v: P.pairs[4].v, lon: P.pairs[4].lon, lat: P.pairs[4].lat }
-}));
-check('drag: anchor moved by the pointer ground delta',
-  Math.abs(dragOut.a.lon - dragStart.expected[0]) < 1e-6 && Math.abs(dragOut.a.lat - dragStart.expected[1]) < 1e-6,
-  { got: [dragOut.a.lon, dragOut.a.lat], want: dragStart.expected });
-check('drag: mpx and rot untouched', dragOut.a.mpx === dragStart.a0.mpx && dragOut.a.rot === dragStart.a0.rot);
-check('drag: u/v invariant', dragOut.a.u0 === dragStart.a0.u0 && dragOut.a.v0 === dragStart.a0.v0);
-check('drag: pair 5 (the centre) tracks the anchor at the doc rounding',
-  dragOut.pairs4.lon === +dragOut.a.lon.toFixed(7) && dragOut.pairs4.lat === +dragOut.a.lat.toFixed(7) &&
-  dragOut.pairs4.u === +dragOut.a.u0.toFixed(1) && dragOut.pairs4.v === +dragOut.a.v0.toFixed(1));
-check('drag: fit agrees with the anchor (mpx 1e-3, rot 0.01 deg)',
-  dragOut.fit.dmpx < 1e-3 && dragOut.fit.drot < 0.01, dragOut.fit);
-check('drag: max residual < 2 m (the rounded five fit the similarity to rounding)',
-  dragOut.fit.maxResid >= 0 && dragOut.fit.maxResid < 2, dragOut.fit);
-check('drag: fit-prev source corners are the anchor similarity image (rotated rect lands exactly)',
-  dragOut.fit.maxCorner < 0.2 && dragOut.fit.closure < 0.2, dragOut.fit);
-
-// ---- (b) wheel: scale about the centre, the page canvas's own factor (307bb, verbatim)
-const wheelBase = await page.evaluate(() => simFit(P.pairs).mpx);
-await page.mouse.move(p0.x, p0.y);
-await page.mouse.wheel(0, -100);
+// ---- move it the way the owner does: a drag on it, the toolbar's scale and turn
+const mid = [q0.reduce((s, p) => s + p[0], 0) / 4, q0.reduce((s, p) => s + p[1], 0) / 4];
+await page.mouse.move(...mid); await page.mouse.down(); await page.mouse.move(mid[0] + 30, mid[1] + 20, { steps: 6 }); await page.mouse.up();
 await sleep(400);
-const wheelOut = await page.evaluate(() => ({
-  a: P.anchor, fit: _fkvFitChecks(), hint: document.getElementById('fithint').textContent
-}));
-check('wheel: mpx scaled by exp(0.15) about the absorbed fit, centre and rotation held',
-  Math.abs(wheelOut.a.mpx - wheelBase * Math.exp(0.15)) / wheelBase < 1e-3 && Math.abs(wheelOut.a.rot) < 0.01 &&
-  Math.abs(wheelOut.a.lon - dragOut.a.lon) < 1e-6 && Math.abs(wheelOut.a.lat - dragOut.a.lat) < 1e-6,
-  { got: wheelOut.a, want: wheelBase * Math.exp(0.15) });
-check('wheel: fit agrees with the anchor, the corners still land exactly',
-  wheelOut.fit.dmpx < 1e-3 && wheelOut.fit.drot < 0.01 && wheelOut.fit.maxCorner < 0.2 &&
-  wheelOut.fit.closure < 0.2 && wheelOut.fit.maxResid < 2, wheelOut.fit);
-check('wheel: the panel readout is live', wheelOut.hint.includes(wheelOut.a.mpx.toFixed(2)), wheelOut.hint);
-
-// ---- (c) shift+wheel: turn it, 1 degree per 100-unit notch (307bb, verbatim)
-await page.keyboard.down('Shift');
-await page.mouse.wheel(0, +100);
-await page.keyboard.up('Shift');
-await sleep(400);
-const turnOut = await page.evaluate(() => ({ a: P.anchor, fit: _fkvFitChecks() }));
-check('shift+wheel: rotation advanced 1 degree (1 per 100-unit notch)',
-  Math.abs(turnOut.a.rot - (wheelOut.a.rot + 1.0)) < 0.01, turnOut.a);
-check('shift+wheel: scale held (the pre-turn absorb re-fit only rounds it)',
-  Math.abs(turnOut.a.mpx - wheelOut.a.mpx) / wheelOut.a.mpx < 1e-3,
-  { before: wheelOut.a.mpx, after: turnOut.a.mpx });
-check('shift+wheel: the rotated fit-prev source still lands exactly (the parallelogram claim)',
-  turnOut.fit.maxCorner < 0.2 && turnOut.fit.closure < 0.2 && turnOut.fit.maxResid < 2 &&
-  turnOut.fit.dmpx < 1e-3 && turnOut.fit.drot < 0.01, turnOut.fit);
+const q1 = await quad();
+check('drag on the drawing moves it by the pointer', q1.every((p, i) => Math.hypot(p[0] - q0[i][0] - 30, p[1] - q0[i][1] - 20) < 2.5), { q0, q1 });
+await page.click('#fkbar [data-a="s+"]'); await page.click('#fkbar [data-a="r+"]'); await sleep(500);
+const q2 = await quad();
+const edge = q => Math.hypot(q[1][0] - q[0][0], q[1][1] - q[0][1]);
+check('toolbar scale and turn change the drawing on screen', Math.abs(edge(q2) / edge(q1) - 1.05) < 0.01, { e1: edge(q1), e2: edge(q2) });
 await page.screenshot({ path: outdir + '/3-gestured.png' });
 
-// ---- (e) save from the placement alone
-const anchorBeforeSave = await page.evaluate(() => P.anchor);
-const pairsBefore = await page.evaluate(() => P.pairs.map(p => [p.u, p.v, p.lon, p.lat]));
-const imgSize = await page.evaluate(() => [P.img.naturalWidth, P.img.naturalHeight]);
-await page.click('#fsave', { timeout: 10000 });
-const saveOut = await page.evaluate(async () => {
-  // the page's own poll: it endFit's when its fetch finds the overlay (fit.at === its own at)
-  const t0 = Date.now();
-  while (Date.now() - t0 < 120000) {
-    try { if (!P.active) return true; } catch {}
-    await new Promise(r => setTimeout(r, 250));
-  }
-  return false;
-});
-check('save: the page closed the fit view (the overlay landed, the page endFit)', saveOut);
+// ---- save from the toolbar: where the corners sit now is what must land
+const placedLL = await page.evaluate(q => { const r = map.getCanvas().getBoundingClientRect();
+  return q.map(([x, y]) => { const u = map.unproject([x - r.left, y - r.top]); return [u.lng, u.lat]; }); }, q2);
+const mpp = await page.evaluate(() => 156543.03392 * Math.cos(map.getCenter().lat * Math.PI / 180) / 2 ** map.getZoom());
+await page.click('#fkbar [data-a="save"]');
+await page.waitForFunction(() => !document.getElementById('fkbar'), null, { timeout: 120000 }).catch(() => {});
+check('save: the toolbar closes once the overlay is on the map', await page.evaluate(() => !document.getElementById('fkbar')));
+const doc = readJson(tree + '/data/db/platefits/' + docId + '.json');
 
-// ---- the saved doc, read on the NODE side (a page evaluate runs in the browser, which cannot
-//      read the tree's files): the PUT writes it before the line runs, so it exists once the page
-//      saw the overlay; if the page never saw it, doc stays null and the effects fail cleanly
-let doc = null;
-try { doc = JSON.parse(readFileSync(tree + '/data/db/platefits/' + docId + '.json', 'utf8')); } catch {}
-
-// ---- the one-site line's effects, read through the page on the site view (the page sits there
-//      after endFit; the card is only in the home view, so it is checked after the #back click).
-//      The page can fetch the page-facing files (depictions, sites.json, review.json - all under
-//      web/data/); the review ITEM files live in the store's data/review/ and the server does not
-//      serve that tree, so the item's resolution is verified from the tree in Python (check 5):
-//      the export writes it into the item file before it writes review.json, so by the time the
-//      poll sees the site gone from the open list the resolution is on disk.
-const effects = await page.evaluate(async ({ site, plan, docAt, docBy }) => {
-  const docId = site + '.' + plan;
-  const t0 = Date.now();
-  let ok = false, state = {};
-  while (Date.now() - t0 < 120000 && !ok) {
-    try {
-      const deps = await fetch('data/sites/' + site + '/depictions.json?t=' + Date.now()).then(r => r.json());
-      const overlay = (deps.depictions || []).find(d => (d.fit || {}).doc === docId) || null;
-      const sites = await fetch('data/sites.json?t=' + Date.now()).then(r => r.json());
-      const entry = (Array.isArray(sites) ? sites : sites.sites).find(x => x.id === site) || {};
-      const review = await fetch('data/review.json?t=' + Date.now()).then(r => r.json());
-      const lid = 'dep-' + site;
-      const d = (S.dep[site] || []).find(x => x.file === S.depSel[site]);
-      const want = d ? 'data/sites/' + site + '/' + (S.depMode === 'ink' && d.ink ? d.ink : d.file) : null;
-      const mk = markers.find(k => k.id === site);
-      const doneVal = FQ.done[site];
-      state = {
-        docAt, docBy,
-        overlayFile: overlay && overlay.file, overlayInk: overlay && overlay.ink,
-        overlayAt: overlay && overlay.fit && overlay.fit.at,
-        depVis: map.getLayer(lid) ? map.getLayoutProperty(lid, 'visibility') : null,
-        depSrc: map.getSource(lid) ? map.getSource(lid).url : null, want,
-        depSel: S.depSel[site], depMode: S.depMode,
-        drawings: entry.drawings, score: entry.score, oldest: entry.oldest, overlays: entry.overlays,
-        markerClass: mk ? mk.el.className : null, tier: tierOf(entry),
-        inOpen: (review.items || []).some(x => x.site === site),
-        doneOk: doneVal !== undefined && !Number.isNaN(Date.parse(doneVal))
-      };
-      ok = !!overlay && docAt && state.overlayAt === docAt && state.depSel === state.overlayFile &&
-        state.depVis === 'visible' && state.depSrc === state.want &&
-        (state.markerClass || '').split(/\s+/).includes('marker') &&
-        (state.markerClass || '').split(/\s+/).includes(state.tier) &&
-        !state.inOpen && state.doneOk;
-    } catch {}
-    if (!ok) await new Promise(r => setTimeout(r, 1000));
-  }
-  return { ok, state };
-}, { site, plan, docAt: doc && doc.at, docBy: doc && doc.by });
-check('line effect (a): the overlay landed in the tree and the page shows its ink on the map',
-  effects.ok && effects.state.depVis === 'visible' && !!effects.state.overlayInk &&
-  effects.state.depSrc === 'data/sites/' + site + '/' + effects.state.overlayInk, effects.state);
-check('line effect (b): the site square recolours to the new score\'s tier (the tier class sits on the marker element; MapLibre adds its own classes to elements it owns)',
-  effects.ok && (effects.state.markerClass || '').split(/\s+/).includes('marker') &&
-    (effects.state.markerClass || '').split(/\s+/).includes(effects.state.tier), effects.state);
-check('line effect (c): the site left the open review list (the item\'s resolution is checked '
-  + 'from the tree in the python checks - the export writes it before review.json)',
-  effects.ok && !effects.state.inOpen, effects.state);
-check('line effect (d): the card\'s done map carries a parseable timestamp for the site',
-  effects.ok && effects.state.doneOk, effects.state);
+// the effects, polled through what the server serves and what the page shows
+let effects = null;
+for (let i = 0; i < 120; i++) {
+  const deps = await served('data/sites/' + site + '/depictions.json');
+  const ov = (deps.depictions || []).find(d => (d.fit || {}).doc === docId) || null;
+  const sites = await served('data/sites.json');
+  const entry = (sites.sites || sites).find(x => x.id === site) || {};
+  const review = await served('data/review.json');
+  const shown = await layer();
+  const markerClass = await page.evaluate(n => { const el = [...document.querySelectorAll('button.marker')].find(b => b.getAttribute('aria-label') === 'Open ' + n); return el ? el.className : null; }, entry.name || pick.name);
+  effects = { overlayFile: ov && ov.file, overlayInk: ov && ov.ink, overlayAt: ov && ov.fit && ov.fit.at, corners: ov && ov.corners,
+              depVis: shown.vis, depSrc: shown.src, markerClass, tier: tierOf(entry.score), drawings: entry.drawings, score: entry.score,
+              inOpen: (review.items || []).some(x => x.site === site) };
+  if (ov && doc && effects.overlayAt === doc.at && shown.vis === 'visible' && !effects.inOpen &&
+      (markerClass || '').split(/\s+/).includes(effects.tier)) break;
+  await sleep(1000);
+}
+check('line effect (a): the overlay is made and the map shows its ink',
+  !!effects.overlayInk && effects.depVis === 'visible' && effects.depSrc === 'data/sites/' + site + '/' + effects.overlayInk, effects);
+if (effects.corners) {
+  const k = Math.cos(placedLL[0][1] * Math.PI / 180), M = ll => [ll[0] * 111319.49 * k, ll[1] * 111319.49];
+  const err = effects.corners.map((c, i) => Math.hypot(M(c)[0] - M(placedLL[i])[0], M(c)[1] - M(placedLL[i])[1]));
+  check('line effect (a): the overlay\'s corners are where the drawing was placed (3 screen px)', Math.max(...err) <= 3 * mpp + 0.5, { err, mpp });
+}
+check('line effect (b): the site\'s square takes its new score\'s tier',
+  (effects.markerClass || '').split(/\s+/).includes('marker') && (effects.markerClass || '').split(/\s+/).includes(effects.tier), effects);
+check('line effect (c): the site left the open review list', effects.inOpen === false, effects);
 await page.screenshot({ path: outdir + '/4-saved.png' });
 
-// ---- the card moves on: back to the home view (the card is only there)
+// ---- the card moves on
 await page.click('#back', { timeout: 20000 });
-const cardPoll = (s) => page.evaluate(async (s) => {
-  const t0 = Date.now();
-  while (Date.now() - t0 < 20000) {
-    const c = document.getElementById('fqcard');
-    if (c) {
-      const pend = (typeof fqPending === 'function') ? fqPending() : [];
-      const next = pend.length ? { name: pend[0].name || pend[0].site, site: pend[0].site } : null;
-      return { name: (c.querySelector('.fq-site b') || {}).textContent || null,
-               pickName: ((FQ.entries.find(x => x.site === s) || {}).name || s),
-               text: c.textContent, next, n: pend.length };
-    }
-    await new Promise(r => setTimeout(r, 250));
-  }
-  return null;
-}, s);
-const card2 = await cardPoll(site);
+await page.waitForSelector('#fqcard', { timeout: 20000 }).catch(() => {});
+const card2 = await cardText();
 check('after save: the card names the next pending entry, not the pick',
-  !!card2 && !!card2.next && card2.name === card2.next.name && card2.next.site !== site &&
-  card2.name !== card2.pickName,
-  card2);
+  !!card2 && !!nextAfter && card2.name === (nextAfter.name || nextAfter.site), { card2, next: nextAfter && nextAfter.name });
 
-// ---- the reload: the fit loads back unchanged (same context: aw.depSel, aw.fitQueue.done
-//      and aw.ground persist; the hash '#<site>' drove select() again)
+// ---- reload on the site: the fit comes back as the owner left it
+// a real reload, deep-linked to the site (a hash change alone does not reload the page)
+await page.evaluate(s => { location.hash = s; }, site);
 await page.reload();
-const boot2 = await page.evaluate(async (s) => {
-  let ok = false;
-  try {
-    const t0 = Date.now();
-    while (Date.now() - t0 < 60000) {
-      if (S.ready && S.sites.length && S.sel === s) { ok = true; break; }
-      await new Promise(r => setTimeout(r, 250));
-    }
-  } catch {}
-  return ok;
-}, site);
-check('reload: the page booted straight onto the site view (the deep link)', boot2);
-const reload = await page.evaluate(async ({ site, plan, wantScore, wantDrawings }) => {
-  const docId = site + '.' + plan;
-  const t0 = Date.now();
-  let ok = false, state = {};
-  while (Date.now() - t0 < 60000 && !ok) {
-    try {
-      const deps = await fetch('data/sites/' + site + '/depictions.json?t=' + Date.now()).then(r => r.json());
-      const overlay = (deps.depictions || []).find(x => (x.fit || {}).doc === docId) || null;
-      const lid = 'dep-' + site;
-      const d = (S.dep[site] || []).find(x => x.file === S.depSel[site]);
-      const want = d ? 'data/sites/' + site + '/' + (S.depMode === 'ink' && d.ink ? d.ink : d.file) : null;
-      const mk = markers.find(k => k.id === site);
-      const s = S.byId[site] || {};
-      state = {
-        sel: S.sel, ground: S.ground, depMode: S.depMode, plateMode: S.plateMode,
-        depSel: S.depSel[site], overlayFile: overlay && overlay.file,
-        depVis: map.getLayer(lid) ? map.getLayoutProperty(lid, 'visibility') : null,
-        depSrc: map.getSource(lid) ? map.getSource(lid).url : null, want,
-        markerClass: mk ? mk.el.className : null, tier: tierOf(s),
-        drawings: s.drawings, score: s.score,
-        doneOk: FQ.done[site] !== undefined && !Number.isNaN(Date.parse(FQ.done[site]))
-      };
-      ok = state.sel === site && state.ground === 'imagery' && state.depMode === 'ink' &&
-        state.plateMode === 'ink' && state.overlayFile && state.depSel === state.overlayFile &&
-        state.depVis === 'visible' && state.depSrc === state.want &&
-        (state.markerClass || '').split(/\s+/).includes('marker') &&
-        (state.markerClass || '').split(/\s+/).includes(state.tier) &&
-        state.doneOk &&
-        state.drawings === wantDrawings && state.score === wantScore;
-    } catch {}
-    if (!ok) await new Promise(r => setTimeout(r, 500));
-  }
-  return { ok, state };
-}, { site, plan, wantScore: effects.state.score, wantDrawings: effects.state.drawings });
-check('reload: the saved fit loads back (the persisted selection is the overlay ink, the square ' +
-      'and the done map are kept, the page contract ground/ink restored)',
-  reload.ok, reload.state);
-await sleep(5000); // the fly-to settles: the shot shows the overlay on the map
+await page.waitForSelector('#g-imagery', { timeout: 60000 });
+let reload = null;
+for (let i = 0; i < 60; i++) {
+  const shown = await layer();
+  reload = await page.evaluate(() => ({
+    title: (document.querySelector('#body h2.site-title') || {}).textContent || null,
+    aerial: (document.getElementById('g-imagery') || {}).getAttribute && document.getElementById('g-imagery').getAttribute('aria-pressed') === 'true',
+    ink: (document.getElementById('d-ink') || {}).getAttribute && document.getElementById('d-ink').getAttribute('aria-pressed') === 'true',
+    selected: ([...document.querySelectorAll('#body [data-dep][aria-pressed="true"]')][0] || {}).dataset || null,
+  }));
+  reload.depVis = shown.vis; reload.depSrc = shown.src;
+  reload.markerClass = await page.evaluate(n => { const el = [...document.querySelectorAll('button.marker')].find(b => b.getAttribute('aria-label') === 'Open ' + n); return el ? el.className : null; }, pick.name);
+  reload.selectedDep = reload.selected ? reload.selected.dep : null; delete reload.selected;
+  if (reload.depVis === 'visible' && reload.selectedDep === effects.overlayFile) break;
+  await sleep(500);
+}
+check('reload: the site opens with the saved drawing selected and on the map, in ink, on the aerial photograph',
+  reload.selectedDep === effects.overlayFile && reload.depVis === 'visible' && reload.depSrc === 'data/sites/' + site + '/' + effects.overlayInk &&
+  reload.aerial && reload.ink, reload);
+await sleep(3000);
 await page.screenshot({ path: outdir + '/5-reload.png' });
-// back to the home view once more: the card still moved on
 await page.click('#back', { timeout: 20000 });
-const card3 = await cardPoll(site);
-check('after reload: the card still names the next pending entry, not the pick',
-  !!card3 && !!card3.next && card3.name === card3.next.name && card3.next.site !== site &&
-  card3.name !== card3.pickName,
-  card3);
+await page.waitForSelector('#fqcard', { timeout: 20000 }).catch(() => {});
+const card3 = await cardText();
+check('after reload: the card still names the next pending entry', !!card3 && !!nextAfter && card3.name === (nextAfter.name || nextAfter.site), card3);
 
-const out = {
-  boot, card1, seed,
-  anchorBeforeSave, pairsBefore, imgSize,
-  doc: (() => { try { return JSON.parse(readFileSync(tree + '/data/db/platefits/' + docId + '.json', 'utf8')); } catch { return null; } })(),
-  effects: effects.state, card2, reload: reload.state, card3
-};
-console.log('[eval] ' + JSON.stringify(out));
-for (const ln of lines) if (!ln.startsWith('[console')) console.log(ln);
+console.log('[eval] ' + JSON.stringify({ card1, placedLL, mpp, doc, effects, card2, reload, card3 }));
+for (const ln of lines) console.log(ln);
 check('no page errors in the run', !lines.some(ln => ln.startsWith('[pageerror')));
-// Esri's own URLs are .../MapServer/tile/... (singular) - the '/tiles/' exclusion misses them
 check('no network-level request failures outside the map tiles',
   !lines.some(ln => ln.startsWith('[reqfail') && !ln.includes('/tiles/') && !ln.includes('arcgisonline') && !ln.includes('MapServer/tile/')));
 console.log(failures.length ? 'RESULT FAIL: ' + failures.join(' | ') : 'RESULT PASS');
@@ -777,20 +555,24 @@ def _run_one(fx, tag, tmp_path_factory):
     assert doc["model"] == "similarity" and doc["src"] == "book" and doc["url"] is None and doc["ref"] is None
     for k in ("label", "title", "book", "cite"):  # saveFit copies them verbatim from the row
         assert doc[k] == row[k], (doc.get(k), row.get(k))
-    assert doc["size"] == data["imgSize"] == row["size"]
+    assert doc["size"] == row["size"]
     mb, W, H = row.get("map_box"), row["size"][0], row["size"][1]
     want_crop = ([round(mb[0] * W), round(mb[1] * H), round(mb[2] * W), round(mb[3] * H)] if mb
                  else [0, 0, W, H])
     assert doc["crop"] == want_crop, (doc["crop"], want_crop)
-    assert doc["pairs"] == data["pairsBefore"], "the doc pairs are not exactly the placed five"
     assert re.match(r"^2026-\d\d-\d\dT\d\d:\d\d:\d\d", doc["at"]), doc["at"]
 
-    # 2. the doc's own fit agrees with the placed anchor (the page's simFit, stdlib)
+    # 2. the doc's own fit puts the drawing's corners where the owner saw them at Save (3 screen px)
     f = _simfit([{"u": q[0], "v": q[1], "lon": q[2], "lat": q[3]} for q in doc["pairs"]])
-    anchor = data["anchorBeforeSave"]
-    assert abs(f["mpx"] - anchor["mpx"]) < 1e-3, (f["mpx"], anchor["mpx"])
-    assert abs(f["rot"] - anchor["rot"]) < 0.01, (f["rot"], anchor["rot"])
     assert max(f["resid"]) < 2, max(f["resid"])
+    lat0 = data["placedLL"][0][1]
+    kx = 111319.49 * math.cos(math.radians(lat0))
+    x0, y0, x1, y1 = doc["crop"]
+    for (u, v), ll in zip([(x0, y0), (x1, y0), (x1, y1), (x0, y1)], data["placedLL"]):
+        mx, my = f["at"](u, v)
+        lon, lat = _unmerc(mx, my)
+        err = math.hypot((lon - ll[0]) * kx, (lat - ll[1]) * 111319.49)
+        assert err <= 3 * data["mpp"] + 0.5, (err, data["mpp"])
 
     # 3. the overlay (the tree's depictions.json): the same similarity, as webp, with the
     #    hand-placed source line
@@ -806,12 +588,6 @@ def _run_one(fx, tag, tmp_path_factory):
     fit = ov["fit"]
     assert fit["at"] == doc["at"] and fit["pairs"] == 5 and fit["model"] == "similarity"
     assert len(fit["resid_m"]) == 5 and max(fit["resid_m"]) < 1
-    max_px = int(re.search(r"^MAX_PX = (\d+)", (tree / "pipeline" / "plan_fit.py").read_text(), re.M).group(1))
-    fs = data["imgSize"][0] / row["size"][0]
-    fpx = min(1.0, max_px / max((doc["crop"][2] - doc["crop"][0]) * fs, (doc["crop"][3] - doc["crop"][1]) * fs))
-    want_mpx = anchor["mpx"] * fs / fpx
-    assert abs(fit["m_per_px"] - want_mpx) / want_mpx < 1e-3, (fit["m_per_px"], want_mpx)
-    assert abs(fit["rot_deg"] - anchor["rot"]) < 0.01, (fit["rot_deg"], anchor["rot"])
     assert ov["year"] == int(re.search(r"(?<!\d)(1[2-9]\d\d)(?!\d)",
                                        (doc.get("book") or "") + " " + str(doc.get("label") or "")
                                        ).group(1))
@@ -890,13 +666,11 @@ def _run_one(fx, tag, tmp_path_factory):
     assert not any(ln.startswith("sync ") and ("refused" in ln or "FAILED" in ln
                   or "sent to the review queue" in ln) for ln in runlog), runlog
 
-    # 8. the reload state the probe checked in the browser, cross-checked against the tree
-    assert data["reload"]["sel"] == site
-    assert data["reload"]["ground"] == "imagery" and data["reload"]["depMode"] == "ink" \
-        and data["reload"]["plateMode"] == "ink"
-    assert data["reload"]["depSel"] == ov["file"]
+    # 8. the reload, as the page showed it, cross-checked against the tree
+    assert data["reload"]["selectedDep"] == ov["file"]
+    assert data["reload"]["aerial"] is True and data["reload"]["ink"] is True
     assert data["reload"]["depVis"] == "visible" and data["reload"]["depSrc"] == f"data/sites/{site}/{ov['ink']}"
-    assert data["reload"]["drawings"] == entry["drawings"] and data["reload"]["score"] == entry["score"]
+    assert data["effects"]["drawings"] == entry["drawings"] and data["effects"]["score"] == entry["score"]
 
     # the checkout (the shared store) is byte-identical around the run
     assert _write_surface(fx["picks"]) == surface, "the run wrote into the checkout's shared store"

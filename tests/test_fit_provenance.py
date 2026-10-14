@@ -15,7 +15,7 @@ needed, ephemeral ports):
   a. the repo's store: every document has a trustworthy mark (by in hand/agent) or at least
      the batch's own auto mark (never unmarked non-auto - agent c's 203b may merge pre-migration
      EU documents, which the self-heal stamps at the next sync); the hand set is exactly the
-     golden's 21 entries (the 20 golden hand fits + Maiden Castle's DPLA plan), byte-for-byte
+     golden's 22 entries (the 20 golden hand fits + Maiden Castle's DPLA plan + the owner's Fort Ancient S&D plate, 2026-10-13), byte-for-byte
      (sha256sum -c tests/golden/hand_fit_docs.sha256).
   b. the one-site line refuses an unmarked non-auto document end to end (the copied line run
      on a copy of Stonehenge's files, sockets dead, no model - the refusal precedes the build,
@@ -194,14 +194,14 @@ def get_json(url, timeout=10):
 
 def test_every_doc_carries_provenance():
     """Every document in data/db/platefits/ says who placed it (or at least carries the batch's
-    own auto mark); the hand set is exactly the golden's 21 entries, byte-for-byte."""
+    own auto mark); the hand set is exactly the golden's 22 entries, byte-for-byte."""
     platefit_entries = []
     for ln in GOLDEN_SHA.read_text().splitlines():
         m = re.match(r"^[0-9a-f]{64}\s+(data/db/platefits/[^ ]+)$", ln)
         if m:
             platefit_entries.append(m.group(1))
-    assert len(platefit_entries) == 21, \
-        f"the golden now holds {len(platefit_entries)} platefit entries, not 21 - extend this test on purpose"
+    assert len(platefit_entries) == 22, \
+        f"the golden now holds {len(platefit_entries)} platefit entries, not 22 - extend this test on purpose"
 
     store = ROOT / "data" / "db" / "platefits"
     hand, unmarked_auto = set(), 0
