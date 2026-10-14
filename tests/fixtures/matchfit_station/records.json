@@ -37,6 +37,7 @@
    "responses_recorded": 15
   },
   "offline_replay_matches_live": true,
+  "refreshed": "2026-10-14 (238): the frozen 001 gate went between the matcher's judge and the write - the doc score is the gate's median (0.0), the matcher block gains resid_m (3.1), and the sync/review lines and the depiction source follow the new score; the recorded /match responses, the unsure fixture and the input hashes are untouched (deterministic offline replay)",
   "propose_reads": "checkout",
   "input_hashes": {
    "hand_doc": "c7cd1d06b07c17db5f33fa0c386d0c2a1d4618e61c11671d17ce6705c499e833",
@@ -57,10 +58,10 @@
     "fit  matcher: fit written (badbury-rings-q798831.earthworkenglan01allcgoog_n0132_1.json)",
     "fit  1 candidate picture(s): 1 fitted (doc), 0 in the review item -> no batch run needed",
     "badbury-rings-q798831 earthworkenglan01allcgoog_n0132_1: 8 pairs, similarity, residuals m [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]",
-    "sync Badbury Rings, Wimbome, Dorset: synced to the map (plan_earthworkenglan01allcgoog_n0132_1.webp, 8 pairs, gate 3.1 m)",
+    "sync Badbury Rings, Wimbome, Dorset: synced to the map (plan_earthworkenglan01allcgoog_n0132_1.webp, 8 pairs, gate 0.0 m)",
     "entry  web/data/sites.json: drawings 1 -> 1",
     "review no review item (every picture is a fit)",
-    "  Badbury Rings, Wimbome, Dorset (earthworkenglan01allcgoog_n0132_1): synced to the map, gate 3.1 m",
+    "  Badbury Rings, Wimbome, Dorset (earthworkenglan01allcgoog_n0132_1): synced to the map, gate 0.0 m",
     "done"
    ],
    "doc": {
@@ -126,7 +127,7 @@
     "title": "Badbury Rings, Wimbome, Dorset",
     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
     "auto": true,
-    "score": 3.1,
+    "score": 0.0,
     "by": "agent",
     "ia": "earthworkenglan01allcgoog",
     "file": "n0132.jpg",
@@ -139,6 +140,7 @@
      "ground": "six-inch-1st.webp",
      "window": 0.35,
      "rot_deg": 3.62,
+     "resid_m": 3.1,
      "spread": [
       0.138,
       125.3
@@ -171,7 +173,7 @@
      ]
     ],
     "coverage": 1.0,
-    "source": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908. Fig. 21. Scan: Internet Archive earthworkenglan01allcgoog leaf 132. Fitted automatically by the batch on 8 matching points; one rotation and scale fits them within 1 m (gate score 3.1 m)",
+    "source": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908. Fig. 21. Scan: Internet Archive earthworkenglan01allcgoog leaf 132. Fitted automatically by the batch on 8 matching points; one rotation and scale fits them within 1 m (gate score 0.0 m)",
     "fit": {
      "pairs": 8,
      "model": "similarity",
