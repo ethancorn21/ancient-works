@@ -1,0 +1,12 @@
+{
+ "id": "kirkintilloch",
+ "name": "Kirkintilloch (the Peel)",
+ "place": "Kirkintilloch, East Dunbartonshire, Scotland, Scotland",
+ "lon": -4.15472222,
+ "lat": 55.93583333,
+ "width_m": 1600,
+ "height_m": 1600,
+ "px_m": 1.0,
+ "region": "Scotland",
+ "kind": "roman fort"
+}
