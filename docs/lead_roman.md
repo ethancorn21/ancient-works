@@ -112,6 +112,29 @@ raedykes, rough-castle-fort) are REUSED from extras.jsonl, not re-created. The
 220 catalog check (12603 sites + 193 extras, keyed by name): none of the seven
 P.113/Ardoch/Innerpeffery sites exists yet - all new no-QID rows.
 
+**Staged (808, 2026-10-14 - the plan above, executed):** all 17 kind-s leaves staged = 100%
+of the list's kind-s (207a's moved 90% box met with nothing missing, so no drop reasons): the
+15 wall maps on the ties above, n0114 to the new Ardoch row (the Innerpeffery camp recorded on
+that row's desc - no row of its own, the box), n0185 to the new VIROSIDUM row - the P.113
+principal, the only one of the five without a catalog row (I-IV =
+longovicium/whitley-castle/voreda/luguvallium; the join check said a NEW row needs a staged plan,
+so only the principal gets one - DECISIONS 808 147 item 4). Eight new no-QID extras_roman rows
+(region lowercase, kind space-form, cross-checked location_check): cilurni (Chesters, confirmed;
+the catalog's Q17650519 sits 300 m away - the row stays no-QID), petriana (Horsley's HYPOTHETICAL
+N.8 Solway-coast station, approx), congavata (Castlesteads, confirmed; catalog's Q17650705 200 m
+away), tunnocelum (Boulneis per the N.10 plate, approx), kirkintilloch (the Peel, confirmed;
+Q2422689 town item, precision 30 m), carriden (the Antonine Wall's east end near Bo'ness,
+confirmed; Q81445376, precision 1e-6, kind 'roman site' - no fort plan on the N.5 plate; renamed
+from falkirk-end when the Wikipedia Antonine Wall article fixed the east end), ardoch (the Braco
+camp, Gask Ridge, confirmed; Q4788225, precision 1e-6, kind 'roman site' - the Knoch stream
+proved unlocated in the sources checked), virosidum (near Maryport per the N.1 map, approx).
+bar-hill-fort and rough-castle-fort REUSED from extras.jsonl, not re-created. Every row: year
+1732, the 200 evidence field (kind caption_coords, named_place = the row's title, place_* =
+site_* = the tied site's own coordinates, dist_m 0.0 - re-verifiable offline from stored fields;
+evidence.check over the 17 rows: 17 pass / 0 fail), url/thumb = the stable /download/ page
+image. The book's IA metadata has no license flag (checked 2026-10-14, live + cached), so the
+license field reads 'public domain (the 1732 original, pre-copyright era)' (DECISIONS 808 152).
+
 **Deferred (never staged):** the ~121 inscription/sculpture plates (Roman
 numerals I-CXXI) trail as HORSEY_PLATES (kind o - indexed in the list mapping,
 each naming the site where the stone was found); not transcribed yet, and not
