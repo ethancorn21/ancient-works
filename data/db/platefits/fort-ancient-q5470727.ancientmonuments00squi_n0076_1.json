@@ -1,0 +1,58 @@
+{
+ "site": "fort-ancient-q5470727",
+ "plan": "ancientmonuments00squi_n0076_1",
+ "ia": "ancientmonuments00squi",
+ "file": "n0076.jpg",
+ "crop": [
+  146,
+  366,
+  2737,
+  3739
+ ],
+ "model": "similarity",
+ "src": "book",
+ "url": null,
+ "ref": null,
+ "size": [
+  2912,
+  4064
+ ],
+ "pairs": [
+  [
+   145.6,
+   365.8,
+   -84.099918,
+   39.4112722
+  ],
+  [
+   2737.3,
+   365.8,
+   -84.0843819,
+   39.4103549
+  ],
+  [
+   2737.3,
+   3738.9,
+   -84.0859272,
+   39.3947304
+  ],
+  [
+   145.6,
+   3738.9,
+   -84.1014633,
+   39.3956479
+  ],
+  [
+   1441.4,
+   2052.3,
+   -84.0929228,
+   39.4030019
+  ]
+ ],
+ "label": "Plate VII",
+ "title": "\"Fort Ancient,\" Warren county, Ohio",
+ "book": "Squier & Davis 1848",
+ "cite": "E. G. Squier and E. H. Davis, Ancient Monuments of the Mississippi Valley (Smithsonian Contributions to Knowledge vol. 1), Washington 1848",
+ "at": "2026-10-14T02:53:29.196Z",
+ "by": "hand"
+}

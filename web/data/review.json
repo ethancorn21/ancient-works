@@ -1,5 +1,5 @@
 {
- "at": "2026-10-13T14:34:07.713702+00:00",
+ "at": "2026-10-14T02:54:38.780998+00:00",
  "items": [
   {
    "site": "a-saucer-barrow-and-a-bowl-barrow-600m-n-q17677473",
@@ -8515,198 +8515,6 @@
    }
   },
   {
-   "site": "fort-ancient-q5470727",
-   "name": "Fort Ancient",
-   "lead": "ancientmonuments00squi_n0076_1",
-   "candidates": [
-    {
-     "plan": "ancientmonuments00squi_n0076_1",
-     "title": "\"Fort Ancient,\" Warren county, Ohio",
-     "url": "books/ancientmonuments00squi/n0076.jpg",
-     "evidence": {
-      "rec": "evidence/1",
-      "checked": "2026-10-10",
-      "kind": "caption_coords",
-      "named_place": "Fort Ancient",
-      "place": {
-       "county": "warren",
-       "state": "ohio"
-      },
-      "site": {
-       "id": "fort-ancient-q5470727",
-       "qid": "Q5470727",
-       "name": "Fort Ancient",
-       "lon": -84.090253,
-       "lat": 39.407783,
-       "admin": {
-        "state": "Ohio"
-       }
-      },
-      "score": 1.0,
-      "runner_up": 0,
-      "why": []
-     },
-     "pairs": [
-      [
-       1000.0,
-       1000.0,
-       -84.0926195,
-       39.4095921
-      ],
-      [
-       1500.0,
-       1000.0,
-       -84.0868062,
-       39.4095921
-      ],
-      [
-       2000.0,
-       1000.0,
-       -84.080993,
-       39.4095921
-      ]
-     ],
-     "coarse": false,
-     "ground": "relief",
-     "scale_m_px": 0.1981,
-     "rot_deg": 0.0,
-     "scale_source": "ratio",
-     "note": "scale from the printed ratio at 500 ppi (the scale-bar box holds the ratio text, not ticks)",
-     "why": "features: Northwest corner of the main earthwork, North gate gap in the rampart, Northeast corner of the main earthwork, East gate gap in the rampart, Southwest corner of the main earthwork, South gate gap in the rampart, Southeast corner of the main earthwork, River crossing on the western bank; stated scale 0.198 disagrees with its own points (1.000 m/px): not trusted"
-    },
-    {
-     "plan": "ArcheologicalAtlasOfOhio_n0188_1",
-     "title": "MAP OF FORT ANCIENT",
-     "url": "books/ArcheologicalAtlasOfOhio/n0188.jpg",
-     "evidence": {
-      "rec": "evidence/1",
-      "checked": "2026-10-10",
-      "kind": "caption_coords",
-      "named_place": "Fort Ancient",
-      "place": {
-       "county": "franklin",
-       "state": "ohio"
-      },
-      "site": {
-       "id": "fort-ancient-q5470727",
-       "qid": "Q5470727",
-       "name": "Fort Ancient",
-       "lon": -84.090253,
-       "lat": 39.407783,
-       "admin": {
-        "state": "Ohio"
-       }
-      },
-      "score": 1.0,
-      "runner_up": 0,
-      "why": []
-     },
-     "pairs": [
-      [
-       1500.0,
-       800.0,
-       -84.080993,
-       39.4051005
-      ],
-      [
-       100.0,
-       800.0,
-       -84.0926195,
-       39.4051005
-      ]
-     ],
-     "coarse": false,
-     "ground": "relief",
-     "scale_m_px": 0.2032,
-     "rot_deg": 0.0,
-     "scale_source": "ratio",
-     "note": "scale from the printed ratio at 150 ppi; north hint 69.7 deg rejected (|deg| > 60): plate left north-up",
-     "why": "features: East gate gap, West gate gap"
-    },
-    {
-     "plan": "b24849959_n0264_1",
-     "title": "Fort Ancient, Warren county",
-     "url": "books/b24849959/n0264.jpg",
-     "pairs": [
-      [
-       1000.0,
-       1000.0,
-       -84.0926195,
-       39.4095921
-      ],
-      [
-       1500.0,
-       1000.0,
-       -84.0868062,
-       39.4095921
-      ],
-      [
-       2000.0,
-       1000.0,
-       -84.080993,
-       39.4095921
-      ],
-      [
-       2000.0,
-       1500.0,
-       -84.080993,
-       39.4051005
-      ],
-      [
-       2000.0,
-       2000.0,
-       -84.080993,
-       39.4006086
-      ],
-      [
-       1500.0,
-       2000.0,
-       -84.0868062,
-       39.4006086
-      ],
-      [
-       1000.0,
-       2000.0,
-       -84.0926195,
-       39.4006086
-      ],
-      [
-       1000.0,
-       1500.0,
-       -84.0926195,
-       39.4051005
-      ]
-     ],
-     "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
-     "evidence": {
-      "rec": "evidence/1",
-      "checked": "2026-10-12",
-      "kind": "caption_coords",
-      "named_place": "Fort Ancient",
-      "place": {
-       "county": "warren",
-       "state": "ohio"
-      },
-      "site": {
-       "id": "fort-ancient-q5470727",
-       "qid": "Q5470727",
-       "name": "Fort Ancient",
-       "lon": -84.090253,
-       "lat": 39.407783,
-       "admin": {
-        "state": "Ohio"
-       }
-      },
-      "score": 1.0,
-      "runner_up": 0.2,
-      "why": []
-     },
-     "gate_score": 0.0
-    }
-   ],
-   "no_picture_found": null
-  },
-  {
    "site": "fort-du-muret-q48757768",
    "name": "Fort du Muret",
    "lead": null,
@@ -13049,12 +12857,16 @@
   {
    "site": "numancia",
    "name": "Numancia (Cerro de la Muela)",
-   "lead": null,
-   "candidates": [],
-   "no_picture_found": {
-    "searched": "web/data/plans.json (1166 rows, matched by the sites field)",
-    "at": "2026-10-11T14:15:10.645160+00:00"
-   }
+   "lead": "c_0fa271e2444f7bfc",
+   "candidates": [
+    {
+     "plan": "c_0fa271e2444f7bfc",
+     "title": "Numancia, excavation plan, Saavedra 1879 (excavations of 1853/1855)",
+     "dropped": true,
+     "why": "dropped by the owner on the page: the picture does not show this structure"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "oakham-castle-q2968294",
