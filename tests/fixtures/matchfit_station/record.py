@@ -340,14 +340,20 @@ def _run(tmp):
         c3 = mfh.candidates(str(t_live), site, row, None)
     finally:
         mf.match, mf.reachable, mf.ROMA_URL = orig_match, orig_reach, orig_roma
+    def _nsec(c):
+        # "seconds" is wall-clock timing, never reproducible; everything else must replay identically
+        return {k: v for k, v in c.items() if k != "seconds"}
+
     rdiffs = []
     for a, b in zip(c1, c3):
-        if a != b:
-            for k in set(a) | set(b):
-                if a.get(k) != b.get(k):
+        da, db = _nsec(a), _nsec(b)
+        if da != db:
+            for k in set(da) | set(db):
+                if da.get(k) != db.get(k):
                     rdiffs.append({"ground": a.get("ground"), "window": a.get("window"), "field": k})
-    replay_ok = c1 == c3
-    print("offline replay vs live run 1: %s" % ("identical" if replay_ok else "DIFFERS: %r" % rdiffs), flush=True)
+    replay_ok = all(_nsec(a) == _nsec(b) for a, b in zip(c1, c3))
+    print("offline replay vs live run 1: %s (seconds field excluded: timing is not reproducible)" %
+          ("identical" if replay_ok else "DIFFERS: %r" % rdiffs), flush=True)
 
     input_hashes = _input_hashes()
     header_base = {
@@ -526,7 +532,7 @@ def _run(tmp):
     _save(OUT_DIR / "records_unsure.json", {"header": {**header_base, "unsure": unsure_section},
                                             "responses": unsure_records})
     print("confident stdout:")
-    print(out, end="")
+    print("\n".join(c_out))
     print("unsure stdout:")
     print("\n".join(u_out))
 
