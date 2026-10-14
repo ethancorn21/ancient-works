@@ -53,3 +53,20 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
     FAILED tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
     1 failed, 159 passed, 1 skipped in 424.53s (0:07:04)
     (full test output: .agent/reports/last-test-output.txt)
+
+## Where I am (iteration 157, agent a, task 000 - written at the context limit)
+
+The 2026-10-13 23:39 GOAL change (point 2: the image matcher is the ONLY automatic placement,
+never a language model) is fully planned in tasks/000-plan.md. Done and committed in f828ce0:
+tasks/238-matcher-gate.md (every matcher fit through the frozen 001 gate; deps 302f, 302g) and
+tasks/239-retire-vision-fit.md (the vision-model fitting pass retired; deps 238, 212, 302f,
+302g) created; 000's seven boxes re-verified and ticked, Status: done; `Depends on: none`
+format line added to done tasks 302a/308/309. The DECISIONS.md entry above records the
+investigation facts and the decisions (incl. the LiDAR-only reading = PLAN assumption 10).
+STILL UNCOMMITTED in the working tree: PLAN.md (the seven plan edits - current state 2026-13,
+matcher-station architecture, module map, task map points 1/2/3, assumptions 10-11,
+out-of-scope, waves 6-8). NEXT 000 SESSION (one small step): `git add -A && git commit -m
+"000: plan re-checked for the 2026-10-13 GOAL change - the matcher is the only automatic
+placement (238/239 added; boxes re-ticked)"` (check `git status` first; the only expected
+change is PLAN.md), then stop. No code or tests touched; suite state per the loop-start note
+above (the 212/235 red is pre-existing to 000).

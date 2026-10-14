@@ -521,4 +521,55 @@ practical rules; today's run corroborated it exactly).
 - **Clayton 1804 READ (the first look of the three sessions trying):** rendered the full 2557x1913 at 1400 px and read it. Layout: the river band runs along the BOTTOM of the sheet; the fort is ON the river at the town's SW corner, where the band bends; the town (numbered references 1-20, "Market or Main St", White Hall "farmer fort", Nashville Inn, Dr Henning's House) is NORTH of the band; the **Rich Branch** is labeled on the RIGHT and flows south into the band EAST of the town, its mouth in the sheet's SE corner beside the "Cumberland River" label (the 1804 author labeled the whole band "Cumberland River"); "Johnson's House, Ferry & Keel Boat Landing" is at the western end of the band; "Cemetery", "now Capitol Hill" (the Walker house, "Present College Str") and Judge McNairy's properties extend the drawing well north of the town; the title block "NASHVILLE IN 1804 / From Notes of one then resident (Mrs Temple, Daughter of Dunc. Robertson)" is below the river. Working hypothesis: the bottom band is the rivers' corner (the Tennessee running SW->E into the Cumberland; the 1804 town on the NE side of it, between the corner and the Rich Branch) - which matches the pinned fort and would put P625 inside the drawn extent. The sketch is hand-drawn and not to scale, so the extent's center is to be measured by a 2-anchor linear georef (fort + the Rich Branch mouth), cross-checked against the to-scale Haydon 1860 (see the task file's step 1 for the exact recipe: crop coords, the /map bbox for the Rich Branch, the cross-check).
 - **OSM is unreliable around the Nashville CBD - do not use it for the point decision:** api.openstreetmap.org /map on 0.02 deg boxes + /way/40806685/full (the only way tagged "Cumberland River" nearby) give a "hook" (36.177,-86.781) -> (36.163,-86.773) -> (36.161,-86.770) -> (36.159,-86.764) -> (36.159,-86.758) -> (36.161,-86.747) that places the river EAST of P625 at the CBD's latitude (contradicting both 151's "P625 east of the Cumberland" and the greenway hit at (36.1729, -86.7831) which sits 400 m WEST of the way's point there); SW boxes around the supposed confluence contain no river ways at all; the 50k-node limit blocks bigger boxes. Nissan Stadium (way 58759639, 36.1665, -86.7713) is NE of the CBD, not at a river corner as often recalled. The confluence of the two rivers is simply not cleanly mapped in OSM here. The old maps (Clayton/Haydon/Poe) + Wikidata are the trustworthy sources, per the project's own method.
 - **The next session FILES TO PITFALLS (this one hit the context limit first): Overpass is dead from this machine** (overpass-api.de -> HTTP 406 "Not Acceptable" even with a UA; overpass.kumi.systems -> an XHTML error page). Use api.openstreetmap.org instead: /map?bbox=s,w,n,e (keep it <= ~0.02x0.02 deg or the "You requested too many nodes (limit is 50000)" error), /way/{id}/full for a single way with node coordinates, and Nominatim (1.1 s gap, a UA) for names. Also: PIL lives in the project .venv, not system python3 (ModuleNotFoundError on plain python3) - run .venv/bin/python and set Image.MAX_IMAGE_PIXELS = None for the 10000x6082 Haydon (222 M px trips PIL's 178 M-px bomb limit, the 152 finding).
+
+## 2026-10-13 000 DECISION: plan re-checked for the 2026-10-13 GOAL change - the matcher is the only automatic placement (238/239 added; boxes re-ticked)
+GOAL.md changed 2026-10-13 23:39 (driver reopen commit 116aba2): point 2 rewritten - the ONLY
+automatic placement is the purpose-built image matcher (fit/matchfit.py: MatchAnything RoMa +
+ELoFTR) against a georeferenced ground image (the LiDAR relief, or an old survey sheet already
+placed on the map); the local Qwen models never place a drawing and never write point pairs or
+coordinates; fit/batch_us.py / fit/batch_eu.py's model fitting pass is retired; automatic
+fitting runs on LiDAR sites only (fits on aerial photographs alone mostly do not line up),
+aerial-only sites keep their review items; every matcher fit goes to the gate (point 3); the
+matcher's ~1-in-10 yield (49 fits: 35 RoMa + 14 ELoFTR; 37 on old survey sheets, 12 on the LiDAR
+relief) is recorded in GOAL's "What is known". The lead's port d286196 (10-13 18:57, before the
+reopen) had already updated GOAL.md and exactly ONE PLAN.md tech-choice bullet; the rest of the
+plan (current state, architecture, module map, task map, assumptions) was still the 2026-10-10
+wording ("the local model does the fitting itself") - iteration 157 (agent a) finished that.
+
+Investigation (all facts run, not reasoned): 49 matcher docs in data/db/platefits (0 against
+imagery.jpg; 5 against Etat-Major sheets on sites WITHOUT relief.jpg); 22 non-matcher docs =
+the golden's 22 hand docs (41 lines = 22 docs + 19 site.json, Fort Ancient included after the
+lead's port); 499 sites (425 with relief.jpg, 0 aerial-only, 74 with neither image); 1510 plans
+rows; 456 review items in web/data/review.json; site_done._fit still runs batch_us.run_sites as
+the model second pass (--working / --model-json); matchfit.run writes a doc on judge() silence
+with score = the raw median matcher residual - the frozen 001 gate (pipeline/fit_gate.py) is
+never run on matcher docs (gate(pairs, transform=None) solves the canonical similarity; the
+matcher's RANSAC refit is the same least squares over its inliers, so the gate is directly
+applicable); cover.py (212, in flight) refuses --working at the CLI but still forwards
+--model-json to the line.
+
+Decisions: (1) The two gaps between the new GOAL and the code became two new agent tasks, one
+module each, serialized after the 302f/302g validation of the current line (agent c's, open):
+238 = the gate between the matcher's judge and the doc write (frozen rule, no re-tuning; one
+appended docs/gate.md section; the gate's `why` exposed per candidate), 239 = the vision
+fitting pass retired (the batch's _sheet/_model_prompt/_parse_answer/llm_model/recorded_model
+deleted; the line's second pass becomes the matcher-reason upsert; --working/--model-json off
+the line, batch_eu and cover.py's loop forwarding; tests + docs/site_flow.md step 1 updated).
+239 depends on 212 because cover.py is 212's in-flight file, not for code reasons. (2) The
+"LiDAR sites only" ruling is read TOGETHER WITH the preceding sentence (ground = "the LiDAR
+relief, or an old survey sheet already placed on the map"): placement against a placed sheet
+stays allowed even without LiDAR (5 of the 49 current fits are exactly that); excluded =
+aerial-only ground (no relief, no placed sheet) - a guard on this VM (0 such sites), not a
+cleanup. Stated as PLAN assumption 10 with the stricter variant noted as a one-line change in
+fit/matchfit.grounds. Not ask_human: the reading does not change the plan's shape, and GOAL's
+own 49-fits count includes the 5 sheet-only fits. (3) Deterministic-yield assumption 11 +
+out-of-scope: no re-running refused pictures, no loosening judge/gate thresholds as a yield
+strategy. (4) Box 5 fix: 302a/308/309 (all done, agent-created) lacked the one-line
+`Depends on:` (302a removed it deliberately at done; 308/309 never had it) - `Depends on:
+none` added; a format line, not a goal/acceptance edit.
+
+Commit state: f828ce0 committed tasks/000 (boxes ticked, Status done, hand-over), tasks/238,
+tasks/239, tasks/302a/308/309. PLAN.md (the 7 plan edits) is still uncommitted in the tree -
+the next 000 session commits it with the message in the hand-over. No code or tests changed;
+suite not run (last known: the one known 212/235 red, 159 passed, 1 skipped).
 - **Where this leaves box 3:** nothing else changed - staged files still 3/11/11, --check 11/11 from 150, the 152 verdicts (Poe no swap / Defenses 1895 / Clayton 1804 swap / Haydon no swap) all stand. The ONLY remaining research is the site-point georef (task file step 1), then apply exactly per steps 2-6 (one session): SITES += Q23197 "nashville-q23197" with the settled point, SOURCES += the 4 rows, live --verify (4 QIDs) + live stage (expect "1 new sites, 4 new pictures; build (236c): nashville-q23197"), offline --check (15/15), --golden (4/15/15), tests 11->15 (the exact edit list in the hand-over), lead-doc "## Nashville (Q23197)" section (point decision + per-candidate STAGED/DROP + the Fort Negley record + the 15-PASS transcript), tick box 3, Status: done.
