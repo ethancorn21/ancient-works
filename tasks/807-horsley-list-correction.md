@@ -1,4 +1,4 @@
-Status: blocked
+Status: open
 Depends on: 207a
 Touches: fit/src_roman_horsley.py, data/books/lists/britanniaromanao00hors.json, data/books/lists/britanniaromanao00hors.map.json, docs/lead_roman.md
 
@@ -121,3 +121,8 @@ sub-block numbers for the lead doc: A flagged 80, precision 0.188.
 pytest tests/ --ignore=tests/test_gate.py -p no:cacheprovider); the lone red = agent a's 307d
 placement test (known pre-existing: seed check + /tiles/relief 404). This task is offline-only:
 no new reds expected; re-baseline on the final run.
+
+(Unblocked 2026-10-14, iteration 137, agent c, from the parent 207: the owner's lift of the
+"Stop 207" (asks 006/007, answered "b") covers this 207a continuation; the lead's 06c1aa8
+block registered no open request and is stale - DECISIONS 2026-10-14 207. All work here
+stays offline.)
