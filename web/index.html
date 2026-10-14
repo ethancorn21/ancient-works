@@ -1512,9 +1512,15 @@ async function drapeCanvas(s) {
     if (!src || !src.url || !src.coordinates || !(op > 0)) continue;
     let im; try { im = await drapeImage(src.url); } catch { continue; }
     const [p0, p1, , p3] = src.coordinates.map(q => px(merc(q))), iw = im.naturalWidth, ih = im.naturalHeight;
-    g.save(); g.globalAlpha = op;
-    g.setTransform((p1[0] - p0[0]) / iw, (p1[1] - p0[1]) / iw, (p3[0] - p0[0]) / ih, (p3[1] - p0[1]) / ih, p0[0], p0[1]);
-    g.drawImage(im, 0, 0); g.restore();
+    // the block is shrunk onto the screen, so hairline ink one texel wide fades to nothing (Arbor Low's plan
+    // vanished): the layer is drawn at full strength with a 2-texel spread, then laid on at its opacity
+    const t = document.createElement('canvas'); t.width = W; t.height = H;
+    const tg = t.getContext('2d');
+    for (const [dx, dy] of [[0, 0], [1, 0], [0, 1], [1, 1], [-1, 0], [0, -1], [-1, -1], [1, -1], [-1, 1]]) {
+      tg.setTransform((p1[0] - p0[0]) / iw, (p1[1] - p0[1]) / iw, (p3[0] - p0[0]) / ih, (p3[1] - p0[1]) / ih, p0[0] + dx, p0[1] + dy);
+      tg.drawImage(im, 0, 0);
+    }
+    g.save(); g.globalAlpha = op; g.drawImage(t, 0, 0); g.restore();
     if (id.startsWith('dep-')) { const d = (S.dep[s.id] || []).find(x => x.file === S.depSel[s.id]); if (d) keys.push(d.label || d.file); }
     else if (s.plate) keys.push(`${s.plate.label}, Squier & Davis 1848`);
   }

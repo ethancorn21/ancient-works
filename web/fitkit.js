@@ -334,7 +334,8 @@ function _fkBarEl() {
   const step = (fn, e) => { if (!P.placed || !P.anchor) return; _fkPush(false); fn(e && e.shiftKey ? 5 : 1); _fkReemitLive(); _fkScheduleApply(); };
   const act = {
     's-': e => step(() => { P.anchor.mpx /= 1.05; }, e), 's+': e => step(() => { P.anchor.mpx *= 1.05; }, e),
-    'r-': e => step(n => { P.anchor.rot -= n; }, e), 'r+': e => step(n => { P.anchor.rot += n; }, e),
+    // the anchor's rot is counterclockwise on screen (Mercator y up): the left-turn button adds, the right-turn takes away
+    'r-': e => step(n => { P.anchor.rot += n; }, e), 'r+': e => step(n => { P.anchor.rot -= n; }, e),
     undo: () => _fkUndo(), skip: () => { fqSkip(); _fkNext(); }, not: () => _fkNotThis(),
     cancel: () => endFit(), save: () => saveFit(),
   };
@@ -484,7 +485,7 @@ function _fkOnWheel(e) {
   if (performance.now() - _fkWheelAt > 600) _fkPush(false);  // one undo step per wheel burst
   _fkWheelAt = performance.now();
   if (P.pairs.length <= 5) _fkAbsorb();  // a corner dragged since the last transform joins the anchor first (never over pins: they would pull it back)
-  if (e.altKey) P.anchor.rot += dy * 0.01;             // 1 degree per 100-unit notch
+  if (e.altKey) P.anchor.rot -= dy * 0.01;             // 1 degree per 100-unit notch; wheel down turns clockwise
   else P.anchor.mpx *= Math.exp(-dy * 0.0015);         // the page canvas's own factor: wheel-up grows
   _fkReemitLive();
   _fkScheduleApply();
