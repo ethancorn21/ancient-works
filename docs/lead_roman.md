@@ -57,7 +57,13 @@ book's list, mapped to leaves in data/books/lists/memoirwrittendu00maclgoog.json
 - **n0093** Fig. 4, Carlisle (p.76) - plan of Carlisle: course of the Wall and the Vallum between
   Stanwix and the Castle, with the 1857-58 great sewer and its drain; scale of chains and scale
   of feet; "H M^L delin", Sandridge & Co. Litho London. **The only site plan legible in this copy
-  - the one that gets staged** (a new site row in extras_roman.jsonl, 207b's stage leg).
+  - the one that gets staged** (staged 2026-10-14 by the module's offline --stage leg: one
+  files_roman row (year 1858, the IA stable /download/ page image, w/h 964x1400 from the stage-B
+  row) + one "plan" classified row, tied to the NEW extras_roman site luguvallium-q71551754
+  "Luguvallium (Carlisle)" Q71551754 - the fort's own item, not Carlisle Castle (Q614836); 200
+  evidence kind caption_coords: the named place "Carlisle" (the binder's list) resolves to the
+  city's P625 (Q192896), 324.1 m from the fort's P625 point - fit/evidence.py check PASSES
+  offline; idempotent append, a second run changes no byte).
 - **n0111** gateway near Housesteads (p.93) - the gateway of 1856 near the station of Borcovicus
   in the Knag Burn valley (caption "Gateway discovered near Housesteads (Borcovicus) in 1856.").
   **BLANK in this copy** (faint frame only) - verified site plan (stage A figure_site_plan),

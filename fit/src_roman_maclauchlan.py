@@ -62,9 +62,16 @@ usage: src_roman_maclauchlan.py --fetch         live: triage-size page images of
                                            (cached) and print its per-leaf OCR text - all leaves as a
                                            page-count digest, or the named leaves (leafNums, n+1:
                                            12 = n0011 the full title page) for reading the book
-       src_roman_maclauchlan.py [--stage]      (not built yet) stage the verified site-plan rows
-       [--dry]                                into files_roman.jsonl + classified_roman.jsonl (+
-                                           extras_roman.jsonl for new sites)
+       src_roman_maclauchlan.py [--stage]      OFFLINE (no LLM, no network): append the book's one
+       [--dry]                                legible site-plan row (n0093, Fig. 4, the plan of
+                                           Carlisle - the other kind-s leaves are blank in this copy
+                                           or are not sites: the Maclauchlan section of
+                                           docs/lead_roman.md) to files_roman.jsonl +
+                                           classified_roman.jsonl ("plan" by hand), and its new site
+                                           (Luguvallium Q71551754) to extras_roman.jsonl (creating
+                                           each if absent); append-only, idempotent on (site, title)
+                                           and site id, rows tagged with this book's module; --dry
+                                           previews
        src_roman_maclauchlan.py --check        (not built yet) offline (no network): join the staged
                                            roman rows and run fit/evidence.py's check over this book's
                                            rows
@@ -224,6 +231,99 @@ def djvu_cmd(argv):
         print(" ".join(texts.get(n, "<missing>").split()))
 
 
+# ---------------------------------------------------------------- staging (box 3, the 130 decisions)
+
+# The one legible site plan (n0093, Fig. 4, the plan of Carlisle) stages to a NEW site: the book's
+# supposed Roman station sits on the castle ground, where the plan's Wall and Vallum meet (pp.76-77),
+# so the site is the fort's own item Q71551754 "Luguvallium Legionary Fort - Carlisle" (P31 Q57821
+# fortification -> kind "roman fort", P131 Q192896, VICI 12444, P625 precision 1e-6), NOT Carlisle
+# Castle (Q614836, kind castle) - DECISIONS 207b 130. The evidence's named place is "Carlisle" (the
+# binder's list names it; the title and desc carry it), resolved to the city's item Q192896 P625.
+SITE_NAME = "Luguvallium (Carlisle)"
+SITE_QID = "Q71551754"
+SITE_LON, SITE_LAT = -2.94077, 54.896187              # the item's P625 (verified 2026-10-14)
+PLACE_QID = "Q192896"                                 # the city of Carlisle (the item's P131)
+PLACE_LON, PLACE_LAT = -2.936388889, 54.894722222     # the city's P625 (verified 2026-10-14)
+FILE_TITLE = "FIG. 4. CARLISLE, COURSE OF THE WALL AND OF THE YALLUM."  # the plate's own printed heading
+FILE_NAME = ("Carlisle, plan of the course of the Wall and of the Vallum between Stanwix and the Castle, "
+             "with the 1857-58 great sewer, Maclauchlan (1858)")
+FILE_DESC = ("Maclauchlan, Memoir, Written During a Survey of the Roman Wall (1858), Fig. 4: the binder's "
+             "directions (djvu leaf 119) say 'The Plans, Fig. 4, 6, Carlisle and the Camp on Skew Hill at "
+             "page 76.'; the running head on p.77 is 'CARLISLE, COURSE OF THE WALL AND OF THE YALLUM.' "
+             "(See Plans, Fig. 4.). Plan of Carlisle: the course of the Wall and the Vallum between "
+             "Stanwix and the Castle, with the 1857-58 great sewer and its drain; 'H M^L delin', "
+             "Sandridge & Co. Litho London. The only site plan still legible in this copy (n0078 and "
+             "n0111 are blank here - docs/lead_roman.md). Internet Archive memoirwrittendu00maclgoog, "
+             "leaf n0093 of the 171-leaf 1858 original.")
+
+
+def stage(dry=False):
+    """OFFLINE (no LLM, no network): append the book's one legible site-plan row to the shared roman
+    staging files - n0093, Fig. 4, the plan of Carlisle (n0078/n0111 are blank in this copy,
+    n0090/n0115/n0129 are not sites: the per-leaf verdicts are in the Maclauchlan section of
+    docs/lead_roman.md) - as (a) the new site row (Luguvallium Q71551754) to extras_roman.jsonl,
+    (b) the picture row to files_roman.jsonl (the 200 evidence field: kind caption_coords, the named
+    place "Carlisle" from the binder's list resolving to the city's P625, 324 m from the fort point;
+    fit/evidence.py check_caption re-verifies it from stored fields only), and (c) its hand "plan"
+    classified row to classified_roman.jsonl. Append-only and idempotent on (site, title) and site id
+    (a second run changes no byte); --dry prints the rows instead of writing them. The row's w/h
+    comes from the committed stage-B row (data/books/triage/<ia>.B.jsonl); the url/thumb is the stable
+    /download/ page image. 211 consolidates the *_roman files into the canonical ones."""
+    import catalog   # the site-id slug rule lives in one place (pipeline/catalog.py, the sources.py rule)
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import evidence  # hav_m: the stored dist_m must reproduce under check_caption (fit/evidence.py)
+
+    b = {r["n"]: r for r in _load(os.path.join(ROOT, "data", "books", "triage", f"{IA}.B.jsonl"))}
+    row = b.get(93)
+    if not row or row.get("parse") != "ok" or not row.get("out", {}).get("plans"):
+        raise SystemExit(f"the n0093 stage-B row is missing or unreadable ({IA}.B.jsonl) - run --triage B first")
+    w, h = row["img_size"]
+    dist = round(evidence.hav_m(SITE_LON, SITE_LAT, PLACE_LON, PLACE_LAT), 1)
+
+    site = {"id": catalog.slug("Luguvallium") + "-" + SITE_QID.lower(), "qid": SITE_QID,
+            "name": SITE_NAME, "lon": SITE_LON, "lat": SITE_LAT, "region": "england",
+            "kind": "roman fort", "aerial_ok": True, "place": "Carlisle, Cumberland, England",
+            "location_check": {"status": "confirmed",
+                               "method": "Wikidata P625 (precision 1e-6) cross-checked against the plate and the city of Carlisle (Q192896)",
+                               "note": (f"the item's P625 sits on the castle ground, where the book's supposed "
+                                         f"station stands (pp.76-77) and the plan's Wall and Vallum meet; {dist:.0f} m "
+                                         "from the city's P625 point; VICI 12444; the item has no enwiki article "
+                                         "(sitelinks checked 2026-10-14)"),
+                               "checked": now()},
+            "source": "fit/src_roman_maclauchlan.py",
+            "note": ("new site staged by 207b (Maclauchlan 1858, Fig. 4, leaf n0093): the fort's own item, "
+                     "not Carlisle Castle (Q614836) - DECISIONS 207b 130")}
+    url = f"https://archive.org/download/{IA}/page/n0093.jpg"
+    f = {"site": site["id"], "qid": SITE_QID, "title": FILE_TITLE, "year": YEAR, "wd_plan": False,
+         "cat": None, "name": FILE_NAME, "by": "fit/src_roman_maclauchlan.py", "url": url, "thumb": url,
+         "w": w, "h": h, "mime": "image/jpeg", "date": "1858", "desc": FILE_DESC,
+         "artist": "Henry Maclauchlan", "license": "public domain (IA: NOT_IN_COPYRIGHT, the 1858 original)",
+         "page": f"https://archive.org/details/{IA}",
+         "evidence": {"rec": "evidence/1", "kind": "caption_coords", "checked": now(),
+                      "named_place": "Carlisle", "place_qid": PLACE_QID, "place_label": "Carlisle",
+                      "place_lon": PLACE_LON, "place_lat": PLACE_LAT,
+                      "site_lon": SITE_LON, "site_lat": SITE_LAT, "dist_m": dist}}
+    c = {"site": site["id"], "title": FILE_TITLE, "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0,
+         "by": "hand"}
+
+    have_site = {r.get("id") for r in _load(EXTRAS_ROMAN)}
+    have_file = {(r.get("site"), r.get("title")) for r in _load(FILES_ROMAN)}
+    have_cls = {(r.get("site"), r.get("title")) for r in _load(CLASSIFIED_ROMAN)}
+    print(f"staged: new site {site['id']} (Q{SITE_QID[1:]}, dist {dist} m), picture {FILE_TITLE!r}")
+    for path, r, present in ((EXTRAS_ROMAN, site, site["id"] in have_site),
+                             (FILES_ROMAN, f, (f["site"], f["title"]) in have_file),
+                             (CLASSIFIED_ROMAN, c, (c["site"], c["title"]) in have_cls)):
+        tag = os.path.basename(path)
+        if present:
+            print(f"   {tag}: row already present (skipped, nothing written)")
+        elif dry:
+            print(f"   {tag}: would append {json.dumps(r, ensure_ascii=False)}")
+        else:
+            with open(path, "a", encoding="utf-8") as fh:
+                fh.write(json.dumps(r, ensure_ascii=False) + "\n")
+            print(f"   {tag}: appended 1 row")
+
+
 def list_cmd():
     """Offline: register() (injects MACLAUCHLAN_FIGS into books_lists.HAND_FIGS) then
     books_lists.cmd_ocrmap - for a HAND_FIGS book it maps the table by leaf n directly (no OCR, no
@@ -251,5 +351,7 @@ if __name__ == "__main__":
         list_cmd()
     elif a and a[0] == "--djvu":
         djvu_cmd(a[1:])
+    elif a and a[0] in ("--stage", "--dry"):
+        stage("--dry" in a)
     else:
-        raise SystemExit("the stage/check/golden legs are not built yet (see the module docstring)")
+        raise SystemExit("the check/golden legs are not built yet (see the module docstring)")
