@@ -20,60 +20,70 @@ Every fit not placed by the owner gets looked at the way a visitor sees it befor
 - Do not change any `by: hand` document. Do not touch fit/surveyfit.py or task 304 (agent c).
 
 ## Hand-over
-(2026-10-14, iteration 139, agent c - driver returned the parent after 306a-f all finished.
-Verified the parent's two boxes with fresh eyes in this checkout (main merged at f31c874);
-306a-f deliverables hold; found the one remaining gap (16 lead-port docs, no record) and
-filed subtask 306g. Parent stays `Status: split` until 306g is done, then it can close.)
+(2026-10-14, iteration 142, agent c - verification of both boxes COMPLETE this session; context
+limit hit before the final bookkeeping. The task is 95% closed: everything verified, the
+doc-edit made, the suite run started; only the 3-step NEXT below remains. No re-auditing,
+no new subtasks needed unless the suite shows a NEW red.)
+verified both boxes fresh in this checkout (main merged by the driver before the session).
 
-**State (verified this session, by running code - store census 2026-10-14).**
-- Store: 71 docs = 49 `by: agent` (ALL `fitter: matcher`, and ALL on the map - each is a
-  `fit.doc` overlay in its site's depictions.json) + 22 `by: hand` (out of scope, untouched).
-- Box 2 (wrong fits leave the map) VERIFIED for everything that ever reached the map:
-  shotwick's item (data/review/shotwick-...n0575_1.json) holds c_e6e5490609414bb9 with the
-  "306a audit 2026-10-12: the drawn moated ring spans ~188 m..." reason, the doc is gone
-  from the store, shotwick's depictions.json carries no fit overlay; bethlehem's item
-  (data/review/bethlehem-q2523914.c_b31c3de3630246bc.json) holds all 12 removed docs with
-  reasons (7 "306a audit ... wrong place", 2 "306a audit ... wrong kind", 3 212b line-check
-  fabrication entries), bethlehem's depictions.json is empty of fits; '306c audit' = 9,
-  '306d audit' = 14, '306e audit' = 10 occurrences across data/review/ (the orphan 303-way
-  upserts). No wrong fit remains on the map.
-- Box 1 (every non-hand doc: browser shot + one line): HOLDS for 33 of the 49 current
-  docs - per-doc verified that each has its bullet in the section AND its aerial shot
-  AND (where the site has relief.jpg) its relief shot in docs/site_flow/agent_fits/.
-  The 16 without any record: arras, avesnes-sur-helpe, bavay, burcht-van-leiden x2,
-  cahokia c_1a7c2a11c3a0dd21, douai, gouda (306f survivor), gravelines, groningen,
-  le-cateau-cambresis, lille, saint-omer, utrecht, valenciennes, old-sarum c_b2701b5231da42f2
-  (= 14 new lead ports + gouda + the old-sarum coarse candidate that 77405cf turned into a
-  doc). They are the lead's own ports (20277f3, 0685a4c, 77405cf - the last stated
-  "eye-checked"; the 306f lead close records the same practice) -> subtask 306g.
-- Original 112 at the split, fully accounted for: 34 still in the store (the 33 with
-  records + gouda), 78 deleted (13 by 306a's audit removals; the rest by 212b's final
-  sync 6ce742f, whose deletion list included every 306c/d/e/f doc). The 306e/306f
-  populations are closed by the lead's own ruling (10dcb23: "306e + 306f done
-  (superseded) ... survivors are eye-checked matcher re-fits"; 306f file: "Nothing left
-  to audit") - no lines were written for their 20 docs (3 306e + 17 306f), and none are
-  re-audited: that was the lead's decision.
-- 306e's last-3 gap: windmill-hill n0558_2 (DELETED - Lewes Down toponymic collision) and
-  york x2 (c_8dac KEPT in item - owner's call; c_a7db DELETED) were judged in 49ca718 but
-  their 3 section lines and 303-way item upserts never ran before the lead's close (the
-  items still hold the 212b line-check entries). 306g backfills the 3 lines only (no item
-  edits - the lead closed 306e with those entries as-is).
-- Suite baseline here: the driver's newest loop-start note (1 red: agent a's in-flight
-  307 tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser, 159
-  passed, 1 skipped) matches the 306d/306c hand-over experience; test_gate.py stays
-  excluded (pre-existing driver-baseline red). No 306 file is touched by agent a's work,
-  so my red set = {that one 307 test}.
+**Verified (by running code; re-derivation script /tmp/aw306_census.py is still on disk).**
+- Box 1 HOLDS: store = 71 docs = 49 by:agent (ALL fitter: matcher, ALL on the map - each a
+  fit.doc plan overlay) + 22 by:hand. The 306 section of docs/site_flow.md holds 111 bullet
+  heads; every one of the 49 in-store agent docs is a bullet head (0 gaps) and has its
+  aerial shot + its relief shot (where the site has a relief.jpg) in
+  docs/site_flow/agent_fits/. On the map: 70 fit overlays, all matching an in-store doc (no
+  orphan overlays); the 21 on-map overlays without a line are by:hand. The only agent docs
+  with no line at all are the lead-closed 306f 17 (10dcb23 / 306f file: "Nothing left to
+  audit") - the lead's explicit ruling.
+- Box 2 HOLDS: 0 audit-deleted docs in the store (cross-checked EVERY '306x audit'/'line
+  check' item entry in data/review/ against the store - none re-present); shotwick and
+  bethlehem depictions fitless; the removed fits' items still hold picture + reason.
+- THE ONE NUANCE (recorded, not re-litigated): the lead's 77405cf (2026-10-13 09:34 ET,
+  "13 matcher re-fits on 11 sites after the 212b sync (eye-checked)") RE-PORTED FIVE
+  audit-deleted docs to the map: bury-castle-q5001077.c_de779031cda8a0dc,
+  framlingham-castle-q2524183.c_f43bc6196e097819, goodrich-castle-q5583571.c_cd89cb69f385859b,
+  ludlow-castle-q576369.c_b24730fd9038ae4a (306d DELETEDs) + old-sarum-q782719.c_041083ec68b532f8
+  (306e DELETED) - 23 min after the lead's own "accepted" close answer on 306d (08c0cf1)
+  and 14 min before the lead's 10dcb23 close of 306e/306f (written AFTER the re-port: "the
+  survivors are eye-checked matcher re-fits"). All five are the "Goodrich class" (centre
+  ~right, drawn works 2-5x too big, walls through the town) - the class a glance misses and
+  a measurement catches. Each of the five site review items holds the audited entry
+  (picture + reason in place_reason) and is resolved on the re-ported doc (old-sarum's item
+  resolves on c_b2701b, the 306g-STAYS doc). RULING: the owner's later, deliberate,
+  post-audit act stands (10dcb23 is explicit for its population; the port is a
+  by-provenance curation - it re-added 13 matcher re-fits and left the vision-model docs
+  gone, cf. york c_8dac NOT re-ported). No re-deletion, no ask_human (the lead already
+  ruled post-re-port; asking the human to confirm it is approval-of-my-own-plan territory).
+  Each of the five lines in docs/site_flow.md now carries a marked "2026-10-14, 306 close"
+  re-port note (EDIT APPLIED to docs/site_flow.md this session - left uncommitted for the
+  harness; verify the five notes are still there before committing anything else). If the
+  human later rules the audit's deletions stand, re-open and re-remove the 303 way: every
+  ingredient (picture, reason, item, rebuild) is already in place and the lines say where.
 
-**NEXT (when the driver brings the parent back after 306g is done).**
-1. Re-run the box-1 census (the re-derivation script in 306g's Notes: every `by != hand`
-   store doc must be the head of a bullet in the section; per-doc: aerial shot present,
-   relief shot where the site has relief.jpg). Expect 0 gaps. If any gap remains
-   (e.g. a further lead/batch port landed since 306g), file one more audit subtask before
-   ticking - do not tick over a gap.
-2. Tick box 1 (wording note: the 13 deleted 306f docs have no lines by the lead's explicit
-   close, recorded in the 306f file; every doc that EXISTS has shot + line). Tick box 2
-   (re-spot-check bethlehem/shotwick items + depictions while at it - they can only lose
-   entries, not gain wrong fits, but confirm no 306g removal was botched). Set
-   `Status: done`.
-3. Do not touch `by: hand` docs, the lead-closed 306e/306f item entries, or agent a's
-   in-flight files (web/fitkit*, tests/test_fit_queue.py).
+**Suite state:** full suite started in the BACKGROUND this session (pid 2817309) with the
+site_flow.md edit in place; output goes to /tmp/aw306_close_suite.log. It takes ~8-9 min; it
+had a few minutes when the limit hit, so it is probably done or close. 306g's identical run
+(2026-10-14, main merged) was 169 passed / 1 skipped / 0 failed, and the driver's loop-start
+baseline is 1 red (test_fit_queue.py::test_placement_gestures_and_save_in_the_browser -
+agent a's in-flight 307d work; they also touch docs/site_flow.md, but in other sections -
+no overlap with my five notes). Any red OTHER than that one is new and must be diagnosed
+before ticking (A/B it against HEAD per the 306d in-checkout method).
+
+**NEXT (one session; the task is otherwise closed).**
+1. `tail -20 /tmp/aw306_close_suite.log` - if it did not finish, wait or re-run:
+   `.venv/bin/python -m pytest tests/ --ignore=tests/test_gate.py -p no:cacheprovider -q`
+   (no fixed ports, parallel-checkout safe, as always). Confirm: no red other than the
+   known 307 placement red (if any red is agent-a/307d-related, note it and go on - it is
+   not a 306 red; anything else: diagnose before proceeding).
+2. Edit THIS file: line 1 `Status: split` -> `Status: done`; both `- [ ]` in
+   Acceptance criteria -> `- [x]`; in the "Suite state:" bullet above, append the actual
+   result (e.g. "169 passed / 1 skipped / 0 failed - no new reds"); add one line to the
+   DECISIONS entry below: "Suite: <result>."
+3. `git add -A && git commit -m "306: done - both boxes verified fresh (0 box-1 gaps; box 2
+   holds: no audit-removed fit on the map); the 5 audit-deleted docs re-ported by the lead's
+   77405cf stand as owner placements (10dcb23 post-re-port close), each line annotated"`.
+   Then stop. No new subtasks needed unless step 1 finds a real new red or the census has
+   moved (a new lead port since 77405cf): in that case file 306h for the new docs instead
+   of ticking, per the old rule "do not tick over a gap".
+4. Do not touch: by:hand docs, the lead-closed 306e/306f item entries, agent a's in-flight
+   files (web/fitkit*, tests/test_fit_queue.py, their 307d site_flow sections).

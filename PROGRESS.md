@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
 - `tasks/212-cover-final.md` (in-progress) - hand-over: (2026-10-13, iteration 255, agent a, written at the context limit -
 - `tasks/236-us-cities.md` (split)
-- `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-14, iteration 139, agent c - driver returned the parent after 306a-f all finished.
+- `tasks/306-agent-fits-look.md` (split - closing) - hand-over: (2026-10-14, iteration 142, agent c - both boxes verified fresh (box 1: 0 gaps, 49/49 in-store agent docs have line+shots; box 2: 0 audit-removed doc back in store); the 5 audit-deleted docs re-ported by the lead's 77405cf stand as owner placements (10dcb23 post-re-port close), each line annotated in site_flow.md (edit in working tree, uncommitted); suite running in background pid 2817309 -> /tmp/aw306_close_suite.log; NEXT: confirm log, tick both boxes + Status: done, commit)
 - `tasks/307bc-reverify-place-mode.md` (open) - hand-over: (2026-10-13, iteration 256, agent a - first session: the task was filed as the driver
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-13, iteration 256, agent a - context limit hit at the end of this session; the
 - `tasks/307-fit-tool-rework.md` (split) - hand-over: (2026-10-12, iteration 107, agent a - SPLIT into 307a/307b/307c/307d; investigation only,
