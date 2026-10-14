@@ -64,3 +64,7 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
     FAILED tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
     1 failed, 159 passed, 1 skipped in 424.53s (0:07:04)
     (full test output: .agent/reports/last-test-output.txt)
+
+### 2026-10-14 agent a (iteration 191, context-limit note)
+
+236b hand-over rewritten: batch 3 city 2 (New Orleans) research DONE - QID Q34404 verified live (single 30 m P625, string-P373 quirk, single-parish P131, no name-search trap; the Rotterdam-building same-name at the measured 7725 km ENE), the 1851 Bachman NYPL tif is the only whole-city view through the gate (the project's oldest staged view; full drop list in the task file). The one open question: the sheet's compass orientation (no compass rose on the sheet; the 1280 px thumb is ambiguous) - the next session settles it from /tmp/no1851_south.jpg before landing the city (module + stage + doc + golden + tests, the 189/190 Kansas City pattern).
