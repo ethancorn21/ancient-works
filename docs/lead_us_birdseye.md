@@ -399,7 +399,7 @@ same hand-written annotations) and `File:Thaddeus M. Fowler - Pittsburgh, Pennsy
 
 **Name-search trap (the Barnard-Castle class, the 236a Q60 note):** the first "Pittsburgh"
 name-search hit with coordinates is Q235034 University of Pittsburgh (-79.953274, 40.444565, ~4.7 km
-west of the city point) - within the 50 km flag, so `--verify` does not flag it, but `record --live`'
+west of the city point) - within the 50 km flag, so `--verify` does not flag it, but `record --live`'s
 caption route would store the university's point instead of the city's. The staged row hand-records
 the city's P625 (dist 0); the trap is recorded on the Q1342 SITES comment and site note.
 

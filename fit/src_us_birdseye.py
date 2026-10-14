@@ -75,8 +75,9 @@ SHARED_SITES = {
 # (aerial-photograph ground: no open LiDAR over a built-up city, bare-earth LiDAR erases the streets).
 # The note records the staged view's apparent angle so 236c/the matcher can order oblique views (the
 # task Notes). Batch 1 (verified live 2026-10-14, --verify re-checks; per-view STAGED/DROP verdicts in
-# docs/lead_us_birdseye.md): Boston, Philadelphia, Baltimore, Pittsburgh, Cincinnati; >= 25 cities total
-# with the four shared above, the remaining batches as they are added.
+# docs/lead_us_birdseye.md): Boston, Philadelphia, Baltimore, Pittsburgh, Cincinnati. Batch 2 (checked
+# live 2026-10-14): Louisville, St. Louis, Chicago, Detroit, Milwaukee. >= 25 cities total with the four
+# shared above, the remaining batches as they are added.
 SITES = {
     # Q100: P625 (-71.057778, 42.360278) = downtown (the old town center / Faneuil Hall); P131 Suffolk
     # County; enwiki "Boston"; no name-search trap (the first search hit with coordinates is the city).
@@ -144,6 +145,78 @@ SITES = {
                         "the Ohio in the foreground, spanning the whole city and its hillside suburbs "
                         "beyond the 2000 m town box, so its fit is likely to end a review item (the 236a "
                         "NY-1811 / DC-ring precedent)"),
+
+    # ---- batch 2 (checked live 2026-10-14; per-view STAGED/DROP verdicts in docs/lead_us_birdseye.md) ----
+    # Q43668: P625 (-85.751389, 38.256111) = downtown (the riverfront / Old Louisville); P131 Jefferson
+    # County; enwiki "Louisville, Kentucky"; no name-search trap.
+    "Q43668": dict(id="louisville-q43668", name="Louisville", named="Louisville",
+                   lon=-85.751389, lat=38.256111,
+                   place="Jefferson County, Kentucky", region="United States", kind="town",
+                   wikipedia="https://en.wikipedia.org/wiki/Louisville,_Kentucky",
+                   note="aerial-photograph ground (no open LiDAR over the built-up city: bare-earth LiDAR "
+                        "erases the streets); the street grid, the Ohio and the Kentucky shorelines carry "
+                        "the fit; the 1883 staged sheet is a two-panel composite drawn from the river "
+                        "front (the Kentucky side) - the 1883 International Exposition hall above and the "
+                        "steep near-vertical whole-city view below, the Ohio in the foreground and the "
+                        "grid dense and legible - spanning the whole city beyond the 2000 m town box, so "
+                        "its fit is likely to end a review item (the 236a NY-1811 / DC-ring precedent)"),
+    # Q38022: P625 (-90.199444, 38.626389) = downtown (the Central Business District); P131 carries only
+    # Missouri (the city is an independent city, no county of its own - like Baltimore, the place is
+    # written "St. Louis City, Missouri" from P373 + the state); enwiki "St. Louis"; no name-search trap.
+    "Q38022": dict(id="st-louis-q38022", name="St. Louis", named="St. Louis",
+                   lon=-90.199444, lat=38.626389,
+                   place="St. Louis City, Missouri", region="United States", kind="town",
+                   wikipedia="https://en.wikipedia.org/wiki/St._Louis",
+                   note="aerial-photograph ground (no open LiDAR over the built-up city: bare-earth LiDAR "
+                        "erases the streets); the street grid, the levee and the Mississippi shoreline "
+                        "carry the fit; the 1858 staged sheet is the steepest (near-vertical) view staged "
+                        "for the city, drawn from the high ground east of the river with the grid legible "
+                        "to the suburbs and the levee and its shipping in the foreground, spanning well "
+                        "beyond the 2000 m town box, so its fit is likely to end a review item (the 236a "
+                        "NY-1811 / DC-ring precedent)"),
+    # Q1297: P625 (-87.627778, 41.881944) = downtown (the Loop / financial district); P131 Cook County;
+    # enwiki "Chicago". NAME-SEARCH TRAP (the Barnard-Castle class, the 236a Q60 note): the first
+    # "Chicago" search hit WITH coordinates is Q131252 University of Chicago (-87.599722, 41.789722,
+    # ~10.5 km south of the city point) - within the 50 km flag so --verify does not flag it, but a
+    # record --live caption route would store the university's point, not the city's. The staged rows
+    # hand-record the city's P625 instead (dist 0).
+    "Q1297": dict(id="chicago-q1297", name="Chicago", named="Chicago",
+                  lon=-87.627778, lat=41.881944,
+                  place="Cook County, Illinois", region="United States", kind="town",
+                  wikipedia="https://en.wikipedia.org/wiki/Chicago",
+                  note="aerial-photograph ground (no open LiDAR over the built-up city: bare-earth LiDAR "
+                       "erases the streets); the street grid, the lakefront and the river carry the fit; "
+                       "the 1892 staged sheet is a steep near-vertical view drawn from the lake with the "
+                       "grid dense and legible to the horizon, Lake Michigan in the foreground and a "
+                       "printed index, spanning the whole city beyond the 2000 m town box, so its fit is "
+                       "likely to end a review item (the 236a NY-1811 / DC-ring precedent); the "
+                       "name-search trap above applies to this city"),
+    # Q12439: P625 (-83.0475, 42.331667) = downtown (the financial district at the river); P131 Wayne
+    # County; enwiki "Detroit"; no name-search trap.
+    "Q12439": dict(id="detroit-q12439", name="Detroit", named="Detroit",
+                   lon=-83.0475, lat=42.331667,
+                   place="Wayne County, Michigan", region="United States", kind="town",
+                   wikipedia="https://en.wikipedia.org/wiki/Detroit",
+                   note="aerial-photograph ground (no open LiDAR over the built-up city: bare-earth LiDAR "
+                        "erases the streets); the street grid, the Detroit River shoreline and the rail "
+                        "yards carry the fit; the 1889 staged sheet is a steep oblique view drawn from "
+                        "the river covering about three miles square of the central city, the river and "
+                        "its shipping in the foreground, spanning the central city beyond the 2000 m town "
+                        "box, so its fit is likely to end a review item (the 236a NY-1811 / DC-ring "
+                        "precedent)"),
+    # Q37836: P625 (-87.95, 43.05) = downtown (the lakefront / financial district); P131 Milwaukee
+    # County (the city also touches the Washington and Waukesha county lines - the point sits in
+    # Milwaukee County); enwiki "Milwaukee"; no name-search trap.
+    "Q37836": dict(id="milwaukee-q37836", name="Milwaukee", named="Milwaukee",
+                   lon=-87.95, lat=43.05,
+                   place="Milwaukee County, Wisconsin", region="United States", kind="town",
+                   wikipedia="https://en.wikipedia.org/wiki/Milwaukee",
+                   note="aerial-photograph ground (no open LiDAR over the built-up city: bare-earth LiDAR "
+                        "erases the streets); the street grid, the lakefront and the river carry the fit; "
+                        "the 1872 staged sheet is a steep near-vertical view drawn from the lake with the "
+                        "grid dense and legible, Lake Michigan in the lower right and a printed key of "
+                        "landmarks, spanning the whole city beyond the 2000 m town box, so its fit is "
+                        "likely to end a review item (the 236a NY-1811 / DC-ring precedent)"),
 }
 
 # New York (checked live 2026-10-14; per-file STAGED/DROP verdicts in docs/lead_us_birdseye.md). The
@@ -270,6 +343,57 @@ CINCINNATI_1900 = [
     ("File:Panoramic view, city of Cincinnati, U.S.A. 1900. LOC 75694914.jpg", "Q43196", "Cincinnati", dict()),
 ]
 
+# Batch 2 new cities (checked live 2026-10-14; per-view STAGED/DROP verdicts in
+# docs/lead_us_birdseye.md). One row per city: the steepest, best-scanned view of the collection; the
+# shallower same-genre views and the non-view pool (railway sheets, exposition close-ups, photographs,
+# search noise) are DROPS recorded in the lead doc (the batch-1 precedent).
+LOUISVILLE_1883 = [
+    # two-panel sheet drawn from the river front (the Kentucky side): the 1883 International Exposition
+    # of Agriculture, Manufactures and Implements hall above, the steep near-vertical whole-city view
+    # below (the Ohio in the foreground, the grid dense and legible, a small "Map of Louisville" inset)
+    # - W. F. Clarke, M. P. Levyau & Co., 1883, LC Panoramic 237; the 10757x6905 non-LOC scan
+    # (File:Birdseye-southernexpo.jpg) is the same sheet (one row per sheet, the LOC scan staged)
+    ("File:Birds-eye view of Louisville from the river front and Southern Exposition, 1883. LOC 75693235.jpg",
+     "Q43668", "Louisville", dict()),
+]
+STLOUIS_1858 = [
+    # the steepest and oldest view staged for the city: the near-vertical whole-city view drawn from
+    # the high ground east of the Mississippi (the levee and the steamboats in the foreground) - James
+    # T. Palmatary, 1858; the seven "(... detail).jpg" high-resolution tiles of the same sheet, the DPLA
+    # mirrors (No restrictions, not Public domain) and the two book-print photographs are DROPS (lead
+    # doc)
+    ("File:Bird's-Eye View of St. Louis, MO. (full view).jpg",
+     "Q38022", "St. Louis", dict()),
+]
+CHICAGO_1892 = [
+    # steep near-vertical whole-city view drawn from the lake (Peter Roy, 1892, LC Panoramic 151): the
+    # grid dense and legible to the horizon, Lake Michigan in the foreground, a numbered index at the
+    # bottom and a "VIEW OF CHICAGO IN 1832" scroll inset; the 1893 chromolithograph (LOC 97686545,
+    # "Copyright, 1892, by Peter Roy") is the same view in colors (one row per view, the larger
+    # 1892 sheet staged)
+    ("File:Bird's eye view of Chicago, 1892. LOC 75693206.jpg",
+     "Q1297", "Chicago", dict()),
+]
+DETROIT_1889 = [
+    # steep oblique view drawn from the Detroit River (Calvert Lithographing Co., 1889, LC Panoramic
+    # 342): "about three miles square of the central portion of the city," the grid dense and legible,
+    # the river and its shipping in the foreground; four further scans of the same sheet (the 10657x6108
+    # LCCN2003666422 copy, the 6312x4132 Adam Cuerden .jpg/.png pair, the 5999x3676 "Map image
+    # detroit.jpg" and the LOC .tif twin) - one row per sheet, the LOC scan staged
+    ("File:Birds eye view-showing about three miles square-of the central portion of the city of Detroit, "
+     "Michigan. LOC 76693077.jpg",
+     "Q12439", "Detroit", dict()),
+]
+MILWAUKEE_1872 = [
+    # steep near-vertical whole-city view drawn from the lake (H. H. Bailey, Milwaukee Lithographing &
+    # Engraving Co., published by Holzapfel & Eskuche, 1872, LC Panoramic 1045): the grid dense and
+    # legible, Lake Michigan in the lower right, a printed key of 69 landmarks; two further scans of
+    # the same sheet (the 11952x8416 "Milwaukee 1872.jpg" and the 9999x6650 LOC g4124m-pm010450 copy)
+    # - one row per sheet, the LOC 76693067 scan staged
+    ("File:Milwaukee, Wis. LOC 76693067.jpg",
+     "Q37836", "Milwaukee", dict()),
+]
+
 SOURCES = {
     "bachmann_1874": dict(rows=BACHMANN_1874, p="birdseye",
                           label="{name}, the Bachmann bird's-eye view (1874)"),
@@ -303,6 +427,16 @@ SOURCES = {
                             label="{name}, the Fowler bird's-eye view (1902)"),
     "cincinnati_1900": dict(rows=CINCINNATI_1900, p="birdseye",
                             label="{name}, the Trout bird's-eye view (1900)"),
+    "louisville_1883": dict(rows=LOUISVILLE_1883, p="birdseye",
+                            label="{name}, the Clarke bird's-eye view (1883)"),
+    "stlouis_1858": dict(rows=STLOUIS_1858, p="birdseye",
+                         label="{name}, the Palmatary bird's-eye view (1858)"),
+    "chicago_1892": dict(rows=CHICAGO_1892, p="birdseye",
+                         label="{name}, the Peter Roy bird's-eye view (1892)"),
+    "detroit_1889": dict(rows=DETROIT_1889, p="birdseye",
+                         label="{name}, the Calvert bird's-eye view (1889)"),
+    "milwaukee_1872": dict(rows=MILWAUKEE_1872, p="birdseye",
+                           label="{name}, the Bailey bird's-eye view (1872)"),
 }
 
 

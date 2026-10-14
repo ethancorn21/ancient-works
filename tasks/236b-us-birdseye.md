@@ -34,14 +34,12 @@ staging files, the way 213 staged Civitates.
 
 ## Hand-over
 
-(2026-10-14, iteration 182, agent a) **Merged main (37a26ee) and COMPLETED BATCH 1's leftover
-(9 of 25 cities now staged; box 4 still UNTICKED - 16 cities to go).** The lead-doc edit from this
-session is in the WORKING TREE, UNCOMMITTED (the harness saved it) - the next agent commits it after
-a fresh-eyes re-read (exact steps below).
+(2026-10-14, iteration 183, agent a) **Batch 2 research COMPLETE (5 cities picked, all same-sheet
+eyeballs done) and the module's SITES/SOURCES are EDITED (UNCOMMITTED - the harness saved them);
+what remains is: verify -> stage -> lead doc -> golden -> tests -> commit.** 9 cities staged so far;
+14 after batch 2 lands.
 
-### Done this session (182), in order
-
-- **Merge main (37a26ee, committed):** `git merge main` -> only 3 binary conflicts
+### DONE-182-REMOVED
   (docs/site_flow/307d_A_4-saved.png, 307d_A_5-reload.png, 307d_B_5-reload.png) - both sides are the
   307d screenshot test's own output (it rewrites the pngs every run); resolved to main's version
   (the other agents' finished work), ran the full suite in the merged tree (**177 passed, 1 skipped,
