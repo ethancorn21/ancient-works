@@ -36,7 +36,8 @@ staging files, the way 213 staged Civitates.
 
 (2026-10-14, iteration 178, agent a - FIRST session: research only, live. NO repo file touched yet - no
 module, no staging, no lead doc, no tests. Context limit hit while eyeballing the last candidate thumbnails;
-nothing uncommitted in the repo.)
+nothing uncommitted in the repo. The working tree carried pre-existing modified docs/site_flow/307d_*.png
+files at session start (the 307 family) - they were left uncommitted by the harness, not mine to touch.)
 
 - **Baseline.** 236a is DONE and on main: the four city sites staged in its own files -
   data/catalog/extras_us_cities.jsonl has exactly the site rows new-york-q60 / washington-q61 /
