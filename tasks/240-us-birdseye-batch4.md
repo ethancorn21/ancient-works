@@ -1,6 +1,6 @@
-Status: open
+Status: done
 Depends on: 236b
-Touches: fit/src_us_birdseye_batch4.py, data/catalog/extras_us_birdseye_batch4.jsonl, data/commons/files_us_birdseye_batch4.jsonl, data/commons/classified_us_birdseye_batch4.jsonl, docs/lead_us_birdseye_batch4.md, tests/test_src_us_birdseye_batch4.py, tests/golden/src_us_birdseye_batch4_sample.json
+Touches: fit/src_us_birdseye_batch4.py, data/catalog/extras_us_birdseye_batch4.jsonl, data/commons/files_us_birdseye_batch4.jsonl, data/commons/classified_us_birdseye_batch4.jsonl, docs/lead_us_birdseye_batch4.md, tests/test_src_us_birdseye_batch4.py, tests/golden/src_us_birdseye_batch4_sample.json, docs/site_flow/307d_*.png (R5: restoring suite re-encodes to main's bytes before committing - never content changes)
 
 # 240: US bird's-eye views, batch 4 - Denver, St. Paul, Minneapolis, Cleveland
 
@@ -15,7 +15,7 @@ view per city. The 25-city total spans 236b (16) + 240 (4) + 241 (5); 236c conso
 staging into the canonical data and checks the total.
 
 ## Acceptance criteria
-- [ ] fit/src_us_birdseye_batch4.py holds the hand-checked file -> QID table for its four cities
+- [x] fit/src_us_birdseye_batch4.py holds the hand-checked file -> QID table for its four cities
       (every QID verified live against Wikidata with the module's --verify BEFORE staging: label,
       every P625 value, P373, P131, enwiki, the first name-search hit with coordinates - what
       record --live would resolve; the machine cannot reach loc.gov, so the files are fetched from
@@ -24,7 +24,7 @@ staging into the canonical data and checks the total.
       Zwolle date-swap rule, the never-two-sites-for-one-QID cross-check - extended to 236a's and
       236b's staging files); its docstring names fit/src_us_birdseye.py as the template it keeps in
       sync with.
-- [ ] Staged rows in this task's files ONLY: extras_us_birdseye_batch4.jsonl (the new cities' site
+- [x] Staged rows in this task's files ONLY: extras_us_birdseye_batch4.jsonl (the new cities' site
       rows - region "United States", kind "town", aerial_ok true, the point = the city's verified
       P625 or a recorded refinement, the note recording the staged view's apparent angle so 236c /
       the matcher can order the oblique views); files_us_birdseye_batch4.jsonl (files.jsonl shape +
@@ -32,17 +32,17 @@ staging into the canonical data and checks the total.
       row per city = the steepest (near-vertical), best-scanned whole-city view of the collection
       for that city (Public domain, >= 4000 px wide, the caption names the city); every pool item
       not staged is listed with its reason in the lead doc.
-- [ ] fit/evidence.py check passes offline on every staged row (--check exit 0, every row PASS
+- [x] fit/evidence.py check passes offline on every staged row (--check exit 0, every row PASS
       caption_coords, no join problems); no staged site id or QID collides with an existing site
       (the catalog, 236a's extras_us_cities.jsonl, 236b's extras_us_birdseye.jsonl, 241's file when
       it exists, web/data/sites.json) - never two sites for one QID (the catalog slug rule:
       id = slug(name) + "-" + qid-lower).
-- [ ] Test (no network, the socket-blocking fixture per 236b's test file): the staged files join,
+- [x] Test (no network, the socket-blocking fixture per 236b's test file): the staged files join,
       the evidence check passes, a golden sample tests/golden/src_us_birdseye_batch4_sample.json
       pins the staged rows (regenerated only via the module's --golden for an intended change); a
       full-suite run = baseline (restore the re-encoded docs/site_flow/307d_*.png to main's bytes
       before committing - the PITFALLS test_owner_check rule).
-- [ ] Denver is staged as researched (Q16554; the 1908 Birdseye View Publishing Co. sheet,
+- [x] Denver is staged as researched (Q16554; the 1908 Birdseye View Publishing Co. sheet,
       `File:Bird's eye view of Denver, Colorado, 1908. LOC 75693133.jpg`, looking south from the
       Twenty-Third Street Viaduct): the Notes below carry the full research record; the first
       session re-verifies it live (--verify) and, if the pick is gone from Commons or no longer PD,
@@ -88,10 +88,10 @@ exact output; the lead doc carries it verbatim in the QID section) -> --dry -> s
 commons.info re-check) -> --check (save the transcript; the Staging section carries it verbatim)
 -> lead-doc section (STAGED bullet with the view's facts + the full DROP list + the QID-facts
 paragraph) -> --golden -> test extension (mirror tests/test_src_us_birdseye.py: the no_network
-socket-blocking fixture; the PASS-key list; the SITES-id / extras-id / year / point / named tables;
-the golden compare) -> module tests -> the FULL suite (restore the 307d pngs first, below) ->
-commit. The lead doc's Staging section ends with the Not-done-yet pointer to 241 naming the next
-two or three candidates (the 236b precedent).
+socket-blocking fixture; the PASS-key list; the SITES-id / extras-id / year / point / named
+tables; the golden compare) -> module tests -> the FULL suite (restore the 307d pngs first,
+below) -> commit. The lead doc's Staging section ends with the Not-done-yet pointer to 241 naming
+the next two or three candidates (the 236b precedent).
 
 **Rules (unchanged from 236b):** NEVER write the canonical files (data/catalog/extras.jsonl,
 data/commons/files.jsonl, classified.jsonl - that is 236c); NEVER touch 236a's or 236b's files
@@ -133,12 +133,41 @@ hash), other-city rejects (Golden, Pueblo, Canon City, Greeley, Gunnison, Leadvi
 Colorado Springs + Manitou), too-small (Kilburn, CO Denver 1889, the Great Plains book sheets),
 the CC BY-SA 1907 sheet, and the 2021 Union Station photo (beyond the 1925 MAX_YEAR).
 
-**St. Paul, Minneapolis, Cleveland: NOT yet researched.** Run the per-city playbook. (All three
-have classic bird's-eye views in the LOC collection - the pool search shows which survived the
-gates; do not trust this note, verify live.)
-
+**St. Paul is RESEARCHED (iteration 162 - the full record is the DECISIONS entry "240 DECISION:
+iteration 162" and the hand-over below): QID Q28848, pick = the 1906 Robert M. Saint near-
+vertical sheet (LOC 75694650). Minneapolis is RESEARCHED (iteration 165 - the DECISIONS entry
+"240 DECISION: iteration 165" and the hand-over below): QID Q36091, pick = the 1885 W. V.
+Herancourt / I. Monasch near-vertical sheet (LOC 75694644).** Cleveland: NOT yet researched. Run
+the per-city playbook. (The pool search shows which survived the gates; do not trust this note,
+verify live.)
 ## Hand-over
-(2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
-built yet. First session: read 236b's lead doc + module (both on main), then Denver per the Notes
-(re-verify the 194 research live - Q16554, the 1908 pick - and land it; the /tmp artifacts exist
-as listed). St. Paul / Minneapolis / Cleveland follow the per-city playbook in candidate order.)
+(2026-10-14, iteration 172, agent c - **TASK DONE (Status: done, all five boxes ticked).**
+All four cities of batch 4 are staged in this task's files only: denver-q16554 (1908),
+st-paul-q28848 (1906), minneapolis-q36091 (1885), cleveland-q37320 (1877 A. Ruger / Shober &
+Carqueville). No further 240 work is planned; the journal (DECISIONS entries 162-172) carries
+the full record.)
+
+**Final state:**
+- Staged 4/4/4 in data/catalog/extras_us_birdseye_batch4.jsonl + data/commons/
+  {files,classified}_us_birdseye_batch4.jsonl (one row per city = the steepest near-vertical
+  whole-city view: Public domain, >= 4000 px, caption names the city; classified p_birdseye
+  1.0 by "hand"; the evidence field pins each site's own verified P625, dist 0).
+- fit/src_us_birdseye_batch4.py (629 lines): SITES 4 QIDs + SOURCES 4 entries; known_sites()
+  reads the catalog, extras, 236a's + 236b's extras, 241's absent batch5 file,
+  web/data/tests web/data/sites.json - a QID can never sit on two sites.
+- Lead doc docs/lead_us_birdseye_batch4.md (559 lines): Fetch route, the 4-QID --verify
+  transcript (171 run), evidence-field pointer, four city sections (STAGED + full DROP lists
+  + QID facts), final Staging section (4 views / 4 site rows; the 171 --check transcript:
+  4/4 PASS caption_coords, 0 fail, 0 no-tie, no join problems), Not-done-yet naming ONLY
+  241's batch 5 (Omaha - re-run its pool search - Indianapolis, Columbus, Memphis, then the
+  181 candidate list's remainder).
+- tests/test_src_us_birdseye_batch4.py (249 lines, pure ASCII): 5 offline tests (the
+  socket-blocking fixture) - the --check PASS list (4 rows), the hermetic three-state merge
+  test, the sites-table/points/years/named pin, the negative control, the golden compare.
+  Golden tests/golden/src_us_birdseye_batch4_sample.json: 4/4/4 (via --golden only).
+- Full suite (172): 185 passed, 1 skipped, 0 failed (baseline 182P/1S/0F at 164/167 + 3 new
+  passing tests from main's growth; zero new reds); the eight 307d pngs re-encoded by the run
+  were restored to main's bytes (R5) before the commit.
+- Handoff for 241: its module copies this one (fit/src_us_birdseye_batch4.py) and reads THIS
+  task's extras_us_birdseye_batch4.jsonl as a real forward read; the 236c consolidation
+  merges all staging sets into the canonical data and checks the 25-city total.
