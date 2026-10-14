@@ -4,7 +4,6 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/207b-maclauchlan.md` (in-progress) - hand-over: (2026-10-13, iteration 123, agent c - plate-transcription session. ALL candidate plate
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/212-cover-final.md` (in-progress) - hand-over: (2026-10-13, iteration 255, agent a, written at the context limit -
 - `tasks/236a-us-city-plans.md` (in-progress) - hand-over: (2026-10-14, iteration 170, agent a, written at the context limit. RESEARCH session, the
