@@ -14,6 +14,110 @@ the shared index from the per-book files once. The stage-A/B recall against each
 printed list of plates is recorded in that book's section, in place of the shared
 validation.json.
 
+## Horsley, Britannia Romana (1732) - 207a (list corrected 807)
+
+**Source (207, verified 2026-10-13):** the Internet Archive's Google Books scan
+britanniaromanao00hors - 936 leaves, BookReader page images + hOCR text (long
+side 2576-4116 px) - the book really is on IA, so the standard book machinery
+runs unmodified (no local-copy wrap). The scan IS the British Museum volume:
+shelf mark 'RB DA 145. H 86 folio, May 25 1883' on leaf n0015 (the title page's
+verso); CITE from the title page n0014: 'BRITANNIA ROMANA: OR THE Roman
+Antiquities OF BRITAIN: In THREE BOOKS. By JOHN HORSLEY, M.A. and F.R.S.
+LONDON: Printed for JOHN OSBORN and THOMAS LONGMAN, at the Ship in Pater-Noster
+Row. M.DCC.XXXII.' The British Museum copies
+(bim_eighteenth-century_britannia-romana-or-the_horsley-john_1732, 831 leaves;
+the _0 copy, 827) stay the alternates only.
+
+**The no-list discovery (215, 2026-10-13; verified on both the Google and the
+BM copies):** the book has NO printed list of plates - the earlier premise (a
+front-matter list at hOCR i53-i68) was wrong: that span is the preface's end,
+blank leaves and the Ptolemy fold-outs; the Google hOCR's 942 pages hold no
+LIST/PLATES heading, and the BM copy's 831 leaves were searched one by one. Per
+books_lists' own fallback ('where the book has none, the plate headings printed
+in its text'), the list is the plates' own printed headings, transcribed by eye
+from the full-size page images into the per-leaf table HORSEY_FIGS in
+fit/src_roman_horsley.py (24 entries; written offline into
+data/books/lists/britanniaromanao00hors.json + .map.json).
+
+**The 24-entry list (17 kind-s / 7 kind-o; corrected to 24 in 807,
+2026-10-14):** 219 transcribed 22 entries (15 kind-s). Two more are genuine
+site-plan plates, verified 220 on the full-size images and the book's own text,
+and added to the table 2026-10-14: n0114 (P.44) 'Innerpeffery camp.' + 'Ardoch
+camp.' - the two legionary camps of the Mons Graupius campaign (the text
+pp.43-44: 'the legions might poflibly have been at Ardoch, or Innerpeffery,
+before they marched to the battle'; each plan with its scale of 200/300 yards,
+the Ruchel and Knoch rivers, a military way and a Praetorium box); n0185
+(P.113) 'The five fecondary ftations per lineam valli' - five fort plans, I
+GLANNIBANTA (Lanchester), II ALIONE (Whitley Castle), III BREMETEN RACUM (Old
+Penrith), IV OLENACUM (Old Carlisle), V VIROSIDUM (Elenborough). The 219
+mislabel: 219 dismissed stage A's flags on both leaves as parametric
+hallucinations - the flags were right, only the invented captions were not.
+Completeness (220): a whole-book hOCR sweep (every page with text <700 chars
+listed, every page scanned for plan vocabulary: camp/ftation/fort/fecondary/map
+of/plan/scale of/section) found no further kind-s leaf in the book - the
+remaining short pages are front matter, the Book-II letter-table (hocr 306),
+the altar-instruments plate (312), the Book-II collection title (315), the
+chronological table (885), the index (895) and the hOCR-silent fold-outs (hocr
+63/705/834/868) - so 24 is complete. The 7 kind-o leaves (n0060/n0062 the
+Ptolemy fold-outs; n256 the N.11 wall section; n0706/n0734/n0832/n0867 the four
+country maps) are indexed, never staged.
+
+**Stage A (936/936 triaged, 0 errors, 2026-10-13; recall against the list
+measured offline, 219's run 2026-10-13 reproduced with the corrected-list run
+2026-10-14, books_lists.validate_book - the shared validation.json is never
+written):** page types 703 text_only / 151 other_illustration / 80
+plate_site_plan / 2 unparsed. A typed 80 pages plate_site_plan, but the ink
+floor (BLANK_INK=0.005) keeps exactly 17 - the 63 others are blank/ghost
+show-through versos (their engraved border frames alone fooled the model).
+Stage-A-only (no floor) against the 22-entry list is precision 0.188 (15/80) -
+exactly why the ink floor is what makes the flagged set usable on this book
+(stage-A-only against the corrected list: recall 1.0, precision 0.212 = 17/80).
+Against the 22-entry list (219): recall_pages 1.0, recall_pages_pm1 1.0,
+precision 0.882 (15/17), flagged_not_in_list [114, 185] = the mislabel. Against
+the corrected 24-entry list: recall_pages 1.0, recall_pages_pm1 1.0,
+precision_strict = precision_lenient 1.0 (17/17); flagged_not_in_list [],
+flagged_on_other_only_pages [], missed_pages [] - the ink-filtered flagged set
+(17) of stage-A's 80 of 936 triaged matches the list's 17 kind-s leaves
+exactly. Stage F was never needed (no figure_site_plan / F / C rows exist for
+this book).
+
+**Stage B (2026-10-14: 17 pages, 0 errors, 18 s, on replicas 8080/8081 - 8082
+was down):** B re-read all 17 flagged leaves as plans (B's schema has no kind
+field - its verdict is a non-empty plans[]; 31 plan boxes in total). B's
+printed titles and site_names feed the staging rows: n0114 the two camp titles
+(each with a 200-yard scale bar and a north arrow); n0185 the five Roman names
+with their modern names (B spells it 'Old Penreth' - 808's staging source of
+truth; the list keeps the transcribed 'Penrith'); the 15 wall maps their
+segment fort names (1-4 plans each). B's set is unchanged by the list
+correction (A's ink-filtered 17 already included n0114/n0185), so no re-run was
+needed.
+
+**Staging (the 17-row plan that 808 executes; every row year 1732 + the 200
+evidence field - kind caption_coords, named_place = the plate's printed list
+entry; url/thumb = the stable IA full-page image):** the 15 wall maps on the
+216 QID/extras design - multi-fort maps tie to the 216-verified catalog QID
+site where one exists (castrum-segedunum-q637958 SEGEDUNVM,
+pons-aelius-q7227963 PONSAELIVM,
+rudchester-roman-fort-associated-civil-s-q17669775 VINDOBALA,
+haltonchesters-roman-fort-settlement-and-q17648018 HANNAVVM, aesica-q4688554
+the Aesica plan on N.7, birdoswald-roman-fort-and-the-section-of-q17650767
+BORCOVACEVS), otherwise to an existing-or-new extras row, the other fort names
+recorded in desc. n0114: ONE row tied to a NEW no-QID Ardoch 'roman site'
+extras row, the Innerpeffery camp recorded on the row. n0185: ONE row tied to
+the principal of the five P.113 forts' new no-QID 'roman fort' extras row, the
+other four forts' names on desc (the choice recorded there + in a DECISIONS
+entry). Extras rows for all five P.113 forts only if 809's join requires each
+new site to have a plan; the four Antonine camps (bar-hill-fort, inchtuthil,
+raedykes, rough-castle-fort) are REUSED from extras.jsonl, not re-created. The
+220 catalog check (12603 sites + 193 extras, keyed by name): none of the seven
+P.113/Ardoch/Innerpeffery sites exists yet - all new no-QID rows.
+
+**Deferred (never staged):** the ~121 inscription/sculpture plates (Roman
+numerals I-CXXI) trail as HORSEY_PLATES (kind o - indexed in the list mapping,
+each naming the site where the stone was found); not transcribed yet, and not
+blocking: the 90%-of-site-plans box counts only kind-s leaves, and 808 stages
+all 17 (100%, nothing missing).
+
 ## Maclauchlan, Memoir, Written During a Survey of the Roman Wall (1858) - 207b (in progress)
 
 **Source (verified 2026-10-13/14):** one readable IA copy only - memoirwrittendu00maclgoog, the

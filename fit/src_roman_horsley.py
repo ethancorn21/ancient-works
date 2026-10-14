@@ -29,7 +29,7 @@ usage: src_roman_horsley.py --fetch         live: triage-size page images, all 9
                                            resumable)
        src_roman_horsley.py --list         offline: register() + books_lists.cmd_ocrmap -> the
                                            per-book lists/<ia>.json (the HORSEY_FIGS table's dump)
-                                           + .map.json (22 list leaves, site_plan = true for the 15
+                                           + .map.json (24 list leaves, site_plan = true for the 17
                                            kind-s maps) only (the shared validation.json /
                                            index.jsonl are never written)
        src_roman_horsley.py [--stage]      stage the verified kind-s (site-plan) rows into
@@ -43,9 +43,11 @@ usage: src_roman_horsley.py --fetch         live: triage-size page images, all 9
                                            staged rows
        src_roman_horsley.py --golden       write tests/golden/src_roman_horsley_sample.json
 
-Later legs (built as the book lands, in order): --list (done: the 22-entry table HORSEY_FIGS - the 15
-kind-s wall maps + N.11's wall section and the six kind-o country maps, each leaf's printed heading,
-corner mark and kind, transcribed by eye 2026-10-13 in 215/216/218), then the stage-B boxes on the
+Later legs (built as the book lands, in order): --list (done: the 24-entry table HORSEY_FIGS - the 17
+kind-s maps (the 15 wall maps + n0114 P.44 and n0185 P.113, both added 2026-10-14 in 220 after that
+session proved 219's dismissal of their stage-A flags wrong) + N.11's wall section and the six
+kind-o country maps, each leaf's printed heading, corner mark and kind, transcribed by eye
+2026-10-13 in 215/216/218), then the stage-B boxes on the
 plan pages (the stage-B leg reuses the unmodified machinery now that the list exists:
 books.cmd_triage_b runs on A's site pages + the list's kind-s leaves), then --stage / --check /
 --golden, and the stage-A/B recall against the list recorded in the Horsley section of
@@ -92,15 +94,25 @@ WEB_SITES = os.path.join(ROOT, "web", "data", "sites.json")
 # s = a site-plan map that gets staged, o = indexed but never staged, u = unsure; kind_by hand = read
 # from the images). The book has NO printed list of plates (verified on both copies, 215), so the list
 # = the plates' own printed headings - transcribed by eye from the full-size page images 2026-10-13
-# (215/216/218); stage-A captions on this book are parametric hallucinations and were never used.
-# kind s: the 15 site-plan maps (Book II's P.158 Hadrian's-wall series N.1-N.10 + Book III's P.176
-# Antonine-wall series N.1-N.5) that get staged; kind o: N.11 (a wall cross-section, not a site plan)
-# and the six country maps (n0060/n0062 the Ptolemy fold-outs, n0706 the Mercator-Ptolemy, n0734 the
-# Antonine-Itinerary map, n0832 the Notitia Dignitatum map, n0867 the Peutinger table) - indexed in the
-# list mapping, never staged as picture rows.
+# (215/216/218); stage-A captions on this book are parametric hallucinations and were never used -
+# except the page-type flags on n0114 and n0185, which 219 dismissed as parametric hallucinations but
+# 220 proved GENUINE (the full-size images + the book's own text pp.43-44 and p.113): the flags were
+# right, only the invented captions were not, and both plates are in the table below.
+# kind s: the 17 site-plan maps that get staged - the 15 wall maps (Book II's P.158 Hadrian's-wall
+# series N.1-N.10 + Book III's P.176 Antonine-wall series N.1-N.5) plus n0114 (P.44: the two
+# legionary camps of the Mons Graupius campaign, Innerpeffery and Ardoch) and n0185 (P.113: the five
+# secondary stations per lineam valli); kind o: N.11 (a wall cross-section, not a site plan) and the
+# six country maps (n0060/n0062 the Ptolemy fold-outs, n0706 the Mercator-Ptolemy, n0734 the
+# Antonine-Itinerary map, n0832 the Notitia Dignitatum map, n0867 the Peutinger table) - indexed in
+# the list mapping, never staged as picture rows. 219 transcribed 22 entries (15 s); 220 added
+# n0114/n0185 (17 s) and swept the whole book's hOCR (every page with text <700 chars listed, plus a
+# plan-vocabulary scan of every page): no further kind-s leaf exists, so the 24-entry table is
+# complete.
 HORSEY_FIGS = """
 60|A Corrected Map of Britain according to Ptolemy (front-matter fold-out, faded landscape capture)||o|hand
 62|A Corrected Map of Britain according to Ptolemy's, or Rectified (front-matter fold-out, full spread)||o|hand
+114|Innerpeffery camp. (top plan) and Ardoch camp. (bottom plan): the two legionary camps of the Mons Graupius campaign per the book's text pp.43-44 ("the legions might poflibly have been at Ardoch, or Innerpeffery, before they marched to the battle"); each with its scale (200 / 300 yards), rivers Ruchel and Knoch, a military way and a Praetorium box|P.44|s|hand
+185|The five fecondary ftations per lineam valli: five fort plans, I GLANNIBANTA near Lanchester, II ALIONE now Whitley caftle, III BREMETEN RACUM now Old Penrith, IV OLENACUM now Old Carlisle, V VIROSIDUM near Elenborough; Praetorium boxes on I and III, Watling Street, a compass, "A feale of 100 paces"|P.113|s|hand
 236|A general map of the Roman walls in the north of England, and so much of the adjacent countryes as includes the secondary stations per lineam valli.|P.158 N.1|s|hand
 238|A map of the Roman walls from SEGEDVNAVM to CONDERCVVM.|P.158 N.2|s|hand
 240|A map of the Roman wall, from CONDERCVVM to VINDOBALA.|P.158 N.3|s|hand
