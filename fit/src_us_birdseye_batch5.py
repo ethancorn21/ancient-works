@@ -272,7 +272,7 @@ def stage(dry=False):
                                  f"the drop in docs/lead_us_birdseye_batch5.md")
             f = {"site": sid, "qid": qid, "title": title, "year": c.year_of(title, m), "wd_plan": False,
                  "cat": None, "name": src["label"].format(name=label),
-                 "by": f"fit/src_us_birdseye_batch4.py {name}", **m}
+                 "by": f"fit/src_us_birdseye_batch5.py {name}", **m}
             f["evidence"] = ev
             new_files.append(f)
             p = {"p_plan": 0.0, "p_birdseye": 0.0, "p_photo": 0.0}
