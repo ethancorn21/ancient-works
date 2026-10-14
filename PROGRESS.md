@@ -8,6 +8,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207c-roy.md` (blocked) - hand-over: (2026-10-13, iteration 205, agent c - NO work on this task. The driver auto-put it back to
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/212-cover-final.md` (in-progress) - hand-over: (2026-10-13, iteration 255, agent a, written at the context limit -
+- `tasks/236a-us-city-plans.md` (in-progress) - hand-over: (2026-10-13, iteration 142, agent a - session hit the context limit during the RESEARCH phase; nothing written to the repo yet except this file and DE
 - `tasks/236-us-cities.md` (split)
 - `tasks/302-autofit-real.md` (split) - hand-over: (2026-10-13, iteration 208, agent c - the driver returned the parent: all existing subtasks
 - `tasks/306-agent-fits-look.md` (split) - hand-over: (2026-10-12, iteration 134, agent c - FIRST session; investigation only, then SPLIT. Session hit the
@@ -21,13 +22,19 @@ task file (for a subtask, read its parent's too).
 ## Next open tasks
 - `tasks/230-roman-merge-rerun.md`
 - `tasks/235-placement-test-dep-pick.md`
-- `tasks/236a-us-city-plans.md`
+- `tasks/236b-us-birdseye.md`
 
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-13 236a DECISION: first session - research only; the four city QIDs verified (Q60 NY, Q61 DC, Q62 SF, Q23197 Nashville), the extent question answered (box_m on the row, not extent_m), NY's four leads verified live, nothing written to the repo yet
+- First session of 236a (split of 236, the owner's "US cities" point of 2026-10-13). The human's LEAD note while I worked: GOAL.md point 2 changed (the image matcher is the only automatic placement; Qwen never places) - my work is staging pictures only, unaffected.
+- **QID traps caught (the task's "Barnard Castle trap" in action):** my recalled QIDs were wrong twice - New York is **Q60** (I first thought Q30492, which is the number "483"), Nashville is **Q23197** (not Q15190). Verified 2026-10-13 via pipeline/catalog_wd (label, description, every P625, P373, P131, enwiki, first name-search hit with coordinates): Q60 "New York City" (P625 -74.0061/40.7128 = Financial District), Q61 "Washington, D.C." (P625 -77.0367/38.895), Q62 "San Francisco" (**TWO P625 values** ~450 m apart, both downtown), Q23197 "Nashville" (P625 -86.7744/36.1622, downtown east of the Cumberland). For all four the first search hit with coordinates IS the city - no live-record trap. The enwiki-infobox-coords cross-check returned empty from wp_api (coordinates prop) - not blocking; the other fields stand. Full dump was at /tmp/us_cities_qids.json (session-scoped).
+- **None of the four QIDs is in data/catalog/sites.jsonl or extras.jsonl** (grepped) -> each city gets a NEW extras site row (no picture-rows-on-existing-site case for this task).
+- **Extent question (acceptance box 2) answered:** `pipeline/build_catalog.py:make_site` does `m = entry.get("box_m") or box_m(entry)` - an extras row can carry its own box size (precedents: biggs-site box_m 800, frankfort-works 1000 in data/catalog/extras.jsonl; per-site overrides live in specs/site_boxes.json, 211's territory). `extent_m` (catalog.py:686) is the synthetic-group spread, used only by catalog_triage crop sizing - NOT the site box. DECISION: city sites keep the kind "town" 2000 m box; a plan spanning beyond the box (NY 1811/1865, the DC 1865 defences ring) gets a note on its row + in the lead doc that the fit is likely to end a review item (213's Venice precedent: an 8 km view on a 2000 m box, staged, left for the review queue); Civil War forts are the "district/fort site with its own QID" option (kind "fort" = 1600 m box, own extras row).
+- **Region "United States" needs a one-line addition to pipeline/build_catalog.py:REGION_NAME** (`"united states": "United States"`) - tests/test_region.py::test_every_region_in_the_data_resolves globs every data/catalog/*.jsonl (my new extras_us_cities.jsonl included) and would fail on a region that silently displays "US". Added pipeline/build_catalog.py to this task's Touches; the file's comment says one key per line is merge-safe; 236b will add the identical line (identical additions merge cleanly in git).
+... (2.7 KB more: `grep -n -A 200 -F '## 2026-10-13 236a DECISION: first session - research only; the four city QIDs verified (Q60 NY, Q61 DC, Q62 SF, Q23197 Nashville), the extent question answered (box_m on the row, not extent_m), NY's four leads verified live, nothing written to the repo yet' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
