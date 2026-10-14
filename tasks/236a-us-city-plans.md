@@ -48,7 +48,7 @@ the original or a facsimile of it, its date, its licence, and its resolution bef
 
 ## Hand-over
 
-(2026-10-13, iteration 155, agent a - **MAIN MERGED (commit 3093e4e, 12/12 tests green). Site-point research in progress: Fort Nashborough = Q5471739, P625 (36.164167, -86.774444) [Wikidata, prec 0.001; Wikipedia infobox same; OSM way 130910783 same] = the Clayton 1804 "former Fort" at the town's SW corner, 217 m NORTH of the city P625; the Clayton map read (the river band at the bottom = the rivers' corner, the Rich Branch enters east of the town; see below). Verdict on the point NOT yet settled - needs a 2-anchor georef of the Clayton map + the Haydon 1860 cross-check. /tmp downloads are gone again - re-download URLs below.**
+(2026-10-14, iteration 160, agent a - main merged (eeff0b8); baseline tests 7/7 green (test_src_us_cities + test_region, run this session); staged files still 3/11/11; --check was 11/11 at 155. **Site-point research advanced: Clayton 1804 fully read (all pixel anchors measured, below); OSM confluence data obtained via a BBBike extract (147 MB, /tmp - re-requestable, recipe below); parse_osm3.py written to locate the Tennessee-Cumberland confluence in the extract - NOT yet run (context limit). No repo file changed this session.** Verdict on the point still open; exact next steps at the end.)
 
 ### Current state
 - **Merge done (3093e4e):** `git merge main` conflicted only in web/data/review.json. Resolved to MAIN's side
