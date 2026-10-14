@@ -60,3 +60,5 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
     FAILED tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
     1 failed, 159 passed, 1 skipped in 424.53s (0:07:04)
     (full test output: .agent/reports/last-test-output.txt)
+
+### 2026-10-14 240 (agent c, iteration 165) HAND-OVER STATE: Minneapolis (city 3) RESEARCHED - QID Q36091 (first-guess Q3094 a Romanian monastery; no name-search trap), pool 50/20 all eyeballed, PICK = the 1885 Herancourt/Monasch near-vertical sheet (LOC 75694644); records committed (DECISIONS entry + task file); PITFALLS.md edit (blank-crop quirk) left in the working tree for the landing session; next = the Minneapolis LANDING (session 7).
