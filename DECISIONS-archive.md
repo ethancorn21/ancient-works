@@ -5822,6 +5822,18 @@ Executed the in-process driver /tmp/230_step2_driver.py (network patched to hard
 - n0286_1 -> mill-mount-q24661439 (Berkshire): QUESTIONABLE - same pattern: the map label "Mill" ties through the site's alias tokens ("Redisham Mill Mount").
 All three questionable ones are the 211-era one-pair matcher rule (the 135 CC rows of the 10 pre-roman books have the same character); check re-derives the identical rule from stored fields so they PASS. Per the it.209 hand-over, the matcher is NOT extended for this task; the ties are the matcher's recorded judgement. For step 3, the sources.md lead row should carry the 4 non-genuine ties as the "recorded, not silently kept" detail.
 
+## 2026-10-14 230 DECISION: iteration 211 - step 3 (docs/sources.md section 9 Roman row) written and committed; the UK-DEM open question for the 9 site builds is RESOLVED (ea reachable from this VM; the scot mirror has no tiles for ardoch; nls.covers True for all 9 sites, so none can end up NOT BUILT)
+
+**Step 3 (done, committed with this entry):** replaced 211's "**none in this merge**" Roman lead row with the per-book record: staged = the 45-row re-run, all merged / 0 refused (log = that run's snapshot; Horsley all 17 kind-s leaves, 8 new no-QID extras rows, Maclauchlan 1 of 3 kind-s -> new luguvallium-q71551754 row, every row caption_coords); dropped = n0078/n0111 blank in this copy (1-of-3 stage rate recorded against the 90% box), 10 kind-o leaves indexed-only, Horsley's ~121 inscription plates deferred, Roy 207c DROPPED (owner, ask 008, 2026-10-13). The row also records the re-run's book-index rebuild (evidence on all 1,112 rows, pre-roman content-identical) and the matcher's 6 one-pair ties (2 genuine, 4 questionable, never silently kept). Section intro line notes the re-run. No test reads docs/sources.md; test_merge.py unchanged at 9/10 (the 1 red = the open build gate).
+
+**Corrections to the it.210 hand-over/entry (the catalog row is the truth, the hand-over guessed counties):** whitehouse-camp-q17678709 is at Michaelchurch Escley, HEREFORDSHIRE (lat 52.015 / lon -3.027, ~330 km south of the wall), not Wiltshire; mill-mount-q24661439 is at Redisham, SUFFOLK, not Berkshire. sources.md records the catalog's counties.
+
+**UK-DEM open question resolved (probes this session; the scot read is local, the ea probe is one 24x24 fetch):**
+- The main dem_sources ORDER (usgs/ea/ahn/ign) holds no Scotland: source_for() -> None for ardoch/kirkintilloch/carriden. "ea" (Environment Agency composite DTM, EPSG 27700) covers all 6 English sites (luguvallium, virosidum, cilurni, petriana, congavata, tunnocelum) and IS reachable from this VM (cilurni probe -> finite data in 1.0 s).
+- The STATIC fallback (static_source_for_bbox, no probe kw) picks "scot" (pipeline/lidar_scot.py, a local S3 mirror of the Scottish national LiDAR - no service/key) for Scotland. ardoch (Braco, Gask Ridge) throws aw.NoLidar "no Scottish LiDAR tiles on this box" - the mirror holds selected tiles only. kirkintilloch/carriden NOT yet probed (next session: lidar_scot.read_dem(aw.site_bbox(lon,lat,60,60),24,24,lon,lat)).
+- nls.covers() (the 1747-55 NLS military survey) is True for ALL 9 new sites, including all 3 Scottish - so build_catalog's old_map path means no site can end up "NOT BUILT": a no-tile Scot builds aerial-only with the NLS overlay (depictions.json present, no relief.jpg - the test's "relief.jpg iff lidar_credit" self-consistency holds either way).
+- Precedent re-confirmed: the four no-QID Antonine Wall camps (bar-hill-fort, inchtuthil, raedykes, rough-castle-fort) all carry relief.jpg + scot-6-first.webp, built from this same mirror.
+
 
 <!-- task 235 -->
 # Task 235 placement-test-dep-pick
