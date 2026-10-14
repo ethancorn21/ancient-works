@@ -107,3 +107,11 @@ derived pick onto marietta, whose only depiction (a 1904 USGS topo) the page's 1
 filter hides, so the seed check is red on every branch until 235 merges. Subtask 307bc
 (re-run the proof on the fixed pick, tick box 5, set 307b done) is filed, Depends on:
 235.
+
+307 done note (iteration 199, agent a, via 307bc): 307b is now done - 307bc re-ran the
+post-235 proof green (part 4, 66 s; full suite 177 passed / 1 skipped / 0 failed) and
+ticked box 5 with the evidence in 307b's hand-over. All four subtasks (307a, 307b,
+307c, 307d) are done; the parent is ready to be returned by the driver. The one open
+follow-on from the 307 line is tasks/242 (pin the 307d owner-check screenshots - the
+saved/reload views are captured mid-transition, ~30% pixel drift per run; filed by
+307bc).
