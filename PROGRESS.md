@@ -7,18 +7,31 @@ task file (for a subtask, read its parent's too).
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
 - `tasks/230-roman-merge-rerun.md` (in-progress) - hand-over: (2026-10-14, iteration 216, agent a - the 5 acceptance boxes were ticked in it.215 and
 - `tasks/236-us-cities.md` (split)
+- `tasks/239-retire-vision-fit.md` (open) - hand-over: (2026-10-14, iteration 217, agent a - session 1: READING ONLY, no code changed yet, no tests
 - `tasks/241-us-birdseye-batch5.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
 
 ## Next open tasks
 - `tasks/236c-us-cities-merge.md`
-- `tasks/239-retire-vision-fit.md`
 - `tasks/242-owner-check-stable-shots.md`
+- `tasks/809-horsley-check.md`
 
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-14 239 DECISION: iteration 217, session 1 - reading-only session (no code, no tests run yet): all dependencies done (238, 212, 302f, 302g all Status: done), the whole target surface read, design fixed; next session starts with test_cover.py (un-read) + the 5-file test baseline, then implements batch_us -> batch_eu -> site_done -> cover -> tests -> fixture re-record -> docs/site_flow.md, one commit each
+
+Session 1 of 239. Verified all four dependencies are `Status: done` (238 matcher-gate, 212 cover-final, 302f matcher-station-test, 302g stonehenge-matcher-run), so the task is runnable now - no Depends-on change needed. Read in full: fit/batch_us.py, fit/batch_eu.py, tools/site_done.py, fit/cover.py, fit/matchfit.py, tests/test_batch_us.py, tests/test_batch_eu.py, tests/test_site_done.py, tests/test_matchfit_station.py, tests/fixtures/matchfit_station/record.py, docs/site_flow.md (the 300 one-site-line section at the top + 302g's section at 1722), the relevant PITFALLS entries (fit/, tools/site_done.py+fit/review.py, tests/test_matchfit_station.py, Model servers, A/B-in-checkout) and my 230 hand-over (branch hygiene: the three dirty 307d PNGs must never be `git add -A`'d; commit explicit paths only).
+
+**Design decisions made (full detail in the task's hand-over; the load-bearing ones):**
+- `run_sites(root, site_ids, reasons=None)` with `reasons` a {plan: str} of the matcher's recorded per-candidate verdicts (238's `results` list already carries them: {site, plan, outcome written|refused|dry, path, why, kind}; matchfit._settle's docstring names 239 as the consumer). The batch writes no auto docs and calls no gate itself; every uncovered candidate becomes a review-item entry whose why is that recorded reason; 202's proposal fields stay on the entry (they are not model output). `gate_placement` and `write_doc` stay in batch_us because matchfit calls both.
+- `tools/site_done._fit` drops its `model` parameter: when the matcher is reachable it consumes `matchfit.run(..., results=...)`; when NOT reachable every uncovered candidate records "no matcher on this machine" (the 302g recorded-environment-fact pattern, cf. 302g's task file: the model "not reachable from this VM ... a recorded environment fact, not a defect"). The `fit  no model given: ...` first stdout line and the --working/--model-json parser group disappear from the CLI.
+- `fit/cover.py`: loop stops forwarding --model-json. OPEN QUESTION (decide after reading test_cover.py, which session 1 never reached): drop --model-json from cover's CLI entirely (it fed only the loop; a kept flag would be a dead lie) vs keep it as a refused no-op. My lean: drop it, keep the --working refusal (it documents lead ef84a05's placement ban, independent of this retirement).
+- `fit/batch_eu.py`: run_eu(root, reasons=None); CLI keeps --root/--sites/--report only.
+- **Fixture re-record REQUIRED:** test_matchfit_station's unsure fixture records the new item's cand["why"] == "no model answer" and both fixtures record the line's stdout including the soon-deleted first line. After the change: confident 11 -> 10 stdout lines; unsure 8 -> 7 lines with the item's why becoming the matcher's "not sure: 8 consistent points (need 10)". Both fixtures re-recorded with the live ELoFTR (127.0.0.1:8091) - per the 302f PITFALLS the re-record is the causing task's own cleanup, so tests/fixtures/matchfit_station/ gets added to my Touches line first (230/243 precedent, it.216). record.py itself hardcodes the two line counts (11/8) and its header task id, and must be updated too.
+- Data invariance: the committed review items (incl. 301-era "no model answer" whys), the 22 golden hand-fit docs and the 49 matcher docs are all UNTOUCHED - the tests run on tree copies and assert checkout byte-identity; docs/batch_us.md and docs/batch_eu.md stay as the historical 203a/203b reports.
+
+... (1.0 KB more: `grep -n -A 200 -F '## 2026-10-14 239 DECISION: iteration 217, session 1 - reading-only session (no code, no tests run yet): all dependencies done (238, 212, 302f, 302g all Status: done), the whole target surface read, design fixed; next session starts with test_cover.py (un-read) + the 5-file test baseline, then implements batch_us -> batch_eu -> site_done -> cover -> tests -> fixture re-record -> docs/site_flow.md, one commit each' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
