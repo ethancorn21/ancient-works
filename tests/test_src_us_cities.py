@@ -1,8 +1,9 @@
 """The US city plans staging (task 236a, GOAL.md point 5): the four old plans of New York - the 1660 Castello
 plan, the 1767 Ratzer map, the 1811 Commissioners' Plan (bird's-eye) and the 1865 Viele map - the three
 of Washington DC - the 1791 L'Enfant plan (as its 1792 first-printed edition), the 1792 Ellicott plan and
-the 1865 Civil War defences map - and the three of San Francisco - the 1849 Eddy survey map, the 1850
-first-published map and the 1854 Eddy 'full and complete' sheet - staged by fit/src_us_cities.py into this
+the 1865 Civil War defences map - and the four of San Francisco - the 1839 Vioget plan (the first plan of
+the old town), the 1849 Eddy survey map, the 1850 first-published map and the 1854 Eddy 'full and complete'
+sheet - staged by fit/src_us_cities.py into this
 task's own files (extras/files/classified _us_cities.jsonl), plus the hand-verified QID table (New York
 City Q60, Washington DC Q61, San Francisco Q62; Nashville follows in a later session, 236c consolidates). The tests are offline:
 a socket-blocking fixture makes any network fetch fail loud, so the evidence check runs from the stored
@@ -48,7 +49,7 @@ def test_check_staged_files_join_and_pass(capsys):
     out = capsys.readouterr().out
     assert code == 0, out
     assert "join:" not in out, f"join problems:\n{out}"
-    assert "evidence: 10 rows, 10 pass, 0 fail, 0 no-tie" in out, out
+    assert "evidence: 11 rows, 11 pass, 0 fail, 0 no-tie" in out, out
     for key in ("new-york-q60|File:Afbeeldinge van de Stadt Amsterdam in Nieuw Neederlandt (NYPL Hades-118555-54682).tif",
                 "new-york-q60|File:Plan of the City of New York by Bernard Ratzer, 1767.jpg",
                 "new-york-q60|File:Commissioners' Plan of 1811 by John Randel published in 1821.jpg",
@@ -58,7 +59,8 @@ def test_check_staged_files_join_and_pass(capsys):
                 "washington-q61|File:Map of the defences of Washington. LOC 88690674.jpg",
                 "san-francisco-q62|File:Official map of San Francisco compiled from the field notes of the official re-survey made by Wm. M. Eddy. surveyor of the town of San Francisco. LOC 77692722.jpg",
                 "san-francisco-q62|File:Map of San Francisco, Apollo storeship at the bottom.jpg",
-                "san-francisco-q62|File:Official map of the City of San Francisco, Full and complete to the present date. Compiled by Wm., M. Eddy. City Surveyor. (IA dr official-map-of-the-city-of-san-francisco-full-and-complete-to-the-present-5870000).jpg"):
+                "san-francisco-q62|File:Official map of the City of San Francisco, Full and complete to the present date. Compiled by Wm., M. Eddy. City Surveyor. (IA dr official-map-of-the-city-of-san-francisco-full-and-complete-to-the-present-5870000).jpg",
+                "san-francisco-q62|File:1839 Plan of Yerba Buena (Jean Jacques Vioget).jpg"):
         assert f"PASS caption_coords  {key}" in out, f"missing PASS line for {key}:\n{out}"
 
 
@@ -209,6 +211,7 @@ def test_qid_table_and_staged_rows():
              "Virginia and Maryland to the United States of America, and by them established as the seat "
              "of their government, (NYPL b15255319-434417).jpg": 1792,
              "File:Map of the defences of Washington. LOC 88690674.jpg": 1865,
+             "File:1839 Plan of Yerba Buena (Jean Jacques Vioget).jpg": 1839,
              "File:Official map of San Francisco compiled from the field notes of the official re-survey made "
              "by Wm. M. Eddy. surveyor of the town of San Francisco. LOC 77692722.jpg": 1849,
              "File:Map of San Francisco, Apollo storeship at the bottom.jpg": 1850,
@@ -247,7 +250,7 @@ def test_evidence_offline_and_negative_control(tmp_path):
     code, text = evidence.check(src_us_cities.FILES_US_CITIES, src_us_cities.NO_BOOKS,
                                 catalog=src_us_cities.EXTRAS_US_CITIES)
     assert code == 0, text
-    assert "evidence: 10 rows, 10 pass, 0 fail, 0 no-tie" in text, text
+    assert "evidence: 11 rows, 11 pass, 0 fail, 0 no-tie" in text, text
 
     castello = next(r for r in src_us_cities._load(src_us_cities.FILES_US_CITIES)
                     if r["title"].startswith("File:Afbeeldinge"))

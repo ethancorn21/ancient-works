@@ -79,6 +79,14 @@
    "p_plan": 1.0,
    "site": "san-francisco-q62",
    "title": "File:Official map of the City of San Francisco, Full and complete to the present date. Compiled by Wm., M. Eddy. City Surveyor. (IA dr official-map-of-the-city-of-san-francisco-full-and-complete-to-the-present-5870000).jpg"
+  },
+  {
+   "by": "hand",
+   "p_birdseye": 0.0,
+   "p_photo": 0.0,
+   "p_plan": 1.0,
+   "site": "san-francisco-q62",
+   "title": "File:1839 Plan of Yerba Buena (Jean Jacques Vioget).jpg"
   }
  ],
  "extras": [
@@ -459,6 +467,39 @@
    "w": 8830,
    "wd_plan": false,
    "year": 1854
+  },
+  {
+   "artist": "Jean Jacques Vioget",
+   "by": "fit/src_us_cities.py vioget_1839",
+   "cat": null,
+   "date": "1839-01-02",
+   "desc": "Plan of Yerba Buena (which was later renamed to San Francisco), as laid out by Jean Jacques Vioget. The map itself dates to 1839, but was published in 1853 as part of a deposition; oriented with north to the right and centered on  Portsmouth Square ; bounded on the right (north) by Pacific, on the left (south) by Washington), on the top (west) by Grant, and on the bottom (east) by Montgomery.",
+   "evidence": {
+    "checked": "0000-00-00",
+    "dist_m": 0.0,
+    "kind": "caption_coords",
+    "named_place": "San Francisco",
+    "place_label": "San Francisco",
+    "place_lat": 37.79213,
+    "place_lon": -122.40289,
+    "place_qid": "Q62",
+    "rec": "evidence/1",
+    "site_lat": 37.79213,
+    "site_lon": -122.40289
+   },
+   "h": 2107,
+   "license": "Public domain",
+   "mime": "image/jpeg",
+   "name": "San Francisco, the Vioget plan (1839, the first plan of the old town)",
+   "page": "https://commons.wikimedia.org/wiki/File:1839_Plan_of_Yerba_Buena_(Jean_Jacques_Vioget).jpg",
+   "qid": "Q62",
+   "site": "san-francisco-q62",
+   "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/1839_Plan_of_Yerba_Buena_%28Jean_Jacques_Vioget%29.jpg/1280px-1839_Plan_of_Yerba_Buena_%28Jean_Jacques_Vioget%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "title": "File:1839 Plan of Yerba Buena (Jean Jacques Vioget).jpg",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/6/60/1839_Plan_of_Yerba_Buena_%28Jean_Jacques_Vioget%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "w": 2400,
+   "wd_plan": false,
+   "year": 1839
   }
  ]
 }

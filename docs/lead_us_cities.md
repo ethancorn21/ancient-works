@@ -7,8 +7,9 @@ quads) are background, not drawings. This task stages the **named city plans** (
 plans, 1660-1880): New York - the **Castello plan (1660)**, the **Ratzer map (1767)**, the
 **Commissioners' Plan (1811)** and the **Viele map (1865)** - Washington DC - the **L'Enfant plan
 (1791, first printed 1792)**, the **Ellicott plan (1792)** and the **Civil War defences (1865)** - and
-San Francisco - the **1849 Eddy survey map**, the **1850 first-published map** and the **1854 Eddy
-'full and complete' sheet** - three cities staged; Nashville last. Bird's-eye/panoramic views of the same and other US cities are task 236b.
+San Francisco - the **1839 Vioget plan (the first plan of the old town)**, the **1849 Eddy survey map**,
+the **1850 first-published map** and the **1854 Eddy 'full and complete' sheet** - three cities staged;
+Nashville last. Bird's-eye/panoramic views of the same and other US cities are task 236b.
 The picture rows are staged in this task's own files (`data/catalog/extras_us_cities.jsonl`,
 `data/commons/files_us_cities.jsonl`, `data/commons/classified_us_cities.jsonl`); **236c** consolidates
 them into the canonical data and builds the sites, 212's cover runs the fitting loop.
@@ -211,7 +212,8 @@ PASS caption_coords  washington-q61|File:Map of the defences of Washington. LOC 
 PASS caption_coords  san-francisco-q62|File:Official map of San Francisco compiled from the field notes of the official re-survey made by Wm. M. Eddy. surveyor of the town of San Francisco. LOC 77692722.jpg
 PASS caption_coords  san-francisco-q62|File:Map of San Francisco, Apollo storeship at the bottom.jpg
 PASS caption_coords  san-francisco-q62|File:Official map of the City of San Francisco, Full and complete to the present date. Compiled by Wm., M. Eddy. City Surveyor. (IA dr official-map-of-the-city-of-san-francisco-full-and-complete-to-the-present-5870000).jpg
-evidence: 10 rows, 10 pass, 0 fail, 0 no-tie
+PASS caption_coords  san-francisco-q62|File:1839 Plan of Yerba Buena (Jean Jacques Vioget).jpg
+evidence: 11 rows, 11 pass, 0 fail, 0 no-tie
 ```
 
 The join rules it enforces: every staged file row names a staged or existing site, a staged id or QID
@@ -476,7 +478,7 @@ not a missing file, a gate/heuristic wall, recorded here so the next session doe
   staging is what this task owes, not a fit. The **red water-front line** is the strongest anchor
   where the shoreline is still recognizable.
 
-### The Vioget plan (1839) - verified, to stage next
+### The Vioget plan (1839) - STAGED (2026-10-13, the 4th SF row)
 
 `File:1839 Plan of Yerba Buena (Jean Jacques Vioget).jpg` (2400x2107, Public domain, page date
 1839-01-02 = the drawing's date, no swap): the **first plan of the old town** - Yerba Buena, the
@@ -486,7 +488,9 @@ the street grid centered on Portsmouth Square, the hachured shoreline, the named
 extent (the old core, ~1 km) sits inside the 2 km box. **Gate-safe**: the description prints "San
 Francisco" inside the 600-char window, `commons.keep()` passes (both checked live 2026-10-13). It
 surfaced in the 147 searches **after** that verdict's drop list was written, so it is not among the
-rows above: **stage it next session as the fourth SF row** (the oldest of the site's plans).
+rows above. **STAGED (iteration 150)**: the 4th SF row - no known-date swap (the page date IS the
+drawing's date), the staged row's `name` is "San Francisco, the Vioget plan (1839, the first plan of
+the old town)"; `--check` now 11/11.
 
 ### The Ringgold 1849 town plan - NOT on Commons
 

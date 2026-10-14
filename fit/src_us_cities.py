@@ -2,8 +2,9 @@
 hand-checked file -> QID table for the old plans of New York - the 1660 Castello plan, the 1767 Ratzer map,
 the 1811 Commissioners' Plan (bird's-eye) and the 1865 Viele map - of Washington DC - the 1791 L'Enfant plan
 (as its 1792 first-printed edition), the 1792 Ellicott plan and the 1865 Civil War defences map - and of San
-Francisco - the 1849 Eddy survey map, the 1850 first-published map and the 1854 Eddy 'full and complete'
-sheet - staged into this task's own staging files the way src_artists.py does. Nashville follows in a later
+Francisco - the 1839 Vioget plan (the first plan of the old town), the 1849 Eddy survey map, the 1850
+first-published map and the 1854 Eddy 'full and complete' sheet - staged into this task's own staging
+files the way src_artists.py does. Nashville follows in a later
 session; 236c consolidates the staged rows into the canonical data and builds the sites.
 
 usage: src_us_cities.py --verify     re-verify every table QID (SITES) against Wikidata
@@ -158,8 +159,15 @@ DEFENCES = [
 
 # San Francisco leads (checked live 2026-10-13; the per-file STAGED/DROP verdicts - including the Ringgold
 # 1849 town plan that is NOT on Commons (navy charts only) and the Henry Bill 1856/1858 view map that
-# belongs to 236b - are in docs/lead_us_cities.md). All three print "San Francisco" in the title
-# (the named-place gate, fit/evidence.py check_caption).
+# belongs to 236b - are in docs/lead_us_cities.md). The Eddy/1850 rows print "San Francisco" in the title;
+# the Vioget 1839 title does not, but the file page's description does (checked live inside the gate's
+# 600-char window) (the named-place gate, fit/evidence.py check_caption).
+VIOGET_1839 = [
+    # the 1839 Vioget plan - the FIRST plan of the old town (Yerba Buena, the settlement that became the
+    # city), published 1853 as a deposition exhibit (NARA 33300); the file page's date IS the drawing's
+    # date (1839-01-02), so no known-date swap
+    ("File:1839 Plan of Yerba Buena (Jean Jacques Vioget).jpg", "Q62", "San Francisco", dict()),
+]
 EDDY_1849 = [
     # the 1849 Eddy survey map - THE ORIGINAL manuscript (LOC's presentation copy, Dec. 31st 1849),
     # pen-and-ink and watercolor on cloth: the whole old town, North Beach to Rincon Point, 1:6,600
@@ -193,6 +201,8 @@ SOURCES = {
                      label="{name}, Andrew Ellicott's plan (1792, the first official plan)"),
     "defences_1865": dict(rows=DEFENCES, p="plan",
                           label="{name}, the Civil War defences (1865 map of the fortification ring)"),
+    "vioget_1839": dict(rows=VIOGET_1839, p="plan",
+                       label="{name}, the Vioget plan (1839, the first plan of the old town)"),
     "eddy_1849": dict(rows=EDDY_1849, p="plan",
                      label="{name}, the Eddy survey map (1849, the original)"),
     "map_1850": dict(rows=MAP_1850, p="plan",
