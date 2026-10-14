@@ -4,7 +4,7 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/000-plan.md` (in-progress) - hand-over: (iteration 157, 2026-10-13, agent a - **the 2026-10-13 23:39 GOAL change (point 2: the image
+- `tasks/000-plan.md` (in-progress) - hand-over: (iteration 158, 2026-10-13, agent a - **the driver's rejection of the done claim is
 - `tasks/207b-maclauchlan.md` (blocked) - hand-over: (2026-10-13, iteration 204, agent c - NO work on this task. The driver auto-put it back to
 - `tasks/207c-roy.md` (blocked) - hand-over: (2026-10-13, iteration 205, agent c - NO work on this task. The driver auto-put it back to
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
@@ -28,58 +28,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-13 000 DECISION: plan re-checked for the 2026-10-13 GOAL change - the matcher is the only automatic placement (238/239 added; boxes re-ticked)
-GOAL.md changed 2026-10-13 23:39 (driver reopen commit 116aba2): point 2 rewritten - the ONLY
-automatic placement is the purpose-built image matcher (fit/matchfit.py: MatchAnything RoMa +
-ELoFTR) against a georeferenced ground image (the LiDAR relief, or an old survey sheet already
-placed on the map); the local Qwen models never place a drawing and never write point pairs or
-coordinates; fit/batch_us.py / fit/batch_eu.py's model fitting pass is retired; automatic
-fitting runs on LiDAR sites only (fits on aerial photographs alone mostly do not line up),
-aerial-only sites keep their review items; every matcher fit goes to the gate (point 3); the
-matcher's ~1-in-10 yield (49 fits: 35 RoMa + 14 ELoFTR; 37 on old survey sheets, 12 on the LiDAR
-relief) is recorded in GOAL's "What is known". The lead's port d286196 (10-13 18:57, before the
-reopen) had already updated GOAL.md and exactly ONE PLAN.md tech-choice bullet; the rest of the
-plan (current state, architecture, module map, task map, assumptions) was still the 2026-10-10
-wording ("the local model does the fitting itself") - iteration 157 (agent a) finished that.
-
-Investigation (all facts run, not reasoned): 49 matcher docs in data/db/platefits (0 against
-imagery.jpg; 5 against Etat-Major sheets on sites WITHOUT relief.jpg); 22 non-matcher docs =
-the golden's 22 hand docs (41 lines = 22 docs + 19 site.json, Fort Ancient included after the
-lead's port); 499 sites (425 with relief.jpg, 0 aerial-only, 74 with neither image); 1510 plans
-rows; 456 review items in web/data/review.json; site_done._fit still runs batch_us.run_sites as
-the model second pass (--working / --model-json); matchfit.run writes a doc on judge() silence
-with score = the raw median matcher residual - the frozen 001 gate (pipeline/fit_gate.py) is
-never run on matcher docs (gate(pairs, transform=None) solves the canonical similarity; the
-matcher's RANSAC refit is the same least squares over its inliers, so the gate is directly
-applicable); cover.py (212, in flight) refuses --working at the CLI but still forwards
---model-json to the line.
-
-Decisions: (1) The two gaps between the new GOAL and the code became two new agent tasks, one
-module each, serialized after the 302f/302g validation of the current line (agent c's, open):
-238 = the gate between the matcher's judge and the doc write (frozen rule, no re-tuning; one
-appended docs/gate.md section; the gate's `why` exposed per candidate), 239 = the vision
-fitting pass retired (the batch's _sheet/_model_prompt/_parse_answer/llm_model/recorded_model
-deleted; the line's second pass becomes the matcher-reason upsert; --working/--model-json off
-the line, batch_eu and cover.py's loop forwarding; tests + docs/site_flow.md step 1 updated).
-239 depends on 212 because cover.py is 212's in-flight file, not for code reasons. (2) The
-"LiDAR sites only" ruling is read TOGETHER WITH the preceding sentence (ground = "the LiDAR
-relief, or an old survey sheet already placed on the map"): placement against a placed sheet
-stays allowed even without LiDAR (5 of the 49 current fits are exactly that); excluded =
-aerial-only ground (no relief, no placed sheet) - a guard on this VM (0 such sites), not a
-cleanup. Stated as PLAN assumption 10 with the stricter variant noted as a one-line change in
-fit/matchfit.grounds. Not ask_human: the reading does not change the plan's shape, and GOAL's
-own 49-fits count includes the 5 sheet-only fits. (3) Deterministic-yield assumption 11 +
-out-of-scope: no re-running refused pictures, no loosening judge/gate thresholds as a yield
-strategy. (4) Box 5 fix: 302a/308/309 (all done, agent-created) lacked the one-line
-`Depends on:` (302a removed it deliberately at done; 308/309 never had it) - `Depends on:
-none` added; a format line, not a goal/acceptance edit.
-
-Commit state: f828ce0 committed tasks/000 (boxes ticked, Status done, hand-over), tasks/238,
-... (1.0 KB more: `grep -n -A 200 -F '## 2026-10-13 000 DECISION: plan re-checked for the 2026-10-13 GOAL change - the matcher is the only automatic placement (238/239 added; boxes re-ticked)' DECISIONS.md`)
-
-### 2026-10-13 000 DRIVER: done claim rejected, task reopened
-- Team project: these tasks can never start, their `Depends on:` lines wait on each other: 212 (waits on 212 235), 239 (waits on 212 238 302f 302g)
 
 ### 2026-10-10 000 DECISION: 000 closed done - finished the GOAL-change plan update (213 created, 212 reworded, CODEMAP rules written, boxes verified)
 
@@ -113,6 +61,49 @@ closed the planning task.
   deliberately left requirements.in/requirements.txt untouched (they are 800's files). If the
   driver's re-check of this done claim fails on the main-side venv build, the fix belongs to 800
   and merges independently.
+
+### 2026-10-13 000 DECISION: done-claim rejection fixed - the `Depends on:` line must be a bare id list (212/212a/307a); 000 re-claimed done
+The driver reopened 000 (commit 6955a66) with: "Team project: these tasks can never
+start, their `Depends on:` lines wait on each other: 212 (waits on 212 235), 239 (waits
+on 212 238 302f 302g)". Diagnosis (checked by running code, /tmp/depcheck2.py, not
+reasoned): the driver's team-mode scheduler tokenizes every `NNN`/`NNNx` on the
+one-line `Depends on:` line, prose included. tasks/212-cover-final.md:3 carried an
+explanatory parenthetical that the 212 session (69ed411 - my own task, other checkout)
+added when it made 212 wait on 235; its prose contained "212's" and "212b's" (plus
+301, 306e, 307d), so the parse gave 212 a self-dependency. The driver's "waits on 212
+235" is exactly the PENDING subset of the parsed tokens (203a, 203b, 211, 212b, 301,
+306e, 307d are all done and dropped from the note; only 212 and 235 are pending) - the
+note reproduces the tokenizer, confirming the theory. 239's wait on 212 is legitimate
+(cover.py is 212's in-flight file; not a code dependency, a same-file gate) and
+parked behind 212.
+
+Fix (box 5 of 000 is exactly "the numbers of the tasks that must be finished first, or
+none" - a format-line cleanup on agent-created files, precedent 302a/308/309 from
+iteration 157; goal/acceptance boxes untouched; each file's hand-over body already
+carries the full rationale, so nothing moved):
+- tasks/212-cover-final.md:3 -> `Depends on: 203a, 203b, 211, 235` (212 now waits only
+  on 235, whose deps 306e+307d are done - it starts when 235 merges)
+- tasks/212a-cover-search.md:3 -> `Depends on: 211, 203b` (parenthetical carried a
+  "212a" self-ref; done task)
+- tasks/307a-place-check.md:3 -> `Depends on: none` (was `(none - a record; ...
+  307b/307c/307d ... 309)`, which tokenized as deps ON the live work - inverted
+  intent; done task)
+
+Verification after the fix (checker over all 99 task files): every `Depends on:` line
+is a bare comma list or `none`; every id names an existing task file; no
+self-references; the pending graph (24 tasks) has no cycle and no task that can never
+start. Note: 307bb's `Depends on: 307ba` looks like a prose hit to a one-letter regex
+but is a valid two-letter subtask id (done task) - checker artifact, no action. The
+2026-10-13 GOAL re-plan stands untouched (PLAN.md committed 5420291; 238/239 created
+f828ce0; assumptions 10-11). Residual team-mode risk: 212's other checkout may still
+carry the parenthetical on line 3, so a main<->branch merge can conflict on that one
+line; the resolution is always the bare list (the scheduler requires it) with the
+rationale staying in the hand-over body. PITFALLS gained the tokenizer fact under
+Agent tools and harness. All seven boxes re-verified true; Status set back to done.
+
+### 2026-10-14 000 DRIVER: done claim rejected, task reopened
+- Accepted, but it cannot go into main yet: your branch conflicts with main (the other agent's finished work) in: PLAN.md
+    Run `git merge main`, resolve each conflict keeping both sides' intent, run the tests, commit, then set the task done again.
 
 ## Project-wide driver notes (newest)
 
