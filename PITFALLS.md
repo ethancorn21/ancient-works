@@ -118,6 +118,11 @@ Where: any in-flight full-suite run (`.venv/bin/python -m pytest tests/ ...`) in
 Symptom: `FAILED tests/test_cover.py::test_checkout_integrity - AssertionError: checkout files changed by the phases: ['docs/lead_roman.md']` with before/after sha256 differing - even though nothing in the run itself touched the file; 2026-10-14 (808) hit it by appending the lead accounting to docs/lead_roman.md while the suite was running in the same checkout.
 Why/fix: the suite takes file snapshots at test start and compares at test end; a human/agent edit in between reads as "the run changed it". Commit (or defer) every working-tree edit BEFORE starting a verification run, and never start a long run while you still plan to edit: re-run the suite on the stable tree - the red that looks like your data change is usually just your own keystrokes. (Team mode note: other checkouts run their own suites, but TMPDIR is per-checkout, so cross-checkout interference is not the cause - this one is self-inflicted.)
 
+#### A saved PIL crop of a Wikimedia thumb can render blank in the read tool while a resize of the same file renders fine
+Where: the read tool + PIL crop/resize saves of ~1280 px Commons thumbs (the research thumb-eyeballing workflow)
+Symptom: `Image.open(thumb).crop(box).save(x.jpg)` produces a file the read tool renders as a uniformly dark/blank image, although a pixel probe (`px[x, y]`) of the same region shows bright, correct values; re-running the identical crop fails the same way, while `im.resize(same_size).crop(same_box)` and a read of the untouched source both render correctly (2026-10-14, 240 Minneapolis research: two direct crops of the 1885 Minneapolis thumb rendered blank, resize-then-crop and the full-image resize rendered fine; no EXIF data involved).
+Why/fix: cause not established (the JPEG writer, the read tool's decode, or their interaction). When a saved crop renders blank, probe the source pixels to confirm the content is there, then re-derive the view from `im.resize(...)` before cropping (or just re-read the original file) instead of debugging the encoder; the resize-then-crop workaround is byte-stable enough for eyeballing.
+
 ## This machine and its environment
 
 Installed software and versions, paths, ports, network, what is blocked.
