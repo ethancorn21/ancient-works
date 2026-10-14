@@ -628,6 +628,23 @@ Accept the 1-in-8 scale-error acceptance, backstopped by the review queue (GOAL 
 human's 18/20 sample of auto-accepted fits (GOAL 3); a tighter rule may only be derived on
 fresh documents with a fresh seed.
 
+#### A transform=None gate cannot see a scale-shaped ground error of any measured magnitude - a 15%-scale matcher answer re-solves to median ~ 0
+Where: `pipeline/fit_gate.py` (`gate`/`placement` with `transform=None`), `fit/batch_us.py`
+      (`gate_placement`), `fit/matchfit.py` (`_settle`), the fails-gate test case of tasks/238-matcher-gate.md
+Symptom: the variant the 238 task Notes proposed as the fails-gate matcher example (the pairs'
+      ground points scaled 1.15x about their centroid, then `gate(pairs, None)`) does not fail:
+      it ACCEPTS with med 0.0104 (a uniform 1.15x); a radial 15%/50% variant ACCEPTS too (med
+      2.27/7.59) - a fails-gate test case built on scale silently passes.
+Why: with transform=None the gate solves the canonical similarity from the pairs themselves, so a
+      CONSISTENT global distortion (uniform or radial scale) is absorbed into the solved placement
+      and the residuals return to ~0 (the section-7 limit, docs/gate.md). Only anchor-offset
+      patterns fail it (4 of 8 anchors +-200 m E, alternating: med 96.8 m > 45 m, the median
+      clause; 2 of 8: the slope clause) - i.e. what is self-inconsistent, measured. Section 9's
+      scale15 rows were caught only because they were CLAIMED placements (transform != None) tested
+      against recorded anchors. Build fails-gate test cases from anchor offsets and label them
+      synthetic; the scale-shaped variants belong in the test as PASSING (they back the
+      section-7 limit statement).
+
 #### In-place re-dump of a jsonl line must carry the line terminator or rows glue together
 Where: `fit/evidence.py` (`set_field`, `rewrite`, `record`); the test that guards it: `tests/test_evidence.py` (`test_record_appends_evidence_without_touching_existing_bytes`)
 Symptom: after a `record`-style rewrite, one line of a jsonl file contains two JSON objects (this line
@@ -863,6 +880,18 @@ Symptom: the batch query for `File:Plan of the City of New York by Ratzer, 1776.
 Why: MediaWiki page titles are case-sensitive except in the first character; a mid-title "city"/"City" is a different page. When an expected file looks missing, search first (`srnamespace 6`) and use the exact title from the results, never the remembered one.
 
 ### fit/
+
+#### record._fake_match takes the fixture's responses dict, not the fixture
+Where: `tests/fixtures/matchfit_station/record.py` (`_fake_match`); offline replays of the 302f/
+      238 fixtures (`records.json`, `records_unsure.json`)
+Symptom: passing the whole fixture to `rec._fake_match(fixture)` KeyErrors on every /match
+      request (the lookup is by sha256 of the exact request body, which never matches a fixture
+      top-level key) - matchfit prints `matcher error on <ground> x<f>: '<sha256>'` for every
+      window and fit_row reports "the matcher found nothing consistent".
+Why: `_fake_match(records)` does `records[hashlib.sha256(body).hexdigest()]`; the fixture's top
+      level is `{header, responses}`, so pass `fixture["responses"]` (the flat sha256 -> response
+      map). test_matchfit_station.py's in-process stub never hits this: it hashes the live request
+      body against the same dict itself.
 
 #### Python binds `/` and `%` at the same precedence (left-associative), and `or` binds below both
 Where: `fit/batch_us.py` (`write_report`, path building), `tests/test_batch_us.py`
