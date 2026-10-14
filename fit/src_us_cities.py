@@ -90,19 +90,24 @@ SITES = {
     # Beach tip) down to Rincon Point (today's Spear St between Harrison and Folsom - the corner of the old
     # bay) plus the 1850s growth - so the point is the midpoint of those two web-verified tips (enwiki
     # 'Rincon Point (San Francisco)' + Nominatim street segments; the corner interpolated): the center of
-    # the drawn extent, ~(-122.403, 37.792). A P625-centered 4 km box would leave the bay tip outside it;
-    # the midpoint box covers tip to tip (the NY/DC extent decision: oversize sheets end as review items,
-    # not wider boxes).
+    # the drawn extent, ~(-122.403, 37.792). The kind-'town' box is 2000 m (2 km x 2 km centered on the
+    # point: build_catalog.BOX + aw.site_bbox, hw = width_m/2): it covers the drawn peninsula tip to tip
+    # (2.1 km) except a ~30 m overshoot at each tip; both P625s sit 2.0-2.4 km outside it (no flag:
+    # --verify flags only >50 km); the 1854 sheet's 1850s growth reaches past the box's SW corner (the
+    # Market & 10th-11th area) - an oversize sheet, its fit likely ends a review item (the NY 1811 / DC
+    # ring precedent), not a wider box.
     "Q62": dict(id="san-francisco-q62", name="San Francisco", named="San Francisco",
                 lon=-122.40289, lat=37.79213,
                 place="San Francisco County, California", region="United States", kind="town",
                 wikipedia="https://en.wikipedia.org/wiki/San_Francisco",
                 note="aerial-photograph ground (no open LiDAR over the built-up city: bare-earth LiDAR erases "
                      "the streets); the street grid, the bay shoreline (the 1854 sheet's red water-front "
-                     "line), the squares and the hills carry the fit; the 1849-1854 sheets draw the old "
-                     "peninsula tip to tip inside the 2000 m town box - the point is the midpoint of the two "
-                     "drawn tips (Washington & Jones / Rincon Point), not a P625 (see the SITES comment); "
-                     "the 1854 sheet's 1850s growth (the Center Street grid to the SW) also sits in the box"),
+                     "line), the squares and the hills carry the fit; the 1849/1850 sheets draw the old "
+                     "peninsula tip to tip in the 2000 m town box (~30 m overshoot at each drawn tip); the "
+                     "point is the midpoint of the two drawn tips (Washington & Jones / Rincon Point), not a "
+                     "P625 (see the SITES comment); the 1854 sheet's 1850s growth (the Center Street grid, "
+                     "the Market & 10th-11th corner) reaches past the box's SW corner - likely a review "
+                     "item (the NY 1811 precedent, docs/lead_artists.md)"),
 }
 
 # New York leads (checked live 2026-10-13; the per-file STAGED/DROP verdicts - including the 1916

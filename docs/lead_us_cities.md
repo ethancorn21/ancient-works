@@ -5,9 +5,10 @@ like nashville or dc or SF or New York. Those had to have had some survey stuff 
 views count as drawings (exempt from the 150-year rule); plain survey sheets (Coast Survey charts, USGS
 quads) are background, not drawings. This task stages the **named city plans** (manuscript and engraved
 plans, 1660-1880): New York - the **Castello plan (1660)**, the **Ratzer map (1767)**, the
-**Commissioners' Plan (1811)** and the **Viele map (1865)** - and Washington DC - the **L'Enfant plan
-(1791, first printed 1792)**, the **Ellicott plan (1792)** and the **Civil War defences (1865)** - both
-cities staged; San Francisco and Nashville in later sessions. Bird's-eye/panoramic views of the same and other US cities are task 236b.
+**Commissioners' Plan (1811)** and the **Viele map (1865)** - Washington DC - the **L'Enfant plan
+(1791, first printed 1792)**, the **Ellicott plan (1792)** and the **Civil War defences (1865)** - and
+San Francisco - the **1849 Eddy survey map**, the **1850 first-published map** and the **1854 Eddy
+'full and complete' sheet** - three cities staged; Nashville last. Bird's-eye/panoramic views of the same and other US cities are task 236b.
 The picture rows are staged in this task's own files (`data/catalog/extras_us_cities.jsonl`,
 `data/commons/files_us_cities.jsonl`, `data/commons/classified_us_cities.jsonl`); **236c** consolidates
 them into the canonical data and builds the sites, 212's cover runs the fitting loop.
@@ -39,14 +40,15 @@ table lives in `fit/src_us_cities.py` (the `pipeline/sources.py` pattern, no boo
 
 ## QID verification (checked 2026-10-13, re-run with `.venv/bin/python fit/src_us_cities.py --verify`)
 
-**Staged (in the table):** New York City Q60 and Washington DC Q61, re-verified against Wikidata -
-label, every P625 value (flagged when >50 km from the table point), P373, P131 (with labels), the enwiki
-article, and the first name-search hit with coordinates (what `record --live` would resolve for the
-caption route). No P625 flag fired; no search trap: the first search hit with coordinates is the city
-itself in both cases.
+**Staged (in the table):** New York City Q60, Washington DC Q61 and San Francisco Q62, re-verified
+against Wikidata - label, every P625 value (flagged when >50 km from the table point), P373, P131
+(with labels), the enwiki article, and the first name-search hit with coordinates (what `record
+--live` would resolve for the caption route). No P625 flag fired (Q62's two values are 2.0-2.4 km
+from its table point); no search trap: the first search hit with coordinates is the city itself in
+all three cases.
 
 ```
-checked 2026-10-13 - 2 QIDs (Wikidata)
+checked 2026-10-13 - 3 QIDs (Wikidata)
   Q60  'New York City'
       P625: [(-74.00611111111111, 40.71277777777778)]  (table site point: -74.006111, 40.712778)
       P373: ['New York City']
@@ -59,14 +61,17 @@ checked 2026-10-13 - 2 QIDs (Wikidata)
       P131: [('District of Columbia', 'Q3551781')]  (table place: 'District of Columbia')
       enwiki: 'Washington, D.C.'  (table wikipedia: 'https://en.wikipedia.org/wiki/Washington,_D.C.')
       search 'Washington, D.C.': first hit with P625 is Q61 'Washington, D.C.' (-77.036666666667, 38.895)
+  Q62  'San Francisco'
+      P625: [(-122.41944444444445, 37.775), (-122.41638888888889, 37.7775)]  (table site point: -122.40289, 37.79213)
+      P373: ['San Francisco']
+      P131: [('San Francisco County', 'Q13188841'), ('California', 'Q99')]  (table place: 'San Francisco County, California')
+      enwiki: 'San Francisco'  (table wikipedia: 'https://en.wikipedia.org/wiki/San_Francisco')
+      search 'San Francisco': first hit with P625 is Q62 'San Francisco' (-122.41944444444445, 37.775)
 ```
 
-**Prep-verified for the later sessions (checked 2026-10-13 via `pipeline/catalog_wd`; not in the module
-table yet - the SF and Nashville site points are not final, the table stays honest):**
+**Prep-verified for the last session (checked 2026-10-13 via `pipeline/catalog_wd`; not in the module
+table yet - the Nashville site point is not final, the table stays honest):**
 
-- **Q62 "San Francisco"** - **TWO P625 values ~450 m apart, both downtown**; the old town's tip (the
-  1849 plans' drawn extent) lies south of both, so the site point will be refined against the files at
-  staging. The first search hit with coordinates is Q62 itself (no trap).
 - **Q23197 "Nashville"** - P625 (-86.7744, 36.1622) is downtown east of the Cumberland; the old 1790s
   town sat at the river confluence (~-86.788, 36.166) - refine at staging. The first search hit with
   coordinates is Q23197 itself (no trap).
@@ -203,7 +208,10 @@ PASS caption_coords  new-york-q60|File:Viele Map (Topographical map of the City 
 PASS caption_coords  washington-q61|File:Plan of the city of Washington LOC 88694159.tif
 PASS caption_coords  washington-q61|File:Plan of the city of Washington in the territory of Columbia - ceded by the states of Virginia and Maryland to the United States of America, and by them established as the seat of their government, (NYPL b15255319-434417).jpg
 PASS caption_coords  washington-q61|File:Map of the defences of Washington. LOC 88690674.jpg
-evidence: 7 rows, 7 pass, 0 fail, 0 no-tie
+PASS caption_coords  san-francisco-q62|File:Official map of San Francisco compiled from the field notes of the official re-survey made by Wm. M. Eddy. surveyor of the town of San Francisco. LOC 77692722.jpg
+PASS caption_coords  san-francisco-q62|File:Map of San Francisco, Apollo storeship at the bottom.jpg
+PASS caption_coords  san-francisco-q62|File:Official map of the City of San Francisco, Full and complete to the present date. Compiled by Wm., M. Eddy. City Surveyor. (IA dr official-map-of-the-city-of-san-francisco-full-and-complete-to-the-present-5870000).jpg
+evidence: 10 rows, 10 pass, 0 fail, 0 no-tie
 ```
 
 The join rules it enforces: every staged file row names a staged or existing site, a staged id or QID
@@ -361,12 +369,153 @@ not a missing file, a gate/heuristic wall, recorded here so the next session doe
   (6260x6881, Public domain, 1880): a later edition besides, and the same gate failure (no
   "Washington" in the title or the 600-char description).
 
-## San Francisco (Q62) - later sessions
+## San Francisco (Q62)
 
-Leads: the **1849 plans (Eddy, Ringgold)** - the first surveys of the town that became the city;
-**1850s city plans** (the growth around the bay). Q62 has **two P625 values ~450 m apart** (both
-downtown); the site point will be the old town's tip (the drawn extent of the 1849 plans), refined
-against the files at staging - recorded in the QID section.
+- **The site point (REFINED, not a P625).** `san-francisco-q62` at (-122.40289, 37.79213) - the
+  **midpoint of the two web-verified tips of the old town's drawn peninsula**, not either of Q62's two
+  P625s (387 m apart, both downtown near the Civic Center / 10th & Market, 2.0-2.4 km SW of the point
+  - outside the town box, no flag since `--verify` flags only >50 km). A = the historic **Rincon
+  Point** (the SE corner of the drawn peninsula; enwiki "Rincon Point (San Francisco)": today
+  "approximately along Spear Street from Harrison to Folsom Street"; the Nominatim Spear-street segment
+  (37.7919285, -122.3933015)/(37.788381, -122.3889244) -> A (37.790155, -122.391113); cross-checked
+  against Rincon Park (37.791195, -122.389541), ~175 m away). B = the **Washington & Jones corner**
+  (the NW corner of the 1849 street grid - the old North Beach tip), the intersection of the Nominatim
+  street lines (Washington St (37.7952016, -122.4060729)/(37.793173, -122.4220116); Jones St
+  (37.7825459, -122.4123324)/(37.8062714, -122.417119)) -> B (37.794108, -122.414665). The midpoint,
+  five decimals; the ~100-200 m street-centroid uncertainty is immaterial against the box below. (For
+  the record: the 147 hand-over's "the tip lies south of both P625s / ~450 m" was wrong - the tip is
+  NE of both, and the separation is 387 m; refining to the midpoint was the right branch anyway.)
+- **The extent decision (acceptance box 2).** Kind "town" = the 2000 m box - 2 km x 2 km centered on
+  the site point (`build_catalog.BOX` + `aw.site_bbox`, hw = width_m/2) - the same kind-default
+  decision as New York and Washington DC (oversize sheets end as review items, not wider boxes).
+  Measured, the box is lat 37.78315..37.80111, lon -122.41426..-122.39152: it covers the drawn
+  peninsula tip to tip (2.1 km) **except a ~30 m overshoot at each drawn tip** (Rincon ~30 m past the
+  east edge, Washington & Jones ~30 m past the west edge). The 1854 sheet's 1850s growth (the Center
+  Street grid, the Market & 10th-11th corner, geocoded 2026-10-13) reaches the box's SW corner and
+  slightly past it - an **oversize sheet**, so its fit is likely to end as a **review item**, not a
+  fitted plan (the NY 1811 / DC ring precedent). (Correction: the 148 hand-over's "4 km box" was a
+  hw = width_m miscalculation - the kind-default box is 2 km; every number in this section is
+  measured against it.)
+- **Staged rows.** `extras_us_cities.jsonl`: `san-francisco-q62` (name "San Francisco", place "San
+  Francisco County, California", lon/lat above, region "United States", kind "town", QID, wikipedia,
+  `aerial_ok: true`, the note). `files_us_cities.jsonl`: the three rows below, each with the
+  hand-recorded `caption_coords` evidence (`named_place` "San Francisco", `place_qid` Q62, place =
+  site point, dist 0; `cat: null`). All three print "San Francisco" **in the title** (gate-safe).
+  `classified_us_cities.jsonl`: plan/plan/plan, `by: "hand"`.
+
+### The Eddy survey map (1849)
+
+- **What it is.** William M. Eddy's map **compiled from the field notes of the official re-survey** of
+  the town - the ORIGINAL manuscript (LOC's presentation copy: "Presented to the Senators and
+  Representatives from California by Wm. M. Eddy, city surveyor, San Francisco, Dec. 31st 1849"),
+  pen-and-ink and watercolor on cloth, 1:6,600: the whole old town, North Beach down to Rincon Point.
+- **Where the files live.**
+  - **STAGED** - `File:Official map of San Francisco compiled from the field notes of the official
+    re-survey made by Wm. M. Eddy. surveyor of the town of San Francisco. LOC 77692722.jpg`
+    (6454x8480, Public domain, page date "1849" - no swap: page date = drawing date).
+  - DROP - `File:Official map of San Francisco. LOC 76695582.jpg`/`.tif` and `File:Official map of San
+    Francisco, compiled from the field notes of the official re-survey made by William M. Eddy,
+    surveyor of the town of San Francisco, California. LOC 76695583.jpg`/`.tif` (Public domain, 1849,
+    "Entered ... by Henry Reed", lith. F. Michelin, NY): **two printed 1849 editions of the same
+    staged plan** - one row per plan, the NYC Ratzer re-engraving precedent.
+  - DROP - `File:Official Map of San Francisco, Compiled from the Field Notes of the Official
+    Re-Survey made by William M. Eddy. Surveyor of (IA dr
+    official-map-of-san-francisco-compiled-from-the-field-notes-of-the-officia-00194050).jpg`
+    (6361x8362, no page date): a **third 1849 copy** ("the Eddy Map of San Francisco, the first City
+    map, here in the second issue of 1849") - the same plan.
+- **Fit note for 212.** Flat plan, the whole old peninsula tip to tip in the 2 km box (the ~30 m tip
+  overshoots above): a similarity fit; the street grid, the 1849 shoreline and the tip carry it.
+
+### The first published map (1850)
+
+- **What it is.** The 1850 map body "MAP OF THE CITY OF SAN FRANCISCO CALIFORNIA - COPIED FROM
+  ORIGINALS WITH CORRECTIONS AND ADDITIONS - 1850" (Sun Lithographic Establishment, NY) - the first
+  map **published** after the Eddy survey: all streets, Agnew's Steamboat Landing, Central Wharf, the
+  Apollo storeship, Yerba Buena Cemetery, Rincon Point, hachured hills, and the inset "View of San
+  Francisco in 1850". The staged scan is from Joseph P. Beach's journal (son of Moses Yale Beach, New
+  York Sun).
+- **Where the files live.**
+  - **STAGED** - `File:Map of San Francisco, Apollo storeship at the bottom.jpg` (1238x1536, Public
+    domain, page date "1850-01-01" - no swap).
+  - DROP - `File:(Covers to) Map of The City Of San Francisco, California. Copied From Originals with
+    Corrections and Additions. 1850. View of (IA dr
+    covers-to-map-of-the-city-of-san-francisco-california-copied-from-origi-10423001).jpg`
+    (1074x1536): the same map's **leather covers + title page with the printer's ad**, not the map
+    (the body is the staged Apollo file).
+- **Fit note for 212.** Flat plan, the same extent as the 1849 sheet with the 1850 additions - the
+  same similarity fit; the smallest of the three staged scans (1238x1536).
+
+### The Eddy 'full and complete' sheet (1854)
+
+- **What it is.** The Eddy 1854 sheet (the map itself is dated **January 15th 1854**; printed without
+  color, red lines added by hand - the outer red line is the water front, the inner the shore line;
+  block and lot numbers, wards) - the 1850s growth around the old town. The file page lost the
+  drawing's date, so the known survey date is on the row (`date: "1854"`, `date_commons: ""` - the
+  swap fired; the golden normalizes the empty page value to 0000-00-00).
+- **Where the files live.**
+  - **STAGED** - `File:Official map of the City of San Francisco, Full and complete to the present
+    date. Compiled by Wm., M. Eddy. City Surveyor. (IA dr
+    official-map-of-the-city-of-san-francisco-full-and-complete-to-the-present-5870000).jpg`
+    (8830x10560, Public domain, David Rumsey scan).
+  - DROP - `File:A Topographical & Complete Map of San Francisco. Compiled from the Original Map, from
+    the recent Surveys of W.M. Eddy (IA dr
+    a-topographical-complete-map-of-san-francisco-compiled-from-the-original-12216000).jpg`
+    (1331x1536): the **1852 Eddy sheet** (a pocket-map copy, the covers dated 1853; Heckrotte 30) - a
+    distinct plan, but the only Commons copy is a small IA book scan (the full-res original is on
+    David Rumsey's site, not Commons) and the staged 1854 sheet covers the same ground at 8830 px -
+    the NYC 1811-grid precedent (too small to carry a fit).
+  - DROP - `File:Map of the City and County of San Francisco- carefully compiled from recent surveys
+    ... Drawn for the San Francisco News (IA dr
+    map-of-the-city-and-county-of-san-francisco-carefully-compiled-from-recent-11809000).jpg`
+    (1536x1333): the **Butler city-and-county map** (drawn for the San Francisco News / Pacific Mining
+    Journal; "city boundaries 1850-1863", ranchos) - the only Commons copy is a small IA scan, and
+    the page prints no date (the well-known Butler map is 1872 - web-verify before asserting it
+    anywhere).
+- **Fit caveat for 212 (the extent case).** The sheet extends past the box's SW corner into the 1850s
+  growth (above) - **likely a review item**, not a fitted plan (the NY 1811 / DC ring precedent);
+  staging is what this task owes, not a fit. The **red water-front line** is the strongest anchor
+  where the shoreline is still recognizable.
+
+### The Vioget plan (1839) - verified, to stage next
+
+`File:1839 Plan of Yerba Buena (Jean Jacques Vioget).jpg` (2400x2107, Public domain, page date
+1839-01-02 = the drawing's date, no swap): the **first plan of the old town** - Yerba Buena, the
+settlement that became the city (the page: "Plan of Yerba Buena (which was later renamed to San
+Francisco), as laid out by Jean Jacques Vioget"), published 1853 as a deposition exhibit (NARA 33300):
+the street grid centered on Portsmouth Square, the hachured shoreline, the named lots - the drawn
+extent (the old core, ~1 km) sits inside the 2 km box. **Gate-safe**: the description prints "San
+Francisco" inside the 600-char window, `commons.keep()` passes (both checked live 2026-10-13). It
+surfaced in the 147 searches **after** that verdict's drop list was written, so it is not among the
+rows above: **stage it next session as the fourth SF row** (the oldest of the site's plans).
+
+### The Ringgold 1849 town plan - NOT on Commons
+
+The task's "Ringgold" lead ("A General Plan of the Town of San Francisco...") is **not on Commons**:
+every Ringgold + San Francisco query (checked live 2026-10-13) returns only **nautical charts** -
+e.g. `Chart of the Farallones and entrance to the Bay of San Francisco, California by Cadwalader
+Ringgold, Commander (IA dr ...00894047).jpg`, `Chart of the Bay of San Pablo Straits Of Carquines and
+part of the Bay of San Francisco California By Cadwalader Ringgold (IA dr ...00894037).jpg`,
+`General Chart, Embracing Surveys of the Bays of San Francisco and San Pablo, Straits of Carquines and
+Suisun Bay (IA dr ...2590005).jpg`, `General chart embracing surveys of the Farallones, entrance to
+the Bay of San Francisco, bays of San Francisco and San Pablo (IA dr ...00894046).jpg` - charts and
+survey sheets are background, not drawings (the owner's standing rule). The town plan survives in
+books and reprints, not as a Commons file; the 1849 Eddy row above covers the survey-plan lead.
+
+### Dropped views, photos and noise (this task's searches)
+
+- **Henry Bill 1856/1858** - `1856 Henry Bill Map and View of San Francisco, California - Geographicus
+  - SanFrancisco-bill-1856.jpg` (3500x1974) and `-1858.jpg` (4000x2325) (both Public domain, page date
+  "1856 (dated)"): a **VIEW** map - "Reveals San Francisco as seen from Nob Hill looking down
+  California Street". Bird's-eye views are **task 236b's** domain (its own staging files); recorded
+  here as a **236b lead**, not staged by this task.
+- The **HABS files** from the same searches (1849-50 abandoned ships, the 1849 G. H. Burgess view, the
+  1852 plat-map re-photograph): **photographs**, not plans.
+- `J.W. Freeman, J.W. Aldrich, P.G. Everett, James Moore 1849, F.J. Barnes, I.R. Loranger, R.L. Beamer
+  1849. (Drawn by) E. W(yttenbach). De (IA dr ...01104336).jpg`: a sheet of seven **lithographed
+  portraits**, not a map (search noise).
+- `Map of the harbour of San Francisco and its vicinity. By Captn. F. W. Beechy R. No. Published by
+  James Gordon Bennett (IA dr ...11955001).jpg` (the Beechy 1827 harbour plan): **gone from Commons**
+  (title changed/deleted, info() returns no url) - and a harbour chart anyway.
 
 ## Nashville (Q23197) - later sessions
 

@@ -70,7 +70,7 @@ def test_check_staged_three_states(tmp_path, monkeypatch, capsys):
     problems: an already-merged row is a no-op and the known-site checks stop self-triggering on the
     module's own rows; (c) the same (site, title) key, or a staged QID or site id, held by a DIFFERENT row
     or site - still fails loud, naming exactly that problem and no other. This task stages three sites so
-    far (New York, Washington DC and San Francisco); the test scales when the other cities are added.""""
+    far (New York, Washington DC and San Francisco); the test scales when the other cities are added."""
     staged_files = src_us_cities._load(src_us_cities.FILES_US_CITIES)
     staged_sites = src_us_cities._load(src_us_cities.EXTRAS_US_CITIES)
     skeys = {(r.get("site"), r.get("title")) for r in staged_files}
