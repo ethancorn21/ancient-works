@@ -5806,6 +5806,15 @@ conflict; do the whole task now rather than wait for tasks that cannot land.
 - **Task closed:** all five boxes ticked, Status: done. Downstream: 236c consolidates the three us_cities staging files (4 site rows, 15 picture rows, 15 classified rows) into the canonical data and builds the four sites; 236b's only Nashville leads are the three Fletcher 1864 Fort Negley views (file names recorded in the lead doc).
 
 
+<!-- task 237 -->
+# Task 237 artists-keep-order
+
+## 2026-10-14 237 DECISION: moved the known-date swap in fit/src_artists.py:stage ahead of the c.keep() gate (the sources.py / vdD order), with the Zwolle-precedent comment verbatim from src_van_deventer.py
+- Why no refactor-first split (AGENTS.md "over 50 lines" sign): stage() is one job (one linear pass per source row), and the task's Notes define the change as exactly the two statements' order; extracting a shared swap/keep helper out of pipeline/sources.py + the two fit/ modules would touch files outside this task's Touches. stage() is ~56 lines post-change, single pass, no added branch.
+- Verified the swap does not fire for the two staged rows, so --golden is byte-identical (cp'd the file to /tmp, ran --golden, diff clean): Imola's title carries "1502", so year_of(title, m) = 1502 (the title route) equals year_of(title, {"date": "1502"}) even pre-swap, and the staged row keeps date "" with no date_commons; Venice has no row "date" override (page DateTimeOriginal 1500). The latent shape (page lost the drawing's date AND title has neither a plan word nor a year) no row staged today has; the reorder makes keep() judge the known drawing year for a future row, matching sources.py L186-191 and vdD stage().
+- Verification: `.venv/bin/python fit/src_artists.py --check` exit 0 (2/2 PASS, offline); `--golden` byte-identical; `tests/test_src_artists.py` 5/5 pass unchanged (it never calls stage(), so the reorder cannot regress it). Restored the ten pre-existing 307d_*.png re-encoding-jitter modifications (agent a's 307d files, main's bytes) before committing so the commit carries only fit/src_artists.py + memory files (the 77c2f2c/808 precedent).
+
+
 <!-- task 300 -->
 # Task 300 site-stonehenge
 
