@@ -1,16 +1,36 @@
-Status: open
+Status: done
 Depends on: none
 # 302f: The matcher station end to end - the line on one hand-fit site's files, no network
 Touches: tests/
 
 ## Hand-over
 
-(2026-10-14, iteration 125, agent c - **REWROTE tests/fixtures/matchfit_station/record.py from
-scratch** per the 210/211 design (the old truncated stub is replaced; the file is complete and
-syntax-checked, NOT yet run, NOT committed - the harness holds the uncommitted write). Next step
-is one command: run it live, then write the test. The 210/211 design text preserved further down
-remains valid where this section does not supersede it; DECISIONS entries 210/211 carry the full
-test-design trace.)
+(2026-10-14, iteration 127, agent c - **DONE, all six boxes ticked, verified.**
+- tests/fixtures/matchfit_station/record.py + records.json + records_unsure.json: committed
+  (fde3954, from the iteration-126 live run against ELoFTR 127.0.0.1:8091): 15 /match responses
+  each, keyed by sha256 of the exact request body; offline replay identical to live; 0
+  live-vs-frozen discrepancies (frozen best six-inch-1st.webp x0.35 61/22/3.62 deg/3.1 m, corner
+  58.6 / centre 2.9; the two live runs' response BYTES drifted slightly but parsed candidates
+  identical - recorded in the header). Unsure variant: seed 7 permutation lands 8 inliers, page
+  457/481.
+- tests/test_matchfit_station.py (340 lines, committed 330a9f4): two tests (confident 11-line
+  FIT at 22/61 / unsure 8-line "not sure: 8 consistent points (need 10)") run site_done as a
+  subprocess on tmp trees, in-process stub on an ephemeral loopback port serving only the
+  fixture, RoMa at a dead ephemeral port, pass-through GUARD allowing only the stub port. Both
+  pass (55.6 s, zero changes needed on first run this session). Checkout untouched by my test
+  (before/after git status identical; in-test hash-surface asserts).
+- Full suite: **168 passed, 1 skipped, 0 failed** (499.89 s) - strictly better than the baseline
+  /tmp/aw302f_baseline.log (1 failed placement_gestures / 157 passed / 1 skipped): that red was
+  agent a's 307bb and is green on main now. No new reds.
+- ONE TEAM-NOTE for anyone reading this branch's `git status`: the six modified docs/site_flow/
+  PNGs in the working tree are agent a's 307d screenshots (test_owner_check regenerates them on
+  every full-suite run); they belong to 307d (its Touches), were left uncommitted here and MUST
+  NOT be committed from this branch (my commit covers only the task file + DECISIONS.md).
+- If this test ever fails with "the fixture's inputs drifted ... (rerun record.py)": the drift
+  detector detected a repo change since the recording - rerun `record.py` in the working phase
+  (live ELoFTR at 127.0.0.1:8091 required), commit the refreshed fixtures; the test's expected
+  stdouts/counts live in the fixture headers, nothing is hardcoded here. The 210/211/125
+  design-trace text below is preserved for reference only.)
 
 **State of iteration 125 (fresh-eyes re-verification, all on the current tree):**
 - ELoFTR UP: 127.0.0.1:8091/health = {model: zju-community/matchanything_eloftr, device: RTX
@@ -315,7 +335,7 @@ a confident fit empties `uncovered`, so the vision batch never runs at all: the 
 network the line touches in the test is the stub itself.
 
 ## Acceptance criteria
-- [ ] Committed fixture from a one-off working-phase run against the live ELoFTR
+- [x] Committed fixture from a one-off working-phase run against the live ELoFTR
       (127.0.0.1:8091; verified reachable at iteration 208): the raw /match responses for
       every (plan image, ground image, window) pair of badbury's fit_row, keyed by the
       sha256 of the exact PNG bytes matchfit.match sends (plus threshold 0.2 / max_side
@@ -324,33 +344,39 @@ network the line touches in the test is the stub itself.
       replay must reproduce - badbury 22 inliers / 58.6 m on six-inch x0.35). If the live
       replay disagrees with the frozen checkpoint, record the discrepancy; regenerate
       only if the matcher's output is stably different.
-- [ ] tests/test_matchfit_station.py (new file): starts the stub in-process on an
+- [x] tests/test_matchfit_station.py (new file): starts the stub in-process on an
       ephemeral loopback port (conftest.py's server idiom, bind port 0), points the
       subprocess's MATCHER_URL at it and ROMA_URL at a dead ephemeral port (RoMa
       deterministically absent: matchfit.run's second pass skips), and runs
-      tools/site_done.py --root <tmp> as a subprocess. The tmp root copies badbury's
+      tools/site_done.py --root <tmp> as a subprocess (the guard runs the tree copy of the
+      script with cwd=tree, so the tree IS the root). The tmp root copies badbury's
       files (the site dir, the site's sites.json entry, the plans row, the golden
       document) with the document DELETED so the single candidate is uncovered.
-- [ ] Subprocess socket guard (a variant of tests/test_fit_queue.py's GUARD): any
+- [x] Subprocess socket guard (a variant of tests/test_fit_queue.py's GUARD): any
       connection attempt to anything other than the stub's loopback port fails loudly -
       that is the "no network" proof.
-- [ ] Confident branch: the stub replays the recorded 22-inlier six-inch candidate (and
+- [x] Confident branch: the stub replays the recorded 22-inlier six-inch candidate (and
       the rest of badbury's recorded responses). The test asserts: site_done exits 0;
       the subprocess stdout carries the matcher's FIT (eloftr) line for n0132_1; the tmp
       root gained a document badbury-rings-q798831.earthworkenglan01allcgoog_n0132_1.json
       with by:"agent", auto:true, fitter:"matcher" and its matcher block (model, inliers,
       matches, ground, window, rot_deg, spread); the line's sync built it into the tmp map
       (the spread guard passes on the recorded spread, so no refusal); exit code 0.
-- [ ] Unsure branch (a fresh tmp copy, fixture variant with the best candidate under 10
+- [x] Unsure branch (a fresh tmp copy, fixture variant with the best candidate under 10
       inliers): the test asserts: the subprocess stdout carries the matcher's
-      "not sure: N consistent points (need 10)" line for that candidate; no document is
-      written for it; the candidate appears in the tmp review item with a reason (the
-      batch's own, e.g. "no model answer", from the socket-dead vision pass); no map
-      overlay for it; exit code 0 - that is the parent's box-3 contract "unsure goes to
-      the queue with the reason, never to the map", end to end.
-- [ ] The real checkout stays byte-identical after the test (the tmp root is the only
-      writer; git status clean), and the suite has no new reds against the newest driver
-      loop-start note.
+      "not sure: N consistent points (need 10)" line for that candidate (N=8, verbatim from
+      the fixture header, never hardcoded); no document is written for it; the candidate
+      appears in the tmp review item with a reason (the batch's own, "no model answer",
+      from the socket-dead vision pass) plus the scale-bar proposal; no map overlay for it;
+      exit code 0 - that is the parent's box-3 contract "unsure goes to the queue with the
+      reason, never to the map", end to end.
+- [x] The real checkout stays byte-identical after the test (the tmp root is the only
+      writer: before/after `git status` of a lone test run identical, in-test hash-surface
+      asserts on every data surface), and the suite has no new reds against the newest
+      driver loop-start note - it has NO reds: 168 passed / 1 skipped / 0 failed vs the
+      baseline's 1 failed (agent a's 307bb placement_gestures, since fixed on main) / 157
+      passed / 1 skipped. (The six modified docs/site_flow/ PNGs in the full-suite working
+      tree are agent a's 307d screenshots, regenerated by the merged 307d test, not by mine.)
 
 ### Also written to PROGRESS.md (moved here by the driver)
 
