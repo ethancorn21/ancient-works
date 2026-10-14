@@ -34,6 +34,19 @@ this way at iteration 12; landed at iteration 13).
 Why/fix: capture the exact bytes first: `sed -n 'A,Bp' <file> | cat -A`, and copy the physical lines
 verbatim (wrap points and indentation included) into oldText.
 
+#### edit tool "Could not find" on a byte-verified oldText: the call's parameters were mangled, not the file
+Where: the edit tool (any file)
+Symptom: an edit call is rejected with "Could not find ..." although `od -An -tx1` on the target line
+shows oldText matches the file byte-for-byte; a batch call dies on one entry (the rest are NOT applied,
+the file is untouched - `git diff` empty), and the same text matches later when the call arrives well
+formed.
+Why/fix: this is an accident in how the tool call was encoded (one call in the same session had the whole
+`edits` argument arrive as a JSON string instead of an array, rejected by validation; the failing batch
+entries were in the same shape), not a file-content mismatch. Do not conclude from a "not found" that the
+file differs from your notes - od the line, then retry the same text in smaller entries with short unique
+anchors (iteration 174, 236a: the 9-edit batch for tests/test_src_us_cities.py "failed atomically" twice;
+every line matched once the parameters arrived clean).
+
 #### A task file's own section name appears mid-line in its Notes - naive str.index splits there and destroys the file
 Where: any python rewrite of a tasks/*.md `## Hand-over` tail section, when the file's Notes/Goal cites the section name mid-sentence (307ba's Notes: "...in the parent 307b's ## Hand-over and the 2026-10-12 307b DECISIONS entry...")
 Symptom: `t.index("## Hand-over")` hits the mid-line reference in Notes, so `t[:i] + new_section` splices the new hand-over into the middle of the Notes bullet: the rest of that sentence and every following Notes bullet are silently lost, and the new section ends up header-less (iteration 120, 307ba: three of four Notes bullets lost)
