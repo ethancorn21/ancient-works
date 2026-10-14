@@ -573,3 +573,6 @@ tasks/239, tasks/302a/308/309. PLAN.md (the 7 plan edits) is still uncommitted i
 the next 000 session commits it with the message in the hand-over. No code or tests changed;
 suite not run (last known: the one known 212/235 red, 159 passed, 1 skipped).
 - **Where this leaves box 3:** nothing else changed - staged files still 3/11/11, --check 11/11 from 150, the 152 verdicts (Poe no swap / Defenses 1895 / Clayton 1804 swap / Haydon no swap) all stand. The ONLY remaining research is the site-point georef (task file step 1), then apply exactly per steps 2-6 (one session): SITES += Q23197 "nashville-q23197" with the settled point, SOURCES += the 4 rows, live --verify (4 QIDs) + live stage (expect "1 new sites, 4 new pictures; build (236c): nashville-q23197"), offline --check (15/15), --golden (4/15/15), tests 11->15 (the exact edit list in the hand-over), lead-doc "## Nashville (Q23197)" section (point decision + per-candidate STAGED/DROP + the Fort Negley record + the 15-PASS transcript), tick box 3, Status: done.
+
+## 2026-10-13 000 DRIVER: done claim rejected, task reopened
+- Team project: these tasks can never start, their `Depends on:` lines wait on each other: 212 (waits on 212 235), 239 (waits on 212 238 302f 302g)
