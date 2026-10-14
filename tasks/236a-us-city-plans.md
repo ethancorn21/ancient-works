@@ -48,15 +48,136 @@ the original or a facsimile of it, its date, its licence, and its resolution bef
 
 ## Hand-over
 
-(2026-10-14, iteration 172, agent a, written at the context limit. RESEARCH session,
-145/147/151/152/163/164/165/168/169/170 pattern: NO repo file touched, staged files still
-3/11/11, no edits to fit/src_us_cities.py or the lead doc. Baseline 7/7 (tests/test_src_us_cities.py
-+ tests/test_region.py) was green at the 169/170 limits and the tree is unchanged since
-(only the driver's merge 7f6d6f4 after 170). ### THE VERDICT IS NOW SETTLED - see below -
-and the next session APPLIES it (the 146/148 pattern, the old route step 5). The 170
-fit_clayton.py (rotation fit w=a*z+b) is WRONG - it maps the river N-NW of the town (page-down
--> 29.6 NNE): the correct transform is the MIRROR fit w=a*conj(z)+b (page-up -> 354.1 ~N,
-page-right -> 264.1 ~W): the 1804 sheet is a near north-up bird's-eye view with a ~6 deg tilt.
+(2026-10-14, iteration 173, agent a, context limit). APPLY session (the 146/148 pattern): the
+module edit, the live stage, --verify, --check and --golden are ALL DONE (details + verified
+facts below). tests/test_src_us_cities.py is UNCHANGED (my 9-edit batch failed atomically -
+see the DECISIONS entry); the lead doc still has the old "Nashville - later sessions" section.
+NONE of this session's changes is committed - the harness saves them for the next session
+(fit/src_us_cities.py; data/catalog/extras_us_cities.jsonl now 4 rows; data/commons/
+files_us_cities.jsonl and classified_us_cities.jsonl now 15 each; tests/golden/
+src_us_cities_sample.json regenerated).
+
+### NEXT STEPS (in order)
+1. Edit tests/test_src_us_cities.py: the 9 intended edits are listed in this session's
+   DECISIONS entry (iteration 173). Re-read the file first and verify each oldText against it -
+   my edits[3] failed because the actual docstring wraps differently: "a staged-row negative
+   control (Castello row with the Venice point - ~6681 km, a name-search-style resolution that
+   record --live could store - must be reported FAIL, never kept). The golden file (...)" - the
+   three-states test's docstring ends "...This task stages three sites so far (New York, Washington
+   DC and San Francisco); the test scales when the other cities are added."
+2. Run: .venv/bin/python -m pytest tests/test_src_us_cities.py tests/test_region.py -q (expect
+   7/7; all my assertions were built from the actual staged rows verified below).
+3. Rewrite docs/lead_us_cities.md: (a) header - add the four Nashville plans, "three cities
+   staged; Nashville last" -> all four owner-named cities staged; (b) QID section - add Q23197 to
+   the verified list + this session's --verify transcript (below), and the Q5471739/Q5471744
+   re-record (facts below); (c) replace the tail section "## Nashville (Q23197) - later sessions"
+   with the full city section: site point + mirror-fit verdict, the four candidate subsections
+   (STAGED facts below; DROP list + 236b leads from the 151 archive entry in
+   DECISIONS-archive.md, grep "iteration 151"), the Haydon composite finding, the extent
+   estimates for the LOC 2003630459 and the 1895 sheet (EXAMINE /tmp/nash168/z_loc_whole.png
+   2500x1443 and z_def_whole.png 2x first; if the 1895 page scan is unreadable fetch the David
+   Rumsey zoomable original the desc links), the offline-check transcript (15 PASS lines +
+   "evidence: 15 rows, 15 pass, 0 fail, 0 no-tie" - copy from the --check output in the
+   DECISIONS entry).
+4. Tick acceptance box 3, set Status: done.
+5. Commit everything: git add -A && git commit -m "236a: done - Nashville staged (4 plans, 15/
+   15 check) + tests + lead doc".
+
+### Verified this session (do NOT redo)
+- --verify (checked 2026-10-14, 4 QIDs): CLEAN, no flags, no traps. Q23197: label 'Nashville';
+  P625 [(-86.77444444444444, 36.16222222222222)] vs table (-86.78152, 36.16529) = 721 m NE, no flag;
+  P373 ['Nashville, Tennessee']; P131 [('Davidson County','Q1177705')]; enwiki 'Nashville, Tennessee';
+  search 'Nashville' first P625 hit = Q23197 itself. Q5471739 Fort Nashborough (36.164167,
+  -86.774444, precision 0.001, P131 Q1509, OSM way 130910783 same spot) and Q5471744 Fort Negley
+  (-86.774658, 36.145097, P131 Q23197, P373 category = photos + 3 Fletcher views only) are NOT
+  SITES keys - re-record them in the lead doc from the 151/155 archive entries.
+- stage: "staged: 1 new sites, 4 new pictures; build (236c): nashville-q23197". Row facts (from
+  the staged jsonl): Clayton 1804: year 1804, date "1804", date_commons "1880" (swap fired).
+  Haydon 1860: year 1860, date "1860", NO date_commons key. Poe LOC 2003630459: year 1860 (from
+  "1860s", precision 8), date = raw page string "1860s date QS:P,+1860-00-00T00:00:00Z/8", NO
+  date_commons (no swap: "1860s" is the LOC-verified drawing date "[186-]", 152). Defenses 1895:
+  year 1895, date "1895", date_commons "" (swap fired, empty page value; golden normalizes to
+  0000-00-00). All four classified p_plan 1.0 by hand.
+- --check (offline): rc=0, no join problems, 15 PASS lines (the four new ones:
+  nashville-q23197|File:1804 Map of Nashville published 1880.jpg; ...|File:1860 Haydon map of City
+  of Nashville and Edgefield.jpg; ...|File:Map of Nashville, Tennessee. LOC 2003630459.jpg;
+  ...|File:Defenses of Chattanooga, Tenn. Battery Erwin ... Battery Coolidge. Defenses of
+  Nashville, Tenn. Capitol (IA dr defenses-of-chattanooga-tenn-battery-erwin-battery-coolidge-
+  defenses-01104241).jpg), "evidence: 15 rows, 15 pass, 0 fail, 0 no-tie". --golden regenerated.
+- The 1804 Clayton mirror-fit VERDICT (172, now baked into the module's Q23197 entry): mirror
+  similarity w = a*conj(z)+b over anchor A = fort pin (746,1362) <-> Q5471739 (36.164167,
+  -86.774444) and B = capitol-hill knoll (1750,1040) <-> Nominatim way 249147622 centroid
+  (36.1658290, -86.7842374), ENU origin (36.163, -86.775): a-angle -174.1 deg, scale 0.8520 m/px;
+  page-up -> 354.1 (~N), page-right -> 264.1 (~W) = near north-up bird's-eye view, ~6 deg tilt.
+  Checks: confluence V (490,1680) projects 207 m from the real OSM node 303579826 (36.1606686,
+  -86.7700322) [rotation fit: 521 m] and 7 m from the mapped Cumberland way; Rich-Branch mouth
+  (2222,1620) -> (36.161022,-86.788123) = the WEST riverfront (12th-15th Ave S area) agreeing with
+  the 165 Haydon cross-check; the river flows left->right on the page = WESTWARD = the Cumberland's
+  true flow (the 170 rotation fit w=a*z+b placed it N of the town - dead); the fort is the town's
+  SE corner. Extents (scene box x 448-2496, y 678-1600): lat 36.16096..36.16963, lon
+  -86.79163..-86.77140 = 1.82 x 0.96 km, center (36.16529, -86.78152); P625's 2 km box margins on
+  it: W -543 (overshoot -> P625 rejected) / E +726 / S +860 / N +178 m; the candidate point's 2 km
+  box covers the scene with margins W +92 / E +91 / S +519 / N +519 m. Dense core (718-1790,
+  986-1575) = 0.96 x 0.59 km; full ink incl. REFERENCES index + title (45-2496, 525-1900) =
+  2.20 x 1.38 km. Caveat for the lead doc: the drawn street families do not match the modern ones
+  under either fit (mirror: map-horizontal -> 84.1/264.1 matches Division St within 6 deg;
+  map-vertical -> 354.1/174.1 is ~67 deg off modern Broadway - perspective convergence and/or the
+  1796 plat's own orientation; not a fit blocker, the anchors are the evidence). The 1804 bottom
+  river band is bent 40-60 deg for composition (decorative rivers - trust the town, not the drawn
+  V/mouth).
+- Haydon 1860 (10000x6082) is a DECORATIVE COMPOSITE (168): the labelled CUMBERLAND band runs
+  across the sheet's middle (y~3900-4300 for x~3160-6300), the dense downtown core sits NORTH of
+  it (x~3250-5750, y~2700-4250) - geographically correct - but the blue TENNESSEE arm enters
+  upper-LEFT and the combined river exits lower-LEFT (the map's V (3288,4302) is a right angle;
+  the real confluence is nearly a straight line - the rivers are bent for composition); the
+  compass rose (~(7185,1425)) is a decorative 8-point star, no letters; plates tacked together at
+  different rotations (core plate = modern CBD; OVERTOWN/EDGEFIELD diagonal grids; FILLMORE/
+  BARROW grid south of the river; "Shelby" floodplain; red 1860 Corporation Line; REFERENCES
+  legend; CHURCHES list). Title block: "CITY OF NASHVILLE AND EDGEFIELD, DAVIDSON COUNTY,
+  TENNESSEE. Published by Hayden and Booth. 1860. SCALE 400 FEET TO 1 INCH." Consequence: Haydon
+  CANNOT carry a whole-sheet georef; usable only qualitatively (core plate = modern CBD) and for
+  the site-note extent estimate from labelled landmarks (Franklin Turnpike, the Wesleyan College
+  green, Howard School, the T&A RR line, the red Corporation Line). The 1833 waterworks reservoir
+  is dead as an anchor. Pins (full sheet): confluence V (3288,4302); capitol (4880,3193);
+  Rich-Branch mouth (3836,3981).
+- The other two staged sheets (extent estimates for the lead doc - EXAMINE /tmp/nash168/
+  z_loc_whole.png 2500x1443 and z_def_whole.png 2x first, still on disk; if the 1895 page scan is
+  unreadable fetch the David Rumsey zoomable original the desc links): LOC 2003630459
+  (19690x11294, O.M. Poe, Chief Engineer's Office Mil. Div'n of the Mississippi, pen-and-ink and
+  pencil on cloth, fold-line relief, every building, north toward the lower right) = a big 1860s
+  building-by-building city map, never examined at any zoom yet -> expect city + a few km of
+  country = oversize vs the 2 km box = review item. The 1895 Defenses sheet (1536x886 IA book
+  page, atlas plate): nine panels - 1 Chattanooga Battery Erwin, 2 Battery Coolidge, 3 Nashville
+  Magazine Battery (Dec 1864), 4 Nashville Capitol (Nov 30 1864), 5 Fort McCook (Dec 21 1864),
+  6 Fort Morton (Dec 1864), 7 Fort Hill (Dec 1 1864, + small "Plan of Nashville, Tenn."), 8 Fort
+  Nashville, 9 the Nashville Heights (Dec 1864); header "ATLAS TO ACCOMPANY THE OFFICIAL
+  HISTORIES OF THE UNION AND CONFEDERATE ARMIES 1861-1865"; first edition 1884-85 per the plate
+  header (unverified online); the scanned 1895 Julius Bien edition = the row's date; too small to
+  georef (Fort Negley ~1.9 km S of P625 plus the ring's forts go on the site note).
+- DROP list for the lead doc (151 archive entry, grep "iteration 151" in DECISIONS-archive.md):
+  the Burns 1906 copy of the 1804 plan (same plan, one row per plan); the 1854 Putnam "Detail"
+  (cropped, too small); the 1888 Sanborn fragment (491x572); the 1916 Marshall & Bruce (outside
+  window, commercial); the 1887 Cowen battle map (1:110,000, battle not city); the 1895 Bien
+  Nashville-and-Franklin battlefield map (look once via its Commons page before dropping);
+  all Fort Negley photos (Barnard 1864 lowercase-n undated/no PLANWORD; LCCN2007662878; Webster &
+  Albee ca. 1890; 2019 CC-BY ruins; modern park shots). 236b leads (record, do not stage): the
+  three Fletcher 1864 Fort Negley views (LCCN2003655690/2003655670/2003655689).
+- Fort Negley: NO fort-only plan on Commons -> no Q5471744 fort site staged (a staged site
+  without a picture fails check_staged()); if a fort-only plan appears later: kind "fort",
+  1600 m box, 3DEP LiDAR candidate (the 203a mounds precedent). Recorded on the Q23197 site note.
+
+### Standing gotchas (unchanged, still true)
+Tests OFFLINE only (socket-blocked fixture); run ONLY tests/test_src_us_cities.py +
+tests/test_region.py; live commands under .venv/bin/python (module top stays stdlib-only;
+commons->aw needs numpy). Town box = 2 km x 2 km centred on the point (no box_m override;
+specs/site_boxes.json not in Touches). Do NOT write the canonical files (236c; the REGION_NAME
+line in pipeline/build_catalog.py is already committed). Do not "fix" pipeline/commons.py's NO
+regex (not in Touches). Nominatim 1 r/s project UA (pipeline/aw.py UA); live OSM browser UA
+(/map?bbox and /api/0.6/* alive per 164/168 - retest per call; /map?bbox arg order
+minlon,minlat,maxlon,maxlat); Overpass dead (PITFALLS filed 168). After ANY full-suite run
+restore `git checkout main -- docs/site_flow/307d_*.png` (PITFALLS filed 168) - the two task
+tests never touch site_flow. PIL lives in .venv (Image.MAX_IMAGE_PIXELS=None for the 222 MP LOC
+map); /tmp/nash168 is session-scoped (still on disk at this limit).
 
 ### THE VERDICT (computed this session, replaces the 170 "VERDICT route")
 - MIRROR fit over the same two anchors (A = fort pin (746,1362) <-> Q5471739 (36.164167,
