@@ -5,7 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
-- `tasks/230-roman-merge-rerun.md` (open) - hand-over: (2026-10-14, iteration 213, agent a - step 4 (the 9 site builds) FINISHED by the background process; the plans.json half is 80% done: 44 roman matcher
+- `tasks/230-roman-merge-rerun.md` (open) - hand-over: (2026-10-14, iteration 214, agent a - the commons.NO google-refinement APPLIED+verified (plans 1572, pure growth; idempotence check pending); test_merge 10/10, test_data 3/3; full suite 4 reds triaged: 2 = 302f fixture drift from 230's own index rebuild (task 243 to create next session), 2 = 307d owner-check probe proven non-230 (A/B + byte-identity; consistent on this checkout, local-build suspect recorded). Next: 2 small verifications, create 243, tick boxes, done claim, commit)
 - `tasks/236-us-cities.md` (split)
 - `tasks/241-us-birdseye-batch5.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
 
