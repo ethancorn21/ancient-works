@@ -5,7 +5,7 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
-- `tasks/230-roman-merge-rerun.md` (open) - hand-over: (2026-10-14, iteration 210, agent a - STEP 2 (book-index rebuild + evidence record/check) DONE ON DISK
+- `tasks/230-roman-merge-rerun.md` (open) - hand-over: (2026-10-14, iteration 211, agent a - STEP 3 (docs/sources.md section 9 Roman row) DONE and committed.
 - `tasks/236-us-cities.md` (split)
 - `tasks/240-us-birdseye-batch4.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
 - `tasks/241-us-birdseye-batch5.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
@@ -18,15 +18,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-14 230 DECISION: iteration 208 - applied the 4 pending test_merge.py edits (plus the stale _tree comment); 9/10 green; test_new_sites_are_complete is the EXPECTED red until the 9 Roman builds land
-All 5 edits landed in ONE atomic edit call (the 3 aborted attempts of iteration 207 were each one typo'd oldText among good ones; this time every oldText was verified against the file with sed first - the lesson holds: a bad oldText aborts the WHOLE batch, so verify each before the call).
-
-- test_sources_filter_merges_only_named_sources PASSES: `--sources b` merges only extras_b (the log holds that run's rows only, source=="b"), and the later unfiltered run picks up extras_a once and leaves xb as a single copy.
-- test_all_staging_merged_and_prefix_preserved PASSES with the Roman staging present on main: all 45 rows (extras 9 / files 18 / classified 18) land in the canonical files of the temp tree, every log entry "merged", rc 0, 0 refused. Pre-verified directly before trusting the tests: zero roman keys conflict with a canonical row, zero roman rows are byte-identical (sorted-JSON) to a canonical row; the 18 (site,title) keys that appear in BOTH files_roman and classified_roman are cross-file (different canonical targets), not in-target duplicates - a shared `seen` dict across both files is the source of a naive in-staging-dup false positive.
-- FAILED (expected, the open build gate): test_new_sites_are_complete - "no new sites: the build phase produced nothing". After re-baselining, the 499-entry baseline equals the whole served sites.json, so the "new sites" set is empty until this task's run builds the 9 new Roman sites (luguvallium-q71551754, ardoch, virosidum, cilurni, petriana, congavata, tunnocelum, kirkintilloch, carriden). Same open-gate pattern the driver recorded for 211 in the 306d note (new_sites_are_complete/new_site_golden_samples were 211's open gate until its 114 builds landed); test_new_site_golden_samples stays green (it pins the 211-era builds, which are baseline members).
-- No new PITFALLS entry for the merge glob: the --sources rule already lives in fit/merge.py's docstring and is pinned by the new test (one place for each piece of knowledge).
-- The live re-run is the next session: `fit/merge.py merge --sources roman` in this tree (expect extras 193->202, files 1730->1748, classified 1037->1055, a 45-row log all "merged", rc 0; second run a byte-identical no-op), then the book-index rebuild + evidence record/check, docs/sources.md section 9, the 9 site builds (UK-DEM open question first - check the four pre-existing Antonine Wall camps' web/data/sites/ dirs as precedent), tools/export_plans.py, full suite, done claim. Full ordered steps are in the task hand-over.
 
 ### 2026-10-14 230 DECISION: iteration 209 - the live scoped merge (hand-over step 1): 45 roman rows folded into the three canonical files, log replaced by the 45-row run snapshot, idempotent on re-run; next session does the book-index rebuild (step 2)
 Executed `.venv/bin/python fit/merge.py merge --sources roman` in this tree. Everything matched the hand-over's prediction exactly.
@@ -58,6 +49,18 @@ Executed the in-process driver /tmp/230_step2_driver.py (network patched to hard
 - n0248_1 -> brimstone-hill-q24660840 (Kent): QUESTIONABLE - the row's only distinctive token "magna" (MAGNA, the Hadrian's-Wall station) hits a catalog alias token "magna" in "Barling Magna Brimstone Hill"; score 1.0 because share = row-tokens-in-site-tokens on a single-token row.
 - n0244_1 -> whitehouse-camp-q17678709 (Wiltshire): QUESTIONABLE - the map's ~35 B-read labels include "Whitehouse" (a Northumberland village by the wall); the lookup key "whitehouse" (SUFFIX strips "camp") ties the row to the Wiltshire ringwork, ~130 km away.
 ... (0.6 KB more: `grep -n -A 200 -F '## 2026-10-14 230 DECISION: iteration 210 - step 2 (the book-index rebuild) ran offline and landed on disk; UNCOMMITTED (harness saved it) - next session commits it, then step 3 (docs/sources.md section 9)' DECISIONS.md`)
+
+### 2026-10-14 230 DECISION: iteration 211 - step 3 (docs/sources.md section 9 Roman row) written and committed; the UK-DEM open question for the 9 site builds is RESOLVED (ea reachable from this VM; the scot mirror has no tiles for ardoch; nls.covers True for all 9 sites, so none can end up NOT BUILT)
+
+**Step 3 (done, committed with this entry):** replaced 211's "**none in this merge**" Roman lead row with the per-book record: staged = the 45-row re-run, all merged / 0 refused (log = that run's snapshot; Horsley all 17 kind-s leaves, 8 new no-QID extras rows, Maclauchlan 1 of 3 kind-s -> new luguvallium-q71551754 row, every row caption_coords); dropped = n0078/n0111 blank in this copy (1-of-3 stage rate recorded against the 90% box), 10 kind-o leaves indexed-only, Horsley's ~121 inscription plates deferred, Roy 207c DROPPED (owner, ask 008, 2026-10-13). The row also records the re-run's book-index rebuild (evidence on all 1,112 rows, pre-roman content-identical) and the matcher's 6 one-pair ties (2 genuine, 4 questionable, never silently kept). Section intro line notes the re-run. No test reads docs/sources.md; test_merge.py unchanged at 9/10 (the 1 red = the open build gate).
+
+**Corrections to the it.210 hand-over/entry (the catalog row is the truth, the hand-over guessed counties):** whitehouse-camp-q17678709 is at Michaelchurch Escley, HEREFORDSHIRE (lat 52.015 / lon -3.027, ~330 km south of the wall), not Wiltshire; mill-mount-q24661439 is at Redisham, SUFFOLK, not Berkshire. sources.md records the catalog's counties.
+
+**UK-DEM open question resolved (probes this session; the scot read is local, the ea probe is one 24x24 fetch):**
+- The main dem_sources ORDER (usgs/ea/ahn/ign) holds no Scotland: source_for() -> None for ardoch/kirkintilloch/carriden. "ea" (Environment Agency composite DTM, EPSG 27700) covers all 6 English sites (luguvallium, virosidum, cilurni, petriana, congavata, tunnocelum) and IS reachable from this VM (cilurni probe -> finite data in 1.0 s).
+- The STATIC fallback (static_source_for_bbox, no probe kw) picks "scot" (pipeline/lidar_scot.py, a local S3 mirror of the Scottish national LiDAR - no service/key) for Scotland. ardoch (Braco, Gask Ridge) throws aw.NoLidar "no Scottish LiDAR tiles on this box" - the mirror holds selected tiles only. kirkintilloch/carriden NOT yet probed (next session: lidar_scot.read_dem(aw.site_bbox(lon,lat,60,60),24,24,lon,lat)).
+- nls.covers() (the 1747-55 NLS military survey) is True for ALL 9 new sites, including all 3 Scottish - so build_catalog's old_map path means no site can end up "NOT BUILT": a no-tile Scot builds aerial-only with the NLS overlay (depictions.json present, no relief.jpg - the test's "relief.jpg iff lidar_credit" self-consistency holds either way).
+- Precedent re-confirmed: the four no-QID Antonine Wall camps (bar-hill-fort, inchtuthil, raedykes, rough-castle-fort) all carry relief.jpg + scot-6-first.webp, built from this same mirror.
 
 ## Project-wide driver notes (newest)
 
