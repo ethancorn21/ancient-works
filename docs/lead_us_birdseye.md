@@ -865,11 +865,13 @@ No join problems (every file row names an existing site - the four shared ids vi
 the twelve new ids staged above; classified rows 1:1; the golden sample `tests/golden/
 src_us_birdseye_sample.json` pins the 23 rows, regenerated at the stage).
 
-**Not done yet (next sessions):** the 25-cities box - **9 more US cities** (25 total, 16 done),
-each a NEW site in `extras_us_birdseye.jsonl` (region "United States", kind "town", aerial_ok
-true, the point = the city's verified P625 or a recorded refinement, the note recording the
-view's apparent angle), one best view per city, found by the file-namespace search route above
-and QID-verified with `--verify` before staging. The next candidates (in order): **Denver, St.
-Paul, Minneapolis, Cleveland**, ... (the LOC Panoramic collection, 1847-1929; a city with no
-usable view gets a lead-doc note and the next candidate). **Do NOT write the canonical files -
-that is 236c.**
+**Not done yet - the remaining 9 cities moved to 240 and 241 at the 2026-10-14 split:** this
+task (236b) is closed at **16 cities / 23 views**. The remaining 9 cities of the 25 total go to
+the top-level tasks **240** (batch 4: Denver - its full research record is in 240's task Notes -
+St. Paul, Minneapolis, Cleveland) and **241** (batch 5: the final five; the candidate order
+continues from 240's lead doc), each with its own module (`fit/src_us_birdseye_batch4/5.py`,
+copied from this doc's module and route), staging files (`*_us_birdseye_batch4/5.jsonl`), lead
+doc (`docs/lead_us_birdseye_batch4/5.md`), test and golden. **236c** consolidates every staging
+set into the canonical data and checks the 25 total (16 + 4 + 5, or a recorded shortfall).
+**Do NOT write the canonical files - that is 236c; do NOT re-stage the nine cities here - that
+is 240 and 241.**
