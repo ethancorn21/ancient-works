@@ -15,14 +15,15 @@ and every titled files row carries the 200 evidence field, the index rows join t
 row is recorded.
 
 Box 4 (the refreshed plan list): the test asserts the data-level result of the tools/export_plans.py
-refresh, read-only - every (id, sites[0]) key of the pre-merge file (frozen in
-data/merge/plans_premerge_keys.jsonl) is still present, (id, sites[0]) stays unique (the shared-id picture
+refresh, read-only - every (id, sites[0]) key of the frozen pre-run list (data/merge/plans_premerge_keys.jsonl,
+230 re-baselined it to the post-211 rows) is still present, (id, sites[0]) stays unique (the shared-id picture
 keeps one row per (picture, site)), the merged pictures that qualify as plans/bird's-eye views reach the
 list, and every picture row joins a files row carrying the 200 evidence field.
 
 Box 3 (the built sites): the test asserts the data-level result of the build phase, read-only on the
-served data (never a rebuild). web/data/sites.json grew purely against the frozen pre-build baseline
-(data/merge/sites_premerge_baseline.jsonl, the 385 entries served at commit 406562b): nothing removed, no
+served data (never a rebuild). web/data/sites.json grew purely against the frozen pre-run baseline
+(data/merge/sites_premerge_baseline.jsonl, the 499 entries served after 211's consolidation - the 385
+pre-211 set plus 211's 114 builds, re-baselined by 230 before the Roman re-run): nothing removed, no
 entry rewritten except the marker fields 212's page-facing sync later owns; and every site built in this
 phase is complete (its directory, the page's required fields, relief.jpg iff the entry credits a LiDAR
 source, and a coverable old-map layer implies a depictions.json), with three sites pinned to the exact
@@ -73,7 +74,7 @@ def _tree(tmp_path):
     for p in CANON + STAGING:
         src = os.path.join(ROOT, p)
         if not os.path.exists(src):
-            continue  # roman staging appears only once 207 lands
+            continue  # a staging file is absent until its source task lands it
         dst = tmp_path / p
         dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(src, dst)
@@ -191,6 +192,38 @@ def test_conflict_and_rejection_are_fail_closed(tmp_path):
     assert before == after, "the second run must change nothing, refusal included"
 
 
+def test_sources_filter_merges_only_named_sources(tmp_path):
+    """--sources scopes a run to one source family (230's Roman re-run must not fold in the US families'
+    still-pending staging, whose own consolidation is 236c): only the named families' rows enter the
+    canonical files and the log, and the later unfiltered rerun picks up the rest exactly once."""
+    tree = tmp_path / "aw"
+    (tree / "fit").mkdir(parents=True)
+    (tree / "data/catalog").mkdir(parents=True)
+    (tree / "data/merge").mkdir(parents=True)
+    shutil.copyfile(os.path.join(ROOT, "fit", "merge.py"), tree / "fit" / "merge.py")
+
+    def row(**kw):
+        return json.dumps(kw, ensure_ascii=False) + "\n"
+
+    (tree / "data/catalog/extras.jsonl").write_text(row(id="x0", name="Old"))
+    (tree / "data/catalog/extras_a.jsonl").write_text(row(id="xa", name="A"))
+    (tree / "data/catalog/extras_b.jsonl").write_text(row(id="xb", name="B"))
+
+    p = subprocess.run([sys.executable, "fit/merge.py", "merge", "--root", ".", "--sources", "b"],
+                       cwd=str(tree), capture_output=True, text=True)
+    assert p.returncode == 0, p.stderr + p.stdout
+    extras = open(tree / "data/catalog/extras.jsonl").read()
+    assert '"xb"' in extras and '"xa"' not in extras, "the filter must merge only the named source"
+    log = [json.loads(l) for l in _lines(str(tree / "data/merge/log.jsonl"))]
+    assert log and all(e["source"] == "b" for e in log), "the log records the filtered run only"
+
+    p = subprocess.run([sys.executable, "fit/merge.py", "merge", "--root", "."],
+                       cwd=str(tree), capture_output=True, text=True)
+    assert p.returncode == 0, p.stderr + p.stdout
+    extras = open(tree / "data/catalog/extras.jsonl").read()
+    assert '"xa"' in extras and extras.count('"xb"') == 1, "the unfiltered rerun picks up the rest, once"
+
+
 def test_index_and_plan_list_rows_carry_evidence():
     """Full-data invariant (no rebuild): every book-index row and every titled files row carries the 200
     evidence field; every index row joins to its book's stage-A triage; the offline re-check passes."""
@@ -244,9 +277,9 @@ def test_record_appends_evidence_and_rerun_is_a_noop(tmp_path):
 
 def test_plan_list_refresh_is_pure_growth():
     """Box 4, read-only on the served data: web/data/plans.json was refreshed with tools/export_plans.py
-    after the merge. Every pre-merge (id, sites[0]) key is still present (frozen list), (id, sites[0])
-    stays unique, the merged pictures that qualify as plans reach the list, and each picture row's files
-    row carries the 200 evidence field."""
+    after the merge. Every key of the frozen pre-run list (the post-211 rows) is still present, (id,
+    sites[0]) stays unique, the merged pictures that qualify as plans reach the list, and each picture
+    row's files row carries the 200 evidence field."""
     pre = [json.loads(l) for l in _lines(os.path.join(ROOT, "data/merge/plans_premerge_keys.jsonl"))]
     assert pre, "the frozen pre-merge key list is empty"
     d = json.load(open(os.path.join(ROOT, "web", "data", "plans.json")))
@@ -291,12 +324,12 @@ def _baseline_entries():
 
 
 def test_served_sites_grew_purely():
-    """Box 3, read-only: the served sites.json grew without ever rewriting the pre-build set. The frozen
-    baseline is the 385 entries served at commit 406562b, the last commit before 211's first build (the
-    box's "old 384" was the human's estimate; 385 is the measured count). Nothing was removed, and no
-    baseline entry changed outside the marker fields 212 later owns."""
+    """Box 3, read-only: the served sites.json grew without ever rewriting the pre-run set. The frozen
+    baseline is the 499 entries served after 211's consolidation (the 385 pre-211 set plus its 114 builds;
+    230 re-baselined it before the Roman re-run). Nothing was removed, and no baseline entry changed
+    outside the marker fields 212 later owns."""
     pre = _baseline_entries()
-    assert len(pre) == 385, f"the frozen pre-build baseline holds {len(pre)} entries, expected 385"
+    assert len(pre) == 499, f"the frozen baseline holds {len(pre)} entries, expected 499"
     sites = _site_entries()["sites"]
     assert len({s["id"] for s in sites}) == len(sites), "duplicate site ids in the served file"
     by_id = {s["id"]: s for s in sites}

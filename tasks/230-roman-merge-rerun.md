@@ -53,97 +53,76 @@ books that landed).
   test for this intended change.
 
 ## Hand-over
-(2026-10-14, iteration 207, agent a - FIRST session. Investigation done; prep step half
-landed. No test was run this session. 207c is DROPPED (owner, ask 008) so this re-run
-covers the TWO books that landed (Horsley, Maclauchlan) - the task's Notes say the boxes
-hold with the books that landed; the Depends on line already matches (207c was never on
-it), no edit needed.)
+(2026-10-14, iteration 208, agent a - PREP COMPLETE. All three prep pieces are committed
+(driver's 5bf2913 carried the fit/merge.py --sources flag + re-baselined data/merge; this
+session's commit carries the tests/test_merge.py edits). tests/test_merge.py is 9/10 green;
+the one red is the EXPECTED open gate for the build phase. Next session: the live re-run.)
 
-**State on disk now (uncommitted, in this checkout):**
-1. fit/merge.py: `--sources NAME[,NAME...]` flag ADDED (edits landed): a run names the
-   source families to merge; log records that run only. WHY: merge.py's glob picks up
-   EVERY files_*/extras_*/classified_* file - an unfiltered run would fold in the US
-   families' still-pending staging (files_us_cities/us_birdseye.jsonl etc., owned by 236c,
-   open) into the canonical files and my log. 236c will need the same flag for its run.
-2. data/merge/sites_premerge_baseline.jsonl: RE-BASELINED to the post-211 state - 499
-   entries, one full web/data/sites.json entry per line (json.dumps, ensure_ascii=False),
-   was the 385 entries from commit 406562b.
-3. data/merge/plans_premerge_keys.jsonl: RE-BASELINED - 1510 keys
-   {"id": <plan id>, "site": sites[0] or null} from the current web/data/plans.json
-   (was 1166 pre-211). Uniqueness verified before writing.
-4. tests/test_merge.py: UNTOUCHED (all three edit attempts aborted atomically - one had a
-   path typo ENOENT; none applied). The 4 pending edits are specified in the DECISIONS
-   entry for this iteration, with the new test's full code there.
-5. Do NOT commit docs/site_flow/307d_*.png (4 modified in the working tree: agent c's 240
-   files, suite-side-effect churn - PITFALLS "the 307d PNG churn" note). Commit only:
-   fit/merge.py, data/merge/, tests/test_merge.py, tasks/230, DECISIONS.md, (PITFALLS.md
-   if you file the merge-glob entry). Never `git add -A` in this checkout.
+**State on disk now (committed, tree clean apart from this file + DECISIONS.md at commit time):**
+1. fit/merge.py: `--sources NAME[,NAME...]` flag (5bf2913). Scopes a run to named source
+   families; log records that run's rows only. Default (no flag) = old behaviour. 236c will
+   need it for its US run.
+2. data/merge/sites_premerge_baseline.jsonl = 499 post-211 sites.json entries;
+   data/merge/plans_premerge_keys.jsonl = 1510 (id, sites[0]) keys (5bf2913).
+3. tests/test_merge.py (THIS session's commit): the 4 edits pending from iteration 207
+   (docstrings re-pointed to the re-baselined files, 385->499, + new
+   test_sources_filter_merges_only_named_sources) plus the stale `_tree()` comment fixed.
+4. tests/test_merge.py result: 9 passed / 1 failed in 22 s. The failure,
+   test_new_sites_are_complete ("no new sites: the build phase produced nothing"), is the
+   EXPECTED red: the 499 baseline == all served sites, so `new` is empty until my re-run
+   builds the 9 Roman sites. The driver recorded the identical open-gate pattern for 211
+   (306d note: new_sites_are_complete/new_site_golden_samples were 211's open gate until
+   its builds landed). Everything else green: all 45 Roman rows pass the merge gate in the
+   temp tree (all "merged", rc 0, 0 refused) - verified both by the tests and directly
+   (zero key conflicts with canonical, zero identical rows; the 18 (site,title) keys
+   appearing in BOTH files_roman and classified_roman are cross-file, not in-target dups).
 
-**Investigation findings (all verified on this tree, 2026-10-14):**
-- Roman staging IS on main (808's commit 9adaf16 + 207b): data/catalog/extras_roman.jsonl
-  9 rows (luguvallium-q71551754 Q71551754 + 8 no-QID: ardoch, virosidum, cilurni, petriana,
-  congavata, tunnocelum, kirkintilloch, carriden - NONE in web/data/sites.json yet, all 9
-  need building); files_roman 18, classified_roman 18 (17 Horsley + 1 Maclauchlan n0093).
-  Per-book lists/triage for both books tracked; docs/lead_roman.md has both sections.
-- Post-211 canonical: extras.jsonl 193, files.jsonl 1730 (211's 1623 + 212a's 107 direct
-  appends, commit 9c48d94), classified 1037, index.jsonl 1068, validation.json, sites.json
-  499 unique, plans.json 1510 rows. data/merge/log.jsonl = 211's snapshot (my scoped run
-  will REPLACE it with the Roman-only snapshot by design; 211's is in git history).
-- docs/sources.md section 9: the Roman row currently reads "**none in this merge** - the
-  task was stopped by the owner..."; box 4 replaces it with what was staged/dropped per
-  book, sourced from docs/lead_roman.md + the merge log. The "The merge itself
-  (2026-10-12)" summary paragraph records the 211 run; decide in the doc phase whether to
-  extend it with the re-run (box only mandates the Roman row).
-- Book-index rebuild mechanism (box 2): pipeline/books.py's BOOKS dict does NOT contain
-  the Roman books - fit/src_roman_horsley.py / src_roman_maclauchlan.py register() add
-  them in-process (into books.BOOKS + books_lists HAND_FIGS/PLATES). index.jsonl is
-  written by books_lists.py cmd_index (~line 1093, writer at ~1210); validation.json by
-  cmd_validate (line 979, merges into the existing file, key "book"). So the rebuild = a
-  small in-process driver: import both roman modules, call each register(), then run
-  books_lists.cmd_index(None) and cmd_validate(None) (they iterate (args or BOOKS), which
-  now includes the roman keys). Both are offline (no LLM in index/validate - they read
-  triage/lists/djvu locally; 207b ran validate_book offline). Afterwards:
-  `fit/evidence.py record` (book rows record OFFLINE via the matcher; existing rows stay
-  byte-identical) then `fit/evidence.py check` must exit 0 with " 0 fail".
-- Matcher risk (box 2): pipeline/books_match.py reads CATALOG = data/catalog/sites.jsonl
-  ONLY (not extras.jsonl) - book-index rows for the NEW roman extras sites get no matcher
-  tie -> recorded kind "none" (reported, never a failure; every index row still carries
-  the rec "evidence/1" field, which is what test_index_and_plan_list_rows_carry_evidence
-  asserts). Rows whose names match existing catalog sites (Housesteads etc.) get real ties.
-  Do NOT extend the matcher for this task.
-- Site build (box 3, the slow part, next-next sessions): data/merge/run_build.py
-  `<sid>...` (one process per site; pipeline/build_catalog.py --ids then
-  build_site.set_drawings; logs to data/merge/build_sites.log; --force to rebuild a
-  half-built site). OPEN QUESTION to resolve first: what DEM/LiDAR source does
-  build_catalog.py have for UK sites (read its source table) - precedent: the four no-QID
-  Antonine Wall camps (bar-hill-fort, inchtuthil, raedykes, rough-castle-fort) are already
-  in extras.jsonl; check their web/data/sites/ dirs (relief.jpg? lidar_credit?) to see
-  what a UK site build produces, or whether UK sites end up aerial-only/none.
-- tests/test_merge.py already lists "roman" in STAGING and _tree() copies whatever exists
-  (its "roman staging appears only once 207 lands" comment is now stale - clean it in the
-  same edit pass). The temp-tree merge tests will dry-verify the Roman rows pass the gate
-  (log all "merged", rc 0) both before and after the live re-run. The US staging files are
-  NOT in STAGING, so the tests are unaffected by them either way.
+**Live re-run - exact next steps (in order):**
+1. Merge: `.venv/bin/python fit/merge.py merge --sources roman` in THIS tree. Expect:
+   extras.jsonl 193->202, files.jsonl 1730->1748, classified.jsonl 1037->1055, rc 0,
+   data/merge/log.jsonl = 45 rows all action "merged" (it replaces 211's snapshot; 211's
+   is in git history). Verify prefix-identical old bytes, then run a second time -> rc 0,
+   all files byte-identical (idempotent). Commit only: the three canonical files +
+   data/merge/log.jsonl + memory files. NEVER `git add -A`; if docs/site_flow/307d_*.png
+   are dirty (suite side-effect churn, PITFALLS 307d-PNG entry), restore main's bytes
+   (`git checkout main -- docs/site_flow/307d_*.png`) and leave them out of the commit.
+2. Book-index rebuild (box 2): in-process driver - `import fit.src_roman_horsley as h;
+   import fit.src_roman_maclauchlan as m; h.register(); m.register()` then
+   `pipeline.books_lists.cmd_index(None)` and `cmd_validate(None)` (they iterate BOOKS,
+   which the register() calls extend; all offline). Verify data/books/index.jsonl grows
+   from 1068 by the roman rows, validation.json regenerated, every index row + every
+   titled files row carries rec "evidence/1" (test_index_and_plan_list_rows_carry_evidence
+   asserts). Then `.venv/bin/python fit/evidence.py record` (book rows record offline via
+   the matcher; existing rows stay byte-identical) and `fit/evidence.py check` -> rc 0 /
+   " 0 fail". books_match reads data/catalog/sites.jsonl ONLY, so book rows of the NEW
+   roman extras sites record kind "none" (reported, never a failure) - do NOT extend the
+   matcher for this task.
+3. docs/sources.md section 9 (box 4): replace the "**none in this merge**" Roman lead row
+   with per-book staged/dropped, sourced from docs/lead_roman.md + data/merge/log.jsonl.
+4. Build the 9 new Roman sites (box 3, the slow part): OPEN QUESTION to resolve first -
+   what DEM/LiDAR source build_catalog.py has for UK sites (pipeline/dem_sources.py
+   source_for / lidar_scot.py for Scotland). Precedent: the four no-QID Antonine Wall
+   camps (bar-hill-fort, inchtuthil, raedykes, rough-castle-fort) are already in
+   extras.jsonl - inspect their web/data/sites/ dirs (relief.jpg? lidar_credit?) to see
+   what a UK build produces (aerial-only is a valid outcome; the test checks
+   self-consistency: relief.jpg iff the entry credits LiDAR). Then
+   `nohup .venv/bin/python data/merge/run_build.py luguvallium-q71551754 ardoch virosidum
+   cilurni petriana congavata tunnocelum kirkintilloch carriden &` (check `ps` first -
+   PITFALLS run_build entry; log data/merge/build_sites.log; "NOT BUILT" = no LiDAR and
+   no old map or bad id; one site per child; kill leaves a clean boundary).
+5. `tools/export_plans.py` re-run: pure growth over the 1510-key baseline (test asserts);
+   the roman picture rows for the QID sites + the new no-QID sites appear.
+6. Full suite `.venv/bin/python -m pytest -p no:cacheprovider`: expect ALL green (the
+   open gate closes at step 4). Then tick all 5 boxes, Status: done, done claim.
 
-**Tests last run:** not this session. Stale on record: this checkout's
-.agent/reports/last-test-output.txt is from 2026-10-13 (159 passed, 1 failed = agent a's
-307bb placement red - since fixed on main by my 212 work). Newest measurements: 238
-(180/1/0), 207b (172/1/0), 808 (169/1/0), all 2026-10-14. Next session: run
-`tests/test_merge.py` first (all should pass PRE re-run), re-baseline the full-suite
-expectation on the final run. ALWAYS `.venv/bin/python -m pytest` (never bare pytest).
+**Facts (verified this session unless noted):** the 9 new site ids above are NOT in
+web/data/sites.json yet; files_roman/classified_roman also carry rows for EXISTING catalog
+QID sites (castrum-segedunum-q637958 x2, rudchester-..., haltonchesters-...,
+birdoswald-..., aesica-...) - those merge into the files and appear in plans.json but
+build no new site. Post-run counts to check at each step are in the box list of the
+task file. 207c is DROPPED (owner, ask 008): the re-run covers the two landed books
+(Horsley, Maclauchlan) and the boxes hold with those - the task Notes cover this case.
 
-**Exact next steps (in order):**
-1. Apply the 4 pending tests/test_merge.py edits from the DECISIONS entry (this
-   iteration) - exact oldText strings are there; verify current file text with sed before
-   applying (I aborted 3 times, so re-read, don't trust memory).
-2. `.venv/bin/python -m pytest tests/test_merge.py -v -p no:cacheprovider` -> expect all
-   green (proves the 45 roman rows pass the merge gate with 0 refused/0 conflicts in the
-   temp tree) + the new --sources test green.
-3. Commit the prep (fit/merge.py + data/merge/ baselines + tests + memory files).
-4. NEXT SESSION: the live re-run - `fit/merge.py merge --sources roman` in this tree;
-   verify: extras 193->202, files 1730->1748, classified 1037->1055, pre-run bytes
-   prefix-identical, second run no-op, log.jsonl = the 45-row Roman snapshot (0 refused
-   expected); commit. Then the index rebuild (finding above) + record/check; then
-   docs/sources.md section 9 Roman row; then the 9 site builds (run_build.py, check the
-   UK-DEM question first) + tools/export_plans.py re-run (must be pure growth over the
-   new 1510-key baseline); full suite; done claim.
+Re-read: fit/merge.py:run_target - the evidence gate + first-wins semantics (re-verify
+the 45-row log is all "merged" after the live run); data/merge/run_build.py - the
+per-site loop and its log lines.
