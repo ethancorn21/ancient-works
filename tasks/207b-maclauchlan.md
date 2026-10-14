@@ -1,4 +1,4 @@
-Status: in-progress
+Status: done
 # 207b: Maclauchlan, the survey of the Roman Wall (1857-58)
 Depends on: 200
 Touches: fit/src_roman_maclauchlan.py, data/books/triage/, data/books/lists/, data/catalog/extras_roman.jsonl, data/commons/files_roman.jsonl, data/commons/classified_roman.jsonl, docs/lead_roman.md, tests/test_src_roman_maclauchlan.py, tests/golden/src_roman_maclauchlan_sample.json
@@ -46,8 +46,12 @@ location is in the plate.
       is accounted for in docs/lead_roman.md (1 of 3 = 33% < 90%; the two missing are the blank
       plates n0078/n0111, accounted for individually in the lead doc's Maclauchlan section -
       the box's disjunct).
-- [ ] Test (no network): the staged files join (every row names an existing or staged site;
+- [x] Test (no network): the staged files join (every row names an existing or staged site;
       every new site has its plans) and the evidence check passes; a golden sample of rows.
+      (2026-10-14 iteration 136: tests/test_src_roman_maclauchlan.py, 4 tests, socket-blocked,
+      no network/no LLM/no fixed ports, writes only to tmp - 4/4 pass standalone and in the
+      full suite; golden tests/golden/src_roman_maclauchlan_sample.json committed and matches
+      the normalized staged rows; the module's --check (join + evidence, offline) exits 0.)
 
 ## Notes
 - Same mechanics as 207a: in-process book registration in books.BOOKS, books.LLM_URLS
@@ -65,162 +69,57 @@ still stands) with "b" = the stop is lifted; 207a was completed on that lift (7e
 207c dropped on the owner's answer to ask 008. This note records the stop as made.)
 
 ## Hand-over
-(2026-10-14, iteration 135, agent c - the --check/--golden/tests session. READ THIS FIRST.)
+(2026-10-14, iteration 136, agent c - **DONE**. The full suite is green on this branch:
+172 passed / 1 skipped / 0 failed in 490.56s. All 5 boxes ticked; Status: done.)
 
-**What happened this session** (code changes UNCOMMITTED at the context limit - the harness saves them:
-fit/src_roman_maclauchlan.py + the two new test files; the three committed *_roman staging files are
-UNTOUCHED, md5-verified unchanged after a --dry run):
-1. 134's background suite (started 03:27, before any of my edits) finished: **10 failed, 158 passed,
-   1 skipped in 710.95s** (log /tmp/aw134_suite.log). The 10: test_fit_queue::test_placement_gestures_and_
-   save_in_the_browser (the known 307d red) + test_fit_queue::test_block_diagram_carries_the_drawing +
-   test_review x4 (test_page_shows_the_review_list, test_save_resolves_the_item FileNotFoundError,
-   test_plan_lookup_is_keyed_by_id_and_site, test_index_html_review_footprint) + test_serve x4
-   (test_page_loads, test_sites_data HTTP 404, test_hand_fits_are_the_reference,
-   test_platefits_docs_match_sites). NONE of them reads anything this task wrote; they are agent a's
-   in-flight 212/307* work merged into main before my session (+ this checkout's locally-built web data,
-   the 306d note). This is the NEW baseline for my branch (the 10-13 driver's 159/1/1 is stale).
-2. Built `--check` in fit/src_roman_maclauchlan.py: new constants MODULE (the by/source tag - stage()
-   now uses it, same values as before), SITES_CATALOG, EXTRAS_CANONICAL, NO_BOOKS, GOLDEN (module-level
-   so a test can point them at temp copies); check_staged() = the box-5 join (every file row of this book
-   names a site in the catalog / canonical extras / this book's own staged sites; a staged site id already
-   in the canonical files must be IDENTICAL - 211 first-row-wins; a staged QID held by a different site is
-   a collision; every new site has a picture; (site,title) unique; classified 1:1) + evidence.check over
-   this book's rows only (written to a temp file; NO_BOOKS) - fully offline. Ran it: rc=0, no join
-   problems, "evidence: 1 rows, 1 pass, 0 fail, 0 no-tie". Built `--golden`: writes tests/golden/
-   src_roman_maclauchlan_sample.json (this book's staged rows - the one file row, the new site row, the
-   classified row - plus per-book counts; _norm normalizes evidence.checked and location_check.checked to
-   0000-00-00; indent=1, sort_keys, ensure_ascii=False). Ran twice: byte-stable, md5
-   04637684823db2dc36c14219a7eecd16. main() now dispatches --check/--golden; docstring's "(not built
-   yet)" lines removed. 134's staged files md5s: extras 05f74cd072221794222d812b23632d77, files
-   a569d2a994a911c7ee7a760357ad9309, classified 9827656cc5904015f7c628498eaa23f1 (unchanged this session).
-3. Wrote tests/test_src_roman_maclauchlan.py (the test_src_van_deventer.py pattern): autouse no_network
-   socket-blocking fixture (socket.socket/create_connection/getaddrinfo -> raise); _stage_into() points
-   sm.FILES_ROMAN/EXTRAS_ROMAN/CLASSIFIED_ROMAN at tmp files (stage() reads them as globals) and runs
-   stage(). Four tests: (1) stage writes exactly one row per file with ALL fields pinned (site
-   luguvallium-q71551754/Q71551754/"Luguvallium (Carlisle)"/-2.94077/54.896187/england/"roman fort"/
-   aerial_ok/location_check confirmed with "324 m"; file row site/qid/title sm.FILE_TITLE/year 1858/
-   date 1858/artist/w 964/h 1400/url the IA /download/ page image/evidence caption_coords named Carlisle
-   place Q192896 coords dist 324.1; classified (site,title) p_plan 1.0 by hand) and is idempotent (second
-   run: 3x "row already present", no byte changed); (2) check_staged three states with the canonical path
-   constants monkeypatched to temp copies (real content captured BEFORE the patch): pre-merge 0, merged
-   identical 0, same-id different row (qid Q99999999) 1 with exactly the join line; (3) evidence negative
-   controls: a stored dist_m 48000 ("does not reproduce (324 m)") and a caption without "Carlisle" both
-   FAIL (code 1), the staged row untouched; (4) the committed golden file == the normalized committed
-   staged rows. Ran it: **4 passed in 4.25s**.
+**What happened this session (iteration 136).**
+1. 135's background suite log /tmp/aw135_suite.log was GONE (tmp cleared between sessions;
+   the process gone too), so per the 135 hand-over's exact-next-step 1 I re-ran the full
+   suite in this checkout: `.venv/bin/python -m pytest tests/ -q -p no:cacheprovider` ->
+   /tmp/aw136_suite.log (branch agent/c, started after verifying 135's committed state:
+   tree clean, all 207b files tracked since the driver's eecbf62, staged-file md5s
+   unchanged - extras 05f74cd072221794222d812b23632d77 / files a569d2a994a911c7ee7a760357ad9309
+   / classified 9827656cc5904015f7c628498eaa23f1 / lists 8479d53f196fed1fa2bb0d7159b58257 +
+   f6593c9e01c19157daf997e7a03bb04a).
+2. **Result: 172 passed, 1 skipped, 0 failed, in 490.56s (173 total).** The 134 baseline's
+   10 failures (test_fit_queue::test_placement_gestures_and_save_in_the_browser +
+   test_block_diagram_carries_the_drawing, test_review x4, test_serve x4 - all agent a's
+   in-flight 212/236a/307* work that had merged into main before 134) NO LONGER FAIL:
+   main advanced between the 134 run and this session, and agent a's later iterations
+   (merged by the driver before this session) fixed them. Zero failures means nothing new
+   to attribute to my task or to agent a: strictly better than the "no test failing that
+   was not already failing before" criterion. My 4 tests (tests/test_src_roman_maclauchlan.py:
+   stage rows + idempotence, --check join incl. the pre-merge-conflict negative control,
+   evidence PASS + 2 FAIL negative controls, golden == staged rows) are green in the full
+   suite; standalone: 4/4 in 4.13s, socket-blocked, no network.
+3. Box 5 TICKED (test no network: the staged files join, the evidence check passes, the
+   golden sample is committed - tests/golden/src_roman_maclauchlan_sample.json, committed in
+   the driver's eecbf62; the 135 hand-over's "committed? NO" note is stale). Status: done.
+4. The suite run re-encoded four agent-a 307d capture docs (docs/site_flow/
+   307d_{A_4-saved,A_5-reload,B_4-saved,B_5-reload}.png - test_owner_check regenerates them
+   every run; the 207a hand-over documents the same jitter); restored them to the committed
+   bytes so the branch stays merge-conflict-free on agent a's files. Working tree is clean.
 
-**Tests state at context limit:** the FULL suite was re-started in the background at the very end of this
-session (nohup .venv/bin/python -m pytest tests/ -q -p no:cacheprovider > /tmp/aw135_suite.log 2>&1 &,
-pid 2293842, started ~03:41) - it includes my 4 new tests (173 total) and its result was NEVER READ.
-Expectation: the SAME 10 pre-existing failures as the 134 run (listed above - all agent a's in-flight
-work), 162 passed (158+4), 1 skipped.
+**State / for the driver's re-check.** All 5 acceptance boxes ticked (1: 132, 2: 133, 3: 134,
+4: 134, 5: this session). Final full-suite numbers on branch agent/c, 2026-10-14 iteration
+136: 172 passed / 1 skipped / 0 failed in 490.56s (173 total; the 1 skip is the suite's
+long-standing skip). 207b's deliverables, all committed: fit/src_roman_maclauchlan.py
+(--fetch/--status/--triage/--list/--djvu/--stage/--check/--golden), the per-book triage +
+lists artifacts, the three *_roman staging files (one row each: the new site
+luguvallium-q71551754 Q71551754 + the n0093 Carlisle plan row + its "plan" classified row),
+the Maclauchlan section of docs/lead_roman.md (the date discrepancy, the no-list finding,
+the 6-leaf inventory, recall 1.0/1.0, the 90% disjunct), tests/test_src_roman_maclauchlan.py
+(4 offline tests) and tests/golden/src_roman_maclauchlan_sample.json.
 
-**Acceptance boxes:** 1 (132), 2 (133), 3 (134), 4 (134) ticked. Box 5 (test + golden) is BUILT and its
-tests pass standalone; it is NOT ticked yet - tick it in the next session only after the /tmp/aw135_suite.
-log confirms no NEW failure beyond the 10 pre-existing ones.
-
-**Exact next step (136).**
-1. Read /tmp/aw135_suite.log (tail). If gone: re-run the same nohup command (as aw136) and wait ~12 min.
-   Compare its failure list against the 134 baseline's 10 (above). If identical: tick box 5 and set
-   Status: done, commit everything (the module, the two test files, this task file; the staged roman files
-   are already committed and unchanged - md5-check before committing).
-2. If a NEW failure appears (one not in the 10): check whether it reads this task's files (src_roman_
-   maclauchlan, the *_roman staging, my test/golden) - if yes it's mine, fix it; if no it's agent a's
-   in-flight work (212/236a/307* on main), record it in DECISIONS and still tick box 5 (the task's
-   criterion is "no test failing that was not already failing before").
-3. Note the final suite numbers in the hand-over for the driver's re-check.
-
-**Re-read next session:** fit/src_roman_maclauchlan.py (check_staged() + golden() + _norm() + the new
-constants above stage(); the docstring); tests/test_src_roman_maclauchlan.py (all 4 tests, in order);
-tests/golden/src_roman_maclauchlan_sample.json (committed? NO - it is part of the uncommitted batch);
-/tmp/aw135_suite.log (tail -30 for the summary line).
-
-**What happened this session** (all done; code + data changes UNCOMMITTED - the harness saves them for 135 to commit):
-1. Built the `--stage` leg in fit/src_roman_maclauchlan.py (docstring updated, main() dispatches --stage/--dry; new constants SITE_NAME/SITE_QID/SITE_LON/LAT/PLACE_QID/PLACE_LON/LAT/FILE_TITLE/FILE_NAME/FILE_DESC above stage()). OFFLINE: the row is built from stored facts only - title = the plate's own printed heading; desc = the binder's-list entry (djvu leaf 119) + the p.77 running head "(See Plans, Fig. 4.)" (the named-place "Carlisle" carrier check_caption re-verifies); year/date 1858; url/thumb = the stable IA /download/ page image; w/h 964x1400 read from the committed stage-B row (data/books/triage/<ia>.B.jsonl img_size - the ONLY dynamic input; fails loud if missing/unreadable); artist Henry Maclauchlan; license "public domain (IA: NOT_IN_COPYRIGHT, the 1858 original)" (live item metadata: no licenseurl, possible-copyright-status NOT_IN_COPYRIGHT). NO map_box on the files row: files.jsonl's shape has no such field - the propose/inkfit fit flow reads map_box from the BOOK-INDEX row (211 consolidates it from the B file) and falls back to the full page when absent (808/809: same).
-2. Ran it under the socket-blocking wrapper (0.58 s, no network): the three shared staging files, ABSENT on this branch, created with exactly one row each - extras_roman.jsonl + luguvallium-q71551754 (Q71551754 "Luguvallium (Carlisle)", lon/lat -2.94077/54.896187 the item's P625 precision 1e-6, region "england", kind "roman fort" SPACE form, place "Carlisle, Cumberland, England", aerial_ok true, location_check records the cross-check: P625 on the castle ground where the book's supposed station stands and the plan's Wall+Vallum meet, 324 m from the city's P625, VICI 12444, item has NO enwiki article so no wikipedia field); files_roman.jsonl + the n0093 row (evidence caption_coords: named_place "Carlisle", place Q192896 P625 -2.936388889/54.894722222, site the fort's P625, dist_m 324.1 = evidence.hav_m with its R=6371008.8 so check_caption reproduces it exactly); classified_roman.jsonl + (site,title) p_plan 1.0 by hand. Idempotency verified: a second real --stage and --dry both print "row already present (skipped, nothing written)" and all three files' md5 stayed unchanged.
-3. Box 4 verified this session: `.venv/bin/python fit/evidence.py check --files data/commons/files_roman.jsonl --books data/books/.no-books` -> "PASS caption_coords luguvallium-q71551754|FIG. 4...", "1 rows, 1 pass, 0 fail, 0 no-tie", rc=0 (offline, stored fields only). Join (one-off python): every file row names a staged site, every new site has its plan, every file row has its classified row.
-4. docs/lead_roman.md: the n0093 inventory line now records the actual staging (site id, QID, caption_coords 324.1 m, offline PASS, year 1858, stable /download/ url). Boxes 3-4 ticked in the task file (box 4's 90% disjunct was already in the section since 133).
-
-**Tests:** a full-suite run was STARTED in the background this session (`nohup .venv/bin/python -m pytest tests/ -q -p no:cacheprovider > /tmp/aw134_suite.log 2>&1 &`, ~7 min) and its result was NEVER READ (context limit). Expectation: baseline 159/1/1 (lone red = agent a's 307d placement test); no committed test reads the new *_roman staging files (test_merge joins only stage-A .A.jsonl). NEXT SESSION: read /tmp/aw134_suite.log (if gone, re-run the same command) and re-baseline the number here.
-
-**Acceptance boxes:** 1 (132), 2 (133), 3 (134), 4 (134) ticked. Only box 5 (test + golden) is left.
-
-**Exact next step (135).**
-1. Commit the session's saved changes first (fit/src_roman_maclauchlan.py, the three *_roman staging files, docs/lead_roman.md, this task file; check /tmp/aw134_suite.log first and note the suite state in DECISIONS).
-2. Build `--check` (offline: join staged roman rows to catalog+extras - every row names an existing or staged site, every new site has its plans, every file row has its classified row; then fit/evidence.py check over this book's rows) and `--golden` (tests/golden/src_roman_maclauchlan_sample.json = the staged rows as the approved sample) in fit/src_roman_maclauchlan.py (main() still rejects them; the docstring's "(not built yet)" lines say so), then tests/test_src_roman_maclauchlan.py on the tests/test_src_van_deventer.py no_network socket-blocking fixture pattern: run stage() with the module's FILES_ROMAN/CLASSIFIED_ROMAN/EXTRAS_ROMAN constants MONKEYPATCHED to temp-dir paths (stage() reads them as globals at call time - that is the hook; stage() also lazy-imports catalog + evidence, both offline) and assert idempotency (second run changes no byte) + the row shapes + the evidence PASS + the join; no LLM, no network, no fixed ports, writes only inside the project + temp. Then run the full suite, re-baseline, tick box 5 -> Status: done.
-
-**Re-read next session:** fit/src_roman_maclauchlan.py (stage() + the staging constants; --check/--golden NOT built); the three staging files (one row each: data/catalog/extras_roman.jsonl, data/commons/files_roman.jsonl, data/commons/classified_roman.jsonl); tests/test_src_van_deventer.py (the fixture pattern); docs/lead_roman.md's Maclauchlan section (in sync with the staged rows since this session).
-
-**What happened this session.**
-1. Ran `validate_book` OFFLINE: socket-blocking wrapper (import urllib.request/ssl/socket
-   FIRST; patch socket.socket.connect + connect_ex, socket.create_connection, socket.getaddrinfo
-   to raise; then importlib-load fit/src_roman_maclauchlan.py, register(), books_lists.
-   validate_book(KEY)). No network, no LLM. Output matched the 132 hand-over's hand-computed
-   expectations EXACTLY: pages 171, triaged_A 171, flagged_site_pages_stageA 3, stageF_pages 0,
-   flagged_site_pages 3; figures listed 6 / site 3 / other 3 / unsure 0 / expected None,
-   gt_site_pages 3, recall_pages 1.0 (±1: 1.0), flagged_nonplate_pages 3, precision_strict
-   1.0, precision_lenient 1.0, flagged_on_other_only_pages [], flagged_not_in_list [],
-   missed_pages [], stage_A_only {recall 1.0, flagged 3}; no "plates" key (no printed list -
-   the figs branch is the list). Mechanism verified in source: `flagged` = site_pages_qwen =
-   stage-A SITE_TYPES rows surviving ink >= BLANK_INK (0.005); measured ink 0.0102 (n0078),
-   0.0352 (n0093), 0.1048 (n0111) -> all three in; 90/129 other_illustration, 115 text_only ->
-   never flagged. Filed as a PITFALLS entry (validate_book offline-safe + the ink-drop trap).
-2. Wrote the "## Maclauchlan" section into docs/lead_roman.md, inserted after the lead header,
-   BEFORE "## Roy" (subtask order; if a merge brings 807's Horsley section, mine moves AFTER
-   it - never edit 807's text; the lead's own title line still says 1857-58 - I left the
-   header untouched and the section records the corrected date). Contents: source (1858
-   original the only readable copy; Nochlin mislabel + Wanney LCP-restriction, PITFALLS),
-   DATE (survey 1852-1854 + imprint MDCCCLVIII 1858 vs the parent's 1857-59; the 1858 printing
-   carries later 1857-58 work - Willow Holm section Sep't 7th 1858, the Carlisle great sewer;
-   gift leaf n0007, 1859), the no-list finding (binder's directions verbatim + the hand-table
-   fallback), the 6-leaf inventory with per-leaf verdicts (n0078 BLANK, n0090 wall section,
-   n0093 the only legible plan - the one that gets staged, n0111 BLANK, n0115 table, n0129
-   tiles), the unprinted Figs 2/3/5/6 (122 size census), the stage-A/B recall numbers, and
-   the 90% accounting (1 of 3 = 33% < 90%; the two missing each accounted for as blank in
-   this copy - the box's disjunct).
-3. Box 2 ticked: the list (binder's directions -> per-leaf hand table, 131's decision) is
-   transcribed and mapped to leaves (lists/*.json + .map.json, byte-stable since 131), and the
-   stage-A/B recall is recorded in the lead doc's Maclauchlan section.
-4. Suite NOT run this session (doc/offline-run session; no code changed, no new test). The
-   driver's 2026-10-13 baseline 159/1/1 (lone red = agent a's 307d placement test) stands.
-
-**Acceptance boxes:** box 1 (132), box 2 (this session) ticked. Boxes 3-5 untouched.
-
-**Exact next steps (134+, in order).**
-1. **Build `--stage`** in fit/src_roman_maclauchlan.py (read tasks/808-horsley-stage.md in
-   full first for the row-content conventions; re-read data/commons/files.jsonl row shape,
-   a no-QID row of data/catalog/extras.jsonl (the location_check field), fit/evidence.py
-   with fresh eyes): create the three shared staging files (ABSENT on this branch) with the
-   decided rows - extras_roman.jsonl +1 (Luguvallium (Carlisle), Q71551754, lon/lat
-   54.896187/-2.94077, kind "roman fort" SPACE form, region england, place "Carlisle,
-   Cumberland, England", location_check per 130's Decision 2); files_roman.jsonl +1 (n0093:
-   site = the new extras id, qid Q71551754, title/desc carrying "Carlisle" + the binder's-
-   list entry + the p.77 reference; year 1858; url/thumb the IA page image
-   https://archive.org/download/memoirwrittendu00maclgoog/page/n0093.jpg; w/h 964x1400 from
-   the triage row; map_box [100,405,830,880] from this book's B row; evidence kind
-   caption_coords: named_place Carlisle, place Q192896 P625 54.894722/-2.936389, dist_m
-   324.1); classified_roman.jsonl +1 ((site,title), class "plan" by hand). Append-only,
-   idempotent (a second run changes no byte), rows tagged memoirwrittendu00maclgoog, --dry
-   previews. Then verify the lead doc's n0093 line (written this session) matches what was
-   actually staged (the tie to the new Luguvallium site).
-2. **`--check` (offline: join staged rows to catalog+extras - every row names an existing or
-   staged site, every new site has its plans; fit/evidence.py check over this book's rows)
-   + `--golden` (tests/golden/src_roman_maclauchlan_sample.json) + tests/
-   test_src_roman_maclauchlan.py** (the no_network socket-blocking fixture as in
-   tests/test_src_van_deventer.py; no LLM calls in tests; no fixed ports; writes only
-   inside the project). Then run the suite (baseline 159/1/1; my tests all pass, the lone
-   307d red stays) and re-baseline in the notes.
-3. **Boxes 4-5 -> done**: box 4's evidence check is covered by --check's test; the 90%
-   accounting is already in the lead doc (the box's disjunct). When boxes 3+4+5 all pass:
-   Status: done (the driver re-checks every box + the suite).
-
-**Re-read next session:** `fit/src_roman_maclauchlan.py` (--stage/--check/--golden NOT built
-- main() rejects them with the docstring pointer; MACLAUCHLAN_FIGS + docstring current);
-`tasks/808-horsley-stage.md` (in full - row-content conventions); `data/commons/files.jsonl`
-(row shape); `data/catalog/extras.jsonl` (no-QID row shape, location_check field);
-`fit/evidence.py` (check/check_commons/check_caption); `data/books/triage/
-memoirwrittendu00maclgoog.B.jsonl` (n0093 map_box [100,405,830,880]); `docs/lead_roman.md`
-(the Maclauchlan section written this session - keep it in sync if the staged row differs);
-PITFALLS' new validate_book entry (the offline wrapper recipe).
+**Re-read next session** (only if the task reopens): fit/src_roman_maclauchlan.py (stage() +
+check_staged() + golden() + _norm(); the module-level path constants SITES_CATALOG/
+EXTRAS_CANONICAL/NO_BOOKS/GOLDEN are the test monkeypatch hooks); tests/
+test_src_roman_maclauchlan.py (all 4 tests); docs/lead_roman.md's "## Maclauchlan" section
+(the 90% accounting and the per-leaf verdicts); the staged rows in data/commons/
+files_roman.jsonl / data/catalog/extras_roman.jsonl / data/commons/classified_roman.jsonl
+(the only rows of this book, tagged by=fit/src_roman_maclauchlan.py /
+source=fit/src_roman_maclauchlan.py). The fresh-eyes re-read this session found no issue in
+the module or the test.
 
 ### Also written to PROGRESS.md (moved here by the driver)
 
