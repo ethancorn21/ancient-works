@@ -5,7 +5,6 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
-- `tasks/212-cover-final.md` (in-progress) - hand-over: (2026-10-13, iteration 255, agent a, written at the context limit -
 - `tasks/236-us-cities.md` (split)
 - `tasks/240-us-birdseye-batch4.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
 - `tasks/241-us-birdseye-batch5.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
@@ -22,66 +21,109 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-### 2026-10-13 212 DECISION: done - six boxes ticked on re-verified evidence; the 457 open set is doc-derived (455 unresolved files + 2 re-opened memos); dep-entry naming pitfall filed
-The closing session (iter-254). Subtasks 212a/212b/212c were all done and driver-accepted; this session re-verified the iter-253 evidence on the current tree (only driver bookkeeping commits since: 73897d5/e31c6d4/aee0bd5) before ticking: golden `sha256sum -c tests/golden/hand_fit_docs.sha256` 40/40 OK; is_done-triple audit 70/70 current (0 missing / 0 stale); GOAL.md point 1 invariant 0/499 on the served files (499 sites; every site drawings >= 1 or an open item; fudge/highbank/hopeton covered by their site.json-plate drawings=1); tests/test_cover.py 6/6 PASSED (41.6 s) and tests/test_review.py 5/5 PASSED (51.6 s, incl. the page-level test_page_shows_the_review_list); docs/batch.md fresh @20:38 with buckets summing to 499 and seed 20261012. Ticked all six boxes, set Status: done. Box 6's written port-0 test stays waived per the lead's 212b say-so (the driver accepted the identical live-evidence tick for 212b) - the box is ticked on the measured substance (invariant 0/499, golden green, sample reproducible via test_report), per that precedent. Clarification found while re-verifying: web/data/review.json's 457 open = 455 item files without a `resolved` memo + 2 items (aesica-q4688554, alligator-effigy-mound-q4732645) whose write-once memo points at a since-deleted doc; export's doc-derived open rule (fit/review.py:189 - open iff no candidate has a current doc) reopens them, and both sites (drawings=0) are covered exactly by that openness. A naive memo-field check would miscount 455 and could make those two sites look uncovered - the page's truth is doc-derived, per the existing PITFALLS entry on fit/review.py resolution. Filed the dep-entry naming pitfall in PITFALLS (### pipeline/: entry `file` = `plan_<plan>.webp` strips the site prefix, `fit.doc` keeps `<sid>.<plan>`; audit with the is_done triple, and build doc ids with os.path.basename(path)[:-5]).
+### 2026-10-12 307b DECISION: box 1 (the queue carries the propose) designed in full; 307b split into 307ba (boxes 1+2) and 307bb (boxes 3-6) - no code written this session (investigation only)
+The owner's rework spans the queue's data and the page, so 307b is split along the same seam
+the parent pre-announced (fly-to/hide-restore vs gestures): 307ba = the queue file carries
+the propose (box 1) + place mode opens on the works (box 2); 307bb = the gestures, the save,
+the headless proof, the docs (boxes 3-6). Both subtask files written; the parent 307's
+hand-over box map updated; no letter reorder.
 
-### 2026-10-13 212 DRIVER: done claim rejected, task reopened
-- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
-    tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+Box 1, implemented-by-design (the 307ba agent codes it; nothing here failed, it was never
+attempted yet):
+- **fit/propose.py becomes root-aware** (added to 307ba's Touches): the four loaders
+  (_index_row, _plans_rows, _plans_row, _site) take a `root` arg and _CACHE is keyed
+  (str(root), kind) so a temp tree never collides with the checkout's data; propose_for
+  gains `root=ROOT` (default = today's behaviour, byte-identical for every existing 2-arg
+caller: batch_us, inkfit, inkfit_heldout, test_batch_us/eu/propose). Contract docstring
+  updated for the optional param. WHY not monkeypatch ROOT/`_CACHE` from fit_queue.py:
+  the cache is keyed by nothing today, so two roots in one process would silently read
+  each other's files; a root param is the one-place-for-one-knowledge fix, and it lets
+  the TESTS derive expected proposals against the same temp tree the generator ran on.
+- **tools/fit_queue.py**: `sys.path.insert(0, str(ROOT / "fit")); import propose as _propose`
+  (the site_done.py:43 convention; fit/ has no __init__.py - implicit namespace or
+  sys.path, both work, but the codebase uses the sys.path insert). Per entry in build():
+  try _propose.propose_for(e["site"], plan, root=root) except Exception -> NO propose key
+  (fail open: the page falls back to the three-point flow; covers no size, no size_m, no
+  stage-B row, missing index.jsonl). On success: entry["propose"] = the six keys in box
+  order {pairs, scale_m_px, rot_deg, scale_source, coarse, note}; "ground" is dropped
+  (the page derives it from site.lidar, as it already does in fqPlace). Key lands after
+  "candidates" in the entry dict. Docstrings: the tool reads a fifth input
+  (data/books/index.jsonl, stage-B fields) and stays stdlib-only (propose.py is too).
+- **Regenerate web/data/fit_queue.json in the checkout** (it is a TRACKED file -
+  `git check-ignore` says no - not the shared store): all 117 current entries anchor
+  (measured: 20 bar, 4 ratio, 93 picture_size; n0686 = scale_m_px 0.3621, rot 0).
+  After agent c's 309 merges its place check into main, the next regeneration on this
+  branch is the joint behaviour - regenerate on top of whatever the branch shows.
+- **Tests (part 1 of test_fit_queue.py; parts 2-3 untouched - they read the file the page
+  ignores propose in)**: extend _build_synthetic_tree - sites gain lon/lat/size_m; add a
+  data/books/index.jsonl with stage-B rows: row-a1 (s-alpha, book "Book A") scale_text
+  "0 100 200 300 Feet" + a scale_bar box [0.15,0.6,0.85,0.62] on size [1000,1000] -> bar,
+  scale 91.44 m / 700 px = 0.1306 (hand-pinned), north_angle_deg 20 + arrow true ->
+  rot 20.0 (trustworthy); row-e1 (s-eta, book "Book E") scale_text "500 Feet to the Inch."
+  but "Book E" has no ppi in BOOK_PPI -> ratio unusable -> picture_size fallback
+  (s-eta size_m [200,150] -> 0.2, coarse true); row-g1 (s-gamma) no scale text and s-gamma
+  deliberately WITHOUT size_m -> no propose (the no-size_m case); NEW site s-nope + row
+  row-n1 whose plans size is null and whose index row has no full_size -> no propose
+  (the no-size case; s-nope still has a size_m, so size is the missing piece). Entry count
+  6 -> 7, s-nope sorts last (draw_px 0, plan id after the rest); the pinned stdout line
+  becomes "ready-to-fit queue: 7 site(s) -> ...". Assertions: each anchoring entry's
+  propose equals the 6-key dict derived by calling propose.propose_for(site, plan,
+  root=tree) in-test (the algorithm is pinned by 202's golden tests/golden/propose_202.json,
+... (3.9 KB more: `grep -n -A 200 -F '## 2026-10-12 307b DECISION: box 1 (the queue carries the propose) designed in full; 307b split into 307ba (boxes 1+2) and 307bb (boxes 3-6) - no code written this session (investigation only)' DECISIONS.md`)
 
-### 2026-10-13 212 DECISION: the driver's rejection was factually right - 212b's sync moved the placement test's pick from oswestry (green) to marietta (red); the "pre-existing since iter 161/197" attribution in my iter-253/254 entries was wrong; the fix is 235's file, so 212 now carries Depends on: 235
-The driver reopened 212 (0b4dd2d) on one failing test:
-tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
-("not failing before this task"). I investigated before accepting or rebutting,
-and the driver was right. Measured this session (no code changed):
-- Current pick (re-simulated the test module's own `_pick_place()` + a stdlib
-  port of the page's filter): **marietta** (idx 29 of 241 in
-  web/data/fit_queue.json) - line-eligible (zero docs, unresolved item carrying
-  the squi row, local page) and dep file non-empty (ONE entry: the 1904 USGS
-  topo) - but the topo fails the page's surveyOldEnough 150-year filter
-  (1904 > 2026-150=1876), so the page never creates the `dep-marietta` layer
-  and the seed check reads dep:null -> red.
-- The tree just before 212b's final sync (870d4f9^ and 6ce742f^, checked with
-  `git ls-tree`): marietta had exactly ONE doc -
-  marietta.b24849959_n0195_1.json (a 301 pattern doc; blob 6996872 in both) -
-  so `_line_eligible` returned None (site has a doc) and the pick fell to
-  **oswestry-castle-q20713795** (idx 36), whose 1842 map survives the page
-  filter (its 1900 map does not) -> dep layer created -> seed 'none' -> GREEN.
-- **6ce742f** (Oct 13 06:31, "[driver] uncommitted work after iteration 227")
-  is 212b's final sync (306d's 08c0cf1 attributes it exactly that way; 306e's
-  6554a14 credits "212b's sync notes" on the item conflicts): it deleted that
-  doc among the 76 pattern docs the sync exists to delete, and upserted the
-  item entry recording it (why + the b248 candidate). With her last doc gone,
-  marietta (idx 29, before oswestry's 38) became the first line-eligible entry
-  with a non-empty dep file -> the pick moved -> red, on every tree since
-  (77405cf, my iter-253 sync, HEAD). 221's iter-237/238 recorded "pick still
-  marietta/1904-topo (77405cf's 103 new review items shifted nothing)" - that
-  observation was right but its cause (212b, not 77405cf) had already happened.
-- Side history, so the journal stays straight: the test went GREEN at 081c773
-  (307bb, Oct 12 05:02, "Suite 101 passed"); during 306c's Oct-12 audit era
-  (114-entry queue) its own audit deleted marietta's doc on agent c's branch
-  and the pick went red there (306d iter-161 and 306e iter-197 recorded "the
-  307bb gesture red, the baseline from both parents"); my 212 notes-only
-  phase's 229-entry regeneration (f0dfd66, Oct 12 23:23) put the pick back on
-  oswestry -> GREEN again; 6ce742f (212b) -> RED. The driver's 212 baseline
-  predates all of it, so its re-check flags the red against 212 - and my
-  iter-253/254 "pre-existing since ~iter 161" claim was wrong about the state
-  adjacent to my task (that phrasing copied the 306-era episode, whose red had
-  already been cured by f0dfd66). (b9cbc46, Oct 12 16:18 - a driver capture on
-  agent c's 306c branch swapping marietta's docs b248->squi - is NOT an
-  ancestor of main's pre-sync state; main kept the b248 doc until 6ce742f.)
-- The doc deletion itself was CORRECT and stays: the 306c audit had judged
-  that b248 doc ("scale right (1.0 m/px, the plate's own bar) but..."), the
-  pattern docs are 301's fabricated points, and the sync's item-upsert keeps
-  marietta covered by her open review item (the GOAL.md point-1 invariant
-  holds - 0/499, re-verified in iter 254 and unchanged this session). No
-  rollback, no stand-in.
-- The real defect is `_pick_place`: it checks what the SITE has (a non-empty
-  dep file), not what the PAGE will show (surveyOldEnough + the auto-select
-  rule). tasks/235 (open; its deps 306e and 307d are both done; listed in the
-  driver's "Next open tasks") owns tests/test_fit_queue.py and spells out
-  exactly this fix. Verified the post-fix pick on this very tree: **oswestry**
-... (1.0 KB more: `grep -n -A 200 -F '## 2026-10-13 212 DECISION: the driver's rejection was factually right - 212b's sync moved the placement test's pick from oswestry (green) to marietta (red); the "pre-existing since iter 161/197" attribution in my iter-253/254 entries was wrong; the fix is 235's file, so 212 now carries Depends on: 235' DECISIONS.md`)
+### 2026-10-13 307b DECISION: driver returned the parent with both subtasks done - boxes 1, 2, 3, 4, 6 verified and ticked (iteration 256); box 5 not ticked because its headless proof is red on the 235 pick drift; filed 307bc (Depends on: 235) to re-run it and close the task; no done claim this session
+Session did verification only (no code written; working tree change = the three task
+files + this entry). The driver's instruction: check 307b's own boxes, tick the
+verifiable, done or new subtasks.
+
+Verified by running code / reading the merged tree (machine date 2026-10-13):
+- Box 1: part 1+1b tests green (3 passed, 4.4 s: synthetic with bar/ratio/fallback/
+  no-propose rows, real population, namesake place check). Live web/data/fit_queue.json
+  = 241 entries, 241/241 with the exact 6-key propose (13 bar / 4 ratio / 224
+  picture_size). stdlib-only confirmed by reading every import (fit_queue.py,
+  tools/right_place.py, fit/review.py, fit/propose.py).
+- Box 2: fitkit's _fkActivate (fitBounds to the site's four corners before the ink,
+  hide dep-<site>) and the endFit wrapper (applyDep restore, S.* untouched) committed
+  and in main; the site panel's #fitgo "Place an old plan" (index.html:793) flows into
+  the wrapped openPlan. Green at 307ba's accepted done-claim; re-proven today by 307d's
+  test_owner_check.py (in the 159 passed) and by today's part-4 run passing every seed
+  sub-check except dep-visibility.
+- Box 3: the committed gestures (_fkOnDown/_fkOnMove 4-px-engage absolute drag,
+  _fkOnWheel wheel scale + shift+wheel 1 deg/notch, in-place re-emit + coalesced
+  refit, _fkHint live readout, _fkSync anchor stack vs pin/undo/clear) match the
+  design; today's red run shows all gesture checks [ok].
+- Box 4: save = the page's own saveFit doc (re-emitted pairs, 17 keys, by:hand, one-
+  site line) - proven at 307bb's acceptance (doc read back from the temp store, fit ==
+  placed anchor) and today by 307d's test_owner_check.py (two derived sites end to
+  end, shared store byte-identical after; test_fit_provenance + golden hand-fit hash
+  in the 159 passed).
+- Box 6: docs/site_flow.md sections (the propose ~449, "Place mode (task 307bb)" ~518,
+  "The working space (task 307c)" ~530, "The owner's check" ~1520) all present with
+  307c's place_before/after.png and 307d's ten 307d_*.png in docs/site_flow/.
+
+Box 5 NOT ticked (honest tick rule: the test does not pass today). The part-4 test is
+committed and hermetic; it fails solely on the 235-assigned pick drift: 212b's sync
+(6ce742f, Oct 13 06:31) deleted marietta's last doc and upserted her item, moving the
+derived pick from oswestry to marietta (re-ran _pick_place() myself: site marietta,
+entry 29, plan ancientmonuments00squi_n0169_1, propose ratio 0.6096; her only
+depiction = the 1904 USGS topo, hidden by the page's surveyOldEnough). Full suite
+today: 159 passed + 1 skipped + 1 failed (6:29), the lone red = this test, the
+RESULT line identical to 235's record ("seed: the gestures own the mouse ..., the
+earlier overlay hidden" with dep:null). The driver gates done claims on a green
+suite (it rejected 212 over this same red), so a done claim now would be rejected:
+per AGENTS.md I add the blocker to Depends-on-style waiting instead - as subtask
+307bc (Depends on: 235; its box 3 ticks 307b's box 5 and sets it done).
+
+Choices recorded: (1) ticked 1/2/3/4/6 on CURRENT evidence (today's runs + the
+accepted subtask done-claims, which the driver re-checked with green suites at their
+time) rather than waiting for 235 to tick them - the page code they prove is
+unchanged since those acceptances and the only delta is the 235 pick; (2) did not
+touch tests/test_fit_queue.py (235's file, and PITFALLS rule (b): a parallel task
+must not fix it) and did not claim done; (3) 307bc's Touches = tests/test_fit_queue.py
++ web/fitkit.js (the latter only for a real page defect a post-235 run would expose).
+Parent 307's hand-over got the closure note; PITFALLS needed no new entry (the
+"placement test's pick" entry at ~1410 already carries the 6ce742f episode, the
+... (0.1 KB more: `grep -n -A 200 -F '## 2026-10-13 307b DECISION: driver returned the parent with both subtasks done - boxes 1, 2, 3, 4, 6 verified and ticked (iteration 256); box 5 not ticked because its headless proof is red on the 235 pick drift; filed 307bc (Depends on: 235) to re-run it and close the task; no done claim this session' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
