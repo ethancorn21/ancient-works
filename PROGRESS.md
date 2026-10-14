@@ -5,9 +5,8 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
-- `tasks/230-roman-merge-rerun.md` (open) - hand-over: (2026-10-14, iteration 211, agent a - STEP 3 (docs/sources.md section 9 Roman row) DONE and committed.
+- `tasks/230-roman-merge-rerun.md` (open) - hand-over: (2026-10-14, iteration 212, agent a - STEP 4 (9 site builds) LAUNCHED and running at session end; the plans.json prep for step 5 is fully scoped and t
 - `tasks/236-us-cities.md` (split)
-- `tasks/240-us-birdseye-batch4.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
 - `tasks/241-us-birdseye-batch5.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
 
 ## Next open tasks
@@ -18,17 +17,6 @@ task file (for a subtask, read its parent's too).
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
-
-### 2026-10-14 230 DECISION: iteration 209 - the live scoped merge (hand-over step 1): 45 roman rows folded into the three canonical files, log replaced by the 45-row run snapshot, idempotent on re-run; next session does the book-index rebuild (step 2)
-Executed `.venv/bin/python fit/merge.py merge --sources roman` in this tree. Everything matched the hand-over's prediction exactly.
-
-**Pre-checks (all confirmed before running):** staging on main is both books - extras_roman 9 (Horsley 8 + Maclauchlan 1), files_roman 18, classified_roman 18; every files_roman row carries the 200 evidence field (rec "evidence/1", kind "caption_coords") so the evidence gate passes all of them; data/merge/log.jsonl was 211's 381-row snapshot (all "merged") - this run replaces it (211's stays in git history); web/data/sites.json has the 499 baseline entries and NONE of the 9 new roman site ids; web/data/plans.json has the 1510 (id, sites[0]) rows; no run_build process running.
-
-**The run:** rc 0, 0 refused. extras.jsonl 193->202 (+9), files.jsonl 1730->1748 (+18), classified.jsonl 1037->1055 (+18). Verified pure growth: first 193/1730/1037 lines of each canonical file byte-identical to a pre-run copy taken in this session. data/merge/log.jsonl = exactly 45 rows, all action "merged", source "roman" (9 extras / 18 files / 18 classified) - zero conflicts, zero rejections (as the temp-tree test and the direct key-dup check of iteration 207 predicted). Second run: +0/+0/+0, rc 0, all four files (three canonical + log) byte-identical by md5 - idempotent.
-
-**Tests:** tests/test_merge.py 9 passed / 1 failed in 22 s; the one red is the same expected open gate (test_new_sites_are_complete: "no new sites: the build phase produced nothing") - it closes when the 9 roman site builds land (hand-over step 4). No 307d PNG dirt (only test_merge ran this session, it renders no owner-check captures).
-
-**Next session:** hand-over step 2 - the book-index rebuild (import fit.src_roman_horsley + fit.src_roman_maclauchlan, register(), pipeline.books_lists.cmd_index(None) + cmd_validate(None); index.jsonl 1068->, validation.json regenerated; then fit/evidence.py record + check), then steps 3-6.
 
 ### 2026-10-14 230 DECISION: iteration 210 - step 2 (the book-index rebuild) ran offline and landed on disk; UNCOMMITTED (harness saved it) - next session commits it, then step 3 (docs/sources.md section 9)
 Executed the in-process driver /tmp/230_step2_driver.py (network patched to hard-fail first, the 207b precedent; importlib-loaded fit/src_roman_horsley.py + fit/src_roman_maclauchlan.py, register() each, then books_lists.cmd_index(None) + cmd_validate(None)). Everything read committed triage/lists caches + local raw images (936 + 171 triage jpgs exist in this checkout); zero network, zero LLM.
@@ -61,6 +49,19 @@ Executed the in-process driver /tmp/230_step2_driver.py (network patched to hard
 - The STATIC fallback (static_source_for_bbox, no probe kw) picks "scot" (pipeline/lidar_scot.py, a local S3 mirror of the Scottish national LiDAR - no service/key) for Scotland. ardoch (Braco, Gask Ridge) throws aw.NoLidar "no Scottish LiDAR tiles on this box" - the mirror holds selected tiles only. kirkintilloch/carriden NOT yet probed (next session: lidar_scot.read_dem(aw.site_bbox(lon,lat,60,60),24,24,lon,lat)).
 - nls.covers() (the 1747-55 NLS military survey) is True for ALL 9 new sites, including all 3 Scottish - so build_catalog's old_map path means no site can end up "NOT BUILT": a no-tile Scot builds aerial-only with the NLS overlay (depictions.json present, no relief.jpg - the test's "relief.jpg iff lidar_credit" self-consistency holds either way).
 - Precedent re-confirmed: the four no-QID Antonine Wall camps (bar-hill-fort, inchtuthil, raedykes, rough-castle-fort) all carry relief.jpg + scot-6-first.webp, built from this same mirror.
+
+### 2026-10-14 230 DECISION: iteration 212 - step 4 (the 9 Roman site builds) launched and running at session end; plans.json half of box 3 fully scoped (23 full images to download, 18 commons copies, 44 matcher rows APPEND-only - a full books_match.main() re-run is NOT pure growth); next session finishes the builds, runs /tmp/230_romans_full.py, appends the roman match rows, re-runs export_plans, then test_merge + test_data
+
+**Session state:** tree clean at start (d0f0d30). Deps all landed/irrelevant: 207a/207b done, 207c dropped, 807/808 done; 809 (horsley-check, agent c) open but not a declared dep and non-blocking (it touches staging files + the horsley fit module/tests/golden - none in my Touches; my remaining work reads canonical data only). The prompt's "agent c on 207a" note = that same 207-family work.
+
+**The build (step 4):** launched 21:44:10Z `nohup .venv/bin/python data/merge/run_build.py luguvallium-q71551754 ardoch virosidum cilurni petriana congavata tunnocelum kirkintilloch carriden &` (idempotent per site; appends data/merge/build_sites.log). Done by session end: luguvallium (26s: ea relief + OS 6-inch, 1 depiction), ardoch (40s: scot NoLidar -> aerial-only + roy_ink + scot-6-first, 2 depictions), virosidum (25s: ea + 6-inch, 1 dep), cilurni (326s: first ea fetch is the slow one; ea + 6-inch, 1 dep). In flight: petriana (started 21:51:11Z); not started: congavata, tunnocelum, kirkintilloch, carriden. The nohup'd process may outlive the session (fine - it is idempotent) - check ps before relaunching; resume only unfinished ids.
+
+**Pre-launch probes (ran the code per AGENTS.md):** kirkintilloch (1600m box) and carriden (1200m) both have scot Phase 5 0.5m coverage 1.00 and read_dem 576/576 (2.9s / 3.1s) -> both build WITH relief.jpg. CORRECTION to the it.211 hand-over, which guessed kirkintilloch "probably has no tiles": it has 100% Phase 5 coverage. ardoch: NoLidar (aerial-only, as predicted). ea reachable from this VM now (luguvallium 60m probe: 576/576 finite). box_m: "fort" -> 1600m; "roman site" (no keyword hit) -> default 1200m. None of the 9 ids in specs/aliases.json or specs/site_boxes.json.
+
+**Box 3 plans.json half - the new knowledge (all verified this session):**
+- data/raw/ is 100% gitignored (0 tracked files): no other checkout's raw images ever reach mine. The roman triage jpgs (936+171) exist here from earlier local fetches; both books' full/ dirs are EMPTY, so export_plans (which requires each row's full_local to exist on disk) currently skips ALL 44 roman book rows. Fix = download the 23 distinct leaves (17 horsley + 6 maclauchlan) via the machinery's own path: in-process register() of both fit modules (it.210 pattern; the roman books are NOT in books.py's BOOKS dict file) then books.cmd_full per key (BookReaderImages.php scale=1 -> data/raw/books/<ia>/full/nNNNN.jpg). Script written this session: /tmp/230_romans_full.py (NOT yet run; idempotent; it also copies the 18 staged pages and verifies 44/44).
+- The 18 files_roman rows are all p_plan=1.0/p_photo=0.0 (pass commons_rows()'s >=0.3 gate) but have NO local copies in this checkout. Their urls are archive.org /download/<ia>/page/nNNNN.jpg = the book leaves themselves, so the same downloaded files serve both uses: copy each to data/raw/commons/<site>/<sha1(title)[:16]>.jpg (the path export_plans/serve look up). /tmp/230_romans_full.py does this.
+... (2.8 KB more: `grep -n -A 200 -F '## 2026-10-14 230 DECISION: iteration 212 - step 4 (the 9 Roman site builds) launched and running at session end; plans.json half of box 3 fully scoped (23 full images to download, 18 commons copies, 44 matcher rows APPEND-only - a full books_match.main() re-run is NOT pure growth); next session finishes the builds, runs /tmp/230_romans_full.py, appends the roman match rows, re-runs export_plans, then test_merge + test_data' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
