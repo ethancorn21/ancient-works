@@ -1514,11 +1514,39 @@ process.exit(failures.length ? 1 : 0);
 """
 
 
+def _survives_page_filter(dep):
+    """The page's surveyOldEnough, mirrored: web/index.html:444-445, applied by loadDeps at
+    :449 - a {map, aerial, topo} depiction passes only with a year (a falsy year fails, as in
+    the JS `x.year &&`) <= current year - 150; every other kind passes unconditionally. The
+    data's year is int or None (the only shapes in web/data/sites/*/depictions.json), so this
+    matches the JS truthiness and coercion exactly for it."""
+    cutoff = datetime.now().year - 150  # new Date().getFullYear() - 150, same machine and zone
+    return [d for d in (dep or {}).get("depictions") or []
+            if d.get("kind") not in ("map", "aerial", "topo") or (d.get("year") and d["year"] <= cutoff)]
+
+
+def _page_auto_select(dep):
+    """The depiction a fresh page auto-selects for the site, or None: web/index.html:688
+    DRAWING plus select()'s auto-select at :866 - the first surviving {plan, drawing, view}
+    depiction, else the last surviving 'map'. Only a returned depiction becomes the page's
+    dep-<site> layer: applyDep (web/index.html:453) creates it only from the filtered list, and
+    startFit (web/fitkit.js:575) hides it in place mode only when the layer exists - so the
+    seed check and Cancel are non-vacuous exactly for such a site."""
+    surv = _survives_page_filter(dep)
+    for d in surv:  # select(): ds.find(x => DRAWING.has(x.kind))
+        if d.get("kind") in ("plan", "drawing", "view"):
+            return d
+    maps = [d for d in surv if d.get("kind") == "map"]  # || ds.filter(x => x.kind === 'map').pop()
+    return maps[-1] if maps else None
+
+
 def _pick_place():
     """The first queue entry (file order) that place mode can run end to end: a proposal (the
     placement's anchor), the one-site line's constraints (_line_eligible: a local book page, an
-    unresolved item carrying the row, no docs yet) and an overlay the page selects for the site
-    (a non-empty depictions.json), so Cancel has something to bring back. Derived, never pinned.
+    unresolved item carrying the row, no docs yet) and an overlay the PAGE will show for the site
+    (its raw depictions survive the page's surveyOldEnough filter and its auto-select picks one
+    of them - _page_auto_select), so the seed check and Cancel are non-vacuous. Derived, never
+    pinned.
     -> (entry, done map seeding the card past every earlier entry) or None."""
     q = json.loads((ROOT / "web" / "data" / "fit_queue.json").read_text())
     items = _review_items()
@@ -1526,7 +1554,7 @@ def _pick_place():
         if not e.get("propose") or _line_eligible(e, items.get(e["site"])) is None:
             continue
         dep = ROOT / "web" / "data" / "sites" / e["site"] / "depictions.json"
-        if not (dep.is_file() and json.loads(dep.read_text()).get("depictions")):
+        if _page_auto_select(json.loads(dep.read_text()) if dep.is_file() else None) is None:
             continue
         return e, {x["site"]: AT for x in q["entries"][:i]}
     return None
