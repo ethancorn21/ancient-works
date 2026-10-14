@@ -97,7 +97,7 @@ restore main's bytes before committing (the PITFALLS test_owner_check entry); on
 
 ## Hand-over
 (2026-10-14, iteration 175, agent c - **Omaha RESEARCH done (the task's first open question resolved:
-236b skipped Omaha with no recorded reason, but its pool has a strong pick); next session = the Omaha
+236b skipped Omaha with no recorded reason, but its pool has a strong pick); the step is CLOSED and committed (bfdc630): Omaha is stageable - the pick is the 1868 E. Ruger sheet, Q43199 verified live with no name-search trap, the gate-false-positive pitfall is filed, the working tree is clean at session end, and the post-174 full suite is green (190P/1S/0F, driver's 241 baseline 0-failing). The next session starts the Omaha LANDING at step 1 below - nothing else is pending.
 LANDING, batch-5 city 1 of 5**)
 
 **State:**
