@@ -296,6 +296,11 @@ Why: bot walls that a real browser passes and this VM cannot. The planned route 
       that day). The human refusal came in between iterations 145 and 151 (journal date 2026-10-13; the ask
       file's own 06:55 answer stamp is VM clock, which lags the journal dates).
 
+#### loc.gov is 403 (CloudFront bot block) from this VM - LOC collection items go via their Wikimedia Commons mirrors
+Where: loc.gov (the "Panoramic Maps" collection, https://www.loc.gov/collections/panoramic-maps/, and its item/IIIF URLs); task 236b (US bird's-eye views)
+Symptom: HTTP 403 on the collection page with both the project UA ("ancient-works/0.2 (personal research)") and a full browser UA, via both the web_fetch tool and direct urllib (re-verified 2026-10-14); Wayback snapshots of the same page DO render (2025-01-02: item list with Date, Contributor, Phillips numbers, raster links - but no description block in the extracted text).
+Why: the CloudFront edge bot detection that a real browser passes and this VM cannot (the 403 class of babel.hathitrust.org, not a UA or DNS issue). The collection's files are mirrored on Wikimedia Commons with the LOC identifiers in the file titles and extmetadata, so 236b fetches them the project's established Commons way (files_us_birdseye.jsonl; docs/lead_us_birdseye.md records this as the fetch route). For collection-level metadata (dates, contributors) use a Wayback snapshot of the collection page; never plan a live loc.gov fetch.
+
 #### The human will not download books for this project - book leads stand on IA and Commons only
 Where: ask_human 001 (Hoare, Ancient Wiltshire vol. 3, The Hundred of Cherhill, 1821), 002 (Petrie,
       Stonehenge/Avebury 1880) - both filed 2026-10-12 from task 209a, both refused before iteration 151 - and
