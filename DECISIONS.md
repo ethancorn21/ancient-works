@@ -19,8 +19,10 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 ## Archived decisions
 
 408 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
+409 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
+404 entries were moved verbatim to `DECISIONS-archive.md`: all of a finished task's, and the older ones of a task still open (its newest stay below). Before trying an approach in an area one of them touched, grep the archive (e.g. `grep -n -i "collision" DECISIONS-archive.md`) and read only the matching entries, never the whole file.
 
-- 000 plan (13 entries)
+- 000 plan (14 entries, older ones; the task is still open)
 - 001 fit-gate (10 entries)
 - 200 evidence (7 entries)
 - 201 review (5 entries)
@@ -32,6 +34,8 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 - 205 kip (10 entries)
 - 206 mackenzie-p212 (34 entries)
 - 207a horsley (13 entries)
+- 207a horsley (2 entries)
+- 207a horsley (9 entries, older ones; the task is still open)
 - 207c roy (2 entries)
 - 208 limes (8 entries)
 - 209 wiltshire (1 entry)
@@ -40,7 +44,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 - 209c petrie (1 entry)
 - 210 numancia (5 entries)
 - 211 merge-build (14 entries)
-- 212 cover-final (6 entries, older ones; the task is still open)
+- 212 cover-final (11 entries, older ones; the task is still open)
 - 212a cover-search (7 entries)
 - 212b cover-sync (12 entries)
 - 212c batch-report (4 entries)
@@ -62,6 +66,7 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 - 227 stukeley-merged-check (1 entry)
 - 228 artists-merged-check (1 entry)
 - 229 imagecodecs-pin (1 entry)
+- 236a us-city-plans (8 entries, older ones; the task is still open)
 - 300 site-stonehenge (3 entries)
 - 301 site-argentoratum (6 entries)
 - 302a inkfit-method (9 entries)
@@ -431,6 +436,12 @@ unconditionally. No code changed this session.
 - Verified the task is a true blank slate on this branch before deciding: no fit/src_roman_maclauchlan.py; no data/books/triage/memoirwrittendu00maclgoog.* or lists/*.json (the per-book artifacts); data/raw/books/ has only cached bookreader.json + metadata.json for both IA copies (1858 original memoirwrittendu00maclgoog, 171 leaves; 1971 reprint memoirwrittendur0000henr, hOCR); no roman staging files (files_roman/classified_roman/extras_roman) and no docs/lead_roman.md exist yet. So (a) the stop stands costs nothing - no fetch, no LLM minute, nothing to unwind; (b) lifted resumes at the hand-over recipe step 2 (module + fetch).
 - Filed ask_human request 007 (.agent/asks/007.md, blocking, task: 207b) with recommendation (a) the stop stands; one answer covers 006 + 007. Status set back to blocked: stable now that a request is open against the task (driver rule), and it matches the lead's 62455ad. The harness's "keep the status as it is" note was read as "do not close the task out" - blocked-with-open-request is the state the lead wrote and the stuck rule prescribes. Tests not run: no code written this session (task file + journal only); suite unchanged at the recorded baseline 1/155/1 (lone red = agent a's in-flight 307 placement test).
 
+## 2026-10-13 207c DECISION: iteration 205 - the driver's auto-unblock did not lift the owner's "Stop 207" (which names the parent and hence this subtask), and the book (request 003, answered 10-11 "Use your recommendation") never arrived - no work possible; filed ask_human 008 (human_only/outside-vm: stop-scope confirmation + the NLS download or a drop-Roy decision); set Status: blocked again
+- The driver put 207c back to in-progress (0500b36) purely because its only request, 003, had been answered and closed and no request was open against 207c - the same no-open-request safety valve that fired on 207b (9906c89). It is not a lift of the owner's stop: the lead recorded "Stop 207" on 10-13 11:19 (62455ad: "the owner said 'Stop 207'. Do not start until the owner lifts it."), the stop names the parent task and hence all subtasks, and the lead's commit only named 207a + 207b because 207c was already blocked for a different reason (the book). No lift has come through (checked inbox, lead notes, DECISIONS, git log through today).
+- The book itself never arrived: 003 was answered "Use your recommendation" (console, 10-11) - the human downloads the NLS facsimile at https://maps.nls.uk/roy/antiquities/ into data/raw/books/roy1793/ - but that directory does not exist (verified this session; data/raw/books/ holds only a metadata.json cache for macdonald-1917-roy, the 1917 dissertation ABOUT Roy: no facsimile pages, no plate list, not a substitute). NLS is unreachable from this VM (AWS-WAF captcha, HTTP 405 "Human Verification", on every path; attempts 1-3, 10-11), so only a person with a browser can supply the copy, or the owner can drop Roy (003's option 2).
+- Filed ask_human request 008 (.agent/asks/008.md, blocking, human_only/outside-vm) against this task: (1) confirm the stop covers 207c too (a = it stands, my recommendation, consistent with the parked siblings 207a/207b on open 006/007 - one answer applies to all three; b = lifted), and (2) the book in data/raw/books/roy1793/ (any layout; minimum the 51 map plates + the printed list-of-plates page) or a "drop Roy" decision. human_only because the download can only be done by a person (outside-vm) and dropping Roy is the owner's call; the request waits for the human however long, which is what makes the blocked state stable.
+- Status set back to blocked (harness note "keep the status as it is" read as in the 207b iteration-204 precedent: do not close the task out - blocked-with-open-request is the state the lead wrote and the stuck rule prescribes). Blank slate verified: no module, no per-book artifacts, no roman staging files, no lead doc, no test, no roy1793 dir - nothing to unwind; the hand-over holds the resume recipe (local-file fetch adaptation + the parent's pipeline mechanics + the Roy-specific staging/lead-doc/golden steps). Tests not run: no code written this session (task file + journal only); suite unchanged at the recorded baseline 1/155/1 (lone red = agent a's in-flight 307 placement test, not this task's).
+
 ## 2026-10-13 302 DECISION: iteration 208 - the driver returned the parent (all existing subtasks terminal); fresh verification ticked boxes 1-3 and left 4/5 to subtasks 302e/302f/302g, which this session actually WROTE (the 207 hand-over claimed they were created, but no such files existed on disk)
     The driver's post-207 commit 745056e touched only tasks/302-autofit-real.md, so the 207 hand-over's "created subtasks 302e/302f/302g" was a false claim (the session was cut before the writes landed). This session re-verified all five boxes from the current tree and ticked 1-3:
     - Box 1 met: fit/inkfit.py (302a: ink skeleton vs LiDAR relief, ridge-contrast objective, frozen no-model variant, model injectable) + the lead's fit/matchfit.py (pretrained MatchAnything ELoFTR/RoMa correspondences between the plan and relief/aerial/OS sheets - points computed from the images, never a vision-model list). The line is matcher-first (site_done._fit:78-84). The lead's newer fit/matchfit2.py (two-stage located windows), fit/matchfit_queue.py (rule sweep) and fit/surveyfit* are lead work, outside the boxes.
@@ -441,6 +452,134 @@ unconditionally. No code changed this session.
     Live defect re-confirmed by running: fit/inkfit_heldout.py table dies "expected the 20 golden hand-fit documents, found 21" (303's re-key 1f562ca); run/selfcheck share the function. Resolution of the 207 Re-read: matchfit_heldout does NOT call golden_docs() (it uses ih.GOLDEN, ih.MAIDEN, ih.hand_similarity, ih.corner_metrics, ih.precheck; its own doc_ids reads the golden directly) - so the 302e fix scope is exactly inkfit_heldout's golden_docs/doc_ids/precheck; matchfit_heldout's one-shots are spent too and its data/matchfit/ checkpoints stay read-only.
     Environment: ELoFTR 127.0.0.1:8091 reachable (RTX 5060 Ti); RoMa :8092 refused; .venv current (numpy 2.5.4); all 40 golden pins verify (sha256sum -c). No code or data touched this session (task files + journal only); suite NOT run - subtasks diff against the newest driver loop-start note (306d-era baseline 10 failed / 130 passed / 1 skipped of 141, 2026-10-12/13).
 
+## 2026-10-13 212 DECISION: done - six boxes ticked on re-verified evidence; the 457 open set is doc-derived (455 unresolved files + 2 re-opened memos); dep-entry naming pitfall filed
+The closing session (iter-254). Subtasks 212a/212b/212c were all done and driver-accepted; this session re-verified the iter-253 evidence on the current tree (only driver bookkeeping commits since: 73897d5/e31c6d4/aee0bd5) before ticking: golden `sha256sum -c tests/golden/hand_fit_docs.sha256` 40/40 OK; is_done-triple audit 70/70 current (0 missing / 0 stale); GOAL.md point 1 invariant 0/499 on the served files (499 sites; every site drawings >= 1 or an open item; fudge/highbank/hopeton covered by their site.json-plate drawings=1); tests/test_cover.py 6/6 PASSED (41.6 s) and tests/test_review.py 5/5 PASSED (51.6 s, incl. the page-level test_page_shows_the_review_list); docs/batch.md fresh @20:38 with buckets summing to 499 and seed 20261012. Ticked all six boxes, set Status: done. Box 6's written port-0 test stays waived per the lead's 212b say-so (the driver accepted the identical live-evidence tick for 212b) - the box is ticked on the measured substance (invariant 0/499, golden green, sample reproducible via test_report), per that precedent. Clarification found while re-verifying: web/data/review.json's 457 open = 455 item files without a `resolved` memo + 2 items (aesica-q4688554, alligator-effigy-mound-q4732645) whose write-once memo points at a since-deleted doc; export's doc-derived open rule (fit/review.py:189 - open iff no candidate has a current doc) reopens them, and both sites (drawings=0) are covered exactly by that openness. A naive memo-field check would miscount 455 and could make those two sites look uncovered - the page's truth is doc-derived, per the existing PITFALLS entry on fit/review.py resolution. Filed the dep-entry naming pitfall in PITFALLS (### pipeline/: entry `file` = `plan_<plan>.webp` strips the site prefix, `fit.doc` keeps `<sid>.<plan>`; audit with the is_done triple, and build doc ids with os.path.basename(path)[:-5]).
+
+## 2026-10-13 212 DRIVER: done claim rejected, task reopened
+- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
+    tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+
+## 2026-10-13 212 DECISION: the driver's rejection was factually right - 212b's sync moved the placement test's pick from oswestry (green) to marietta (red); the "pre-existing since iter 161/197" attribution in my iter-253/254 entries was wrong; the fix is 235's file, so 212 now carries Depends on: 235
+The driver reopened 212 (0b4dd2d) on one failing test:
+tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+("not failing before this task"). I investigated before accepting or rebutting,
+and the driver was right. Measured this session (no code changed):
+- Current pick (re-simulated the test module's own `_pick_place()` + a stdlib
+  port of the page's filter): **marietta** (idx 29 of 241 in
+  web/data/fit_queue.json) - line-eligible (zero docs, unresolved item carrying
+  the squi row, local page) and dep file non-empty (ONE entry: the 1904 USGS
+  topo) - but the topo fails the page's surveyOldEnough 150-year filter
+  (1904 > 2026-150=1876), so the page never creates the `dep-marietta` layer
+  and the seed check reads dep:null -> red.
+- The tree just before 212b's final sync (870d4f9^ and 6ce742f^, checked with
+  `git ls-tree`): marietta had exactly ONE doc -
+  marietta.b24849959_n0195_1.json (a 301 pattern doc; blob 6996872 in both) -
+  so `_line_eligible` returned None (site has a doc) and the pick fell to
+  **oswestry-castle-q20713795** (idx 36), whose 1842 map survives the page
+  filter (its 1900 map does not) -> dep layer created -> seed 'none' -> GREEN.
+- **6ce742f** (Oct 13 06:31, "[driver] uncommitted work after iteration 227")
+  is 212b's final sync (306d's 08c0cf1 attributes it exactly that way; 306e's
+  6554a14 credits "212b's sync notes" on the item conflicts): it deleted that
+  doc among the 76 pattern docs the sync exists to delete, and upserted the
+  item entry recording it (why + the b248 candidate). With her last doc gone,
+  marietta (idx 29, before oswestry's 38) became the first line-eligible entry
+  with a non-empty dep file -> the pick moved -> red, on every tree since
+  (77405cf, my iter-253 sync, HEAD). 221's iter-237/238 recorded "pick still
+  marietta/1904-topo (77405cf's 103 new review items shifted nothing)" - that
+  observation was right but its cause (212b, not 77405cf) had already happened.
+- Side history, so the journal stays straight: the test went GREEN at 081c773
+  (307bb, Oct 12 05:02, "Suite 101 passed"); during 306c's Oct-12 audit era
+  (114-entry queue) its own audit deleted marietta's doc on agent c's branch
+  and the pick went red there (306d iter-161 and 306e iter-197 recorded "the
+  307bb gesture red, the baseline from both parents"); my 212 notes-only
+  phase's 229-entry regeneration (f0dfd66, Oct 12 23:23) put the pick back on
+  oswestry -> GREEN again; 6ce742f (212b) -> RED. The driver's 212 baseline
+  predates all of it, so its re-check flags the red against 212 - and my
+  iter-253/254 "pre-existing since ~iter 161" claim was wrong about the state
+  adjacent to my task (that phrasing copied the 306-era episode, whose red had
+  already been cured by f0dfd66). (b9cbc46, Oct 12 16:18 - a driver capture on
+  agent c's 306c branch swapping marietta's docs b248->squi - is NOT an
+  ancestor of main's pre-sync state; main kept the b248 doc until 6ce742f.)
+- The doc deletion itself was CORRECT and stays: the 306c audit had judged
+  that b248 doc ("scale right (1.0 m/px, the plate's own bar) but..."), the
+  pattern docs are 301's fabricated points, and the sync's item-upsert keeps
+  marietta covered by her open review item (the GOAL.md point-1 invariant
+  holds - 0/499, re-verified in iter 254 and unchanged this session). No
+  rollback, no stand-in.
+- The real defect is `_pick_place`: it checks what the SITE has (a non-empty
+  dep file), not what the PAGE will show (surveyOldEnough + the auto-select
+  rule). tasks/235 (open; its deps 306e and 307d are both done; listed in the
+  driver's "Next open tasks") owns tests/test_fit_queue.py and spells out
+  exactly this fix. Verified the post-fix pick on this very tree: **oswestry**
+  (idx 38 - propose, unresolved item, 3-pair candidate, local page, zero docs,
+  1842 map page-visible) -> once 235 lands the test is green with no further
+  data change, and 212's done re-claim passes the driver's suite gate. Per
+  team rules I did not touch 235's file: 212's `Depends on:` now carries 235.
+- Boxes: all six remain ticked and were re-verified this session on the
+  current tree (golden `sha256sum -c` 40/40 OK; test_cover 6/6 in 41.3 s;
+  test_review 5/5 in 50.6 s; the pick simulation above). The red test is not
+  part of any box's substance; it is the suite-level gate. Status stays
+  in-progress; the driver brings 212 back after 235 merges. On return:
+  (1) re-simulate `_pick_place()` (seconds) - if it is not oswestry, the
+  world moved (another doc deletion or queue regeneration) and re-run this
+  analysis; (2) run the full suite (expect fully green per 235's box 3);
+  (3) re-verify the boxes (golden, the 0/499 invariant on the served files,
+  test_cover, test_review, docs/batch.md seed 20261012); (4) re-claim done.
+
+## 2026-10-13 307b DECISION: driver returned the parent with both subtasks done - boxes 1, 2, 3, 4, 6 verified and ticked (iteration 256); box 5 not ticked because its headless proof is red on the 235 pick drift; filed 307bc (Depends on: 235) to re-run it and close the task; no done claim this session
+Session did verification only (no code written; working tree change = the three task
+files + this entry). The driver's instruction: check 307b's own boxes, tick the
+verifiable, done or new subtasks.
+
+Verified by running code / reading the merged tree (machine date 2026-10-13):
+- Box 1: part 1+1b tests green (3 passed, 4.4 s: synthetic with bar/ratio/fallback/
+  no-propose rows, real population, namesake place check). Live web/data/fit_queue.json
+  = 241 entries, 241/241 with the exact 6-key propose (13 bar / 4 ratio / 224
+  picture_size). stdlib-only confirmed by reading every import (fit_queue.py,
+  tools/right_place.py, fit/review.py, fit/propose.py).
+- Box 2: fitkit's _fkActivate (fitBounds to the site's four corners before the ink,
+  hide dep-<site>) and the endFit wrapper (applyDep restore, S.* untouched) committed
+  and in main; the site panel's #fitgo "Place an old plan" (index.html:793) flows into
+  the wrapped openPlan. Green at 307ba's accepted done-claim; re-proven today by 307d's
+  test_owner_check.py (in the 159 passed) and by today's part-4 run passing every seed
+  sub-check except dep-visibility.
+- Box 3: the committed gestures (_fkOnDown/_fkOnMove 4-px-engage absolute drag,
+  _fkOnWheel wheel scale + shift+wheel 1 deg/notch, in-place re-emit + coalesced
+  refit, _fkHint live readout, _fkSync anchor stack vs pin/undo/clear) match the
+  design; today's red run shows all gesture checks [ok].
+- Box 4: save = the page's own saveFit doc (re-emitted pairs, 17 keys, by:hand, one-
+  site line) - proven at 307bb's acceptance (doc read back from the temp store, fit ==
+  placed anchor) and today by 307d's test_owner_check.py (two derived sites end to
+  end, shared store byte-identical after; test_fit_provenance + golden hand-fit hash
+  in the 159 passed).
+- Box 6: docs/site_flow.md sections (the propose ~449, "Place mode (task 307bb)" ~518,
+  "The working space (task 307c)" ~530, "The owner's check" ~1520) all present with
+  307c's place_before/after.png and 307d's ten 307d_*.png in docs/site_flow/.
+
+Box 5 NOT ticked (honest tick rule: the test does not pass today). The part-4 test is
+committed and hermetic; it fails solely on the 235-assigned pick drift: 212b's sync
+(6ce742f, Oct 13 06:31) deleted marietta's last doc and upserted her item, moving the
+derived pick from oswestry to marietta (re-ran _pick_place() myself: site marietta,
+entry 29, plan ancientmonuments00squi_n0169_1, propose ratio 0.6096; her only
+depiction = the 1904 USGS topo, hidden by the page's surveyOldEnough). Full suite
+today: 159 passed + 1 skipped + 1 failed (6:29), the lone red = this test, the
+RESULT line identical to 235's record ("seed: the gestures own the mouse ..., the
+earlier overlay hidden" with dep:null). The driver gates done claims on a green
+suite (it rejected 212 over this same red), so a done claim now would be rejected:
+per AGENTS.md I add the blocker to Depends-on-style waiting instead - as subtask
+307bc (Depends on: 235; its box 3 ticks 307b's box 5 and sets it done).
+
+Choices recorded: (1) ticked 1/2/3/4/6 on CURRENT evidence (today's runs + the
+accepted subtask done-claims, which the driver re-checked with green suites at their
+time) rather than waiting for 235 to tick them - the page code they prove is
+unchanged since those acceptances and the only delta is the 235 pick; (2) did not
+touch tests/test_fit_queue.py (235's file, and PITFALLS rule (b): a parallel task
+must not fix it) and did not claim done; (3) 307bc's Touches = tests/test_fit_queue.py
++ web/fitkit.js (the latter only for a real page defect a post-235 run would expose).
+Parent 307's hand-over got the closure note; PITFALLS needed no new entry (the
+"placement test's pick" entry at ~1410 already carries the 6ce742f episode, the
+post-fix pick prediction - oswestry-castle, 1842 map shown, 1900 filtered - and the
+practical rules; today's run corroborated it exactly).
 ## 2026-10-13 302f DECISION: iteration 210 - investigation only; the fixture is keyed by the sha256 of the exact request body matchfit.match sends, and the test's stub reuses that key, so no image code runs in the stub
     No code written this session (context limit during design; the full trace is in the task
     hand-over). Design decisions taken, so the next session does not re-litigate them:
@@ -526,5 +665,137 @@ unconditionally. No code changed this session.
     tests/test_fit_queue.py:1749: AssertionError
     =========================== short test summary info ============================
     FAILED tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
+    1 failed, 159 passed, 1 skipped in 424.53s (0:07:04)
+    (full test output: .agent/reports/last-test-output.txt)
+
+## 2026-10-13 236a DECISION: iteration 151 - Nashville research complete (live, 2026-10-13); verdict: stage 4 rows on a new nashville-q23197 site (the 1804 Clayton/Temple map with a known-date swap, the 1860 Haydon & Booth plan, the O.M. Poe LOC survey map with a swap, and the 1861-65 "Official Histories" atlas plate CXIV - nine fortification plans incl. Fort Negley - with a swap); NO Fort Negley fort site (no fort-only plan on Commons: photos and the 3 Fletcher 1864 litho views only - the views are 236b leads); Q23197 and Q5471744 both verified clean, no traps, no catalog collision - next session applies the verdicts
+- Research-only session (the 145/147 pattern); every fact verified live: Q23197 + Q5471744 re-verified via pipeline/catalog_wd (the robust WD path per the gzip-200 pitfall; its disk cache in data/raw/catalog/wd/ keeps re-runs free); Commons full-text searches (rounds 1-3: map/plan/town of Nashville, Fort Negley, Negley, defenses, 1790-1865 queries, both cities' P373 categories); 18-file metadata batch; 6 thumbnails looked at. Session hit the context limit after the atlas 404 (below) - no repo file was touched; tests remain 7/7 from 150. The full per-candidate record (sizes, dates, licences, gate windows, exact titles, the DROP list, the 236b leads) is in the task file's hand-over - the entries below are the verdicts.
+- **Q23197 (Nashville) re-verified:** label "Nashville", desc "capital city of the U.S. state of Tennessee and seat of Davidson County", ONE P625 (-86.77444444444444, 36.16222222222222) = downtown (EAST of the Cumberland, per the prep), P373 ['Nashville, Tennessee'] (Commons category - its 200 files are modern photos, not a map source), P131 [('Davidson County', 'Q1177705')], enwiki 'Nashville, Tennessee', first name-search hit with P625 = Q23197 itself (no trap). Exact greps: no Q23197 / no "nashville" in data/catalog/sites.jsonl, data/catalog/extras.jsonl, data/catalog/extras_us_cities.jsonl or web/data/sites.json; the only canonical "Nashville" hit is the unrelated "Nashville I" gorget at castalian-springs-mound-site-q5049584 (data/commons/files.jsonl) - no collision, no (site, title) clash risk.
+- **Q5471744 (Fort Negley) re-verified:** label "Fort Negley", desc "army fort in Nashville, TN", ONE P625 (-86.774658, 36.145097) (~1.9 km S of the city P625), P373 ['Fort Negley'] (Commons category = 12 files: Barnard/Albee/modern photos + the 3 Fletcher views - NO plan), P131 [('Nashville', 'Q23197')], enwiki 'Fort Negley', first name-search hit with P625 = itself (no trap). Not in the catalog (0 hits in all three files).
+- **Site decision (final in the hand-over):** `nashville-q23197`, kind "town" (2000 m -> 2 km x 2 km box), named "Nashville", place "Davidson County, Tennessee". Point: P625 vs a refined point at the old town's center - the 1804 Clayton map (the oldest staged drawing) shows the 1790s town at the Cumberland/Tennessee confluence (west of the Cumberland; P625 is east of it), so the 147/148 drawn-extent-center precedent applies: refine if the P625-centered box misses the confluence tip. Both candidate points leave every P625 <50 km away (no --verify flag) and the evidence tie stores the table point (dist_m 0.0), so --check is offline-safe either way. extent_m: pipeline/catalog.py:686 derives it from the site's box, NOT from the row - the extras row cannot carry one, so the oversize sheets (Haydon, Poe, the Defenses ring) get the review-item note instead (the NY 1811 / DC 1865 ring / Venice precedents).
+- **STAGED verdicts (4 rows, all "Nashville" in the title = gate-safe, all Public domain):** (1) `File:1804 Map of Nashville published 1880.jpg` (2557x1913, page "1880") = the 1804 map from the notes of Mrs. Temple, daughter of Dunc. Robertson, engraved in Clayton's 1880 History of Davidson County - thumbnail confirmed: the 1790s town at the confluence (Court House, Jail, the "former Fort", White Hall, Nashville Inn, 20 numbered buildings) = THE early town plan; **swap dict(date="1804")** (page 1880 = book publication). (2) `File:1860 Haydon map of City of Nashville and Edgefield.jpg` (10000x6082, page "1860", John Haydon and Booth) = the 1860 city plan, 19 vignettes, ward boundaries, railroads; no swap; oversize -> review-item note. (3) `File:Map of Nashville, Tennessee. LOC 2003630459.jpg` (19690x11294, page "1860s" precision 8, O.M. Poe, Chief Engineer's Office, Military Division of the Mississippi) = the pen-and-ink-on-cloth survey map of the whole city (every building, contours); the signature's year read as 1864 in the thumbnail - **swap to the LOC-verified year (open check 1a)**. (4) `File:Defenses of Chattanooga, Tenn. Battery Erwin ... Battery Coolidge. Defenses of Nashville, Tenn. Capitol (IA dr defenses-of-chattanooga-tenn-battery-erwin-battery-coolidge-defenses-01104241).jpg` (1536x886, NO page date, War Dept/Julius Bien, engineer names Morton-Tower-Willett-Cowles-Davis-Kirkley-Perry) = PLATE CXIV of the "Atlas to Accompany the Official Histories of the United States Armies 1861-1865": nine fortification plans - Chattanooga Erwin + Coolidge, Nashville Capitol, Fort McCook, **Fort Negley (plan + A-B section + magazine)**, Fort Morrison, Fort Hill (+ a small "Plan of Nashville"), Fort Nashville, the Heights. This is the task's "Civil War fortification plans of Fort Negley" lead, realized as a city-defences sheet (7 of 9 panels Nashville) -> staged on the CITY (the DC 1865 ring precedent); **swap to the atlas publication year** - required because the undated title has NO PLANWORD (plan/map/survey/engrav/sketch/view/plate/...) so undated keep() would fail (open check 1b; if unverifiable, DROP the plate and stage the other 3 - box 3 still stands).
+- **Fort Negley fort site: NOT created.** No fort-only plan exists on Commons (its P373 category is photos + the 3 views; every "Negley"/"plan of Fort Negley"/"defenses" search returned no fort-plan file). A staged site without a picture fails check_staged(), so no site; if a dedicated plan appears later, Q5471744 (verified above) is the candidate: kind "fort", 1600 m box (DC forts precedent), 3DEP LiDAR candidate (203a mounds precedent) - all recorded in the hand-over.
+- **DROP verdicts (full list in the hand-over):** the Burns 1804 copy (1018x704, page 1906) = same plan as the staged Clayton file (one row per plan, Ratzer precedent); the 1854 Putnam "Detail" (cropped, too small); the 1888 Sanborn fragment (491x572); the 1916 Marshall & Bruce (outside the 1660-1880 window, commercial); the 1887 Cowen battle map (1:110,000, outside window, battle not city); the 1895 Bien Nashville-and-Franklin battlefield map (expect DROP - look once); all the Fort Negley photos (Barnard 1864 "Fort negley 1864.jpg" lowercase-n - undated + no PLANWORD fails keep(); LCCN2007662878; Webster & Albee ca. 1890; 2019 CC-BY ruins; modern park shots).
+- **236b leads (do NOT stage here):** the three 1864 Fletcher lithograph VIEWS of Fort Negley (drawn by W.H.H. Fletcher, 12th Battery Ind. Vols.; SE one inscribed "Filed Dec 31, 1864"; Public domain, page date "1864"): `South west view of Fort Negley LCCN2003655690.jpg` (7950x3822) + `.tif` (7964x4356), `North west view of Fort Negley LCCN2003655670.tif` (7964x4356), `South east view of Fort Negley LCCN2003655689.jpg` (8082x3978) - bird's-eye views = task 236b's domain (the Henry Bill 1856/1858 precedent), record in the lead doc.
+- **Open web checks for the next session (1a/1b above):** the LOC item page loc.gov/item/2003630459 (the Poe map's date) and the David Rumsey group 1780.000 page (the atlas's title/publication year; /loc/1780.113 404'd - the image/group URLs may need the right form, or a web search for the atlas: "Official Histories of the United States Armies 1861-1865" + atlas + Bien + Plate CXIV; the LOC catalog record behind the file cites "LC Civil War maps (2nd ed.), 99; Civil War maps in the National Archives, 8; Phillips, 1353; LeGear. Atlases of the United States, 266").
+- Next session: 1a+1b, then apply exactly as the 145-150 pattern (SITES += Q23197, SOURCES += the 4, docstring, live --verify 4 QIDs, live stage "1 new sites, 4 new pictures; build (236c): nashville-q23197", offline --check 15/15, --golden 4/15/15, tests to 15 rows, lead-doc Nashville section), then tick box 3 and set Status: done.
+
+## 2026-10-13 236a DECISION: iteration 152 - both open date checks answered (live, no repo edits); Poe LOC map gets NO swap (page "1860s" = the LOC-verified drawing date "[186-]"; the signature's "(17x29.)" is the SHEET SIZE, not 1864 - 151's thumbnail read was wrong); the Defenses plate swaps to 1895 (the David Rumsey/IA group 1780.000 the scan comes from is cataloged 1895, "Julius Bien & Co., Lith., N.Y. (1891-1895)"; the plate header says "ATLAS TO ACCOMPANY THE OFFICIAL HISTORIES OF THE UNION AND CONFEDERATE ARMIES 1861-1865" - 151's "UNITED STATES" was a misread; panels surveyed Nov 30 - Dec 1864); the first edition's 1884-85 could not be verified online from this machine, so the row takes the scanned copy's verified 1895; site point (Clayton 1804 extent) is the only thing left, then apply like 145-150
+- Research-only session (the 145/147 pattern); no repo file touched. Every fact below verified live 2026-10-13.
+- **1a (Poe map, LOC 2003630459): no date swap.** https://www.loc.gov/item/2003630459/?fo=json (curl with a browser User-Agent; the web_fetch tool gets HTTP 403 from loc.gov) returns: date "186?", created_published "[186-]", dates facet 1860, APA cite "[186]", contributors "United States. Army. Military Division of the Mississippi. Chief Engrs. Office" + "Poe, O. M. (Orlando Metcalfe), 1832-1895", description: "Detailed city map showing streets, railroads, all buildings ... Relief shown by fold lines. Pen-and-ink (black) and lead pencil. Signed in ink handwriting at bottom: From Chief Eng'rs Office, H'd Qu'rs Mil'y Div'n of the Mis., O.M. Poe, Capt. & Actg. Chf. Eng'r. Oriented with north toward the lower right. ... LC Civil War maps (2nd ed.), 433.2." The Commons page's date "1860s" (DateTimeOriginal, QS precision 8) is that same LOC dating - the drawing's date, not an upload date. I downloaded the 19690x11294 original from upload.wikimedia.org (PIL needed Image.MAX_IMAGE_PIXELS = None - the 222 M-px image trips PIL's 178 M-px decompression-bomb limit; PITFALLS candidate) and cropped the signature at full resolution: it reads "From Chief Eng'rs Office / H'd Qu'rs Mil'y Div'n of the Mis. / O. M. Poe / Capt. & Actg Chf Eng'r (17x29.)" - the parenthetical is the SHEET SIZE (17x29 inches, the Library of Congress cataloguing convention for folded maps), NOT a year. 151 read "1864" in the 1280 px thumbnail - that was wrong. Consequence: no known-date swap; the row keeps date "1860s" (year_of -> 1860; the "2003630459" in the title does not match the YEAR regex; no date_commons key since no swap). keep() passes (1860 <= MAX_YEAR 1925) and the NO regex matches neither title nor the 600-char desc.
+- **1b (Defenses plate): swap dict(date="1895").** The Commons file page (exact title re-confirmed, the "..." is three literal dots) links the David Rumsey record: image 1780.113, image group 1780.000, plus the citations "LC Civil War maps (2nd ed.), 99; Civil War maps in the National Archives, 8; Phillips, 1353; LeGear. Atlases of the United States, 266." The IA item behind it is gone (archive.org /details/ 404, /metadata/ empty JSON) but sibling items of the SAME atlas group survive on IA with the group's catalog record: dr_map-of-the-united-states-of-america-showing-the-boundaries-of-the-union-and-01104300 has title "Map of the United States of America showing the boundaries of the Union and Confederate geographical divisions and departments, June 30, 1864. Julius Bien & Co., Lith., N.Y. (1891-1895)", date 1895, creators incl. "United States. War Department", publisher "U.S. Government Printing Office, Washington", collection david-rumsey-map-collection (dr_...-01104297 likewise 1895; the 01104xxx ID sequence brackets our 01104241). AbeBooks: "The Atlas to Accompany the Official Records of the Union and Confederate Armies, 1861-1865: Plate... BIEN, Julius. 1895." Rumsey listing: "1895. Atlas to accompany the official records of the Union and Confederate armies." I read the plate itself (downloaded via Commons Special:FilePath, 1536x886): the header = "ATLAS TO ACCOMPANY THE OFFICIAL HISTORIES OF THE UNION AND CONFEDERATE ARMIES 1861-1865" (151's "UNIED STATES" was a misread - this is the FIRST edition's title) and "PLATE" + a Roman numeral (CXIII or CXVIII at this resolution; 151 read CXIV). Nine panels with surveyed dates: 1 Chattanooga Battery Erwin, 2 Battery Coolidge, 3 Nashville Magazine Battery "Dec. 1864" (Eng. Capt. J.S. Wheatley), 4 Nashville Capitol "Nov. 30, 1864" (Eng. Capt. J. St. Clair Morton), 5 Fort Dan McCook "Dec 21, 1864", 6 Fort Morton "Dec. 1864" (Eng. Capt. H.K. Wright), 7 Fort Hill "Dec. 1, 1864" (with a small "Plan of Nashville, Tenn."), 8 Fort Nashville, 9 the Nashville Heights "Dec. 1864" - 7 of 9 Nashville, as 151 recorded. **The row's date = 1895** (the atlas volume this scan physically comes from - three independent web records). The first edition (1884-85, Julius Bien & Co.) could NOT be verified online from this machine; the routes that died: the LOC search API (quoted phrases return 0 hits; keyword-AND queries rank the atlas out of the top results - its 'search' relevance is weak), HathiTrust (Cloudflare JS challenge), the Google Books API (anonymous daily quota exceeded), David Rumsey (reCAPTCHA "Verify Access" wall on the Luna pages), and IA /download/ of the 1961/1989 LOC catalog books (the "2nd ed." the citation names) both return 401 (lending-restricted items; the 1961 ed.'s p.99 would have been decisive but is unreachable). So the lead doc records: first edition 1884-85 per the plate's own header (unverified online from this machine), scanned copy 1895 = the row's date, drawings surveyed Nov 30 - Dec 1864. 1895 sits outside the 1660-1880 window by 15 years: acceptable - this is a Civil War fortification plan, which the task's Notes explicitly keep as drawings (the DC 1865 Barnard ring precedent), and the 151 verdict staged it on exactly that basis.
+- **Blocked-route notes for later (so nobody re-burns them):** loc.gov item pages need ?fo=json with a browser UA (plain web_fetch = 403); the LOC /search/?fo=json API does phrase search ONLY as keyword-AND (encoded %22 quotes give 0 hits) and its relevance ranking is weak; archive.org /download/ is 401 on lending-restricted items (the 1961/1989 "Civil War maps: an annotated list..." both restricted); the David Rumsey site is behind reCAPTCHA (Luna servlet detail pages return a "Verify Access" shell); archive.org /metadata/ for a deleted/renamed item returns valid-but-empty JSON (not an error) - /details/ then 404s. The IA advancedsearch API (q=...&fl[]=...&output=json) is the open route for IA catalog facts.
+- **Site point (only thing left):** I downloaded the full-res Clayton 1804 original (2557x1913, 1.78 MB, title "File:1804 Map of Nashville published 1880.jpg", url https://upload.wikimedia.org/wikipedia/commons/0/0c/1804_Map_of_Nashville_published_1880.jpg) to /tmp/usn152_clayton.jpg and hit the context limit before looking at it. Next session: look at the drawn extent (the 1790s town between the Cumberland and the Rich Branch, west of the Cumberland; P625 (-86.7744, 36.1622) is east of the river), Nominatim-verify the corner (Cumberland-Tennessee confluence), the Rich Branch mouth and the Cumberland's west bank, pick P625 vs the drawn-extent center per the 147/148 precedent, record it, then apply exactly as the 151/152 recipe in the task file (SITES += Q23197; SOURCES += clayton_1804 swap 1804 / haydon_1860 no swap / poe no swap (date "1860s") / defenses swap 1895; live --verify 4 QIDs; live stage "1 new sites, 4 new pictures; build (236c): nashville-q23197"; offline --check 15/15; --golden 4/15/15; tests 11->15 rows; lead-doc Nashville section; tick box 3; Status: done).
+
+## 2026-10-13 236a DECISION: iteration 155 - merged main (conflict in web/data/review.json only, resolved to main's side: its port bba5961 is the newer complete export - fort-ancient left the open queue because the port added its resolving platefits doc, numancia gained the owner's "Not this" candidate; my side was the same 457 items with a stale at-timestamp, 0 unique; 456 recomputed open = export, 0 plans lost; 12/12 tests). Site-point research: Fort Nashborough = Q5471739, P625 (36.164167, -86.774444) = the Clayton 1804 "former Fort" at the town's SW corner, 217 m NORTH of the city P625; the Clayton drawing's bottom band is the rivers' corner (Rich Branch enters east of the town) so P625 likely falls inside the 1804 extent - but the verdict waits on a 2-anchor georef + the Haydon 1860 cross-check (context limit after reading the Clayton; both re-download URLs in the hand-over). OSM river data around the CBD is unreliable (do not trust for this), and Overpass is dead from this machine (406/XHTML) - use api.openstreetmap.org /map (<=0.02x0.02 deg) and /way/{id}/full
+- **The merge (done, commit 3093e4e):** `git merge main` (the driver's request) conflicted in ONE file, web/data/review.json, on the "at" timestamp (HEAD 2026-10-13T20:37 vs main 2026-10-14T02:54). Analysis before resolving: (a) HEAD-vs-merge-base d286196: review.json identical in all 457 items, only "at" differs (a driver regeneration); (b) main-vs-merge-base: exactly one new commit, the owner port bba5961, which (i) ADDED data/db/platefits/fort-ancient-q5470727.ancientmonuments00squi_n0076_1.json (at 02:53) - fit/review.py's export() only lists OPEN items ("resolved not recorded AND no platefits doc for any candidate"), so the fort-ancient item correctly LEFT the open queue in main's export (457->456); (ii) deleted data/review/numancia.json and added data/review/numancia.c_0fa271e2444f7bfc.json + data/db/notthis/numancia.c_0fa271e2444f7bfc.json (at 02:52) - the owner used the ported fit tool's "Not this" action on numancia's candidate, so the item's no_picture_found cleared and the lead became c_0fa271e2444f7bfc. Both intents preserved: resolved to main's file byte-identical (git checkout --theirs); my side had no unique content. Read-only consistency re-computation after the merge: 480 item files -> 456 open (items with a resolving platefits doc or a recorded "resolved") = the 456 exported, none missing, none stale. Tests 12/12 green (tests/test_src_us_cities.py + tests/test_region.py + tests/test_serve.py; the known-failing test_fit_queue is agent c's 302/306 in-flight work, skipped per the standing caveat).
+- **Site point - the fort is pinned (Q5471739):** Wikidata (via pipeline/catalog_wd, the robust cached path): Q5471739 "Fort Nashborough - former stockade in Nashville, Tennessee", ONE P625 (36.164167, -86.774444) precision 0.001, P131 Q1509. The enwiki "Fort Nashborough" infobox is the SAME 36.16417/-86.77444 and says a small replica stands "in Downtown Nashville along First Avenue North, several hundred meters from the original site". OSM way 130910783 (historic=fort, wikidata=Q5471739, source=Bing) is at (36.1642, -86.7754) - the same spot. Three independent sources agree: the fort = (36.164167, -86.774444) = the Clayton map's "D Cross's owner / Stone House / former Fort", 217 m NORTH of the city P625 (36.162222, -86.774444) at the same longitude. Consequence: 151's framing ("the 1790s town WEST of the Cumberland; P625 east of the river") was built on confused OSM river data (below) and does not hold; the Clayton drawing itself places the town NORTH of the rivers' corner with the fort at its SW corner, so P625 (just south of the fort) plausibly sits inside the 1804 drawn extent - to be confirmed by the georef, not assumed.
+- **Clayton 1804 READ (the first look of the three sessions trying):** rendered the full 2557x1913 at 1400 px and read it. Layout: the river band runs along the BOTTOM of the sheet; the fort is ON the river at the town's SW corner, where the band bends; the town (numbered references 1-20, "Market or Main St", White Hall "farmer fort", Nashville Inn, Dr Henning's House) is NORTH of the band; the **Rich Branch** is labeled on the RIGHT and flows south into the band EAST of the town, its mouth in the sheet's SE corner beside the "Cumberland River" label (the 1804 author labeled the whole band "Cumberland River"); "Johnson's House, Ferry & Keel Boat Landing" is at the western end of the band; "Cemetery", "now Capitol Hill" (the Walker house, "Present College Str") and Judge McNairy's properties extend the drawing well north of the town; the title block "NASHVILLE IN 1804 / From Notes of one then resident (Mrs Temple, Daughter of Dunc. Robertson)" is below the river. Working hypothesis: the bottom band is the rivers' corner (the Tennessee running SW->E into the Cumberland; the 1804 town on the NE side of it, between the corner and the Rich Branch) - which matches the pinned fort and would put P625 inside the drawn extent. The sketch is hand-drawn and not to scale, so the extent's center is to be measured by a 2-anchor linear georef (fort + the Rich Branch mouth), cross-checked against the to-scale Haydon 1860 (see the task file's step 1 for the exact recipe: crop coords, the /map bbox for the Rich Branch, the cross-check).
+- **OSM is unreliable around the Nashville CBD - do not use it for the point decision:** api.openstreetmap.org /map on 0.02 deg boxes + /way/40806685/full (the only way tagged "Cumberland River" nearby) give a "hook" (36.177,-86.781) -> (36.163,-86.773) -> (36.161,-86.770) -> (36.159,-86.764) -> (36.159,-86.758) -> (36.161,-86.747) that places the river EAST of P625 at the CBD's latitude (contradicting both 151's "P625 east of the Cumberland" and the greenway hit at (36.1729, -86.7831) which sits 400 m WEST of the way's point there); SW boxes around the supposed confluence contain no river ways at all; the 50k-node limit blocks bigger boxes. Nissan Stadium (way 58759639, 36.1665, -86.7713) is NE of the CBD, not at a river corner as often recalled. The confluence of the two rivers is simply not cleanly mapped in OSM here. The old maps (Clayton/Haydon/Poe) + Wikidata are the trustworthy sources, per the project's own method.
+- **The next session FILES TO PITFALLS (this one hit the context limit first): Overpass is dead from this machine** (overpass-api.de -> HTTP 406 "Not Acceptable" even with a UA; overpass.kumi.systems -> an XHTML error page). Use api.openstreetmap.org instead: /map?bbox=s,w,n,e (keep it <= ~0.02x0.02 deg or the "You requested too many nodes (limit is 50000)" error), /way/{id}/full for a single way with node coordinates, and Nominatim (1.1 s gap, a UA) for names. Also: PIL lives in the project .venv, not system python3 (ModuleNotFoundError on plain python3) - run .venv/bin/python and set Image.MAX_IMAGE_PIXELS = None for the 10000x6082 Haydon (222 M px trips PIL's 178 M-px bomb limit, the 152 finding).
+
+## 2026-10-10 000 DECISION: 000 closed done - finished the GOAL-change plan update (213 created, 212 reworded, CODEMAP rules written, boxes verified)
+
+Iteration 12 was cut at the context limit with five small steps left; this session did them and
+closed the planning task.
+- tasks/212-cover-final.md: the three deferred edits landed (the cover-pass loop is now "fitkit
+  sheet -> model fit -> fit -> gate" in Goal and box 1; the human's 18/20 check is GOAL.md point 3,
+  not point 2 - the 21:11 change renumbered the points). Iteration 12's atomic edit rejection was a
+  hard-wrap mismatch (the file wraps at ~79 columns; the lines looked different after rendering);
+  this session verified the exact bytes with `sed -n ... | cat -A` before editing (new PITFALLS
+  entry under Agent tools and harness).
+- tasks/213-artist-views.md created (lowest free 200-499 number; Depends on 200; wave 2 per
+  PLAN.md): GOAL point 5's 22:58 lead - Leonardo's Imola (the anchor: a new site with no open
+  LiDAR here, FITKIT_GROUND=aerial verified at tools/fitkit.py:38, its streets carry the fit),
+  de' Barbari's Venice, Braun & Hogenberg, Merian. Own module fit/src_artists.py plus its own
+  extras_/files_/classified_artists.jsonl staging, docs/lead_artists.md and test file; the
+  conditional IA-book machinery follows the 208 pattern (declare the exact per-book paths in the
+  Touches line before writing, never the shared index).
+- CODEMAP.md "Architecture rules" block written: five standing rules (the 25 hand fits and the
+  private Finder/Amazon data are never changed or deleted; fit/ imports pipeline/ read-only; the
+  canonical files are written only by 211/212; the model is a lead, not a fact, and its step is
+  injectable so tests never call the model server; web/index.html takes exactly one change). The
+  iteration-2 hand-over had claimed these rules were already here; they had never been written.
+- Verified: `grep -L "Depends on:" tasks/*.md` and the Touches equivalent both come back empty
+  (001, 200-213, 800, 801 all carry both lines); the suite is green in this checkout's .venv
+  (12 passed; no code changed by this session). All seven boxes ticked, Status: done.
+- The driver's note ".venv could not be built from requirements.txt" is a main-side problem:
+  origin/main still carries the bare unpinned 9-line file (e2d4060, verified with git show), while
+  this checkout and agent/c carry the fully pinned + hashed file (676a0d4), and this checkout's
+  suite is green. Open task 800 (filed by agent c) lands the pinned file on main; this session
+  deliberately left requirements.in/requirements.txt untouched (they are 800's files). If the
+  driver's re-check of this done claim fails on the main-side venv build, the fix belongs to 800
+  and merges independently.
+
+## 2026-10-13 000 DECISION: done-claim rejection fixed - the `Depends on:` line must be a bare id list (212/212a/307a); 000 re-claimed done
+The driver reopened 000 (commit 6955a66) with: "Team project: these tasks can never
+start, their `Depends on:` lines wait on each other: 212 (waits on 212 235), 239 (waits
+on 212 238 302f 302g)". Diagnosis (checked by running code, /tmp/depcheck2.py, not
+reasoned): the driver's team-mode scheduler tokenizes every `NNN`/`NNNx` on the
+one-line `Depends on:` line, prose included. tasks/212-cover-final.md:3 carried an
+explanatory parenthetical that the 212 session (69ed411 - my own task, other checkout)
+added when it made 212 wait on 235; its prose contained "212's" and "212b's" (plus
+301, 306e, 307d), so the parse gave 212 a self-dependency. The driver's "waits on 212
+235" is exactly the PENDING subset of the parsed tokens (203a, 203b, 211, 212b, 301,
+306e, 307d are all done and dropped from the note; only 212 and 235 are pending) - the
+note reproduces the tokenizer, confirming the theory. 239's wait on 212 is legitimate
+(cover.py is 212's in-flight file; not a code dependency, a same-file gate) and
+parked behind 212.
+
+Fix (box 5 of 000 is exactly "the numbers of the tasks that must be finished first, or
+none" - a format-line cleanup on agent-created files, precedent 302a/308/309 from
+iteration 157; goal/acceptance boxes untouched; each file's hand-over body already
+carries the full rationale, so nothing moved):
+- tasks/212-cover-final.md:3 -> `Depends on: 203a, 203b, 211, 235` (212 now waits only
+  on 235, whose deps 306e+307d are done - it starts when 235 merges)
+- tasks/212a-cover-search.md:3 -> `Depends on: 211, 203b` (parenthetical carried a
+  "212a" self-ref; done task)
+- tasks/307a-place-check.md:3 -> `Depends on: none` (was `(none - a record; ...
+  307b/307c/307d ... 309)`, which tokenized as deps ON the live work - inverted
+  intent; done task)
+
+Verification after the fix (checker over all 99 task files): every `Depends on:` line
+is a bare comma list or `none`; every id names an existing task file; no
+self-references; the pending graph (24 tasks) has no cycle and no task that can never
+start. Note: 307bb's `Depends on: 307ba` looks like a prose hit to a one-letter regex
+but is a valid two-letter subtask id (done task) - checker artifact, no action. The
+2026-10-13 GOAL re-plan stands untouched (PLAN.md committed 5420291; 238/239 created
+f828ce0; assumptions 10-11). Residual team-mode risk: 212's other checkout may still
+carry the parenthetical on line 3, so a main<->branch merge can conflict on that one
+line; the resolution is always the bare list (the scheduler requires it) with the
+rationale staying in the hand-over body. PITFALLS gained the tokenizer fact under
+Agent tools and harness. All seven boxes re-verified true; Status set back to done.
+
+## 2026-10-14 000 DRIVER: done claim rejected, task reopened
+- Accepted, but it cannot go into main yet: your branch conflicts with main (the other agent's finished work) in: PLAN.md
+    Run `git merge main`, resolve each conflict keeping both sides' intent, run the tests, commit, then set the task done again.
     1 failed, 159 passed, 1 skipped in 409.92s (0:06:49)
     (full test output: .agent/reports/last-test-output.txt)
+
+## 2026-10-13 207a DECISION: iteration 120 - done claim re-filed (3rd filing): the driver's named red is resolved on the verification tree by the lead port bba5961 - the rewritten test is measured green on this VM, so the 222 ask_human trigger (same red still failing) does not hold
+- Context: both rejections (464a2c1, 2a0b228) named tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser in its 3c91518-era form (the loop-start red d14577e above: seed-check + /tiles/relief 404 signature). Since those rejections main gained three lead ports: d286196 (GOAL point 2: the image matcher fit/matchfit.py - RoMa/ELoFTR - is the ONLY automatic placement; Qwen never places or writes point pairs; batch_us/batch_eu model-fitting retired; auto-fit LiDAR-sites only), bba5961 (owner's Mac 9680a17: fit tool toolbar, e2e-only fit tests parts 4-5, notthis server hook, fit_queue drops dropped) and c72706b (307d end-to-end-only; Fort Ancient joins the hand-fit golden). agent/c's merge-base with main is still 3c91518, so this branch lacks all three; the driver's done-verification merges all of main first, so it runs bba5961's rewritten test, not the red one both rejections cited.
+- What is different from the two failed filings (no-blind-retry rule): not the same red - the driver now verifies against a main whose named test is the e2e-only rewrite, and that version is measured green here on the exact merged tree. The 222 hand-over's plan (ask_human after a 2nd rejection on the same red) did not fire because the red is gone, not because the plan was ignored.
+- Measurements (in-checkout per the PITFALLS A/B idiom; my 207a files = fit/src_roman_horsley.py + data/books/lists/britanniaromanao00hors.{json,map.json} + data/books/triage/britanniaromanao00hors.{A,B}.jsonl; backups /tmp/ab207a_c120; tree restored byte-clean, git status empty): A = branch as-is -> pre-port test FAIL 50.15 s (same seed-check signature + 404s on GET /tiles/relief/12/1121/1559.webp, same pick as 222/d14577e). B = my files at main's state (215-era module, no britanniaromanao00hors lists/triage) -> FAIL 52.45 s, byte-identical signature -> the red is not my combination (the 222 A/B conclusion re-confirmed on the current tree). C = verification-tree preview (all 30 files main changed since 3c91518 swapped in from main; my branch touches none of them - verified against `git diff 3c91518 agent/c` - so the driver's merge is clean) -> the rewritten test PASSES 77.65 s, and the FULL suite (.venv/bin/python -m pytest tests/ --ignore=tests/test_gate.py -p no:cacheprovider) = 158 passed / 1 skipped / 0 failed in 430 s (the 1 skip = the same one in the d14577e baseline; c72706b's rewritten test_owner_check and test_fit_provenance with the Fort Ancient golden are green too).
+- The lead's message this iteration ("GOAL.md point 2 changed on main ... your 236b work is unaffected: stage pictures only") is recorded in the hand-over: no impact on 207a - the remaining work (807/808/809, blocked by the owner's stop on 207 per 06c1aa8) is offline book staging: stage pictures, never placement; no LLM point pairs anywhere in it.
+- Outcome: task Status set to done and the claim re-filed (hand-over committed 1d01e82). If a 4th verification rejects, it will name a NEW tree (the lead ports keep moving main under the branches) - the next step is then ask_human to the lead: the 306c/306d precedent (12b2274 accepted both on 2026-10-13 with this identical red, on A/B evidence) plus this session's A/B + full-suite measurements, with the recommendation to accept 207a now (its remaining work is blocked by the owner's own stop, so the task is terminal until that lifts).
+- Housekeeping for any later session (PITFALLS.md is off-limits to me this session - context limit): the entry under `### tests/test_fit_queue.py` ("...is the project's known pre-existing red - on every current tree it fails at the seed check... the fix comes via the 307 merge") is now stale: the red cleared on main via lead port bba5961 (the e2e-only rewrite passes on this VM, measured above). Correct that header/claim to say the PRE-bba5961 trees (e.g. a branch still at merge-base 3c91518) carry it, and post-bba5961 main does not; keep the red's history, the do-not-touch list and the A/B-idiom pointer.
+
+## 2026-10-13 207a DRIVER: done claim rejected, task reopened
+- Accepted, but it cannot go into main yet: your branch conflicts with main (the other agent's finished work) in: docs/site_flow/307d_A_1-card.png docs/site_flow/307d_A_2-placed.png docs/site_flow/307d_A_3-gestured.png docs/site_flow/307d_B_2-placed.png docs/site_flow/307d_B_3-gestured.png
+    Run `git merge main`, resolve each conflict keeping both sides' intent, run the tests, commit, then set the task done again.
+
+## 2026-10-13 207a DECISION: iteration 121 - resolved the driver's "accepted but cannot merge" hold (129af49): merged main (4cc34aa) with the 5 307d screenshot conflicts resolved to main's final 307d captures, full suite green on the real verification tree (158/1, 432 s), Status: done re-filed
+- The 129af49 note was NOT a test rejection (both earlier rejections, 464a2c1/2a0b228, named the 3c91518-era test_placement_gestures_and_save_in_the_browser; this one says "Accepted, but it cannot go into main yet"): a pure merge-conflict hold on 5 binary files, with explicit instructions (merge, resolve keeping both sides' intent, test, commit, set done again).
+- Conflict anatomy: both sides descend from f516b1e. Main: 9c8a46a (307d done) + c72706b (lead port: 307d e2e-only, Fort Ancient in the hand-fit golden) = the finished test captures. Ours: [driver] snapshot commits 464a2c1/d14577e = byte-different re-encodings of the same docs from verification runs of the 3c91518-era suite, which regenerates all 10 docs/site_flow/307d_*.png per run; my 207a work never wrote them (my Touches = the book machinery). Resolution: main's bytes for all 10 (5 via --theirs, 5 auto-merged), keeping the branch byte-identical to main on these files so the driver's merge-into-main is conflict-free on them (both-sides-identical merges cleanly). My green run's fresh captures (re-encode jitter) were restored away before the merge commit; no test pins the PNG bytes (test_owner_check overwrites all 10 by design after its write-surface byte-identity assert; rewritten test_fit_queue only reads them).
+- Verification on the REAL merged tree (the 120 C preview, 158/1/430 s, was a manual file-swap; this is the actual merge): .venv/bin/python -m pytest tests/ --ignore=tests/test_gate.py -p no:cacheprovider = 158 passed / 1 skipped / 0 failed, 432.40 s. bba5961's rewritten test_fit_queue green, c72706b's test_owner_check green, Fort Ancient hand-fit golden green. The driver's loop-start red note (d14577e: 1 failed / 159 passed, the OLD test) names a test that no longer exists on this tree.
+- PITFALLS.md: corrected the stale tests/test_fit_queue.py entry from "known pre-existing red ... clears only via agent a's 307 merge" to "CLEARED by bba5961; notes naming the old signature are stale - verify by running the test on the merged tree" (history kept: 306c/306d accepted on A/B evidence 12b2274 while live; the driver's mechanical baseline flagged it against every task merged after 307bb).
+- Observed, no action (agent a's file): my branch's PLAN.md differs from main's by 23 lines = my own 207-split/207c-drop planning record (module-map row + Roy-drop Deviations entry); main's 000 rework for the changed GOAL.md did not touch those regions, so the auto-merge kept both sides' text. GOAL.md is identical to main's.
+- Outcome: Status: done re-filed per the note. Next note, if any: old-signature red = stale (run it on the merged tree, cite the corrected PITFALLS entry); a new red = the 120 step-2 A/B (my files = fit/src_roman_horsley.py + data/books/lists|triage/britanniaromanao00hors.*) + the 306c/306d precedent; 3rd failed attempt at the same blocker -> ask_human + blocked.
+
+## 2026-10-14 000 DECISION: done claim re-filed - the PLAN.md merge-conflict hold resolved (both sides' intent kept); full suite green on the merged tree (166 passed / 1 skipped / 0 failed)
+- The 2026-10-14 DRIVER note ("Accepted, but it cannot go into main yet: your branch conflicts with main (the other agent's finished work) in: PLAN.md") is a merge-conflict hold, not a content rejection - the same class as the 207a holds (129af49, resolved by 4cc34aa) and the earlier 307d screenshot holds. Its instructions were followed exactly: `git merge main`, resolve keeping both sides' intent, run the tests, commit, set done again.
+- Anatomy (diffed against merge-base c72706b, not reasoned): main had changed exactly three places in PLAN.md - the module-map Roman row (the per-book split from the 207 work), task-map line 5 (the Roy 1793 drop, owner's call) and the appended 207c Deviations entry; the other side of every remaining difference was my 2026-10-13 GOAL re-plan (5420291: current state 10-13, matcher-only architecture, batch retired by 239, assumptions 10-11, waves 6-8, task-map lines 1-3). The single conflicted region = the module map (lines 105-112): I had rewritten the batch row, inserted the matchfit row and rewritten the src row, and main had rewritten that same src row - adjacent edits merged into one conflict, with main's side carrying the base's batch row.
+- Resolution: HEAD's batch row (RETIRED by 239 - main's side was base text that contradicted the merged file's own tech choices/architecture, which both sides carry as matcher-first) plus HEAD's new matchfit row, and main's src row (the per-book Roman split is a fact on main: `fit/src_roman_horsley.py` exists since the base, `fit/src_roman_maclauchlan.py` was added by 207b, and `fit/src_roman.py` never existed - my row was stale base text). Main's three non-conflicting changes auto-merged and stayed verbatim. The merged 292-line PLAN.md was read whole: one coherent matcher-first plan; no dangling references (238/239 from my side, 302f/302g from main's, all present after the merge).
+- Tests on the real merged tree (.venv, -p no:cacheprovider): 166 passed / 1 skipped / 0 failed, 454 s - the loop-start red (test_fit_queue::test_placement_gestures_and_save_in_the_browser, the 235-era red) is cleared on this tree (bba5961's e2e-only rewrite on main; the corrected PITFALLS entry says notes naming the old signature are stale) and the suite grew 159 -> 166 with the 302f merge. Queue checker over all 99 task files: bare-list `Depends on:`/`Touches:` on every task but 000/999, every dep id names an existing file, no self-references, no cycle in the 14-task pending graph.
+- Outcome: Status: done re-filed. Commits: eeff0b8 (the merge) + this bookkeeping commit. If the driver reopens 000 again: (a) another merge-conflict hold -> same procedure (merge, both-sides resolution - the planning world is mine, the merged-work facts are main's, test, commit, re-file); (b) a GOAL.md change -> diff GOAL against the task map and update PLAN.md/tasks (new leads take the next free 200-499 number, bare one-line `Depends on:` + `Touches:` - the scheduler tokenizes every NNN/NNNx on that line; PITFALLS); (c) a named content issue -> fix exactly what the note names.
+- Housekeeping: the suite run re-encoded the ten tracked docs/site_flow/307d_*.png and `git add -A` in the bookkeeping commit (ac7c5f8) captured them; a follow-up commit restores main's exact bytes (verified: eeff0b8 == main on all ten) so the driver's merge into main stays conflict-free (207a 4cc34aa precedent: branch PNGs must equal main's; no test pins their bytes).

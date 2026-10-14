@@ -1,6 +1,7 @@
 Status: done
 # 309: The queue pairs a drawing with the right place, not a namesake
 Carved from: 307 (box 1)
+Depends on: none
 Touches: tools/fit_queue.py, tools/right_place.py, web/data/fit_queue.json, data/review/, web/data/review.json, tests/test_fit_queue.py, docs/site_flow.md, fit/review.py, fit/batch_eu.py, fit/site_catalog.py, tests/test_site_done.py, tests/test_fit_provenance.py, tests/test_review.py, PITFALLS.md
 
 ## Goal
