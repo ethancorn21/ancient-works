@@ -135,6 +135,10 @@ UNCOMMITTED (the harness saved the working tree; commit it first thing next sess
   bytes - trivially equivalent (unused import), but if cheap for the driver, a re-run settles it.
 - PITFALLS.md - one entry appended under fit/: the reachable-lambda patch trap (bare False ->
   TypeError: 'bool' object is not callable, because run() calls reachable(roma) WITH the argument).
+NOT 238 (leave alone): `git status` also shows M docs/site_flow/307d_A_4-saved.png, 307d_A_5-reload.png,
+307d_B_5-reload.png - a side effect of THIS session's two full-suite runs (the site-flow test
+re-bakes its screenshots; the PNGs carry volatile content). The suite passed with them changed;
+238 must neither commit nor revert them - they belong to the 307d work / driver's merge cycle.
 
 EXACT NEXT STEP (one small session, or the head of the 239 session - 239 may not start before
 238 merges, so the commit must land first): commit the two uncommitted files, e.g.
