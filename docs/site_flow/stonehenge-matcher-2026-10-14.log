@@ -1,0 +1,905 @@
+Stonehenge on the matcher-first line - the live run of tools/site_done.py (task 302g, boxes 1-2)
+
+======================================================================================================================
+Run date:  2026-10-14, 02:06-02:10 CDT (07:06-07:10 UTC), agent/c checkout of this project (the one-site line run live in the
+           real checkout, no --root: its write set is this site's files plus the two page files).
+Command:   .venv/bin/python tools/site_done.py stonehenge-q39671   -> exit 0, wall 3m08s
+
+Matcher availability (probed 2026-10-14 02:05 CDT, one minute before the run):
+  ELoFTR  http://127.0.0.1:8091/health -> {"model": "zju-community/matchanything_eloftr", "device": "NVIDIA GeForce RTX 5060 Ti"}   [UP]
+  RoMa    http://127.0.0.1:8092/health -> connection refused   [DOWN]
+  The run therefore degraded to ELoFTR only: matchfit.run's use_roma was False, so no picture got the RoMa second
+  pass (a picture ELoFTR is not sure of would normally go to RoMa). Grounds matched per picture: the site's
+  relief.jpg (site box corners), six-inch-1st.webp and os1inch.webp (their own map corners) - no imagery.jpg exists
+  for this site - each in 5 centred windows (1.0/0.7/0.5/0.35/0.25), i.e. 15 /match calls per picture, 210 in the run.
+  (The 2026-10-12 queue run in docs/matchfit.md sections 7-8 had RoMa up: the earthworks picture then scored 0.26 on
+  RoMa, below the 0.4 accept bar; this run's ELoFTR-only verdict on it is "found nothing consistent".)
+Batch fit model: none given (no --working/--model-json; the Mac-side Qwen fit model is not reachable from this VM - a
+  recorded environment fact, not a defect of this task). The vision batch did NOT run at all: all 14 candidate pictures
+  already had review-item entries, so site_done's fit step had nothing uncovered to send to the batch.
+
+PRE-RUN SNAPSHOT (recorded 2026-10-14 before the run; the 14 entries verbatim from the item file)
+
+----------------------------------------------------------------------------------------------------------------------
+web/data/sites.json stonehenge-q39671: drawings 0, overlays 1 (the 1842 OS six-inch sheet; the c.1900 one-inch is too
+  young for the page), score 1.1, oldest 1842; site box lon -1.833276..-1.818946, lat 51.174397..51.183380 (~1 km).
+data/db/platefits/: 0 documents for stonehenge-q39671 (71 in the store). web/data/sites/stonehenge-q39671/: no plan_*.webp;
+  depictions.json = the two survey maps only. web/data/review.json: the stonehenge item open with 14 candidates (456 open items).
+
+The 14 review-item candidates, verbatim (file data/review/stonehenge-q39671.earthworkenglan01allcgoog_n0582_1.json):
+
+[
+ {
+  "plan": "earthworkenglan01allcgoog_n0582_1",
+  "title": "EARTHWORKS OF STONEHENGE.",
+  "url": "books/earthworkenglan01allcgoog/n0582.jpg",
+  "evidence": {
+   "rec": "evidence/1",
+   "checked": "2026-10-10",
+   "kind": "none",
+   "reason": "ambiguous: runner-up within 0.15"
+  },
+  "pairs": [
+   [
+    800.0,
+    1800.0,
+    -1.8318357,
+    51.1824776
+   ],
+   [
+    1800.0,
+    1800.0,
+    -1.820372,
+    51.1824776
+   ],
+   [
+    800.0,
+    3000.0,
+    -1.8318357,
+    51.1752911
+   ],
+   [
+    1800.0,
+    3000.0,
+    -1.820372,
+    51.1752911
+   ],
+   [
+    1300.0,
+    2400.0,
+    -1.8261038,
+    51.1788845
+   ],
+   [
+    2000.0,
+    2400.0,
+    -1.8232379,
+    51.1788845
+   ]
+  ],
+  "coarse": true,
+  "ground": "relief",
+  "scale_m_px": 0.5034,
+  "rot_deg": 0.0,
+  "scale_source": "picture_size",
+  "note": "no scale text recorded; north hint 64.3 deg rejected (|deg| > 60): plate left north-up",
+  "why": "median residual 78.86602117632967 m > 45.0 m",
+  "gate_score": 78.9
+ },
+ {
+  "plan": "c_9d3c66e9ed1a5215",
+  "title": "0001-Ground-plan-of-Stonehenge-q75-1139x1590",
+  "url": "media/commons/stonehenge-q39671/9d3c66e9ed1a5215.jpg",
+  "evidence": {
+   "rec": "evidence/1",
+   "kind": "caption_coords",
+   "checked": "2026-10-10",
+   "named_place": "Stonehenge",
+   "place_qid": "Q39671",
+   "place_label": "Stonehenge",
+   "place_lon": -1.826111111111111,
+   "place_lat": 51.17888888888889,
+   "site_lon": -1.826111,
+   "site_lat": 51.178889,
+   "dist_m": 0.0
+  },
+  "pairs": [
+   [
+    570.0,
+    570.0,
+    -1.8263904,
+    51.1788845
+   ],
+   [
+    880.0,
+    570.0,
+    -1.8210884,
+    51.1781659
+   ],
+   [
+    100.0,
+    570.0,
+    -1.8311192,
+    51.1781659
+   ],
+   [
+    570.0,
+    1000.0,
+    -1.8261038,
+    51.1757403
+   ]
+  ],
+  "coarse": true,
+  "ground": "relief",
+  "scale_m_px": 0.6289,
+  "rot_deg": 0.0,
+  "scale_source": "picture_size",
+  "note": "commons row: no stage-B fields: coarse anchor",
+  "why": "median residual 55.809185214279694 m > 45.0 m",
+  "gate_score": 55.8
+ },
+ {
+  "plan": "c_97c1bf9ac3714bbe",
+  "title": "31 of '(Our own country. Descriptive, historical, pictorial.)' (11182140263)",
+  "url": "media/commons/stonehenge-q39671/97c1bf9ac3714bbe.jpg",
+  "evidence": {
+   "rec": "evidence/1",
+   "kind": "none",
+   "checked": "2026-10-11",
+   "conflict": {
+    "route": "sheet",
+    "named_place": "Our",
+    "place_qid": "Q650039",
+    "place_label": "Our",
+    "place_lon": 5.6505555555556,
+    "place_lat": 47.130555555556,
+    "site_lon": -1.826111,
+    "site_lat": 51.178889
+   }
+  },
+  "pairs": [
+   [
+    150.0,
+    150.0,
+    -1.8282533,
+    51.180232
+   ],
+   [
+    450.0,
+    150.0,
+    -1.8239544,
+    51.180232
+   ],
+   [
+    450.0,
+    450.0,
+    -1.8239544,
+    51.177537
+   ]
+  ],
+  "coarse": true,
+  "ground": "relief",
+  "scale_m_px": 0.7812,
+  "rot_deg": 0.0,
+  "scale_source": "picture_size",
+  "note": "commons row: no stage-B fields: coarse anchor",
+  "why": "features: Outer Circle NW, Outer Circle NE, Outer Circle SE, Outer Circle SW, Inner Circle N, Inner Circle E, Inner Circle S, Inner Circle W; stated scale 0.438 disagrees with its own points (1.000 m/px): not trusted"
+ },
+ {
+  "plan": "c_2559c7f8dbce0244",
+  "title": "49 of 'Stonehenge- plans, descriptions and theories' (11133409654)",
+  "url": "media/commons/stonehenge-q39671/2559c7f8dbce0244.jpg",
+  "evidence": {
+   "rec": "evidence/1",
+   "kind": "caption_coords",
+   "checked": "2026-10-10",
+   "named_place": "Stonehenge",
+   "place_qid": "Q39671",
+   "place_label": "Stonehenge",
+   "place_lon": -1.826111111111111,
+   "place_lat": 51.17888888888889,
+   "site_lon": -1.826111,
+   "site_lat": 51.178889,
+   "dist_m": 0.0
+  },
+  "pairs": [
+   [
+    550.0,
+    350.0,
+    -1.8268203,
+    51.1788845
+   ],
+   [
+    150.0,
+    150.0,
+    -1.8311192,
+    51.1811302
+   ],
+   [
+    150.0,
+    550.0,
+    -1.8311192,
+    51.1770878
+   ],
+   [
+    800.0,
+    200.0,
+    -1.8232379,
+    51.1806811
+   ],
+   [
+    300.0,
+    400.0,
+    -1.8289698,
+    51.1779862
+   ]
+  ],
+  "coarse": true,
+  "ground": "relief",
+  "scale_m_px": 0.7812,
+  "rot_deg": 0.0,
+  "scale_source": "picture_size",
+  "note": "commons row: no stage-B fields: coarse anchor",
+  "why": "median residual 51.15417837032749 m > 45.0 m",
+  "gate_score": 51.2
+ },
+ {
+  "plan": "c_98b1e7a4534b54b5",
+  "title": "View of Stonehenge and ground plans by Wood, Jones, Smith, and Stukeley - DPLA - a7987bd31e89b5a0e984cf2c7c04bd80",
+  "url": "media/commons/stonehenge-q39671/98b1e7a4534b54b5.jpg",
+  "evidence": {
+   "rec": "evidence/1",
+   "kind": "caption_coords",
+   "checked": "2026-10-10",
+   "named_place": "Stonehenge",
+   "place_qid": "Q39671",
+   "place_label": "Stonehenge",
+   "place_lon": -1.826111111111111,
+   "place_lat": 51.17888888888889,
+   "site_lon": -1.826111,
+   "site_lat": 51.178889,
+   "dist_m": 0.0
+  },
+  "pairs": [
+   [
+    0.0,
+    0.0,
+    -1.8332687,
+    51.1833759
+   ],
+   [
+    1280.0,
+    0.0,
+    -1.818939,
+    51.1833759
+   ],
+   [
+    0.0,
+    916.0,
+    -1.8332687,
+    51.1743927
+   ],
+   [
+    1280.0,
+    916.0,
+    -1.818939,
+    51.1743927
+   ]
+  ],
+  "coarse": true,
+  "ground": "relief",
+  "scale_m_px": 0.7812,
+  "rot_deg": 0.0,
+  "scale_source": "picture_size",
+  "note": "commons row: no stage-B fields: coarse anchor",
+  "why": "median residual 115.62944931232883 m > 45.0 m",
+  "gate_score": 115.6
+ },
+ {
+  "plan": "c_ffb3daac218b481f",
+  "title": "The new Larned History for ready reference, reading and research; the actual words of the world's best historians biographers and specialists; a complete system of history for all uses, extending to (14597089967)",
+  "url": "media/commons/stonehenge-q39671/ffb3daac218b481f.jpg",
+  "evidence": {
+   "rec": "evidence/1",
+   "kind": "none",
+   "checked": "2026-10-11",
+   "conflict": {
+    "route": "sheet",
+    "named_place": "Larned",
+    "place_qid": "Q2404770",
+    "place_label": "Larned",
+    "place_lon": -99.1017,
+    "place_lat": 38.1822,
+    "site_lon": -1.854167,
+    "site_lat": 51.428611
+   }
+  },
+  "pairs": [
+   [
+    100.0,
+    100.0,
+    -1.8318357,
+    51.1824776
+   ],
+   [
+    1100.0,
+    100.0,
+    -1.820372,
+    51.1824776
+   ],
+   [
+    1100.0,
+    800.0,
+    -1.820372,
+    51.1752911
+   ]
+  ],
+  "coarse": true,
+  "ground": "relief",
+  "scale_m_px": 0.7812,
+  "rot_deg": 0.0,
+  "scale_source": "picture_size",
+  "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+  "why": "features: northwest corner, northeast corner, southeast corner, southwest corner; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+ },
+ {
+  "plan": "c_61b86efb4511e099",
+  "title": "Stonehenge, inward view by William Stukeley, 1722 (Itinerarium Curiosum)",
+  "url": "media/commons/stonehenge-q39671/61b86efb4511e099.jpg",
+  "evidence": {
+   "rec": "evidence/1",
+   "kind": "caption_coords",
+   "checked": "2026-10-12",
+   "named_place": "Stonehenge",
+   "place_qid": "Q39671",
+   "place_label": "Stonehenge",
+   "place_lon": -1.826111,
+   "place_lat": 51.178889,
+   "site_lon": -1.826111,
+   "site_lat": 51.178889,
+   "dist_m": 0.0
+  },
+  "pairs": [],
+  "coarse": true,
+  "ground": "relief",
+  "scale_m_px": 0.7812,
+  "rot_deg": 0.0,
+  "scale_source": "picture_size",
+  "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+  "why": "no model answer"
+ },
+ {
+  "plan": "c_022604d2be0becdc",
+  "title": "47 of 'Stonehenge- plans, descriptions and theories' (11135894643)",
+  "url": "media/commons/stonehenge-q39671/022604d2be0becdc.jpg",
+  "pairs": [
+   [
+    640.0,
+    800.0,
+    -1.8261038,
+    51.1788845
+   ],
+   [
+    640.0,
+    400.0,
+    -1.8261038,
+    51.1815794
+   ],
+   [
+    640.0,
+    1200.0,
+    -1.8261038,
+    51.1761895
+   ],
+   [
+    200.0,
+    800.0,
+    -1.8318357,
+    51.1788845
+   ]
+  ],
+  "why": "line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (5 of 5 distinct values on a 10-px grid); the gate's 23.2 m measures internal consistency of the anchors, not their truth",
+  "evidence": {
+   "rec": "evidence/1",
+   "kind": "caption_coords",
+   "checked": "2026-10-10",
+   "named_place": "Stonehenge",
+   "place_qid": "Q39671",
+   "place_label": "Stonehenge",
+   "place_lon": -1.826111111111111,
+   "place_lat": 51.17888888888889,
+   "site_lon": -1.826111,
+   "site_lat": 51.178889,
+   "dist_m": 0.0
+  },
+  "gate_score": 23.2
+ },
+ {
+  "plan": "c_098c4cb138676939",
+  "title": "Early Man in Britain and His Place in the Tertiary Period - Fig. 143.\u2014Ground-plan of Stonehenge as it probably was. (Stevens.)",
+  "url": "media/commons/stonehenge-q39671/098c4cb138676939.jpg",
+  "pairs": [
+   [
+    640.0,
+    648.0,
+    -1.8261038,
+    51.1788845
+   ],
+   [
+    640.0,
+    200.0,
+    -1.8261038,
+    51.1820285
+   ],
+   [
+    640.0,
+    1100.0,
+    -1.8261038,
+    51.1757403
+   ],
+   [
+    200.0,
+    648.0,
+    -1.8311192,
+    51.1788845
+   ],
+   [
+    1080.0,
+    648.0,
+    -1.8210884,
+    51.1788845
+   ],
+   [
+    400.0,
+    400.0,
+    -1.8289698,
+    51.1806811
+   ],
+   [
+    880.0,
+    400.0,
+    -1.8232379,
+    51.1806811
+   ],
+   [
+    400.0,
+    900.0,
+    -1.8289698,
+    51.1770878
+   ]
+  ],
+  "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (9 of 10 distinct values on a 10-px grid); the gate's 7.4 m measures internal consistency of the anchors, not their truth",
+  "evidence": {
+   "rec": "evidence/1",
+   "kind": "caption_coords",
+   "checked": "2026-10-10",
+   "named_place": "Stonehenge",
+   "place_qid": "Q39671",
+   "place_label": "Stonehenge",
+   "place_lon": -1.826111111111111,
+   "place_lat": 51.17888888888889,
+   "site_lon": -1.826111,
+   "site_lat": 51.178889,
+   "dist_m": 0.0
+  },
+  "gate_score": 7.4
+ },
+ {
+  "plan": "c_20f9f11153a0b7f0",
+  "title": "Knight-Stonehenge-Restored-plan-q85-1165x1066",
+  "url": "media/commons/stonehenge-q39671/20f9f11153a0b7f0.jpg",
+  "pairs": [
+   [
+    580.0,
+    380.0,
+    -1.8262471,
+    51.1789743
+   ],
+   [
+    580.0,
+    380.0,
+    -1.8262471,
+    51.1789743
+   ],
+   [
+    850.0,
+    200.0,
+    -1.8225214,
+    51.1815794
+   ],
+   [
+    850.0,
+    800.0,
+    -1.8225214,
+    51.1761895
+   ],
+   [
+    300.0,
+    800.0,
+    -1.8304027,
+    51.1761895
+   ],
+   [
+    300.0,
+    200.0,
+    -1.8304027,
+    51.1815794
+   ]
+  ],
+  "why": "line check: fabricated anchor pattern: grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 44.1 m measures internal consistency of the anchors, not their truth",
+  "evidence": {
+   "rec": "evidence/1",
+   "kind": "caption_coords",
+   "checked": "2026-10-10",
+   "named_place": "Stonehenge",
+   "place_qid": "Q39671",
+   "place_label": "Stonehenge",
+   "place_lon": -1.826111111111111,
+   "place_lat": 51.17888888888889,
+   "site_lon": -1.826111,
+   "site_lat": 51.178889,
+   "dist_m": 0.0
+  },
+  "gate_score": 44.1
+ },
+ {
+  "plan": "c_6933e3a931a0240a",
+  "title": "Rude Stone Monuments 0128",
+  "url": "media/commons/stonehenge-q39671/6933e3a931a0240a.jpg",
+  "pairs": [
+   [
+    550.0,
+    650.0,
+    -1.8261038,
+    51.1788845
+   ],
+   [
+    650.0,
+    600.0,
+    -1.8246709,
+    51.1784353
+   ],
+   [
+    400.0,
+    400.0,
+    -1.8282533,
+    51.180232
+   ],
+   [
+    850.0,
+    800.0,
+    -1.8218049,
+    51.1766387
+   ]
+  ],
+  "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 26.8 m measures internal consistency of the anchors, not their truth",
+  "evidence": {
+   "rec": "evidence/1",
+   "kind": "caption_coords",
+   "checked": "2026-10-10",
+   "named_place": "Stonehenge",
+   "place_qid": "Q39671",
+   "place_label": "Stonehenge",
+   "place_lon": -1.826111111111111,
+   "place_lat": 51.17888888888889,
+   "site_lon": -1.826111,
+   "site_lat": 51.178889,
+   "dist_m": 0.0
+  },
+  "gate_score": 26.8
+ },
+ {
+  "plan": "c_83b4d6df7a6d2383",
+  "title": "Plattegrond van de Stonehenge, RP-P-2018-849",
+  "url": "media/commons/stonehenge-q39671/83b4d6df7a6d2383.jpg",
+  "pairs": [
+   [
+    640.0,
+    150.0,
+    -1.8268203,
+    51.180232
+   ],
+   [
+    850.0,
+    400.0,
+    -1.8239544,
+    51.1784353
+   ],
+   [
+    640.0,
+    650.0,
+    -1.8268203,
+    51.1766387
+   ],
+   [
+    430.0,
+    400.0,
+    -1.8296863,
+    51.1784353
+   ],
+   [
+    640.0,
+    250.0,
+    -1.8268203,
+    51.1793337
+   ],
+   [
+    750.0,
+    400.0,
+    -1.8253874,
+    51.1784353
+   ],
+   [
+    640.0,
+    550.0,
+    -1.8268203,
+    51.177537
+   ],
+   [
+    530.0,
+    400.0,
+    -1.8282533,
+    51.1784353
+   ]
+  ],
+  "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); grid-round page coordinates (10 of 10 distinct values on a 10-px grid); the gate's 16.7 m measures internal consistency of the anchors, not their truth",
+  "evidence": {
+   "rec": "evidence/1",
+   "kind": "caption_coords",
+   "checked": "2026-10-10",
+   "named_place": "Stonehenge",
+   "place_qid": "Q39671",
+   "place_label": "Stonehenge",
+   "place_lon": -1.826111111111111,
+   "place_lat": 51.17888888888889,
+   "site_lon": -1.826111,
+   "site_lat": 51.178889,
+   "dist_m": 0.0
+  },
+  "gate_score": 16.7
+ },
+ {
+  "plan": "c_897a5c1632e2fdd6",
+  "title": "Early Man in Britain and His Place in the Tertiary Period - Fig. 145a.\u2014Ground-plan of Stonehenge as it is. (Stevens.)",
+  "url": "media/commons/stonehenge-q39671/897a5c1632e2fdd6.jpg",
+  "pairs": [
+   [
+    150.0,
+    250.0,
+    -1.8311192,
+    51.1820285
+   ],
+   [
+    850.0,
+    250.0,
+    -1.8210884,
+    51.1820285
+   ],
+   [
+    850.0,
+    850.0,
+    -1.8210884,
+    51.1757403
+   ],
+   [
+    150.0,
+    850.0,
+    -1.8311192,
+    51.1757403
+   ]
+  ],
+  "why": "line check: fabricated anchor pattern: grid-round page coordinates (4 of 4 distinct values on a 10-px grid); the gate's 38.0 m measures internal consistency of the anchors, not their truth",
+  "evidence": {
+   "rec": "evidence/1",
+   "kind": "caption_coords",
+   "checked": "2026-10-10",
+   "named_place": "Stonehenge",
+   "place_qid": "Q39671",
+   "place_label": "Stonehenge",
+   "place_lon": -1.826111111111111,
+   "place_lat": 51.17888888888889,
+   "site_lon": -1.826111,
+   "site_lat": 51.178889,
+   "dist_m": 0.0
+  },
+  "gate_score": 38.0
+ },
+ {
+  "plan": "c_f8386b6404e4ee63",
+  "title": "29 of '(Our own country. Descriptive, historical, pictorial.)' (11298369994)",
+  "url": "media/commons/stonehenge-q39671/f8386b6404e4ee63.jpg",
+  "pairs": [
+   [
+    500.0,
+    500.0,
+    -1.8261038,
+    51.1788845
+   ],
+   [
+    300.0,
+    700.0,
+    -1.8289698,
+    51.1770878
+   ],
+   [
+    700.0,
+    300.0,
+    -1.8232379,
+    51.1806811
+   ],
+   [
+    800.0,
+    600.0,
+    -1.8218049,
+    51.1779862
+   ]
+  ],
+  "why": "line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
+  "evidence": {
+   "rec": "evidence/1",
+   "kind": "none",
+   "checked": "2026-10-11",
+   "conflict": {
+    "route": "sheet",
+    "named_place": "Our",
+    "place_qid": "Q650039",
+    "place_label": "Our",
+    "place_lon": 5.6505555555556,
+    "place_lat": 47.130555555556,
+    "site_lon": -1.826111,
+    "site_lat": 51.178889
+   }
+  },
+  "gate_score": 0.0
+ }
+]
+
+THE RUN'S EFFECT ON ALL 14 CANDIDATES (per candidate; documents written or deleted: NONE in both directions)
+
+----------------------------------------------------------------------------------------------------------------------
+c_022604d2be0becdc  (47 of 'Stonehenge- plans, descriptions and theories' (111358)
+    matcher : ELoFTR: not sure - 3 consistent points (need 10) on relief.jpg x0.7, rot -17; no RoMa pass (server down)
+    batch   : not run (the picture already had this review-item entry; site_done never re-fits covered pictures)
+    docs    : none written, none deleted
+    item    : entry unchanged (file byte-identical after the run); still open
+    pre-run why: line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (5 of 5 distinct values on a 10-px grid); the gate's 23.2 m measures internal consistency of the anchors, not their truth
+
+c_098c4cb138676939  (Early Man in Britain and His Place in the Tertiary Period - )
+    matcher : ELoFTR: the matcher found nothing consistent; no RoMa pass (server down)
+    batch   : not run (the picture already had this review-item entry; site_done never re-fits covered pictures)
+    docs    : none written, none deleted
+    item    : entry unchanged (file byte-identical after the run); still open
+    pre-run why: line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (9 of 10 distinct values on a 10-px grid); the gate's 7.4 m measures internal consistency of the anchors, not their truth
+
+c_20f9f11153a0b7f0  (Knight-Stonehenge-Restored-plan-q85-1165x1066)
+    matcher : ELoFTR: not sure - 4 consistent points (need 10) on relief.jpg x1.0, rot -24; no RoMa pass (server down)
+    batch   : not run (the picture already had this review-item entry; site_done never re-fits covered pictures)
+    docs    : none written, none deleted
+    item    : entry unchanged (file byte-identical after the run); still open
+    pre-run why: line check: fabricated anchor pattern: grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 44.1 m measures internal consistency of the anchors, not their truth
+
+c_2559c7f8dbce0244  (49 of 'Stonehenge- plans, descriptions and theories' (111334)
+    matcher : ELoFTR: not sure - 7 consistent points (need 10) on six-inch-1st.webp x0.7, rot 15; no RoMa pass (server down)
+    batch   : not run (the picture already had this review-item entry; site_done never re-fits covered pictures)
+    docs    : none written, none deleted
+    item    : entry unchanged (file byte-identical after the run); still open
+    pre-run why: median residual 51.15417837032749 m > 45.0 m
+
+c_61b86efb4511e099  (Stonehenge, inward view by William Stukeley, 1722 (Itinerari)
+    matcher : ELoFTR: not sure - 4 consistent points (need 10) on six-inch-1st.webp x1.0, rot 5; no RoMa pass (server down)
+    batch   : not run (the picture already had this review-item entry; site_done never re-fits covered pictures)
+    docs    : none written, none deleted
+    item    : entry unchanged (file byte-identical after the run); still open
+    pre-run why: no model answer
+
+c_6933e3a931a0240a  (Rude Stone Monuments 0128)
+    matcher : ELoFTR: not sure - 7 consistent points (need 10) on six-inch-1st.webp x1.0, rot -5; no RoMa pass (server down)
+    batch   : not run (the picture already had this review-item entry; site_done never re-fits covered pictures)
+    docs    : none written, none deleted
+    item    : entry unchanged (file byte-identical after the run); still open
+    pre-run why: line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 26.8 m measures internal consistency of the anchors, not their truth
+
+c_83b4d6df7a6d2383  (Plattegrond van de Stonehenge, RP-P-2018-849)
+    matcher : ELoFTR: not sure - 4 consistent points (need 10) on six-inch-1st.webp x1.0, rot -74; no RoMa pass (server down)
+    batch   : not run (the picture already had this review-item entry; site_done never re-fits covered pictures)
+    docs    : none written, none deleted
+    item    : entry unchanged (file byte-identical after the run); still open
+    pre-run why: line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); grid-round page coordinates (10 of 10 distinct values on a 10-px grid); the gate's 16.7 m measures internal consistency of the anchors, not their truth
+
+c_897a5c1632e2fdd6  (Early Man in Britain and His Place in the Tertiary Period - )
+    matcher : ELoFTR: the matcher found nothing consistent; no RoMa pass (server down)
+    batch   : not run (the picture already had this review-item entry; site_done never re-fits covered pictures)
+    docs    : none written, none deleted
+    item    : entry unchanged (file byte-identical after the run); still open
+    pre-run why: line check: fabricated anchor pattern: grid-round page coordinates (4 of 4 distinct values on a 10-px grid); the gate's 38.0 m measures internal consistency of the anchors, not their truth
+
+c_97c1bf9ac3714bbe  (31 of '(Our own country. Descriptive, historical, pictorial.)
+    matcher : ELoFTR: not sure - 4 consistent points (need 10) on six-inch-1st.webp x1.0, rot -125; no RoMa pass (server down)
+    batch   : not run (the picture already had this review-item entry; site_done never re-fits covered pictures)
+    docs    : none written, none deleted
+    item    : entry unchanged (file byte-identical after the run); still open
+    pre-run why: features: Outer Circle NW, Outer Circle NE, Outer Circle SE, Outer Circle SW, Inner Circle N, Inner Circle E, Inner Circle S, Inner Circle W; stated scale 0.438 disagrees with its own points (1.000 m/px): not trusted
+
+c_98b1e7a4534b54b5  (View of Stonehenge and ground plans by Wood, Jones, Smith, a)
+    matcher : ELoFTR: not sure - 6 consistent points (need 10) on relief.jpg x1.0, rot 16; no RoMa pass (server down)
+    batch   : not run (the picture already had this review-item entry; site_done never re-fits covered pictures)
+    docs    : none written, none deleted
+    item    : entry unchanged (file byte-identical after the run); still open
+    pre-run why: median residual 115.62944931232883 m > 45.0 m
+
+c_9d3c66e9ed1a5215  (0001-Ground-plan-of-Stonehenge-q75-1139x1590)
+    matcher : ELoFTR: not sure - 4 consistent points (need 10) on six-inch-1st.webp x1.0, rot -24; no RoMa pass (server down)
+    batch   : not run (the picture already had this review-item entry; site_done never re-fits covered pictures)
+    docs    : none written, none deleted
+    item    : entry unchanged (file byte-identical after the run); still open
+    pre-run why: median residual 55.809185214279694 m > 45.0 m
+
+c_f8386b6404e4ee63  (29 of '(Our own country. Descriptive, historical, pictorial.)
+    matcher : ELoFTR: not sure - 3 consistent points (need 10) on relief.jpg x1.0, rot 31; no RoMa pass (server down)
+    batch   : not run (the picture already had this review-item entry; site_done never re-fits covered pictures)
+    docs    : none written, none deleted
+    item    : entry unchanged (file byte-identical after the run); still open
+    pre-run why: line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth
+
+c_ffb3daac218b481f  (The new Larned History for ready reference, reading and rese)
+    matcher : ELoFTR: not sure - 3 consistent points (need 10) on six-inch-1st.webp x1.0, rot -13; no RoMa pass (server down)
+    batch   : not run (the picture already had this review-item entry; site_done never re-fits covered pictures)
+    docs    : none written, none deleted
+    item    : entry unchanged (file byte-identical after the run); still open
+    pre-run why: features: northwest corner, northeast corner, southeast corner, southwest corner; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted
+
+earthworkenglan01allcgoog_n0582_1  (EARTHWORKS OF STONEHENGE.)
+    matcher : ELoFTR: the matcher found nothing consistent (no window x ground of the 15 produced >=3 consistent points); no RoMa pass (server down)
+    batch   : not run (the picture already had this review-item entry; site_done never re-fits covered pictures)
+    docs    : none written, none deleted
+    item    : entry unchanged (file byte-identical after the run); still open
+    pre-run why: median residual 78.86602117632967 m > 45.0 m
+
+POST-RUN STATE (verified by diff against the pre-run snapshot): the review item file, the site's depictions.json,
+the site directory (no new overlay), the sites.json entry (drawings 0 -> 0, overlays 1, score 1.1, oldest 1842) and all
+14 candidate entries are byte-identical; the golden hand-fit files verify (41/41 OK, the file itself unchanged). The only
+file the run changed is web/data/review.json: the whole-queue re-publish, whose diff is the top-level "at" timestamp only
+(now 456 open of 480 item files; the other 24 are resolved or carry a document).
+
+STATEMENT: the matcher-first line placed nothing on Stonehenge. All 14 candidate pictures were unsure or empty on
+ELoFTR (best 7 consistent points, the bar is 10) and RoMa was down, so no fit document was written and the map keeps
+only its 1842 OS six-inch survey overlay. This is the a-priori expectation (docs/matchfit.md sections 7-8) confirmed
+by the run, not by reasoning; the 14 pictures stay in the review queue as they were.
+
+FULL STDOUT+STDERR (verbatim, the run of 2026-10-14)
+
+======================================================================================================================
+fit  no model given: unfitted pictures (if any) go to the review item as "no model answer"
+site stonehenge-q39671: the one-site line (fit -> sync -> entry -> review)
+stonehenge-q39671  EARTHWORKS OF STONEHENGE.: the matcher found nothing consistent
+stonehenge-q39671  0001-Ground-plan-of-Stonehenge-q75-1139x1590: not sure: 4 consistent points (need 10) [six-inch-1st.webp x1.0, rot -24]
+stonehenge-q39671  29 of '(Our own country. Descriptive, historical, pictorial.)' (112983: not sure: 3 consistent points (need 10) [relief.jpg x1.0, rot 31]
+stonehenge-q39671  31 of '(Our own country. Descriptive, historical, pictorial.)' (111821: not sure: 4 consistent points (need 10) [six-inch-1st.webp x1.0, rot -125]
+stonehenge-q39671  47 of 'Stonehenge- plans, descriptions and theories' (11135894643): not sure: 3 consistent points (need 10) [relief.jpg x0.7, rot -17]
+stonehenge-q39671  49 of 'Stonehenge- plans, descriptions and theories' (11133409654): not sure: 7 consistent points (need 10) [six-inch-1st.webp x0.7, rot 15]
+stonehenge-q39671  Early Man in Britain and His Place in the Tertiary Period - Fig. 143.—: the matcher found nothing consistent
+stonehenge-q39671  Early Man in Britain and His Place in the Tertiary Period - Fig. 145a.: the matcher found nothing consistent
+stonehenge-q39671  Knight-Stonehenge-Restored-plan-q85-1165x1066: not sure: 4 consistent points (need 10) [relief.jpg x1.0, rot -24]
+stonehenge-q39671  Plattegrond van de Stonehenge, RP-P-2018-849: not sure: 4 consistent points (need 10) [six-inch-1st.webp x1.0, rot -74]
+stonehenge-q39671  View of Stonehenge and ground plans by Wood, Jones, Smith, and Stukele: not sure: 6 consistent points (need 10) [relief.jpg x1.0, rot 16]
+stonehenge-q39671  Rude Stone Monuments 0128: not sure: 7 consistent points (need 10) [six-inch-1st.webp x1.0, rot -5]
+stonehenge-q39671  The new Larned History for ready reference, reading and research; the : not sure: 3 consistent points (need 10) [six-inch-1st.webp x1.0, rot -13]
+stonehenge-q39671  Stonehenge, inward view by William Stukeley, 1722 (Itinerarium Curiosu: not sure: 4 consistent points (need 10) [six-inch-1st.webp x1.0, rot 5]
+fit  14 candidate picture(s): 0 fitted (doc), 14 in the review item -> no batch run needed
+entry  web/data/sites.json: drawings 0 -> 0
+review stonehenge-q39671.earthworkenglan01allcgoog_n0582_1.json: 14 candidate(s), open; page now has 456 open of 480 items
+  47 of 'Stonehenge- plans, descriptions and theories' (11135894643) (c_022604d2be0becdc): sent to the review queue (gate 23.2 m - line check: fabricated anchor pattern: 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (5 of 5 distinct values on a 10-px grid); the gate's 23.2 m measures internal consistency of the anchors, not their truth)
+  Early Man in Britain and His Place in the Tertiary Period - Fig. 143.—Ground-plan of Stonehenge as it probably was. (Stevens.) (c_098c4cb138676939): sent to the review queue (gate 7.4 m - line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); 1D ladder (3 anchors share one coordinate, regular spacing on the other); grid-round page coordinates (9 of 10 distinct values on a 10-px grid); the gate's 7.4 m measures internal consistency of the anchors, not their truth)
+  Knight-Stonehenge-Restored-plan-q85-1165x1066 (c_20f9f11153a0b7f0): sent to the review queue (gate 44.1 m - line check: fabricated anchor pattern: grid-round page coordinates (6 of 6 distinct values on a 10-px grid); the gate's 44.1 m measures internal consistency of the anchors, not their truth)
+  49 of 'Stonehenge- plans, descriptions and theories' (11133409654) (c_2559c7f8dbce0244): sent to the review queue (gate 51.2 m - median residual 51.15417837032749 m > 45.0 m)
+  Stonehenge, inward view by William Stukeley, 1722 (Itinerarium Curiosum) (c_61b86efb4511e099): sent to the review queue (no model answer)
+  Rude Stone Monuments 0128 (c_6933e3a931a0240a): sent to the review queue (gate 26.8 m - line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 26.8 m measures internal consistency of the anchors, not their truth)
+  Plattegrond van de Stonehenge, RP-P-2018-849 (c_83b4d6df7a6d2383): sent to the review queue (gate 16.7 m - line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); grid-round page coordinates (10 of 10 distinct values on a 10-px grid); the gate's 16.7 m measures internal consistency of the anchors, not their truth)
+  Early Man in Britain and His Place in the Tertiary Period - Fig. 145a.—Ground-plan of Stonehenge as it is. (Stevens.) (c_897a5c1632e2fdd6): sent to the review queue (gate 38.0 m - line check: fabricated anchor pattern: grid-round page coordinates (4 of 4 distinct values on a 10-px grid); the gate's 38.0 m measures internal consistency of the anchors, not their truth)
+  31 of '(Our own country. Descriptive, historical, pictorial.)' (11182140263) (c_97c1bf9ac3714bbe): sent to the review queue (features: Outer Circle NW, Outer Circle NE, Outer Circle SE, Outer Circle SW, Inner Circle N, Inner Circle E, Inner Circle S, Inner Circle W; stated scale 0.438 disagrees with its own points (1.000 m/px): not trusted)
+  View of Stonehenge and ground plans by Wood, Jones, Smith, and Stukeley - DPLA - a7987bd31e89b5a0e984cf2c7c04bd80 (c_98b1e7a4534b54b5): sent to the review queue (gate 115.6 m - median residual 115.62944931232883 m > 45.0 m)
+  0001-Ground-plan-of-Stonehenge-q75-1139x1590 (c_9d3c66e9ed1a5215): sent to the review queue (gate 55.8 m - median residual 55.809185214279694 m > 45.0 m)
+  29 of '(Our own country. Descriptive, historical, pictorial.)' (11298369994) (c_f8386b6404e4ee63): sent to the review queue (gate 0.0 m - line check: fabricated anchor pattern: grid-round page coordinates (8 of 8 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth)
+  The new Larned History for ready reference, reading and research; the actual words of the world's best historians biographers and specialists; a complete system of history for all uses, extending to (14597089967) (c_ffb3daac218b481f): sent to the review queue (features: northwest corner, northeast corner, southeast corner, southwest corner; only 25% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted)
+  EARTHWORKS OF STONEHENGE. (earthworkenglan01allcgoog_n0582_1): sent to the review queue (gate 78.9 m - median residual 78.86602117632967 m > 45.0 m)
+done
