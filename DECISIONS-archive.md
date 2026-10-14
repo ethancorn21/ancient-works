@@ -8233,6 +8233,80 @@ NEXT: batch 3 = duffield-castle, eaton-socon-castle, framlingham-castle, goodric
 - Observation (recorded, not acted on - out of scope): the lead's 77405cf re-added bury-castle-q5001077.c_de779031cda8a0dc and old-sarum c_041083ec68b532f8 to the store after 306d/306e had deleted them (plus 8 other docs that already have lines). They are not box-1 gaps (they have bullets), but the port undid those audit removals; if the lead re-ports again a future 306-style pass should re-judge rather than trust the stale REMOVED lines.
 
 
+<!-- task 307 -->
+# Task 307 fit-tool-rework
+
+## 2026-10-12 307 DECISION: split into 307a (place check), 307b (on-map placement), 307c (working space), 307d (owner check)
+The owner's 307 rework has six acceptance boxes across two independent planes: the data side
+(the queue must not pair a caption with the wrong site - a new place check in
+tools/fit_queue.py) and the page side (the fit tool becomes a direct-placement tool - a new
+web/fitkit.js extension). Split along the plane, in the order the owner needs them: a -> b
+-> c -> d. No code this session; the split is the step.
+
+Ground truth measured while planning (all verified by running code, iteration 107):
+- The Devil's Dyke pair's root cause is data, not zoom: Allcroft fig. 217's title says
+  "near Brighton"; its book-index evidence is a caption_coords tie on the name "Devil's
+  Dyke" only (place: {}, score 1.0 vs runner-up 0.4), which the matcher accepted for the
+  Cambridgeshire site. The catalog DOES contain the right site:
+  devil-s-dyke-hillfort-q17674160 (Poynings, Mid Sussex, West Sussex; unbuilt). Ardoch
+  (Allcroft n0354 "ARDOCH, PERTHSHIRE.", row place field "PERTHSHIRE") is the queue
+  candidate for Coria and Vindomora (both Spain); the catalog (12,603 rows, name+aliases
+  searched) has no Ardoch, so that mismatch goes to review, not a move.
+- Recorded evidence conflicts are noisy for this job: 52 queue candidates carry one, but
+  most are title words, not places ("Our", "Larned", "Allen", "Tourelles"; "France" ->
+  the site Argentoratum is IN France, not a mismatch). The real ones look like "Alauna ->
+  Ardoch Roman Fort" and "Bethlehem -> Bethlehem" (the catalog's Bethlehem Q2523914 is
+  the DUTCH one, 6.61/53.38 - a genuine mismatch against the Palestine basilica plans).
+  Hence the 307a rule: decide from KNOWN places only, fail open on unknown, and
+  re-verify recorded verdicts offline (the evidence-check pattern).
+- fit/propose.py already computes the anchor the page needs (bar scale / ratio at the
+  book's ppi / site-size fallback; north arrow; 3-5 pairs). propose_for works for n0686
+  (bar "0 100 200 300 400 Yards" + scale_bar box + 0-deg arrow: scale_m_px 0.3621, 5
+  pairs centred on the site, coarse false). fit/propose.py and fit/review.py are
+  stdlib-only (importable from tools/fit_queue.py); pipeline/books_match.py is NOT
+  (it pulls pipeline/books.py -> PIL) - the check stays stdlib.
+- The page already draws the ink on the map: index.html refit() maps P.inkUrl onto the
+  'fit-prev' image source from the least-squares similarity of P.pairs (warpView() proves
+  the image-source quad mechanism; a similarity's rotated rectangle is a parallelogram,
+  so the affine the image source builds is exact). So "drawing starts on the map" = set
+  P.pairs to the proposal's 5 pairs on open (least squares recovers the anchor exactly),
+  then handlers edit the anchor and re-emit pairs; the saved doc stays pairs-shaped, so
+  plan_fit.py/gate/one-site line are untouched.
+- Baseline on this branch: .venv/bin/python -m pytest -q -> 73 passed, 1 skipped (green).
+
+## 2026-10-14 307 DECISION: parent closed - all six boxes verified on the merged tree, Status: done
+The driver returned the parent (all subtasks done) for its own box check. Verified, not on
+faith, on this branch (a237650: driver sync over the 307bc close 4549978; 309/804/805,
+235 and all of 307b/307c/307d already on main):
+- Box 1: ran the build's own check directly on the committed queue (imported
+  tools/fit_queue as a module; _place_store('.') + _place_flags over the entries'
+  candidate maps): 0 residual namesake pairs over the 180-entry queue. n0686_1 (the
+  owner's "The Devil's Dyke Camp, near Brighton") no longer pairs with
+  devil-s-dyke-q3307343 (that site keeps n0662_1 "SWEALD"); it is the candidate on the
+  unbuilt Sussex hillfort's review item (data/review/
+  devil-s-dyke-hillfort-q17674160.earthworkenglan01allcgoog_n0686_1.json) with the
+  reason "same name, other place: near Brighton vs Stetchworth, Cambridgeshire,
+  England". docs/site_flow.md ("The right-place check", task 309) reports 15 wrong
+  pairings over 9 sites in the 116-entry rebuild, with the per-row list and the H1/H2
+  rules.
+- Boxes 2-4 and 6: full suite on this tree: 177 passed, 1 skipped, 0 failed (497.6 s) -
+  exactly 235's recorded baseline; the pre-235 red (marietta's page-filtered 1904 topo)
+  is gone (307bc's post-235 re-run). Part 4 of tests/test_fit_queue.py covers boxes 2-4
+  end to end in headless Chrome (open on the works, dep layer hidden/restored, the
+  gestures, the 17-key by:hand save, the hermetic write-surface hash);
+  tests/test_owner_check.py (two derived queue sites, real headless Chrome, the
+  one-site line, the revert proven) covers box 6; the place-check tests of box 6 are
+  309's (804's namesake + real tests, 805's drift test) and green; the golden hand-fit
+  hashes and test_fit_provenance stayed green.
+- Box 5: place_before.png / place_after.png measured 1440x900 (file(1)); the "The
+  working space (task 307c)" section cites them; every other page layout's pinned
+  footprints green in the same run.
+No subtasks filed - nothing in the six boxes is missing. The only open follow-on from the
+307 line is tasks/242 (the 307d owner-check screenshot drift; filed by 307bc; its own
+owner) - it postdates the boxes (screenshot stability, not a box requirement) and does
+not block done. Status: done.
+
+
 <!-- task 307a -->
 # Task 307a place-check
 
