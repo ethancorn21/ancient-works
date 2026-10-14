@@ -48,12 +48,118 @@ the original or a facsimile of it, its date, its licence, and its resolution bef
 
 ## Hand-over
 
-(2026-10-13, iteration 146, agent a - **Washington DC applied and staged.** The staged set is now NY
-(4 plans) + DC (3 plans) = 7 rows on 2 sites; --check 7/7, golden regenerated, tests 7/7 green, lead
-doc has the full DC section (STAGED/DROP verdicts + the Boschke "exactly why" not-staged record). Box 3
-stays open: **San Francisco (Q62), then Nashville (Q23197)** are the remaining two owner-named cities -
-each needs live research first, then the same apply/stage/check/golden/test/doc pattern this session
-used. When both are done: tick box 3, Status: done.)
+(2026-10-13, iteration 147, agent a - **San Francisco research COMPLETE, verdicts in the DECISIONS
+entry (written before editing, the 145 pattern).** No repo file changed this session - only this task
+file and DECISIONS.md. Staged set so far: NY (4) + DC (3) = 7 rows, tests 7/7 green as of 146 (not
+re-run this session - nothing code changed). **Next session: apply the SF verdicts (the 146 pattern),
+then Nashville.**)
+
+### SF verdicts (live, 2026-10-13; full record in the DECISIONS entry)
+- **Q62 re-verified live** via pipeline/catalog_wd (the robust path): label "San Francisco"; P625 =
+  [(-122.41944444444445, 37.775), (-122.41638888888889, 37.7775)] - **387 m apart, both downtown**
+  (prep's "~450 m" was approximate); P373 ['San Francisco']; P131 [Q13188841 San Francisco County,
+  Q99 California]; enwiki 'San Francisco'; first name-search hit with P625 = **Q62 itself - no trap**.
+  No existing site uses Q62 or id san-francisco-q62 (grep exact; the earlier "Q62" substring hits are
+  Q622981 Wiesbaden / Q6276838 Jordan Mounds etc.).
+- **Stage 3 rows on a new site `san-francisco-q62`** (kind "town", named "San Francisco", place
+  "San Francisco County, California", wikipedia https://en.wikipedia.org/wiki/San_Francisco, region
+  "United States"), all p="plan", all print "San Francisco" IN THE TITLE (gate-safe), all PD:
+  1. `File:Official map of San Francisco compiled from the field notes of the official re-survey made by Wm. M. Eddy. surveyor of the town of San Francisco. LOC 77692722.jpg` (6454x8480, page date
+     "1849") = the 1849 Eddy survey map, the ORIGINAL (manuscript, "Presented to the Senators and
+     Representatives from California by Wm. M. Eddy, city surveyor, San Francisco, Dec. 31st 1849").
+     NO date swap (page date = drawing date).
+  2. `File:Map of San Francisco, Apollo storeship at the bottom.jpg` (1238x1536, page date "1850-01-01",
+     Sun Lithographic Est. NY) = the 1850 map body "MAP OF THE CITY OF SAN FRANCISCO CALIFORNIA -
+     COPIED FROM ORIGINALS WITH CORRECTIONS AND ADDITIONS - 1850" (the first published map after Eddy;
+     hachured hills, Yerba Buena Cemetery, Rincon Point, inset "View of San Francisco in 1850" showing
+     the Apollo storeship; from Joseph P. Beach's journal). NO swap.
+  3. `File:Official map of the City of San Francisco, Full and complete to the present date. Compiled by Wm., M. Eddy. City Surveyor. (IA dr official-map-of-the-city-of-san-francisco-full-and-complete-to-the-present-5870000).jpg` (8830x10560, NO page date, year_of None) = the Eddy 1854
+     sheet (map itself: "January 15th 1854"; desc: "Map printed without color. With red lines added by
+     hand. Outer red line is water front. Inner red line is shore line. Shows block and lot numbers, and
+     wards.") -> **known-date swap dict(date="1854")** (fires because year_of(page)=None != 1854).
+- **DROPS (record in the lead doc, exact reasons in the DECISIONS entry):** LOC 76695582 (.jpg/.tif)
+  and LOC 76695583 (.jpg/.tif) = two printed 1849 editions of the SAME staged Eddy plan (one row per
+  plan, the NYC Ratzer precedent); IA 00194050 (6361x8362, no page date) = a third 1849 copy ("the
+  second issue of 1849"); (Covers to) 10423001 (1074x1536) = the 1850 map's COVERS + title page, not
+  the map (the body is staged as the Apollo file); 12216 (1331x1536) = the 1852 Eddy "Topographical
+  & Complete" sheet - distinct plan but the only Commons copy is a small IA book scan (full-res is
+  on David Rumsey's site, not Commons) and the staged 1854 sheet covers the same ground at 8830px;
+  11809 (1536x1333) = the Butler city-and-county map ("city boundaries 1850-1863", drawn for the SF
+  News) - only Commons copy is the small IA scan; Beechy 1827 harbour plan (IA 11955001, GONE from
+  Commons - title changed/deleted), all Ringgold hits = navy CHARTS (background, not drawings, owner's
+  rule); HABS 1852 plat re-photo (85-1/91-1) = photos of documents; J.W. Freeman 1849 file = a sheet of
+  lithographed PORTRAITS, not a map; **Henry Bill 1856/1858 (3500x1974 / 4000x2325, PD, "1856 (dated)")
+  = a VIEW map ("as seen from Nob Hill looking down California Street") - it belongs to 236b (the
+  bird's-eye task), note it as a 236b lead in the lead doc, do not stage here.**
+- **The Ringgold "General Plan of the Town of San Francisco" (1849) is NOT on Commons** - every
+  Ringgold hit is a nautical chart (Farallones, Bay of San Pablo, entrance, general charts, 1850s
+  Douglas prints). The 1849 town plan survives only in books (e.g. reprints) - record it as such.
+- **Site point: REFINE, do not take either P625** (the 146 hand-over's branch "refine to the tip" -
+  the drawn extents decide): the three staged plans all draw the OLD TOWN'S TIP (the peninsula from
+  North Beach down to Rincon Point) plus the hills / 1850s growth; both P625s (~1.2-1.5 km west, near
+  Civic Center/10th-Market) would leave the tip's tip outside the 4 km town box. The point should be
+  the CENTER OF THE DRAWN EXTENT of the staged plans (~ the old Plaza / Market & 6th-7th area, about
+  (-122.405, 37.784) - confirm by measurement, don't eyeball). The point rides on the STAGED EXTRAS
+  ROW (SITES[qid] lon/lat) - build_catalog takes it from the row; no shared file (specs/site_boxes.json
+  has the hand-set override precedent - Cahokia - but is not in my Touches and my row is the source).
+  **Last thing I was doing:** about to download the full-res 1854 sheet (original URL: upload.wikimedia
+  .org/wikipedia/commons/2/2a/Official_map_of_the_City_of_San_Francisco%2C_Full_and_complete_to_the_
+  present_date._Compiled_by_Wm.%2C_M._Eddy._City_Surveyor._%28IA_dr_official-map-of-the-city-of-san-
+  francisco-full-and-complete-to-the-present-5870000%29.jpg, 8830x10560) and measure its "Scale of 550
+  English Feet to the Inch" bar (bottom-left, under the title block) + locate Rincon Point (the tip's
+  tip, bottom-center) and the North Beach point (top-right) to georeference and compute the extent
+  center. FALLBACK if the measurement is fiddly: midpoint of the extreme anchors (Rincon Point
+  ~37.7742/-122.3943 and the North Beach tip ~37.7925/-122.4105, both to be web-verified first) - and
+  whatever point is used, record the derivation in the lead doc's QID section + the SITES comment
+  (and the two P625 values stay in the --verify output; both are <50 km, so verify prints no flag).
+
+### EXACT next steps
+1. (Optional, fast) settle the site point: download the 1854 sheet at full res, measure the scale bar
+   + anchors per above, OR web-verify the two anchor coords and take their midpoint of the drawn
+   extremes. Pick a clean number (~4-5 decimals).
+2. DECISIONS.md: the verdict entry is ALREADY written (147, below) - if step 1 changed the point, note
+   the final value in the hand-over, not by rewriting the entry.
+3. Apply (the 146 pattern, 1 session): fit/src_us_cities.py SITES += "Q62" (id san-francisco-q62, name
+   "San Francisco", named "San Francisco", lon/lat = the settled point, place "San Francisco County,
+   California", region "United States", kind "town", wikipedia, note = aerial ground + tip drawn extent
+   + the point derivation); SOURCES += eddy_1849 / map_1850 / eddy_1854 (labels per the verdicts;
+   eddy_1854 carries dict(date="1854")); docstring "New York, Washington DC and San Francisco -
+   Nashville follows". Live --verify (3 QIDs; expect the two SF P625s printed against the refined
+   point, no >50 km flag), stage (expect "2 new sites" is WRONG - it's "1 new site, 3 new pictures;
+   build (236c): san-francisco-q62" - only Q62 is new; NY/DC rows are idempotent no-ops), offline --check
+   (expect 10 rows, 10 pass) + --golden (regenerates tests/golden/src_us_cities_sample.json). Tests:
+   table {Q60,Q61,Q62}, named += {Q62: "San Francisco"}, extras ids += san-francisco-q62, years dict +=
+   the 3 SF titles (1849/1850/1854), the 1854 swap assert (date "1854"/date_commons "" or None - CHECK
+   what stage actually stored first: date_commons = m.get("date") = "" empty string here, _norm
+   normalizes any string date_commons to "0000-00-00"), 7->10 row asserts, the 3 SF PASS lines.
+   Lead doc: `## San Francisco (Q62)` section (site point + derivation, the extent decision, the 3
+   STAGED, all the DROPS with reasons, the Ringgold-not-on-Commons note, the Henry Bill = 236b lead)
+   + header "three cities staged; Nashville last" + QID-verification block updated to the 3-QID
+   --verify output. Then **Nashville (Q23197)** same way (old 1790s town at the confluence
+   ~(-86.788, 36.166) vs downtown P625 - pick the point against the files; Fort Negley = own
+   kind-"fort" site, own QID, 3DEP candidate). When both staged: tick box 3, Status: done.
+
+### Gotchas (all still true)
+- The named-place gate sees ONLY the title + the 600-char-truncated desc of c.info(); c.info batches
+  of 50 LONG titles 414 (URI Too Long) - batch <=4-5 for long IA titles. File titles case-sensitive;
+  proxy gzip-200s on Wikidata -> use pipeline/catalog_wd for WD checks; c.get has retries (one SSL
+  handshake timeout occurred this run, retried fine).
+- stage(): idempotent on (site, title); the known-date swap runs BEFORE c.keep(); a missing title
+  fails loud. The stage prints new sites/pictures only - re-running after a partial stage is safe.
+- Town box: build_catalog BOX [("town", 2000)...] -> width_m=height_m=2000, and aw.site_bbox CENTERS
+  the box on the site point (hw = width_m/2) -> a kind-"town" site has a 4 km x 4 km box; an extras
+  row may carry its own box_m/lon/lat (build_catalog make_site reads them; specs/site_boxes.json is a
+  per-site override layer with the Cahokia "point misses the works" precedent, but it is not in my
+  Touches - my staging row carries the point).
+- evidence_for stores the site's point as the caption_coords tie (dist_m 0.0); check_staged is
+  offline and re-verifies from stored fields only, so a refined (non-P625) site point is safe for
+  --check and for --verify (flag only >50 km). Do NOT write the canonical files (that is 236c).
+- Do not "fix" pipeline/commons.py's NO regex (not in Touches) - Boschke record stands.
+- /tmp/ussf_*.py + .out/.jpg hold this session's transcripts (Q62 verify, 3 search runs, 3 metadata
+  runs, 8 thumbnails sf_0..sf_7) - throwaway; the verdicts stand on the DECISIONS entry.
+- The full suite has 1 pre-existing failure (test_fit_queue.py::test_placement_gestures_and_save_in_
+  the_browser - agent c's 307 work, not mine); run my two test files (tests/test_src_us_cities.py +
+  tests/test_region.py) offline (socket-blocked fixture), not the whole suite.
 
 ### What this session did
 1. fit/src_us_cities.py: SITES += Q61 (id washington-q61, name "Washington, D.C.", named "Washington",
