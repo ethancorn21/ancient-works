@@ -1,0 +1,176 @@
+# Bird's-eye views of US cities, batch 4 (task 240): Denver, St. Paul, Minneapolis, Cleveland
+
+GOAL.md point 5 (the 2026-10-13 owner change): the map grows with US cities, and artists' aerial and
+bird's-eye views count as much as surveys. Batch 4 is the next four candidates of the 25-city total
+after 236b's sixteen (16 + 4 + 5; 236c consolidates every staging set into the canonical data and
+checks the 25 total). This task stages **four more US cities, each a new site of its own**, from the
+**Library of Congress "Panoramic Maps" collection** (loc.gov/collections/panoramic-maps): about
+1,500 US bird's-eye views, 1847-1929, public domain. One own module (`fit/src_us_birdseye_batch4.py`),
+one own staging file set (`*_us_birdseye_batch4.jsonl`) - so 240 and 241 (batch 5, the final five)
+build in parallel; 241's candidate order continues from this doc's Staging section. Candidate order:
+**Denver, St. Paul, Minneapolis, Cleveland** (the 236b lead-doc order after Kansas City / New
+Orleans); the task owes four staged cities, not specifically these four - a city with no usable
+view gets a note here and the next candidate.
+
+## Fetch route (same as 236b's, re-verified for the batch-4 cities)
+
+The route is the 236b one (full detail in docs/lead_us_birdseye.md, section "Fetch route"):
+loc.gov is unreachable from this machine (403, CloudFront bot block), so the files are fetched
+from their **Wikimedia Commons mirrors only**; the candidate pool per city is the Commons
+file-namespace full-text search in the six plain-phrase forms ("bird's-eye view of <city>", "bird's
+eye view of <city>", "birdseye view of <city>", "<city> bird's eye", "<city> birdseye", "Birds' eye
+view of <city>", each + ` filetype:bitmap`, srnamespace 6, srlimit 40), deduped, then the gates:
+`commons.keep()` (judged AFTER any known-date swap) AND the caption names the city (books_match.norm
+over title + description) AND the license is **Public domain** AND the width is **>= 4000 px**.
+Re-verified live for Denver at the 240 session-1 run 2026-10-14 (the pool: 65 unique, 33 good).
+
+## QID verification (`.venv/bin/python fit/src_us_birdseye_batch4.py --verify`)
+
+The batch-4 QIDs are verified when their cities are added (label, every P625 value - flagged when
+>50 km from the table point, P373, P131 with labels, the enwiki article, and the first name-search
+hit with coordinates - what `record --live` would resolve for the caption route). Transcript for
+Denver (the 240 session-1 run 2026-10-14, verbatim; re-run with each landing and appended):
+
+```
+checked 2026-10-14 - 1 QIDs (Wikidata)
+  Q16554  'Denver'  (site id: denver-q16554, new (this task))
+      P625: [(-104.98472222222, 39.739166666667)]  (table site point: -104.984722, 39.739167)
+      P373: ['Denver, Colorado']
+      P131: [('Colorado', 'Q1261'), ('Denver County', 'Q13052701')]  (table place: 'Denver County, Colorado')
+      enwiki: 'Denver'  (table wikipedia: 'https://en.wikipedia.org/wiki/Denver')
+      search 'Denver': first hit with P625 is Q16554 'Denver' (-104.98472222222, 39.739166666667)
+```
+
+No FLAG / TRAP line on the Denver QID: the single P625 IS the table point (dist 0) and the first
+name-search hit with coordinates is the city itself (the 236b Pittsburgh/Chicago university traps
+do not recur here).
+
+## The evidence field (as in 236a/236b)
+
+As in the 236b doc: every staged row carries a hand-recorded `caption_coords` tie in the exact key
+order of `fit/evidence.py:caption_route` - the caption names the city and the stored coordinates
+are the verified site point itself (dist 0); `record --live` would take the first name-search hit
+instead, which is why every QID is verified above and the stage fails loud when a caption does not
+print the city. A scan whose file page lost the drawing's date gets the known drawing/publication
+date on the row and the page value kept as `date_commons` (the Zwolle precedent; the keep() gate is
+judged after the swap).
+
+## Denver (site `denver-q16554`, this task's point = the verified P625; 1 view staged)
+
+**STAGED** (one row per sheet; dupes dropped):
+
+- `File:Bird's eye view of Denver, Colorado, 1908. LOC 75693133.jpg` - 1908, Birdseye View
+  Publishing Co.; Denver Lith. Co., 19338x13294, Public domain (LC Panoramic maps (2nd ed.), 66).
+  **Steep near-vertical whole-city view drawn from the north of the city (the Twenty-Third Street
+  Viaduct) looking south**: the banner reads "BIRD'S EYE VIEW OF DENVER, COLORADO, 1908 LOOKING
+  SOUTH FROM THE TWENTY-THIRD STREET VIADUCT"; the dense grid legible to the southern suburbs, the
+  Front Range along the top of the sheet (the southern horizon), the South Platte meandering in
+  from the northwest along the sheet's RIGHT side (the sheet faces south, so west is right - no
+  mirroring), a landmark index across the bottom; the drawn extent spans the whole city beyond the
+  2000 m town box, so its fit is likely to end a review item (the 236a NY-1811 / DC-ring
+  precedent). **Same-sheet scans (one row per sheet, the LOC .jpg staged): the 19338x13294 `.tif`
+  twin and the 9000x6205 DPLA copy (4ac8083cbba722c01cad3388a37a7a0f)** - both eyeballed, identical
+  sheet (the 236b batch-3 close-out). The page date (1908) matches the drawing (no Zwolle-style
+  swap).
+
+**DROP (with reasons):** the **1881 J. H. Flett whole-city sheet** (the pool's smallest whole-city
+view; the LOC copy's own description says "Photocopy", LC Panoramic maps (2nd ed.), 63, inset
+"view of Denver 1859") - `File:Bird's eye view of the city of Denver, Colorado, 1881. LOC
+75693129.jpg`/`.tif` (4348x2857) + the two 7000x4575 DPLA copies (8799e7c5 / f442e0ad, "Scale not
+given") - a steep near-vertical whole-city view, but the shallower-quality same-genre sheet (one
+row per city: the 1908 is steeper and sharper). The **1887 Rocky Mountain News / Mills Eng. Co.
+sheet** - `File:Bird's-eye view of Denver, 1887. LOC 75693131.jpg`/`.tif` (8048x6016, LC
+Panoramic 64) + the two 7000x5238 DPLA copies (0f7a446c / bd8a42c6) - steep oblique from the NW
+(Capitol foreground bottom, grid receding to the mountain horizon): shallower than the 1908. The
+**1882 C. H. Platt / W. H. Slocum chromolithograph** - DPLA 10000x6774 (2030beda) + 8999x6096
+(495911c2) - steep oblique from the north (the Platte in the foreground): same-genre dupe,
+shallower. **The 1874 E. S. Glover sheet** (Strobridge & Co. Lith., inset "Denver in 1865") - the
+pool's OLDEST whole-city view (from the NW looking SE): DPLA 10000x7749 (f0ef7f8d, page date
+1874) + 8999x6974 (7f6b1ead, undated) are same-sheet dupe scans; the three 1536-px copies
+(94f7c085 / aae0b82d / d5be6563) are too small. The **1887 "Souvenir of Arbor Day, May 6th 1887.
+Birds eye view of Colfax avenue from Montclair, 350 ft. above Denver"** (two 7000x3920: 095a7fee /
+d64efa95) - a **district close-up** (the Fort-Negley class): the Colfax-avenue corridor and the
+Montclair subdivision fill the sheet (a real-estate dealer's souvenir sheet, W. B. von
+Richthofen, The Denver Litho Co.), the city a background at the left - not a whole-city view
+(eyeballed at the 240 session-1 run). The **1895 `View in Denver. "Birds-eye view of the line
+waiting for the touch of the 'Healer'"`** (.jpg/.tif LCCN92519709, two 4096x3281) - a
+**PHOTOGRAPH** (W. A. White, Raton, New Mexico, copyright 1895), not a bird's-eye map: a street
+scene of the crowd waiting for the street car - the title's "birds-eye view" is a joke
+(eyeballed at the 240 session-1 run; the 236a HABS-photo precedent). The **1907 "Birdseye view
+from South Broadway ... showing Harlem, Jacksons Broadway Heights & city of Denver"** - four scans
+(LOC 76693078 .jpg/.tif 7888x6144, the two DPLA 7992x6273 copies 72a22de5 / dbc3cc9d, CO Denver
+1907.jpg) - a **real-estate ad** ("LOTS FOR SALE", Haraszthy & Vuit, copyright 1908): the suburban
+subdivisions fill the sheet, the city a small dot on the horizon. The **1913 "Denver and the
+Rockies as viewed from the tower of the Daniels and Fisher Stores Co."** (two 12000x5339/5357 DPLA
+scans, page 2/3 of 37476cb8...) - a **PHOTOGRAPH** (copyright 1913 by the store), the city small in
+a mountain panorama (the photo + Bohn-class precedent); the 1755x3612 cropped copy (0f5d5a4e) is
+too small. The **Clayton Industrial School sheet** (4017x1780) - an institution close-up (the
+Fort-Negley class). The **"mountains & plains from 'Lookout Mountain'"** (7000x5587) - **regional**,
+Denver a dot (the DC 1861 Bohn regional-drop precedent). The **"Topographical birds-eye view, the
+state of Colorado"** (DPLA 5000x3680, Clason Map Co.) - a **STATE-level** view; the pool's "1603"
+year for it is a FALSE year picked up from the DPLA hash inside the title (94ad02d5d2fbe5c1603...)
+- a year_of title-scan hitting the hash, recorded so it is not mistaken for a 1603 sheet. The
+**Union Pacific "World's pictorial line" book sheets** (Knight, Leonard & Co., Chicago: the
+"Great Plains" and "Texas Pan Handle" Overland Route books) - **regional book sheets**: the 1890
+"Great Plains" sheet (1536x618) and the "(Covers to) Great Plains" (2459x2847) are too small, and
+the wide ones (the "(Covers to) Texas Pan Handle" 4087x4634, the two "(Text Page)" sheets
+13661x5498/22726x9036 - the verso carries a full-colour birdseye of the states, Denver a small
+part of the frame - and the two 1893 Rocky Mountain sheets 7000x3160, the last two caption-gate
+rejects) are the regional book-sheet class (the KC Union Pacific book-sheet precedent). The
+**other-city caption-gate rejects**: 1873 Golden, 1874 Pueblo, 1882 Canon City (incl. the
+"Lincoln Park ... Dewees and Dye" plat), 1882 Greeley, 1882 Gunnison, 1882 Leadville x3, 1882
+Maysville, 1882 Colorado Springs + Manitou, Las Animas x3 (one 1904), Buena Vista, Idaho Springs.
+**Too small** (< 4000 px): 1865 Kilburn x2 (2737x1391), the 1889 "CO Denver 1889.jpg" (1024x656),
+the two NYPL 3072-px tiff pair (b11707599-G90F039 017B/017F). **Licence rejects:** the 1907
+"Denver, CO 1907 Bird's Eye View.jpg" (CC BY-SA 4.0, 1500x1000). **keep() rejects:** the 2021
+"Union Station North 002.jpg" (CC0, 1904x1413 - beyond the 1925 MAX_YEAR and below the 4000-px
+width gate).
+
+**The QID's facts** (verified live 2026-10-14 at the 240 session-1 run; the transcript is in the QID
+section above): Q16554, label "Denver" (the consolidated city-county and capital of Colorado; the
+first-guess QID Q3101 is a PERSON - Patrick Ricard - caught by the label check, the usual
+first-guess trap class), enwiki "Denver". P625 = ONE value (-104.984722, 39.739167, 30 m) - the
+central CBD (the 16th-20th street core; no refinement needed). P373 = the STRING "Denver, Colorado"
+(a Wikidata quirk, not a country entity - the place is written from the county + the state).
+P131 = Q1261 Colorado + Q13052701 Denver County (Denver is a consolidated CITY-COUNTY, the
+county-level twin of New Orleans' single-parish case - hence place "Denver County, Colorado").
+P17 = Q30 (a proper entity). Name search: **no trap** (the first hit with P625, what `record
+--live` would store, is Q16554 itself, dist 0). No existing site holds the QID (checked at the 240
+session-1 run in the catalog, extras, 236a's and 236b's extras files and web/data/sites.json); the
+site id `denver-q16554` is the catalog slug rule (catalog.slug("Denver") = "denver", verified).
+The drawing's vantage, the Twenty-Third Street Viaduct, sits ~1.3 km north of the site's point
+(23rd-street lat 39.7508 - P625 39.739167 = 0.0116 deg x 110900 m/deg = 1287 m, measured
+2026-10-14).
+
+## Staging and checks (2026-10-14)
+
+All batch-4 cities staged so far are in this task's own files only: **1 view** (Denver) in
+`data/commons/files_us_birdseye_batch4.jsonl` (files.jsonl shape + the 200 evidence field) and
+`data/commons/classified_us_birdseye_batch4.jsonl` (`p_birdseye: 1.0`, `by: "hand"`); the site row
+is in `data/catalog/extras_us_birdseye_batch4.jsonl`. `--check` (offline, no network), the 240
+session-1 run:
+
+```
+PASS caption_coords  denver-q16554|File:Bird's eye view of Denver, Colorado, 1908. LOC 75693133.jpg
+evidence: 1 rows, 1 pass, 0 fail, 0 no-tie
+```
+
+No join problems (the file row names the staged site; classified rows 1:1; no staged id or QID
+collides with an existing site - the module's `known_sites()` reads the catalog, extras, 236a's,
+236b's and 241's extras files plus web/data/sites.json on every run). The golden sample
+`tests/golden/src_us_birdseye_batch4_sample.json` pins the staged rows (regenerated only via the
+module's `--golden` for an intended change).
+
+**Not done yet - St. Paul, Minneapolis, Cleveland (this task), then 241's batch 5:** this task
+(240) closes at **4 staged cities**. The remaining cities of the 25 total go to **241** (batch 5:
+the final five; its own module `fit/src_us_birdseye_batch5.py` copies THIS one, its staging files
+`*_us_birdseye_batch5.jsonl`, lead doc, test and golden; it reads THIS task's
+`extras_us_birdseye_batch4.jsonl` as the forward no-op becomes a real read - a QID can never sit
+on two sites). The 236b lead-doc candidate order after New Orleans (iteration 181) runs
+"...Kansas City, Omaha, St. Paul/Minneapolis, Indianapolis, Columbus, Memphis, New Orleans, ..." -
+so after this task's four the next candidates to 241 are **Omaha (skipped in 236b with no recorded
+drop reason - re-run its pool search and record the verdict), Indianapolis, Columbus, Memphis**,
+then whatever the collection's search order adds to reach five. **236c** consolidates every
+staging set into the canonical data and checks the 25 total (16 + 4 + 5, or a recorded shortfall).
+**Do NOT write the canonical files - that is 236c; do NOT re-stage the nine cities in 236b or
+241's doc.**
