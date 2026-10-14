@@ -34,22 +34,84 @@ staging files, the way 213 staged Civitates.
 
 ## Hand-over
 
-(2026-10-14, iteration 188, agent a) **Work A (the batch-2 lead doc) is COMPLETE and correct.** The
-doc was already committed by the driver in f3aed14; this session finished 187's remaining step (the
-fresh-eyes re-read) and found + fixed two factual errors: Nashville's P625 is 721 m **SE** of its
-refined table point (doc said NE), and the University of Pittsburgh is **~4.0 km EAST** of the
-Pittsburgh city point (doc and the Q1342 SITES comment said "~4.7 km west" - wrong distance AND
-direction; both re-computed with the project's distance formula). Both transcripts were
-re-verified: the --check block is exactly equal to a fresh offline `--check` run this session
-(/tmp/aw236b_check_188.txt), the 85-line QID block is byte-identical to /tmp/aw236b_verify_186.txt
-(still on disk; content-identical to 185's run - no drift). Chicago's "~10.5 km south" (10488 m
-measured) and Q62's "2.0-2.4 km" (2010/2393 m) verified correct. Module tests 5/5. **Only batches
-3+ remain** (box 4, 25 cities: 14 done, 11 to go).
+(2026-10-14, iteration 189, agent a) **Batch 3, city 1 = KANSAS CITY: research DONE and verified; module edit + stage + doc + golden/tests are the next session's work.** Context limit hit after the QID/pool research, before touching any project file - no module, data, doc or test was changed this session (only /tmp scripts + thumbs). Tests as last run: module 5/5 (188), offline --check 21/21 (188); staged files still 10 site rows / 21 file rows / 21 classified rows.
 
-### Next step: batch 3 (Kansas City, New Orleans, Denver, St. Paul, Minneapolis)
+### What 189 established (all live, re-verify is cheap)
 
-One session per city, or two cities if the pool is small. Per-city procedure (181's playbook,
-restated in the 184 DECISIONS entry):
+1. **QID = Q41819** (NOT Q31997 - that is "Ažbe Jug"): label "Kansas City", enwiki "Kansas City,
+   Missouri", P373 = the STRING "Kansas City, Missouri" (a Wikidata quirk - not a country entity;
+   do not use it for the place, note it in the SITES comment). P131 = FOUR counties (Q127238
+   Jackson / Q485204 Cass / Q484474 Clay / Q489897 Platte, all Missouri - the city straddles all
+   four); the P625 point sits in Jackson County, so place = "Jackson County, Missouri".
+   **P625 = exactly ONE normal-rank value: (-94.583333, 39.05), precision 0.0167 deg (1/60 deg)**
+   - wbgetentities (what --verify uses) returns only that one; the raw wbgetclaims dump shows 50
+   more suppressed-rank 30 m-precision P625s (mass import) that the API hides. Table point =
+   (-94.583333, 39.05), dist 0. The point sits in the city's SOUTHERN part (a few km south of the
+   downtown core); the 1869 sheet's whole-city extent covers the 2000 m box easily, so no
+   refinement is needed (unlike Nashville) - but MEASURE any distance/direction claim before
+   writing it (188's lesson).
+2. **Name search "Kansas City" (what --verify does): NO TRAP** - the first hit with P625 is Q41819
+   itself (dist 0). The second hit is the twin city Q486472 (Kansas City, Kansas, Wyandotte County,
+   P625 (-94.676389, 39.106667)) - record it in the SITES comment with the MEASURED distance
+   (~10 km WNW by eye; the 189 script died before printing it - measure with
+   `evidence.hav_m(-94.676389, 39.106667, -94.583333, 39.05)` or the dx/dy formula before quoting).
+   Note: the earlier attempt to fetch the enwiki infobox coords via
+   `action=parse&prop=coordinates` got KeyError 'coordinates' - retry with a different action or
+   just skip it (the comment does not need it).
+3. **Pool** (/tmp/aw236b_b3_kc.py builder, /tmp/aw236b_b3_kc.json full pool, 68 unique / 10 good;
+   thumbs in /tmp/aw236b_b3_kc_thumbs/ - all may be wiped, regenerate with the builder): the ONLY
+   whole-city view that passes the gate is the **1869 Ruger sheet, LOC 73693480** (.jpg 8752x6912
+   staged, the .tif 8752x6912 is the same-sheet twin - one row). Eyeballed: steep oblique drawn
+   from high ground across the Missouri (looking south over the city), the river + the rail
+   bridges + steamboats in the foreground, the grid dense and legible out to the rural outskirts,
+   the "KANSAS CITY / MISSOURI / 1869" cartouche with a landmark index at the bottom, "DRAWN BY
+   A. RUGER", photographed by A. C. Christy; artist metadata "Ruger, A.; Christy, A. C.;
+   Merchant's Lithographing Company; Ruger & Stoner"; LC Panoramic maps (2nd ed.), **428**; date
+   1869 == year (no Zwolle-style swap needed); Public domain.
+4. **DROPS for the lead-doc Kansas City section** (per-item reasons): the 1895 Koch
+   "Panoramic view of the west bottoms, Kansas City, Missouri & Kansas showing stock yards,
+   packing & wholesale houses" (LOC 75694656 .jpg/.tif, 15487x10139, LC Panoramic 429) - a
+   near-vertical CLOSE-UP of the West Bottoms stockyard/packinghouse district (inset "Reid Bros.
+   Pkg. Co. Ltd."), not a whole-city view (the Fort-Negley-close-up class); the Fred Harvey NBY
+   strips (23194/23195 "business section", 5561 "showign Missouri River", 21319/21320 "business
+   district" - all 822-829 px) and the 1909 Gillham Road .tif (2984x665) and 1909 Kersey Coats
+   Drive (3101x680) - too small (< 4000 px); "Kansas city mo 1869.gif" (546x432) - too small; the
+   three 1876 "St. Louis ... Kansas City & Northern" railway sheets (7560x3944 etc.) - St. Louis
+   views that already DROP in the St. Louis section (search noise); other-Kansas-city sheets in
+   the pool (Lawrence, Leavenworth, Topeka, Wyandotte, Atchison, Ottawa, Baxter Springs, Great
+   Bend, Hiawatha, Herington, Meade) - fail the caption gate on their own city names; plus the
+   gate/keep rejects (Dutch "Plattegrond" RP-P files, Vernonia Oregon, a John T. Birdseye
+   portrait, the Union Pacific "Great Plains" sheet, a cloud photo, a guitar photo).
+
+### Exact next step (one session: land Kansas City)
+
+1. (Optional, quick) measure the Q486472 distance + retry/skip the enwiki infobox (above).
+2. **fit/src_us_birdseye.py**: batch-3 header comment + SITES entry
+   `"Q41819": dict(id="kansas-city-q41819", name="Kansas City", named="Kansas City",
+   lon=-94.583333, lat=39.05, place="Jackson County, Missouri", region="United States",
+   kind="town", wikipedia="https://en.wikipedia.org/wiki/Kansas_City,_Missouri", note=...)`
+   (slug verified in principle: catalog.slug = NFKD -> ascii -> [^a-z0-9]+ to "-" -> lower ->
+   "kansas-city"; the note = the batch-2 aerial-ground template + the 1869 view's angle +
+   beyond-the-box review-item line + the twin-city fact); KANSASCITY_1869 rows list (the .jpg)
+   + SOURCES key "kansascity_1869" label "{name}, the Ruger bird's-eye view (1869)".
+3. `--verify` (now 15 QIDs; save /tmp/aw236b_verify_189.txt) - expect zero flags (P625 dist 0,
+   first name-search hit = the city itself).
+4. `--dry` then stage (live commons.info re-check) then `--check` (expect 22/22 PASS; save
+   /tmp/aw236b_check_189.txt).
+5. **Lead doc**: new Kansas City section after the Milwaukee section (batch-2 style: STAGED
+   bullet + DROP list + the Q41819 facts: four-county P131, string P373 quirk, single 1/60-deg
+   P625, no name-search trap, twin city Q486472 at the measured distance); QID section = fresh
+   15-QID verbatim transcript; Staging section = 15 cities / 22 views / 11 site rows, the fresh
+   --check transcript, "Not done yet: 10 more cities (25 total, 15 done), next: New Orleans, ...".
+6. `--golden` (intended change: 11 extras / 22 files / 22 classified) + extend
+   tests/test_src_us_birdseye.py exactly as 184 did (SITES-id table, extras-id table, per-title
+   year, evidence points, named-place table, len(files) 21 -> 22) + module tests + the full
+   suite (if it rewrites docs/site_flow/307d_*.png, carry them with the 306g-style disclosure).
+
+Then the next sessions: New Orleans, Denver, St. Paul, Minneapolis (batch 3), then batch 4
+(Cleveland + the remaining ~5 to reach 25). Everything in /tmp may be wiped: the pool builder
+/tmp/aw236b_b3_kc.py is the template (change CITIES); the per-city playbook is restated in the
+184 DECISIONS entry.
 
 1. **QID check against existing sites** (never two sites for one QID): grep the city name in
    data/catalog/sites.jsonl, data/catalog/extras.jsonl, data/catalog/extras_us_cities.jsonl,
