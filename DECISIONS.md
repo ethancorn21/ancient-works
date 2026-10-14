@@ -168,3 +168,57 @@ Needed: a human with a real browser to download the NLS facsimile and place it i
 - Why unblock (807/808/809 -> open): the owner's direct "b" lift is the newest owner word and it covers exactly the work 807-809 carry - 207a's own moved boxes (809's file: "This makes 207a's moved boxes 4-5 stand..."; 207a's done close: "boxes 2-5 live in the blocked 807/808/809"). The lead's block is a non-owner's interpretation; it registered no open request (AGENTS.md: a blocked task waits only while its request is open - no ask file for 807/808/809 exists); and the owner's 008 policy ("if you need it get it") covers the whole chain - 807-809 need only already-fetched local data (the 936 pages, triage A/B, the list images): no external file, nothing the owner must do. The driver's return of the parent for completion is consistent with the lift.
 - Box state (verified on the tree): none of the parent's four boxes ticked - Maclauchlan's half of each box is done and verified (fetch/triage/lists/recall 1.0x4 + lead section; 1 staged row n0093/1858 + new extras luguvallium-q71551754 + "plan" classified row, evidence check rc=0, 4/4 offline test + golden; the two blank plates n0078/n0111 are accounted in the lead section per the 90%-box disjunct; git shows no 207-family commit touched data/books/index.jsonl or validation.json); Horsley's half of every box is pending 807 (list 22 -> 24 correction + validate 1.0x4 + the lead section), 808 (the 17 staged rows) and 809 (offline --check + golden + test).
 - Changes this session (bookkeeping only; no code, no data - no test reads tasks/*.md, verified, so the suite is unaffected and the driver's loop-start baseline stands: 1 failed / 159 passed / 1 skipped, the red = agent a's 307bb placement test): tasks/807/808/809 Status blocked -> open (each with a one-line unblock note); tasks/207 gained "Depends on: 200, 807, 808, 809", the three task paths in Touches, and a rewritten hand-over (box state, per-part next steps, the Roy resume recipe kept as the single source of truth per 207c's hand-over). The driver gives this agent other work meanwhile and brings 207 back once 807/808/809 merge.
+
+## 2026-10-14 230 DECISION: iteration 207 - first session: re-run prep (merge scoping + re-baselining); the live re-run is the next session
+First session on 230. The Roman staging is on main (808's 9adaf16 + 207b: extras_roman 9 / files_roman 18 / classified_roman 18, both books' lists+triage, lead_roman.md), 211 is done, and the post-211 state is: extras.jsonl 193, files.jsonl 1730 (211's 1623 + 212a's 107 direct appends 9c48d94), classified 1037, index.jsonl 1068, sites.json 499, plans.json 1510. 207c is DROPPED (owner, ask 008) so the re-run covers the two landed books; the task's Notes cover exactly this case and the Depends on line already matches (207c was never on it) - no edit made.
+
+**Decision 1: add `--sources` to fit/merge.py (Landed).** The module's glob picks up EVERY extras_*/files_*/classified_* file next to the canonical ones, so an unfiltered re-run would fold the US families' still-pending staging (files_us_cities/us_birdseye.jsonl etc., owned by open task 236c) into the canonical files and into my run's log. The new flag scopes a run to named source families and records only that run's rows in the log (236c will need it too). Default (no flag) is byte-for-byte the old behaviour; new test test_sources_filter_merges_only_named_sources covers filter + unfiltered rerun-once. Chose the flag over "move the other staging files aside" because a session killed mid-move would leave source families' staging files out of the tree (the driver commits uncommitted work - that would propagate to main and break the 222-228 source-guard tests).
+
+**Decision 2: re-baseline data/merge/ to the post-211 state (Landed).** sites_premerge_baseline.jsonl = the 499 current sites.json entries (one json.dumps line each, ensure_ascii=False; was the 385 entries served at 406562b); plans_premerge_keys.jsonl = the 1510 current (id, sites[0]) keys (uniqueness asserted before writing; was 1166). These make test_served_sites_grew_purely / test_plan_list_refresh_is_pure_growth assert THIS re-run's box ("pre-run entries unchanged"), per the task Notes. Both files are git-tracked; the old baselines live in git history.
+
+**FAILED: applying the tests/test_merge.py edits (3 attempts, all aborted atomically - the file is UNMODIFIED).** Each attempt mixed one typo'd oldText with three good ones; the atomic abort means NOTHING was applied, including the good edits. The 4 pending edits, exact oldText -> newText (verify current text with `sed -n '16,31p;245,249p;293,299p' tests/test_merge.py` before applying; line numbers approximate):
+1. Module docstring Box 4+3 block: oldText starts "Box 4 (the refreshed plan list): the test asserts the data-level result of the tools/export_plans.py\nrefresh, read-only - every (id, sites[0]) key of the pre-merge file (frozen in\ndata/merge/plans_premerge_keys.jsonl) is still present" and ends "values their recorded builds produced.\n\"\"\""; newText: "...every (id, sites[0]) key of the frozen pre-run list (data/merge/plans_premerge_keys.jsonl,\n230 re-baselined it to the post-211 rows) is still present..." and "...grew purely against the frozen pre-run baseline\n(data/merge/sites_premerge_baseline.jsonl, the 499 entries served after 211's consolidation - the 385\npre-211 set plus 211's 114 builds, re-baselined by 230 before the Roman re-run): nothing removed..." (rest unchanged).
+2. test_plan_list_refresh_is_pure_growth docstring (file lines ~246-249, exact): oldText =
+    "    after the merge. Every pre-merge (id, sites[0]) key is still present (frozen list), (id, sites[0])\n    stays unique, the merged pictures that qualify as plans reach the list, and each picture row's files\n    row carries the 200 evidence field.\"\"\""
+   newText =
+    "    after the merge. Every key of the frozen pre-run list (the post-211 rows) is still present, (id,\n    sites[0]) stays unique, the merged pictures that qualify as plans reach the list, and each picture\n    row's files row carries the 200 evidence field.\"\"\""
+3. test_served_sites_grew_purely docstring + assertion (~lines 293-299, exact): oldText =
+    "    baseline is the 385 entries served at commit 406562b, the last commit before 211's first build (the\n    box's \"old 384\" was the human's estimate; 385 is the measured count). Nothing was removed, and no\n    baseline entry changed outside the marker fields 212 later owns.\"\"\"\n    pre = _baseline_entries()\n    assert len(pre) == 385, f\"the frozen pre-build baseline holds {len(pre)} entries, expected 385\""
+   (the docstring's first line, "the pre-build set", becomes "the pre-run set", and the whole sentence becomes: "baseline is the 499 entries served after 211's consolidation (the 385 pre-211 set plus its 114 builds; 230 re-baselined it before the Roman re-run). Nothing was removed, and no baseline entry changed outside the marker fields 212 later owns.") and the assertion becomes:
+    "    assert len(pre) == 499, f\"the frozen baseline holds {len(pre)} entries, expected 499\""
+4. New test inserted between test_conflict_and_rejection_are_fail_closed (anchor: its last line 'assert before == after, "the second run must change nothing, refusal included"' + two blank lines) and test_index_and_plan_list_rows_carry_evidence:
+```
+def test_sources_filter_merges_only_named_sources(tmp_path):
+    """--sources scopes a run to one source family (230's Roman re-run must not fold in the US families'
+    still-pending staging, whose own consolidation is 236c): only the named families' rows enter the
+    canonical files and the log, and the later unfiltered rerun picks up the rest exactly once."""
+    tree = tmp_path / "aw"
+    (tree / "fit").mkdir(parents=True)
+    (tree / "data/catalog").mkdir(parents=True)
+    (tree / "data/merge").mkdir(parents=True)
+    shutil.copyfile(os.path.join(ROOT, "fit", "merge.py"), tree / "fit" / "merge.py")
+
+    def row(**kw):
+        return json.dumps(kw, ensure_ascii=False) + "\n"
+
+    (tree / "data/catalog/extras.jsonl").write_text(row(id="x0", name="Old"))
+    (tree / "data/catalog/extras_a.jsonl").write_text(row(id="xa", name="A"))
+    (tree / "data/catalog/extras_b.jsonl").write_text(row(id="xb", name="B"))
+
+    p = subprocess.run([sys.executable, "fit/merge.py", "merge", "--root", ".", "--sources", "b"],
+                       cwd=str(tree), capture_output=True, text=True)
+    assert p.returncode == 0, p.stderr + p.stdout
+    extras = open(tree / "data/catalog/extras.jsonl").read()
+    assert '"xb"' in extras and '"xa"' not in extras, "the filter must merge only the named source"
+    log = [json.loads(l) for l in _lines(str(tree / "data/merge/log.jsonl"))]
+    assert log and all(e["source"] == "b" for e in log), "the log records the filtered run only"
+
+    p = subprocess.run([sys.executable, "fit/merge.py", "merge", "--root", "."],
+                       cwd=str(tree), capture_output=True, text=True)
+    assert p.returncode == 0, p.stderr + p.stdout
+    extras = open(tree / "data/catalog/extras.jsonl").read()
+    assert '"xa"' in extras and extras.count('"xb"') == 1, "the unfiltered rerun picks up the rest, once"
+```
+Also optional in that pass: the _tree() comment "# roman staging appears only once 207 lands" is now stale (roman staging IS on main).
+
+**Facts verified this session (carry into the re-run session):** the rebuild of data/books/index.jsonl + validation.json is `books_lists.cmd_index(None)` / `cmd_validate(None)` (books_lists.py ~1093 / 979) run IN-PROCESS after calling fit/src_roman_horsley.py::register() and fit/src_roman_maclauchlan.py::register() (the Roman books are not in pipeline/books.py's BOOKS; register() adds them to books.BOOKS + books_lists HAND_FIGS/PLATES); then `fit/evidence.py record` (book rows offline) and `check` (must be rc 0 / " 0 fail"). books_match.py reads CATALOG = data/catalog/sites.jsonl only (not extras) -> book rows of the new roman extras sites record as kind "none" (reported, not a failure) - do NOT extend the matcher for this task. The 9 new roman sites (none in sites.json yet) are built with data/merge/run_build.py; OPEN QUESTION: what DEM/LiDAR source build_catalog.py has for UK sites (check the four pre-existing Antonine Wall camps' web/data/sites/ dirs as precedent). docs/sources.md section 9's Roman row ("**none in this merge** - the task was stopped by the owner...") is what box 4 replaces. data/merge/log.jsonl is 211's snapshot; the scoped run replaces it (by design; 211's is in git history). The suite baseline on this branch is UNKNOWN until run (last-test-output.txt is the stale 2026-10-13 run); newest on record: 238 (180/1/0), 207b (172/1/0), 808 (169/1/0).
