@@ -48,37 +48,80 @@ the original or a facsimile of it, its date, its licence, and its resolution bef
 
 ## Hand-over
 
-(2026-10-13, iteration 145, agent a - **DC research is DONE and committed in DECISIONS.md; NO repo files changed this session** (tree clean at limit - the /tmp search scripts were throwaway). Everything below is verified live 2026-10-13. **Next session is mechanical: apply the verdicts to the module, stage, test, doc, commit.** NY remains done (boxes 1/2/4/5 ticked; box 3 stays open until DC+SF+Nashville are staged/documented.)
+(2026-10-13, iteration 146, agent a - **Washington DC applied and staged.** The staged set is now NY
+(4 plans) + DC (3 plans) = 7 rows on 2 sites; --check 7/7, golden regenerated, tests 7/7 green, lead
+doc has the full DC section (STAGED/DROP verdicts + the Boschke "exactly why" not-staged record). Box 3
+stays open: **San Francisco (Q62), then Nashville (Q23197)** are the remaining two owner-named cities -
+each needs live research first, then the same apply/stage/check/golden/test/doc pattern this session
+used. When both are done: tick box 3, Status: done.)
 
-### DC verdicts (all live-verified; exact titles are case-sensitive - copy from this text, never retype)
-**Site row:** `washington-q61` - name "Washington, D.C.", **named "Washington"**, lon/lat = P625 **(-77.036667, 38.895)** (Q61 has ONE P625, verified via `pipeline/catalog_wd` this session: label "Washington, D.C.", P373 'Washington, D.C.', P131 Q3551781, enwiki 'Washington, D.C.', first search hit = Q61 itself - no trap), place "District of Columbia", region "United States", kind "town" (2000 m box), wikipedia https://en.wikipedia.org/wiki/Washington,_D.C., aerial_ok true, note = aerial-photograph ground + "the 1865 defences ring spans ~35 km beyond the box -> likely review item; the ring's forts are candidate kind-'fort' sites (the catalog ALREADY has individual fort sites: Fort Bayard Q3077774, Fort DeRussy Q5471024, Fort Totten Q18150335, Fort Marcy Q61784495, Fort Foote Q14691922, all part_of Q5124610 'Civil War defenses of Washington, D.C.' - checked data/catalog/sites.jsonl)".
+### What this session did
+1. fit/src_us_cities.py: SITES += Q61 (id washington-q61, name "Washington, D.C.", named "Washington",
+   lon/lat = the single P625 (-77.036667, 38.895), place "District of Columbia", region "United
+   States", kind "town", wikipedia, note = aerial ground + 35 km ring review-item case + the ring's
+   forts as the catalog's existing sites); SOURCES += le_1791 / ellicott / defences_1865 (all p="plan";
+   the L'Enfant row carries dict(date="1791")); docstring extended.
+2. Live: --verify clean (2 QIDs; Q61 = one P625 = the table point, P373, P131 Q3551781, enwiki, first
+   search hit = Q61 itself - no trap; one SSL-handshake timeout, retried by c.get; the 144 gzip-200
+   pitfall did not recur). stage: "1 new sites, 3 new pictures; build (236c): washington-q61".
+   L'Enfant swap fired: date "1791" / date_commons "1792" (page dates the Mar. 1792 first printing of
+   the L'Enfant plan; the 1791 manuscript is at NARA, not on Commons).
+3. Offline: --check no join problems, "evidence: 7 rows, 7 pass, 0 fail, 0 no-tie"; --golden rewrote
+   tests/golden/src_us_cities_sample.json (2 extras / 7 files / 7 classified).
+4. Tests (tests/test_src_us_cities.py): per-QID named dict {Q60: "New York", Q61: "Washington"},
+   set(table) == {Q60, Q61}, extras ids [new-york-q60, washington-q61], years dict += 3 DC titles,
+   L'Enfant swap assert, both 4-rows asserts -> 7, the 3 DC PASS lines. The three_states test
+   self-scales (no edit, as predicted). 7/7 green with tests/test_region.py, offline.
+5. docs/lead_us_cities.md: header "both cities staged; SF and Nashville later"; QID-verification
+   block = this session's 2-QID --verify output; prep-verified list now Q62/Q23197 only; the full
+   `## Washington DC (Q61)` section (site point; extent decision same as NY; ring + forts - no new QID
+   work, the catalog already has the individual fort sites Q3077774/Q5471024/Q18150335/Q61784495/
+   Q14691922 part_of Q5124610; the three STAGED/DROP per-plan sections with full drop reasons; the
+   Boschke "not staged, and exactly why" section: 1861/1880 editions print "Washington" only past the
+   gate's 600-char window, 1857 1st ed the only gate-passing file but the NO heuristic's "portrait"
+   word false-positives on a vignette + low-res).
 
-**STAGED (3 rows, Q61):**
-1. `File:Plan of the city of Washington LOC 88694159.tif` (6426x5105, PD, page date 1792, desc "Printed from the same plate as the map appearing in The universal asylum, and Columbian magazine, Philadelphia, Mar. 1792 ... 1st printed edition of the L'Enfant plan") - **the L'Enfant 1791 plan as its 1792 first-printed edition** (the 1791 manuscript is at NARA, NOT on Commons - searched). **Use the known-date swap: `dict(date="1791")`** (drawing 1791; page 1792 kept as date_commons - same shape as the 1811 NY swap). Label: `{name}, the L'Enfant plan (1791, first printed 1792)`.
-2. `File:Plan of the city of Washington in the territory of Columbia - ceded by the states of Virginia and Maryland to the United States of America, and by them established as the seat of their government, (NYPL b15255319-434417).jpg` (6300x4976, PD, 1792, "Scan by NYPL", Slaughter collection, Wheat & Brun 531) - **the Ellicott 1792 engraved plan (first official plan)**; no swap. Label: `{name}, Andrew Ellicott's plan (1792, the first official plan)`.
-3. `File:Map of the defences of Washington. LOC 88690674.jpg` (2800x3802, PD, 1865, "From Atlas accompanying Official Records", Atlas v.2 pl. XXXIX no. 1) - **the 1865 Civil War defences map (the fortification ring)**; no swap; classified p_plan 1.0. Label: `{name}, the Civil War defences (1865 map of the fortification ring)`. Note on the row: ring ~35 km beyond the town box -> review-item case (Venice precedent).
-All three print "Washington" IN THE TITLE (gate-safe; the gate only sees info()'s 600-char-desc truncation), all pass keep() (no NO-heuristic words in title or 600-char desc; years 1791/1792/1865 <= 1925).
+### EXACT next step (one session: SF research + apply; the 145/146 pattern)
+1. **Live research** (throwaway scripts in /tmp; record the verdict in DECISIONS.md BEFORE editing,
+   as 145 did): re-verify Q62 live (pipeline/catalog_wd is the robust path; c.get is flaky) - two
+   P625 values ~450 m apart both downtown, first search hit = Q62 (144: no trap, re-confirm); check
+   no existing site uses Q62 or the id san-francisco-q62 (grep data/catalog/sites.jsonl,
+   data/catalog/extras.jsonl, web/data/sites.json - "San Francisco" hits will be a CA county and
+   probably nothing else). **Pick the site point against the files**: the 1849 Eddy and Ringgold
+   plans draw the old town's tip (bay-front, today's Financial District / Yerba Buana) which is
+   SOUTH of both P625 points - so take the southern P625 or refine to the tip; decide from the
+   files' drawn extents, don't guess.
+2. **Leads** (verify each: original or facsimile, the drawing's date, licence, resolution; the
+   named-place gate needs the city in the title or the 600-char desc - check c.info() before
+   staging): the 1849 Eddy plan (the survey), the 1849 Ringgold plan ("A General Plan of the Town of
+   San Francisco..."), 1850s city plans (the growth around the bay). Known-date swap where the page
+   lost the drawing's date; drops recorded with exact reasons in the lead doc.
+3. **Apply**: SITES += Q62, SOURCES entries (labels per plan), docstring; live --verify + stage;
+   offline --check (expect 10 rows if 3 SF rows) + --golden; tests (per-QID named += Q62: "San
+   Francisco", years, PASS lines, table {Q60, Q61, Q62}); lead doc `## San Francisco (Q62)` section
+   (same shape as the DC one: site point, extent decision, staged/drops, fit notes); DECISIONS.md;
+   commit as 236a.
+4. **Then Nashville (Q23197)** the same way: P625 (-86.7744, 36.1622) downtown vs the old 1790s town
+   at the confluence ~(-86.788, 36.166) - pick the point against the files; leads: early town
+   plans; **Fort Negley = its own kind-"fort" site, its own QID** (a separate verify; the 3DEP
+   LiDAR candidate as in 203a).
+5. **When both are staged**: tick box 3, set Status: done. The driver re-checks (suite green).
 
-**Boschke lead NOT staged - exact why (record in the lead doc; box 4's city level is still met, DC gets 3 rows):**
-- 1861 2nd ed (the named "1857/1861"): `File:Topographical map of the District of Columbia LOC 88694013.jpg` (12313x12090, PD, 1861, "Entered ... 1861, by D. McClelland, Blanchard & Mohun...", Phillips Washington 947) - the caption prints "Washington" only at normalized position ~830 of title+desc, PAST the 600-char truncation stage()/check() use -> named-place gate fails offline -> not staged (fail-loud by design). Same for its DPLA twin `... - DPLA - 24d5b35dccb58b1f43e387a1ccb0f5cb (page 1).jpg` (12430x6367) + `(page 2).jpg` (12564x6338, PD, 1861; EMPTY desc).
-- 1857 1st ed: `File:Map of Washington City, District of Columbia. Seat of the Federal Government. Respectfully Dedicated to the Senate and the (IA dr map-of-washington-city-district-of-columbia-seat-of-the-federal-governmen-12363000).jpg` (1457x1536, PD, David Rumsey) - only Boschke file whose TITLE prints the city (gate WOULD pass), but `commons.keep()` drops it: the desc says "a portrait of George Washington" (one of the map's 18 vignette illustrations) and matches the NO heuristic's "portrait" word - false positive (the map is not a portrait); also low-res for the large sheet. (commons.py is NOT in my Touches - do not "fix" the NO regex in this task.)
-- 1880 3rd ed: `File:Topographical map of the District of Columbia LOC 88693460.jpg` (6260x6881, PD, 1880) - later edition; same gate failure (no "Washington" in title or 600-char desc).
-
-**Other DC drops (record per-lead in the lead doc):** L'Enfant: `File:Plan of the city intended for the permanent seat of the government of t(he) United States - projected agreeable to the direction of the President of the United States, in pursuance of an act of LOC 91684074.jpg` (12524x9023, PD, **1991** = full-color computer-assisted facsimile of the 1791 manuscript, USGS/LoC/NatGeo - modern production, owner's standing rule), `File:Plan of the city intended for the permanent seat of the government of the United States - projected agreeable to the direction of the President of the United States... (14726320702).jpg` (2000x1354, CC BY 2.0, 2014 BPL photo of the **1882 Boogher redraft** - later redraft + CC photo), `File:L'Enfant plan original.jpg` (6426x5105 - duplicate of the 88694159 LoC raster, mislabeled finding-aid text), `File:L'Enfant plan.jpg` (4179x3404 - smaller duplicate), `File:L'Enfant map of Wash., D.C. LCCN2005691999.jpg` (1536x982, 1792 - small LoC copy), `File:L'Enfant Plan 1791 Square No 15.jpg` (450x336 - detail crop), `File:Plan of the City of Washington - NARA - 102278589 (page 14).jpg` (3086x3190, 1803, no desc - a different/later item, not the 1791 original). Ellicott: `File:Plan of the city of Washington in the territory of Columbia - ceded by the states of Virginia and Maryland to the United States of America, and by them established as the seat of their government, LOC 88694164.tif` (8824x6567, 1792 - page says "Facsimile"; duplicate of the same plan), `(NYPL b15385718-434422).jpg`/.tiff (duplicate NYPL copy), `...(8249620373).jpg` + `(cropped).jpg` (2000x1578, CC BY 2.0, 2012 BPL photo), `File:A Plan of the city of Washington in the territory of Columbia - btv1b53089832z (1 of 2).jpg` (9284x6544) + (2 of 2) (9338x6590, PD, book date c.1800 - book-page scans), `File:Plan of the City of Washington in the Territory of Columbia ceded by the States of Virginia And Maryland to the United (IA dr plan-of-the-city-of-washington-in-the-territory-of-columbia-ceded-by-the-st-00024059).jpg` (6480x4980 - the **Reid & Rollinson 1794/95 atlas copy, "not an exact copy"** = redraft), `File:Plan of the city of Washington. LOC 88694118.jpg` (1794 Morse/Stockdale) + `LOC 88694112.tif` (1798 Weld/Stockdale - later reprints), `File:Ellicott plan.jpg` (800x654 - too small). Defences: `File:Map of fortifications and defenses of Washington. LOC 88690671.jpg`/.tif (1832x2464, 1865, "Appendix A" - book-page copy of the same War Dept map), `File:Map of the environs of Washington - compiled from Boschkes' map ... LOC 88690673.tif` (17457x15796, 1865, Barnard/Boschke/Coast Survey, No. 187 L. - different compilation map, alternative), `File:Defenses of Washington, extract of military map of N.E. Virginia - showing forts and roads LOC 88690675.tif` (4582x5805, 1865, Delafield - NE-Virginia extract, not the ring map), NARA `Defenses of Washington. -Maps 1 through 12 accompanying General Barnard's report.- - NARA - 305800 (page 1..12).jpg` (1865, per-page scans small - the 12 sector maps of Barnard's report; per-fort detail source), 1862 earlier-state maps: `... - DPLA - 7db86d50c1170106213c63fbfbf34dda (page 1).jpg` (14840x13824) and `File:Topographical map of the original District of Columbia and environs showing the fortifications around the city of Washington LOC 88690604.tif` (10513x9635, Colton), NARA Brady photos (Fort Totten/Ft. Carroll/Fort Gaines - photos, not plans).
-
-### EXACT next step (one session - apply, stage, test, doc, commit)
-1. **Edit `fit/src_us_cities.py`** (NOT yet edited): SITES += Q61 entry (values above); add lists `LENEANT`/`ELICOTT`/`DEFENCES` (3 rows as above; L'Enfant row carries `dict(date="1791")`) and SOURCES entries `le_1791`/`ellicott`/`defences_1865` (all p="plan", labels above); extend the module docstring ("New York and Washington DC - ...; San Francisco and Nashville follow").
-2. **Live**: `.venv/bin/python fit/src_us_cities.py --verify` (now Q60+Q61; WD via c.get may gzip 200 -> fall back to `pipeline/catalog_wd` for Q61 facts, already verified above) and `stage` (expect `staged: 1 new site, 3 new pictures`).
-3. **Offline**: `--check` (expect NO join problems; `evidence: 7 rows, 7 pass, 0 fail, 0 no-tie`; 7 PASS caption_coords lines); `--golden`.
-4. **Tests** (tests/test_src_us_cities.py): docstring; `set(table) == {"Q60","Q61"}`; extras ids `["new-york-q60","washington-q61"]`; per-QID named check (NY rows "New York", DC rows "Washington"); years dict += the three DC titles (1791/1792/1865); swap asserts += L'Enfant date "1791"/date_commons "1792"; both hardcoded `evidence: 4 rows, 4 pass` -> `7 rows, 7 pass`; add the 3 DC PASS lines to `test_check_staged_files_join_and_pass`; three_states test self-scales (no edit needed). Run: my 2 test files green (offline; socket-blocked fixture) - full suite has 1 pre-existing failure (test_fit_queue.py placement_gestures - agent c's 307, not mine).
-5. **docs/lead_us_cities.md**: header line ("New York and Washington DC staged... San Francisco and Nashville in later sessions"); `## QID verification` += Q61 facts (above, or --verify output); REPLACE `## Washington DC (Q61) - later sessions` with the full section (site point; extent decision = same as NY: 2000 m town box, defences ring ~35 km -> review item, forts already individual catalog sites Q3077774/Q5471024/Q18150335/Q61784495/Q14691922 part_of Q5124610; the three STAGED sections with all DROPS and reasons as above; the Boschke not-staged explanation; fit notes - L'Enfant/Ellicott flat-plan similarity fit, defences = review item).
-6. **DECISIONS.md + commit** as 236a. Then SF (Q62: TWO P625 ~450 m apart both downtown; the 1849 plans' old-town tip is SOUTH of both - pick the point against the files at staging), then Nashville (Q23197: P625 (-86.7744, 36.1622) downtown; old 1790s town at the confluence ~(-86.788, 36.166) - refine; Fort Negley = own kind-"fort" site, own QID, 3DEP candidate). Note: Q5124610 'Civil War defenses of Washington, D.C.' is a catalog item with member fort sites - a per-fort row for the defences lead is NOT this task (one row per picture on the city site; per-fort sites are the catalog's existing rows or a later task).
-
-### Gotchas (carried from 144, all still true)
-- NO repo files were changed this session (research only); the 144 state stands: boxes 1/2/4/5 ticked, NY staged, 7/7 green, tree clean.
-- The named-place gate sees ONLY title + the 600-char-truncated desc of `c.info()` (stage and check both use it) - "in the caption" must mean visible inside that window; that is why the DC Boschke files all fail and all three chosen DC files print the city IN THE TITLE.
-- `fit/src_us_cities.py` has NO BOOKS/book machinery (verify_qids runs over SITES); `stage()` idempotent on (site, title); row `cat` is null; the known-date swap runs BEFORE `c.keep()` (do not "fix" it back - task 237 aligns src_artists).
-- Commons file titles are case-sensitive (PITFALLS); Wikidata through the proxy is flaky (gzip 200s, PITFALLS) - `pipeline/commons.py` constants `CM`/`WD`; `pipeline/catalog_wd.py` = robust WD path (disk cache + retries) with `api()`/`search()`/`labels()`.
-- Do NOT write the canonical files (extras.jsonl, files.jsonl, classified.jsonl, web/data/sites.json) - 236c. The REGION_NAME line in pipeline/build_catalog.py is already committed.
-- The /tmp scripts (/tmp/usdc_search.py, usdc_detail.py, usdc_round2/3/4.py + .out) are throwaway research; if still present they hold the full live transcripts.
-- Do not stage the 1991 L'Enfant facsimile (91684074): modern production, owner's standing rule (no modern redraws presented as old); keep() drops it at 1991 anyway.
+### Gotchas (all still true)
+- The named-place gate sees ONLY the title + the 600-char-truncated desc of c.info() (stage and
+  check both use it) - "in the caption" must mean visible inside that window; that is why every
+  chosen DC file prints the city IN THE TITLE and why all Boschke editions fail.
+- fit/src_us_cities.py has NO BOOKS machinery; stage() is idempotent on (site, title); row `cat` is
+  null; the known-date swap runs BEFORE c.keep() (the sources.py/van-Deventer order).
+- Commons File titles are case-sensitive (PITFALLS); Wikidata through the proxy is flaky (gzip 200s,
+  or SSL-handshake timeouts like today - c.get retries; pipeline/catalog_wd is the robust path);
+  CM/WD constants in pipeline/commons.py.
+- Do NOT write the canonical files (extras.jsonl, files.jsonl, classified.jsonl, web/data/sites.json)
+  - that is 236c. The REGION_NAME line in pipeline/build_catalog.py is already committed.
+- Do not "fix" pipeline/commons.py's NO regex (not in this task's Touches) - that is why the Boschke
+  1857 sheet is recorded, not staged.
+- The /tmp usdc_* scripts hold the DC transcripts (throwaway); the SF/Nashville research transcripts
+  go to /tmp the same way.
+- The full suite has 1 pre-existing failure (test_fit_queue.py::test_placement_gestures_and_save_in_
+  the_browser - agent c's 307 work, not mine); run my two test files offline (socket-blocked
+  fixture), not the whole suite.

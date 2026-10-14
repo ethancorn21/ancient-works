@@ -1,17 +1,18 @@
 """The US city plans staging (task 236a, GOAL.md point 5): the four old plans of New York - the 1660 Castello
-plan, the 1767 Ratzer map, the 1811 Commissioners' Plan (bird's-eye) and the 1865 Viele map - staged by
-fit/src_us_cities.py into this task's own files (extras/files/classified _us_cities.jsonl), plus the
-hand-verified QID table (New York City Q60; Washington DC, San Francisco and Nashville follow in later
-sessions, 236c consolidates). The tests are offline: a socket-blocking fixture makes any network fetch fail
-loud, so the evidence check runs from the stored fields only (200's fail-closed box). The negative control
-pins the trap the hand record exists for: a staged row with a foreign place point (Venice) instead of the
-site's own point - ~6681 km away, a name-search-style resolution that record --live could store - must be
-reported FAIL, never kept. The golden file (tests/golden/src_us_cities_sample.json) pins the staged rows as
-a whole; it is regenerated only via the module's --golden flag for an intended change. The
-check-staged test covers the three merge states of the --check guards hermetically - pre-merge; the
-236c first-row-wins merge already run (the module's own rows a no-op, the known-site guards stop
-self-triggering); and a same-key different row, or a staged QID/site id held by a different site, still
-failing loud.
+plan, the 1767 Ratzer map, the 1811 Commissioners' Plan (bird's-eye) and the 1865 Viele map - and the three
+of Washington DC - the 1791 L'Enfant plan (as its 1792 first-printed edition), the 1792 Ellicott plan and
+the 1865 Civil War defences map - staged by fit/src_us_cities.py into this task's own files
+(extras/files/classified _us_cities.jsonl), plus the hand-verified QID table (New York City Q60, Washington
+DC Q61; San Francisco and Nashville follow in later sessions, 236c consolidates). The tests are offline:
+a socket-blocking fixture makes any network fetch fail loud, so the evidence check runs from the stored
+fields only (200's fail-closed box). The negative control pins the trap the hand record exists for: a
+staged row with a foreign place point (Venice) instead of the site's own point - ~6681 km away, a
+name-search-style resolution that record --live could store - must be reported FAIL, never kept. The
+golden file (tests/golden/src_us_cities_sample.json) pins the staged rows as a whole; it is regenerated
+only via the module's --golden flag for an intended change. The check-staged test covers the three merge
+states of the --check guards hermetically - pre-merge; the 236c first-row-wins merge already run (the
+module's own rows a no-op, the known-site guards stop self-triggering); and a same-key different row, or a
+staged QID/site id held by a different site, still failing loud.
 """
 import json
 import os
@@ -46,11 +47,14 @@ def test_check_staged_files_join_and_pass(capsys):
     out = capsys.readouterr().out
     assert code == 0, out
     assert "join:" not in out, f"join problems:\n{out}"
-    assert "evidence: 4 rows, 4 pass, 0 fail, 0 no-tie" in out, out
+    assert "evidence: 7 rows, 7 pass, 0 fail, 0 no-tie" in out, out
     for key in ("new-york-q60|File:Afbeeldinge van de Stadt Amsterdam in Nieuw Neederlandt (NYPL Hades-118555-54682).tif",
                 "new-york-q60|File:Plan of the City of New York by Bernard Ratzer, 1767.jpg",
                 "new-york-q60|File:Commissioners' Plan of 1811 by John Randel published in 1821.jpg",
-                "new-york-q60|File:Viele Map (Topographical map of the City of New York), 1865.jpg"):
+                "new-york-q60|File:Viele Map (Topographical map of the City of New York), 1865.jpg",
+                "washington-q61|File:Plan of the city of Washington LOC 88694159.tif",
+                "washington-q61|File:Plan of the city of Washington in the territory of Columbia - ceded by the states of Virginia and Maryland to the United States of America, and by them established as the seat of their government, (NYPL b15255319-434417).jpg",
+                "washington-q61|File:Map of the defences of Washington. LOC 88690674.jpg"):
         assert f"PASS caption_coords  {key}" in out, f"missing PASS line for {key}:\n{out}"
 
 
@@ -61,8 +65,8 @@ def test_check_staged_three_states(tmp_path, monkeypatch, capsys):
     rows present with IDENTICAL content (the 236c first-row-wins merge has run) - check 0, no join
     problems: an already-merged row is a no-op and the known-site checks stop self-triggering on the
     module's own rows; (c) the same (site, title) key, or a staged QID or site id, held by a DIFFERENT row
-    or site - still fails loud, naming exactly that problem and no other. This task stages one site so
-    far; the test scales when the other cities are added."""
+    or site - still fails loud, naming exactly that problem and no other. This task stages two sites so
+    far (New York and Washington DC); the test scales when the other cities are added."""""
     staged_files = src_us_cities._load(src_us_cities.FILES_US_CITIES)
     staged_sites = src_us_cities._load(src_us_cities.EXTRAS_US_CITIES)
     skeys = {(r.get("site"), r.get("title")) for r in staged_files}
@@ -151,22 +155,28 @@ def test_check_staged_three_states(tmp_path, monkeypatch, capsys):
 
 
 def test_qid_table_and_staged_rows():
-    """The hand-checked table is complete and the staged rows are exactly it: New York City (Q60) staged
-    this session - Washington DC (Q61), San Francisco (Q62) and Nashville (Q23197) follow in later
-    sessions (the trap note: the prep's first New York memory, Q30492, is the NUMBER "483") - every staged
-    extras row is complete (id/qid/name/lon/lat/region/kind/wikipedia/aerial_ok) and matches its table
-    entry; the staged file rows are exactly the module's source rows with the known drawing dates (the
-    1811 plan and the 1660 Castello survey, whose file page lost the date, swapped in)."""
+    """The hand-checked table is complete and the staged rows are exactly it: New York City (Q60) and
+    Washington DC (Q61) staged - San Francisco (Q62) and Nashville (Q23197) follow in later sessions
+    (the trap note: the prep's first New York memory, Q30492, is the NUMBER "483") - every staged extras
+    row is complete (id/qid/name/lon/lat/region/kind/wikipedia/aerial_ok) and matches its table entry;
+    the staged file rows are exactly the module's source rows with the known drawing dates (the 1811 plan,
+    the 1660 Castello survey and the 1791 L'Enfant plan, whose file pages lost the date or printed the
+    publication date, swapped in)."""
     table = src_us_cities.SITES
-    assert set(table) == {"Q60"}
+    assert set(table) == {"Q60", "Q61"}
     s = table["Q60"]
     assert s["id"] == "new-york-q60"
     for k in ("name", "named", "lon", "lat", "place", "wikipedia", "note"):
         assert s.get(k), f"Q60 missing {k}"
     assert s["region"] == "United States" and s["kind"] == "town"
+    s = table["Q61"]
+    assert s["id"] == "washington-q61" and s["named"] == "Washington"
+    for k in ("name", "lon", "lat", "place", "wikipedia", "note"):
+        assert s.get(k), f"Q61 missing {k}"
+    assert s["region"] == "United States" and s["kind"] == "town"
 
     extras = src_us_cities._load(src_us_cities.EXTRAS_US_CITIES)
-    assert [x["id"] for x in extras] == ["new-york-q60"]
+    assert [x["id"] for x in extras] == ["new-york-q60", "washington-q61"]
     for x in extras:
         t = table[x["qid"]]
         for k in ("name", "lon", "lat", "place", "wikipedia"):
@@ -180,17 +190,25 @@ def test_qid_table_and_staged_rows():
     years = {"File:Afbeeldinge van de Stadt Amsterdam in Nieuw Neederlandt (NYPL Hades-118555-54682).tif": 1660,
              "File:Plan of the City of New York by Bernard Ratzer, 1767.jpg": 1767,
              "File:Commissioners' Plan of 1811 by John Randel published in 1821.jpg": 1811,
-             "File:Viele Map (Topographical map of the City of New York), 1865.jpg": 1865}
+             "File:Viele Map (Topographical map of the City of New York), 1865.jpg": 1865,
+             "File:Plan of the city of Washington LOC 88694159.tif": 1791,
+             "File:Plan of the city of Washington in the territory of Columbia - ceded by the states of "
+             "Virginia and Maryland to the United States of America, and by them established as the seat "
+             "of their government, (NYPL b15255319-434417).jpg": 1792,
+             "File:Map of the defences of Washington. LOC 88690674.jpg": 1865}
+    named_by_qid = {"Q60": "New York", "Q61": "Washington"}
     for r in files:
         assert r["year"] == years[r["title"]]
         assert r.get("evidence") and r["evidence"]["kind"] == "caption_coords"
-        assert r["evidence"]["named_place"] == "New York"
+        assert r["evidence"]["named_place"] == named_by_qid[r["qid"]]
     by_title = {r["title"]: r for r in files}
     # the known-drawing-date swaps: the page value kept as date_commons (the Zwolle precedent)
     assert by_title["File:Afbeeldinge van de Stadt Amsterdam in Nieuw Neederlandt (NYPL Hades-118555-54682).tif"]["date"] == "1660"
     assert by_title["File:Afbeeldinge van de Stadt Amsterdam in Nieuw Neederlandt (NYPL Hades-118555-54682).tif"]["date_commons"] == "[Date not available]"
     assert by_title["File:Commissioners' Plan of 1811 by John Randel published in 1821.jpg"]["date"] == "1811"
     assert by_title["File:Commissioners' Plan of 1811 by John Randel published in 1821.jpg"]["date_commons"] == "1821"
+    assert by_title["File:Plan of the city of Washington LOC 88694159.tif"]["date"] == "1791"
+    assert by_title["File:Plan of the city of Washington LOC 88694159.tif"]["date_commons"] == "1792"
 
 
 def test_evidence_offline_and_negative_control(tmp_path):
@@ -202,7 +220,7 @@ def test_evidence_offline_and_negative_control(tmp_path):
     code, text = evidence.check(src_us_cities.FILES_US_CITIES, src_us_cities.NO_BOOKS,
                                 catalog=src_us_cities.EXTRAS_US_CITIES)
     assert code == 0, text
-    assert "evidence: 4 rows, 4 pass, 0 fail, 0 no-tie" in text, text
+    assert "evidence: 7 rows, 7 pass, 0 fail, 0 no-tie" in text, text
 
     castello = next(r for r in src_us_cities._load(src_us_cities.FILES_US_CITIES)
                     if r["title"].startswith("File:Afbeeldinge"))

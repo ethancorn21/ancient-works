@@ -1,8 +1,9 @@
 """Old plans of US cities (task 236a, GOAL.md point 5: a city plan or a fortification plan is a drawing): the
 hand-checked file -> QID table for the old plans of New York - the 1660 Castello plan, the 1767 Ratzer map,
-the 1811 Commissioners' Plan (bird's-eye) and the 1865 Viele map - staged into this task's own staging files
-the way src_artists.py does. Washington DC, San Francisco and Nashville follow in later sessions; 236c
-consolidates the staged rows into the canonical data and builds the sites.
+the 1811 Commissioners' Plan (bird's-eye) and the 1865 Viele map - and of Washington DC - the 1791 L'Enfant
+plan (as its 1792 first-printed edition), the 1792 Ellicott plan and the 1865 Civil War defences map -
+staged into this task's own staging files the way src_artists.py does. San Francisco and Nashville follow
+in later sessions; 236c consolidates the staged rows into the canonical data and builds the sites.
 
 usage: src_us_cities.py --verify     re-verify every table QID (SITES) against Wikidata
                                    (label, every P625 value, P373, P131, enwiki, the first name-search hit
@@ -61,6 +62,26 @@ SITES = {
                      "the streets); the street grid, the 1865 shoreline, the squares and church footprints "
                      "carry the fit; the 1811 and 1865 sheets span the island beyond the 2000 m town box, so "
                      "those fits are likely to end review items (the Venice precedent, docs/lead_artists.md)"),
+    # Q61 (verified 2026-10-13 via pipeline/catalog_wd; --verify re-checks): ONE P625
+    # (-77.036667, 38.895) = the old L'Enfant core, so the 1791/1792 flat plans sit inside the 2000 m town
+    # box. The 1865 defences ring spans ~35 km beyond it: its fit is likely to end a review item (the
+    # Venice precedent), and the ring's forts are the catalog's own sites (the note), not new QIDs. The
+    # Boschke map (1857/1861) does not stage: its caption prints "Washington" only past the gate's
+    # 600-char truncation (the 1857 file, the only one whose title prints the city, trips
+    # commons.keep()'s "portrait" word on one of the map's vignettes - the exact per-file record is in
+    # docs/lead_us_cities.md).
+    "Q61": dict(id="washington-q61", name="Washington, D.C.", named="Washington",
+                lon=-77.036667, lat=38.895,
+                place="District of Columbia", region="United States", kind="town",
+                wikipedia="https://en.wikipedia.org/wiki/Washington,_D.C.",
+                note="aerial-photograph ground (no open LiDAR over the built-up city: bare-earth LiDAR erases "
+                     "the streets); the street grid, the diagonal avenues, the Potomac shoreline and the "
+                     "squares carry the fit; the 1865 defences ring spans ~35 km beyond the 2000 m town box, "
+                     "so that fit is likely to end a review item (the Venice precedent, docs/lead_artists.md); "
+                     "the ring's forts are candidate kind-'fort' sites and the catalog already has the "
+                     "individuals (Fort Bayard Q3077774, Fort DeRussy Q5471024, Fort Totten Q18150335, "
+                     "Fort Marcy Q61784495, Fort Foote Q14691922, all part_of Q5124610 'Civil War defenses of "
+                     "Washington, D.C.' - data/catalog/sites.jsonl)"),
 }
 
 # New York leads (checked live 2026-10-13; the per-file STAGED/DROP verdicts - including the 1916
@@ -88,6 +109,27 @@ VIELE = [
     ("File:Viele Map (Topographical map of the City of New York), 1865.jpg", "Q60", "New York", dict()),
 ]
 
+# Washington DC leads (checked live 2026-10-13; the per-file STAGED/DROP verdicts - including the Boschke
+# map that cannot stage on Commons, with the exact why - are in docs/lead_us_cities.md).
+LENEANT = [
+    # the 1791 L'Enfant plan: the manuscript is at NARA (not on Commons) - this is its FIRST PRINTED
+    # edition (Universal Asylum, Philadelphia, Mar. 1792, the same plate), so the known drawing date is
+    # on the row and the page value kept as date_commons
+    ("File:Plan of the city of Washington LOC 88694159.tif", "Q61",
+     "Washington, D.C.", dict(date="1791")),
+]
+ELICOTT = [
+    # the 1792 Ellicott engraved plan - the first official (surveyed) plan of the city
+    ("File:Plan of the city of Washington in the territory of Columbia - ceded by the states of Virginia "
+     "and Maryland to the United States of America, and by them established as the seat of their "
+     "government, (NYPL b15255319-434417).jpg", "Q61", "Washington, D.C.", dict()),
+]
+DEFENCES = [
+    # the 1865 Civil War defences map (Barnard's ring of forts, Atlas of the Official Records v.2 pl. XXXIX
+    # no. 1) - the ring spans ~35 km beyond the town box, the review-item case (the Venice precedent)
+    ("File:Map of the defences of Washington. LOC 88690674.jpg", "Q61", "Washington, D.C.", dict()),
+]
+
 SOURCES = {
     "castello": dict(rows=CASTELLO, p="plan",
                      label="{name}, the Castello plan (1660 Dutch survey of New Amsterdam)"),
@@ -95,6 +137,12 @@ SOURCES = {
     "plan_1811": dict(rows=PLAN_1811, p="birdseye",
                       label="{name}, the Commissioners' Plan (1811, bird's-eye view; published 1821)"),
     "viele": dict(rows=VIELE, p="plan", label="{name}, Egbert Viele's topographical map (1865)"),
+    "le_1791": dict(rows=LENEANT, p="plan",
+                    label="{name}, the L'Enfant plan (1791, first printed 1792)"),
+    "ellicott": dict(rows=ELICOTT, p="plan",
+                     label="{name}, Andrew Ellicott's plan (1792, the first official plan)"),
+    "defences_1865": dict(rows=DEFENCES, p="plan",
+                          label="{name}, the Civil War defences (1865 map of the fortification ring)"),
 }
 
 

@@ -31,6 +31,30 @@
    "p_plan": 1.0,
    "site": "new-york-q60",
    "title": "File:Viele Map (Topographical map of the City of New York), 1865.jpg"
+  },
+  {
+   "by": "hand",
+   "p_birdseye": 0.0,
+   "p_photo": 0.0,
+   "p_plan": 1.0,
+   "site": "washington-q61",
+   "title": "File:Plan of the city of Washington LOC 88694159.tif"
+  },
+  {
+   "by": "hand",
+   "p_birdseye": 0.0,
+   "p_photo": 0.0,
+   "p_plan": 1.0,
+   "site": "washington-q61",
+   "title": "File:Plan of the city of Washington in the territory of Columbia - ceded by the states of Virginia and Maryland to the United States of America, and by them established as the seat of their government, (NYPL b15255319-434417).jpg"
+  },
+  {
+   "by": "hand",
+   "p_birdseye": 0.0,
+   "p_photo": 0.0,
+   "p_plan": 1.0,
+   "site": "washington-q61",
+   "title": "File:Map of the defences of Washington. LOC 88690674.jpg"
   }
  ],
  "extras": [
@@ -47,6 +71,20 @@
    "region": "United States",
    "source": "fit/src_us_cities.py castello",
    "wikipedia": "https://en.wikipedia.org/wiki/New_York_City"
+  },
+  {
+   "aerial_ok": true,
+   "id": "washington-q61",
+   "kind": "town",
+   "lat": 38.895,
+   "lon": -77.036667,
+   "name": "Washington, D.C.",
+   "note": "aerial-photograph ground (no open LiDAR over the built-up city: bare-earth LiDAR erases the streets); the street grid, the diagonal avenues, the Potomac shoreline and the squares carry the fit; the 1865 defences ring spans ~35 km beyond the 2000 m town box, so that fit is likely to end a review item (the Venice precedent, docs/lead_artists.md); the ring's forts are candidate kind-'fort' sites and the catalog already has the individuals (Fort Bayard Q3077774, Fort DeRussy Q5471024, Fort Totten Q18150335, Fort Marcy Q61784495, Fort Foote Q14691922, all part_of Q5124610 'Civil War defenses of Washington, D.C.' - data/catalog/sites.jsonl)",
+   "place": "District of Columbia",
+   "qid": "Q61",
+   "region": "United States",
+   "source": "fit/src_us_cities.py le_1791",
+   "wikipedia": "https://en.wikipedia.org/wiki/Washington,_D.C."
   }
  ],
  "files": [
@@ -181,6 +219,106 @@
    "title": "File:Viele Map (Topographical map of the City of New York), 1865.jpg",
    "url": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Viele_Map_%28Topographical_map_of_the_City_of_New_York%29%2C_1865.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
    "w": 19706,
+   "wd_plan": false,
+   "year": 1865
+  },
+  {
+   "artist": "L'Enfant, Pierre Charles; Thackara & Vallance",
+   "by": "fit/src_us_cities.py le_1791",
+   "cat": null,
+   "date": "1791",
+   "date_commons": "0000-00-00",
+   "desc": "Printed from the same plate as the map appearing in The universal asylum, and Columbian magazine, Philadelphia, Mar. 1792. Available also through the Library of Congress Web site as a raster image. Includes latitude/longitude statement. LC copy 1 mounted on cloth backing and annotated in lead pencil: 1st printed edition of the L'Enfant plan. Copy 2 trimmed and mounted on cloth backing. Phillips. Washington 1280 2 copies Vault DCP",
+   "evidence": {
+    "checked": "0000-00-00",
+    "dist_m": 0.0,
+    "kind": "caption_coords",
+    "named_place": "Washington",
+    "place_label": "Washington, D.C.",
+    "place_lat": 38.895,
+    "place_lon": -77.036667,
+    "place_qid": "Q61",
+    "rec": "evidence/1",
+    "site_lat": 38.895,
+    "site_lon": -77.036667
+   },
+   "h": 5105,
+   "license": "Public domain",
+   "mime": "image/tiff",
+   "name": "Washington, D.C., the L'Enfant plan (1791, first printed 1792)",
+   "page": "https://commons.wikimedia.org/wiki/File:Plan_of_the_city_of_Washington_LOC_88694159.tif",
+   "qid": "Q61",
+   "site": "washington-q61",
+   "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/34/Plan_of_the_city_of_Washington_LOC_88694159.tif/lossy-page1-1280px-Plan_of_the_city_of_Washington_LOC_88694159.tif.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "title": "File:Plan of the city of Washington LOC 88694159.tif",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/3/34/Plan_of_the_city_of_Washington_LOC_88694159.tif?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "w": 6426,
+   "wd_plan": false,
+   "year": 1791
+  },
+  {
+   "artist": "Scan by NYPL",
+   "by": "fit/src_us_cities.py ellicott",
+   "cat": null,
+   "date": "1792",
+   "desc": "* \" In order to execute this plan, Mr. Ellicott drew a true meridional line ... \"\n  Also covers Georgetown. \n Includes text, notes, and coat-of-arms. \n Lawrence H. Slaughter Collection ; 3. \n National Endowment for the Humanities Grant for Access to Early Maps of the Middle Atlantic Seaboard. \n Shows block numbers and proposed government buildings. \n Watermark. \n Citation/Reference: Phillips. Maps of America, p. 1002 \n Citation/Reference: Wheat & Brun. Maps and charts published in America before 1800, 531 \n Relief shown by hachures. Depths shown by soundings.",
+   "evidence": {
+    "checked": "0000-00-00",
+    "dist_m": 0.0,
+    "kind": "caption_coords",
+    "named_place": "Washington",
+    "place_label": "Washington, D.C.",
+    "place_lat": 38.895,
+    "place_lon": -77.036667,
+    "place_qid": "Q61",
+    "rec": "evidence/1",
+    "site_lat": 38.895,
+    "site_lon": -77.036667
+   },
+   "h": 4976,
+   "license": "Public domain",
+   "mime": "image/jpeg",
+   "name": "Washington, D.C., Andrew Ellicott's plan (1792, the first official plan)",
+   "page": "https://commons.wikimedia.org/wiki/File:Plan_of_the_city_of_Washington_in_the_territory_of_Columbia_-_ceded_by_the_states_of_Virginia_and_Maryland_to_the_United_States_of_America,_and_by_them_established_as_the_seat_of_their_government,_(NYPL_b15255319-434417).jpg",
+   "qid": "Q61",
+   "site": "washington-q61",
+   "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/Plan_of_the_city_of_Washington_in_the_territory_of_Columbia_-_ceded_by_the_states_of_Virginia_and_Maryland_to_the_United_States_of_America%2C_and_by_them_established_as_the_seat_of_their_government%2C_%28NYPL_b15255319-434417%29.jpg/1280px-thumbnail.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "title": "File:Plan of the city of Washington in the territory of Columbia - ceded by the states of Virginia and Maryland to the United States of America, and by them established as the seat of their government, (NYPL b15255319-434417).jpg",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Plan_of_the_city_of_Washington_in_the_territory_of_Columbia_-_ceded_by_the_states_of_Virginia_and_Maryland_to_the_United_States_of_America%2C_and_by_them_established_as_the_seat_of_their_government%2C_%28NYPL_b15255319-434417%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "w": 6300,
+   "wd_plan": false,
+   "year": 1792
+  },
+  {
+   "artist": "Unknown author Unknown author",
+   "by": "fit/src_us_cities.py defences_1865",
+   "cat": null,
+   "date": "1865",
+   "desc": "Relief shown by hachures. In lower margin below title: (From Atlas accompanying Official Records). LC Civil War maps (2nd ed.) 682.5 Available also through the Library of Congress Web site as a raster image. LC copy fold-lined, mounted on cloth backing, and annotated in pencil in lower margin: Atlas, v. 2, pl. XXXIX, no. 1. DCP",
+   "evidence": {
+    "checked": "0000-00-00",
+    "dist_m": 0.0,
+    "kind": "caption_coords",
+    "named_place": "Washington",
+    "place_label": "Washington, D.C.",
+    "place_lat": 38.895,
+    "place_lon": -77.036667,
+    "place_qid": "Q61",
+    "rec": "evidence/1",
+    "site_lat": 38.895,
+    "site_lon": -77.036667
+   },
+   "h": 3802,
+   "license": "Public domain",
+   "mime": "image/jpeg",
+   "name": "Washington, D.C., the Civil War defences (1865 map of the fortification ring)",
+   "page": "https://commons.wikimedia.org/wiki/File:Map_of_the_defences_of_Washington._LOC_88690674.jpg",
+   "qid": "Q61",
+   "site": "washington-q61",
+   "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7b/Map_of_the_defences_of_Washington._LOC_88690674.jpg/1280px-Map_of_the_defences_of_Washington._LOC_88690674.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "title": "File:Map of the defences of Washington. LOC 88690674.jpg",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Map_of_the_defences_of_Washington._LOC_88690674.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "w": 2800,
    "wd_plan": false,
    "year": 1865
   }
