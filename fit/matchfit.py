@@ -266,9 +266,45 @@ def _sites(root):
     return {s["id"]: s for s in (d["sites"] if isinstance(d, dict) else d)}
 
 
-def run(root, site_ids, dry=False, url=None, roma_url=None):
+def _settle(root, sid, row, r, kind, dry, results=None):
+    """The per-candidate tail of run(): prints one fitted row's verdict and, when it is a good fit and
+    not dry, writes its document (returning the written path, else None). When results is a list, one
+    {site, plan, outcome (written|refused|dry), path, why, kind} entry is appended per call: the caller
+    (239) records refused candidates from it, including the gate's clause once the gate lands there."""
+    title = (row.get("title") or row["id"])[:70]
+    if "why" in r:
+        extra = f" [{r['ground']} x{r['window']}, rot {r['rot']:.0f}]" if "ground" in r else ""
+        print(f"{sid}  {title}: {r['why']}{extra}")
+        if results is not None:
+            results.append({"site": sid, "plan": row["id"], "outcome": "refused",
+                            "path": None, "why": r["why"], "kind": kind})
+        return None
+    print(f"{sid}  {title}: FIT ({kind}) {r['inliers']}/{r['matches']} points on {r['ground']} x{r['window']}, "
+          f"rot {r['rot']:.1f} deg, {r['m_per_px']:.2f} m/px, residual {r['resid_m']:.0f} m")
+    if dry:
+        if results is not None:
+            results.append({"site": sid, "plan": row["id"], "outcome": "dry",
+                            "path": None, "why": None, "kind": kind})
+        return None
+    path = batch_us.write_doc(str(root), sid, row, r["pairs"], round(r["resid_m"], 1))
+    if path:
+        doc = json.loads(Path(path).read_text())
+        doc.update({"fitter": "matcher", "matcher": {
+            "model": MODELS[kind], "inliers": r["inliers"], "matches": r["matches"],
+            "ground": r["ground"], "window": r["window"], "rot_deg": round(r["rot"], 2),
+            "spread": [round(r["spread"][0], 3), round(r["spread"][1], 1)]}})
+        batch_us._save_json(path, doc)
+    if results is not None:
+        results.append({"site": sid, "plan": row["id"],
+                        "outcome": "written" if path else "refused",
+                        "path": path, "why": None, "kind": kind})
+    return path
+
+
+def run(root, site_ids, dry=False, url=None, roma_url=None, results=None):
     """ELoFTR first (fast, ~1 s a window pair); a picture it is not sure of goes to RoMa (~4 s a pair, placed
-    11 of the 21 hand fits against ELoFTR's 7) when that answers."""
+    11 of the 21 hand fits against ELoFTR's 7) when that answers. When results is a list, one entry per
+    settled candidate is appended to it (see _settle); returns the written paths."""
     roma = roma_url or ROMA_URL
     use_roma = reachable(roma)
     sites = _sites(root)
@@ -288,29 +324,14 @@ def run(root, site_ids, dry=False, url=None, roma_url=None):
             if row["id"] in docs or row["id"] in dropped:
                 continue
             r, kind = fit_row(root, site, row, url), "eloftr"
-            title = (row.get("title") or row["id"])[:70]
             if "why" in r and use_roma and r["why"] != "picture not on this machine":
                 rr = fit_row(root, site, row, roma, "roma")
                 if "why" not in rr:
                     r, kind = rr, "roma"
                 else:
                     r = dict(rr, why=f"{r['why']}; RoMa {rr['why']}")
-            if "why" in r:
-                extra = f" [{r['ground']} x{r['window']}, rot {r['rot']:.0f}]" if "ground" in r else ""
-                print(f"{sid}  {title}: {r['why']}{extra}")
-                continue
-            print(f"{sid}  {title}: FIT ({kind}) {r['inliers']}/{r['matches']} points on {r['ground']} x{r['window']}, "
-                  f"rot {r['rot']:.1f} deg, {r['m_per_px']:.2f} m/px, residual {r['resid_m']:.0f} m")
-            if dry:
-                continue
-            path = batch_us.write_doc(str(root), sid, row, r["pairs"], round(r["resid_m"], 1))
+            path = _settle(root, sid, row, r, kind, dry, results)
             if path:
-                doc = json.loads(Path(path).read_text())
-                doc.update({"fitter": "matcher", "matcher": {
-                    "model": MODELS[kind], "inliers": r["inliers"], "matches": r["matches"],
-                    "ground": r["ground"], "window": r["window"], "rot_deg": round(r["rot"], 2),
-                    "spread": [round(r["spread"][0], 3), round(r["spread"][1], 1)]}})
-                batch_us._save_json(path, doc)
                 written.append(path)
     return written
 
