@@ -4,7 +4,7 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/207b-maclauchlan.md` (in-progress) - hand-over: (2026-10-13, iteration 204, agent c - NO work on this task. The driver auto-put it back to
+- `tasks/207b-maclauchlan.md` (in-progress) - hand-over: (2026-10-13, iteration 122, agent c - investigation session; the 204 hand-over's "waiting
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
 - `tasks/212-cover-final.md` (split) - hand-over: (2026-10-13, iteration 234, agent a - **212a done, 212b done (lead), 212c done - the
 - `tasks/236-us-cities.md` (split)
