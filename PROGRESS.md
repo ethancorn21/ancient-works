@@ -4,6 +4,7 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
+- `tasks/000-plan.md` (in-progress) - hand-over: (iteration 157, 2026-10-13, agent a - **the 2026-10-13 23:39 GOAL change (point 2: the image
 - `tasks/207b-maclauchlan.md` (blocked) - hand-over: (2026-10-13, iteration 204, agent c - NO work on this task. The driver auto-put it back to
 - `tasks/207c-roy.md` (blocked) - hand-over: (2026-10-13, iteration 205, agent c - NO work on this task. The driver auto-put it back to
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-11, iteration 63 - SPLIT into 207a/207b/207c; this is the plan for the remaining
@@ -76,6 +77,42 @@ none` added; a format line, not a goal/acceptance edit.
 
 Commit state: f828ce0 committed tasks/000 (boxes ticked, Status done, hand-over), tasks/238,
 ... (1.0 KB more: `grep -n -A 200 -F '## 2026-10-13 000 DECISION: plan re-checked for the 2026-10-13 GOAL change - the matcher is the only automatic placement (238/239 added; boxes re-ticked)' DECISIONS.md`)
+
+### 2026-10-13 000 DRIVER: done claim rejected, task reopened
+- Team project: these tasks can never start, their `Depends on:` lines wait on each other: 212 (waits on 212 235), 239 (waits on 212 238 302f 302g)
+
+### 2026-10-10 000 DECISION: 000 closed done - finished the GOAL-change plan update (213 created, 212 reworded, CODEMAP rules written, boxes verified)
+
+Iteration 12 was cut at the context limit with five small steps left; this session did them and
+closed the planning task.
+- tasks/212-cover-final.md: the three deferred edits landed (the cover-pass loop is now "fitkit
+  sheet -> model fit -> fit -> gate" in Goal and box 1; the human's 18/20 check is GOAL.md point 3,
+  not point 2 - the 21:11 change renumbered the points). Iteration 12's atomic edit rejection was a
+  hard-wrap mismatch (the file wraps at ~79 columns; the lines looked different after rendering);
+  this session verified the exact bytes with `sed -n ... | cat -A` before editing (new PITFALLS
+  entry under Agent tools and harness).
+- tasks/213-artist-views.md created (lowest free 200-499 number; Depends on 200; wave 2 per
+  PLAN.md): GOAL point 5's 22:58 lead - Leonardo's Imola (the anchor: a new site with no open
+  LiDAR here, FITKIT_GROUND=aerial verified at tools/fitkit.py:38, its streets carry the fit),
+  de' Barbari's Venice, Braun & Hogenberg, Merian. Own module fit/src_artists.py plus its own
+  extras_/files_/classified_artists.jsonl staging, docs/lead_artists.md and test file; the
+  conditional IA-book machinery follows the 208 pattern (declare the exact per-book paths in the
+  Touches line before writing, never the shared index).
+- CODEMAP.md "Architecture rules" block written: five standing rules (the 25 hand fits and the
+  private Finder/Amazon data are never changed or deleted; fit/ imports pipeline/ read-only; the
+  canonical files are written only by 211/212; the model is a lead, not a fact, and its step is
+  injectable so tests never call the model server; web/index.html takes exactly one change). The
+  iteration-2 hand-over had claimed these rules were already here; they had never been written.
+- Verified: `grep -L "Depends on:" tasks/*.md` and the Touches equivalent both come back empty
+  (001, 200-213, 800, 801 all carry both lines); the suite is green in this checkout's .venv
+  (12 passed; no code changed by this session). All seven boxes ticked, Status: done.
+- The driver's note ".venv could not be built from requirements.txt" is a main-side problem:
+  origin/main still carries the bare unpinned 9-line file (e2d4060, verified with git show), while
+  this checkout and agent/c carry the fully pinned + hashed file (676a0d4), and this checkout's
+  suite is green. Open task 800 (filed by agent c) lands the pinned file on main; this session
+  deliberately left requirements.in/requirements.txt untouched (they are 800's files). If the
+  driver's re-check of this done claim fails on the main-side venv build, the fix belongs to 800
+  and merges independently.
 
 ## Project-wide driver notes (newest)
 
