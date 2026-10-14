@@ -5,8 +5,9 @@ batch, so 240 and 241 build in parallel) - staged from the Library of Congress "
 collection (about 1,500 US bird's-eye views, 1847-1929, public domain; this machine cannot reach
 loc.gov, so the files are fetched from their Wikimedia Commons mirrors - the 236b route, its lead
 doc docs/lead_us_birdseye.md): Denver (the 1908 Birdseye View Publishing Co. sheet, looking south
-from the Twenty-Third Street Viaduct) and St. Paul (the 1906 Robert M. Saint sheet) first;
-Minneapolis, Cleveland follow in candidate order. The 25-city total spans 236b's 16 + 240's four + 241's five; 236c consolidates every
+from the Twenty-Third Street Viaduct) and St. Paul (the 1906 Robert M. Saint sheet) first, then
+Minneapolis (the 1885 W. V. Herancourt / I. Monasch sheet); Cleveland follows in candidate
+order. The 25-city total spans 236b's 16 + 240's four + 241's five; 236c consolidates every
 staging set into the canonical data and checks the total.
 
 This module is a COPY of fit/src_us_birdseye.py (236b's module) - the template it keeps in sync
@@ -70,8 +71,9 @@ NO_BOOKS = os.path.join(ROOT, "data", "books", ".no-books")  # never exists: che
 # in pipeline/build_catalog.py carries the display name), kind "town" = 2000 m box, aerial_ok true
 # (aerial-photograph ground: no open LiDAR over a built-up city, bare-earth LiDAR erases the
 # streets). Batch 4 (verified live 2026-10-14, --verify re-checks; per-view STAGED/DROP verdicts in
-# docs/lead_us_birdseye_batch4.md): Denver (the next candidate after 236b's twelve new cities) and St. Paul (the 1906 Robert M. Saint
-# sheet); Minneapolis, Cleveland follow in candidate order (the task owes FOUR staged cities, not
+# docs/lead_us_birdseye_batch4.md): Denver (the next candidate after 236b's twelve new cities),
+# St. Paul (the 1906 Robert M. Saint sheet) and Minneapolis (the 1885 W. V. Herancourt / I.
+# Monasch sheet); Cleveland follows in candidate order (the task owes FOUR staged cities, not
 # specifically these four - a city with no usable view gets a lead-doc note and the next
 # candidate).
 SITES = {
@@ -125,6 +127,41 @@ SITES = {
                         "bank, the farmland horizon across the top (the west) - spanning the whole "
                         "city beyond the 2000 m town box, so its fit is likely to end a review item "
                         "(the 236a NY-1811 / DC-ring precedent)"),
+    # Q36091: P625 = ONE 30 m value (-93.26916666666666, 44.981944444444444) - the downtown core
+    # (no refinement needed). P373 is the STRING "Minneapolis" (a BARE name - the usual US quirk
+    # in its extreme: the place is written from the county + the state); P131 = Q486229 Hennepin
+    # County (the only one) - hence place "Hennepin County, Minnesota"; P17 = Q30 (a proper
+    # entity); enwiki "Minneapolis". The first-guess QID Q3094 is a ROMANIAN MONASTERY
+    # (Căldărușani Monastery, Ilfov County) - caught by the label check (the usual first-guess
+    # trap class; the third of the batch: a person, a person, a monastery). Name search: NO
+    # first-hit trap - the first hit with P625 is the city itself (0 km, Denver's pattern, not
+    # St. Paul's); the in-city institution class (the Hennepin County Medical Center 1.2 km, the
+    # Minneapolis Institute of Art 2.6, MCAD 2.8, the Great Northern Depot 0.4, the Heart
+    # Institute 3.3, North/South Community High 2.8/4.5, the metro 6.5, the MSP airport 11.7 km)
+    # ranks behind the city, so no TRAP line is expected from --verify; other P625 hits:
+    # Minneapolis, Kansas (746.9 km) and Minneapolis, NC (1370.2 km, unincorporated) - no local
+    # near-miss. No existing site holds the QID (checked at the 240 session-6 run in the catalog,
+    # extras, 236a's and 236b's extras files and web/data/sites.json); site id
+    # minneapolis-q36091 (catalog.slug("Minneapolis") = "minneapolis", verified). The SITES name
+    # is "Minneapolis" - the caption prints the full name (no short-form gate issue).
+    "Q36091": dict(id="minneapolis-q36091", name="Minneapolis", named="Minneapolis",
+                   lon=-93.26916666666666, lat=44.981944444444444,
+                   place="Hennepin County, Minnesota", region="United States", kind="town",
+                   wikipedia="https://en.wikipedia.org/wiki/Minneapolis",
+                   note="aerial-photograph ground (no open LiDAR over the built-up city: bare-earth "
+                        "LiDAR erases the streets); the street grid and the Mississippi carry the "
+                        "fit; the 1885 staged sheet is the steepest (near-vertical) whole-city "
+                        "view in the pool (the built-up city fills the whole frame, no horizon "
+                        "band), drawn from a high vantage on the south/southwest of the city (the "
+                        "west bank, below the downtown) - the sheet faces ~NNW: the Mississippi "
+                        "enters upper-left (the rapids below the falls, the long arch viaduct and "
+                        "its weir) and runs to the lower-right toward the confluence (off-sheet "
+                        "past the bottom edge); the dense west-bank downtown core sits upper-left "
+                        "of the 3rd Street suspension bridge (the two-tower masonry span at the "
+                        "sheet's mid-right), the brickyard and the river's downstream bend fill "
+                        "the lower right - spanning the whole city beyond the 2000 m town box, so "
+                        "its fit is likely to end a review item (the 236a NY-1811 / DC-ring "
+                        "precedent)"),
 }
 
 # Denver (batch 4, city 1; checked live 2026-10-14; the pool 65 unique / 33 good, per-view
@@ -172,11 +209,46 @@ ST_PAUL_1906 = [
     ("File:St. Paul, Minn. LOC 75694650.jpg", "Q28848", "St. Paul", dict()),
 ]
 
+# Minneapolis (batch 4, city 3; checked live 2026-10-14; the pool 50 unique / 20 good, per-view
+# STAGED/DROP verdicts in docs/lead_us_birdseye_batch4.md). One row per city: the steepest,
+# best-scanned whole-city view of the collection; the shallower same-genre sheets and the non-view
+# pool (oblique riverfront-corridor views, photographic panorama strips, schematic library maps,
+# postcards, too-small scans, other-city sheets, licence rejects) are DROPS recorded in the lead
+# doc (the 236b precedent).
+MINNEAPOLIS_1885 = [
+    # 1885 (W. V. Herancourt, draughtsman; I. (Isador) Monasch, publisher; LC Panoramic maps (2nd
+    # ed.), 396; 13152x9408, Public domain): banner "BIRD'S EYE VIEW OF MINNEAPOLIS, MINN. 1885
+    # POPULATION 71,235" - THE steepest (near-vertical) whole-city view in the pool: the built-up
+    # city fills the whole frame with no horizon band (the 1891 A.M.R. Smith & Geo. Renger sheet
+    # is near-vertical but recedes to a horizon band, the 1879 "Looking north west" sheet shallower
+    # still). Orientation (measured on the 13152 px original at the 240 session-7 run): the sheet
+    # faces ~NNW/N (U ~330-350 deg) - the Mississippi enters upper-left (the rapids below the
+    # falls; a long stone arch rail viaduct and an iron trestle cross the wide fast water there -
+    # NOT the Stone Arch bridge at the falls' foot: the on-sheet distance is ~3x the falls-bridge
+    # distance at the sheet's own ~2 km/1000 px scale, so the viaduct sits further out on the
+    # west, its identity open) and runs diagonally to the lower-right, exiting at the sheet's
+    # bottom edge toward the off-sheet confluence with the Minnesota; a small creek (a minor
+    # tributary, not a river) runs from the viaduct zone through the near-side residential
+    # quarter (a street bridge over it) and drops a small cascade into the main water, with a big
+    # brick/stone waterwheel mill at the far left; the dense west-bank downtown core (the
+    # "HENNEPIN STEAM LAUNDRY" = Hennepin Avenue = the west bank) sits on the far (upper) side of
+    # the river, upper-left of the 3rd Street suspension bridge (the big two-tower masonry span
+    # at the sheet's mid-right - confirmed by form), and a huge brickyard fills the bottom-right
+    # corner - drawn from a high vantage on the south/southwest of the city (the west bank, below
+    # the downtown), looking north (slightly west); the rivers' identities cannot be mirrored
+    # (the Mississippi enters upper-left and exits bottom-right). The page date (1885) matches
+    # the drawing (no Zwolle-style swap). The 13152x9408 .tif twin is the same sheet - one row
+    # per sheet, the LOC .jpg staged.
+    ("File:Minneapolis, Minnesota. LOC 75694644.jpg", "Q36091", "Minneapolis", dict()),
+]
+
 SOURCES = {
     "denver_1908": dict(rows=DENVER_1908, p="birdseye",
                         label="{name}, the Birdseye View Publishing Co. bird's-eye view (1908)"),
     "st_paul_1906": dict(rows=ST_PAUL_1906, p="birdseye",
                         label="{name}, the Robert M. Saint bird's-eye view (1906)"),
+    "minneapolis_1885": dict(rows=MINNEAPOLIS_1885, p="birdseye",
+                             label="{name}, the W. V. Herancourt / I. Monasch bird's-eye view (1885)"),
 }
 
 
