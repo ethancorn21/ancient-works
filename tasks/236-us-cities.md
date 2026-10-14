@@ -20,3 +20,12 @@ surveys and artists' bird's-eye views, and those count as drawings (town plans a
   plain survey sheets (Coast Survey charts, USGS topo quads) are background, not drawings - a city plan or a
   fortification plan is a drawing.
 - The four cities the owner named come first: New York, Washington DC, San Francisco, Nashville.
+
+## Proposed changes
+(2026-10-14, iteration 195, agent a - the 236b split, driver instruction.) 236b closed done at 16 cities;
+its remaining nine (to the 25-city total) were split out of it into top-level tasks 240 (batch 4: Denver,
+St. Paul, Minneapolis, Cleveland) and 241 (batch 5: the final five, after 240), each with its own module
+(fit/src_us_birdseye_batch4/5.py), staging files (*_us_birdseye_batch4/5.jsonl), lead doc
+(docs/lead_us_birdseye_batch4/5.md) and test, so the two agents build in parallel. They gate 236c through
+its Depends on. Suggest box 1 read "236a, 236b, 240, 241 and 236c are done." The 25-city total check moved
+to 236c (its Proposed changes, same date).
