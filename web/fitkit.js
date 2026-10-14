@@ -322,10 +322,12 @@ function _fkBarEl() {
       <span class="grp"><button data-a="undo" id="fkundo">Undo</button><kbd>&#8984;Z</kbd></span>
       <span class="grp map"><b>Map</b><span class="how">drag off it &middot; wheel zooms &middot; right-drag turns</span></span>
       <span class="sp"></span>
-      <button data-a="skip" id="fkbskip">Skip site</button>
-      <button data-a="not" id="fkbnot" title="The picture does not show this site (a detail, a building, another place)">Not this structure</button>
-      <button data-a="cancel">Cancel</button>
-      <button data-a="save" class="primary" id="fkbsave">Save on the map</button>
+      <span class="grp acts">
+        <button data-a="skip" id="fkbskip">Skip site</button>
+        <button data-a="not" id="fkbnot" title="The picture does not show this site (a detail, a building, another place)">Not this structure</button>
+        <button data-a="cancel">Cancel</button>
+        <button data-a="save" class="primary" id="fkbsave">Save on the map</button>
+      </span>
     </div>
     <div class="fkread"><span id="fkread"></span><span id="fkst"></span></div>`;
   document.body.appendChild(b);
@@ -642,6 +644,8 @@ _fkStyle.textContent = `
   #fkbar .how { font: italic 12.5px var(--title); color: var(--ink-2); }
   #fkbar .grp.map { color: var(--ink-2); }
   #fkbar .sp { flex: 1; }
+  #fkbar .grp.acts { gap: 6px; margin-left: auto; }
+  #fkbar .grp.acts button { font-size: 11.5px; padding: 4px 9px; min-width: 0; line-height: normal; }
   #fkbar kbd { font: 600 10.5px var(--label); border: 1px solid var(--rule, #bbb); border-bottom-width: 2px; border-radius: 3px; padding: 1px 5px; background: var(--paper, #fff); color: var(--ink-2); }
   #fkbar button { font: 600 11.5px var(--label); text-transform: uppercase; letter-spacing: .06em; background: var(--sheet); color: var(--ink);
     border: 1px solid var(--ink); padding: 4px 9px; cursor: pointer; }
