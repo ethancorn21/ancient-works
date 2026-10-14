@@ -6,7 +6,7 @@ task file (for a subtask, read its parent's too).
 ## Tasks in flight
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
 - `tasks/212-cover-final.md` (in-progress) - hand-over: (2026-10-13, iteration 255, agent a, written at the context limit -
-- `tasks/236b-us-birdseye.md` (open) - hand-over: (2026-10-14, iteration 182, agent a) **Merged main (37a26ee) and COMPLETED BATCH 1's leftover
+- `tasks/236b-us-birdseye.md` (open) - hand-over: (2026-10-14, iteration 183, agent a) **Batch 2 research COMPLETE (5 cities picked, all same-sheet
 - `tasks/236-us-cities.md` (split)
 - `tasks/307bc-reverify-place-mode.md` (open) - hand-over: (2026-10-13, iteration 256, agent a - first session: the task was filed as the driver
 - `tasks/307b-on-map.md` (split) - hand-over: (2026-10-13, iteration 256, agent a - context limit hit at the end of this session; the
