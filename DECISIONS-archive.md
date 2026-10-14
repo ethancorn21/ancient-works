@@ -8286,6 +8286,162 @@ number is only free inside one checkout). Suite at closure: 73 passed, 1 skipped
 (green; the d651c10 merge added task files only, no code).
 
 
+<!-- task 307b -->
+# Task 307b on-map
+
+## 2026-10-12 307b DECISION: box 1 (the queue carries the propose) designed in full; 307b split into 307ba (boxes 1+2) and 307bb (boxes 3-6) - no code written this session (investigation only)
+The owner's rework spans the queue's data and the page, so 307b is split along the same seam
+the parent pre-announced (fly-to/hide-restore vs gestures): 307ba = the queue file carries
+the propose (box 1) + place mode opens on the works (box 2); 307bb = the gestures, the save,
+the headless proof, the docs (boxes 3-6). Both subtask files written; the parent 307's
+hand-over box map updated; no letter reorder.
+
+Box 1, implemented-by-design (the 307ba agent codes it; nothing here failed, it was never
+attempted yet):
+- **fit/propose.py becomes root-aware** (added to 307ba's Touches): the four loaders
+  (_index_row, _plans_rows, _plans_row, _site) take a `root` arg and _CACHE is keyed
+  (str(root), kind) so a temp tree never collides with the checkout's data; propose_for
+  gains `root=ROOT` (default = today's behaviour, byte-identical for every existing 2-arg
+caller: batch_us, inkfit, inkfit_heldout, test_batch_us/eu/propose). Contract docstring
+  updated for the optional param. WHY not monkeypatch ROOT/`_CACHE` from fit_queue.py:
+  the cache is keyed by nothing today, so two roots in one process would silently read
+  each other's files; a root param is the one-place-for-one-knowledge fix, and it lets
+  the TESTS derive expected proposals against the same temp tree the generator ran on.
+- **tools/fit_queue.py**: `sys.path.insert(0, str(ROOT / "fit")); import propose as _propose`
+  (the site_done.py:43 convention; fit/ has no __init__.py - implicit namespace or
+  sys.path, both work, but the codebase uses the sys.path insert). Per entry in build():
+  try _propose.propose_for(e["site"], plan, root=root) except Exception -> NO propose key
+  (fail open: the page falls back to the three-point flow; covers no size, no size_m, no
+  stage-B row, missing index.jsonl). On success: entry["propose"] = the six keys in box
+  order {pairs, scale_m_px, rot_deg, scale_source, coarse, note}; "ground" is dropped
+  (the page derives it from site.lidar, as it already does in fqPlace). Key lands after
+  "candidates" in the entry dict. Docstrings: the tool reads a fifth input
+  (data/books/index.jsonl, stage-B fields) and stays stdlib-only (propose.py is too).
+- **Regenerate web/data/fit_queue.json in the checkout** (it is a TRACKED file -
+  `git check-ignore` says no - not the shared store): all 117 current entries anchor
+  (measured: 20 bar, 4 ratio, 93 picture_size; n0686 = scale_m_px 0.3621, rot 0).
+  After agent c's 309 merges its place check into main, the next regeneration on this
+  branch is the joint behaviour - regenerate on top of whatever the branch shows.
+- **Tests (part 1 of test_fit_queue.py; parts 2-3 untouched - they read the file the page
+  ignores propose in)**: extend _build_synthetic_tree - sites gain lon/lat/size_m; add a
+  data/books/index.jsonl with stage-B rows: row-a1 (s-alpha, book "Book A") scale_text
+  "0 100 200 300 Feet" + a scale_bar box [0.15,0.6,0.85,0.62] on size [1000,1000] -> bar,
+  scale 91.44 m / 700 px = 0.1306 (hand-pinned), north_angle_deg 20 + arrow true ->
+  rot 20.0 (trustworthy); row-e1 (s-eta, book "Book E") scale_text "500 Feet to the Inch."
+  but "Book E" has no ppi in BOOK_PPI -> ratio unusable -> picture_size fallback
+  (s-eta size_m [200,150] -> 0.2, coarse true); row-g1 (s-gamma) no scale text and s-gamma
+  deliberately WITHOUT size_m -> no propose (the no-size_m case); NEW site s-nope + row
+  row-n1 whose plans size is null and whose index row has no full_size -> no propose
+  (the no-size case; s-nope still has a size_m, so size is the missing piece). Entry count
+  6 -> 7, s-nope sorts last (draw_px 0, plan id after the rest); the pinned stdout line
+  becomes "ready-to-fit queue: 7 site(s) -> ...". Assertions: each anchoring entry's
+  propose equals the 6-key dict derived by calling propose.propose_for(site, plan,
+  root=tree) in-test (the algorithm is pinned by 202's golden tests/golden/propose_202.json,
+  this pins the plumbing) PLUS the hand constants above; non-anchoring entries have no
+  "propose" key; key order checked. test_fit_queue_real: per entry, admissibility derived
+  by try/except propose_for(root=tree) - propose present iff admissible, equal, 5 pairs,
+  non-null scale_m_px (population-derived, never a pinned count: 803 precedent).
+
+Page-side design (307ba/307bb; full sketch in the 307b hand-over, the short version):
+- fitkit.js is a NEW file (307b's Touches already names it): loads after fitqueue.js
+  (index.html:1707-1708 gains one script tag - the only index.html change; goal is the
+  tag only). Wraps openPlan LAST in the chain and endFit (neither review.js nor
+  fitqueue.js wraps endFit; fitqueue wraps renderList + saveFit, review wraps openPlan).
+  _fk-prefixed saved names (the web/ PITFALL: one global lexical scope per page - a
+  second script may not redeclare review.js's _renderList/_openPlan/...).
+- Place mode activates iff the opened row is the queue entry's best plan for the site AND
+  the entry carries a propose (box 1's "the site's queued plan is the one picked");
+  otherwise byte-identical to today (305 part 3 pins the no-propose path green).
+- Anchor = {u0, v0, lon, lat, mpx, rot}: the centre of the panel (pair[4] of the
+  proposal is the centre) at its scale/rotation; P.pairs = 5 re-emitted (the _anchor_pairs
+  math ported: merc = a*(w-w0)+z0, a = mpx/ground_scale(lat)*e^{i*rot}, u/v 1 dp,
+  lon/lat 7 dp) + pinned pairs. Gestures: drag on the map canvas moves (dragPan/
+  scrollZoom disabled while placed; P.pending nulled once moved > ~4 px - MapLibre's own
+  3-px click tolerance keeps click=pin and drag=move disjoint); wheel scales about the
+  centre, shift+wheel rotates about the centre. Pinning refines: anchor <- least squares
+  over all pairs (the page's simFit), re-emit; undo/clear restore from an anchor stack
+  (push before each pin; clear -> the anchor before the first pin). Save is UNCHANGED
+  (saveFit writes P.pairs; 5 pre-placed pairs clear the 3-point floor; by:hand stamped by
+  the store; the line runs) - so box 4's "same checks a three-point fit passes" is
+  structural: the doc is pairs-shaped, test_fit_provenance and the golden set are
+  untouched, and the headless test never writes the shared store (temp tree + its store
+  only). Open hides the single dep-<site> layer; close (back/Cancel/save) calls applyDep
+  (S.depSel/ground never touched -> restored exactly); open flies map.fitBounds to
+  site.corners before the ink appears.
+- Headless proof (box 5, part 4): fixture like part 2's line_served (FULL tree with
+  tools/fit/pipeline + the picked entry's book page materialised into the tree's own
+  data/raw; --port 0; sockets dead in the server; the pick: first queue entry with a LOCAL
+  book page AND a propose, derived never pinned) because the page must load the scan (the
+  bare served tree 404s it - part 3's card test lives with that) and saveFit waits up to
+  90 s for the one-site line's overlay (line measures ~23 s here, part 2's 180 s budget
+  applies). Probe: card -> Place -> assert map at the site box + fit-prev visible + seeded
+  dep layer hidden + anchor.mpx === propose.scale_m_px; scripted drag/wheel/shift+wheel;
+  save -> doc read back from the temp store (by:hand, pairs == final re-emitted set,
+  scale/rotation agree with the anchor within rounding); second run: back/Cancel -> the
+  seeded dep overlay visible again, same file, same ground.
+- Environment facts measured: all 117 queue entries anchor today; propose callers are all
+  2-positional (an optional root=ROOT is back-compatible); the stage-B row shape is in
+  data/books/index.jsonl (890 rows; scale_text 508 set, scale_bar boxes 276, north arrows
+  594); fit/ has no __init__.py. A full-suite baseline run was kicked off to
+  /tmp/baseline_suite.log this session and NOT verified (context limit) - check it first
+  thing; last known green was the 307a closure (iteration 109).
+
+## 2026-10-13 307b DECISION: driver returned the parent with both subtasks done - boxes 1, 2, 3, 4, 6 verified and ticked (iteration 256); box 5 not ticked because its headless proof is red on the 235 pick drift; filed 307bc (Depends on: 235) to re-run it and close the task; no done claim this session
+Session did verification only (no code written; working tree change = the three task
+files + this entry). The driver's instruction: check 307b's own boxes, tick the
+verifiable, done or new subtasks.
+
+Verified by running code / reading the merged tree (machine date 2026-10-13):
+- Box 1: part 1+1b tests green (3 passed, 4.4 s: synthetic with bar/ratio/fallback/
+  no-propose rows, real population, namesake place check). Live web/data/fit_queue.json
+  = 241 entries, 241/241 with the exact 6-key propose (13 bar / 4 ratio / 224
+  picture_size). stdlib-only confirmed by reading every import (fit_queue.py,
+  tools/right_place.py, fit/review.py, fit/propose.py).
+- Box 2: fitkit's _fkActivate (fitBounds to the site's four corners before the ink,
+  hide dep-<site>) and the endFit wrapper (applyDep restore, S.* untouched) committed
+  and in main; the site panel's #fitgo "Place an old plan" (index.html:793) flows into
+  the wrapped openPlan. Green at 307ba's accepted done-claim; re-proven today by 307d's
+  test_owner_check.py (in the 159 passed) and by today's part-4 run passing every seed
+  sub-check except dep-visibility.
+- Box 3: the committed gestures (_fkOnDown/_fkOnMove 4-px-engage absolute drag,
+  _fkOnWheel wheel scale + shift+wheel 1 deg/notch, in-place re-emit + coalesced
+  refit, _fkHint live readout, _fkSync anchor stack vs pin/undo/clear) match the
+  design; today's red run shows all gesture checks [ok].
+- Box 4: save = the page's own saveFit doc (re-emitted pairs, 17 keys, by:hand, one-
+  site line) - proven at 307bb's acceptance (doc read back from the temp store, fit ==
+  placed anchor) and today by 307d's test_owner_check.py (two derived sites end to
+  end, shared store byte-identical after; test_fit_provenance + golden hand-fit hash
+  in the 159 passed).
+- Box 6: docs/site_flow.md sections (the propose ~449, "Place mode (task 307bb)" ~518,
+  "The working space (task 307c)" ~530, "The owner's check" ~1520) all present with
+  307c's place_before/after.png and 307d's ten 307d_*.png in docs/site_flow/.
+
+Box 5 NOT ticked (honest tick rule: the test does not pass today). The part-4 test is
+committed and hermetic; it fails solely on the 235-assigned pick drift: 212b's sync
+(6ce742f, Oct 13 06:31) deleted marietta's last doc and upserted her item, moving the
+derived pick from oswestry to marietta (re-ran _pick_place() myself: site marietta,
+entry 29, plan ancientmonuments00squi_n0169_1, propose ratio 0.6096; her only
+depiction = the 1904 USGS topo, hidden by the page's surveyOldEnough). Full suite
+today: 159 passed + 1 skipped + 1 failed (6:29), the lone red = this test, the
+RESULT line identical to 235's record ("seed: the gestures own the mouse ..., the
+earlier overlay hidden" with dep:null). The driver gates done claims on a green
+suite (it rejected 212 over this same red), so a done claim now would be rejected:
+per AGENTS.md I add the blocker to Depends-on-style waiting instead - as subtask
+307bc (Depends on: 235; its box 3 ticks 307b's box 5 and sets it done).
+
+Choices recorded: (1) ticked 1/2/3/4/6 on CURRENT evidence (today's runs + the
+accepted subtask done-claims, which the driver re-checked with green suites at their
+time) rather than waiting for 235 to tick them - the page code they prove is
+unchanged since those acceptances and the only delta is the 235 pick; (2) did not
+touch tests/test_fit_queue.py (235's file, and PITFALLS rule (b): a parallel task
+must not fix it) and did not claim done; (3) 307bc's Touches = tests/test_fit_queue.py
++ web/fitkit.js (the latter only for a real page defect a post-235 run would expose).
+Parent 307's hand-over got the closure note; PITFALLS needed no new entry (the
+"placement test's pick" entry at ~1410 already carries the 6ce742f episode, the
+post-fix pick prediction - oswestry-castle, 1842 map shown, 1900 filtered - and the
+practical rules; today's run corroborated it exactly).
+
+
 <!-- task 307ba -->
 # Task 307ba open-map
 
@@ -8952,6 +9108,70 @@ docs edit.
 - **The pickmirror re-run on today's merged tree**: pick unchanged (entries[3] oswestry-castle-q20713795, bar 0.1646/0.0, 5 propose pairs, 3 cand pairs, no uncovered, dep six-inch-1st.webp, done-seed the three earlier entries); NEW: entry 9 richard-s-castle-q17650937 ALSO passes all three pick constraints (propose bar 0.0503/0.0, dep default, line-eligible) - the picker takes file order so oswestry still wins; the test's pick must stay DERIVED (it is). Review items now total 346 (batch work landing via main merges); the 114-entry queue file is unaffected (new docs do not auto-regenerate it) and the picker's checkout doc scan rejects any queue site that gained a doc, so the test adapts to population drift automatically.
 - simFit (index.html:983) re-read VERBATIM this session: the hand-over's _simfit port matches it exactly (W=[u,-v] -> Z=merc centred least squares, nr += zr*wr+zi*wi, ni += zi*wr-zr*wi, k = cos(first pair's lat), mpx = |a|*k, rot = atan2 deg). #map is fixed inset:0 (the canvas spans the viewport: canvas-relative x == client x) and .fitpane spans client x 398..950 at 1200x800 (left:398, width min(46vw,780px)=552) - the drag-start grid's elementFromPoint + pane-rect guard is load-bearing for the x 900-949 column. saveFit (index.html ~1130) re-read: the 16-key doc + by:hand = 17, the 60x1.5s overlay poll on fit.at, depSel repointed at the new overlay, endFit -> applyDep; the fitkit endFit wrapper restores the overlay on close. fqPlace (fitqueue.js) re-read: select -> setGround (persists aw.ground) -> await loadDeps -> startFit -> await openPlan; the card markup and fqPending (S.byId && !done && !skipped) confirmed.
 - Nothing failed; nothing ran (last suite state remains 100 passed + 1 skipped + 0 failed at c8e6cab; the driver's merge before this session added no tests - the first run will re-confirm). Working tree clean (only the task file and this entry changed).
+
+
+<!-- task 307bc -->
+# Task 307bc reverify-place-mode
+
+## 2026-10-14 307bc DECISION: the post-235 re-run is green (part 4 66 s, full suite 177/1/0) - 307b's box 5 ticked and 307b set done; filed 242 for the 307d screenshot drift
+235 is in this branch (the driver merged main at 8c967c8 before this session: the
+`_pick_place` fix plus the `_survives_page_filter` / `_page_auto_select` helpers at
+tests/test_fit_queue.py:1517-1558). Verified everything by running code; machine date
+2026-10-14 (still 2026, so part 4's `at` startswith-'2026-' assert and the year-relative
+150-year cutoff are unaffected). No code files changed this session - memory/task files
+only; web/fitkit.js needed nothing, as the task's notes expected (the iteration-256 red
+run had already shown every behaviour check [ok]; the only red sub-check was the
+seed's dep-visibility, which the 235 pick fix addresses upstream).
+
+Pre-run pick simulation (PITFALLS rule (a) - `_pick_place` is a pure function over
+committed inputs): oswestry-castle-q20713795, idx 3 of the current 180-entry queue,
+plan earthworkenglan01allcgoog_n0119_1 (bar 0.1646 m/px, rot 0, coarse false). The two
+earlier entries: idx 0 fort-ancient (line-ineligible), idx 1 marietta (skipped by
+EXACTLY the 235 rule - no-page-showable-dep: her only depiction is a 1904 USGS topo,
+filtered by surveyOldEnough with cutoff 2026-150=1876), idx 2 forthill (ineligible).
+Oswestry's surviving depictions: the 1842 six-inch map (auto-selected by the page's
+select() rule); the 1900 one-inch filtered. The 307d picker (_picker in
+test_owner_check.py) also simulated: A = idx 3 oswestry / n0119_1 (bar 0.1646),
+B = idx 8 devil-s-dyke / n0662_1 (picture_size 0.7201) - the SAME site+plan the
+307d docs section names ("on the 241-entry queue of 2026-10-13 that was entry 38 ...
+and entry 45"); the bba5961 queue re-export (241 -> 180 entries) shifted the indices
+38/45 -> 3/8, and the docs text is a dated snapshot, so it is not stale.
+
+Runs:
+- part 4: tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser =
+  1 passed in 66.21 s (headless Chrome, full temp tree, ephemeral port, GUARD: the only
+  server-log noise is the known harmless /tiles/relief 404s). All sub-checks green
+  including the seed's dep-layer visibility (the 1842 map's layer hidden while placed,
+  restored by Cancel) that had been red since 6ce742f.
+- full suite: 177 passed, 1 skipped, 0 failed (527 s) - exactly 235's recorded baseline
+  (177/1/0); the iteration-256 159/1/1 was the pre-235 baseline (the suite grew with
+  235's helpers and merged 212/302g work). No other red, so box 2 required no filing.
+
+307b closed: box 5 ticked with the above evidence in 307b's (new, final) hand-over;
+Status: done. Parent 307's hand-over got the done note: all four subtasks (307a, 307b,
+307c, 307d) are done, so the parent is ready for the driver to return it.
+
+Side matter (the iteration-256 307b hand-over asked for a judgment): the 307d
+screenshot drift is MEANINGFUL and is not just data movement. At session start six of
+the ten 307d_*.png were dirty against HEAD, and HEAD itself differs from main on
+exactly those six (the driver's sweep had committed the iteration-256 re-renders into
+this branch, 1cff9fc). HEAD-vs-worktree pixel compare (threshold 32): the four
+saved/reload views (A_4/A_5/B_4/B_5) differ 24-36%, card/placed 0.1-0.2%. Then a
+same-data A/B: re-ran test_owner_check.py one hour later on the identical tree
+(2 passed, 67 s) and compared run-1 vs run-2 PNGs: saved/reload differ 28.6-33.6% of
+pixels between runs, card/placed/gestured 0-1.25%. Visual inspection of the A_4 pair
+(same site panel, same selected depiction, same 85% opacity): the map view and the
+overlay rectangle are shifted slightly relative to each other - the captures land
+mid-transition (the map view is not settled at shot time). So: (1) the docs' PNGs
+drift ~30% per full-suite run, (2) any branch that ran the suite is dirty on them
+(the b14918f binary-conflict episode), (3) they no longer correspond to the 307d-
+acceptance bytes. Filed tasks/242-owner-check-stable-shots.md (Depends on: 307d;
+Touches: tests/test_owner_check.py, docs/site_flow.md, docs/site_flow/) to settle the
+map before those captures and replace the unconditional per-run in-checkout copy with
+an explicit refresh flag. Updated the PITFALLS 307d-PNG entry with the measurement
+and the 242 pointer; its restore-main-bytes workaround remains the rule until 242
+merges - applied it this session (git checkout main -- docs/site_flow/307d_*.png)
+before committing.
 
 
 <!-- task 307d -->
