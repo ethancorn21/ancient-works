@@ -49,33 +49,108 @@ the original or a facsimile of it, its date, its licence, and its resolution bef
 
 ## Hand-over
 
-(2026-10-14, iteration 174, agent a). Test-file session (173 hand-over steps 1-2): tests/
-test_src_us_cities.py is now at the 15-row shape (the details in the 174 DECISIONS entry);
-7/7 green (test_src_us_cities + test_region). Module / staged files / golden are already
-committed (9cae53f). Remaining work: rewrite the lead doc (step 3), tick box 3, the done
-commit (steps 4-5). No live work needed before then except optionally the /tmp/nash168
-examinations below.
+(2026-10-14, iteration 175, agent a). Research-only session (no repo file touched yet;
+tests stand at 7/7 from 174: test_src_us_cities + test_region; module/staged files/
+golden committed in 9cae53f). This session examined the two remaining unexamined sheets
+in /tmp/nash168 (STILL ON DISK: loc2003630459.jpg 19690x11294, defnash1895.jpg 1536x886,
+all earlier crops) and settled the extent estimates the lead doc needs. Crops this
+session: /tmp/nash175/ (session-scoped). Findings below; next step is the lead-doc
+rewrite itself.
 
-### NEXT STEPS (in order)
-1. Rewrite docs/lead_us_cities.md (read it in full first; its tail section "## Nashville
-   (Q23197) - later sessions" is what gets replaced):
+### LOC 2003630459 (Poe 1860s) - extent finding (for the lead doc site note)
+- Title block (upper left): "MAP OF NASHVILLE TENNESSEE". Handwritten beside it: "Rail
+  road junction is made along the pencil line - See small map."
+- Signature (lower right, confirmed by 152): "From Chief Eng'rs Office / H'd Qu'rs
+  Mil'y Div'n of the Mis. / O.M. Poe / Capt. & Actg Chf Eng'r (17x29.)" - the (17x29.)
+  is the SHEET SIZE (17x29 inches, LOC convention), plus a LOC "No. 9638 MAPS &
+  CHARTS" stamp. The scan (19690x11294, ~664-679 px/in) IS the whole sheet.
+- SCALE (measured this session from the printed bar, 0-12000 ft, 100-ft subdivisions on
+  the first 500): ticks 0/1500/2500-4500 at x 9069/9985/10588-11786 -> 1000 ft ~= 600-604
+  px -> **~0.50-0.51 m/px, scale ~1:13,500** (1 in ~= 1100 ft at 664-679 px/in). The
+  handwritten "1" = 10000" note DISAGREES with the bar (a 1:120,000 scale cannot show
+  individual buildings) - record the bar's value; note the discrepancy.
+- Sheet size at that scale: 29 in x 17 in ~= **10.0 x 5.7-5.8 km**.
+- ORIENTATION: the LOC catalog record itself says "Oriented with north toward the lower
+  right" (152 quote). Independent read: the street grid is ~page-aligned (Broad/Union/
+  Decatur/Washington vertical, Vine/College/Market/High/Park horizontal; State Capitol
+  hill + building, Market Square/City Hall/Court House, University & Western Military
+  Institute, City/Catholic cemeteries, the Nashville & Chattanooga and Nashville &
+  Western RRs + a "Proposed RR" all legible in /tmp/nash175/loc_core.png etc.); the
+  rivers' confluence is drawn as a ~90-degree V at the LOWER-RIGHT of the core (the
+  drawn V is compressed: junction ~0.7 km from the capitol vs ~1.4 km real - rivers bent
+  for composition, the Clayton/Haydon pattern). Trust the street grid, not the V, for
+  any future fit.
+- EXTENT: the drawn content (city core + ring of named suburbs + both rivers + RRs +
+  cemeteries + country) runs nearly to ALL FOUR SHEET EDGES - pixel ink bbox at any
+  threshold = the whole sheet (the cloth carries foxing everywhere, so the bbox is not
+  a content measure; the visual extent is the sheet's). **~10 x 5.7 km drawn = 3-5x the
+  2 km town box -> over-size -> review item (the NY 1811 / DC 1865 ring precedent),
+  as the module's site note already says.**
+
+### 1895 Defenses plate - panel read (for the lead doc; 151/152 archive entries are the
+### 1536-px baseline, this session re-read at 2x/6x)
+- Header CONFIRMED (6x crop /tmp/nash175/d_header.png): "ATLAS TO ACCOMPANY THE
+  OFFICIAL HISTORIES OF THE UNION AND CONFEDERATE ARMIES 1861-1865" + "PLATE" + Roman
+  numeral (CXIII/CXIV/CXVIII unreadable at this resolution - 152 hedged it; keep the
+  hedge in the lead doc).
+- Panel 5 CONFIRMED (6x crop d9_p8t.png hit it): "DEFENSES OF NASHVILLE, TENN. /
+  FORT DAN MCCOOK. / Planned by Brig. Gen. JAMES STE. CLAIR MORTON / Showing changes
+  made by Brig. Gen. J.H. TORBERT, U.S. Eng'rs. / THE ... FORTIFICATION ... / DEC. 21?,
+  1864. / Scale of Feet" - matches 152 (Dec 21, 1864).
+- PANEL CAPTION CONFLICTS to settle at higher resolution before the lead doc is final:
+  * panel 3: 152 read "Nashville Magazine Battery 'Dec. 1864' (Eng. Capt. J.S.
+    Wheatley)"; my 2x/6x reads show a title line "BATTERY FOR CASI..." (=? "CASINO
+    HILL") with "Designed for ... TENN. ARMY ... / DESIGNED FOR THE 1?th ... 1864" lines.
+  * panel 8: 152 read "Fort Nashville"; my 2x read said "FORT WASHINGTON, TENN." but
+    the 6x crop at that coordinate (d9_p8t) is Fort Dan McCook again - the 2x read is
+    UNRELIABLE here; the real panel-8 caption sits elsewhere (right half, lower row -
+    find it: it carries a "Section on Line A-c" below, seen in d_p8.png).
+  * panel 9: 152 read "the Nashville Heights 'Dec. 1864'"; my 2x read showed "REDOUBT
+    ON HILL No. 230. / Not yet completed. / November 30th. 1864." - one of us is wrong;
+    the 2x image (z_def_whole.png, still on disk in /tmp/nash168) is the source of
+    both.
+- HIGH-RES ROUTES (this session's attempts, all dead from this machine - do not
+  re-burn): David Rumsey zoom/detail pages -> reCAPTCHA "Verify Access" shell on every
+  ID form tried (zoom/1780.000.113, map/1780.113, the NEW collection IDs
+  RUMSEY~8~1~26834~1100113/1110113 - 404 / Verify Access; dpacrumsey.lib.psu.edu
+  does not resolve); the atlas's NEW Rumsey home = collection RUMSEY~8~1~26834
+  (contents detail 1110231; images ~1100xxx: #159 Murfreesborough, #201 Battle-field
+  Nashville, #275 Gen. map IX - our old 1780.113 would be ~#113 but the page is
+  captcha-walled); LOC search API (fo=json, browser UA) keyword-AND ranking does not
+  surface the atlas item (top hits = War of the Rebellion volumes, 2009581111 = a
+  DIFFERENT 1892 atlas); the IA item behind the scan (01104241) is gone (152). NEXT
+  route if the conflict matters: re-examine /tmp/nash168/z_def_whole.png (3072x1772)
+  at the EXACT panel-8/9 caption positions (the 2x png is the highest-res version we
+  have) and/or a wider 6x crop of the whole lower row (1080,200)-(1536,560); if still
+  unreadable, record 152's readings with an explicit "not fully legible at this
+  resolution; two session readings differ" hedge in the lead doc (the row's date 1895
+  and the surveyed Nov 30 - Dec 1864 range stand on 152 either way).
+
+### NEXT STEPS (in order) - the 174 steps 3-5, with this session's findings folded in
+1. Rewrite docs/lead_us_cities.md (read in full first; its tail "## Nashville (Q23197)
+   - later sessions" section is what gets replaced):
    (a) header: add the four Nashville plans to the plan list; "three cities staged;
        Nashville last" -> all four owner-named cities staged.
    (b) QID section: add Q23197 to the verified list with the 173 --verify transcript
-       (below), and re-record the Q5471739 / Q5471744 facts (below - they are NOT SITES
-       keys, so no --verify runs for them).
-   (c) the full Nashville city section: the site point + mirror-fit verdict (below); the
-       four candidate subsections (STAGED: the row facts below; DROP: the 151 archive
-       entry - grep "iteration 151" in DECISIONS-archive.md; 236b leads = the 3 Fletcher
-       1864 Fort Negley views); the Haydon composite finding (below); extent estimates
-       for the LOC 2003630459 and the 1895 sheet (EXAMINE /tmp/nash168/z_loc_whole.png
-       2500x1443 and z_def_whole.png 2x first - still on disk at this limit, source jpgs
-       loc2003630459.jpg / defnash1895.jpg alongside; if gone, re-download via the
-       Commons file pages / Special:FilePath, and for the 1895 sheet the David Rumsey
-       zoomable original its desc links, per the 151 entry); the offline check transcript
-       (below - or re-run .venv/bin/python fit/src_us_cities.py --check).
+       (below), and re-record the Q5471739 / Q5471744 facts (below - they are NOT
+       SITES keys, so no --verify runs for them).
+   (c) the full Nashville city section: the site point + mirror-fit verdict (below);
+       the four candidate subsections (STAGED: the row facts below; DROP: the 151
+       archive entry - grep "iteration 151" in DECISIONS-archive.md, the full
+       DROP-list text is there; 236b leads = the 3 Fletcher 1864 Fort Negley views);
+       the Haydon composite finding (below); **extent estimates: LOC 2003630459 per
+       the finding above (~10 x 5.7 km, ~1:13,500, 17x29 in sheet, north toward the
+       lower right per the LOC record); 1895 sheet = multi-panel atlas plate, nine
+       independent fort/battery plans each with its own scale bar (~100-400 m per
+       panel at their "Scale of Feet" bars), the only city-wide content = the small
+       "Plan of Nashville, Tenn." inset in the Fort Hill panel showing the whole ring
+       at a few cm - too small to georef; Fort Negley (Q5471744) is NOT among the
+       nine panels on this sheet; panels surveyed Nov 30 - Dec 1864**; the offline
+       check transcript (below - or re-run .venv/bin/python fit/src_us_cities.py
+       --check for the fresh 15-line PASS list).
 2. Tick acceptance box 3, set Status: done.
-3. Commit: git add -A && git commit -m "236a: done - Nashville staged (4 plans, 15/15 check) + tests + lead doc".
+3. Commit: git add -A && git commit -m "236a: done - Nashville staged (4 plans, 15/15
+   check) + tests + lead doc".
 
 ### Verified (173, do NOT redo)
 - --verify (checked 2026-10-14, 4 QIDs): CLEAN, no flags, no traps. Q23197: label
