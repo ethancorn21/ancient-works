@@ -292,11 +292,13 @@ def not_this(site, plan, on, title=None):
 
 
 def _fit_line(site):
-    """The one-site line for a saved fit (tools/site_done.py, run in this process with no model):
-    the site's fits sync to the map, its drawing count refreshes, its review item resolves. The saved
-    document is by: hand (the store stamped it on the PUT), so its overlay is built with no check;
-    an unfitted candidate only lands in the item as "no model answer" - no model, no network. A tree
-    without tools/ (a stripped test tree) writes no files at all."""
+    """The one-site line for a saved fit (tools/site_done.py, run in this process): the site's fits
+    sync to the map, its drawing count refreshes, its review item resolves. The saved document is
+    by: hand (the store stamped it on the PUT), so its overlay is built with no check. Any other
+    uncovered candidate is offered to the pretrained matcher first; what it does not fit lands in
+    the item with the matcher's recorded reason - in the tests' socket-dead server process that
+    reason is "no matcher on this machine". A tree without tools/ (a stripped test tree) writes
+    no files at all."""
     try:
         sys.path.insert(0, os.path.join(ROOT, "tools"))
         import site_done

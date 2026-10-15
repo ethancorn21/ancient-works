@@ -6,7 +6,7 @@ drawings, put them over the ground, count them in its entry, publish its review 
 one command the next site's session reuses:
 
 ```
-.venv/bin/python tools/site_done.py <site id> [--working | --model-json FILE]
+.venv/bin/python tools/site_done.py <site id>
 ```
 
 `--root DIR` redirects the data paths (the test runs the line on a copy of one site's files).
@@ -14,15 +14,19 @@ Exit codes: 2 = the site is not built, 1 = a document failed to sync, 0 = done.
 
 ## The line, step by step (as the next site's session runs it)
 
-1. **fit** — `fit/batch_us.py run_sites`, but only when the site has candidate pictures in
-   `web/data/plans.json` that have NEITHER a platefit document (`data/db/platefits/<site>.<plan>.json`)
-   NOR a review-item entry yet. Covered pictures are never re-fitted: the batch's item upsert
-   replaces a candidate's entry whole, so a blind re-run would swap the rich entries (gate
-   scores, pairs, the why) for "no model answer" stubs. A site whose candidates are all covered
-   skips the batch run entirely (Stonehenge: 13 candidates, 7 documented, 6 in the item).
-   A brand-new site needs a model here: `--working` (the local vision model on the AI box) or
-   `--model-json` (recorded answers, a dry run); with neither, unfitted pictures land in the
-   review item as "no model answer".
+1. **fit** — matcher first (`fit/matchfit.py`): every candidate picture without a platefit
+   document (`data/db/platefits/<site>.<plan>.json`) is offered to the pretrained matcher, and a
+   fit it is sure of becomes a matcher document. The second pass — `fit/batch_us.py run_sites`,
+   the vision-model fitting pass retired (GOAL point 2: no model places a picture or writes
+   point pairs) — records the remainder in the site's review item, only for pictures that have
+   NEITHER a platefit document NOR a review-item entry yet; the item's `why` per picture is what
+   the matcher recorded about it (the judge's "not sure" clause, the gate's clause when the
+   matcher's fit was refused, "picture not on this machine") or "no matcher on this machine"
+   when the matcher was not reachable (a recorded environment fact). Covered pictures are never
+   re-fitted: the batch's item upsert replaces a candidate's entry whole, so a blind re-run
+   would swap the rich entries (gate scores, pairs, the why) for stubs. A site whose candidates
+   are all covered skips the batch run entirely (Stonehenge: 13 candidates, 7 documented, 6 in
+   the item).
 2. **sync** — before any of them, the line's fabrication check: `plan_fit.fabrication_pattern`
    on every document's stored page-px pairs (the batch's gate passes the model's pattern class
    by construction — see What broke on Stonehenge). A document that hits is never synced: its
@@ -1067,6 +1071,10 @@ the site stays covered for the union check, an open item counts).
   on the page (the 303 way: the picture and its 8 points went to the site's review item with this
   reason - merged into the item that already held the Allcroft 1908 n0136_1 candidate, which stays
   open; the document was deleted 2026-10-12).
+  (2026-10-14, 306 close: the lead's 77405cf (2026-10-13, '13 matcher re-fits after the 212b
+  sync, eye-checked') re-ported this document to the map after the deletion above; the owner's
+  re-port stands - this verdict stays as the record of what the drawing does, and the audited
+  entry (picture + this reason) stays in the site's review item, now resolved on this document.)
 - cassiobury-house-q5049456.c_3446adfe7a8ed6c7 - Kip 1707 bird's-eye view of the house (the page's
   view model: homography, 4 points, an exact 4-point fit resid 0.0, near-affine ~1.29 m/px): the
   4 anchors are a 100-px-snapped rotated anisotropic quadrilateral on the plate's park/avenue
@@ -1182,6 +1190,10 @@ the site stays covered for the union check, an open item counts).
   ~600-800 m off the town. DELETED - an orphan today, invisible on the page (the 303 way: the
   picture and its 8 points went to the site's review item with this reason, creating its item;
   the document was deleted 2026-10-13).
+  (2026-10-14, 306 close: the lead's 77405cf (2026-10-13, '13 matcher re-fits after the 212b
+  sync, eye-checked') re-ported this document to the map after the deletion above; the owner's
+  re-port stands - this verdict stays as the record of what the drawing does, and the audited
+  entry (picture + this reason) stays in the site's review item, now resolved on this document.)
 - goodrich-castle-q5583571.c_cd89cb69f385859b - Mackenzie 1897, The Castles of England
   (similarity, 4 points, resid 0.8 m, 0.84 m/px, 0.0 deg): the 4 anchors are a consistent 0.838
   m/px rectangle spanning the plan and the fit is centred right (the 1842 'Goodrich Castle
@@ -1191,6 +1203,10 @@ the site stays covered for the union check, an open item counts).
   (the 1842 'GOODRICH' label sits inside the drawn castle). DELETED - an orphan today, invisible
   on the page (the 303 way: the picture and its 4 points went to the site's review item with this
   reason, creating its item; the document was deleted 2026-10-13).
+  (2026-10-14, 306 close: the lead's 77405cf (2026-10-13, '13 matcher re-fits after the 212b
+  sync, eye-checked') re-ported this document to the map after the deletion above; the owner's
+  re-port stands - this verdict stays as the record of what the drawing does, and the audited
+  entry (picture + this reason) stays in the site's review item, now resolved on this document.)
 - gurnard-s-head-q5620199.earthworkenglan01allcgoog_n0262_1 - Allcroft 1908 Fig. 87, 'Castell-an-
   Dinas, Cornwall' after Cotton (similarity, 8 points, resid 0, 0.4 m/px, 0.0 deg): the fit is
   centred on the site point, but the drawn W. Cotton schematic dun (the plate's own footnote:
@@ -1264,6 +1280,10 @@ the site stays covered for the union check, an open item counts).
   bigger than the real complex, walls through the town. DELETED - an orphan today, invisible on
   the page (the 303 way: the picture and its 6 points went to the site's review item with this
   reason, creating its item; the document was deleted 2026-10-13).
+  (2026-10-14, 306 close: the lead's 77405cf (2026-10-13, '13 matcher re-fits after the 212b
+  sync, eye-checked') re-ported this document to the map after the deletion above; the owner's
+  re-port stands - this verdict stays as the record of what the drawing does, and the audited
+  entry (picture + this reason) stays in the site's review item, now resolved on this document.)
 
 306e - the 17 UK orphan documents (sites o-y): in the store, but no overlay built on the site
 and no review item referencing them, so the page shows them to a visitor not at all; each was
@@ -1328,6 +1348,12 @@ the site stays covered for the union check, an open item counts).
   drawn works bigger than the real complex, walls past the fields. DELETED - an orphan today,
   invisible on the page (the 303 way, as for c_ff62: the picture and its 6 points went to the
   site's review item with this reason, the document deleted, the site stays covered).
+  (2026-10-14, 306 close: the lead's 77405cf (2026-10-13, '13 matcher re-fits after the 212b
+  sync, eye-checked') re-ported this document to the map after the deletion above, and the
+  lead's 10dcb23 close (written after that re-port) keeps the eye-checked matcher re-fits as the
+  state of record; this verdict stays as the record of what the drawing does, and the audited
+  entry (picture + this reason) stays in the site's review item, which is resolved on the other
+  re-ported document, c_b2701b.)
 - oxford-castle-q2600886.c_ba6b308580428184 - Oxford Castle, plan from Mackenzie, The Castles
   of England (1897; similarity, 4 pts, resid 0.0 m, 1.00 m/px, -0.0 deg): the 4 anchors are a
   perfect 100-px diagonal ladder, so the fit carries no placement information; the site point
@@ -1399,6 +1425,14 @@ the site stays covered for the union check, an open item counts).
   way: the picture and its 6 points went to a new review item for the site with this reason -
   the site had none before - the document was deleted, the site's review page file
   re-exported scoped to the site; the site stays covered by the new open item).
+  (2026-10-14, 306 close: the lead's 77405cf (2026-10-13, '13 matcher re-fits after the 212b
+  sync, eye-checked') re-ported this document to the map after the deletion above, and the
+  lead's 10dcb23 close of 306e + 306f (written after that re-port: 'the survivors are
+  eye-checked matcher re-fits') names these Portchester twins among the eye-checked survivors -
+  the owner's re-port stands; this verdict stays as the record of what the drawing does, and
+  the audited entry (picture + this reason) stays in the site's review item, resolved on this
+  document. One of the 7 audit-deleted documents 77405cf re-ported: the 5 annotated above,
+  plus this twin pair.)
 - portus-adurni-q762664.c_4912bb54aa79f3ea - Burg von Portchester (GB), Plan von 1836 aus der
   Penny Cyclopaedia, Seite 354 (similarity, 6 pts, resid 0.0 m, 1.00 m/px, -0.0 deg): the
   German-titled twin of the deleted c_42bedb90fffce1d4 - the same Penny Cyclopaedia 1836 v6 p
@@ -1412,6 +1446,13 @@ the site stays covered for the union check, an open item counts).
   the page (the 303 way: the picture and its 6 points were APPENDED to the portus item
   created by the twin's deletion - the item keeps its file name and its lead, and the site
   stays covered by the still-open item).
+  (2026-10-14, 306 close: the lead's 77405cf (2026-10-13, '13 matcher re-fits after the 212b
+  sync, eye-checked') re-ported this document to the map after the deletion above, and the
+  lead's 10dcb23 close of 306e + 306f (written after that re-port: 'the survivors are
+  eye-checked matcher re-fits') names these Portchester twins among the eye-checked survivors -
+  the owner's re-port stands; this verdict stays as the record of what the drawing does, and
+  the audited entry (picture + this reason) stays in the site's review item, which is resolved
+  on the twin, c_42bedb90fffce1d4.)
 - raby-castle-q4583646.c_fe1d6c7f0ba858cb - Raby Castle, plan from Mackenzie, The Castles of
   England (1897) (similarity, 4 pts, resid 0.0 m, 0.67 m/px, 0.0 deg): the 4 anchors are the
   plate's 900-px corner square - a ladder with no placement information: the fit pins the plate
@@ -1481,6 +1522,121 @@ the site stays covered for the union check, an open item counts).
   a NEW review item for the site with this reason - the site had none before - the document
   was deleted, the site's review page file re-exported scoped to the site; the site stays
   covered by the new open item).
+
+The last three 306e lines, backfilled 2026-10-14 (306g): judged in the 306e audit (49ca718)
+but never written to this section before the lead closed 306e (10dcb23, the 212b item entries
+as-is). All three documents are gone from the store (the 212b sync, 6ce742f) and the review
+items hold the 212b entries unchanged - these lines are the repo record of the 306e verdicts
+(lines only: no new shots, no item edits).
+
+- windmill-hill-q4348373.earthworkenglan01allcgoog_n0558_2 - Allcroft 1908, "WINDMILL SITES,
+  LEWES DOWN" (similarity, 6 pts, resid 0.0 m, 1.0000 m/px, 0.0 deg): the 6 anchors are a
+  2000..2800-px grid box + (2400,2900) + (1900,2400), the site point inverse-mapping to the
+  box centre (2399.5, 2399.5) - the fit carries no placement information. The plate is a
+  conical hachured barrow hill with a ring of ~6 barrow mounds: Lewes Down is EAST SUSSEX, a
+  toponymic collision with this site (Windmill Hill, Avebury, Wiltshire - the Neolithic
+  causewayed enclosure the 1842 map labels "Windmill Hill"). On the audit shots the plate
+  sits ~one hill-width W-NW of the real hill, on open downland and fields; the drawn barrow
+  hill does not match the real causewayed enclosure. Wrong place, wrong kind. DELETED (the
+  212b sync removed the doc; the review item holds the candidate) - 306e, backfilled 2026-10-14.
+- york-castle-q80637.c_8dac5aacd73916b8 - "York Castle in 1820", from a 1820 watercolour by
+  Mr Waud (4-point perspective fit, 1.0507 m/px, +7.03 deg, gate 31.7 m): a genuine
+  perspective view of THIS castle - Clifford's Tower on its conical motte, the 1820 curtain
+  walls, the Foss lower-left, the city behind. The 4 anchors are a fabricated grid (site
+  point -> page (412.9, 91.5), the top of the drawn tower), so the fit is unverifiable by
+  construction, but the picture is of the right site and kind (the surviving tower and moat
+  ring sit ~300 m N of the catalog site point, and the drawn complex inherits the site's
+  offset, like taunton's). KEPT in the item - the owner's call: the 212b sync deleted the
+  doc as a fabricated-anchor-pattern document, the item holds the candidate; 306e,
+  backfilled 2026-10-14.
+- york-castle-q80637.c_a7db545536f13e24 - "Plan of Center, Broome County 1855" (Gifford
+  Wenig) (similarity, 4 pts, resid 11-36 m, 0.9742 m/px, +0.38 deg): a street plan of the
+  VILLAGE OF CENTER, BROOME COUNTY, NEW YORK ("PLAN of CENTER", Store St / Main St / Elm St,
+  the Sunbury R. creek, named houses) - a toponymic collision (site point -> page
+  (298.3, 384.9)). The drawn street grid sits on the 1842 dense old-town fabric of York with
+  no matching streets, and the Sunbury R. band does not land on the Foss. Wrong place.
+  DELETED (the 212b sync removed the doc; the review item holds the candidate) - 306e,
+  backfilled 2026-10-14.
+
+306g - the 16 lead-port on-map matcher re-fits (2026-10-14): the lead's own port commits put
+these documents on the map after the 306a-f audits (20277f3 the 11 van Deventer city sheets,
+0685a4c the 2 Leiden plans, 77405cf the 3 re-ports of already-judged docs - cahokia, gouda,
+old-sarum), stated "eye-checked" on the Mac, with no record in this repo. Each is the
+fit.doc overlay of its site's depictions.json and was audited the visitor's way (the site
+opened, the doc's own depiction active over the aerial photograph, and over the LiDAR relief
+where the site has one; the 27 shots in docs/site_flow/agent_fits/). They are georeferenced
+sheets, so the question for each is whether the sheet's content (town core, river, walls,
+labels) sits on the real town, not the anchor arithmetic (the 8-point similarity re-fits are
+near-exact: resid <=0.3 m, the depictions.json corners are the placement). All sixteen
+STAY - none reached the map unseen, and none had to leave.
+
+- arras-q131329.c_4e242bc2623751a0 - town plan by Jacob van Deventer, 1545 (8 pts, resid
+  <=0.2 m, 1.69 m/px, -8.0 deg): the drawn street grid, the Scarpe and Deule rivers and the
+  old-town core sit on the real town (lead port 20277f3; visitor-view record). STAYS.
+- avesnes-sur-helpe-q217178.c_61fbbcd3d6051cd9 - town plan by Jacob van Deventer, 1545 (8
+  pts, resid <=0.1 m, 1.40 m/px, -12.6 deg): the walled diamond core sits on the real built
+  centre with its streets tracing the modern streets, the hatched farmland frame extending
+  around the town as drawn (lead port 20277f3; visitor-view record). STAYS.
+- bavay-q477176.c_e8345a33509010ae - town plan by Jacob van Deventer, 1545 (8 pts, resid
+  <=0.1 m, 1.53 m/px, -25.6 deg): the town core sits on the real urban centre (the sheet's
+  "Bavais" label over it) and the drawn Scheldt band at the sheet's right edge matches the
+  real river at the box edge (lead port 20277f3; visitor-view record). STAYS.
+- burcht-van-leiden.c_2ed7167f77ea05d4 - Atlas de Wit 1698 pl. 17, Leiden (8 pts, resid
+  <=0.1 m, 0.98 m/px, -15.0 deg): the drawn Leiden street grid follows the real streets over
+  the whole city (a blue/red composite over the independent 1850 TMK survey confirms the two
+  inks track each other), the Burcht - the site's point - inside the drawn centre (lead
+  port 0685a4c; visitor-view record). STAYS.
+- burcht-van-leiden.c_b790b0ce40d7d26b - Atlas Van der Hagen (De Wit) c. 1690, "Lugduni
+  Batavorum Vulgo Leyden" (8 pts, resid <=0.1 m, 0.77 m/px, -11.3 deg): the same city, a
+  slightly wider sheet - the street grid sits on the real streets, the Burcht in the drawn
+  centre (lead port 0685a4c; visitor-view record). STAYS.
+- cahokia-q333661.c_1a7c2a11c3a0dd21 - manuscript map of St. Clair and Madison counties,
+  Illinois, with survey of the Cahokia mounds, 1876 (John J.R. Patrick) (8 pts, resid <=0.2
+  m, 1.80 m/px, -1.9 deg): the drawn mound rings sit on the real mounds - the central mound
+  complex, the round barrows, the ringed earthwork lower-right - confirmed on the LiDAR
+  relief, where each drawn ring covers a real relief feature (lead re-port 77405cf;
+  visitor-view record). STAYS.
+- douai-q193826.c_661c074bcd04d49a - town plan by Jacob van Deventer, 1545 (8 pts, resid
+  <=0.3 m, 1.84 m/px, -13.1 deg): the dense old-town grid sits on the real urban centre and
+  the drawn river bands match the real water at the sheet's lower edge (lead port 20277f3;
+  visitor-view record). STAYS.
+- gouda-q84125.c_ba646ea988fc6bc8 - town plan by Jacob van Deventer, c. 1560 (8 pts, resid
+  <=0.1 m, 1.29 m/px, -12.3 deg): the street grid and the canals/river bend (the sheet's
+  "Goude" label) track the real town tightly (lead re-port 77405cf of the 306f survivor;
+  visitor-view record). STAYS.
+- gravelines-q323399.c_173e0d61c038bada - town plan by Jacob van Deventer, 1545 (8 pts,
+  resid <=0.1 m, 1.50 m/px, -9.8 deg): the walled town with its canals sits on the real
+  built-up area (the sheet's "Grueulinghen" label over it) (lead port 20277f3;
+  visitor-view record). STAYS.
+- groningen-q749.c_498f9aa12d03fc30 - town plan by Jacob van Deventer, c. 1563-1567 (8 pts,
+  resid <=0.2 m, 1.90 m/px, -9.3 deg): the dense medieval grid sits on the real city core
+  (the sheet's "Groeningen" label over it) (lead port 20277f3; visitor-view record). STAYS.
+- le-cateau-cambresis-q329103.c_f613a7c2165ba280 - town plan by Jacob van Deventer, 1545
+  (8 pts, resid <=0.1 m, 1.40 m/px, -9.3 deg): the town core sits on the real town (the
+  sheet's "Ocatonoyr" label beside it), the sheet's frame extending over the surrounding
+  farmland as drawn (lead port 20277f3; visitor-view record). STAYS.
+- lille-q648.c_1f7cce1c856a7bcb - town plan by Jacob van Deventer, 1545 (8 pts, resid <=0.2
+  m, 2.03 m/px, -11.6 deg): the star-shaped ramparts and the dense street grid trace the
+  real city, the rampart line visible in the modern street layout (lead port 20277f3;
+  visitor-view record). STAYS.
+- saint-omer-q208793.c_df791c935a4905f7 - town plan by Jacob van Deventer, 1545 (8 pts,
+  resid <=0.2 m, 1.90 m/px, -8.7 deg): the street grid and the canals follow the real city
+  (its real canal network matches the drawn ones) (lead port 20277f3; visitor-view
+  record). STAYS.
+- utrecht-q803.c_f5f96070065c0763 - town plan by Jacob van Deventer, 1565-1570 ("Trarlectum
+  inferius") (8 pts, resid <=0.1 m, 1.04 m/px, -12.7 deg): the dense street grid sits on
+  the real Utrecht core and the drawn rivers match the real water (lead port 20277f3;
+  visitor-view record). STAYS.
+- valenciennes-q163795.c_0b5e6f27e6aeba51 - town plan by Jacob van Deventer, 1545 (8 pts,
+  resid <=0.2 m, 2.22 m/px, -12.4 deg): the street grid sits on the real town (the sheet's
+  "Valencienyes" label over it) and the drawn Sambre matches the real river (lead port
+  20277f3; visitor-view record). STAYS.
+- old-sarum-q782719.c_b2701b5231da42f2 - "Plan of Old Sarum" (Ordinance Survey Plan, 1916)
+  (8 pts, resid 0.0 m, 1.47 m/px, -0.3 deg): the drawn concentric rampart rings and the two
+  gate gaps ("Brewer by ye Gate" at the west end, the "Great Gate To Winchester" at the
+  east) sit exactly on the real earthworks visible in the LiDAR relief and the 1842
+  six-inch - the 306e coarse candidate, re-ported to the map by 77405cf, the review item
+  already holds it as a candidate (visitor-view record). STAYS.
 
 ## The site markers become arrowheads (task 308, 2026-10-13)
 
@@ -1566,3 +1722,26 @@ see in his tree changed.
 Ten views of the two runs, in `docs/site_flow/`: `307d_A_{1-card,2-placed,3-gestured,4-saved,5-reload}.png`
 and `307d_B_*.png` - the card, the drawing on the works, after the three gestures, the saved overlay on the
 map, and the unchanged reload.
+
+**The ten PNGs are a pinned snapshot (task 811, 2026-10-15), not a per-run re-render.** An ordinary test run
+leaves them byte-identical - they are part of the run's write-surface proof (all ten hashed before and after),
+and the 242 family's settled-capture regime (814's settle wait, 812's in-run double shot) is what makes a
+re-render byte-stable. They are re-rendered only by the explicit refresh named in the test's module docstring:
+`AW_OWNER_REFRESH=1 .venv/bin/python -m pytest tests/test_owner_check.py -q -p no:cacheprovider` (the pair, A
+then B, in one invocation; it re-renders all ten from that run and commits the result). The picks are derived
+and move with the queue, so a snapshot's picks are whatever its refresh run derived: the 2026-10-15 refresh
+that pinned these bytes named A = **Richard's Castle** (`richard-s-castle-q17650937`, Allcroft 1908 n0453_1, bar
+scale, queue entry 9) and B = **Devil's Dyke** (`devil-s-dyke-q3307343`, n0662_1, site-size fallback, entry 8),
+on the 180-entry queue; the section text above names the 2026-10-13 queue's derived picks (Old Oswestry
+n0119_1 at entry 38, Devil's Dyke at 45 - the two sites now sit at entries 3 and 8 on the 180-entry queue). That
+refresh found the committed bytes already this run's settled renders, so the pin came back byte-identical.
+
+## The matcher-first line on Stonehenge: the live run, the map check, the plain statement (task 302g, 2026-10-14)
+
+302's last box, method-agnostic, run as the line stands: the pretrained matcher first on every undocumented picture, the vision batch the second pass, the fabrication and spread guards fencing both (`site_done._fit`) - explicitly not the dropped ink work.
+
+**The run (2026-10-14 02:06-02:10 CDT, exit 0, wall 3m08s).** ELoFTR was up (127.0.0.1:8091, `zju-community/matchanything_eloftr`, RTX 5060 Ti); RoMa was down (:8092 refused), so the run degraded to ELoFTR only - no picture got the RoMa second pass. Against the three grounds (relief, the six-inch and the one-inch OS sheets, five centred windows each, 210 /match calls), the matcher found nothing it could keep: "the matcher found nothing consistent" on the earthworks picture and Early Man's Figs 143 and 145a, and "not sure: N consistent points (need 10)" on the other 11, N in 3-7 (best: 7 of 10, on the six-inch at x1.0, for Rude Stone Monuments 0128 and 49-of-'Stonehenge plans'). The vision batch never ran: all 14 candidates were already review-item entries, so there was nothing uncovered to fit (the item's one "no model answer" entry is pre-existing from the 301-era batch). **The line placed nothing: 0 documents written, 0 deleted, and every candidate entry byte-identical before and after.** The 14-entry pre-run snapshot, the per-candidate verdicts and the full stdout+stderr are in `docs/site_flow/stonehenge-matcher-2026-10-14.log`.
+
+**Checked in a browser against the real sarsens (the 301/306 pattern).** Headless Chrome on the live server (ephemeral port, this checkout), the site page `#stonehenge-q39671`, measured from the page's own state: the map shows exactly one overlay - the 1842 OS six-inch sheet, the c.1900 one-inch out by the 150-years rule - visible at 85% in ink lines, its four corners identical to the site's `depictions.json` (a Mercator round-trip within 1e-6 deg), extent 998.8 x 996.2 m on the 1000 m site box, and no plan or drawing depiction anywhere on the site. The sheet is the 1840s survey of this very ground: its centre is the sarsen centre itself (-1.826111, 51.178889, the catalog site point), so the red-ink circle and the Avenue it drew sit at their true positions - and in the shot they do: the ink circle on the aerial photograph rides on the visible standing-stone circle, the ink Avenue on the avenue earthwork running south-west. The page is `docs/site_flow/stonehenge-matcher-2026-10-14.png`.
+
+**Plainly:** the method placed nothing on Stonehenge. The matcher was unsure on all 14 pictures (best 7 of the 10 consistent points it requires, three with no consistent set at all; the earthworks picture is the known near-miss of the matcher's own tables - 0.26 fraction on the RoMa pass the 2026-10-12 queue run had while RoMa was up, below the 0.4 bar), the batch found nothing new to fit, so no document was written and the map stands as it stood before: the 1842 sheet and its ink, nothing else. That is the a-priori expectation the matcher's held-out run predicted, met by the live line - a passing answer to this box.

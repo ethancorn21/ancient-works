@@ -1,0 +1,15 @@
+{
+ "id": "denver-q16554",
+ "name": "Denver",
+ "place": "Denver County, Colorado, United States",
+ "lon": -104.984722,
+ "lat": 39.739167,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "United States",
+ "kind": "town",
+ "qid": "Q16554",
+ "summary": "Denver, officially the City and County of Denver, is the capital and most populous city of the U.S. state of Colorado. Officially a consolidated city and county, it is located in the South Platte River valley on the western edge of the High Plains, and is just east of the Front Range of the Rocky Mountains (Rockies). Denver is the 19th-most populous city in the United States and the fifth-most populous state capital, with a population of 715,522 at the 2020 census. The ten-county Denver metropolitan area, with 3.1 million residents, is the 19th-largest metropolitan area in the country and functions as the economic and cultural center of the broader Front Range Urban Corridor.",
+ "wiki": "https://en.wikipedia.org/wiki/Denver"
+}

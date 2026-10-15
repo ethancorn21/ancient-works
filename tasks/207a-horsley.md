@@ -50,60 +50,56 @@ found) but are not staged as picture rows.
   PITFALLS entry). (Done: A 936/0err, B 17/0err - no long pole remains.)
 
 ## Hand-over
-(2026-10-14, iteration 221, agent c - SPLIT per the driver: agent a had nothing to build for
-25 minutes and other open tasks (230) waited on this one, so the unbuilt work became three
-top-level tasks in the free 800-range: 807 (the list correction to 24 entries + the lead-doc
-section; Depends on: this task), 808 (the --stage: 17 staged rows + the new extras sites;
-Depends on: 807), 809 (the --check + golden + no-network test; Depends on: 808). Each
-carries its own Goal/Acceptance and the operational details that lived in this hand-over (the
-two-entry transcription, the validate_book one-liner, the catalog check, the image notes) in
-its Notes section. This task keeps what is already built and committed (below) and is DONE:
-box 1 ticked, boxes 2-5 moved into the parts. Task 230's Depends on line was updated the same
-session (807/808 added; 207c removed per 230's own dropped-subtask note). No tests run this
-session - a task-file-only change, no code touched; last suite state below.)
+(2026-10-13, iteration 121, agent c - DONE re-filed. The driver's 129af49 note was NOT a
+test rejection: "Accepted, but it cannot go into main yet: your branch conflicts with main
+(the other agent's finished work) in: docs/site_flow/307d_{A_1-card, A_2-placed, A_3-
+gestured, B_2-placed, B_3-gestured}.png. Run `git merge main`, resolve each conflict keeping
+both sides' intent, run the tests, commit, then set the task done again." All of that is
+done this session: merge committed 4cc34aa, suite green on the real verification tree,
+Status: done.)
 
-**Built and committed (the parts build on this - all in this branch's git history):**
-- data/raw/books/britanniaromanao00hors/ - fetched: 936 triage-size jpgs + the bookreader/hOCR/
-  djvu cache (gitignored raw).
-- data/books/triage/britanniaromanao00hors.A.jsonl - 936/936 rows, 0 errors (703 text_only /
-  151 other_illustration / 80 plate_site_plan / 2 unparsed).
-- data/books/triage/britanniaromanao00hors.B.jsonl - 17 rows, 0 errors (2026-10-14, replicas
-  8080/8081, 18 s): B re-read all 17 as plans with the printed titles + site_names (the source
-  of truth for the staging rows' titles; B's schema has no kind field - verdict = non-empty
-  plans[]).
-- fit/src_roman_horsley.py - the 219 version: CITE (title page n0014 + the BM-volume note
-  from n0015), the 22-entry HORSEY_FIGS (15 s wall maps + N.11 o + 6 country-map o + 2
-  Ptolemy-fold-out o), register() (in-process BOOKS + HAND_FIGS injection), --fetch /
-  --status / --triage A|F|B / --list. --stage/--check/--golden are documented in the
-  docstring but not built yet (808/809 build them).
-- data/books/lists/britanniaromanao00hors.json ({"plates": null, "figures": [22 entries]}) +
-  .map.json (22 entries; site_plan=true on the 15 wall-map leaves) - the 22-entry version;
-  807 regenerates 24/17.
-- PIVOT (220, the reason the list grows 22 -> 24): n0114 (P.44, the Ardoch + Innerpeffery
-  legionary camps) and n0185 (P.113, the five secondary stations GLANNIBANTA/ALIONE/
-  BREMETEN RACUM/OLENACUM/VIROSIDUM) - which 219 dismissed as stage-A false positives
-  ("parametric hallucinations") - are GENUINE site-plan plates (verified on the full-size
-  images + the book's text pp.43-44/113); a whole-book hOCR sweep (every page <700 chars
-  listed, plan-vocabulary scan of every page) found no further kind-s leaves - the 24-entry
-  list (17 s / 7 o) is complete. Stage A against the 22-entry list: recall 1.0/1.0,
-  precision 0.882, flagged_not_in_list [114, 185] (those two genuine plates). The verbatim
-  transcription of the two table entries is in 807's Notes.
-- docs/lead_roman.md: only the intro + the Roy section (207c, dropped) exist; the Horsley
-  section is 807's (it goes before the Roy section; Maclauchlan's lands between them when
-  207b starts its section).
-- The staging files (data/commons/files_roman.jsonl, classified_roman.jsonl,
-  data/catalog/extras_roman.jsonl) do not exist on this branch yet - 808 (or 207b, whichever
-  stages first) creates them; both books append tagged rows to the same files and the
-  driver serializes them by file overlap.
-- Catalog (220 check; sites.jsonl 12603 rows + extras.jsonl 193, keyed by "name"): none of
-  the seven P.113/Ardoch/Innerpeffery sites exists - all new no-QID extras rows (808); the
-  Antonine camps bar-hill-fort/inchtuthil/raedykes/rough-castle-fort already exist in
-  extras.jsonl (reuse, don't re-create).
-- Suite at the split: 1 failed / 156 passed / 1 skipped (389 s; .venv/bin/python -m pytest
-  tests/ --ignore=tests/test_gate.py -p no:cacheprovider); the lone red = agent a's 307d
-  placement test (known pre-existing: seed check + /tiles/relief 404, PITFALLS).
-- If a 807/808/809 session needs context its Notes lack: the DECISIONS entries "207a 215"
-  (no-list discovery + front-matter map + corner marks), "207a 218" (country-map reads +
-  machinery re-verification) and "207a 221" (this split, incl. the 220 pivot fact 220 never
-  journaled), and the git history of this file (the 216/219/220 hand-overs, superseded
-  here).
+**The conflict and its resolution (4cc34aa).** Both sides' last changes to the five PNGs
+descend from f516b1e: main's are 9c8a46a (307d done, agent a) + c72706b (lead port of the
+owner's Mac work: 307d e2e-only; Fort Ancient joins the hand-fit golden) - the finished
+307d test captures; our side's are the [driver] snapshot commits 464a2c1/d14577e - byte-
+different re-encodings of the same test-generated docs (the 3c91518-era suite regenerates
+all 10 docs/site_flow/307d_*.png on every run; my 207a work never wrote them). "Keeping
+both sides' intent" = main's bytes for all 10: the 5 conflicted taken --theirs, the other
+5 auto-merged to main's already (my branch had only re-encoded the 5 the driver's runs
+touched). My side's contribution was a test-run side effect with no intent of its own;
+main's is the finished work. Keeping the branch byte-identical to main on these files
+makes the driver's later merge-into-main conflict-free on them (both sides identical
+merges cleanly); the fresh captures my green run left in the working tree (re-encode
+jitter only) were restored away before the merge commit. No test pins their bytes:
+test_owner_check overwrites all 10 on every run by design (not part of its write-surface
+byte-identity check); the rewritten test_fit_queue only reads them.
+
+**Tests (this session, in-checkout, the REAL merged tree - not the 120 preview).** Full
+suite `.venv/bin/python -m pytest tests/ --ignore=tests/test_gate.py -p no:cacheprovider`
+after the merge: 158 passed / 1 skipped / 0 failed, 432.40 s - identical shape to
+iteration 120's C preview (158/1, 430 s), now measured on the actual merge: bba5961's
+rewritten test_fit_queue (e2e-only) green, c72706b's test_owner_check (2 e2e runs) green,
+the Fort Ancient hand-fit golden (tests/golden/hand_fit_docs.sha256) green. The driver's
+loop-start red note (the 3c91518-era test_placement_gestures_and_save_in_the_browser,
+1 failed / 159 passed, d14577e) names a test that no longer exists on this tree -
+bba5961 replaced it.
+
+**State.** 207a's own work (box 1: fetch + triage A 936/0err + B 17/0err + the 22-entry
+list; full inventory recoverable via `git show 89de0b1:tasks/207a-horsley.md`) stands
+committed; boxes 2-5 live in the blocked 807/808/809 (owner's stop on 207, 06c1aa8) - no
+further 207a work until the owner lifts it. Merge-base with main is now c72706b (main's
+tip): my branch adds only my own files - 207a (fit/src_roman_horsley.py,
+data/books/lists|triage/britanniaromanao00hors.*), 207b in-flight (fit/src_roman_
+maclauchlan.py, its triage, docs/lead_roman.md), 807-809 and 302f task files + fixtures,
+plus the shared memory files - and the planning record my branch wrote (PLAN.md's 207-
+split/207c-drop rows and Deviations entry, which main's 000 rework for the changed
+GOAL.md does not touch; GOAL.md itself is identical to main's).
+
+**If another driver note arrives.** A named red in the OLD test_placement_gestures
+signature is stale (bba5961 cleared it - PITFALLS tests/test_fit_queue.py entry,
+corrected this session): run the named test on the merged tree and answer with that
+measurement. A NEW red or a new tree: the iteration-120 step-2 idiom - A/B my 207a files
+in/out in-checkout (PITFALLS "A/B-testing a change against a pristine tree"; my files =
+fit/src_roman_horsley.py + data/books/lists|triage/britanniaromanao00hors.*), then the
+306c/306d precedent (12b2274, the lead accepted the identical red on A/B evidence) -
+three failed attempts at the same blocker -> ask_human + Status: blocked per AGENTS.md.

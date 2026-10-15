@@ -1,0 +1,15 @@
+{
+ "id": "detroit-q12439",
+ "name": "Detroit",
+ "place": "Wayne County, Michigan, United States",
+ "lon": -83.0475,
+ "lat": 42.331667,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "United States",
+ "kind": "town",
+ "qid": "Q12439",
+ "summary": "Detroit is the most populous city in the U.S. state of Michigan. It is situated on the bank of the Detroit River across from the Canadian city of Windsor, Ontario. It is the 26th-most populous city in the United States and the largest U.S. city on the Canada\u2013United States border, with a population of 639,111 at the 2020 census, and an estimated 2025 population of 649,095, its first population increase since 1950. The Metro Detroit area, at over 4.4\u00a0million people, is the 14th-largest metropolitan area in the nation and second-largest in the Midwest. The county seat of Wayne County, Detroit is a significant cultural center known for its contributions to music, art, architecture, and design, in addition to its historical automotive and industrial background.",
+ "wiki": "https://en.wikipedia.org/wiki/Detroit"
+}

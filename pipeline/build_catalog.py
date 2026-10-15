@@ -90,7 +90,8 @@ REGION_NAME = {
     "belgium": "Belgium",
     "italy": "Italy",
     "luxembourg": "Luxembourg",
-    "germany": "Germany"}
+    "germany": "Germany",
+    "united states": "United States"}
 
 
 def place_of(entry):

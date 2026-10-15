@@ -1,4 +1,4 @@
-Status: split
+Status: done
 # 307b: Place mode on the map - the drawing starts on the ground, and moves by hand
 Depends on: 307a
 Touches: tools/fit_queue.py, web/fitkit.js, web/index.html, web/fitqueue.js, web/data/fit_queue.json, tests/test_fit_queue.py, docs/site_flow.md
@@ -22,38 +22,38 @@ Pinning exact spots (a point on the drawing to a point on the ground) stays avai
 top as a refinement: new points refine the anchor and re-draw it. Parent 307 boxes 2-4.
 
 ## Acceptance criteria
-- [ ] The queue file carries the proposal: every entry whose best row admits one gets
+- [x] The queue file carries the proposal: every entry whose best row admits one gets
       propose: {pairs, scale_m_px, rot_deg, scale_source, coarse, note} computed by
       fit/propose.propose_for (bar scale where recorded, ratio at the book's ppi, the
       site-size fallback, the north arrow where trustworthy). A row the proposal cannot
       anchor (no size, no size_m) gets no propose, and the page falls back to the existing
       three-point flow for it. tools/fit_queue.py stays stdlib-only (fit/propose.py is).
-- [ ] Opening a queue site with a proposal (the card's "Place the drawing", or the site
+- [x] Opening a queue site with a proposal (the card's "Place the drawing", or the site
       panel's "Place an old plan" when the site's queued plan is the one picked): the map
       flies to the site's box (its four corners) centred, before the drawing appears;
       while place mode is open, the site's earlier overlays (the dep-* fitted drawings and
       survey sheets applyDep was showing) are hidden; on close (back button, Cancel, or
       saving) they come back exactly as they were (same depiction selected, same ground).
       A site or plan without a proposal opens exactly as today (the three-point flow).
-- [ ] The drawing is on the map from the first frame and is the thing being manipulated:
+- [x] The drawing is on the map from the first frame and is the thing being manipulated:
       drag moves it, a handle / modifier+drag / the wheel scales it, a handle /
       shift+wheel (or the equivalent gesture) rotates it, all at the opacity slider's
       value; the page's panel shows the live scale (m per page pixel) and the rotation.
       The three-point pinning still works on top of the placement (the map-click flow is
       unchanged), and undo/clear still work on both.
-- [ ] Saving from direct placement alone writes the platefit doc in the existing shape
+- [x] Saving from direct placement alone writes the platefit doc in the existing shape
       (the placement re-emitted as 3-5 page-px -> lon/lat pairs, plus the existing
       crop/size/model/cite fields, "by": "hand" via the 305 save path, the one-site line
       running) and the overlay appears on the map; a fit saved this way passes the checks
       a three-point fit passes (test_fit_provenance and the golden hand-fit set stay
       green; no document in the shared store is ever written by a test).
-- [ ] tests/test_fit_queue.py gains a headless part (the 305 part-3 pattern: Chrome via
+- [x] tests/test_fit_queue.py gains a headless part (the 305 part-3 pattern: Chrome via
       tools/shot.mjs-style CDP, a temp tree, ephemeral port, no network): on a real queue
       site with a proposal, the page opens place mode with the map at the site's box and
       the ink on it; scripted input events (a drag, a wheel scale, a shift+wheel rotate)
       change the saved doc's pairs accordingly (the doc is read back from the temp store);
       after close, the site's earlier overlays are back. Hermetic.
-- [ ] docs/site_flow.md: what place mode is now (the anchor and where it comes from, the
+- [x] docs/site_flow.md: what place mode is now (the anchor and where it comes from, the
       three gestures, the refinement, and what the saved doc contains), citing 307c's
       screenshots when they land.
 
@@ -78,168 +78,44 @@ top as a refinement: new points refine the anchor and re-draw it. Parent 307 box
 
 ## Hand-over
 
-(2026-10-12, iteration 116, agent a - 307ba's five boxes are all done and committed, but
-its done claim was rejected on a SUITE check, not a box: the committed review page went
-stale after the lead's b22a2d2/cf29be2 (rule change + 5 matcher docs, no re-export) and 3
-count-deriving tests fail on every branch containing cf29be2 (DECISIONS 2026-10-12 307ba
-iteration-116). Fix filed as task 220 (a full fit/review.py export; Depends on: 309 -
-agent c owns data/review + web/data/review.json). 307ba now Depends on 220 and re-claims
-once it lands. Remaining work = 307bb ONLY: 307b's boxes 3-6 (the gestures on the
-placement, saving from it, the headless part-4 test, the full place-mode docs section with
-307c's screenshots when they land). 220 is DONE on main (the lead's own commit c5250a4,
-2026-10-12 - their message overrides the old "wait for 309" sequencing: do not wait for
-c's 309 chain). 307bb starts once the driver has synced main into agent/a and 307ba has
-re-claimed (the sync was still pending at 307ba's iteration 121): its suite baseline is
-then 75 passed + 1 skipped, 0 failed (measured on a scratch copy of main's exact tree,
-iteration 121), and its headless part-4 save flow (which runs the one-site line and
-re-publishes the review page in its temp tree) sees a consistent page. The page-side design sketch below stands as
-written for 307bb; the corrections on the record: propose's private loaders take
-root=ROOT defaults (the PITFALLS entry), and fitkit deliberately has NO <style> block yet
-(box 2 adds no visible UI - 307bb adds one if its gestures need it; DECISIONS 2026-10-12
-307ba).)
+(2026-10-14, iteration 199, agent a via 307bc - 307b is DONE. All six boxes ticked; the
+driver's returned-parent verification (iteration 256) covered boxes 1-4 and 6 on the then-
+merged branch, and box 5 closed this session on the post-235 re-run. No page code changed
+at any point: web/fitkit.js, web/index.html, web/fitqueue.js are byte-identical to their
+accepted states.)
 
-**State.** All of 307ba is committed on this branch: cbb36c8 (the data side: the queue file,
-propose.py root-aware, part-1 tests), 732fe57 (box 2: web/fitkit.js + the one script tag in
-web/index.html - the driver preserved iteration 114's uncommitted work), and 307ba's done
-commit (docs/site_flow.md). web/fitqueue.js is byte-identical to cf29be2 and web/index.html's
-diff against main is exactly the one tag; the page's own fit code (openPlan/startFit/refit/
-saveFit/endFit, index.html ~832-1150) is still 305's, extended only by fitkit's two wrappers.
-The queue file (117/117 propose) is a JOINT artifact with agent c's 309 (still in flight at
-iteration 115; main tip cf29be2): when 309 merges into main, re-run `python3
-tools/fit_queue.py` on the merged branch before further work here - fitkit reads the entry's
-propose by name, so no page-code change is expected, but the part-4 test reads the
-regenerated file. Suite baseline for 307bb as of iteration 115: 70 passed + 1 skipped with the 3 failures
-above - iteration 116 pinned their real cause: NOT the matcher wiring per se, but the
-committed web/data/review.json being stale relative to the post-b22a2d2 resolution rules
-(340 open of 341 on the page vs 335 what the current code computes; the lead never
-re-exported after the rule change). Owned by task 220 (full export; Depends on: 309): once
-220 is in main the baseline is 73 passed + 1 skipped, no known failures. (The
-"agent c's iteration-95 note" citation in the iteration-115 text could not be located in
-DECISIONS/DECISIONS-archive and is withdrawn; the iteration-116 307ba entry is the record.)
+Box 5 evidence (the post-235 re-run, this session; machine date 2026-10-14, still 2026, so
+part 4's `at` startswith-'2026-' assert and the year-relative 150-year cutoff are
+unaffected):
+- 235 is in this branch (driver merged main at 8c967c8; the fix = `_survives_page_filter`
+  / `_page_auto_select` + the gated `_pick_place` at tests/test_fit_queue.py:1517-1558).
+- Pre-run pick simulation (PITFALLS rule (a)): `_pick_place()` = oswestry-castle-q20713795,
+  idx 3 of the 180-entry queue, plan earthworkenglan01allcgoog_n0119_1 (bar 0.1646 m/px,
+  north-up): the 1842 six-inch map survives surveyOldEnough (2026-150=1876), the 1900 map
+  is filtered. marietta (idx 1) is skipped by exactly the 235 rule (no-page-showable-dep)
+  - the defect the red run was showing.
+- part 4: tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser PASSES
+  (1 passed, 66.21 s): the card's "Place the drawing" opens the placement on the works
+  (map at the site's box, the propose anchor with its five pairs), the seed check green
+  INCLUDING the dep layer's visibility (the 1842 map's layer hidden while placed, restored
+  by Cancel), all behaviour checks green (gestures own the mouse; drag moves, wheel scales,
+  shift+wheel turns, pin refines, undo restores), the saved doc read back from the TEMP
+  store is exact (the 17-key shape, by:hand, pairs = the placed set), the one-site line's
+  overlay lands in the temp tree's depictions.json, and the checkout's write-surface hash
+  is unchanged around the run (hermetic; the only server-log noise is the known harmless
+  /tiles/relief 404s).
+- Full suite: 177 passed, 1 skipped, 0 failed (527 s) - exactly 235's recorded baseline,
+  so no other red; nothing to file. (Iteration 256's 159/1/1 was the pre-235-merge
+  baseline; the suite grew with 235's helpers and the merged 212/302g work.)
+- Side matter closed: the 307d screenshot drift the previous hand-over left open is
+  measured, not guessed - two same-data runs one hour apart differ 28.6-33.6% of pixels on
+  the four saved/reload views (map not settled at shot time; the overlay shifts slightly
+  relative to the ground) and 0-1.25% on card/placed/gestured. The "meaningful drift"
+  condition is met, so task 242 was filed (Depends on: 307d; Touches:
+  tests/test_owner_check.py, docs/site_flow.md, docs/site_flow/). Before this commit the
+  ten 307d PNGs were restored to main's bytes (the PITFALLS workaround, 6af207b precedent)
+  so this branch stays byte-identical to main on them.
 
-**Measured facts (iteration 110, all by running code):**
-- All 117 current queue entries DO anchor: propose_for succeeds for every one (20 bar,
-  4 ratio, 93 picture_size; coarse 93). n0686/Devil's Dyke: scale_m_px 0.3621, rot 0, 5 pairs
-  centred on the site, note names the bar '0 100 200 300 400 Yards'. So the regenerated
-  web/data/fit_queue.json (tracked file, NOT the shared store - `git check-ignore` says
-  not ignored) will carry a propose on every current entry; the "no propose" cases only
-  exist for rows/sites that lose their size or size_m - covered by the synthetic test.
-- propose_for callers (all 2-positional, an optional `root` is safe): fit/batch_us.py:292,
-  fit/inkfit.py:309, fit/inkfit_heldout.py, tests/test_batch_us.py, tests/test_batch_eu.py,
-  tests/test_propose.py. fit/ has NO __init__.py: the import convention is
-  `sys.path.insert(0, str(ROOT / "fit")); import propose` (site_done.py:43, test_propose:46).
-- The stage-B fields in data/books/index.jsonl (890 rows): scale_text (508 set),
-  blank_boxes (276 carry a {kind:"scale_bar", box}), north_angle_deg/north_arrow (594
-  true), map_box, full_size. propose.py's _bar_box reads blank_boxes, not the scale_bar bool.
-- web/data/fit_queue.json entry shape today: {site, name, best:{plan,reason,row},
-  candidates:[{plan,title,book,view,draw_px}]}; the page (fitqueue.js fqLoad/fqPatch/
-  fqPlace) reads site/name/best only - an extra entry-level `propose` key is inert until
-  fitkit.js lands (307ba adds it).
-- The page's anchor math (propose.py docstring, verified against index.html simFit): the
-  similarity is `merc = a*(w - w0) + z0`, w = u - i*v, a = (m_per_px/ground_scale(lat0))*e^{i*theta},
-  ground_scale = cos(lat). index.html already has `merc`/`unmerc` (line 324-325), R=6378137.
-  The proposal's 5 pairs are [4 panel corners + centre] in row-size frame; pair[4] is the
-  centre: its (u,v) = the panel centre (from the index row's map_box, or the page frame),
-  its (lon,lat) = where the centre lands. So the page's anchor = {u0: p[4][0], v0: p[4][1],
-  lon: p[4][2], lat: p[4][3], mpx: scale_m_px, rot: rot_deg} and re-emitting 5 pairs from
-  the anchor (the exact _anchor_pairs math, ported to JS) recovers it; refit()'s least
-  squares over those 5 reproduces the anchor to rounding.
-- Site view facts: sites.json rows have corners (4 [lon,lat]), size_m, lidar; select() sets
-  ground='imagery' then the opener sets it back (relief unless lidar===false); applyDep
-  manages ONE `dep-<site.id>` image layer (the selected depiction); endFit() removes the
-  'fit-prev' source/layer and re-renders the site view; saveFit's success path itself does
-  remove dep layer -> endFit() -> applyDep(s) with depSel already set to the NEW overlay.
-  The fit pane (#fitpane) sits at left:398px over the map; the map canvas is behind.
-- test_fit_queue.py part 3 (the card) runs headless Chrome via playwright-core
-  (CHROME=/opt/google/chrome/chrome, NODE_MODULES=/home/agent/tools/shot/node_modules,
-  channel:'chrome', the probe is a .mjs written into the tmp outdir; _headless_or_skip
-  skips when absent). Part 2's line_served fixture is the template for a FULL tree
-  (web+server+tools+fit+pipeline, data/ minus data/raw, ONE book page materialised into
-  the tree's own data/raw, sockets dead via the GUARD, --port 0): needed for a headless
-  SAVE test because (a) the page must load the book scan (served trees 404 it otherwise)
-  and (b) saveFit waits up to 90 s for the one-site line's overlay (the line measures
-  ~23 s in this environment; it runs only with tools/fit/pipeline present).
-- Agent c's 309 (the place check) works on tools/fit_queue.py, web/data/fit_queue.json and
-  tests/test_fit_queue.py in its own branch - expect a merge of its build() change into
-  mine (or vice versa); keep my propose changes localized (one helper + one key per entry +
-  docstrings) so the merge is trivial.
-
-**The split (why):** the parent set a 3-session budget for 307b and pre-announced: split
-the fly-to/hide-restore from the gestures. Session plan: 307ba session 1 (done,
-iteration 111) = box 1 data side (its boxes 1-3); 307ba session 2 = box 2 page side (its
-box 4: fitkit.js open/hide/restore) + its box 5 docs; 307bb = boxes 3-6 (gestures, save,
-headless part 4, docs place-mode section). If 307bb itself exceeds 3 sessions, split its
-headless test from its gestures (note it here when you do).
-
-**Page-side design sketch (for 307bb - my iteration-110 design; the Open half is coded as
-written in web/fitkit.js, the gestures are not yet coded):**
-- fitkit.js loads after fitqueue.js (the page loads review.js then fitqueue.js at
-  index.html:1707-1708; add `<script src="fitkit.js"></script>` after them). Wrap
-  openPlan LAST in the chain (fitkit.openPlan wraps fitqueue->review->page; note fitqueue
-  does NOT wrap openPlan, only renderList/saveFit) and wrap endFit (page-level; neither
-  review nor fitqueue wraps it). Unique lexical names `_fk*` (the web/ PITFALL: one global
-  lexical scope per page). Inject its own <style>. Reach P/map/S/select/setGround/etc by
-  name.
-- Anchor state: `P.placed = true`, `P.anchor = {u0, v0, lon, lat, mpx, rot}` (u0/v0 the
-  panel centre in page px from the row's map_box* or the whole page; lon/lat the centre's
-  landing; mpx the m-per-px; rot deg). In placed mode P.pairs = re-emit(anchor) ++
-  pinnedPairs; re-emit = the 5 pairs of _anchor_pairs ported to JS (round u/v 1 dp,
-  lon/lat 7 dp - the doc convention). A pin (the existing map-click flow) then: push the
-  pair + marker, push the current anchor on P.anchorStack, anchor = leastSquares(all
-  pairs) (the page's simFit already returns mpx/rot; derive a,b then z0=fit(u0,v0),
-  mpx=|a|*k, rot=atan2), re-emit. Undo: pop pair+marker, anchor=anchorStack.pop(),
-  re-emit. Clear: drop all pins+markers, anchor=anchorStack[0] (the anchor before the
-  first pin), re-emit. Gestures (307bb): while placed disable map.dragPan + map.scrollZoom
-  (+ touchZoomRotate); drag on the map canvas moves (anchor lon/lat += Mercator delta,
-  re-emit, refit; null P.pending once moved > ~4 px - MapLibre's own 3-px click tolerance
-  then keeps clicks (pinning) and drags (moving) disjoint); wheel scales about the centre
-  (mpx *= exp(-deltaY*f)); shift+wheel rotates about the centre (rot += f*deltaY). On
-  close re-enable all. Views (P.model==='view'): gestures edit the same similarity anchor;
-  refit's homFit/warpView preview keeps working (the similarity is a subspace of the
-  homography) - verify in the headless test, don't assume.
-- Open (307ba, done - web/fitkit.js as designed): wrap openPlan - after the inner chain
-  returns, if P.plan && FQ has an
-  entry for P.site whose best.plan === P.plan.id and entry.propose: seed anchor/pairs from
-  entry.propose (needs P.img loaded: the pairs use the row's size frame - openPlan sets
-  P.crop from r.map_box*r.size; derive u0/v0 the same way _anchor_pairs does: the
-  map_box* size or the page frame), map.fitBounds(P.site.corners, {duration ~1.2 s,
-  padding: left 390 when !narrow(), essential}), hide the `dep-<site.id>` layer
-  (visibility 'none' if present). Wrap endFit - after the inner endFit (page removes
-  fit-prev, re-renders site view), if it was placed: applyDep(site) (restores exactly:
-  S.depSel/S.depMode/S.depOpacity/S.depAlign/S.ground are never touched) and clear
-  P.placed/anchor/pins. The page's saveFit success path calls endFit() (the global =
-  fitkit's wrapper) then its own applyDep - the new overlay shows, which is the designed
-  save behaviour. No-proposal open: byte-identical to today (305 part-3 pins it).
-- Headless test (307bb, part 4 of test_fit_queue.py): fixture like line_served (FULL tree +
-  the picked entry's book page in the tree's data/raw; pick the first queue entry with a
-  LOCAL book page AND a propose - derived, never pinned). Probe: home -> card -> Place ->
-  wait P.img && P.placed -> assert: map centre/zoom ~ the site box (compare
-  map.getBounds() against the corners' bounds), fit-prev source exists and visible, the
-  dep layer (seed the site's depSel in localStorage first so one is shown) is hidden,
-  anchor.mpx === propose.scale_m_px; then scripted input: mouse drag across the canvas
-  (delta in Mercator known from map.project/unproject), wheel (known factor), shift+wheel;
-  assert the anchor moved/scaled/rotated and P.pairs re-emitted accordingly; click #fsave
-  (enabled: 5 pairs >= the 3 floor) -> poll the tree store until the one-site line's
-  overlay lands (180 s budget like part 2) -> read the doc back via GET /api/db/platefits/
-  <site>.<plan>: by:hand, pairs == the final re-emitted set (5 or 5+n pins), scale/rotation
-  of the doc's pairs agree with the anchor within rounding; then a second run for the
-  close paths: back button / Cancel -> the seeded dep overlay is visible again, same
-  file, same ground. Hermetic: no network (the server process's sockets dead; the page's
-  external Esri fetches are the only live ones - same as part 3, which asserts no reqfail
-  outside /tiles/). Realpage screenshots for the docs land in 307c.
-
-**Re-read** (for the next agent = 307bb, the gestures/save/headless part): web/fitkit.js
-(the current shape - its header comment is the design doc; P.anchor/P.placed/P.anchorStack
-are the state its gestures edit); web/index.html ~340-420
-(deps/applyDep: the one `dep-<site.id>` layer, select()/setGround), ~832 endFit and ~902
-openPlan (the two functions fitkit wraps) and ~1000-1150 (startFit, makeInk, simFit,
-refit, saveFit, the map-click pin flow), 1706-1710 (the script tags);
-web/fitqueue.js (the wrap pattern; must stay byte-identical) and web/review.js (how an
-earlier extension wraps openPlan); the page-side design sketch above (the authoritative
-source for the gestures: null-P.pending-on-move, the 3-px click tolerance, the wheel/
-shift+wheel math); tests/test_fit_queue.py part 3 (~716+, the card test whose
-line_served fixture is the template for part 4's FULL tree) and /tmp/fkprobe.mjs
-(the throwaway probe - part 4's committed headless test is its hardened version; note its
-this-VM fixes: the playwright require path, the direct `map` reference in the evaluate
-callbacks). The data side and the propose docs need no re-read: they are as committed
-(their docstrings and the "Ready to fit" section say what changed).
+Boxes 1-4 and 6: verified in the iteration-256 hand-over (now in git history and in the
+2026-10-13 307b DECISIONS entry, which the driver archives with this task) and re-proven
+by this session's green run (307d's two owner-check tests are in the 177).

@@ -27,10 +27,29 @@ done map kept), and the card still names the next pending.
 
 Reverted before the test ends: the private tree is discarded (tmp dir), and the shared store
 in the repo is proven byte-identical to before each run (the checkout's write surface - every
-platefits doc, every review item, sites.json, review.json, fit_queue.json and every file under
-both picks' site dirs, hashed through the checkout's own symlinks into the store). The
-golden hand-fit hash check (tests/golden/hand_fit_docs.sha256) and test_fit_provenance run on
-the same checkout and stay green for the same reason.
+platefits doc, every review item, sites.json, review.json, fit_queue.json, every file under
+both picks' site dirs, and the ten committed docs/site_flow/307d_*.png, hashed through the
+checkout's own symlinks into the store). The golden hand-fit hash check
+(tests/golden/hand_fit_docs.sha256) and test_fit_provenance run on the same checkout and stay
+green for the same reason.
+
+The ten docs/site_flow/307d_*.png are a PINNED snapshot committed in the repo: an ordinary
+run never touches them (they enter the write-surface proof above, which proves an unflagged
+run left them byte-identical), and they are re-rendered from a run only under the explicit
+env var AW_OWNER_REFRESH=1, named here and in the test docstrings. The captures themselves
+are taken settled (the 242 family: 814's settle wait - its built fix carried into the file
+as the 816 recipe - and 812's in-run double shot, the regime this paragraph protects): at
+each of the eight capture/read sites the probe waits until the page's own map.isMoving() is
+false AND no new map frame has been drawn for ~700 ms (the 812 widen: isMoving() goes false
+while frames are still rendering), under a 20 s bounded budget, and re-enables subpixel
+marker positioning on the live fit markers; each view is then shot twice in a row and the
+two shots must differ by <0.5% of pixels at threshold 32, so a mid-transition regression
+fails the test instead of dirtying the PNGs. The transitions the settle waits out: the
+place chain's 4.5 s site flyTo + 900 ms fitBounds, the save's 900 ms easeTo, and the
+deep-link reload's re-fired flyTo - the ones the old fixed sleeps used to end inside
+(measured 2026-10-14: same-tree runs an hour apart then differed 28.6-33.6% of pixels at
+threshold 32 on the four saved/reload views while card/placed/gestured stayed at 0-1.25%
+encoding noise).
 """
 import json
 import math
@@ -52,6 +71,15 @@ ROOT = Path(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 CHROME = os.environ.get("AW_CHROME", "/opt/google/chrome/chrome")
 NODE_MODULES = os.environ.get("AW_NODE_MODULES", "/home/agent/tools/shot/node_modules")
+
+# 813 (the 242 family, the pinned-snapshot regime): the ten docs/site_flow/307d_*.png are a
+# committed snapshot. An ordinary run (the driver's plain pytest command) never sets REFRESH
+# and never touches the ten; AW_OWNER_REFRESH=1 re-renders all ten from the A and B runs of
+# one invocation into docs/site_flow/ (811's one-time refresh, then a future re-pin). Named
+# here and in the test docstrings.
+SNAPSHOT_VIEWS = ("1-card", "2-placed", "3-gestured", "4-saved", "5-reload")
+REFRESH = bool(os.environ.get("AW_OWNER_REFRESH"))
+
 AT = "2026-10-12T00:00:00.000Z"  # the done-map timestamp 307bb's card runs seed with
 
 # The page's own filter and default pick (web/index.html): surveys only at 150 years or older,
@@ -241,6 +269,21 @@ def _unmerc(x, y):
     return math.degrees(x / R), math.degrees(2 * math.atan(math.exp(y / R)) - math.pi / 2)
 
 
+def _shot_diff(p1, p2, thr=32):
+    """812: the fraction of pixels differing by >thr on any channel between two same-size
+    shots. The in-run double shots of a settled view must be near-identical; PIL (pinned in
+    requirements.in) makes the compare C-speed over the 1280x820 frames."""
+    from PIL import Image, ImageChops
+    a, b = Image.open(p1).convert("RGB"), Image.open(p2).convert("RGB")
+    if a.size != b.size:
+        raise AssertionError(f"double-shot sizes differ: {a.size} vs {b.size}")
+    d = ImageChops.difference(a, b).split()
+    mask = d[0].point(lambda v: 255 if v > thr else 0)
+    for ch in d[1:]:
+        mask = ImageChops.lighter(mask, ch.point(lambda v: 255 if v > thr else 0))
+    return mask.histogram()[255] / (a.size[0] * a.size[1])
+
+
 PROBE = r"""// node owner_probe.mjs <base_url> <site> <plan> <tree> <out_dir> <done_json> <item_file>
 // The owner's check (task 307d), end to end in headless Chrome on the served private tree, reading
 // only what the owner sees or gets (rewritten 2026-10-13, the owner's rule "no unit tests, only end
@@ -280,6 +323,66 @@ const nextAfter = pending[pending.findIndex(e => e.site === site) + 1];
 const browser = await chromium.launch({ channel: 'chrome', headless: true,
   args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
 const page = await browser.newPage({ viewport: { width: 1280, height: 820 }, colorScheme: 'light' });
+// Settle the map view before every capture and quad read: place chains the 4.5 s site flyTo
+// (index.html select) with a 900 ms fitBounds (fitkit _fkActivate), save runs a 900 ms
+// easeTo, and a deep-link reload re-fires the 4.5 s flyTo - a fixed sleep ends
+// mid-transition, and a mid-transition shot shifts the overlay rectangle against the ground
+// imagery (the 28.6-33.6% run-to-run drift the 242 family measured).
+// isMoving() is true while any camera animation is in flight (MapLibre 5.6.0: _prepareEase
+// sets it, _easeEnd clears it) and false once the view settles; the bounded timeout keeps the
+// probe from hanging - a shot taken after it is mid-transition and the 812 double-shot assert
+// fails loudly on it.
+// 812 widens the settle a second way: isMoving() goes false while frames are still rendering -
+// measured it.235 on this build (globe projection: render/data events ran ~1.5 s past
+// isMoving() false) and the 812 double shot caught exactly that straggler (it.245: B 2-placed
+// 0.99% and B 5-reload 0.53% between the two shots, frame-wide, all probe checks still PASS -
+// a residual drift/re-tile after the ease). So the probe also tracks the map's last rendered
+// frame, hooked on the LIVE map from the probe side (the served tree stays untouched) and a
+// read or shot lands only after ~700 ms of render-quiet - no frame drawn since the last
+// tile/ink arrived. The render loop is event-driven (it.235's /tmp/mplib_probe: once idle the
+// frame count froze for 20 s), so a 700 ms gap is a true "nothing in flight" signal.
+const settle = async (budgetMs = 20000) => {
+  const t0 = Date.now();
+  while (Date.now() - t0 < budgetMs) {
+    const settled = await page.evaluate(() => {
+      if (!window.__awLastRender) {
+        window.__awLastRender = Date.now();  // re-hooks itself after a reload (fresh window)
+        map.on('render', () => { window.__awLastRender = Date.now(); });
+      }
+      return !map.isMoving() && Date.now() - window.__awLastRender > 700;
+    });
+    if (settled) return;
+    await sleep(150);
+  }
+  console.log('[warn] settle: the map view was still moving after ' + budgetMs + ' ms');
+};
+// The quad reads quantise a second way, once the camera is settled: MapLibre 5.6.0's Marker
+// defaults subpixelPositioning to false (ctor: e&&e.subpixelPositioning||!1) and _update rounds
+// _pos to integer pixels on every setLngLat and moveend update, so the page's fit markers
+// (addPairMarker: no subpixel option) sit at whole pixels - a 1-px rounding error exceeds the
+// 1% tolerance on an ~83-px edge (192 measured it: true q1 edge 82.9807 read 82.0, true q2 edge
+// 87.1384 read 87.0057 - exactly the 1.06105 the 230/239/241 flake recorded; the true ratio
+// 1.0501 passes). _fkApply recreates the marker objects with the fresh false default, so this
+// re-enables the vendored public API on the LIVE markers before every read and shot, then forces
+// one re-position (setLngLat of the same point) so an already-rounded marker actually moves.
+// Idempotent with the page-side fix (addPairMarker passing subpixelPositioning: true).
+const subpixel = async () => {
+  await page.evaluate(() => {
+    for (const m of P.marks) {
+      if (!m._subpixelPositioning) m.setSubpixelPositioning(true);
+      if (m._lngLat) m.setLngLat(m.getLngLat());
+    }
+  });
+};
+// 812: capture a view only once settled, then a second time at once: the two shots must
+// differ by <0.5% of pixels at threshold 32 (the Python side compares them), so a
+// mid-transition regression fails the test instead of dirtying the docs PNGs.
+const shot = async name => {
+  await settle();
+  await subpixel();
+  await page.screenshot({ path: outdir + '/' + name + '.png' });
+  await page.screenshot({ path: outdir + '/' + name + 'b.png' });
+};
 const lines = [];
 page.on('pageerror', e => lines.push('[pageerror] ' + e.message));
 page.on('requestfailed', r => lines.push('[reqfail] ' + r.url() + ' ' + (r.failure() && r.failure().errorText)));
@@ -296,7 +399,7 @@ const cardText = () => page.evaluate(() => { const c = document.getElementById('
 const card1 = await cardText();
 check('the card names the pick and its best row', !!card1 && card1.name === (pick.name || pick.site) &&
   card1.text.includes(pick.best.row.title || pick.best.row.id), { card1, want: pick.name });
-await page.screenshot({ path: outdir + '/1-card.png' });
+await shot('1-card');
 
 // ---- place
 const quad = () => page.evaluate(() => [...document.querySelectorAll('.gpin.fk-handle')]
@@ -311,6 +414,9 @@ await page.click('#fqplace');
 await page.waitForSelector('#fkbar', { timeout: 60000 });
 await page.waitForFunction(() => [...document.querySelectorAll('.gpin.fk-handle')].filter(el => el.style.display !== 'none').length === 4, null, { timeout: 30000 });
 await sleep(2500);
+// the place chain: the 4.5 s site flyTo interrupted by the 900 ms fitBounds
+await settle();
+await subpixel();
 const q0 = await quad(), c0 = await groundOnScreen([propC[2], propC[3]]);
 const sites0 = await served('data/sites.json');
 const entry0 = (sites0.sites || sites0).find(x => x.id === site) || {};
@@ -319,19 +425,23 @@ check('place: the earlier overlay is hidden while placing', !before.vis || (awai
 check('place: the site\'s own ground is pressed (LiDAR relief unless the site has none)',
   await page.evaluate(id => document.getElementById(id) ? document.getElementById(id).getAttribute('aria-pressed') === 'true' : true,
     entry0.lidar === false ? 'g-imagery' : 'g-relief'));
-await page.screenshot({ path: outdir + '/2-placed.png' });
+await shot('2-placed');
 
 // ---- move it the way the owner does: a drag on it, the toolbar's scale and turn
 const mid = [q0.reduce((s, p) => s + p[0], 0) / 4, q0.reduce((s, p) => s + p[1], 0) / 4];
 await page.mouse.move(...mid); await page.mouse.down(); await page.mouse.move(mid[0] + 30, mid[1] + 20, { steps: 6 }); await page.mouse.up();
 await sleep(400);
+await settle();
+await subpixel();
 const q1 = await quad();
 check('drag on the drawing moves it by the pointer', q1.every((p, i) => Math.hypot(p[0] - q0[i][0] - 30, p[1] - q0[i][1] - 20) < 2.5), { q0, q1 });
 await page.click('#fkbar [data-a="s+"]'); await page.click('#fkbar [data-a="r+"]'); await sleep(500);
+await settle();
+await subpixel();
 const q2 = await quad();
 const edge = q => Math.hypot(q[1][0] - q[0][0], q[1][1] - q[0][1]);
 check('toolbar scale and turn change the drawing on screen', Math.abs(edge(q2) / edge(q1) - 1.05) < 0.01, { e1: edge(q1), e2: edge(q2) });
-await page.screenshot({ path: outdir + '/3-gestured.png' });
+await shot('3-gestured');
 
 // ---- save from the toolbar: where the corners sit now is what must land
 const placedLL = await page.evaluate(q => { const r = map.getCanvas().getBoundingClientRect();
@@ -369,7 +479,8 @@ if (effects.corners) {
 check('line effect (b): the site\'s square takes its new score\'s tier',
   (effects.markerClass || '').split(/\s+/).includes('marker') && (effects.markerClass || '').split(/\s+/).includes(effects.tier), effects);
 check('line effect (c): the site left the open review list', effects.inOpen === false, effects);
-await page.screenshot({ path: outdir + '/4-saved.png' });
+// the save just ran the page's 900 ms easeTo - the shot must not land mid-transition
+await shot('4-saved');
 
 // ---- the card moves on
 await page.click('#back', { timeout: 20000 });
@@ -402,7 +513,8 @@ check('reload: the site opens with the saved drawing selected and on the map, in
   reload.selectedDep === effects.overlayFile && reload.depVis === 'visible' && reload.depSrc === 'data/sites/' + site + '/' + effects.overlayInk &&
   reload.aerial && reload.ink, reload);
 await sleep(3000);
-await page.screenshot({ path: outdir + '/5-reload.png' });
+// the reload re-fired the 4.5 s site flyTo via the deep link
+await shot('5-reload');
 await page.click('#back', { timeout: 20000 });
 await page.waitForSelector('#fqcard', { timeout: 20000 }).catch(() => {});
 const card3 = await cardText();
@@ -504,11 +616,16 @@ def owner_served(tmp_path_factory):
 
 def _write_surface(picks):
     """Every file a run could touch in the CHECKOUT (the shared store): every platefits doc and
-    review item, the page data files, and every file under both picks' site dirs (they are
-    symlinks into the store - hashing through them proves the store never moved)."""
+    review item, the page data files, the ten pinned docs/site_flow/307d_*.png snapshot views,
+    and every file under both picks' site dirs (they are symlinks into the store - hashing
+    through them proves the store never moved)."""
     paths = list((ROOT / "data" / "db" / "platefits").glob("*.json")) + list((ROOT / "data" / "review").glob("*.json"))
     paths += [ROOT / "web" / "data" / "sites.json", ROOT / "web" / "data" / "review.json",
               ROOT / "web" / "data" / "fit_queue.json"]
+    # 813: the ten committed docs/site_flow/307d_*.png - the pinned snapshot an unflagged run
+    # must leave byte-identical (explicit list, not a glob: the directory holds other files
+    # the run never touches)
+    paths += [ROOT / "docs" / "site_flow" / f"307d_{tag}_{n}.png" for tag in "AB" for n in SNAPSHOT_VIEWS]
     for tag in "AB":
         sd = ROOT / "web" / "data" / "sites" / picks[tag]["site"]
         paths += [p for p in sd.rglob("*") if p.is_file()]
@@ -517,7 +634,9 @@ def _write_surface(picks):
 
 def _run_one(fx, tag, tmp_path_factory):
     """One owner run on the fixture's shared private tree: the probe (the browser), then the
-    Python-side checks read from the tree, then the revert proof and the screenshots."""
+    Python-side checks read from the tree, then the revert proof (the write-surface assert
+    covers the ten pinned docs/site_flow/307d_*.png; the fresh views stay in the run's temp
+    tree) and, only under the AW_OWNER_REFRESH refresh flag, the snapshot refresh."""
     base, tree, out = fx["base"], fx["tree"], fx["out"]
     p = fx["picks"][tag]
     site, plan, row = p["site"], p["plan"], p["row"]
@@ -642,9 +761,9 @@ def _run_one(fx, tag, tmp_path_factory):
     want = set(fx["picks"]["reviewBefore"]) - gone
     assert open_sites == want, (sorted(open_sites ^ want))
 
-    # 7. the server log: the line's report and the line's own prints, exactly. The no-model line
-    #    prints on every run (the worker runs the line without a model) and so does the no-batch
-    #    line: every candidate is the saved doc or an item candidate, so the batch never runs.
+    # 7. the server log: the line's report and the line's own prints, exactly. The no-batch line
+    #    prints on every run: every candidate is the saved doc or an item candidate, so the
+    #    matcher (unreachable - sockets dead) is never called and the batch never runs.
     #    _summary's per-picture lines are two-space indented (not 'fit  ' lines) and may say
     #    'sent to the review queue' for the unfitted candidates - that is the line's own record.
     #    The finished reports are filtered by their own shape, never by the phrase: the line's own
@@ -656,8 +775,7 @@ def _run_one(fx, tag, tmp_path_factory):
     doc_plans = {json.loads(pth.read_text()).get("plan") for pth
                  in (tree / "data" / "db" / "platefits").glob("*.json") if pth.name.startswith(site + ".")}
     n_doc = sum(1 for r in rows if r["id"] in doc_plans)
-    want_fit = ['fit  no model given: unfitted pictures (if any) go to the review item as "no model answer"',
-                f"fit  {len(rows)} candidate picture(s): {n_doc} fitted (doc), "
+    want_fit = [f"fit  {len(rows)} candidate picture(s): {n_doc} fitted (doc), "
                 f"{len(rows) - n_doc} in the review item -> no batch run needed"]
     fit_lines = [ln for ln in runlog if ln.startswith("fit  ")]
     assert fit_lines == want_fit, fit_lines
@@ -672,13 +790,25 @@ def _run_one(fx, tag, tmp_path_factory):
     assert data["reload"]["depVis"] == "visible" and data["reload"]["depSrc"] == f"data/sites/{site}/{ov['ink']}"
     assert data["effects"]["drawings"] == entry["drawings"] and data["effects"]["score"] == entry["score"]
 
-    # the checkout (the shared store) is byte-identical around the run
+    # the checkout (the shared store) is byte-identical around the run - the ten committed
+    # docs/site_flow/307d_*.png included (they are in _write_surface): an unflagged run
+    # never touches them
     assert _write_surface(fx["picks"]) == surface, "the run wrote into the checkout's shared store"
 
-    # the owner's five views of this run, kept with the docs
-    docs = ROOT / "docs" / "site_flow"
-    for name in ("1-card", "2-placed", "3-gestured", "4-saved", "5-reload"):
-        shutil.copy2(outdir / f"{name}.png", docs / f"307d_{tag}_{name}.png")
+    # 812: the in-run double shot proves the view was settled when the primary shot landed -
+    # a mid-transition regression fails here instead of dirtying the docs PNGs
+    for name in SNAPSHOT_VIEWS:
+        frac = _shot_diff(outdir / f"{name}.png", outdir / f"{name}b.png")
+        assert frac < 0.005, (f"{tag} {name}: not settled at shot time "
+                              f"({frac:.2%} of pixels differ between the in-run shots)")
+
+    # 813: the docs' ten PNGs are the pinned snapshot - an unflagged run leaves them
+    # byte-identical (the write-surface assert above); AW_OWNER_REFRESH=1 re-renders them
+    # from this run (A and B together, all ten) into docs/site_flow/
+    if REFRESH:
+        docs = ROOT / "docs" / "site_flow"
+        for name in SNAPSHOT_VIEWS:
+            shutil.copy2(outdir / f"{name}.png", docs / f"307d_{tag}_{name}.png")
     if tag == "A":
         # B's run must not rewrite A's already-resolved item file (write-once): record the bytes
         fx["picks"]["A"]["itemBytes"] = _h(tree / "data" / "review" / p["itemFile"])
@@ -689,7 +819,9 @@ def test_owner_save_bar_scale(owner_served, tmp_path_factory):
     """A: the owner's flow on the derived BAR-SCALE queue site (a recorded scale bar sets the
     starting scale): card -> place on the works -> drag -> wheel -> shift+wheel -> save -> the
     line's four effects -> the fit loads back unchanged on reload; the checkout's shared store
-    is byte-identical around the run and the five views land in docs/site_flow/."""
+    (the ten pinned docs/site_flow/307d_*.png included) is byte-identical around the run, and
+    an unflagged run never touches that snapshot - it is re-rendered only under
+    AW_OWNER_REFRESH=1 (the module docstring names the flag)."""
     _run_one(owner_served, "A", tmp_path_factory)
 
 
@@ -697,7 +829,8 @@ def test_owner_save_site_size_fallback(owner_served, tmp_path_factory):
     """B: the same on the derived SITE-SIZE-ONLY queue site (the fallback scale: no recorded
     bar, the site's known size over the recorded page size). Its run sees A's tree state (the
     shared private tree): B's line must not rewrite A's already-resolved item file, and the
-    checkout's shared store is still byte-identical when B finishes."""
+    checkout's shared store (the pinned docs/site_flow/307d_*.png included) is still
+    byte-identical when B finishes."""
     data = _run_one(owner_served, "B", tmp_path_factory)
     a = owner_served["picks"]["A"]
     assert a.get("itemBytes"), "test A did not run first (the write-once check records A's item bytes)"

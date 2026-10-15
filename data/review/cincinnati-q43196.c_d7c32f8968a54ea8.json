@@ -1,0 +1,33 @@
+{
+ "site": "cincinnati-q43196",
+ "candidates": [
+  {
+   "plan": "c_d7c32f8968a54ea8",
+   "title": "Cincinnati, the Trout bird's-eye view (1900)",
+   "url": "media/commons/cincinnati-q43196/d7c32f8968a54ea8.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-14",
+    "named_place": "Cincinnati",
+    "place_qid": "Q43196",
+    "place_label": "Cincinnati",
+    "place_lon": -84.5125,
+    "place_lat": 39.1,
+    "site_lon": -84.5125,
+    "site_lat": 39.1,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.5625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "not sure: 4 consistent points (need 10)"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

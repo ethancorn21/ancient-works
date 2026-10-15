@@ -1,0 +1,15 @@
+{
+ "id": "pittsburgh-q1342",
+ "name": "Pittsburgh",
+ "place": "Allegheny County, Pennsylvania, United States",
+ "lon": -80.0,
+ "lat": 40.441667,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "United States",
+ "kind": "town",
+ "qid": "Q1342",
+ "summary": "Pittsburgh is a city in Allegheny County, Pennsylvania, United States, and its county seat. Located in southwestern Pennsylvania where the Allegheny and Monongahela Rivers meet to form the Ohio River, it had a population of 302,971 at the 2020 census, making it the second-most populous city in Pennsylvania after Philadelphia. The Pittsburgh metropolitan area has over 2.43\u00a0million people, making it the largest in the Ohio Valley and Appalachia, the second-largest in Pennsylvania, and the 28th-largest in the U.S. The greater Pittsburgh\u2013Weirton\u2013Steubenville combined statistical area includes parts of Ohio and West Virginia.",
+ "wiki": "https://en.wikipedia.org/wiki/Pittsburgh"
+}

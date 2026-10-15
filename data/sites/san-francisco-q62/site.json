@@ -1,0 +1,15 @@
+{
+ "id": "san-francisco-q62",
+ "name": "San Francisco",
+ "place": "San Francisco County, California, United States",
+ "lon": -122.40289,
+ "lat": 37.79213,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "United States",
+ "kind": "town",
+ "qid": "Q62",
+ "summary": "San Francisco, officially the City and County of San Francisco, is the 17th-largest city and second-densest major city in the United States, with a 2025 population of 826,079. It is the fourth-most populous city in California and the second most-populous in the Bay Area. Some 4.6 million residents live in the city's metropolitan statistical area. Around 9.2 million live in the San Jose\u2013San Francisco\u2013Oakland combined statistical area, the fifth-largest in the United States. San Francisco is a global center for technology and finance, and is well-known for its affluence, eclectic architecture, and mild climate.",
+ "wiki": "https://en.wikipedia.org/wiki/San_Francisco"
+}

@@ -175,14 +175,26 @@ reach the model at `$AW_LLM_URL`; on the Mac `pipeline/llm.py` expects the ssh t
 
 ## Doc vs code
 
+Dated snapshot, 2026-10-10/11 (this document was written against commit d3b24b4, 2026-10-11 22:27): the bullets
+below were verified against the tree at that date and are kept as written - their file names and counts are
+point-in-time, and several have moved since (`fit/merge.py` and `fit/cover.py` exist now, and the queue and item
+sizes changed again). For current facts the docs of record are docs/site_flow.md (the one-site line and the
+queues), docs/matchfit.md (the matcher, the only automatic fitter) and docs/gate.md (the frozen acceptance rule).
+The Qwen bullet is kept current instead, to the post-retirement division (239, 2026-10-13).
+
 - GOAL.md and PLAN.md say "25 of 384 built sites" and "19 of them from 20 documents"; `web/data/sites.json` has 385
   entries, 29 with `drawings >= 1`, and `data/db/platefits/` has 21 `by: hand` and 97 `by: agent` documents.
   `web/data/sites/` has 388 folders and `data/sites/` 390 (built but dropped or unlisted sites).
 - AGENTS.md and GOAL.md name the VM's model endpoint `$LLM_URL`; `pipeline/llm.py` reads `AW_LLM_URL` (PLAN.md agrees
   with the code).
 - docs/PLAN.md says the Qwen servers are "NOT used by this project" and classification runs on Clef-flash; the code
-  uses Qwen through `pipeline/llm.py` (`books.py`, `catalog_triage.py`, `fit/batch_us.py --working`) and Clef was
-  stopped after the Finder bake-off failed on 2026-10-10.
+  uses Qwen through `pipeline/llm.py` for the book pipeline's find and triage (`books.py`, `catalog_triage.py`) and
+  the cover's classification phase (212a's one-off `fit/cover_qwen8080.py` on the VM's own vLLM, answering Clef's
+  questions, since Clef-flash is not running anywhere - its 5060 Ti now serves the matcher). The batch modules'
+  vision-model fitting pass is retired (239, 2026-10-13): the local Qwen models never place a drawing and never
+  write point pairs or coordinates - they find, classify and tie pictures and write code - and the pretrained
+  matcher (`fit/matchfit.py`) is the only automatic fitter, run first in the one-site line (`tools/site_done.py`).
+  Clef was stopped after the Finder bake-off failed on 2026-10-10.
 - docs/PLAN.md phase 1 plans "USGS imagery tiles in the US"; the page draws Esri World Imagery everywhere, and the
   `imagery.jpg` that `build_site.py` saves is not displayed (docs/sources.md section 4 says so too).
 - PLAN.md's module map lists `fit/merge.py` (211) and `fit/cover.py` (212) and makes 212 the one page-facing sync;

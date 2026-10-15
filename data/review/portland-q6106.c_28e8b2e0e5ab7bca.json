@@ -1,0 +1,33 @@
+{
+ "site": "portland-q6106",
+ "candidates": [
+  {
+   "plan": "c_28e8b2e0e5ab7bca",
+   "title": "Portland, the J. McI. Wood perspective bird's-eye view (1890)",
+   "url": "media/commons/portland-q6106/28e8b2e0e5ab7bca.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-14",
+    "named_place": "Portland",
+    "place_qid": "Q6106",
+    "place_label": "Portland",
+    "place_lon": -122.67916666666666,
+    "place_lat": 45.515,
+    "site_lon": -122.67916666666666,
+    "site_lat": 45.515,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.5625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "not sure: 4 consistent points (need 10)"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

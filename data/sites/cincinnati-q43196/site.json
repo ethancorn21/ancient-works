@@ -1,0 +1,15 @@
+{
+ "id": "cincinnati-q43196",
+ "name": "Cincinnati",
+ "place": "Hamilton County, Ohio, United States",
+ "lon": -84.5125,
+ "lat": 39.1,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "United States",
+ "kind": "town",
+ "qid": "Q43196",
+ "summary": "Cincinnati is the most populous city in Hamilton County, Ohio, United States, and its county seat. It is located along the Ohio River across from its confluence with the Licking River in Kentucky. Cincinnati is the third-most populous city in Ohio, and the 66th-most populous city in the U.S., with a population of 309,317 at the 2020 census. The city serves as the economic and cultural hub of the tri-state Cincinnati metropolitan area, Ohio's most populous metropolitan area and the nation's 30th-largest, at over 2.3 million residents.",
+ "wiki": "https://en.wikipedia.org/wiki/Cincinnati"
+}

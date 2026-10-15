@@ -1,0 +1,12 @@
+{
+ "id": "carriden",
+ "name": "Carriden (east end of the Antonine Wall near Bo'ness)",
+ "place": "near Bo'ness, Falkirk, Scotland, Scotland",
+ "lon": -3.564436,
+ "lat": 56.010057,
+ "width_m": 1200,
+ "height_m": 1200,
+ "px_m": 1.0,
+ "region": "Scotland",
+ "kind": "roman site"
+}

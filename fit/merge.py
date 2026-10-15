@@ -1,6 +1,6 @@
 """Consolidate: the single point where the per-source staging becomes the canonical data (task 211, GOAL.md point 5).
 
-usage: fit/merge.py merge [--root DIR]
+usage: fit/merge.py merge [--root DIR] [--sources NAME[,NAME...]]
 
 The source tasks stage rows next to the canonical files they belong to (data/catalog/extras_<source>*.jsonl,
 data/commons/files_<source>*.jsonl, data/commons/classified_<source>*.jsonl). This command is the only writer of
@@ -17,6 +17,10 @@ Rules:
 - first row wins: a key already present (before the merge or in an earlier source file, files read in sorted
   name order) keeps its first row. A conflicting staging row is dropped and recorded in the merge log - never a
   silent rewrite of a row that is not identical.
+- --sources: merge only the named sources' staging files and record that run's rows only in the log. Without it
+  EVERY files_*/extras_*/classified_* file next to the canonical ones is merged - so a consolidation for one
+  source family (the Roman re-run, the US cities) must name its sources, or it would also fold in other
+  families' still-pending staging.
 - evidence gate (files rows only): a picture row (one with a title) must carry the 200 evidence field (rec
   "evidence/1") and must not be kind "none" - a row with no machine-checkable tie is reported and refused, never
   silently kept. Sentinel rows (a site with no old files, no title) are exempt.
@@ -59,10 +63,11 @@ def key_present(key):
     return any(v is None for v in key)
 
 
-def run_target(root, target, prefix, keyfn, decide):
+def run_target(root, target, prefix, keyfn, decide, sources=None):
     """One canonical file: append every staging row that is not there yet. Returns (added, refused).
 
-    decide(target, key, source, action, note) records each staging row's outcome for the merge log."""
+    decide(target, key, source, action, note) records each staging row's outcome for the merge log.
+    sources: when given, only the staging files of these exact source names are merged."""
     tpath = os.path.join(root, target)
     canon = {}   # key -> raw line (the first row holding the key)
     new_lines = []
@@ -74,6 +79,8 @@ def run_target(root, target, prefix, keyfn, decide):
     for path in sorted(glob.glob(os.path.join(root, prefix + "*.jsonl"))):
         rel = os.path.relpath(path, root)
         src = source_of(path, prefix)
+        if sources is not None and src not in sources:
+            continue
         for lineno, line in enumerate(open(path, encoding="utf-8"), 1):
             if not line.strip():
                 continue
@@ -149,6 +156,11 @@ def main(argv):
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     if "--root" in argv:
         root = os.path.abspath(argv[argv.index("--root") + 1])
+    sources = None
+    if "--sources" in argv:
+        sources = set(s.strip() for s in argv[argv.index("--sources") + 1].split(",") if s.strip())
+        if not sources:
+            raise SystemExit("merge: --sources names no source")
 
     entries = []
 
@@ -158,7 +170,7 @@ def main(argv):
     totals = []
     refused = 0
     for target, prefix, keyfn in TARGETS:
-        added, ref = run_target(root, target, prefix, keyfn, decide)
+        added, ref = run_target(root, target, prefix, keyfn, decide, sources)
         refused += ref
         totals.append(f"{target}: +{added}")
     write_log(root, entries)

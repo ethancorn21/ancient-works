@@ -1,0 +1,282 @@
+=== boston-q100 ===
+site boston-q100: the one-site line (fit -> sync -> entry -> review)
+boston-q100  Boston, the Walker bird's-eye view (1902): not sure: 5 consistent points (need 10) [imagery.jpg x0.35, rot -72]
+fit  Boston, the Walker bird's-eye view (1902): sent to the review queue (not sure: 5 consistent points (need 10))
+entry  web/data/sites.json: drawings 0 -> 0
+review boston-q100.c_feba3eac82111e59.json: 1 candidate(s), open; page now has 458 open of 482 items
+  Boston, the Walker bird's-eye view (1902) (c_feba3eac82111e59): sent to the review queue (not sure: 5 consistent points (need 10))
+done
+=== boston-q100 rc=0 secs=22 ===
+=== chicago-q1297 ===
+site chicago-q1297: the one-site line (fit -> sync -> entry -> review)
+chicago-q1297  Chicago, the Peter Roy bird's-eye view (1892): not sure: 4 consistent points (need 10) [imagery.jpg x1.0, rot 33]
+fit  Chicago, the Peter Roy bird's-eye view (1892): sent to the review queue (not sure: 4 consistent points (need 10))
+entry  web/data/sites.json: drawings 0 -> 0
+review chicago-q1297.c_4bfe0d63bbb631fa.json: 1 candidate(s), open; page now has 459 open of 483 items
+  Chicago, the Peter Roy bird's-eye view (1892) (c_4bfe0d63bbb631fa): sent to the review queue (not sure: 4 consistent points (need 10))
+done
+=== chicago-q1297 rc=0 secs=17 ===
+=== cincinnati-q43196 ===
+site cincinnati-q43196: the one-site line (fit -> sync -> entry -> review)
+cincinnati-q43196  Cincinnati, the Trout bird's-eye view (1900): not sure: 4 consistent points (need 10) [imagery.jpg x0.35, rot 20]
+fit  Cincinnati, the Trout bird's-eye view (1900): sent to the review queue (not sure: 4 consistent points (need 10))
+entry  web/data/sites.json: drawings 0 -> 0
+review cincinnati-q43196.c_d7c32f8968a54ea8.json: 1 candidate(s), open; page now has 460 open of 484 items
+  Cincinnati, the Trout bird's-eye view (1900) (c_d7c32f8968a54ea8): sent to the review queue (not sure: 4 consistent points (need 10))
+done
+=== cincinnati-q43196 rc=0 secs=19 ===
+=== cleveland-q37320 ===
+site cleveland-q37320: the one-site line (fit -> sync -> entry -> review)
+cleveland-q37320  Cleveland, the A. Ruger / Shober & Carqueville bird's-eye view (1877): not sure: 4 consistent points (need 10) [imagery.jpg x0.7, rot -25]
+fit  Cleveland, the A. Ruger / Shober & Carqueville bird's-eye view (1877): sent to the review queue (not sure: 4 consistent points (need 10))
+entry  web/data/sites.json: drawings 0 -> 0
+review cleveland-q37320.c_3c7244f2e1995dc6.json: 1 candidate(s), open; page now has 461 open of 485 items
+  Cleveland, the A. Ruger / Shober & Carqueville bird's-eye view (1877) (c_3c7244f2e1995dc6): sent to the review queue (not sure: 4 consistent points (need 10))
+done
+=== cleveland-q37320 rc=0 secs=18 ===
+=== columbus-q16567 ===
+site columbus-q16567: the one-site line (fit -> sync -> entry -> review)
+columbus-q16567  Columbus, the H. H. & O. H. Bailey bird's-eye view (1872): not sure: 4 consistent points (need 10) [imagery.jpg x1.0, rot 5]
+fit  Columbus, the H. H. & O. H. Bailey bird's-eye view (1872): sent to the review queue (not sure: 4 consistent points (need 10))
+entry  web/data/sites.json: drawings 0 -> 0
+review columbus-q16567.c_6a10cb94adb8c13c.json: 1 candidate(s), open; page now has 462 open of 486 items
+  Columbus, the H. H. & O. H. Bailey bird's-eye view (1872) (c_6a10cb94adb8c13c): sent to the review queue (not sure: 4 consistent points (need 10))
+done
+=== columbus-q16567 rc=0 secs=20 ===
+=== denver-q16554 ===
+site denver-q16554: the one-site line (fit -> sync -> entry -> review)
+denver-q16554  Denver, the Birdseye View Publishing Co. bird's-eye view (1908): not sure: the consistent points lie nearly on a line (spread 0.63, 10 px across): the scale is not pinned [relief.jpg x0.7, rot -1]
+fit  Denver, the Birdseye View Publishing Co. bird's-eye view (1908): sent to the review queue (not sure: the consistent points lie nearly on a line (spread 0.63, 10 px across): the scale is not pinned)
+entry  web/data/sites.json: drawings 0 -> 0
+review denver-q16554.c_27675e0aa1425495.json: 1 candidate(s), open; page now has 463 open of 487 items
+  Denver, the Birdseye View Publishing Co. bird's-eye view (1908) (c_27675e0aa1425495): sent to the review queue (not sure: the consistent points lie nearly on a line (spread 0.63, 10 px across): the scale is not pinned)
+done
+=== denver-q16554 rc=0 secs=20 ===
+=== detroit-q12439 ===
+site detroit-q12439: the one-site line (fit -> sync -> entry -> review)
+detroit-q12439  Detroit, the Calvert bird's-eye view (1889): not sure: 4 consistent points (need 10) [imagery.jpg x0.35, rot 26]
+fit  Detroit, the Calvert bird's-eye view (1889): sent to the review queue (not sure: 4 consistent points (need 10))
+entry  web/data/sites.json: drawings 0 -> 0
+review detroit-q12439.c_671b74057e62006b.json: 1 candidate(s), open; page now has 464 open of 488 items
+  Detroit, the Calvert bird's-eye view (1889) (c_671b74057e62006b): sent to the review queue (not sure: 4 consistent points (need 10))
+done
+=== detroit-q12439 rc=0 secs=18 ===
+=== indianapolis-q6346 ===
+site indianapolis-q6346: the one-site line (fit -> sync -> entry -> review)
+indianapolis-q6346  Indianapolis, the E. G. Spink Company bird's-eye view (1925): not sure: 8 consistent points (need 10) [relief.jpg x1.0, rot 3]
+fit  Indianapolis, the E. G. Spink Company bird's-eye view (1925): sent to the review queue (not sure: 8 consistent points (need 10))
+entry  web/data/sites.json: drawings 0 -> 0
+review indianapolis-q6346.c_7b0f20b65aa5c3be.json: 1 candidate(s), open; page now has 465 open of 489 items
+  Indianapolis, the E. G. Spink Company bird's-eye view (1925) (c_7b0f20b65aa5c3be): sent to the review queue (not sure: 8 consistent points (need 10))
+done
+=== indianapolis-q6346 rc=0 secs=22 ===
+=== kansas-city-q41819 ===
+site kansas-city-q41819: the one-site line (fit -> sync -> entry -> review)
+kansas-city-q41819  Kansas City, the Ruger bird's-eye view (1869): not sure: 4 consistent points (need 10) [relief.jpg x0.35, rot 26]
+fit  Kansas City, the Ruger bird's-eye view (1869): sent to the review queue (not sure: 4 consistent points (need 10))
+entry  web/data/sites.json: drawings 0 -> 0
+review kansas-city-q41819.c_2dce28785be63091.json: 1 candidate(s), open; page now has 466 open of 490 items
+  Kansas City, the Ruger bird's-eye view (1869) (c_2dce28785be63091): sent to the review queue (not sure: 4 consistent points (need 10))
+done
+=== kansas-city-q41819 rc=0 secs=26 ===
+=== louisville-q43668 ===
+site louisville-q43668: the one-site line (fit -> sync -> entry -> review)
+louisville-q43668  Louisville, the Clarke bird's-eye view (1883): not sure: 4 consistent points (need 10) [imagery.jpg x0.5, rot -45]
+fit  Louisville, the Clarke bird's-eye view (1883): sent to the review queue (not sure: 4 consistent points (need 10))
+entry  web/data/sites.json: drawings 0 -> 0
+review louisville-q43668.c_4d182a8fb649ec9b.json: 1 candidate(s), open; page now has 467 open of 491 items
+  Louisville, the Clarke bird's-eye view (1883) (c_4d182a8fb649ec9b): sent to the review queue (not sure: 4 consistent points (need 10))
+done
+=== louisville-q43668 rc=0 secs=24 ===
+=== memphis-q16563 ===
+site memphis-q16563: the one-site line (fit -> sync -> entry -> review)
+memphis-q16563  Memphis, the A. Ruger bird's-eye view (1870): not sure: 3 consistent points (need 10) [relief.jpg x0.7, rot -19]
+fit  Memphis, the A. Ruger bird's-eye view (1870): sent to the review queue (not sure: 3 consistent points (need 10))
+entry  web/data/sites.json: drawings 0 -> 0
+review memphis-q16563.c_8a0fc530d78bf11f.json: 1 candidate(s), open; page now has 468 open of 492 items
+  Memphis, the A. Ruger bird's-eye view (1870) (c_8a0fc530d78bf11f): sent to the review queue (not sure: 3 consistent points (need 10))
+done
+=== memphis-q16563 rc=0 secs=27 ===
+=== milwaukee-q37836 ===
+site milwaukee-q37836: the one-site line (fit -> sync -> entry -> review)
+milwaukee-q37836  Milwaukee, the Bailey bird's-eye view (1872): not sure: 4 consistent points (need 10) [relief.jpg x0.7, rot 6]
+fit  Milwaukee, the Bailey bird's-eye view (1872): sent to the review queue (not sure: 4 consistent points (need 10))
+entry  web/data/sites.json: drawings 0 -> 0
+review milwaukee-q37836.c_5d8d17eb22e110f7.json: 1 candidate(s), open; page now has 469 open of 493 items
+  Milwaukee, the Bailey bird's-eye view (1872) (c_5d8d17eb22e110f7): sent to the review queue (not sure: 4 consistent points (need 10))
+done
+=== milwaukee-q37836 rc=0 secs=27 ===
+=== minneapolis-q36091 ===
+site minneapolis-q36091: the one-site line (fit -> sync -> entry -> review)
+minneapolis-q36091  Minneapolis, the W. V. Herancourt / I. Monasch bird's-eye view (1885): not sure: 4 consistent points (need 10) [imagery.jpg x0.5, rot 100]
+fit  Minneapolis, the W. V. Herancourt / I. Monasch bird's-eye view (1885): sent to the review queue (not sure: 4 consistent points (need 10))
+entry  web/data/sites.json: drawings 0 -> 0
+review minneapolis-q36091.c_3b4a78e2c577925d.json: 1 candidate(s), open; page now has 470 open of 494 items
+  Minneapolis, the W. V. Herancourt / I. Monasch bird's-eye view (1885) (c_3b4a78e2c577925d): sent to the review queue (not sure: 4 consistent points (need 10))
+done
+=== minneapolis-q36091 rc=0 secs=29 ===
+=== nashville-q23197 ===
+site nashville-q23197: the one-site line (fit -> sync -> entry -> review)
+nashville-q23197  Nashville, the Tennessee Centennial Exposition bird's-eye view (1897): not sure: 4 consistent points (need 10) [relief.jpg x0.35, rot 91]
+nashville-q23197  Nashville, the Clayton/Temple plan (1804, engraved 1880): not sure: 4 consistent points (need 10) [relief.jpg x0.35, rot 159]
+nashville-q23197  Nashville, the Haydon & Booth plan (1860): not sure: 4 consistent points (need 10) [imagery.jpg x0.35, rot -53]
+nashville-q23197  Nashville, the O.M. Poe survey map (1860s, Chief Engineer's Office): not sure: 4 consistent points (need 10) [imagery.jpg x0.5, rot 129]
+nashville-q23197  Nashville, the Civil War fortifications (1895 atlas plate, surveyed De: not sure: 4 consistent points (need 10) [relief.jpg x0.35, rot 42]
+fit  Nashville, the Haydon & Booth plan (1860): sent to the review queue (not sure: 4 consistent points (need 10))
+fit  Nashville, the O.M. Poe survey map (1860s, Chief Engineer's Office): sent to the review queue (not sure: 4 consistent points (need 10))
+fit  Nashville, the Tennessee Centennial Exposition bird's-eye view (1897): sent to the review queue (not sure: 4 consistent points (need 10))
+fit  Nashville, the Clayton/Temple plan (1804, engraved 1880): sent to the review queue (not sure: 4 consistent points (need 10))
+fit  Nashville, the Civil War fortifications (1895 atlas plate, surveyed Dec 1864): sent to the review queue (not sure: 4 consistent points (need 10))
+entry  web/data/sites.json: drawings 0 -> 0
+review nashville-q23197.c_a627153118b524e5.json: 5 candidate(s), open; page now has 471 open of 495 items
+  Nashville, the Haydon & Booth plan (1860) (c_0d31466fb347c8cd): sent to the review queue (not sure: 4 consistent points (need 10))
+  Nashville, the O.M. Poe survey map (1860s, Chief Engineer's Office) (c_7489aa387d763321): sent to the review queue (not sure: 4 consistent points (need 10))
+  Nashville, the Tennessee Centennial Exposition bird's-eye view (1897) (c_a627153118b524e5): sent to the review queue (not sure: 4 consistent points (need 10))
+  Nashville, the Clayton/Temple plan (1804, engraved 1880) (c_acd3cd4a8bdc2f58): sent to the review queue (not sure: 4 consistent points (need 10))
+  Nashville, the Civil War fortifications (1895 atlas plate, surveyed Dec 1864) (c_d2ed9616d1d5c7e5): sent to the review queue (not sure: 4 consistent points (need 10))
+done
+=== nashville-q23197 rc=0 secs=165 ===
+=== new-orleans-q34404 ===
+site new-orleans-q34404: the one-site line (fit -> sync -> entry -> review)
+new-orleans-q34404  New Orleans, the Bachman bird's-eye view (1851): not sure: 3 consistent points (need 10) [relief.jpg x0.35, rot -37]
+fit  New Orleans, the Bachman bird's-eye view (1851): sent to the review queue (not sure: 3 consistent points (need 10))
+entry  web/data/sites.json: drawings 0 -> 0
+review new-orleans-q34404.c_187c8506049a27f6.json: 1 candidate(s), open; page now has 472 open of 496 items
+  New Orleans, the Bachman bird's-eye view (1851) (c_187c8506049a27f6): sent to the review queue (not sure: 3 consistent points (need 10))
+done
+=== new-orleans-q34404 rc=0 secs=27 ===
+=== new-york-q60 ===
+site new-york-q60: the one-site line (fit -> sync -> entry -> review)
+new-york-q60  New York, the Bachmann bird's-eye view (1874): not sure: 3 consistent points (need 10) [imagery.jpg x0.5, rot -179]
+new-york-q60  New York, the Will L. Taylor bird's-eye view (1879): not sure: 4 consistent points (need 10) [imagery.jpg x0.35, rot 3]
+new-york-q60  New York, the Ohmann & Co. bird's-eye view (1907, metro-wide): not sure: 5 consistent points (need 10) [imagery.jpg x1.0, rot -96]
+new-york-q60  New York, the Castello plan (1660 Dutch survey of New Amsterdam): not sure: 4 consistent points (need 10) [relief.jpg x1.0, rot -131]
+new-york-q60  New York, Bernard Ratzer's plan (1767): not sure: 4 consistent points (need 10) [relief.jpg x0.25, rot -5]
+new-york-q60  New York, the Commissioners' Plan (1811, bird's-eye view; published 18: not sure: 4 consistent points (need 10) [relief.jpg x0.7, rot -67]
+new-york-q60  New York, Egbert Viele's topographical map (1865): not sure: 4 consistent points (need 10) [imagery.jpg x0.7, rot 45]
+fit  New York, the Castello plan (1660 Dutch survey of New Amsterdam): sent to the review queue (not sure: 4 consistent points (need 10))
+fit  New York, Egbert Viele's topographical map (1865): sent to the review queue (not sure: 4 consistent points (need 10))
+fit  New York, the Commissioners' Plan (1811, bird's-eye view; published 1821): sent to the review queue (not sure: 4 consistent points (need 10))
+fit  New York, the Will L. Taylor bird's-eye view (1879): sent to the review queue (not sure: 4 consistent points (need 10))
+fit  New York, the Bachmann bird's-eye view (1874): sent to the review queue (not sure: 3 consistent points (need 10))
+fit  New York, Bernard Ratzer's plan (1767): sent to the review queue (not sure: 4 consistent points (need 10))
+fit  New York, the Ohmann & Co. bird's-eye view (1907, metro-wide): sent to the review queue (not sure: 5 consistent points (need 10))
+entry  web/data/sites.json: drawings 0 -> 0
+review new-york-q60.c_921b186549bc7036.json: 7 candidate(s), open; page now has 473 open of 497 items
+  New York, the Castello plan (1660 Dutch survey of New Amsterdam) (c_02fd531870944f7b): sent to the review queue (not sure: 4 consistent points (need 10))
+  New York, Egbert Viele's topographical map (1865) (c_111f23674ba71b09): sent to the review queue (not sure: 4 consistent points (need 10))
+  New York, the Commissioners' Plan (1811, bird's-eye view; published 1821) (c_6501fcb809b471e1): sent to the review queue (not sure: 4 consistent points (need 10))
+  New York, the Will L. Taylor bird's-eye view (1879) (c_7b8ec065bef1ed42): sent to the review queue (not sure: 4 consistent points (need 10))
+  New York, the Bachmann bird's-eye view (1874) (c_921b186549bc7036): sent to the review queue (not sure: 3 consistent points (need 10))
+  New York, Bernard Ratzer's plan (1767) (c_9fbbe4eede6a58a4): sent to the review queue (not sure: 4 consistent points (need 10))
+  New York, the Ohmann & Co. bird's-eye view (1907, metro-wide) (c_ce3478f0db8ad544): sent to the review queue (not sure: 5 consistent points (need 10))
+done
+=== new-york-q60 rc=0 secs=198 ===
+=== omaha-q43199 ===
+site omaha-q43199: the one-site line (fit -> sync -> entry -> review)
+omaha-q43199  Omaha, the E. Ruger / Chicago Lithographing Co. bird's-eye view (1868): not sure: 5 consistent points (need 10) [imagery.jpg x1.0, rot 76]
+fit  Omaha, the E. Ruger / Chicago Lithographing Co. bird's-eye view (1868): sent to the review queue (not sure: 5 consistent points (need 10))
+entry  web/data/sites.json: drawings 0 -> 0
+review omaha-q43199.c_42ec242fc73d0b42.json: 1 candidate(s), open; page now has 474 open of 498 items
+  Omaha, the E. Ruger / Chicago Lithographing Co. bird's-eye view (1868) (c_42ec242fc73d0b42): sent to the review queue (not sure: 5 consistent points (need 10))
+done
+=== omaha-q43199 rc=0 secs=36 ===
+=== philadelphia-q1345 ===
+site philadelphia-q1345: the one-site line (fit -> sync -> entry -> review)
+philadelphia-q1345  Philadelphia, the Davis bird's-eye view (1872): not sure: 3 consistent points (need 10) [relief.jpg x1.0, rot 13]
+fit  Philadelphia, the Davis bird's-eye view (1872): sent to the review queue (not sure: 3 consistent points (need 10))
+entry  web/data/sites.json: drawings 0 -> 0
+review philadelphia-q1345.c_61b6073da1807052.json: 1 candidate(s), open; page now has 475 open of 499 items
+  Philadelphia, the Davis bird's-eye view (1872) (c_61b6073da1807052): sent to the review queue (not sure: 3 consistent points (need 10))
+done
+=== philadelphia-q1345 rc=0 secs=34 ===
+=== pittsburgh-q1342 ===
+site pittsburgh-q1342: the one-site line (fit -> sync -> entry -> review)
+pittsburgh-q1342  Pittsburgh, the Fowler bird's-eye view (1902): not sure: 4 consistent points (need 10) [relief.jpg x0.7, rot 2]
+fit  Pittsburgh, the Fowler bird's-eye view (1902): sent to the review queue (not sure: 4 consistent points (need 10))
+entry  web/data/sites.json: drawings 0 -> 0
+review pittsburgh-q1342.c_7b7c5bb5bce390a9.json: 1 candidate(s), open; page now has 476 open of 500 items
+  Pittsburgh, the Fowler bird's-eye view (1902) (c_7b7c5bb5bce390a9): sent to the review queue (not sure: 4 consistent points (need 10))
+done
+=== pittsburgh-q1342 rc=0 secs=28 ===
+=== portland-q6106 ===
+site portland-q6106: the one-site line (fit -> sync -> entry -> review)
+portland-q6106  Portland, the J. McI. Wood perspective bird's-eye view (1890): not sure: 4 consistent points (need 10) [imagery.jpg x1.0, rot 119]
+fit  Portland, the J. McI. Wood perspective bird's-eye view (1890): sent to the review queue (not sure: 4 consistent points (need 10))
+entry  web/data/sites.json: drawings 0 -> 0
+review portland-q6106.c_28e8b2e0e5ab7bca.json: 1 candidate(s), open; page now has 477 open of 501 items
+  Portland, the J. McI. Wood perspective bird's-eye view (1890) (c_28e8b2e0e5ab7bca): sent to the review queue (not sure: 4 consistent points (need 10))
+done
+=== portland-q6106 rc=0 secs=28 ===
+=== san-francisco-q62 ===
+site san-francisco-q62: the one-site line (fit -> sync -> entry -> review)
+san-francisco-q62  San Francisco, the Henry Bill bird's-eye view (1854, drawn 1852): not sure: 4 consistent points (need 10) [imagery.jpg x1.0, rot -0]
+san-francisco-q62  San Francisco, the Goddard bird's-eye view (1868): not sure: 4 consistent points (need 10) [imagery.jpg x0.5, rot -12]
+san-francisco-q62  San Francisco, the Parsons/Currier & Ives bird's-eye view (1878): not sure: 4 consistent points (need 10) [imagery.jpg x0.25, rot -49]
+san-francisco-q62  San Francisco, the C. Merriman Peter bird's-eye view (1914): not sure: 4 consistent points (need 10) [relief.jpg x0.7, rot -42]
+san-francisco-q62  San Francisco, the Eddy survey map (1849, the original): not sure: 7 consistent points (need 10) [imagery.jpg x1.0, rot -24]
+san-francisco-q62  San Francisco, the first published map (1850, 'Copied From Originals'): not sure: 3 consistent points (need 10) [relief.jpg x1.0, rot 12]
+san-francisco-q62  San Francisco, the Eddy 'full and complete' sheet (1854): not sure: 4 consistent points (need 10) [relief.jpg x1.0, rot -20]
+san-francisco-q62  San Francisco, the Vioget plan (1839, the first plan of the old town): not sure: 7 consistent points (need 10) [relief.jpg x0.5, rot -3]
+fit  San Francisco, the Parsons/Currier & Ives bird's-eye view (1878): sent to the review queue (not sure: 4 consistent points (need 10))
+fit  San Francisco, the Eddy 'full and complete' sheet (1854): sent to the review queue (not sure: 4 consistent points (need 10))
+fit  San Francisco, the C. Merriman Peter bird's-eye view (1914): sent to the review queue (not sure: 4 consistent points (need 10))
+fit  San Francisco, the Goddard bird's-eye view (1868): sent to the review queue (not sure: 4 consistent points (need 10))
+fit  San Francisco, the Eddy survey map (1849, the original): sent to the review queue (not sure: 7 consistent points (need 10))
+fit  San Francisco, the Henry Bill bird's-eye view (1854, drawn 1852): sent to the review queue (not sure: 4 consistent points (need 10))
+fit  San Francisco, the Vioget plan (1839, the first plan of the old town): sent to the review queue (not sure: 7 consistent points (need 10))
+fit  San Francisco, the first published map (1850, 'Copied From Originals'): sent to the review queue (not sure: 3 consistent points (need 10))
+entry  web/data/sites.json: drawings 0 -> 0
+review san-francisco-q62.c_985e6d378343b8b1.json: 8 candidate(s), open; page now has 478 open of 502 items
+  San Francisco, the Parsons/Currier & Ives bird's-eye view (1878) (c_1d79f2fb0899b9de): sent to the review queue (not sure: 4 consistent points (need 10))
+  San Francisco, the Eddy 'full and complete' sheet (1854) (c_2cbc7ef2a832c38a): sent to the review queue (not sure: 4 consistent points (need 10))
+  San Francisco, the C. Merriman Peter bird's-eye view (1914) (c_3d2fe84db288c7e8): sent to the review queue (not sure: 4 consistent points (need 10))
+  San Francisco, the Goddard bird's-eye view (1868) (c_865e981e273f3075): sent to the review queue (not sure: 4 consistent points (need 10))
+  San Francisco, the Eddy survey map (1849, the original) (c_8e2fc23385eac72c): sent to the review queue (not sure: 7 consistent points (need 10))
+  San Francisco, the Henry Bill bird's-eye view (1854, drawn 1852) (c_985e6d378343b8b1): sent to the review queue (not sure: 4 consistent points (need 10))
+  San Francisco, the Vioget plan (1839, the first plan of the old town) (c_9be7a7ee2597ea9b): sent to the review queue (not sure: 7 consistent points (need 10))
+  San Francisco, the first published map (1850, 'Copied From Originals') (c_d61f6e15a4941c17): sent to the review queue (not sure: 3 consistent points (need 10))
+done
+=== san-francisco-q62 rc=0 secs=191 ===
+=== st-louis-q38022 ===
+site st-louis-q38022: the one-site line (fit -> sync -> entry -> review)
+st-louis-q38022  St. Louis, the Palmatary bird's-eye view (1858): not sure: 5 consistent points (need 10) [imagery.jpg x0.25, rot -123]
+fit  St. Louis, the Palmatary bird's-eye view (1858): sent to the review queue (not sure: 5 consistent points (need 10))
+entry  web/data/sites.json: drawings 0 -> 0
+review st-louis-q38022.c_4dd99d37fdc1485f.json: 1 candidate(s), open; page now has 479 open of 503 items
+  St. Louis, the Palmatary bird's-eye view (1858) (c_4dd99d37fdc1485f): sent to the review queue (not sure: 5 consistent points (need 10))
+done
+=== st-louis-q38022 rc=0 secs=18 ===
+=== st-paul-q28848 ===
+site st-paul-q28848: the one-site line (fit -> sync -> entry -> review)
+st-paul-q28848  St. Paul, the Robert M. Saint bird's-eye view (1906): not sure: 3 consistent points (need 10) [imagery.jpg x1.0, rot 63]
+fit  St. Paul, the Robert M. Saint bird's-eye view (1906): sent to the review queue (not sure: 3 consistent points (need 10))
+entry  web/data/sites.json: drawings 0 -> 0
+review st-paul-q28848.c_64336c87c1e1c710.json: 1 candidate(s), open; page now has 480 open of 504 items
+  St. Paul, the Robert M. Saint bird's-eye view (1906) (c_64336c87c1e1c710): sent to the review queue (not sure: 3 consistent points (need 10))
+done
+=== st-paul-q28848 rc=0 secs=17 ===
+=== washington-q61 ===
+site washington-q61: the one-site line (fit -> sync -> entry -> review)
+washington-q61  Washington, the A. Sachse & Co. bird's-eye view (1883): not sure: 5 consistent points (need 10) [relief.jpg x0.25, rot -4]
+washington-q61  Washington, the B.H. Warner & Co. bird's-eye view (1886): not sure: 4 consistent points (need 10) [relief.jpg x1.0, rot -114]
+washington-q61  Washington, the Olsen bird's-eye view (1921): not sure: 4 consistent points (need 10) [imagery.jpg x0.25, rot 40]
+washington-q61  Washington, D.C., the L'Enfant plan (1791, first printed 1792): not sure: 5 consistent points (need 10) [imagery.jpg x0.5, rot 151]
+washington-q61  Washington, D.C., Andrew Ellicott's plan (1792, the first official pla: not sure: 4 consistent points (need 10) [relief.jpg x0.7, rot -6]
+washington-q61  Washington, D.C., the Civil War defences (1865 map of the fortificatio: not sure: 5 consistent points (need 10) [relief.jpg x0.35, rot -49]
+fit  Washington, the A. Sachse & Co. bird's-eye view (1883): sent to the review queue (not sure: 5 consistent points (need 10))
+fit  Washington, the Olsen bird's-eye view (1921): sent to the review queue (not sure: 4 consistent points (need 10))
+fit  Washington, D.C., Andrew Ellicott's plan (1792, the first official plan): sent to the review queue (not sure: 4 consistent points (need 10))
+fit  Washington, the B.H. Warner & Co. bird's-eye view (1886): sent to the review queue (not sure: 4 consistent points (need 10))
+fit  Washington, D.C., the Civil War defences (1865 map of the fortification ring): sent to the review queue (not sure: 5 consistent points (need 10))
+fit  Washington, D.C., the L'Enfant plan (1791, first printed 1792): sent to the review queue (not sure: 5 consistent points (need 10))
+entry  web/data/sites.json: drawings 0 -> 0
+review washington-q61.c_1afe8abaaad4d3f5.json: 6 candidate(s), open; page now has 481 open of 505 items
+  Washington, the A. Sachse & Co. bird's-eye view (1883) (c_1afe8abaaad4d3f5): sent to the review queue (not sure: 5 consistent points (need 10))
+  Washington, the Olsen bird's-eye view (1921) (c_23d117a7a5726f7a): sent to the review queue (not sure: 4 consistent points (need 10))
+  Washington, D.C., Andrew Ellicott's plan (1792, the first official plan) (c_3f20c4d9e9fbcbd3): sent to the review queue (not sure: 4 consistent points (need 10))
+  Washington, the B.H. Warner & Co. bird's-eye view (1886) (c_63a6b4d0d5e11c2b): sent to the review queue (not sure: 4 consistent points (need 10))
+  Washington, D.C., the Civil War defences (1865 map of the fortification ring) (c_7fc4c7ef2b2e3ee2): sent to the review queue (not sure: 5 consistent points (need 10))
+  Washington, D.C., the L'Enfant plan (1791, first printed 1792) (c_da0d937e99fbb2a7): sent to the review queue (not sure: 5 consistent points (need 10))
+done
+=== washington-q61 rc=0 secs=118 ===

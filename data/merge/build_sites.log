@@ -888,3 +888,502 @@ built 1, skipped 0, failed 0
 === the-hague-q36600 build rc=0 2026-10-12T22:22:10Z ===
 marks refreshed: the-hague-q36600 depictions: 1
 === the-hague-q36600 ok ===
+=== luguvallium-q71551754 start 2026-10-14T21:44:10Z ===
+[1/1] luguvallium-q71551754 (ea, 1600 m)
+luguvallium-q71551754 relief clip 1.2 m; {'block_h.png': 229, 'block_top.jpg': 546, 'relief.jpg': 314} KB
+luguvallium-q71551754 Ordnance Survey six-inch map, England and Wales, 1st edition surveyed 1840s-1880s by county coverage 100% 266 KB
+luguvallium-q71551754 six-inch-1st_ink.webp 459 KB
+   ok 26s
+built 1, skipped 0, failed 0
+=== luguvallium-q71551754 build rc=0 2026-10-14T21:44:37Z ===
+marks refreshed: luguvallium-q71551754 depictions: 1
+=== luguvallium-q71551754 ok ===
+=== ardoch start 2026-10-14T21:44:37Z ===
+[1/1] ardoch (scot, 1200 m)
+  no LiDAR here: no Scottish LiDAR tiles on this box
+ardoch aerial only (no LiDAR here)
+ardoch Ordnance Survey six-inch map, Scotland, 1st edition 1st edition, 1843-1882 coverage 100% 69 KB
+ardoch Roy's Military Survey of Scotland 1747-1755 coverage 100% 36 KB
+ardoch roy_ink.webp 113 KB
+ardoch scot-6-first_ink.webp 141 KB
+   ok 40s
+built 1, skipped 0, failed 0
+=== ardoch build rc=0 2026-10-14T21:45:18Z ===
+marks refreshed: ardoch depictions: 2
+=== ardoch ok ===
+=== virosidum start 2026-10-14T21:45:18Z ===
+[1/1] virosidum (ea, 1600 m)
+virosidum relief clip 1.2 m; {'block_h.png': 247, 'block_top.jpg': 377, 'relief.jpg': 317} KB
+virosidum Ordnance Survey six-inch map, England and Wales, 1st edition surveyed 1840s-1880s by county coverage 100% 145 KB
+virosidum six-inch-1st_ink.webp 242 KB
+   ok 25s
+built 1, skipped 0, failed 0
+=== virosidum build rc=0 2026-10-14T21:45:45Z ===
+marks refreshed: virosidum depictions: 1
+=== virosidum ok ===
+=== cilurni start 2026-10-14T21:45:45Z ===
+[1/1] cilurni (ea, 1600 m)
+cilurni relief clip 1.2 m; {'block_h.png': 228, 'block_top.jpg': 351, 'relief.jpg': 283} KB
+cilurni Ordnance Survey six-inch map, England and Wales, 1st edition surveyed 1840s-1880s by county coverage 100% 152 KB
+cilurni six-inch-1st_ink.webp 314 KB
+   ok 326s
+built 1, skipped 0, failed 0
+=== cilurni build rc=0 2026-10-14T21:51:11Z ===
+marks refreshed: cilurni depictions: 1
+=== cilurni ok ===
+=== petriana start 2026-10-14T21:51:11Z ===
+[1/1] petriana (ea, 1600 m)
+petriana relief clip 0.15 m; {'block_h.png': 68, 'block_top.jpg': 183, 'relief.jpg': 285} KB
+petriana six-inch-1st covers only 0% of the site box: skipped
+petriana scotland-6-first covers only 0% of the site box: skipped
+petriana Roy's Military Survey of Scotland 1747-1755 coverage 44% 35 KB
+petriana roy_ink.webp 52 KB
+   ok 27s
+built 1, skipped 0, failed 0
+=== petriana build rc=0 2026-10-14T21:51:39Z ===
+marks refreshed: petriana depictions: 1
+=== petriana ok ===
+=== congavata start 2026-10-14T21:51:39Z ===
+[1/1] congavata (ea, 1600 m)
+congavata relief clip 1.2 m; {'block_h.png': 231, 'block_top.jpg': 451, 'relief.jpg': 277} KB
+congavata Ordnance Survey six-inch map, England and Wales, 1st edition surveyed 1840s-1880s by county coverage 100% 155 KB
+congavata six-inch-1st_ink.webp 246 KB
+   ok 24s
+built 1, skipped 0, failed 0
+=== congavata build rc=0 2026-10-14T21:52:04Z ===
+marks refreshed: congavata depictions: 1
+=== congavata ok ===
+=== tunnocelum start 2026-10-14T21:52:04Z ===
+[1/1] tunnocelum (ea, 1600 m)
+tunnocelum relief clip 0.65 m; {'block_h.png': 175, 'block_top.jpg': 416, 'relief.jpg': 257} KB
+tunnocelum Ordnance Survey six-inch map, England and Wales, 1st edition surveyed 1840s-1880s by county coverage 100% 100 KB
+tunnocelum six-inch-1st_ink.webp 154 KB
+   ok 22s
+built 1, skipped 0, failed 0
+=== tunnocelum build rc=0 2026-10-14T21:52:26Z ===
+marks refreshed: tunnocelum depictions: 1
+=== tunnocelum ok ===
+=== kirkintilloch start 2026-10-14T21:52:26Z ===
+[1/1] kirkintilloch (scot, 1600 m)
+kirkintilloch relief clip 1.2 m; {'block_h.png': 256, 'block_top.jpg': 718, 'relief.jpg': 433} KB
+kirkintilloch Ordnance Survey six-inch map, Scotland, 1st edition 1st edition, 1843-1882 coverage 100% 176 KB
+kirkintilloch Roy's Military Survey of Scotland 1747-1755 coverage 100% 80 KB
+kirkintilloch roy_ink.webp 315 KB
+kirkintilloch scot-6-first_ink.webp 373 KB
+   ok 64s
+built 1, skipped 0, failed 0
+=== kirkintilloch build rc=0 2026-10-14T21:53:31Z ===
+marks refreshed: kirkintilloch depictions: 2
+=== kirkintilloch ok ===
+=== carriden start 2026-10-14T21:53:31Z ===
+[1/1] carriden (scot, 1200 m)
+carriden relief clip 1.2 m; {'block_h.png': 204, 'block_top.jpg': 293, 'relief.jpg': 190} KB
+carriden Ordnance Survey six-inch map, Scotland, 1st edition 1st edition, 1843-1882 coverage 100% 53 KB
+carriden Roy's Military Survey of Scotland 1747-1755 coverage 100% 41 KB
+carriden roy_ink.webp 160 KB
+carriden scot-6-first_ink.webp 148 KB
+   ok 59s
+built 1, skipped 0, failed 0
+=== carriden build rc=0 2026-10-14T21:54:31Z ===
+marks refreshed: carriden depictions: 2
+=== carriden ok ===
+=== baltimore-q5092 start 2026-10-15T10:52:22Z ===
+[1/1] baltimore-q5092 (usgs, 2000 m)
+baltimore-q5092 relief clip 1.2 m; {'imagery.jpg': 801, 'block_h.png': 209, 'block_top.jpg': 772, 'relief.jpg': 413} KB
+   ok 13s
+built 1, skipped 0, failed 0
+=== baltimore-q5092 build rc=0 2026-10-15T10:52:36Z ===
+marks refreshed: baltimore-q5092 depictions: 0
+=== baltimore-q5092 ok ===
+=== boston-q100 start 2026-10-15T10:52:50Z ===
+[1/1] boston-q100 (usgs, 2000 m)
+boston-q100 relief clip 1.2 m; {'imagery.jpg': 769, 'block_h.png': 203, 'block_top.jpg': 735, 'relief.jpg': 426} KB
+   ok 11s
+built 1, skipped 0, failed 0
+=== boston-q100 build rc=0 2026-10-15T10:53:02Z ===
+marks refreshed: boston-q100 depictions: 0
+=== boston-q100 ok ===
+=== chicago-q1297 start 2026-10-15T10:53:03Z ===
+[1/1] chicago-q1297 (usgs, 2000 m)
+chicago-q1297 relief clip 1.2 m; {'imagery.jpg': 721, 'block_h.png': 191, 'block_top.jpg': 847, 'relief.jpg': 407} KB
+   ok 13s
+built 1, skipped 0, failed 0
+=== chicago-q1297 build rc=0 2026-10-15T10:53:17Z ===
+marks refreshed: chicago-q1297 depictions: 0
+=== chicago-q1297 ok ===
+=== cincinnati-q43196 start 2026-10-15T10:53:17Z ===
+[1/1] cincinnati-q43196 (usgs, 2000 m)
+cincinnati-q43196 relief clip 1.2 m; {'imagery.jpg': 679, 'block_h.png': 208, 'block_top.jpg': 458, 'relief.jpg': 409} KB
+   ok 14s
+built 1, skipped 0, failed 0
+=== cincinnati-q43196 build rc=0 2026-10-15T10:53:32Z ===
+marks refreshed: cincinnati-q43196 depictions: 0
+=== cincinnati-q43196 ok ===
+=== cleveland-q37320 start 2026-10-15T10:53:32Z ===
+[1/1] cleveland-q37320 (usgs, 2000 m)
+cleveland-q37320 relief clip 1.2 m; {'imagery.jpg': 697, 'block_h.png': 235, 'block_top.jpg': 829, 'relief.jpg': 479} KB
+   ok 15s
+built 1, skipped 0, failed 0
+=== cleveland-q37320 build rc=0 2026-10-15T10:53:48Z ===
+marks refreshed: cleveland-q37320 depictions: 0
+=== cleveland-q37320 ok ===
+=== columbus-q16567 start 2026-10-15T10:53:48Z ===
+[1/1] columbus-q16567 (usgs, 2000 m)
+columbus-q16567 relief clip 1.2 m; {'imagery.jpg': 741, 'block_h.png': 215, 'block_top.jpg': 786, 'relief.jpg': 434} KB
+   ok 13s
+built 1, skipped 0, failed 0
+=== columbus-q16567 build rc=0 2026-10-15T10:54:02Z ===
+marks refreshed: columbus-q16567 depictions: 0
+=== columbus-q16567 ok ===
+=== denver-q16554 start 2026-10-15T10:54:02Z ===
+[1/1] denver-q16554 (usgs, 2000 m)
+denver-q16554 relief clip 0.94 m; {'imagery.jpg': 788, 'block_h.png': 216, 'block_top.jpg': 788, 'relief.jpg': 491} KB
+   ok 12s
+built 1, skipped 0, failed 0
+=== denver-q16554 build rc=0 2026-10-15T10:54:16Z ===
+marks refreshed: denver-q16554 depictions: 0
+=== denver-q16554 ok ===
+=== detroit-q12439 start 2026-10-15T10:54:16Z ===
+[1/1] detroit-q12439 (usgs, 2000 m)
+detroit-q12439 relief clip 1.2 m; {'imagery.jpg': 732, 'block_h.png': 189, 'block_top.jpg': 826, 'relief.jpg': 368} KB
+   ok 19s
+built 1, skipped 0, failed 0
+=== detroit-q12439 build rc=0 2026-10-15T10:54:36Z ===
+marks refreshed: detroit-q12439 depictions: 0
+=== detroit-q12439 ok ===
+=== indianapolis-q6346 start 2026-10-15T10:54:36Z ===
+[1/1] indianapolis-q6346 (usgs, 2000 m)
+indianapolis-q6346 relief clip 0.88 m; {'imagery.jpg': 712, 'block_h.png': 176, 'block_top.jpg': 783, 'relief.jpg': 395} KB
+   ok 13s
+built 1, skipped 0, failed 0
+=== indianapolis-q6346 build rc=0 2026-10-15T10:54:50Z ===
+marks refreshed: indianapolis-q6346 depictions: 0
+=== indianapolis-q6346 ok ===
+=== kansas-city-q41819 start 2026-10-15T10:54:50Z ===
+[1/1] kansas-city-q41819 (usgs, 2000 m)
+kansas-city-q41819 relief clip 1.2 m; {'imagery.jpg': 820, 'block_h.png': 256, 'block_top.jpg': 779, 'relief.jpg': 506} KB
+   ok 16s
+built 1, skipped 0, failed 0
+=== kansas-city-q41819 build rc=0 2026-10-15T10:55:07Z ===
+marks refreshed: kansas-city-q41819 depictions: 0
+=== kansas-city-q41819 ok ===
+=== louisville-q43668 start 2026-10-15T10:55:07Z ===
+[1/1] louisville-q43668 (usgs, 2000 m)
+louisville-q43668 relief clip 1.2 m; {'imagery.jpg': 605, 'block_h.png': 154, 'block_top.jpg': 564, 'relief.jpg': 309} KB
+   ok 14s
+built 1, skipped 0, failed 0
+=== louisville-q43668 build rc=0 2026-10-15T10:55:23Z ===
+marks refreshed: louisville-q43668 depictions: 0
+=== louisville-q43668 ok ===
+=== memphis-q16563 start 2026-10-15T10:55:23Z ===
+[1/1] memphis-q16563 (usgs, 2000 m)
+memphis-q16563 relief clip 1.2 m; {'imagery.jpg': 570, 'block_h.png': 202, 'block_top.jpg': 746, 'relief.jpg': 397} KB
+   ok 15s
+built 1, skipped 0, failed 0
+=== memphis-q16563 build rc=0 2026-10-15T10:55:39Z ===
+marks refreshed: memphis-q16563 depictions: 0
+=== memphis-q16563 ok ===
+=== milwaukee-q37836 start 2026-10-15T10:55:39Z ===
+[1/1] milwaukee-q37836 (usgs, 2000 m)
+milwaukee-q37836 relief clip 1.2 m; {'imagery.jpg': 873, 'block_h.png': 213, 'block_top.jpg': 798, 'relief.jpg': 440} KB
+   ok 15s
+built 1, skipped 0, failed 0
+=== milwaukee-q37836 build rc=0 2026-10-15T10:55:56Z ===
+marks refreshed: milwaukee-q37836 depictions: 0
+=== milwaukee-q37836 ok ===
+=== minneapolis-q36091 start 2026-10-15T10:55:56Z ===
+[1/1] minneapolis-q36091 (usgs, 2000 m)
+minneapolis-q36091 relief clip 1.2 m; {'imagery.jpg': 766, 'block_h.png': 225, 'block_top.jpg': 760, 'relief.jpg': 439} KB
+   ok 12s
+built 1, skipped 0, failed 0
+=== minneapolis-q36091 build rc=0 2026-10-15T10:56:10Z ===
+marks refreshed: minneapolis-q36091 depictions: 0
+=== minneapolis-q36091 ok ===
+=== nashville-q23197 start 2026-10-15T10:56:10Z ===
+[1/1] nashville-q23197 (usgs, 2000 m)
+nashville-q23197 relief clip 1.2 m; {'imagery.jpg': 733, 'block_h.png': 240, 'block_top.jpg': 680, 'relief.jpg': 457} KB
+   ok 18s
+built 1, skipped 0, failed 0
+=== nashville-q23197 build rc=0 2026-10-15T10:56:29Z ===
+marks refreshed: nashville-q23197 depictions: 0
+=== nashville-q23197 ok ===
+=== new-orleans-q34404 start 2026-10-15T10:56:29Z ===
+[1/1] new-orleans-q34404 (usgs, 2000 m)
+new-orleans-q34404 relief clip 0.37 m; {'imagery.jpg': 792, 'block_h.png': 190, 'block_top.jpg': 1271, 'relief.jpg': 720} KB
+   ok 19s
+built 1, skipped 0, failed 0
+=== new-orleans-q34404 build rc=0 2026-10-15T10:56:50Z ===
+marks refreshed: new-orleans-q34404 depictions: 0
+=== new-orleans-q34404 ok ===
+=== new-york-q60 start 2026-10-15T10:56:50Z ===
+[1/1] new-york-q60 (usgs, 2000 m)
+new-york-q60 relief clip 1.2 m; {'imagery.jpg': 705, 'block_h.png': 220, 'block_top.jpg': 675, 'relief.jpg': 488} KB
+   ok 16s
+built 1, skipped 0, failed 0
+=== new-york-q60 build rc=0 2026-10-15T10:57:07Z ===
+marks refreshed: new-york-q60 depictions: 0
+=== new-york-q60 ok ===
+=== omaha-q43199 start 2026-10-15T10:57:07Z ===
+[1/1] omaha-q43199 (usgs, 2000 m)
+omaha-q43199 relief clip 1.2 m; {'imagery.jpg': 680, 'block_h.png': 235, 'block_top.jpg': 708, 'relief.jpg': 478} KB
+   ok 17s
+built 1, skipped 0, failed 0
+=== omaha-q43199 build rc=0 2026-10-15T10:57:26Z ===
+marks refreshed: omaha-q43199 depictions: 0
+=== omaha-q43199 ok ===
+=== philadelphia-q1345 start 2026-10-15T10:57:26Z ===
+[1/1] philadelphia-q1345 (usgs, 2000 m)
+philadelphia-q1345 relief clip 1.2 m; {'imagery.jpg': 802, 'block_h.png': 206, 'block_top.jpg': 978, 'relief.jpg': 435} KB
+   ok 14s
+built 1, skipped 0, failed 0
+=== philadelphia-q1345 build rc=0 2026-10-15T10:57:41Z ===
+marks refreshed: philadelphia-q1345 depictions: 0
+=== philadelphia-q1345 ok ===
+=== pittsburgh-q1342 start 2026-10-15T10:57:41Z ===
+[1/1] pittsburgh-q1342 (usgs, 2000 m)
+pittsburgh-q1342 relief clip 1.2 m; {'imagery.jpg': 675, 'block_h.png': 205, 'block_top.jpg': 465, 'relief.jpg': 393} KB
+   ok 13s
+built 1, skipped 0, failed 0
+=== pittsburgh-q1342 build rc=0 2026-10-15T10:57:55Z ===
+marks refreshed: pittsburgh-q1342 depictions: 0
+=== pittsburgh-q1342 ok ===
+=== portland-q6106 start 2026-10-15T10:57:55Z ===
+[1/1] portland-q6106 (usgs, 2000 m)
+portland-q6106 relief clip 1.2 m; {'imagery.jpg': 760, 'block_h.png': 224, 'block_top.jpg': 460, 'relief.jpg': 422} KB
+   ok 13s
+built 1, skipped 0, failed 0
+=== portland-q6106 build rc=0 2026-10-15T10:58:09Z ===
+marks refreshed: portland-q6106 depictions: 0
+=== portland-q6106 ok ===
+=== san-francisco-q62 start 2026-10-15T10:58:09Z ===
+[1/1] san-francisco-q62 (usgs, 2000 m)
+san-francisco-q62 relief clip 1.2 m; {'imagery.jpg': 757, 'block_h.png': 249, 'block_top.jpg': 573, 'relief.jpg': 496} KB
+   ok 12s
+built 1, skipped 0, failed 0
+=== san-francisco-q62 build rc=0 2026-10-15T10:58:22Z ===
+marks refreshed: san-francisco-q62 depictions: 0
+=== san-francisco-q62 ok ===
+=== st-louis-q38022 start 2026-10-15T10:58:22Z ===
+[1/1] st-louis-q38022 (usgs, 2000 m)
+st-louis-q38022 relief clip 1.16 m; {'imagery.jpg': 702, 'block_h.png': 213, 'block_top.jpg': 714, 'relief.jpg': 383} KB
+   ok 14s
+built 1, skipped 0, failed 0
+=== st-louis-q38022 build rc=0 2026-10-15T10:58:37Z ===
+marks refreshed: st-louis-q38022 depictions: 0
+=== st-louis-q38022 ok ===
+=== st-paul-q28848 start 2026-10-15T10:58:37Z ===
+[1/1] st-paul-q28848 (usgs, 2000 m)
+st-paul-q28848 relief clip 1.2 m; {'imagery.jpg': 730, 'block_h.png': 225, 'block_top.jpg': 609, 'relief.jpg': 447} KB
+   ok 13s
+built 1, skipped 0, failed 0
+=== st-paul-q28848 build rc=0 2026-10-15T10:58:52Z ===
+marks refreshed: st-paul-q28848 depictions: 0
+=== st-paul-q28848 ok ===
+=== washington-q61 start 2026-10-15T10:58:52Z ===
+[1/1] washington-q61 (usgs, 2000 m)
+washington-q61 relief clip 1.14 m; {'imagery.jpg': 805, 'block_h.png': 199, 'block_top.jpg': 735, 'relief.jpg': 431} KB
+   ok 19s
+built 1, skipped 0, failed 0
+=== washington-q61 build rc=0 2026-10-15T10:59:12Z ===
+marks refreshed: washington-q61 depictions: 0
+=== washington-q61 ok ===
+=== baltimore-q5092 start 2026-10-15T13:16:43Z ===
+[1/1] baltimore-q5092 (usgs, 2000 m)
+baltimore-q5092 relief clip 1.2 m; {'imagery.jpg': 801, 'block_h.png': 209, 'block_top.jpg': 772, 'relief.jpg': 413} KB
+   ok 15s
+built 1, skipped 0, failed 0
+=== baltimore-q5092 build rc=0 2026-10-15T13:16:59Z ===
+marks refreshed: baltimore-q5092 depictions: 0
+=== baltimore-q5092 ok ===
+=== boston-q100 start 2026-10-15T13:17:01Z ===
+[1/1] boston-q100 (usgs, 2000 m)
+boston-q100 relief clip 1.2 m; {'imagery.jpg': 769, 'block_h.png': 203, 'block_top.jpg': 735, 'relief.jpg': 426} KB
+   ok 16s
+built 1, skipped 0, failed 0
+=== boston-q100 build rc=0 2026-10-15T13:17:19Z ===
+marks refreshed: boston-q100 depictions: 0
+=== boston-q100 ok ===
+=== chicago-q1297 start 2026-10-15T13:17:19Z ===
+[1/1] chicago-q1297 (usgs, 2000 m)
+chicago-q1297 relief clip 1.2 m; {'imagery.jpg': 721, 'block_h.png': 191, 'block_top.jpg': 847, 'relief.jpg': 407} KB
+   ok 15s
+built 1, skipped 0, failed 0
+=== chicago-q1297 build rc=0 2026-10-15T13:17:36Z ===
+marks refreshed: chicago-q1297 depictions: 0
+=== chicago-q1297 ok ===
+=== cincinnati-q43196 start 2026-10-15T13:17:36Z ===
+[1/1] cincinnati-q43196 (usgs, 2000 m)
+cincinnati-q43196 relief clip 1.2 m; {'imagery.jpg': 679, 'block_h.png': 208, 'block_top.jpg': 458, 'relief.jpg': 409} KB
+   ok 14s
+built 1, skipped 0, failed 0
+=== cincinnati-q43196 build rc=0 2026-10-15T13:17:52Z ===
+marks refreshed: cincinnati-q43196 depictions: 0
+=== cincinnati-q43196 ok ===
+=== cleveland-q37320 start 2026-10-15T13:17:52Z ===
+[1/1] cleveland-q37320 (usgs, 2000 m)
+cleveland-q37320 relief clip 1.2 m; {'imagery.jpg': 697, 'block_h.png': 235, 'block_top.jpg': 829, 'relief.jpg': 479} KB
+   ok 16s
+built 1, skipped 0, failed 0
+=== cleveland-q37320 build rc=0 2026-10-15T13:18:10Z ===
+marks refreshed: cleveland-q37320 depictions: 0
+=== cleveland-q37320 ok ===
+=== columbus-q16567 start 2026-10-15T13:18:10Z ===
+[1/1] columbus-q16567 (usgs, 2000 m)
+columbus-q16567 relief clip 1.2 m; {'imagery.jpg': 741, 'block_h.png': 215, 'block_top.jpg': 786, 'relief.jpg': 434} KB
+   ok 15s
+built 1, skipped 0, failed 0
+=== columbus-q16567 build rc=0 2026-10-15T13:18:27Z ===
+marks refreshed: columbus-q16567 depictions: 0
+=== columbus-q16567 ok ===
+=== denver-q16554 start 2026-10-15T13:18:27Z ===
+[1/1] denver-q16554 (usgs, 2000 m)
+denver-q16554 relief clip 0.94 m; {'imagery.jpg': 788, 'block_h.png': 216, 'block_top.jpg': 788, 'relief.jpg': 491} KB
+   ok 15s
+built 1, skipped 0, failed 0
+=== denver-q16554 build rc=0 2026-10-15T13:18:44Z ===
+marks refreshed: denver-q16554 depictions: 0
+=== denver-q16554 ok ===
+=== detroit-q12439 start 2026-10-15T13:18:44Z ===
+[1/1] detroit-q12439 (usgs, 2000 m)
+detroit-q12439 relief clip 1.2 m; {'imagery.jpg': 732, 'block_h.png': 189, 'block_top.jpg': 826, 'relief.jpg': 368} KB
+   ok 12s
+built 1, skipped 0, failed 0
+=== detroit-q12439 build rc=0 2026-10-15T13:18:59Z ===
+marks refreshed: detroit-q12439 depictions: 0
+=== detroit-q12439 ok ===
+=== indianapolis-q6346 start 2026-10-15T13:18:59Z ===
+[1/1] indianapolis-q6346 (usgs, 2000 m)
+indianapolis-q6346 relief clip 0.88 m; {'imagery.jpg': 712, 'block_h.png': 176, 'block_top.jpg': 783, 'relief.jpg': 395} KB
+   ok 14s
+built 1, skipped 0, failed 0
+=== indianapolis-q6346 build rc=0 2026-10-15T13:19:15Z ===
+marks refreshed: indianapolis-q6346 depictions: 0
+=== indianapolis-q6346 ok ===
+=== kansas-city-q41819 start 2026-10-15T13:19:15Z ===
+[1/1] kansas-city-q41819 (usgs, 2000 m)
+kansas-city-q41819 relief clip 1.2 m; {'imagery.jpg': 820, 'block_h.png': 256, 'block_top.jpg': 779, 'relief.jpg': 506} KB
+   ok 14s
+built 1, skipped 0, failed 0
+=== kansas-city-q41819 build rc=0 2026-10-15T13:19:31Z ===
+marks refreshed: kansas-city-q41819 depictions: 0
+=== kansas-city-q41819 ok ===
+=== louisville-q43668 start 2026-10-15T13:19:32Z ===
+[1/1] louisville-q43668 (usgs, 2000 m)
+louisville-q43668 relief clip 1.2 m; {'imagery.jpg': 605, 'block_h.png': 154, 'block_top.jpg': 564, 'relief.jpg': 309} KB
+   ok 13s
+built 1, skipped 0, failed 0
+=== louisville-q43668 build rc=0 2026-10-15T13:19:47Z ===
+marks refreshed: louisville-q43668 depictions: 0
+=== louisville-q43668 ok ===
+=== memphis-q16563 start 2026-10-15T13:19:47Z ===
+[1/1] memphis-q16563 (usgs, 2000 m)
+memphis-q16563 relief clip 1.2 m; {'imagery.jpg': 570, 'block_h.png': 202, 'block_top.jpg': 746, 'relief.jpg': 397} KB
+   ok 14s
+built 1, skipped 0, failed 0
+=== memphis-q16563 build rc=0 2026-10-15T13:20:03Z ===
+marks refreshed: memphis-q16563 depictions: 0
+=== memphis-q16563 ok ===
+=== milwaukee-q37836 start 2026-10-15T13:20:03Z ===
+[1/1] milwaukee-q37836 (usgs, 2000 m)
+milwaukee-q37836 relief clip 1.2 m; {'imagery.jpg': 873, 'block_h.png': 213, 'block_top.jpg': 798, 'relief.jpg': 440} KB
+   ok 16s
+built 1, skipped 0, failed 0
+=== milwaukee-q37836 build rc=0 2026-10-15T13:20:21Z ===
+marks refreshed: milwaukee-q37836 depictions: 0
+=== milwaukee-q37836 ok ===
+=== minneapolis-q36091 start 2026-10-15T13:20:21Z ===
+[1/1] minneapolis-q36091 (usgs, 2000 m)
+minneapolis-q36091 relief clip 1.2 m; {'imagery.jpg': 766, 'block_h.png': 225, 'block_top.jpg': 760, 'relief.jpg': 439} KB
+   ok 15s
+built 1, skipped 0, failed 0
+=== minneapolis-q36091 build rc=0 2026-10-15T13:20:38Z ===
+marks refreshed: minneapolis-q36091 depictions: 0
+=== minneapolis-q36091 ok ===
+=== nashville-q23197 start 2026-10-15T13:20:38Z ===
+[1/1] nashville-q23197 (usgs, 2000 m)
+nashville-q23197 relief clip 1.2 m; {'imagery.jpg': 733, 'block_h.png': 240, 'block_top.jpg': 680, 'relief.jpg': 457} KB
+   ok 15s
+built 1, skipped 0, failed 0
+=== nashville-q23197 build rc=0 2026-10-15T13:20:55Z ===
+marks refreshed: nashville-q23197 depictions: 0
+=== nashville-q23197 ok ===
+=== new-orleans-q34404 start 2026-10-15T13:20:55Z ===
+[1/1] new-orleans-q34404 (usgs, 2000 m)
+new-orleans-q34404 relief clip 0.37 m; {'imagery.jpg': 792, 'block_h.png': 190, 'block_top.jpg': 1271, 'relief.jpg': 720} KB
+   ok 19s
+built 1, skipped 0, failed 0
+=== new-orleans-q34404 build rc=0 2026-10-15T13:21:17Z ===
+marks refreshed: new-orleans-q34404 depictions: 0
+=== new-orleans-q34404 ok ===
+=== new-york-q60 start 2026-10-15T13:21:17Z ===
+[1/1] new-york-q60 (usgs, 2000 m)
+new-york-q60 relief clip 1.2 m; {'imagery.jpg': 705, 'block_h.png': 220, 'block_top.jpg': 675, 'relief.jpg': 488} KB
+   ok 15s
+built 1, skipped 0, failed 0
+=== new-york-q60 build rc=0 2026-10-15T13:21:34Z ===
+marks refreshed: new-york-q60 depictions: 0
+=== new-york-q60 ok ===
+=== omaha-q43199 start 2026-10-15T13:21:34Z ===
+[1/1] omaha-q43199 (usgs, 2000 m)
+omaha-q43199 relief clip 1.2 m; {'imagery.jpg': 680, 'block_h.png': 235, 'block_top.jpg': 708, 'relief.jpg': 478} KB
+   ok 10s
+built 1, skipped 0, failed 0
+=== omaha-q43199 build rc=0 2026-10-15T13:21:47Z ===
+marks refreshed: omaha-q43199 depictions: 0
+=== omaha-q43199 ok ===
+=== philadelphia-q1345 start 2026-10-15T13:21:47Z ===
+[1/1] philadelphia-q1345 (usgs, 2000 m)
+philadelphia-q1345 relief clip 1.2 m; {'imagery.jpg': 802, 'block_h.png': 206, 'block_top.jpg': 978, 'relief.jpg': 435} KB
+   ok 9s
+built 1, skipped 0, failed 0
+=== philadelphia-q1345 build rc=0 2026-10-15T13:21:57Z ===
+marks refreshed: philadelphia-q1345 depictions: 0
+=== philadelphia-q1345 ok ===
+=== pittsburgh-q1342 start 2026-10-15T13:21:57Z ===
+[1/1] pittsburgh-q1342 (usgs, 2000 m)
+pittsburgh-q1342 relief clip 1.2 m; {'imagery.jpg': 675, 'block_h.png': 205, 'block_top.jpg': 465, 'relief.jpg': 393} KB
+   ok 9s
+built 1, skipped 0, failed 0
+=== pittsburgh-q1342 build rc=0 2026-10-15T13:22:08Z ===
+marks refreshed: pittsburgh-q1342 depictions: 0
+=== pittsburgh-q1342 ok ===
+=== portland-q6106 start 2026-10-15T13:22:08Z ===
+[1/1] portland-q6106 (usgs, 2000 m)
+portland-q6106 relief clip 1.2 m; {'imagery.jpg': 760, 'block_h.png': 224, 'block_top.jpg': 460, 'relief.jpg': 422} KB
+   ok 11s
+built 1, skipped 0, failed 0
+=== portland-q6106 build rc=0 2026-10-15T13:22:19Z ===
+marks refreshed: portland-q6106 depictions: 0
+=== portland-q6106 ok ===
+=== san-francisco-q62 start 2026-10-15T13:22:20Z ===
+[1/1] san-francisco-q62 (usgs, 2000 m)
+san-francisco-q62 relief clip 1.2 m; {'imagery.jpg': 757, 'block_h.png': 249, 'block_top.jpg': 573, 'relief.jpg': 496} KB
+   ok 10s
+built 1, skipped 0, failed 0
+=== san-francisco-q62 build rc=0 2026-10-15T13:22:31Z ===
+marks refreshed: san-francisco-q62 depictions: 0
+=== san-francisco-q62 ok ===
+=== st-louis-q38022 start 2026-10-15T13:22:31Z ===
+[1/1] st-louis-q38022 (usgs, 2000 m)
+st-louis-q38022 relief clip 1.16 m; {'imagery.jpg': 702, 'block_h.png': 213, 'block_top.jpg': 714, 'relief.jpg': 383} KB
+   ok 11s
+built 1, skipped 0, failed 0
+=== st-louis-q38022 build rc=0 2026-10-15T13:22:44Z ===
+marks refreshed: st-louis-q38022 depictions: 0
+=== st-louis-q38022 ok ===
+=== st-paul-q28848 start 2026-10-15T13:22:44Z ===
+[1/1] st-paul-q28848 (usgs, 2000 m)
+st-paul-q28848 relief clip 1.2 m; {'imagery.jpg': 730, 'block_h.png': 225, 'block_top.jpg': 609, 'relief.jpg': 447} KB
+   ok 10s
+built 1, skipped 0, failed 0
+=== st-paul-q28848 build rc=0 2026-10-15T13:22:56Z ===
+marks refreshed: st-paul-q28848 depictions: 0
+=== st-paul-q28848 ok ===
+=== washington-q61 start 2026-10-15T13:22:56Z ===
+[1/1] washington-q61 (usgs, 2000 m)
+washington-q61 relief clip 1.14 m; {'imagery.jpg': 805, 'block_h.png': 199, 'block_top.jpg': 735, 'relief.jpg': 431} KB
+   ok 12s
+built 1, skipped 0, failed 0
+=== washington-q61 build rc=0 2026-10-15T13:23:09Z ===
+marks refreshed: washington-q61 depictions: 0
+=== washington-q61 ok ===

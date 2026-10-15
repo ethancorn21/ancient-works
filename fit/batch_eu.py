@@ -1,7 +1,17 @@
 """The batch, EU (task 203b, GOAL.md points 1-2): every built site other than the US goes
-through the same fitting loop as 203a's US batch (candidates -> fitkit sheet -> local model
--> plan_fit similarity -> the frozen gate -> an automatic platefit document or a review
-item; a site with no candidate at all gets a "no picture found" item).
+through the same fitting loop as 203a's US batch. The vision model's fitting pass is
+retired (GOAL point 2, 2026-10-13: "the local Qwen models never place a drawing and never
+write point pairs or coordinates"; the pass fabricated ~100 fits on 2026-10-11 - 301 -
+that 306a-f found nearly all wrong, and 212b deleted). The pretrained matcher
+(fit/matchfit.py) is the only automatic fitter: the one-site line (tools/site_done.py)
+offers every uncovered picture to it first, and a fit it is sure of becomes a matcher
+document. This batch does the remainder: every candidate picture without a document gets
+a review item in data/review/ whose `why` is the matcher's recorded verdict for that
+picture (the judge's clause, the gate's clause, "picture not on this machine" - 238's
+per-candidate result, passed through the line as `run_eu`'s `reasons`); a plan the
+matcher never saw (it was not reachable) is recorded as "no matcher on this machine", a
+recorded environment fact, not a defect. A site with no candidate at all gets a "no
+picture found" item.
 
 The loop itself is imported from fit/batch_us.py (203a's module) and is NOT re-implemented
 here: this module owns only the EU site list, the EU report (203a's write_report with this
@@ -15,10 +25,9 @@ sample of automatically accepted fits is 203a's SEED (20261010): the two reports
 draw from disjoint document sets, so one seed unambiguously reproduces both.
 
 usage:
-  python3 fit/batch_eu.py --working           [--root DIR] [--sites id ...]
-  python3 fit/batch_eu.py --model-json F      [--root DIR] [--sites id ...]
-  (the working run fetches missing pictures/aerials and calls the local vision model;
-   the model-json run is a dry run with recorded answers, no network)
+  python3 fit/batch_eu.py [--sites id ...]    offline: record a review item for every
+  [--report PATH]                             uncovered candidate (the matcher belongs to
+                                              the one-site line, not to this batch)
 """
 
 import argparse
@@ -38,9 +47,13 @@ def eu_sites(root):
     return sorted(sid for sid, s in batch_us._sites(root).items() if s.get("region") != "US")
 
 
-def run_eu(root, model=None):
-    """203a's fitting loop over the EU site list (run_sites' records, keyed by site id)."""
-    return batch_us.run_sites(root, eu_sites(root), model)
+def run_eu(root, reasons=None):
+    """203a's loop over the EU site list (run_sites' records, keyed by site id).
+
+    `reasons` is passed through to run_sites: a {plan id: recorded reason} of the
+    matcher's per-candidate verdicts (238's results, passed through the line); see
+    run_sites' docstring for the retired form and what each item records."""
+    return batch_us.run_sites(root, eu_sites(root), reasons)
 
 
 def union_check(root):
@@ -194,20 +207,10 @@ def main(argv=None):
     ap.add_argument("--root", default=str(ROOT), help="the project root (default: this checkout)")
     ap.add_argument("--sites", nargs="*", default=None,
                     help="site ids to run (default: every non-US built site)")
-    ap.add_argument("--working", action="store_true",
-                    help="the model is the local vision model on the fitkit sheet (network allowed)")
-    ap.add_argument("--model-json", default=None,
-                    help="recorded model answers (a dry run; no model server, no network)")
     ap.add_argument("--report", default=None, help="report path (default: docs/batch_eu.md)")
     a = ap.parse_args(argv)
-    if a.working:
-        model = batch_us.llm_model(a.root)
-    elif a.model_json:
-        model = batch_us.recorded_model(json.loads(Path(a.model_json).read_text()))
-    else:
-        ap.error("a model is required: --working (the local vision model) or --model-json (recorded answers)")
     site_ids = a.sites or eu_sites(a.root)
-    records = batch_us.run_sites(a.root, site_ids, model)
+    records = batch_us.run_sites(a.root, site_ids)
     report = write_report(a.root, records, path=a.report)
     counts = batch_us.classify(records)
     check = union_check(a.root)

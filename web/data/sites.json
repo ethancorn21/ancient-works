@@ -1243,6 +1243,42 @@
    "overlays": 2
   },
   {
+   "id": "ardoch",
+   "name": "Ardoch",
+   "place": "Braco, Gask Ridge, Perth and Kinross, Scotland, Scotland",
+   "lon": -3.8731,
+   "lat": 56.2742,
+   "region": "Scotland",
+   "kind": "roman site",
+   "corners": [
+    [
+     -3.8828076860559784,
+     56.279589511952146
+    ],
+    [
+     -3.8633923139440203,
+     56.279589511952146
+    ],
+    [
+     -3.8633923139440203,
+     56.26880972852295
+    ],
+    [
+     -3.8828076860559784,
+     56.26880972852295
+    ]
+   ],
+   "size_m": [
+    1200,
+    1200
+   ],
+   "lidar": false,
+   "drawings": 0,
+   "score": 1.15,
+   "oldest": 1750,
+   "overlays": 2
+  },
+  {
    "id": "ardotalia-q4788242",
    "name": "Ardotalia",
    "aka": "Melandra Castle Roman fort",
@@ -2114,6 +2150,55 @@
    "score": 1.15,
    "oldest": 1750,
    "overlays": 2
+  },
+  {
+   "id": "baltimore-q5092",
+   "name": "Baltimore",
+   "place": "Baltimore City, Maryland, United States",
+   "lon": -76.615,
+   "lat": 39.286389,
+   "summary": "Baltimore, also known as Baltimore City, is the most populous city in the U.S. state of Maryland. It is the 30th-most populous U.S. city with a population of 585,708 at the 2020 census and estimated at 569,997 in 2025, while the Baltimore metropolitan area at 2.86 million residents is the 22nd-largest metropolitan area in the nation. The city is also part of the Washington\u2013Baltimore combined statistical area, which had a population of 9.97 million in 2020. Baltimore was designated as an independent city by the Constitution of Maryland in 1851. Though not located under the jurisdiction of any county in the state, it forms part of the Central Maryland region together with the surrounding county that shares its name.",
+   "region": "United States",
+   "kind": "town",
+   "qid": "Q5092",
+   "wiki": "https://en.wikipedia.org/wiki/Baltimore",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -76.62660628079975,
+     39.29537157671547
+    ],
+    [
+     -76.60339371920021,
+     39.29537157671547
+    ],
+    [
+     -76.60339371920021,
+     39.277405271057425
+    ],
+    [
+     -76.62660628079975,
+     39.277405271057425
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -2.2,
+    "zmax": 34.9,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "bapaume-q317235",
@@ -3656,6 +3741,55 @@
     1000,
     1000
    ],
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "boston-q100",
+   "name": "Boston",
+   "place": "Suffolk County, Massachusetts, United States",
+   "lon": -71.057778,
+   "lat": 42.360278,
+   "summary": "Boston is the capital and most populous city of the U.S. state of Massachusetts. It serves as a cultural and financial center of New England, a region of the Northeastern United States. Boston has an area of 48.4 square miles (125\u00a0km2) and a population of 675,647 as of the 2020 census, making it the third-most populous city in the Northeastern United States after New York City and Philadelphia. The larger Greater Boston metropolitan statistical area had a population of 5 million in 2025, making it the largest metropolis in New England and the eleventh-largest in the United States.",
+   "region": "United States",
+   "kind": "town",
+   "qid": "Q100",
+   "wiki": "https://en.wikipedia.org/wiki/Boston",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -71.06993509509377,
+     42.369260510693536
+    ],
+    [
+     -71.04562090490622,
+     42.369260510693536
+    ],
+    [
+     -71.04562090490622,
+     42.35129420502356
+    ],
+    [
+     -71.06993509509377,
+     42.35129420502356
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -4.15,
+    "zmax": 31.34,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
    "drawings": 0,
    "score": 0,
    "oldest": null,
@@ -5619,6 +5753,52 @@
    "overlays": 2
   },
   {
+   "id": "carriden",
+   "name": "Carriden (east end of the Antonine Wall near Bo'ness)",
+   "place": "near Bo'ness, Falkirk, Scotland, Scotland",
+   "lon": -3.564436,
+   "lat": 56.010057,
+   "region": "Scotland",
+   "kind": "roman site",
+   "lidar_credit": "Scottish Government, 0.5 m DTM (Phase 5)",
+   "corners": [
+    [
+     -3.574077207415594,
+     56.01544651571718
+    ],
+    [
+     -3.554794792584407,
+     56.01544651571718
+    ],
+    [
+     -3.554794792584407,
+     56.004666732288676
+    ],
+    [
+     -3.574077207415594,
+     56.004666732288676
+    ]
+   ],
+   "size_m": [
+    1200,
+    1200
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 0.47,
+    "zmax": 76.59,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 1.15,
+   "oldest": 1750,
+   "overlays": 2
+  },
+  {
    "id": "carvium-q1046167",
    "name": "Carvium",
    "place": "Netherlands",
@@ -6712,6 +6892,55 @@
    "overlays": 1
   },
   {
+   "id": "chicago-q1297",
+   "name": "Chicago",
+   "place": "Cook County, Illinois, United States",
+   "lon": -87.627778,
+   "lat": 41.881944,
+   "summary": "Chicago is the most populous city in the U.S. state of Illinois and in the Midwestern United States. Located on the western shore of Lake Michigan, it is the third-most populous city in the United States and the fifth-most populous city in North America, with a population of 2.74 million at the 2020 census. The Chicago metropolitan area has approximately 9.62 million residents according to the 2020 census and is the third-largest metropolitan statistical area in the country and part of the fourth-largest combined statistical area in the United States, spanning 19 counties in three states and with a population of nearly 10 million. Chicago is the county seat of Cook County, the second-most populous county in the U.S.",
+   "region": "United States",
+   "kind": "town",
+   "qid": "Q1297",
+   "wiki": "https://en.wikipedia.org/wiki/Chicago",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -87.63984366525895,
+     41.89092652137893
+    ],
+    [
+     -87.61571233474108,
+     41.89092652137893
+    ],
+    [
+     -87.61571233474108,
+     41.87296021571096
+    ],
+    [
+     -87.63984366525895,
+     41.87296021571096
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 175.18,
+    "zmax": 194.73,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "chimay-q95380",
    "name": "Chimay",
    "place": "Arrondissement of Thuin, Belgium",
@@ -7051,6 +7280,101 @@
    "overlays": 2
   },
   {
+   "id": "cilurni",
+   "name": "Cilurni (Chesters)",
+   "place": "Chesters, near Corbridge, Northumberland, England, England",
+   "lon": -2.139,
+   "lat": 55.026,
+   "region": "England",
+   "kind": "roman fort",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -2.151537445699177,
+     55.03318587800816
+    ],
+    [
+     -2.1264625543008226,
+     55.03318587800816
+    ],
+    [
+     -2.1264625543008226,
+     55.0188128334229
+    ],
+    [
+     -2.151537445699177,
+     55.0188128334229
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 47.87,
+    "zmax": 135.71,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 1.1,
+   "oldest": 1842,
+   "overlays": 1
+  },
+  {
+   "id": "cincinnati-q43196",
+   "name": "Cincinnati",
+   "place": "Hamilton County, Ohio, United States",
+   "lon": -84.5125,
+   "lat": 39.1,
+   "summary": "Cincinnati is the most populous city in Hamilton County, Ohio, United States, and its county seat. It is located along the Ohio River across from its confluence with the Licking River in Kentucky. Cincinnati is the third-most populous city in Ohio, and the 66th-most populous city in the U.S., with a population of 309,317 at the 2020 census. The city serves as the economic and cultural hub of the tri-state Cincinnati metropolitan area, Ohio's most populous metropolitan area and the nation's 30th-largest, at over 2.3 million residents.",
+   "region": "United States",
+   "kind": "town",
+   "qid": "Q43196",
+   "wiki": "https://en.wikipedia.org/wiki/Cincinnati",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -84.52407553563732,
+     39.10898258052912
+    ],
+    [
+     -84.50092446436271,
+     39.10898258052912
+    ],
+    [
+     -84.50092446436271,
+     39.091016274871734
+    ],
+    [
+     -84.52407553563732,
+     39.091016274871734
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 138.94,
+    "zmax": 236.81,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "civil-war-earthworks-at-tallahatchie-cro-q61456836",
    "name": "Civil War Earthworks at Tallahatchie Crossing",
    "place": "Mississippi",
@@ -7094,6 +7418,55 @@
     1200
    ],
    "lidar_credit": "USGS 3DEP",
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "cleveland-q37320",
+   "name": "Cleveland",
+   "place": "Cuyahoga County, Ohio, United States",
+   "lon": -81.69472222222223,
+   "lat": 41.49916666666667,
+   "summary": "Cleveland is a city in the U.S. state of Ohio, located along the southern shore of Lake Erie. It is across the lake from the Canadian province of Ontario, and is approximately 60 miles west of the Ohio\u2013Pennsylvania state line. Cleveland is the most populous city on Lake Erie, the 2nd-most populous city in Ohio, and the 53rd-most populous city in the United States, with a population of 372,624 at the 2020 census. It also serves as the county seat of Cuyahoga County. The Greater Cleveland metropolitan area, with an estimated 2.17 million residents, is the 34th-largest metropolitan area in the U.S.",
+   "region": "United States",
+   "kind": "town",
+   "qid": "Q37320",
+   "wiki": "https://en.wikipedia.org/wiki/Cleveland",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -81.70671630545148,
+     41.50814919648179
+    ],
+    [
+     -81.682728138993,
+     41.50814919648179
+    ],
+    [
+     -81.682728138993,
+     41.4901828908154
+    ],
+    [
+     -81.70671630545148,
+     41.4901828908154
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 174.54,
+    "zmax": 213.22,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
    "drawings": 0,
    "score": 0,
    "oldest": null,
@@ -7198,6 +7571,55 @@
    "score": 1.1,
    "oldest": 1842,
    "overlays": 1
+  },
+  {
+   "id": "columbus-q16567",
+   "name": "Columbus",
+   "place": "Franklin County, Ohio, United States",
+   "lon": -83.00055555555555,
+   "lat": 39.96222222222222,
+   "summary": "Columbus is the capital and most populous city of the U.S. state of Ohio. With a population of 905,748 at the 2020 census, it is the 14th-most populous city in the U.S., second-most populous city in the Midwest, and third-most populous U.S. state capital. The Columbus metropolitan area, with an estimated 2.23 million residents, is the largest metropolitan area entirely in Ohio and 32nd-largest metropolitan area in the U.S. Columbus is the county seat of Franklin County; it also extends into Delaware and Fairfield counties.",
+   "region": "United States",
+   "kind": "town",
+   "qid": "Q16567",
+   "wiki": "https://en.wikipedia.org/wiki/Columbus,_Ohio",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -83.01227574701996,
+     39.971204784937164
+    ],
+    [
+     -82.98883536409114,
+     39.971204784937164
+    ],
+    [
+     -82.98883536409114,
+     39.95323847927668
+    ],
+    [
+     -83.01227574701996,
+     39.95323847927668
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 212.7,
+    "zmax": 241.65,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "colwyn-castle-q5150338",
@@ -7327,6 +7749,52 @@
    "score": 1.01,
    "oldest": 1780,
    "overlays": 2
+  },
+  {
+   "id": "congavata",
+   "name": "Congavata (Castlesteads)",
+   "place": "Castlesteads, Cumbria, England, England",
+   "lon": -2.761,
+   "lat": 54.965,
+   "region": "England",
+   "kind": "roman fort",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -2.7735184004374798,
+     54.972185879466196
+    ],
+    [
+     -2.7484815995625214,
+     54.972185879466196
+    ],
+    [
+     -2.7484815995625214,
+     54.957812834881295
+    ],
+    [
+     -2.7735184004374798,
+     54.957812834881295
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 31.27,
+    "zmax": 78.35,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 1.1,
+   "oldest": 1842,
+   "overlays": 1
   },
   {
    "id": "cooling-castle-q5167493",
@@ -7920,6 +8388,55 @@
    "overlays": 1
   },
   {
+   "id": "denver-q16554",
+   "name": "Denver",
+   "place": "Denver County, Colorado, United States",
+   "lon": -104.984722,
+   "lat": 39.739167,
+   "summary": "Denver, officially the City and County of Denver, is the capital and most populous city of the U.S. state of Colorado. Officially a consolidated city and county, it is located in the South Platte River valley on the western edge of the High Plains, and is just east of the Front Range of the Rocky Mountains (Rockies). Denver is the 19th-most populous city in the United States and the fifth-most populous state capital, with a population of 715,522 at the 2020 census. The ten-county Denver metropolitan area, with 3.1 million residents, is the 19th-largest metropolitan area in the country and functions as the economic and cultural center of the broader Front Range Urban Corridor.",
+   "region": "United States",
+   "kind": "town",
+   "qid": "Q16554",
+   "wiki": "https://en.wikipedia.org/wiki/Denver",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -104.99640416953896,
+     39.74814956736605
+    ],
+    [
+     -104.97303983046106,
+     39.74814956736605
+    ],
+    [
+     -104.97303983046106,
+     39.7301832617064
+    ],
+    [
+     -104.99640416953896,
+     39.7301832617064
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 0.94,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 1586.93,
+    "zmax": 1622.87,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "desborough-castle-q5263651",
    "name": "Desborough Castle",
    "aka": "The Roundabout",
@@ -7968,6 +8485,55 @@
    "score": 1.1,
    "oldest": 1842,
    "overlays": 1
+  },
+  {
+   "id": "detroit-q12439",
+   "name": "Detroit",
+   "place": "Wayne County, Michigan, United States",
+   "lon": -83.0475,
+   "lat": 42.331667,
+   "summary": "Detroit is the most populous city in the U.S. state of Michigan. It is situated on the bank of the Detroit River across from the Canadian city of Windsor, Ontario. It is the 26th-most populous city in the United States and the largest U.S. city on the Canada\u2013United States border, with a population of 639,111 at the 2020 census, and an estimated 2025 population of 649,095, its first population increase since 1950. The Metro Detroit area, at over 4.4\u00a0million people, is the 14th-largest metropolitan area in the nation and second-largest in the Midwest. The county seat of Wayne County, Detroit is a significant cultural center known for its contributions to music, art, architecture, and design, in addition to its historical automotive and industrial background.",
+   "region": "United States",
+   "kind": "town",
+   "qid": "Q12439",
+   "wiki": "https://en.wikipedia.org/wiki/Detroit",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -83.05965156351151,
+     42.34064951133725
+    ],
+    [
+     -83.03534843648849,
+     42.34064951133725
+    ],
+    [
+     -83.03534843648849,
+     42.322683205667374
+    ],
+    [
+     -83.05965156351151,
+     42.322683205667374
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 172.66,
+    "zmax": 189.21,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "devil-s-dyke-q3307343",
@@ -12821,6 +13387,55 @@
    "overlays": 0
   },
   {
+   "id": "indianapolis-q6346",
+   "name": "Indianapolis",
+   "place": "Marion County, Indiana, United States",
+   "lon": -86.158055555556,
+   "lat": 39.768611111111,
+   "summary": "Indianapolis, colloquially known as Indy, is the capital and most populous city of the U.S. state of Indiana and the county seat of Marion County. Indianapolis is situated in the state's central till plain region along the west fork of the White River. The city's official slogan, \"Crossroads of America\", reflects its historic importance as a transportation hub and its relative proximity to other major North American markets.",
+   "region": "United States",
+   "kind": "town",
+   "qid": "Q6346",
+   "wiki": "https://en.wikipedia.org/wiki/Indianapolis",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -86.16974271985053,
+     39.77759367786482
+    ],
+    [
+     -86.14636839126148,
+     39.77759367786482
+    ],
+    [
+     -86.14636839126148,
+     39.759627372205046
+    ],
+    [
+     -86.16974271985053,
+     39.759627372205046
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 0.88,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 211.76,
+    "zmax": 223.78,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "isca-augusta-q929778",
    "name": "Isca Augusta",
    "aka": "Caer Rufeinig Caerllion, Caerleon Legionary Fortress: Car Park and Garden of Endowed School, North of Broadway",
@@ -13144,6 +13759,55 @@
     1400,
     1400
    ],
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "kansas-city-q41819",
+   "name": "Kansas City",
+   "place": "Jackson County, Missouri, United States",
+   "lon": -94.583333,
+   "lat": 39.05,
+   "summary": "Kansas City, abbreviated KC or KCMO, is the largest city in the U.S. state of Missouri by both population and area. It is located on the Missouri River at its confluence with the Kansas River, within Jackson, Clay, Platte and Cass counties. It is the 37th-most populous city in the United States and sixth-most populous city in the Midwest, with a population of 508,090 at the 2020 census. The Kansas City metropolitan area, which straddles the Missouri\u2013Kansas state line, is the 31st-most populous metropolitan area in the nation, at 2.25 million residents.",
+   "region": "United States",
+   "kind": "town",
+   "qid": "Q41819",
+   "wiki": "https://en.wikipedia.org/wiki/Kansas_City,_Missouri",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -94.5949003365421,
+     39.05898258154873
+    ],
+    [
+     -94.57176566345788,
+     39.05898258154873
+    ],
+    [
+     -94.57176566345788,
+     39.04101627589153
+    ],
+    [
+     -94.5949003365421,
+     39.04101627589153
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 247.09,
+    "zmax": 302.25,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
    "drawings": 0,
    "score": 0,
    "oldest": null,
@@ -13546,6 +14210,52 @@
    "score": 1.1,
    "oldest": 1842,
    "overlays": 1
+  },
+  {
+   "id": "kirkintilloch",
+   "name": "Kirkintilloch (the Peel)",
+   "place": "Kirkintilloch, East Dunbartonshire, Scotland, Scotland",
+   "lon": -4.15472222,
+   "lat": 55.93583333,
+   "region": "Scotland",
+   "kind": "roman fort",
+   "lidar_credit": "Scottish Government, 0.5 m DTM (Phase 5)",
+   "corners": [
+    [
+     -4.167552523040417,
+     55.94301918572064
+    ],
+    [
+     -4.141891916959583,
+     55.94301918572064
+    ],
+    [
+     -4.141891916959583,
+     55.92864614112999
+    ],
+    [
+     -4.167552523040417,
+     55.92864614112999
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 32.72,
+    "zmax": 69.49,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 1.15,
+   "oldest": 1750,
+   "overlays": 2
   },
   {
    "id": "kleinkastell-anhausen-q1746855",
@@ -14958,6 +15668,55 @@
    "overlays": 0
   },
   {
+   "id": "louisville-q43668",
+   "name": "Louisville",
+   "place": "Jefferson County, Kentucky, United States",
+   "lon": -85.751389,
+   "lat": 38.256111,
+   "summary": "Louisville is the most populous city in the U.S. state of Kentucky, sixth-most populous city in the Southeast, and the 27th-most-populous city in the United States. By land area, it is the country's 24th-largest city; however, by population density, it is the 265th most dense city. Louisville is the historical county seat and, since 2003, the nominal seat of Jefferson County, on the Indiana state line.",
+   "region": "United States",
+   "kind": "town",
+   "qid": "Q43668",
+   "wiki": "https://en.wikipedia.org/wiki/Louisville,_Kentucky",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -85.76282885048697,
+     38.26509359754755
+    ],
+    [
+     -85.73994914951304,
+     38.26509359754755
+    ],
+    [
+     -85.73994914951304,
+     38.247127291893015
+    ],
+    [
+     -85.76282885048697,
+     38.247127291893015
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 127.8,
+    "zmax": 152.09,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "ludlow-castle-q576369",
    "name": "Ludlow Castle",
    "place": "Ludlow, England",
@@ -15005,6 +15764,53 @@
    "score": 1.56,
    "oldest": 1842,
    "overlays": 2
+  },
+  {
+   "id": "luguvallium-q71551754",
+   "name": "Luguvallium (Carlisle)",
+   "place": "Carlisle, Cumberland, England, England",
+   "lon": -2.94077,
+   "lat": 54.896187,
+   "region": "England",
+   "kind": "roman fort",
+   "qid": "Q71551754",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -2.953267002130599,
+     54.903372881105625
+    ],
+    [
+     -2.928272997869401,
+     54.903372881105625
+    ],
+    [
+     -2.928272997869401,
+     54.88899983652113
+    ],
+    [
+     -2.953267002130599,
+     54.88899983652113
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 8.99,
+    "zmax": 32.17,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 1.1,
+   "oldest": 1842,
+   "overlays": 1
   },
   {
    "id": "luxembourg-city-q1842",
@@ -15727,6 +16533,55 @@
    "overlays": 0
   },
   {
+   "id": "memphis-q16563",
+   "name": "Memphis",
+   "place": "Shelby County, Tennessee, United States",
+   "lon": -90.05194444444444,
+   "lat": 35.14611111111111,
+   "summary": "Memphis is a city in Shelby County, Tennessee, United States, and its county seat. Situated along the Mississippi River, it had a population of 633,104 at the 2020 census, making it the second-most populous city in Tennessee, the fifth-most populous in the Southeast, and the 29th-most populous in the US. While being the most populous single municipality on the Mississippi River, Memphis anchors the third largest metropolitan area by population behind only the Twin Cities and St. Louis. Metropolitan Memphis includes parts of Arkansas and Mississippi, the 45th-most populous metropolitan area in the U.S. with 1.34 million residents.",
+   "region": "United States",
+   "kind": "town",
+   "qid": "Q16563",
+   "wiki": "https://en.wikipedia.org/wiki/Memphis,_Tennessee",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -90.06293050170956,
+     35.155093768156355
+    ],
+    [
+     -90.04095838717936,
+     35.155093768156355
+    ],
+    [
+     -90.04095838717936,
+     35.13712746251109
+    ],
+    [
+     -90.06293050170956,
+     35.13712746251109
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 57.13,
+    "zmax": 86.67,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "miamisburg-mound-q34827561",
    "name": "Miamisburg Mound",
    "place": "Ohio",
@@ -15770,6 +16625,104 @@
     800
    ],
    "lidar_credit": "USGS 3DEP",
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "milwaukee-q37836",
+   "name": "Milwaukee",
+   "place": "Milwaukee County, Wisconsin, United States",
+   "lon": -87.95,
+   "lat": 43.05,
+   "summary": "Milwaukee is the most populous city in the U.S. state of Wisconsin. Located on the western shore of Lake Michigan, it had a population of 577,222 at the 2020 census, making it the 31st-most populous city in the United States and the fifth-most populous city in the Midwest. The Milwaukee metropolitan area has over 1.57 million residents and ranks as the 40th-largest metropolitan area in the nation. The city is the county seat of Milwaukee County.",
+   "region": "United States",
+   "kind": "town",
+   "qid": "Q37836",
+   "wiki": "https://en.wikipedia.org/wiki/Milwaukee",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -87.96229291989196,
+     43.058982494995995
+    ],
+    [
+     -87.93770708010804,
+     43.058982494995995
+    ],
+    [
+     -87.93770708010804,
+     43.041016189322995
+    ],
+    [
+     -87.96229291989196,
+     43.041016189322995
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 193.8,
+    "zmax": 223.63,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "minneapolis-q36091",
+   "name": "Minneapolis",
+   "place": "Hennepin County, Minnesota, United States",
+   "lon": -93.26916666666666,
+   "lat": 44.981944444444444,
+   "summary": "Minneapolis is a city in Hennepin County, Minnesota, United States, and its county seat. With a population of 429,954 as of the 2020 census, it is the state's most populous city. Located in the state's center near the eastern border, it occupies both banks of the Upper Mississippi River and adjoins Saint Paul, the state capital of Minnesota. Minneapolis, Saint Paul, and the surrounding area are collectively known as the Twin Cities, a metropolitan area with 3.69 million residents. Minneapolis is built on an artesian aquifer on relatively flat terrain and is known for cold, snowy winters and hot, humid summers. Nicknamed the \"City of Lakes\", Minneapolis is abundant in water, with thirteen lakes, wetlands, the Mississippi River, creeks, and waterfalls. The city's public park system is connected by the Grand Rounds National Scenic Byway.",
+   "region": "United States",
+   "kind": "town",
+   "qid": "Q36091",
+   "wiki": "https://en.wikipedia.org/wiki/Minneapolis",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -93.28186676171131,
+     44.990926893514825
+    ],
+    [
+     -93.25646657162198,
+     44.990926893514825
+    ],
+    [
+     -93.25646657162198,
+     44.97296058783253
+    ],
+    [
+     -93.28186676171131,
+     44.97296058783253
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 228.4,
+    "zmax": 261.81,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
    "drawings": 0,
    "score": 0,
    "oldest": null,
@@ -16881,6 +17834,55 @@
    "overlays": 0
   },
   {
+   "id": "nashville-q23197",
+   "name": "Nashville",
+   "place": "Davidson County, Tennessee, United States",
+   "lon": -86.78152,
+   "lat": 36.16529,
+   "summary": "Nashville is the capital and most populous city in the U.S. state of Tennessee. It is the seat of Davidson County in Middle Tennessee, located on the Cumberland River. It is the 20th-most populous city in the United States and fourth-most populous city in the Southeast, with a population of 689,447 at the 2020 census. The Nashville metropolitan area, with over 2.15 million people, is the 35th-largest metropolitan area in the country. Nashville is among the fastest-growing cities in the U.S.",
+   "region": "United States",
+   "kind": "town",
+   "qid": "Q23197",
+   "wiki": "https://en.wikipedia.org/wiki/Nashville,_Tennessee",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -86.79264715601505,
+     36.1742726380718
+    ],
+    [
+     -86.77039284398494,
+     36.1742726380718
+    ],
+    [
+     -86.77039284398494,
+     36.1563063324237
+    ],
+    [
+     -86.79264715601505,
+     36.1563063324237
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 118.97,
+    "zmax": 169.54,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "navio-roman-fort-q17667745",
    "name": "Navio Roman fort",
    "aka": "Navio Roman fort and vicus",
@@ -16967,6 +17969,104 @@
     1600
    ],
    "lidar": false,
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "new-orleans-q34404",
+   "name": "New Orleans",
+   "place": "Orleans Parish, Louisiana, United States",
+   "lon": -90.078333,
+   "lat": 29.976111,
+   "summary": "New Orleans is a consolidated city-parish located along the Mississippi River in the U.S. state of Louisiana. With a population of 383,997 at the 2020 census, New Orleans is the most populous city in Louisiana, the second-most populous in the Deep South, and the twelfth-most populous in the Southeastern United States; the New Orleans metropolitan area, with about 1 million residents, is the 59th-most populous metropolitan area in the United States. New Orleans serves as a major port and commercial hub for the broader Gulf Coast region. The city is coextensive with Orleans Parish.",
+   "region": "United States",
+   "kind": "town",
+   "qid": "Q34404",
+   "wiki": "https://en.wikipedia.org/wiki/New_Orleans",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -90.08870335595687,
+     29.985093746629616
+    ],
+    [
+     -90.06796264404313,
+     29.985093746629616
+    ],
+    [
+     -90.06796264404313,
+     29.967127440996357
+    ],
+    [
+     -90.08870335595687,
+     29.967127440996357
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 0.37,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -3.75,
+    "zmax": 2.18,
+    "contour_m": 0.25,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "new-york-q60",
+   "name": "New York City",
+   "place": "New York County, New York, United States",
+   "lon": -74.006111,
+   "lat": 40.712778,
+   "summary": "New York, often called New York City (NYC), is the most populous city in the United States. It is located at the southern tip of New York State on New York Harbor, one of the world's largest natural harbors. The city comprises five boroughs\u2014Manhattan, Brooklyn, Queens, the Bronx, and Staten Island\u2014each being coextensive with its respective county. It is the geographical and demographic center of both the Northeast megalopolis and the New York metropolitan area, the largest metropolitan area in the United States by both population and urban area. New York is a global center of technology, finance, commerce, culture, entertainment and media, academics and scientific output, the arts and fashion\u2014and as home to the headquarters of the United Nations, international diplomacy. New York City is known for its fast pace and continuous urban energy.",
+   "region": "United States",
+   "kind": "town",
+   "qid": "Q60",
+   "wiki": "https://en.wikipedia.org/wiki/New_York_City",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -74.017962298863,
+     40.72176054683834
+    ],
+    [
+     -73.99425970113701,
+     40.72176054683834
+    ],
+    [
+     -73.99425970113701,
+     40.70379424117505
+    ],
+    [
+     -74.017962298863,
+     40.70379424117505
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -15.16,
+    "zmax": 26.2,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
    "drawings": 0,
    "score": 0,
    "oldest": null,
@@ -17754,6 +18854,55 @@
    "overlays": 1
   },
   {
+   "id": "omaha-q43199",
+   "name": "Omaha",
+   "place": "Douglas County, Nebraska, United States",
+   "lon": -95.9375,
+   "lat": 41.25861111111111,
+   "summary": "Omaha is the most populous city in the U.S. state of Nebraska. It is located in the Midwestern United States along the Missouri River, about 10\u00a0mi (15\u00a0km) north of the mouth of the Platte River. Omaha had a population of 486,051 at the 2020 census, and with a 2025 population estimate of 488,797, it is the 42nd-most populous U.S. city. The eight-county Omaha\u2013Council Bluffs metropolitan area extending into Iowa has approximately 1 million residents, the 55th-largest metropolitan area in the U.S. It is the county seat of Douglas County.",
+   "region": "United States",
+   "kind": "town",
+   "qid": "Q43199",
+   "wiki": "https://en.wikipedia.org/wiki/Omaha,_Nebraska",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -95.94944980235641,
+     41.26759364617704
+    ],
+    [
+     -95.92555019764357,
+     41.26759364617704
+    ],
+    [
+     -95.92555019764357,
+     41.249627340511616
+    ],
+    [
+     -95.94944980235641,
+     41.249627340511616
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 297.7,
+    "zmax": 362.74,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
    "id": "oostum-q2598567",
    "name": "Oostum",
    "place": "Winsum, Groningen, Netherlands",
@@ -18366,6 +19515,52 @@
    "overlays": 1
   },
   {
+   "id": "petriana",
+   "name": "Petriana (Horsley's N.8 Solway-coast station)",
+   "place": "Cumberland coast (Longhope to the Cark), England, England",
+   "lon": -3.45,
+   "lat": 54.9,
+   "region": "England",
+   "kind": "roman fort",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -3.462498185446862,
+     54.907185881014925
+    ],
+    [
+     -3.437501814553139,
+     54.907185881014925
+    ],
+    [
+     -3.437501814553139,
+     54.89281283643038
+    ],
+    [
+     -3.462498185446862,
+     54.89281283643038
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "relief_clip_m": 0.15,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -3.97,
+    "zmax": 0.49,
+    "contour_m": 0.25,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0.23,
+   "oldest": 1750,
+   "overlays": 1
+  },
+  {
    "id": "pharr-mounds-q7180861",
    "name": "Pharr Mounds",
    "place": "Mississippi",
@@ -18409,6 +19604,55 @@
     800
    ],
    "lidar_credit": "USGS 3DEP",
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "philadelphia-q1345",
+   "name": "Philadelphia",
+   "place": "Philadelphia County, Pennsylvania, United States",
+   "lon": -75.163611,
+   "lat": 39.952778,
+   "summary": "Philadelphia, colloquially referred to as Philly, is the most populous city in the U.S. state of Pennsylvania and the sixth-most populous city in the United States. Its population was 1.60 million at the 2020 census and estimated at 1.57 million in 2025. The Philadelphia metropolitan area, also known as the Delaware Valley, is located in both the Mid-Atlantic and northeastern United States; home to 6.33 million residents, it is the nation's ninth-largest metropolitan area. Philadelphia is known for its culture, cuisine, and history, maintaining contemporary influence in technology and business, sports, and music.",
+   "region": "United States",
+   "kind": "town",
+   "qid": "Q1345",
+   "wiki": "https://en.wikipedia.org/wiki/Philadelphia",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -75.1753295729838,
+     39.961760562912474
+    ],
+    [
+     -75.15189242701622,
+     39.961760562912474
+    ],
+    [
+     -75.15189242701622,
+     39.94379425725204
+    ],
+    [
+     -75.1753295729838,
+     39.94379425725204
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 1.18,
+    "zmax": 19.26,
+    "contour_m": 0.5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
    "drawings": 0,
    "score": 0,
    "oldest": null,
@@ -18607,6 +19851,55 @@
     800
    ],
    "lidar_credit": "USGS 3DEP",
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "pittsburgh-q1342",
+   "name": "Pittsburgh",
+   "place": "Allegheny County, Pennsylvania, United States",
+   "lon": -80.0,
+   "lat": 40.441667,
+   "summary": "Pittsburgh is a city in Allegheny County, Pennsylvania, United States, and its county seat. Located in southwestern Pennsylvania where the Allegheny and Monongahela Rivers meet to form the Ohio River, it had a population of 302,971 at the 2020 census, making it the second-most populous city in Pennsylvania after Philadelphia. The Pittsburgh metropolitan area has over 2.43\u00a0million people, making it the largest in the Ohio Valley and Appalachia, the second-largest in Pennsylvania, and the 28th-largest in the U.S. The greater Pittsburgh\u2013Weirton\u2013Steubenville combined statistical area includes parts of Ohio and West Virginia.",
+   "region": "United States",
+   "kind": "town",
+   "qid": "Q1342",
+   "wiki": "https://en.wikipedia.org/wiki/Pittsburgh",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -80.01180337011212,
+     40.450649552614024
+    ],
+    [
+     -79.9881966298879,
+     40.450649552614024
+    ],
+    [
+     -79.9881966298879,
+     40.432683246951775
+    ],
+    [
+     -80.01180337011212,
+     40.432683246951775
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 216.13,
+    "zmax": 350.18,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
    "drawings": 0,
    "score": 0,
    "oldest": null,
@@ -18855,6 +20148,55 @@
     800
    ],
    "lidar_credit": "USGS 3DEP",
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "portland-q6106",
+   "name": "Portland",
+   "place": "Multnomah County, Oregon, United States",
+   "lon": -122.67916666666666,
+   "lat": 45.515,
+   "summary": "Portland is the most populous city in the U.S. state of Oregon. Located in the Pacific Northwest at the confluence of the Willamette and Columbia rivers, it is the 28th-most populous city in the United States, sixth-most populous on the West Coast, and fourth-most populous in the Pacific Northwest, with a population of 652,503 at the 2020 census. The Portland metropolitan area, with over 2.54 million residents, is the 26th-largest metropolitan area in the nation. Almost half of Oregon's population resides within the Portland metro area. It is the county seat of Multnomah County, the most populous in the state.",
+   "region": "United States",
+   "kind": "town",
+   "qid": "Q6106",
+   "wiki": "https://en.wikipedia.org/wiki/Portland,_Oregon",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -122.69198651002914,
+     45.523982435853306
+    ],
+    [
+     -122.66634682330422,
+     45.523982435853306
+    ],
+    [
+     -122.66634682330422,
+     45.50601613016821
+    ],
+    [
+     -122.69198651002914,
+     45.50601613016821
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 2.0,
+    "zmax": 202.5,
+    "contour_m": 10,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
    "drawings": 0,
    "score": 0,
    "oldest": null,
@@ -19724,6 +21066,55 @@
    "score": 5.1,
    "oldest": 1545,
    "overlays": 3
+  },
+  {
+   "id": "san-francisco-q62",
+   "name": "San Francisco",
+   "place": "San Francisco County, California, United States",
+   "lon": -122.40289,
+   "lat": 37.79213,
+   "summary": "San Francisco, officially the City and County of San Francisco, is the 17th-largest city and second-densest major city in the United States, with a 2025 population of 826,079. It is the fourth-most populous city in California and the second most-populous in the Bay Area. Some 4.6 million residents live in the city's metropolitan statistical area. Around 9.2 million live in the San Jose\u2013San Francisco\u2013Oakland combined statistical area, the fifth-largest in the United States. San Francisco is a global center for technology and finance, and is well-known for its affluence, eclectic architecture, and mild climate.",
+   "region": "United States",
+   "kind": "town",
+   "qid": "Q62",
+   "wiki": "https://en.wikipedia.org/wiki/San_Francisco",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -122.41425763770934,
+     37.801112606736716
+    ],
+    [
+     -122.39152236229069,
+     37.801112606736716
+    ],
+    [
+     -122.39152236229069,
+     37.78314630108366
+    ],
+    [
+     -122.41425763770934,
+     37.78314630108366
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -1.08,
+    "zmax": 108.23,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "sandal-castle-q1760652",
@@ -20834,6 +22225,104 @@
    "score": 1.1,
    "oldest": 1842,
    "overlays": 1
+  },
+  {
+   "id": "st-louis-q38022",
+   "name": "St. Louis",
+   "place": "St. Louis City, Missouri, United States",
+   "lon": -90.199444,
+   "lat": 38.626389,
+   "summary": "St. Louis is an independent city in the U.S. state of Missouri. It lies near the confluence of the Mississippi and the Missouri rivers. In 2020, the city proper had a population of 301,578, while its metropolitan area, which extends into Illinois, had an estimated population of over 2.8 million. It is the largest metropolitan area in Missouri and the second-largest in Illinois. The city's metropolitan statistical area is the 23rd-largest in the United States.",
+   "region": "United States",
+   "kind": "town",
+   "qid": "Q38022",
+   "wiki": "https://en.wikipedia.org/wiki/St._Louis",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -90.21094268516767,
+     38.63537159012964
+    ],
+    [
+     -90.18794531483232,
+     38.63537159012964
+    ],
+    [
+     -90.18794531483232,
+     38.617405284473854
+    ],
+    [
+     -90.21094268516767,
+     38.617405284473854
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.16,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 126.81,
+    "zmax": 156.14,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
+  },
+  {
+   "id": "st-paul-q28848",
+   "name": "St. Paul",
+   "place": "Ramsey County, Minnesota, United States",
+   "lon": -93.093611,
+   "lat": 44.944167,
+   "summary": "Saint Paul is the capital city of the U.S. state of Minnesota and the county seat of Ramsey County. As of the 2020 census, the city had a population of 311,527, making it Minnesota's second-most populous city and the 69th-most populous in the United States. Saint Paul and neighboring Minneapolis form the core of the Twin Cities metropolitan area, the third most populous in the Midwest with around 3.7 million residents.",
+   "region": "United States",
+   "kind": "town",
+   "qid": "Q28848",
+   "wiki": "https://en.wikipedia.org/wiki/Saint_Paul,_Minnesota",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -93.10630273489797,
+     44.95314944999771
+    ],
+    [
+     -93.08091926510204,
+     44.95314944999771
+    ],
+    [
+     -93.08091926510204,
+     44.935183144315594
+    ],
+    [
+     -93.10630273489797,
+     44.935183144315594
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 212.1,
+    "zmax": 265.11,
+    "contour_m": 2,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "stanton-drew-stone-circles-q1516300",
@@ -22417,6 +23906,52 @@
    "overlays": 1
   },
   {
+   "id": "tunnocelum",
+   "name": "Tunnocelum (Boulneis, north of the Esk mouth)",
+   "place": "Boulneis (near Bowness), Solway coast, Cumbria, England, England",
+   "lon": -3.012,
+   "lat": 54.898,
+   "region": "England",
+   "kind": "roman fort",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -3.0244975647373447,
+     54.905185881062486
+    ],
+    [
+     -2.9995024352626554,
+     54.905185881062486
+    ],
+    [
+     -2.9995024352626554,
+     54.89081283647799
+    ],
+    [
+     -3.0244975647373447,
+     54.89081283647799
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "relief_clip_m": 0.65,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 22.9,
+    "zmax": 50.42,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 1.1,
+   "oldest": 1842,
+   "overlays": 1
+  },
+  {
    "id": "turtle-mound-q7856427",
    "name": "Turtle Mound",
    "place": "Florida",
@@ -23212,6 +24747,52 @@
    "overlays": 1
   },
   {
+   "id": "virosidum",
+   "name": "Virosum (near Elenborough, Solway coast)",
+   "place": "near Maryport (Ellenborough), Solway coast, Cumberland, England, England",
+   "lon": -3.482559,
+   "lat": 54.708744,
+   "region": "England",
+   "kind": "roman fort",
+   "lidar_credit": "Environment Agency, Crown copyright, Open Government Licence v3.0",
+   "corners": [
+    [
+     -3.494998174249958,
+     54.715929885543126
+    ],
+    [
+     -3.470119825750043,
+     54.715929885543126
+    ],
+    [
+     -3.470119825750043,
+     54.701556840959675
+    ],
+    [
+     -3.494998174249958,
+     54.701556840959675
+    ]
+   ],
+   "size_m": [
+    1600,
+    1600
+   ],
+   "relief_clip_m": 1.2,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": 2.73,
+    "zmax": 99.29,
+    "contour_m": 5,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 1.1,
+   "oldest": 1842,
+   "overlays": 1
+  },
+  {
    "id": "waldmossingen-q1735435",
    "name": "Waldm\u00f6ssingen",
    "place": "Baden-W\u00fcrttemberg, Germany",
@@ -23475,6 +25056,55 @@
    "score": 1.1,
    "oldest": 1842,
    "overlays": 1
+  },
+  {
+   "id": "washington-q61",
+   "name": "Washington, D.C.",
+   "place": "District of Columbia, United States",
+   "lon": -77.036667,
+   "lat": 38.895,
+   "summary": "Washington, D.C., officially the District of Columbia and commonly shortened to Washington, or DC, is the capital city of the United States, and its only federal district.",
+   "region": "United States",
+   "kind": "town",
+   "qid": "Q61",
+   "wiki": "https://en.wikipedia.org/wiki/Washington,_D.C.",
+   "lidar_credit": "USGS 3DEP",
+   "corners": [
+    [
+     -77.04820904876306,
+     38.903982584700366
+    ],
+    [
+     -77.02512495123692,
+     38.903982584700366
+    ],
+    [
+     -77.02512495123692,
+     38.88601627904367
+    ],
+    [
+     -77.04820904876306,
+     38.88601627904367
+    ]
+   ],
+   "size_m": [
+    2000,
+    2000
+   ],
+   "relief_clip_m": 1.14,
+   "block": {
+    "w": 512,
+    "h": 512,
+    "zmin": -6.52,
+    "zmax": 27.14,
+    "contour_m": 1,
+    "height": "block_h.png",
+    "top": "block_top.jpg"
+   },
+   "drawings": 0,
+   "score": 0,
+   "oldest": null,
+   "overlays": 0
   },
   {
    "id": "wat-s-dyke-q696088",

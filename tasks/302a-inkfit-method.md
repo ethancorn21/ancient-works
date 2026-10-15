@@ -1,5 +1,6 @@
 Status: done
 # 302a: The ink-fit method - plate ink against LiDAR relief, no model coordinates
+Depends on: none
 Touches: fit/inkfit.py, requirements.in, requirements.txt, data/inkfit/
 
 ## Goal

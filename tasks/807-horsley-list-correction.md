@@ -1,6 +1,6 @@
-Status: blocked
+Status: done
 Depends on: 207a
-Touches: fit/src_roman_horsley.py, data/books/lists/britanniaromanao00hors.json, data/books/lists/britanniaromanao00hors.map.json, docs/lead_roman.md
+Touches: fit/src_roman_horsley.py, data/books/lists/britanniaromanao00hors.json, data/books/lists/britanniaromanao00hors.map.json, docs/lead_roman.md, PITFALLS.md
 
 # 807: Horsley - correct the plate list to 24 entries and record the book's lead-doc section
 
@@ -18,7 +18,7 @@ stage A/B recall, the staging plan that 808 executes, and the ~121 inscription p
 All work is offline (no LLM, no network).
 
 ## Acceptance criteria
-- [ ] HORSEY_FIGS in fit/src_roman_horsley.py = 24 entries: the 22 from 219 plus the two below
+- [x] HORSEY_FIGS in fit/src_roman_horsley.py = 24 entries: the 22 from 219 plus the two below
       (leaf-order: after the 62 line, before 236); the module docstring (its "22 list leaves /
       15 kind-s" wording) and the table's comment block updated to 24/17 with the 219
       mislabel-correction note; --list run fully offline (the socket-block wrapper below) and
@@ -26,11 +26,11 @@ All work is offline (no LLM, no network).
       lists/britanniaromanao00hors.map.json (24 entries; site_plan=true on exactly the 17
       leaves [114, 185] + [236,238,...,254] + [278,280,...,286]; false on the 7 kind-o leaves
       [60, 62, 256, 706, 734, 832, 867]).
-- [ ] books_lists.validate_book(KEY) (in-process after register(), offline one-liner below)
+- [x] books_lists.validate_book(KEY) (in-process after register(), offline one-liner below)
       reports on the corrected list: recall_pages 1.0, recall_pages_pm1 1.0,
       precision_strict = precision_lenient 1.0 (17/17), flagged_not_in_list [],
       flagged_on_other_only_pages [], missed_pages [].
-- [ ] The Horsley section of docs/lead_roman.md - inserted BEFORE the "## Roy" section (the
+- [x] The Horsley section of docs/lead_roman.md - inserted BEFORE the "## Roy" section (the
       lead's "in subtask order" line: Horsley, Maclauchlan, Roy; the Roy section is the format
       model; the Maclauchlan section will land between the two later) - records: the source
       (IA britanniaromanao00hors, 936 leaves; the Google scan IS the British Museum volume,
@@ -121,3 +121,55 @@ sub-block numbers for the lead doc: A flagged 80, precision 0.188.
 pytest tests/ --ignore=tests/test_gate.py -p no:cacheprovider); the lone red = agent a's 307d
 placement test (known pre-existing: seed check + /tiles/relief 404). This task is offline-only:
 no new reds expected; re-baseline on the final run.
+
+(Unblocked 2026-10-14, iteration 137, agent c, from the parent 207: the owner's lift of the
+"Stop 207" (asks 006/007, answered "b") covers this 207a continuation; the lead's 06c1aa8
+block registered no open request and is stale - DECISIONS 2026-10-14 207. All work here
+stays offline.)
+
+## Hand-over
+(2026-10-14, iteration 146, agent c - DONE. All three boxes ticked; Status: done. The driver
+re-checks the suite on its own tree; if it reopens on a red, follow the recipe below.)
+
+**Final state (all committed; tree = main tip c344571 (the 306 close) + exactly my 807 commits):**
+- fit/src_roman_horsley.py (d137f28): HORSEY_FIGS = 24 entries (17 s / 7 o / 0 u) in leaf order;
+  n0114 -> P.44 and n0185 -> P.113 sit between the 62 and 236 lines; docstring/comments carry
+  the 219 mislabel correction and the 220 completeness proof.
+- data/books/lists/britanniaromanao00hors.json (fb6e149): 24 figures (all 22 old entries
+  byte-verbatim + the 2 new), plates null. .map.json: 24 DICT rows {"n","site_plan","entries"}
+  sorted by n - site_plan=true exactly [114,185]+[236..254 even]+[278..286 even], false
+  [60,62,256,706,734,832,867].
+- docs/lead_roman.md (my uncommitted section committed by the driver in 6beefc1, after my
+  9056a20 hand-over commit): the Horsley section at line 17, between the intro and
+  "## Maclauchlan" (subtask order; also before "## Roy"). 103 purely-additive lines, hard-
+  wrapped 79, seven bold-label paragraphs: Source / the no-list discovery / the 24-entry list
+  (with the 219 correction + the 220 proof + the remaining-short-pages inventory) / Stage A /
+  Stage B / Staging (= 808's 17-row plan) / Deferred (~121). Byte-verified this session:
+  grep "219's run" -> line 66; Maclauchlan/Roy sections unchanged.
+- Re-verified OFFLINE this session (socket-blocked, /tmp/aw807c/verify807.py, .venv/bin/python):
+  validate_book(horsley_britannia_romana_1732) = recall_pages 1.0, recall_pages_pm1 1.0,
+  precision_strict = precision_lenient 1.0 (17/17), flagged_not_in_list [],
+  flagged_on_other_only_pages [], missed_pages []; flagged_site_pages 17 / stageA 80 /
+  triaged_A 936; stage_A_only recall 1.0, precision 0.212 (17/80) - the box's exact numbers.
+  (validate_book's metrics live nested under rep["figures"].)
+
+**For 808/809 (next in the chain):** the 17-row staging plan is the section's "Staging"
+paragraph (15 wall maps on the 216 QID/extras design; n0114 one row on a NEW Ardoch "roman
+site" extras row with Innerpeffery recorded; n0185 one row on the principal P.113 fort's new
+"roman fort" row, the other four P.113 names on desc; all-five-P.113 rows only if 809's join
+requires; the four Antonine camps reused from extras.jsonl). Stage-B rows: data/books/
+triage/britanniaromanao00hors.B.jsonl - rows are {"n","leaf","out":{"plans":[...],
+"blank_boxes":[...]}}: the plans live under out, NOT top-level (n0114: 2 plans; n0185: 5,
+site_names pairs incl. B's spelling "Old Penreth" - 808's source of truth; 31 plans total).
+220 catalog check: none of Ardoch/Innerpeffery/the five P.113 forts exists yet - all seven are
+new no-QID extras rows. Never call cmd_validate (writes the shared validation.json - 211/230's).
+
+**If the driver reopens on a red:** the suite reds in this era are shared-store churn from
+agent a's in-flight 212/236a/307d work (web/data/fit_queue.json, data/merge/, data/db/platefits,
+web/data/review.json, docs/site_flow/) - main's tip (306 close) says its lone red is a FLAKE in
+the 307d owner-check pair (passes 2/2 on re-run in file order). First check: stat the named
+file's mtime + git status in the main checkout (PITFALLS shared-store entry). If a red is real
+and not owned by another open task's files: in-checkout A/B per the PITFALLS idiom (my files =
+the module + the two list files + docs/lead_roman.md: back up to /tmp, restore main's bytes,
+re-run, compare byte-for-byte; the 207a-222 A/B precedent). 3rd failed attempt at the same
+blocker -> ask_human + Status: blocked.

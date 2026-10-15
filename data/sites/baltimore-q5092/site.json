@@ -1,0 +1,15 @@
+{
+ "id": "baltimore-q5092",
+ "name": "Baltimore",
+ "place": "Baltimore City, Maryland, United States",
+ "lon": -76.615,
+ "lat": 39.286389,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "United States",
+ "kind": "town",
+ "qid": "Q5092",
+ "summary": "Baltimore, also known as Baltimore City, is the most populous city in the U.S. state of Maryland. It is the 30th-most populous U.S. city with a population of 585,708 at the 2020 census and estimated at 569,997 in 2025, while the Baltimore metropolitan area at 2.86 million residents is the 22nd-largest metropolitan area in the nation. The city is also part of the Washington\u2013Baltimore combined statistical area, which had a population of 9.97 million in 2020. Baltimore was designated as an independent city by the Constitution of Maryland in 1851. Though not located under the jurisdiction of any county in the state, it forms part of the Central Maryland region together with the surrounding county that shares its name.",
+ "wiki": "https://en.wikipedia.org/wiki/Baltimore"
+}

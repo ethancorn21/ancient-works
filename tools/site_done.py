@@ -1,14 +1,21 @@
 """Finish one site, end to end: fit, sync to the map, the sites.json entry, the review queue (task 300).
 
-usage: .venv/bin/python tools/site_done.py <site id> [--root DIR] [--working | --model-json FILE]
+usage: .venv/bin/python tools/site_done.py <site id> [--root DIR]
 
 From now on the work goes one site at a time, all the way to the map (Ethan 2026-10-11). The line
 uses only code that already exists:
 
-  1. fit   fit/batch_us.py run_sites, but only for the site's candidate pictures that have NEITHER
-           a platefit document NOR a review-item entry yet. Covered pictures are never re-fitted:
-           the batch's item upsert replaces a candidate's entry whole, so a blind re-run would swap
-           the rich entries (gate scores, pairs, the why) for "no model answer" stubs.
+  1. fit   matcher first (fit/matchfit.py): every candidate picture without a platefit document is
+           offered to the pretrained matcher, and a fit it is sure of becomes a matcher document.
+           The second pass - fit/batch_us.py run_sites, the vision-model fitting pass retired
+           (GOAL point 2: no model places a picture or writes point pairs) - records the remainder
+           in the site's review item, only for pictures that have NEITHER a platefit document NOR a
+           review-item entry yet; the item's `why` per picture is what the matcher recorded about it
+           (the judge's clause, the gate's clause when the matcher's fit was refused, "picture not
+           on this machine") or "no matcher on this machine" when the matcher was not reachable (a
+           recorded environment fact). Covered pictures are never re-fitted: the batch's item upsert
+           replaces a candidate's entry whole, so a blind re-run would swap the rich entries (gate
+           scores, pairs, the why) for stubs.
   2. sync  build the map overlay for every one of the site's fit documents (pipeline/plan_fit.py
            build), handling each by who placed it (plan_fit.who_placed). A hand fit is built with no
            check - the fabrication check polices the batch model, never a human's drag. An agent
@@ -67,8 +74,14 @@ def _site_built(root, sid):
     return True, None
 
 
-def _fit(root, sid, model):
-    """Fit the site's uncovered candidate pictures. Returns (docs, item_path, item, item_cands)."""
+def _fit(root, sid):
+    """The site's fit step, matcher first: the pretrained matcher (fit/matchfit.py) offers every
+    candidate picture without a platefit document; a fit it is sure of becomes a matcher document
+    and the rest go to the review item through the retired batch (fit/batch_us.py run_sites, which
+    records no pairs) whose `why` per picture is the matcher's recorded verdict (the judge's or the
+    gate's clause, "picture not on this machine") or "no matcher on this machine" when the matcher
+    was not reachable. Covered pictures are never re-fitted. Returns (docs, item_path, item,
+    item_cands)."""
     rows = batch_us.candidates(sid, batch_us._plans_rows(str(root)))
     docs = dict(batch_us.pre_docs(str(root), sid))
     # review items are keyed by their `site` field, not the file name (data/review/README.md)
@@ -76,17 +89,23 @@ def _fit(root, sid, model):
     item_cands = {c.get("plan"): c for c in (item.get("candidates") or [])} if item else {}
     uncovered = [r for r in rows if r["id"] not in docs and r["id"] not in item_cands]
     # the pretrained matcher first (fit/matchfit.py): a fit it is sure of becomes a document here; the rest go on
-    # as before (the lead 2026-10-11: two model-free/vision-model fits failed, the matcher placed the hand-fit
-    # plans it was sure of within 26-76 m)
-    # every picture without a document, review-item ones too: a confident matcher fit resolves the item
+    # to the review item with their recorded reason (the lead 2026-10-11: two model-free/vision-model fits
+    # failed, the matcher placed the hand-fit plans it was sure of within 26-76 m)
+    # every picture without a document is settled, review-item ones too: a confident matcher fit resolves the
+    # item, a refusal records its reason on the item entry
+    results = []
     if any(r["id"] not in docs for r in rows) and matchfit.reachable():
-        for path in matchfit.run(str(root), [sid]):
+        for path in matchfit.run(str(root), [sid], results=results):
             print(f"fit  matcher: fit written ({Path(path).name})")
         docs = dict(batch_us.pre_docs(str(root), sid))
         uncovered = [r for r in rows if r["id"] not in docs and r["id"] not in item_cands]
+    # the record per picture still without a document: the matcher's per-candidate verdict when it ran
+    # (it settles every doc-less candidate), else the environment fact that it did not run at all
+    reasons = ({e["plan"]: e["why"] for e in results if e["outcome"] == "refused"}
+               if results else {r["id"]: "no matcher on this machine" for r in uncovered})
     need_fit = bool(uncovered) or (not rows and not batch_us.is_pre_fit(str(root), sid) and item is None)
     if need_fit:
-        rec = batch_us.run_sites(str(root), [sid], model)[sid]
+        rec = batch_us.run_sites(str(root), [sid], reasons=reasons)[sid]
         # the batch runs the whole site and its upsert replaces each entry whole: put the already
         # covered pictures' entries (line check reasons, gate scores, pairs) back as they were
         new_ids = {r["id"] for r in uncovered}
@@ -98,11 +117,9 @@ def _fit(root, sid, model):
         rows_by_id = {r["id"]: r for r in rows}
         for plan, d in sorted(rec["detail"].items()):
             title = (rows_by_id.get(plan) or {}).get("title") or plan
-            if d.get("outcome") == "auto":
-                print(f"fit  {title}: fit written (doc {sid}.{plan}, gate {d.get('score')} m)")
-            elif d.get("outcome") == "skip":
+            if d.get("outcome") == "skip":
                 print(f"fit  {title}: skipped: already fitted (doc {sid}.{plan})")
-            else:  # reject / could-not-fit: the batch's upsert put it in the item
+            else:  # "item": the batch's upsert recorded it in the review item
                 print(f"fit  {title}: sent to the review queue ({d.get('why')})")
         if rec.get("no_picture"):
             print("fit  no picture found: the site's review item records that")
@@ -306,25 +323,13 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description="Finish one site, end to end (fit, sync, entry, review).")
     ap.add_argument("site", help="the site id (web/data/sites.json)")
     ap.add_argument("--root", default=str(ROOT), help="the data root (default: this checkout)")
-    g = ap.add_mutually_exclusive_group()
-    g.add_argument("--working", action="store_true",
-                   help="unfitted pictures go to the local vision model (the batch's working phase)")
-    g.add_argument("--model-json", default=None,
-                   help="recorded model answers for unfitted pictures (a dry run; no model, no network)")
     a = ap.parse_args(argv)
-    if a.working:
-        model = batch_us.llm_model(a.root)
-    elif a.model_json:
-        model = batch_us.recorded_model(json.loads(Path(a.model_json).read_text()))
-    else:
-        model = None
-        print('fit  no model given: unfitted pictures (if any) go to the review item as "no model answer"')
     built, why = _site_built(a.root, a.site)
     if not built:
         print(f"error: {a.site} is not built: {why}")
         return 2
     print(f"site {a.site}: the one-site line (fit -> sync -> entry -> review)")
-    docs, item_path, item, item_cands = _fit(a.root, a.site, model)
+    docs, item_path, item, item_cands = _fit(a.root, a.site)
     before = next(s.get("drawings") for s in _sites_list(
         json.loads((Path(a.root) / "web" / "data" / "sites.json").read_text())) if s["id"] == a.site)
     failed, sent, refused = _sync(a.root, a.site, docs)

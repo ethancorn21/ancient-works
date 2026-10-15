@@ -1035,3 +1035,68 @@
 {"site": "trundle-q7847949", "title": "File:St Roc's Hill 1723 from William Stukeley's Itinerarium Curiosum.jpg", "p_plan": 0.05, "p_birdseye": 0.95, "p_photo": 0.0, "classifier": "qwen3.8-27b vLLM 127.0.0.1:8080 (one-off, lead's answer to request 003)"}
 {"site": "trundle-q7847949", "title": "File:St Roche's Hill Sussex by T King from William Hayley Mason Goodwood 1839.jpg", "p_plan": 0.05, "p_birdseye": 0.95, "p_photo": 0.0, "classifier": "qwen3.8-27b vLLM 127.0.0.1:8080 (one-off, lead's answer to request 003)"}
 {"site": "trundle-q7847949", "title": "File:The Trundle aerial photo 1925.jpg", "p_plan": 0.05, "p_birdseye": 0.1, "p_photo": 0.85, "classifier": "qwen3.8-27b vLLM 127.0.0.1:8080 (one-off, lead's answer to request 003)"}
+{"site": "luguvallium-q71551754", "title": "FIG. 4. CARLISLE, COURSE OF THE WALL AND OF THE YALLUM.", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "ardoch", "title": "Innerpeffery camp. and Ardoch camp.", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "virosidum", "title": "The five fecondary ftations per lineam valli", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "castrum-segedunum-q637958", "title": "A general map of the Roman walls in the north of England, and so much of the adjacent countryes as includes the secondary stations per lineam valli.", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "castrum-segedunum-q637958", "title": "A map of the Roman walls from SEGEDVNAVM to CONDERCVVM.", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "rudchester-roman-fort-associated-civil-s-q17669775", "title": "A map of the Roman wall, from CONDERCVVM to VINDOBALA.", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "haltonchesters-roman-fort-settlement-and-q17648018", "title": "A map of the Roman wall, from VINDOBALA to HANNAVVM.", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "cilurni", "title": "A map of the Roman wall, from HANNAVVM to CILVRNVA.", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "birdoswald-roman-fort-and-the-section-of-q17650767", "title": "A map of the Roman wall, from CILVRNVA to BORCOVACEVS.", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "aesica-q4688554", "title": "A map of the Roman walls from BORCOVACEVS to MAGNA.", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "petriana", "title": "A map of the Roman walls from MAGNA to PETRIANA.", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "congavata", "title": "A map of the Roman walls in the north of England, from PETRIANA to CONGAVATA.", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "tunnocelum", "title": "A map of the Roman walls in the north of England, from CONGAVATA to TVNNOCELVVM.", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "bar-hill-fort", "title": "A general map of Antoninus's wall in Scotland.", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "bar-hill-fort", "title": "A map of the Roman wall in Scotland from the west end to Bemulie.", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "kirkintilloch", "title": "A map of the Roman wall in Scotland from Bemulie to Crowy-hill.", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "rough-castle-fort", "title": "A map of the Roman wall in Scotland from Crowy-hill to Falkirk.", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "carriden", "title": "A map of the Roman wall in Scotland from Falkirk to the east end.", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "new-york-q60", "title": "File:New York - drawn by J. Bachmann ; print by G. Schlegel, 97 William St. N.Y. LCCN98508526.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "new-york-q60", "title": "File:The city of New York. LOC 75694818.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "new-york-q60", "title": "File:View of the city of New York and vicinity LOC 78692903.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "washington-q61", "title": "File:The national capital, Washington City, D.C. LOC 75694904.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "washington-q61", "title": "File:B.H. Warner & Co.'s Map showing a bird's-eye view of the city of Washington and suburbs - locating the public buildings and places of interest LOC 87693417.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "washington-q61", "title": "File:Washington, the beautiful capital of the nation LOC 78695113.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "san-francisco-q62", "title": "File:San Francisco. 1854 (published for the History of the world) - DPLA - Original.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "san-francisco-q62", "title": "File:(Bird's eye view of San Francisco) LOC 75693101.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "san-francisco-q62", "title": "File:The city of San Francisco. Birds eye view from the bay looking south-west. LOC 75693104.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "san-francisco-q62", "title": "File:1914 San Francisco Birds Eye Map by Peter.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "nashville-q23197", "title": "File:Tennessee Centennial Exposition, Nashville, Tennessee, 1897. LOC 77696328.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "boston-q100", "title": "File:Bird's eye view of Boston. LOC 75694559.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "philadelphia-q1345", "title": "File:Bird's eye view of Philadelphia. LOC 75694509.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "baltimore-q5092", "title": "File:The City of Baltimore - sketched and drawn by C.R. Parsons. LCCN90715972.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "pittsburgh-q1342", "title": "File:Pittsburgh, Pennsylvania 1902. LOC 75696521.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "cincinnati-q43196", "title": "File:Panoramic view, city of Cincinnati, U.S.A. 1900. LOC 75694914.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "louisville-q43668", "title": "File:Birds-eye view of Louisville from the river front and Southern Exposition, 1883. LOC 75693235.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "st-louis-q38022", "title": "File:Bird's-Eye View of St. Louis, MO. (full view).jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "chicago-q1297", "title": "File:Bird's eye view of Chicago, 1892. LOC 75693206.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "detroit-q12439", "title": "File:Birds eye view-showing about three miles square-of the central portion of the city of Detroit, Michigan. LOC 76693077.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "milwaukee-q37836", "title": "File:Milwaukee, Wis. LOC 76693067.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "kansas-city-q41819", "title": "File:Bird's eye view of Kansas City, Missouri. Jan'y. 1869. LOC 73693480.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "new-orleans-q34404", "title": "File:Bird's eye view of New Orleans (NYPL Hades-118746-54871).tif", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "denver-q16554", "title": "File:Bird's eye view of Denver, Colorado, 1908. LOC 75693133.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "st-paul-q28848", "title": "File:St. Paul, Minn. LOC 75694650.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "minneapolis-q36091", "title": "File:Minneapolis, Minnesota. LOC 75694644.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "cleveland-q37320", "title": "File:Birds eye view of Cleveland, Ohio 1877. LOC 73694507.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "omaha-q43199", "title": "File:Bird's eye view of the city of Omaha, Nebraska 1868. LOC 73693495.tif", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "indianapolis-q6346", "title": "File:Bird's-eye view of Indianapolis showing Spink apartments, hotels, office and industrial buildings - DPLA - d442b7431e1f90b2c13fb4f957e8026f (page 1).jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "columbus-q16567", "title": "File:1872 Birds Eye View of Columbus Ohio - alternate.png", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "memphis-q16563", "title": "File:Bird's eye view of the city of Memphis, Tennessee 1870. LOC 73694530.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "portland-q6106", "title": "File:Portland, Oregon 1890 Perspective Birds-eye-view Map.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "new-york-q60", "title": "File:Afbeeldinge van de Stadt Amsterdam in Nieuw Neederlandt (NYPL Hades-118555-54682).tif", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "new-york-q60", "title": "File:Plan of the City of New York by Bernard Ratzer, 1767.jpg", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "new-york-q60", "title": "File:Commissioners' Plan of 1811 by John Randel published in 1821.jpg", "p_plan": 0.0, "p_birdseye": 1.0, "p_photo": 0.0, "by": "hand"}
+{"site": "new-york-q60", "title": "File:Viele Map (Topographical map of the City of New York), 1865.jpg", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "washington-q61", "title": "File:Plan of the city of Washington LOC 88694159.tif", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "washington-q61", "title": "File:Plan of the city of Washington in the territory of Columbia - ceded by the states of Virginia and Maryland to the United States of America, and by them established as the seat of their government, (NYPL b15255319-434417).jpg", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "washington-q61", "title": "File:Map of the defences of Washington. LOC 88690674.jpg", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "san-francisco-q62", "title": "File:Official map of San Francisco compiled from the field notes of the official re-survey made by Wm. M. Eddy. surveyor of the town of San Francisco. LOC 77692722.jpg", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "san-francisco-q62", "title": "File:Map of San Francisco, Apollo storeship at the bottom.jpg", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "san-francisco-q62", "title": "File:Official map of the City of San Francisco, Full and complete to the present date. Compiled by Wm., M. Eddy. City Surveyor. (IA dr official-map-of-the-city-of-san-francisco-full-and-complete-to-the-present-5870000).jpg", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "san-francisco-q62", "title": "File:1839 Plan of Yerba Buena (Jean Jacques Vioget).jpg", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "nashville-q23197", "title": "File:1804 Map of Nashville published 1880.jpg", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "nashville-q23197", "title": "File:1860 Haydon map of City of Nashville and Edgefield.jpg", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "nashville-q23197", "title": "File:Map of Nashville, Tennessee. LOC 2003630459.jpg", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}
+{"site": "nashville-q23197", "title": "File:Defenses of Chattanooga, Tenn. Battery Erwin ... Battery Coolidge. Defenses of Nashville, Tenn. Capitol (IA dr defenses-of-chattanooga-tenn-battery-erwin-battery-coolidge-defenses-01104241).jpg", "p_plan": 1.0, "p_birdseye": 0.0, "p_photo": 0.0, "by": "hand"}

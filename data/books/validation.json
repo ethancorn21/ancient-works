@@ -1177,5 +1177,69 @@
     "flagged": 66
    }
   }
+ },
+ {
+  "book": "horsley_britannia_romana_1732",
+  "ia": "britanniaromanao00hors",
+  "pages": 936,
+  "triaged_A": 936,
+  "flagged_site_pages_stageA": 80,
+  "stageF_pages": 0,
+  "flagged_site_pages": 17,
+  "figures": {
+   "listed": 24,
+   "expected": null,
+   "parsed_with_page_on_a_leaf": 24,
+   "site": 17,
+   "unsure": 0,
+   "other": 7,
+   "gt_site_pages": 17,
+   "recall_pages": 1.0,
+   "recall_pages_pm1": 1.0,
+   "flagged_nonplate_pages": 17,
+   "precision_strict": 1.0,
+   "precision_lenient": 1.0,
+   "flagged_on_other_only_pages": [],
+   "flagged_not_in_list": [],
+   "missed_pages": [],
+   "stage_A_only": {
+    "recall": 1.0,
+    "precision_strict": 0.212,
+    "precision_lenient": 0.212,
+    "flagged": 80
+   }
+  }
+ },
+ {
+  "book": "maclauchlan_roman_wall_1858",
+  "ia": "memoirwrittendu00maclgoog",
+  "pages": 171,
+  "triaged_A": 171,
+  "flagged_site_pages_stageA": 3,
+  "stageF_pages": 0,
+  "flagged_site_pages": 3,
+  "figures": {
+   "listed": 6,
+   "expected": null,
+   "parsed_with_page_on_a_leaf": 6,
+   "site": 3,
+   "unsure": 0,
+   "other": 3,
+   "gt_site_pages": 3,
+   "recall_pages": 1.0,
+   "recall_pages_pm1": 1.0,
+   "flagged_nonplate_pages": 3,
+   "precision_strict": 1.0,
+   "precision_lenient": 1.0,
+   "flagged_on_other_only_pages": [],
+   "flagged_not_in_list": [],
+   "missed_pages": [],
+   "stage_A_only": {
+    "recall": 1.0,
+    "precision_strict": 1.0,
+    "precision_lenient": 1.0,
+    "flagged": 3
+   }
+  }
  }
 ]

@@ -1147,7 +1147,10 @@ function refit() {
 }
 function addPairMarker(p) {
   const el = document.createElement('div'); el.className = 'gpin'; el.textContent = P.pairs.length;
-  const m = new maplibregl.Marker({ element: el, draggable: true }).setLngLat([p.lon, p.lat]).addTo(map);
+  // subpixel: the vendored Marker default (false) rounds _pos to whole pixels on every
+  // setLngLat and moveend update, so the handles would jitter 1 px on each drag, toolbar
+  // scale/turn and re-emission - pass true so they track the true projected point (815)
+  const m = new maplibregl.Marker({ element: el, draggable: true, subpixelPositioning: true }).setLngLat([p.lon, p.lat]).addTo(map);
   m.on('dragend', () => { const ll = m.getLngLat(); p.lon = ll.lng; p.lat = ll.lat; refit(); });
   P.marks.push(m);
 }
@@ -1213,9 +1216,19 @@ async function saveFit() {
       const e = (d.depictions || []).find(x => (x.kind === 'plan' || x.kind === 'view') && x.fit && x.fit.at === at);
       if (e) {
         S.dep[s.id] = d.depictions; S.depSel[s.id] = e.file; lsSet('aw.depSel', S.depSel);
-        // plan_fit.py has re-scored the site in sites.json (build_site.set_drawings): take its new tier
-        try { const e2 = (await fetch(`data/sites.json?t=${Date.now()}`).then(x => x.json())).sites.find(x => x.id === s.id);
-              if (e2) for (const k of ['drawings', 'score', 'oldest', 'overlays']) s[k] = e2[k]; } catch {}
+        // The line re-scores the site in sites.json (build_site.set_drawings) right after the
+        // depiction lands - the score is computed from the built overlays, so the re-score comes
+        // after them and the two files are written a beat apart: a single fetch landing in that
+        // gap takes the pre-rescore score and the marker keeps its old tier until a reload (245).
+        // Re-fetch until the entry's overlay count reflects this save (the new depiction is
+        // counted by overlays()); bounded, so a failed re-score never hangs the page.
+        const prevOverlays = s.overlays;
+        for (let j = 0; j < 8; j++) {
+          try { const e2 = (await fetch(`data/sites.json?t=${Date.now()}`).then(x => x.json())).sites.find(x => x.id === s.id);
+                if (e2) for (const k of ['drawings', 'score', 'oldest', 'overlays']) s[k] = e2[k]; } catch {}
+          if (prevOverlays == null || s.overlays == null || s.overlays > prevOverlays) break;
+          await new Promise(res => setTimeout(res, 250));
+        }
         const mk = markers.find(k => k.id === s.id); if (mk) mk.el.className = `marker ${tierOf(s)}`;
         if (map.getSource(`dep-${s.id}`)) { map.removeLayer(`dep-${s.id}`); map.removeSource(`dep-${s.id}`); S.depUrl[`dep-${s.id}`] = null; }
         endFit(); applyDep(s); return;

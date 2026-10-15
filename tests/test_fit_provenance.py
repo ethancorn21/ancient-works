@@ -18,8 +18,9 @@ needed, ephemeral ports):
      golden's 22 entries (the 20 golden hand fits + Maiden Castle's DPLA plan + the owner's Fort Ancient S&D plate, 2026-10-13), byte-for-byte
      (sha256sum -c tests/golden/hand_fit_docs.sha256).
   b. the one-site line refuses an unmarked non-auto document end to end (the copied line run
-     on a copy of Stonehenge's files, sockets dead, no model - the refusal precedes the build,
-     so nothing is downloaded): the document is kept byte-identical (no stamp, no delete),
+     on a copy of Stonehenge's files, sockets dead: the matcher is unreachable so it is never
+     called, and the refusal precedes the build, so nothing is downloaded): the document is kept
+     byte-identical (no stamp, no delete),
      nothing is built, and its candidate goes to the site's review item with
      plan_fit.NO_PROVENANCE verbatim - NOT the fabrication check's reason, even though the
      document's pairs ARE the model's pattern class (the refusal precedes the check: an
@@ -170,7 +171,8 @@ def _rows(root):
 
 
 def _run(tree):
-    """The one-site line on the copied tree: `tools/site_done.py <site>`, no model."""
+    """The one-site line on the copied tree: `tools/site_done.py <site>` (sockets dead: the
+    matcher is unreachable and never called)."""
     env = dict(os.environ, PYTHONIOENCODING="utf-8")
     return subprocess.run([sys.executable, "-c", GUARD, str(tree / "tools" / "site_done.py"), SID],
                           cwd=str(tree), env=env, capture_output=True, timeout=600)
@@ -320,15 +322,14 @@ def test_line_refuses_unmarked_non_auto_doc(tmp_path):
 
     # the whole run, line by line: the unmarked non-auto document is refused - refused
     # precedes everything (no build, no delete, no fabrication check)
-    assert lines[0] == 'fit  no model given: unfitted pictures (if any) go to the review item as "no model answer"'
-    assert lines[1] == f"site {SID}: the one-site line (fit -> sync -> entry -> review)"
-    assert lines[2] == (f"fit  {n_item} candidate picture(s): 1 fitted (doc), "
+    assert lines[0] == f"site {SID}: the one-site line (fit -> sync -> entry -> review)"
+    assert lines[1] == (f"fit  {n_item} candidate picture(s): 1 fitted (doc), "
                         f"{n_item - 1} in the review item -> no batch run needed")
-    assert lines[3] == f"sync {seed.get('title') or SEED_PLAN}: refused ({plan_fit.NO_PROVENANCE})"
-    assert lines[4] == "entry  web/data/sites.json: drawings 0 -> 0"
+    assert lines[2] == f"sync {seed.get('title') or SEED_PLAN}: refused ({plan_fit.NO_PROVENANCE})"
+    assert lines[3] == "entry  web/data/sites.json: drawings 0 -> 0"
     n_open = len(json.loads((ROOT / "web" / "data" / "review.json").read_text())["items"])
     n_total = len(list((ROOT / "data" / "review").glob("*.json")))
-    assert lines[5] == (f"review {item_name}: {n_item} candidate(s), resolved by {resolved}; "
+    assert lines[4] == (f"review {item_name}: {n_item} candidate(s), resolved by {resolved}; "
                         f"page now has {n_open - 1} open of {n_total} items")
     # the per-picture report: every candidate picture named, and only the line's own lines exist
     expected = []
@@ -341,9 +342,9 @@ def test_line_refuses_unmarked_non_auto_doc(tmp_path):
             gate = cand.get("gate_score")
             why = (f"gate {gate} m - " if gate is not None else "") + (cand.get("why") or "no model answer")
             expected.append(f"  {title} ({pid}): sent to the review queue ({why}); the item is resolved by {resolved}")
-    assert lines[6:6 + len(expected)] == expected
-    assert lines[6 + len(expected)] == "done"
-    assert len(lines) == 6 + len(expected) + 1
+    assert lines[5:5 + len(expected)] == expected
+    assert lines[5 + len(expected)] == "done"
+    assert len(lines) == 5 + len(expected) + 1
 
     # the document is kept byte-identical: no stamp, no delete (a good hand fit that lost its
     # mark is not destroyed)
@@ -420,7 +421,7 @@ def _call_sync(tree, sid, plan, doc):
 def _mini_tree(base, doc, overlay):
     """The smallest tree _sync_doc needs: the document in its store slot, and (when `overlay`)
     a site dir whose depictions.json already carries this doc's overlay, current (same at,
-    same doc id) - so "skipped" needs no download, no model, no network."""
+    same doc id) - so "skipped" needs no download and no network."""
     t = Path(base)
     _save_json(t / "data" / "db" / "platefits" / f"{doc['site']}.{doc['plan']}.json", doc)
     if overlay:

@@ -19,19 +19,22 @@ ground whose position is known:
             inliers, carried to lon/lat through the ground's corners (Web Mercator).
   trust     the inlier count. On the owner's hand fits (a look by the lead, not a held-out test):
             every result with >= 10 inliers landed 26-76 m from the hand fit; results with 2-7
-            inliers were 100-2000 m off. A fit is written only with >= MIN_INLIERS inliers and a
-            rotation within MAX_ROT_DEG of north-up (old plans are drawn north-up or by their arrow;
-            a large rotation was always a wrong match). Anything else is left for the owner's
-            Ready-to-fit queue.
+            inliers were 100-2000 m off. A fit is written only when it passes BOTH the judge (>= MIN_INLIERS
+            inliers and a rotation within MAX_ROT_DEG of north-up - old plans are drawn north-up or by
+            their arrow; a large rotation was always a wrong match) and the frozen 001 gate on its own
+            pairs (pipeline/fit_gate.gate, docs/gate.md section 2, no claimed placement: the gate solves
+            the canonical similarity from the doc's anchors, and its median residual is the doc's score).
+            Anything else is left for the owner's Ready-to-fit queue.
   RoMa      a picture ELoFTR is not sure of goes to MatchAnything-RoMa (port 8092), judged by the fraction
             of its matches that agree (>= 0.4) instead of a count, at any rotation (judge; docs/matchfit.md
             sections 7-8).
 
 A written fit is an ordinary platefit document (fit/batch_us.write_doc: by "agent", auto true) with
 "fitter": "matcher" and its inlier count; its pairs are up to 8 of the real matched points, spread
-over the plan, so the line's fabrication check sees real, irregular points. tools/site_done.py then
-syncs it to the map like any other automatic fit. Existing documents (hand or automatic) are never
-touched.
+over the plan, so the line's fabrication check sees real, irregular points; its score is the frozen
+gate's median residual over those pairs (238), and the raw matcher residual is kept in the matcher
+block as resid_m. tools/site_done.py then syncs it to the map like any other automatic fit. Existing
+documents (hand or automatic) are never touched.
 """
 import argparse
 import base64
@@ -266,9 +269,58 @@ def _sites(root):
     return {s["id"]: s for s in (d["sites"] if isinstance(d, dict) else d)}
 
 
-def run(root, site_ids, dry=False, url=None, roma_url=None):
+def _settle(root, sid, row, r, kind, dry, results=None):
+    """The per-candidate tail of run(): prints one fitted row's verdict and, when the fit passes BOTH
+    the judge and the frozen 001 gate and the run is not dry, writes its document (returning the
+    written path, else None). The gate is the last word: batch_us.gate_placement on the doc's own
+    pairs with transform=None (no claimed placement - it solves the canonical similarity from them,
+    the batch's own convention) refuses what a strong consensus can still be wrong at (large median
+    residual, radial gradient, degeneracy; docs/gate.md section 2, its section 10 for the two stages'
+    division of the failures) - a refusal prints the gate's clause verbatim, records it in the
+    results entry, and writes no document. The written doc's score is the gate's median residual;
+    the raw matcher residual stays in the matcher block as resid_m. When results is a list, one
+    {site, plan, outcome (written|refused|dry), path, why, kind} entry is appended per call: the
+    caller (239) records refused candidates from it, including the gate's clause."""
+    title = (row.get("title") or row["id"])[:70]
+    if "why" not in r:
+        accepted, score, gate_why = batch_us.gate_placement(batch_us._norm_pairs(r["pairs"]), None)
+        if not accepted:  # a gate refusal becomes the candidate's refusal
+            r = dict(r, why=gate_why)
+    extra = f" [{r['ground']} x{r['window']}, rot {r['rot']:.0f}]" if "ground" in r else ""
+    if "why" in r:
+        print(f"{sid}  {title}: {r['why']}{extra}")
+        if results is not None:
+            results.append({"site": sid, "plan": row["id"], "outcome": "refused",
+                            "path": None, "why": r["why"], "kind": kind})
+        return None
+    print(f"{sid}  {title}: FIT ({kind}) {r['inliers']}/{r['matches']} points on {r['ground']} x{r['window']}, "
+          f"rot {r['rot']:.1f} deg, {r['m_per_px']:.2f} m/px, residual {r['resid_m']:.0f} m")
+    if dry:
+        if results is not None:
+            results.append({"site": sid, "plan": row["id"], "outcome": "dry",
+                            "path": None, "why": None, "kind": kind})
+        return None
+    path = batch_us.write_doc(str(root), sid, row, batch_us._norm_pairs(r["pairs"]), score)
+    if path:
+        doc = json.loads(Path(path).read_text())
+        doc.update({"fitter": "matcher", "matcher": {
+            "model": MODELS[kind], "inliers": r["inliers"], "matches": r["matches"],
+            "ground": r["ground"], "window": r["window"], "rot_deg": round(r["rot"], 2),
+            "resid_m": round(r["resid_m"], 1),
+            "spread": [round(r["spread"][0], 3), round(r["spread"][1], 1)]}})
+        batch_us._save_json(path, doc)
+    if results is not None:
+        results.append({"site": sid, "plan": row["id"],
+                        "outcome": "written" if path else "refused",
+                        "path": path, "why": None, "kind": kind})
+    return path
+
+
+def run(root, site_ids, dry=False, url=None, roma_url=None, results=None):
     """ELoFTR first (fast, ~1 s a window pair); a picture it is not sure of goes to RoMa (~4 s a pair, placed
-    11 of the 21 hand fits against ELoFTR's 7) when that answers."""
+    11 of the 21 hand fits against ELoFTR's 7) when that answers. A candidate's fit is written only when it
+    passes both the judge and the frozen 001 gate (_settle). When results is a list, one entry per settled
+    candidate is appended to it (see _settle); returns the written paths."""
     roma = roma_url or ROMA_URL
     use_roma = reachable(roma)
     sites = _sites(root)
@@ -288,29 +340,14 @@ def run(root, site_ids, dry=False, url=None, roma_url=None):
             if row["id"] in docs or row["id"] in dropped:
                 continue
             r, kind = fit_row(root, site, row, url), "eloftr"
-            title = (row.get("title") or row["id"])[:70]
             if "why" in r and use_roma and r["why"] != "picture not on this machine":
                 rr = fit_row(root, site, row, roma, "roma")
                 if "why" not in rr:
                     r, kind = rr, "roma"
                 else:
                     r = dict(rr, why=f"{r['why']}; RoMa {rr['why']}")
-            if "why" in r:
-                extra = f" [{r['ground']} x{r['window']}, rot {r['rot']:.0f}]" if "ground" in r else ""
-                print(f"{sid}  {title}: {r['why']}{extra}")
-                continue
-            print(f"{sid}  {title}: FIT ({kind}) {r['inliers']}/{r['matches']} points on {r['ground']} x{r['window']}, "
-                  f"rot {r['rot']:.1f} deg, {r['m_per_px']:.2f} m/px, residual {r['resid_m']:.0f} m")
-            if dry:
-                continue
-            path = batch_us.write_doc(str(root), sid, row, r["pairs"], round(r["resid_m"], 1))
+            path = _settle(root, sid, row, r, kind, dry, results)
             if path:
-                doc = json.loads(Path(path).read_text())
-                doc.update({"fitter": "matcher", "matcher": {
-                    "model": MODELS[kind], "inliers": r["inliers"], "matches": r["matches"],
-                    "ground": r["ground"], "window": r["window"], "rot_deg": round(r["rot"], 2),
-                    "spread": [round(r["spread"][0], 3), round(r["spread"][1], 1)]}})
-                batch_us._save_json(path, doc)
                 written.append(path)
     return written
 

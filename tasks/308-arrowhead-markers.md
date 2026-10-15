@@ -1,5 +1,6 @@
 Status: done
 # 308: Site markers as small arrowheads, not squares
+Depends on: none
 Touches: web/index.html, web/*.css, web/vendor/, docs/site_flow.md, docs/site_flow/
 
 ## Goal

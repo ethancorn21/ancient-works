@@ -1,0 +1,33 @@
+{
+ "site": "omaha-q43199",
+ "candidates": [
+  {
+   "plan": "c_42ec242fc73d0b42",
+   "title": "Omaha, the E. Ruger / Chicago Lithographing Co. bird's-eye view (1868)",
+   "url": "media/commons/omaha-q43199/42ec242fc73d0b42.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-14",
+    "named_place": "Omaha",
+    "place_qid": "Q43199",
+    "place_label": "Omaha",
+    "place_lon": -95.9375,
+    "place_lat": 41.25861111111111,
+    "site_lon": -95.9375,
+    "site_lat": 41.25861111111111,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.5625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "not sure: 5 consistent points (need 10)"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

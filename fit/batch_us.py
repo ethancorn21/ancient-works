@@ -1,45 +1,41 @@
-"""The batch, US (task 203a, GOAL.md points 1-2): the 90 built US sites go through the fitting loop.
+"""The batch, US (task 203a, GOAL point 2): the 90 built US sites go through the fitting loop.
 
-For every site in the given list (default: every region-"US" site of web/data/sites.json):
-candidates are the web/data/plans.json rows whose `sites` contains the site; each candidate picture
-goes  fitkit sheet (the picture's crop next to the site's ground, both gridded) -> the local vision
-model (>= 4 matched-feature point pairs; 202's proposal is its starting point) ->
-`pipeline.plan_fit.similarity` -> the fit gate (`pipeline.fit_gate`, the frozen rule of
-docs/gate.md section 2). An accepted fit becomes a NEW automatic platefit document in
-data/db/platefits/ (the page's existing format plus `"auto": true`, the gate's score, and the
-provenance mark `"by": "agent"` - task 303: every fit says who placed it; the page's own saves
-write `"by": "hand"`); a
-gate refusal or a picture the model could not fit becomes a review item in data/review/
-(fit/review.py's upsert, 201's format, carrying the model's pairs); a site with no candidate at all
-gets an item marked "no picture found". The 20 pre-batch hand-fit documents and the 19 hand-fit
-site.json files are never touched (pinned by tests/golden/hand_fit_docs.sha256), and a candidate
-that already has a document is skipped.
+The vision model's fitting pass is retired (GOAL point 2, 2026-10-13: "the local Qwen models
+never place a drawing and never write point pairs or coordinates"; the pass fabricated ~100
+fits on 2026-10-11 - 301 - that 306a-f found nearly all wrong, and 212b deleted). The
+pretrained matcher (fit/matchfit.py) is the only automatic fitter now: the one-site line
+(tools/site_done.py) offers every uncovered picture to it first, and a fit it is sure of
+becomes a matcher document. This batch does the remainder: every candidate picture without a
+document gets a review item in data/review/ (fit/review.py's upsert, 201's format) whose
+`why` is the matcher's recorded verdict for that picture - the judge's clause ("not sure:
+8 consistent points (need 10)"), the gate's clause when the matcher's fit was gate-refused,
+"picture not on this machine" - the per-candidate result 238 records, passed through the
+line as `run_sites`'s `reasons`; a plan the matcher never saw (it was not reachable) is
+recorded as "no matcher on this machine", a recorded environment fact, not a defect. 202's
+proposal fields stay on the entry as the human's starting placement. A site with no
+candidate at all gets an item marked "no picture found".
 
-The model step is injectable: the working phase calls the local model on a fitkit-style sheet
-(`--working`), tests and dry runs supply a fixed recorded answer (`--model-json`, or a callable
-to `run_sites`), so no test touches the model server (GOAL: what the model says is a lead to
-check, not a fact - the gate is the check, and the gate cannot see a consistent global error,
-docs/gate.md section 7; the sheet, prompt and parse in `llm_model` are built with that in mind:
-they ask the model to name its features and state the scale, and they route out-of-range or
-self-contradictory answers to review instead of to an automatic document; a third counterweight
-is the feature-presence check of `_feature_present`: the answer's ground points must sit on at
-least half as textured ground as a typical region of the site's own image, or the answer is
-trimmed to a review item. The check only routes to review - it never loosens the gate. It does
-not see a fabrication anchored on strong ground texture (a road network, field boundaries);
-docs/gate.md section 7's human 18/20 sample remains the backstop for that class).
+The 22 pre-batch hand-fit documents and the 19 hand-fit site.json files are never touched
+(pinned by tests/golden/hand_fit_docs.sha256), and a candidate that already has a document
+(hand or matcher) is skipped: the item upsert replaces a candidate's entry whole, so the
+skip guard is the only thing protecting the audit notes.
 
-This batch writes ONLY the document files and the review items, directly (aw's atomic JSON
+`gate_placement` and `write_doc` stay in this module for the matcher: the frozen 001 gate
+(`pipeline.fit_gate`, the frozen rule of docs/gate.md section 2) is the last word on every
+automatic fit (its median residual is the document's score), and a matcher document is an
+ordinary platefit document in data/db/platefits/ (the page's existing format plus
+`"auto": true`, the gate's score and the provenance mark `"by": "agent"` - task 303: every
+fit says who placed it). This batch writes ONLY the review items, directly (aw's atomic JSON
 convention). It never PUTs to the server: a PUT would wake the page-facing sync (overlays,
-depictions, the drawings counts), which belongs to the one pass of task 212 after both batches.
+depictions, the drawings counts), which belongs to the one pass of task 212.
 203b (the rest of the world) imports `run_sites`/`write_report` and points them at its own
 site list; it does not rewrite this loop.
 
 usage:
   python3 fit/batch_us.py --golden            regenerate tests/golden/hand_fit_docs.sha256
-  python3 fit/batch_us.py --working           full run over the 90 US sites (LLM on the fitkit sheet)
-  python3 fit/batch_us.py --model-json F [--sites id ...]
-                                              dry run: the model's answers come from F
-  (the working run fetches missing pictures/aerials; everything else runs offline)
+  python3 fit/batch_us.py [--sites id ...]    offline: record a review item for every
+  [--report PATH]                             uncovered candidate (the matcher belongs to
+                                              the one-site line, not to this batch)
 """
 
 import argparse
@@ -184,8 +180,9 @@ def _norm_pairs(pairs):
 
 def write_doc(root, site_id, row, pairs, score, at=None):
     """Write the automatic platefit document for one accepted fit; returns the path, or None when
-    the document already exists (the batch adds files, it rewrites none - a pre-existing doc, hand
-    or automatic, is never touched)."""
+    the document already exists (the automatic fit store adds files, it rewrites none - a
+    pre-existing doc, hand or automatic, is never touched). Called by the matcher (238), whose
+    documents are by: agent, auto true."""
     path = _doc_path(root, site_id, row["id"])
     if path.exists():
         return None
@@ -212,10 +209,12 @@ def write_doc(root, site_id, row, pairs, score, at=None):
     return str(path)
 
 
-def _entry(root, row, pairs, why, score, proposal):
+def _entry(root, row, why, proposal):
     """A review-item candidate (201's format, data/review/README.md): the picture, the 200 evidence
-    field when present, the pairs the human starts from (the model's when it made any, else 202's
-    proposed starting point), and what the batch learned about this picture."""
+    field when present, 202's proposed starting placement, and what the matcher recorded about this
+    picture. The retired batch records no pairs (the matcher's points ride in its own document) and
+    no gate score (this batch calls no gate: the `why` already carries the clause when the
+    matcher's fit was gate-refused)."""
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "fit"))
     import review
     e = {
@@ -227,10 +226,7 @@ def _entry(root, row, pairs, why, score, proposal):
     ev = review.candidate_evidence(row["id"], root)
     if ev is not None:
         e["evidence"] = ev
-    if pairs:
-        e["pairs"] = _norm_pairs(pairs)
-    else:
-        e["pairs"] = []
+    e["pairs"] = []
     if proposal:
         for k in ("coarse", "ground", "scale_m_px", "rot_deg", "scale_source", "note"):
             if proposal.get(k) is not None:
@@ -238,8 +234,6 @@ def _entry(root, row, pairs, why, score, proposal):
     else:
         e["coarse"] = True
     e["why"] = why
-    if score is not None:
-        e["gate_score"] = score
     return e
 
 
@@ -250,25 +244,35 @@ def write_item(root, site_id, entries, no_picture=None):
     return review.upsert_item(root, site_id, entries, no_picture=no_picture)
 
 
-def run_sites(root, site_ids, model=None):
+def run_sites(root, site_ids, reasons=None):
     """The loop 203b points at its own site list.
 
-    `model` is callable(site, row, proposal) -> None | {"pairs": [[u, v, lon, lat], ...], "note": str}
-    in the row's `size` frame (the working LLM step or a recorded answer); None skips the model
-    (every candidate then goes to the review item). Per site it returns a record:
+    The vision model's fitting pass is retired (GOAL point 2): this writes no documents, calls
+    no model and calls no gate. `reasons` is a {plan id: recorded reason} of the matcher's
+    per-candidate verdicts (238's results, passed through the line): the judge's clause ("not
+    sure: 8 consistent points (need 10)"), the gate's clause (the matcher's fit was
+    gate-refused), or "picture not on this machine". A plan with no recorded reason (the
+    matcher never saw it - it was not reachable) is recorded as "no matcher on this machine",
+    a recorded environment fact, not a defect. Every uncovered candidate (no existing
+    document) becomes a review-item entry whose `why` is that reason, with 202's proposal fields
+    when a proposal exists; a candidate that already has a document (hand or matcher) is
+    skipped, because the item upsert replaces a candidate's entry whole and the skip guard is
+    the only thing protecting the audit notes. A site with no candidate at all and no
+    pre-existing fit gets an item marked "no picture found". Per site it returns a record:
 
       {"site", "pre_fit" (a doc or site.json plate fit already existed), "pre_docs",
-       "auto" (docs written this run), "item" (a review item was written), "no_picture",
-       "detail" {plan: {"outcome": "auto"|"reject"|"could-not-fit"|"skip", "score", "why"}}}
+       "auto" (always empty: this batch writes no documents anymore), "item" (a review item
+       was written), "no_picture",
+       "detail" {plan: {"outcome": "skip"|"item", "why"}}}
 
-    A site ends covered when it has a fit (pre-existing or new) or a review item: GOAL point 1.
+    A site ends covered when it has a fit (pre-existing, or the matcher's, written by the
+    line) or a review item: GOAL point 1.
     """
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "fit"))
-    sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "pipeline"))
     import propose
-    import plan_fit
     sites = _sites(root)
     rows = _plans_rows(root)
+    reasons = reasons or {}
     records = {}
     for sid in sorted(set(site_ids)):
         site = sites.get(sid)
@@ -292,27 +296,9 @@ def run_sites(root, site_ids, model=None):
                 prop = propose.propose_for(sid, row["id"])
             except (ValueError, KeyError) as e:
                 prop = None
-            ans = model(site, row, prop) if model else None
-            pairs = (ans or {}).get("pairs") or []
-            note = (ans or {}).get("note")
-            if len(pairs) >= 4:
-                a, b, _, _ = plan_fit.similarity(pairs)
-                accepted, score, why = gate_placement(pairs, (a, b))
-                if accepted:
-                    if write_doc(root, sid, row, pairs, score) is None:
-                        rec["detail"][row["id"]] = {"outcome": "skip"}
-                        have.add(row["id"])
-                    else:
-                        rec["auto"].append(row["id"])
-                        rec["detail"][row["id"]] = {"outcome": "auto", "score": score}
-                    continue
-                rec["detail"][row["id"]] = {"outcome": "reject", "score": score, "why": why}
-                entries.append(_entry(root, row, pairs, why, score, prop))
-            else:
-                why = note or ("model could not fit: %d of 4 pairs" % len(pairs)
-                               if ans is not None else "no model answer")
-                rec["detail"][row["id"]] = {"outcome": "could-not-fit", "why": why}
-                entries.append(_entry(root, row, pairs, why, None, prop))
+            why = reasons.get(row["id"]) or "no matcher on this machine"
+            rec["detail"][row["id"]] = {"outcome": "item", "why": why}
+            entries.append(_entry(root, row, why, prop))
         if entries:
             write_item(root, sid, entries)
             rec["item"] = True
@@ -330,7 +316,7 @@ def classify(records):
     """The site-level counts of the report: every site in exactly one bucket.
 
     "automatic fit" (a new doc), else "already hand-fitted" (a pre-existing fit), else
-    "review item" (a candidate the model could not pass the gate), else "no picture found".
+    "review item" (a candidate the matcher could not fit), else "no picture found".
     """
     out = {"automatic fit": [], "already hand-fitted": [], "review item": [],
            "no picture found": [], "error": []}
@@ -454,282 +440,6 @@ def write_golden(root):
     return str(out)
 
 
-def _font():
-    """Grid-label font: a real 22 px typeface. fitkit's own grid uses PIL's default bitmap
-    font, which is illegible to a 27 B vision model once the sheet is downscaled for the API
-    call (pilot 2026-10-11: the model then fabricated internally perfect patterns that
-    passed the gate, docs/gate.md section 7)."""
-    from PIL import ImageFont
-    try:
-        return ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 22)
-    except OSError:
-        return ImageFont.load_default()
-
-
-def _step(scale):
-    """Grid line step in source px: the first of 100/200/500/1000 that lands at least 90 sheet
-    px apart, so a 900 px panel carries at most ~10 lines its labels do not crowd."""
-    for s in (100, 200, 500, 1000):
-        if s * scale >= 90:
-            return s
-    return 1000
-
-
-def _grid(im, x0, y0, scale, step, color, font):
-    """fitkit's grid, with the label at BOTH ends of every line: the model reads a coordinate
-    off whichever end is closer to its feature, and two ends cross-check each other."""
-    from PIL import ImageDraw
-    d = ImageDraw.Draw(im)
-    W, H = im.size
-    def wh(s):
-        b = d.textbbox((0, 0), s, font=font)
-        return b[2] - b[0], b[3] - b[1]
-    v = (x0 // step + 1) * step
-    while (v - x0) * scale < W:
-        x = (v - x0) * scale
-        d.line([(x, 0), (x, H)], fill=color, width=1)
-        d.text((x + 2, 2), str(v), fill=color, font=font)
-        _, th = wh(str(v))
-        d.text((x + 2, H - th - 2), str(v), fill=color, font=font)
-        v += step
-    v = (y0 // step + 1) * step
-    while (v - y0) * scale < H:
-        y = (v - y0) * scale
-        d.line([(0, y), (W, y)], fill=color, width=1)
-        d.text((2, y + 2), str(v), fill=color, font=font)
-        tw, _ = wh(str(v))
-        d.text((W - tw - 2, y + 2), str(v), fill=color, font=font)
-        v += step
-    return im
-
-
-def _sheet(site, row, box):
-    """The fit sheet for the model: the picture's crop and the site's ground as two 900 px
-    panels (fitkit's sources: the plan image, the relief or the aerial), each gridded in bold
-    with its own labels at both ends of every line. Saves fitkit.OUT/fit_<site>_<plan>.jpg
-    (the same name fitkit.sheet uses) -> (path, ground_size, ground_m), ground_m being the
-    ground box's Mercator x-span in metres, what the right panel's labels cover."""
-    sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "tools"))
-    sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "pipeline"))
-    import fitkit
-    import aw
-    from PIL import Image
-    x0, y0, x1, y1 = box
-    c = fitkit.plan_image(row).crop(box)
-    sc = 900.0 / max(c.size)
-    c = c.resize((round(c.width * sc), round(c.height * sc)), Image.LANCZOS)
-    _grid(c, x0, y0, sc, _step(sc), (0, 0, 200), _font())
-    gpath = fitkit.ground(site["id"])
-    gsz = Image.open(gpath).size
-    g = fitkit.ground_view(site["id"], Image.open(gpath))
-    rs = 900.0 / max(g.size)
-    g = g.resize((round(g.width * rs), round(g.height * rs)), Image.LANCZOS)
-    _grid(g, 0, 0, rs, _step(rs), (200, 0, 0), _font())
-    S = Image.new("RGB", (c.width + g.width + 10, max(c.height, g.height)), "white")
-    S.paste(c, (0, 0))
-    S.paste(g, (c.width + 10, 0))
-    path = os.path.join(fitkit.OUT, "fit_%s_%s.jpg" % (site["id"], row["id"]))
-    S.save(path, quality=85)
-    (lon0, lat1), (lon1, _), (_, lat0) = site["corners"][0], site["corners"][1], site["corners"][2]
-    xm0, _ = aw.to_merc(lon0, lat1)
-    xm1, _ = aw.to_merc(lon1, lat0)
-    return path, gsz, (xm1 - xm0)
-
-
-def _model_prompt(site, row, box, gsz, gbox, kind, proposal):
-    """The prompt that keeps the model honest: the labelled coordinate ranges of both panels
-    (the parser enforces them), their metre coverage, the 202 seed's scale window, and the
-    anti-fabrication clauses (no grid intersections / even spacing / collinear points; never
-    pad a short list). The answer names each matched feature and states the panel's scale, so
-    both can be checked against its own pairs."""
-    x0, y0, x1, y1 = box
-    w, h = x1 - x0, y1 - y0
-    gw, gh = gsz
-    p = proposal or {}
-    scale = p.get("scale_m_px")
-    cover = (" covering about %d x %d metres" % (round(w * scale), round(h * scale))
-             if isinstance(scale, (int, float)) and not isinstance(scale, bool) and scale > 0
-             else "")
-    hint = ("The proposed starting placement maps the panel onto the site at scale %s m/px and "
-            "rotation %s deg (coarse=%s); a true match should be within about 50%% of that scale. "
-            % (scale, p.get("rot_deg"), p.get("coarse")) if scale is not None else "")
-    return (
-        "Left panel: a crop of an old map/plan of %s. Its grid labels run %d-%d across and %d-%d down "
-        "(a %dx%d px crop%s). Right panel: the ground there today (%s); its grid labels run 0-%d across "
-        "and 0-%d down (covering about %d x %d metres). %s"
-        "Match 4 to 8 features that are the SAME real feature on both sides: wall or rampart corners, "
-        "gate gaps, bastion or mound tips, road junctions, church footprints, river crossings, field edges. "
-        "Every coordinate must lie inside its panel's labelled range above. Do NOT pick grid-line "
-        "intersections, evenly spaced points or points along a straight line: real features have "
-        "irregular spacing, so the gaps between your pairs must vary, and at least three of your points "
-        "must not lie on one straight line. If you cannot confidently identify 4 real matched features, "
-        "answer with only the pairs you truly see (even 0 or 1) - never pad a list with guessed or "
-        "evenly spaced points. "
-        "Answer with JSON only: {\"scale_m_px\": <your estimate of the left panel's metres per pixel>, "
-        "\"features\": [\"one short name per pair, in order\"], "
-        "\"pairs\": [[u_plan, v_plan, u_ground, v_ground], ...]}"
-        % (site.get("name") or site["id"], x0, x1, y0, y1, w, h, cover, kind,
-           gw, gh, round(gbox), round(gbox), hint))
-
-
-def _parse_answer(ans, box, gsz, site):
-    """The model's answer -> (pairs, feature names). Pairs whose plan point leaves the crop's
-    labelled range or whose ground point leaves the ground image are dropped: the grid labels
-    are the contract, and a coordinate outside them was guessed, not read."""
-    x0, y0, x1, y1 = box
-    gw, gh = gsz
-    names = (ans or {}).get("features") or []
-    pairs, feats = [], []
-    for i, p in enumerate((ans or {}).get("pairs") or []):
-        try:
-            u, v, ug, vg = float(p[0]), float(p[1]), float(p[2]), float(p[3])
-        except (TypeError, ValueError, IndexError):
-            continue
-        if not (x0 <= u <= x1 and y0 <= v <= y1 and 0 <= ug <= gw and 0 <= vg <= gh):
-            continue
-        lon, lat = _ground_lonlat(site, ug, vg, gsz)
-        pairs.append([u, v, lon, lat])
-        feats.append(str(names[i]) if i < len(names) and names[i] is not None else "")
-    return pairs, feats
-
-
-def _feature_present(site, pts_ll, gpath):
-    """The third batch-side counterweight (routing only; the gate stays frozen): a
-    feature-presence check on the site's own ground image. The 4c pilot found the fabrication
-    the other two checks all pass - a correct-scale, wrong-translation answer whose points sit
-    on structureless ground (docs/gate.md section 7): no consistency check can see it, but the
-    ground image can. Each of the answer's ground points (`pts_ll`, lon/lat) is scored by the
-    std of a 24 m box (R=12 px at the 1 m/px ground image) centred on it, and the answer
-    passes only if at least half its points score at or above the median of a 400-point null
-    sampled from the same image (fixed seed 20261011, distinct from the report's SEED 20261010).
-    Calibrated on all 20 hand fits + the pilot answers: it over-refuses only genuinely faint
-    features (serpent 0/3, mayburgh 1/3, little-solsbury 2/5) - a deliberate strict-gate cost,
-    since the pairs still ride to the review item as a lead. A fabrication anchored on strong
-    texture (roads, field boundaries) passes this check; section 7's human sample is the
-    backstop for that class. -> (ok, frac); any read failure -> (True, None): no evidence never
-    blocks a fit - the gate and the human are still downstream."""
-    R = 12  # a 24 m box at the 1 m/px ground image
-    try:
-        sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "pipeline"))
-        import aw
-        import numpy as np
-        from PIL import Image
-        a = np.asarray(Image.open(gpath).convert("L"), dtype=np.float64) / 255.0
-        H, W = a.shape
-        (lon0, lat1), (lon1, _), (_, lat0) = site["corners"][0], site["corners"][1], site["corners"][2]
-        x0, y1 = aw.to_merc(lon0, lat1)
-        x1, y0 = aw.to_merc(lon1, lat0)
-        def boxstd(cx, cy):
-            cx = min(max(cx, R), W - R - 1)
-            cy = min(max(cy, R), H - R - 1)
-            b = a[max(0, cy - R):cy + R + 1, max(0, cx - R):cx + R + 1]
-            return float(b.std())
-        rng = np.random.default_rng(20261011)  # the null's seed: distinct from the report's SEED
-        null = np.array([boxstd(int(rng.integers(0, W)), int(rng.integers(0, H)))
-                         for _ in range(400)])
-        med = float(np.median(null))
-        ps = []
-        for (lon, lat) in pts_ll:  # the inverse of _ground_lonlat through the site corners
-            x, y = aw.to_merc(lon, lat)
-            ps.append(boxstd(int((x - x0) / (x1 - x0) * W), int((y1 - y) / (y1 - y0) * H)))
-        if not ps:
-            return True, None
-        frac = float(sum(1 for s in ps if s >= med) / len(ps))
-        return frac >= 0.5, frac
-    except Exception:
-        return True, None  # no evidence never blocks a fit
-
-
-def llm_model(root):
-    """The working-phase model: each candidate's fit sheet (its crop next to the site's ground,
-    both gridded bold, _sheet) to the local vision model (pipeline/llm.py). The model reads
-    the grid labels, names the features it matched, states the panel's scale, and records the
-    pairs in the row's size frame. The pilots (4a, 4c) showed this model fabricates internally
-    perfect regular patterns (identity maps, corner-to-corner, diagonal ladders) and, worst of
-    all, a correct-scale wrong-translation answer on structureless ground that a
-    consistency-only gate accepts, docs/gate.md section 7 - so the answer is checked before
-    the gate is ever asked: out-of-range points are dropped (_parse_answer); a stated scale
-    that disagrees by 2x or more with the magnitude of its own points' similarity (the scale
-    cross-check), and an answer whose ground points mostly sit on less textured ground than a
-    typical region of the site (_feature_present), each trim it to 3 pairs, which routes the
-    picture to the review item instead of an automatic document (over-refusing genuinely faint
-    features is the deliberate cost of a strict gate: the pairs still ride to the item as a
-    lead). Requires the picture locally (fetched earlier in the working phase) and the AI-box
-    tunnel; a missing picture or a failed call is reported in the item, never raised."""
-    sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "tools"))
-    sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "pipeline"))
-    import fitkit
-    import llm
-    import plan_fit
-
-    def model(site, row, proposal):
-        if not row.get("size"):
-            return {"note": "no image size recorded"}
-        box = _crop_px(row)
-        try:
-            sheet, gsz, gbox = _sheet(site, row, box)
-            kind = ("LiDAR relief shading" if fitkit.ground(site["id"]).endswith("relief.jpg")
-                    else "aerial photograph")
-        except Exception as e:
-            return {"note": "picture not available for the sheet: %s" % e}
-        try:
-            ans = llm.ask_json(_model_prompt(site, row, box, gsz, gbox, kind, proposal),
-                               images=[sheet])
-        except Exception as e:
-            return {"note": "model call failed: %s" % e}
-        if isinstance(ans, dict) and ans.get("_unparsed"):
-            return {"note": "model answer not parseable: %s" % str(ans["_unparsed"])[:120]}
-        pairs, feats = _parse_answer(ans, box, gsz, site)
-        if not pairs:
-            return {"note": "the model recorded no usable pairs"}
-        note = ("features: " + ", ".join(f for f in feats if f)) if any(feats) else None
-        stated = ans.get("scale_m_px") if isinstance(ans, dict) else None
-        if (len(pairs) >= 3 and isinstance(stated, (int, float))
-                and not isinstance(stated, bool) and stated > 0):
-            a, _, _, k = plan_fit.similarity(pairs[:min(8, len(pairs))])
-            implied = abs(a) * k  # a is complex (scale + rotation): its magnitude is the scale
-            if implied == implied and implied > 0 and max(implied / stated, stated / implied) > 2.0:
-                note = ((note + "; ") if note else "") + (
-                    "stated scale %.3f disagrees with its own points (%.3f m/px): not trusted"
-                    % (stated, implied))
-                pairs, feats = pairs[:3], feats[:3]  # <4: run_sites routes it to the item
-        if len(pairs) >= 4:
-            ok, frac = _feature_present(site, [(p[2], p[3]) for p in pairs],
-                                        fitkit.ground(site["id"]))
-            if not ok:
-                note = ((note + "; ") if note else "") + (
-                    "only %d%% of the recorded points sit on more textured ground than a typical "
-                    "region of this site: the features are not visible where claimed - not trusted"
-                    % round(frac * 100))
-                pairs, feats = pairs[:3], feats[:3]  # <4: run_sites routes it to the item
-        return {"pairs": pairs, "note": note}
-
-    return model
-
-
-def _ground_lonlat(site, col, row, size):
-    """Ground image px -> lon/lat through the site's corners (fitkit.lonlat's formula)."""
-    sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "pipeline"))
-    import aw
-    (lon0, lat1), (lon1, _), (_, lat0) = site["corners"][0], site["corners"][1], site["corners"][2]
-    x0, y1 = aw.to_merc(lon0, lat1)
-    x1, y0 = aw.to_merc(lon1, lat0)
-    W, H = size
-    return aw.to_lonlat(x0 + (col + 0.5) / W * (x1 - x0), y1 - (row + 0.5) / H * (y1 - y0))
-
-
-def recorded_model(answers):
-    """A model whose answers come from a fixed recorded file:
-    {"<site id>": {"<plan id>": {"pairs": [[u, v, lon, lat], ...], "note": ...}}}.
-    The test's fixed answers (and dry runs) use it: no network, no model server."""
-    def model(site, row, proposal):
-        rec = (answers.get(site["id"]) or {}).get(row["id"])
-        if rec is None:
-            return None
-        return dict(rec)
-    return model
-
-
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--root", default=str(ROOT), help="the project root (default: this checkout)")
@@ -737,23 +447,13 @@ def main(argv=None):
                     help="regenerate tests/golden/hand_fit_docs.sha256 and exit")
     ap.add_argument("--sites", nargs="*", default=None,
                     help="site ids to run (default: all region-US sites)")
-    ap.add_argument("--working", action="store_true",
-                    help="the model is the local vision model on the fitkit sheet (network allowed)")
-    ap.add_argument("--model-json", default=None,
-                    help="recorded model answers (a dry run; no model server, no network)")
     ap.add_argument("--report", default=None, help="report path (default: docs/batch_us.md)")
     a = ap.parse_args(argv)
     if a.golden:
         print(write_golden(a.root))
         return 0
-    if a.working:
-        model = llm_model(a.root)
-    elif a.model_json:
-        model = recorded_model(json.loads(Path(a.model_json).read_text()))
-    else:
-        ap.error("a model is required: --working (the local vision model) or --model-json (recorded answers)")
     site_ids = a.sites or us_sites(a.root)
-    records = run_sites(a.root, site_ids, model)
+    records = run_sites(a.root, site_ids)
     report = write_report(a.root, records, path=a.report, at=_now())
     counts = classify(records)
     print("batch US: %d sites: %s" % (len(records),

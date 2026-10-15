@@ -1,0 +1,33 @@
+{
+ "site": "new-orleans-q34404",
+ "candidates": [
+  {
+   "plan": "c_187c8506049a27f6",
+   "title": "New Orleans, the Bachman bird's-eye view (1851)",
+   "url": "media/commons/new-orleans-q34404/187c8506049a27f6.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-14",
+    "named_place": "New Orleans",
+    "place_qid": "Q34404",
+    "place_label": "New Orleans",
+    "place_lon": -90.078333,
+    "place_lat": 29.976111,
+    "site_lon": -90.078333,
+    "site_lat": 29.976111,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.5625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "not sure: 3 consistent points (need 10)"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

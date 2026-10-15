@@ -1,47 +1,47 @@
 # The cover (212): the last uncovered sites, the final sync, the report
 
-at: 2026-10-13T13:22:09.600423+00:00
+at: 2026-10-14T17:32:08.111691+00:00
 
-Built sites: 499. 106 site(s) still have neither - the invariant is broken, see the items.
+Built sites: 499. 3 site(s) still have neither - the invariant is broken, see the items.
 
-Fit documents: 57 total: 21 hand (the golden set), 0 human-saved (by:hand outside it), 36 automatic (by:agent: batch + matcher + line-saved)
+Fit documents: 71 total: 22 hand (the golden set), 0 human-saved (by:hand outside it), 49 automatic (by:agent: batch + matcher + line-saved)
 
 ## Counts (one bucket per built site; a fitted site can also carry an item for its other pictures)
 
-- fit: hand (the golden set): 19
+- fit: hand (the golden set): 20
 - fit: human-saved: 0
-- fit: automatic: 24
-- review item: 106
-- no picture found: 244
-- uncovered (needs attention): 106
-- review items open on the page: 365 (of 377 item files)
+- fit: automatic: 33
+- review item: 200
+- no picture found: 243
+- uncovered (needs attention): 3
+- review items open on the page: 456 (of 480 item files)
 
 ## Sample of automatically accepted fits (for the human's 18/20 check)
 
-Seed: 20261012 (the sample below is reproducible from it: random.Random(20261012) over the sorted ids of all 36 automatic documents)
+Seed: 20261012 (the sample below is reproducible from it: random.Random(20261012) over the sorted ids of all 49 automatic documents)
 
 | doc | page | gate med (m) |
 |---|---|---|
-| groningen-q749.c_498f9aa12d03fc30 | #groningen-q749 | 11.1 |
+| douai-q193826.c_661c074bcd04d49a | #douai-q193826 | 12.1 |
 | argentoratum-q2361353.c_191c6221a81caad0 | #argentoratum-q2361353 | 7.8 |
 | argentoratum-q2361353.c_5bfb0472f266c056 | #argentoratum-q2361353 | 10.0 |
 | watson-brake-q2552689.c_b52ddcad2ee295c4 | #watson-brake-q2552689 | 2.2 |
 | argentoratum-q2361353.c_5badc8c867ef5d98 | #argentoratum-q2361353 | 9.2 |
-| castle-neroche-q5050201.earthworkenglan01allcgoog_n0110_1 | #castle-neroche-q5050201 | 6.5 |
-| zwolle-q793.c_f9cddae6b944a648 | #zwolle-q793 | 10.2 |
-| forthill.b24849959_n0269_1 | #forthill | 5.7 |
-| castle-neroche-q5050201.c_44529cdbe2d10a9c | #castle-neroche-q5050201 | 3.6 |
-| douai-q193826.c_661c074bcd04d49a | #douai-q193826 | 12.1 |
-| utrecht-q803.c_f5f96070065c0763 | #utrecht-q803 | 12.1 |
-| argentoratum-q2361353.c_b3533cd48dfc6452 | #argentoratum-q2361353 | 4.9 |
-| bavay-q477176.c_e8345a33509010ae | #bavay-q477176 | 4.6 |
-| argentoratum-q2361353.c_436bea5010beea89 | #argentoratum-q2361353 | 4.3 |
-| argentoratum-q2361353.c_87dc28a9645f0e59 | #argentoratum-q2361353 | 4.6 |
-| lille-q648.c_1f7cce1c856a7bcb | #lille-q648 | 10.4 |
-| saint-omer-q208793.c_df791c935a4905f7 | #saint-omer-q208793 | 11.3 |
-| cawthorne-camp-q5055239.earthworkenglan01allcgoog_n0325_1 | #cawthorne-camp-q5055239 | 2.2 |
-| cenabum-q2710144.c_e73dc8c09b2fea43 | #cenabum-q2710144 | 9.3 |
+| le-cateau-cambresis-q329103.c_f613a7c2165ba280 | #le-cateau-cambresis-q329103 | 12.0 |
 | gravelines-q323399.c_173e0d61c038bada | #gravelines-q323399 | 8.0 |
+| argentoratum-q2361353.c_6acfd94dec8c011b | #argentoratum-q2361353 | 1.8 |
+| burcht-van-leiden.c_2ed7167f77ea05d4 | #burcht-van-leiden | 6.2 |
+| daw-s-castle-q5242247.c_8d2281628567a166 | #daw-s-castle-q5242247 | 2.4 |
+| watson-brake-q2552689.c_5e7bb19c79b509ed | #watson-brake-q2552689 | 4.4 |
+| arras-q131329.c_4e242bc2623751a0 | #arras-q131329 | 12.7 |
+| old-sarum-q782719.c_b2701b5231da42f2 | #old-sarum-q782719 | 2.5 |
+| saint-omer-q208793.c_df791c935a4905f7 | #saint-omer-q208793 | 11.3 |
+| lille-q648.c_1f7cce1c856a7bcb | #lille-q648 | 10.4 |
+| portus-adurni-q762664.c_42bedb90fffce1d4 | #portus-adurni-q762664 | 2.2 |
+| castle-neroche-q5050201.earthworkenglan01allcgoog_n0110_1 | #castle-neroche-q5050201 | 6.5 |
+| dudley-castle-q5311832.c_e66ec095ee45aed0 | #dudley-castle-q5311832 | 2.5 |
+| newark.ArcheologicalAtlasOfOhio_n0098_1 | #newark | 15.8 |
+| cenabum-q2710144.c_e73dc8c09b2fea43 | #cenabum-q2710144 | 9.3 |
 
 ## No picture found (exactly what was searched, per site)
 
@@ -222,7 +222,6 @@ Seed: 20261012 (the sample below is reproducible from it: random.Random(20261012
 | nanih-waiya-q6963605 (nanih-waiya-q6963605) | wikidata Q6963605; no Commons category; P180 depictions of Q6963605: 0 of 1 file(s) checked; title searches: ""Nanih Waiya" plan", ""Nanih Waiya" map OR survey", ""Nanih Waiya" engraving OR drawing OR view OR prospect -"style of"" (0 hits); 2026-10-13 |
 | navio-roman-fort-q17667745 (navio-roman-fort-q17667745) | wikidata Q17667745; no Commons category; P180 depictions of Q17667745: 0 of 2 file(s) checked; title searches: ""Navio Roman fort" plan", ""Navio Roman fort" map OR survey", ""Navio Roman fort" engraving OR drawing OR view OR prospect -"style of"" (0 hits); 2026-10-13 |
 | norwood-mound-q7061637 (norwood-mound-q7061637) | wikidata Q7061637; Commons category 'Norwood Mound' (5 files); P180 depictions of Q7061637: 0 of 5 file(s) checked; title searches: ""Norwood Mound" plan", ""Norwood Mound" map OR survey", ""Norwood Mound" engraving OR drawing OR view OR prospect -"style of"" (0 hits); 2026-10-13 |
-| numancia (numancia) | web/data/plans.json (1166 rows, matched by the sites field) |
 | ocmulgee-mounds-national-historical-park-q1517500 (ocmulgee-mounds-national-historical-park-q1517500) | wikidata Q1517500; Commons category 'Ocmulgee Mounds National Historical Park' (201 files); P180 depictions of Q1517500: 0 of 192 file(s) checked; title searches: ""Ocmulgee Mounds National Historical Park" plan", ""Ocmulgee Mounds National Historical Park" map OR survey", ""Ocmulgee Mounds National Historical Park" engraving OR drawing OR view OR prospect -"style of"" (4 hits); 2026-10-13 |
 | odd-fellows-cemetery-mound-q7077319 (odd-fellows-cemetery-mound-q7077319) | wikidata Q7077319; Commons category 'Odd Fellows' Cemetery Mound' (3 files); P180 depictions of Q7077319: 0 of 3 file(s) checked; title searches: ""Odd Fellows' Cemetery Mound" plan", ""Odd Fellows' Cemetery Mound" map OR survey", ""Odd Fellows' Cemetery Mound" engraving OR drawing OR view OR prospect -"style of"" (0 hits); 2026-10-13 |
 | oldorp-q931301 (oldorp-q931301) | wikidata Q931301; Commons category 'Oldorp' (5 files); P180 depictions of Q931301: 0 of 5 file(s) checked; title searches: ""Oldorp" plan", ""Oldorp" map OR survey", ""Oldorp" engraving OR drawing OR view OR prospect -"style of"" (0 hits); 2026-10-13 |
