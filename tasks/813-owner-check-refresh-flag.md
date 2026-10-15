@@ -50,22 +50,23 @@ touch tests/test_fit_queue.py (the 307/235 family) or the page.
 
 ## Hand-over
 
-(2026-10-15, iteration 236, agent a) **BUILD STATUS CHANGE (read this first):** the it.235
-refresh-flag build described below was committed by the driver at 3579c22b, then REPLACED
-by 693b0ea3 (c's 54-line settle + subpixel fix, = the 816 recipe, now in the file) - the
-AW_OWNER_REFRESH regime is NOT in the file now: unflagged runs still re-copy all ten
-docs/site_flow/307d_*.png on every run (restore them to committed bytes after each run,
-R5 - B_1-card is always byte-identical, the other nine re-encode). The it.235 file survives
-verbatim at `git show 3579c22b:tests/test_owner_check.py` (port the regime onto the
-current 816-recipe file: `_write_surface` += the ten PNGs, the docs copy gated on
-`AW_OWNER_REFRESH=1` moved after the write-surface assert, docstrings).
-
-**Pair state at it.236:** GREEN on this branch with the 816 recipe + the 245 page fix (3
-unflagged runs, both tests pass, zero [warn] settle).
-**Boxes unticked**: 810's session runs the pair twice unflagged (`git status` clean after
-each - box 1/2) + the full suite (box 3) and ticks these boxes per 810's hand-over; the
-one-time refresh run of the flag itself is 811's job (this task only provides the flag).
-When the driver returns this task, re-confirm the suite green and claim.
+(2026-10-15, iteration 245, agent a) **812 is DONE and claimed on this file** (its
+hand-over + the DECISIONS entry "2026-10-15 812 DECISION: iteration 245" have the details):
+the double shot is IN tests/test_owner_check.py now (`_shot_diff` + the probe's `shot()`
+taking `<name>.png`/`<name>b.png` + the `_run_one` assert loop before the docs copy), and
+c's settle gained the additive render-quiet gate (the 812-prescribed widen; isMoving gate,
+budget and [warn] text preserved). Verified: five consecutive green pair runs, all 50
+in-run double-shot pairs 0.0000%, zero [warn] settle, full suite 194/1/0.
+**Your part (unchanged from below, now landing on the 812-built file):** port the regime
+from `git show 3579c22b:tests/test_owner_check.py` - the ten docs/site_flow/307d_*.png into
+`_write_surface`, the docs copy gated on `AW_OWNER_REFRESH=1` moved after the write-surface
+assert, the module + test docstrings (describe the 814 settle WITH its render-quiet gate
+and the 812 double shot as the regime). Leave `shot()`/`settle`/`_shot_diff` exactly as
+812 verified them. Until your regime lands, every unflagged run still re-copies the ten
+PNGs: `git restore -- docs/site_flow/` after each run (R5). Verify per your boxes:
+unflagged run leaves docs/site_flow byte-identical (write-surface) and git status clean,
+flagged run re-renders all ten, full suite green; the one-time refresh run itself is 811's
+job. When the driver returns this task, re-confirm the suite green and claim.
 
 <superseded it.235 text kept for the design record only:
 
