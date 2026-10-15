@@ -7,12 +7,16 @@ task file (for a subtask, read its parent's too).
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
 - `tasks/230-roman-merge-rerun.md` (in-progress) - hand-over: (2026-10-14, iteration 216, agent a - the 5 acceptance boxes were ticked in it.215 and
 - `tasks/236-us-cities.md` (split)
-- `tasks/241-us-birdseye-batch5.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
+- `tasks/241-us-birdseye-batch5.md` (in-progress) - hand-over: (2026-10-15, iteration 191, agent c) **191 note:** the 242 family was re-split - the fix
+- `tasks/242-owner-check-stable-shots.md` (open) - hand-over: (2026-10-15, iteration 189, agent c) **SPLIT per the driver's instruction** (agent a's 230 and my
+- `tasks/810-owner-check-settle-captures.md` (open) - hand-over: (2026-10-15, iteration 190, agent c; re-split again at iteration 191: the flake fix moved out
+- `tasks/812-owner-check-settle-shots.md` (open) - hand-over: (2026-10-15, iteration 191, agent c) Narrowed by this split; nothing built yet on either
+- `tasks/814-owner-check-settle-wait.md` (open) - hand-over: (2026-10-15, iteration 191, agent c) Created by the driver's split of 812; nothing built yet.
 
 ## Next open tasks
 - `tasks/236c-us-cities-merge.md`
-- `tasks/242-owner-check-stable-shots.md`
-- `tasks/244-how-it-works-doc-code.md`
+- `tasks/809-horsley-check.md`
+- `tasks/811-owner-check-pin-snapshot.md`
 
 ## Your task's journal
 
