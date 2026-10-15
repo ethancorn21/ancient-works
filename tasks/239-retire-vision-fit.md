@@ -60,9 +60,218 @@ are).
 
 ## Hand-over
 
-(2026-10-14, iteration 223, agent a - (e) NOT started (no edits this session); the FULL
-reconnaissance for (e) is done - the next session writes the new test files straight from
-the designs below. NEXT SESSION: (e) the eight test files, one commit.)
+(2026-10-14, iteration 224, agent a - (e) STILL not started (no edits; this session =
+verification only: every fact below re-confirmed live in it.224). NEXT SESSION: (e) -
+write/patch the EIGHT test files exactly per the designs below, one commit, then run the
+fast subset (batch x2, site_done, fit_provenance).)
+
+**State:** branch agent/a, tree clean (verified by git status at it.224 start; the probes
+were read-only). (a)-(d) all in (DECISIONS it.220-222; site_done/cover/batch_us/batch_eu
+already in retired form and committed). Remaining: (e) 8 test files, (f) fixture
+re-record, (g) docs/site_flow.md 300 section, (h) verify + close.
+
+**it.224 re-verification (all confirmed by running code; live state re-measured and STILL
+matches the it.223 numbers):** US: serpent 16 cands/1 pre-doc(ancientmonuments00squi_n0210_1)/
+15 item cands/unresolved; cahokia 5/2(c_1a7c2a11c3a0dd21, c_aff1b996dce7fe3a)/4 item/resolved by
+c_1a7c2a11c3a0dd21; mound-bottom 1 cand = its doc, no item; first zero-cand US sorted =
+aberdeen-mound-q4666953 (no item, no pre_fit); 90 US sites. EU: newark 21/1
+(ArcheologicalAtlasOfOhio_n0098_1)/21 item/resolved; forthill 4/1(b24849959_n0269_1)/4/resolved;
+marietta 4/0/4/unresolved; fudge+highbank+hopeton 0 cands + site.json pre_fit, no item;
+yeavering-bell 0 cands/no pre_fit/no item; avebury 7/1(earthworkenglan01allcgoog_n0581_1)/5 item/
+6 uncov/unresolved; old-sarum 5/4/3 item/1 uncov/resolved by c_b2701b5231da42f2; 418 EU sites.
+APIs: `propose.propose_for(site_id, plan_id, root=ROOT)` (default root = checkout; batch_us._entry
+calls it 2-arg with try/except (ValueError, KeyError) - the test's _check_entry must call it the
+SAME way, default root: both read the same hard-linked data). `review.upsert_item`: same-plan
+entries replace IN PLACE (position kept), new plans APPENDED, resolved write-once, lead follows
+candidates[0].plan -> in these runs the lead can never move (index 0 only replaced in place or
+untouched), so item file names are stable. `matchfit.reachable()` catches ALL exceptions
+(AssertionError from dead sockets -> False, no crash). `plan_fit.who_placed`: by hand/agent wins;
+else auto->agent; else None (case-b seed = golden doc minus auto mark -> None -> refused).
+Fixtures (for (f)): records.json header.confident.expected_stdout = 11 lines (line 0 = the deleted
+"fit  no model given..." line); records_unsure.json header.unsure.expected_stdout = 8 lines
+(line 0 deleted line; line 2 = matcher's "not sure: 8 consistent points (need 10)" print; lines 3
+and 6 carry "no model answer" in the sent-to-queue + summary lines), unsure.item[0].why =
+"no model answer", best = 8 inliers; the new code makes line 3/6 + the item's why all become
+"not sure: 8 consistent points (need 10)" (RoMa dead port -> no "; RoMa ..." suffix) and both
+fixtures lose line 0 -> 10/7 lines. record.py carries the two stdout line-count asserts (11/8)
+to update to 10/7, and header.task '302f' -> '239'.
+
+**(e) designs (the it.223 plan, confirmed valid):**
+
+- **test_batch_us.py FULL REWRITE** (write tool). Keep verbatim: no_network, _link_tree,
+  _WRITE_IN_PLACE, tree, tmp_path_retention_policy, _sha, _golden, _rows, _sites, _pre,
+  _item_files, _item, _source_evidence, _table, _syn_records, GOLDEN, SERPENT/CAHOKIA/
+  MOUNDBOTTOM. Delete: _answers/_corner_pairs/_expected/_stub_site/STUB_*/*ANSWER_PLANS/
+  _recorded_model/_rows_by_id, fit_gate/plan_fit imports (keep batch_us + propose). Add:
+  ```
+  NO_MATCHER = "no matcher on this machine"
+  _VERDICTS = ("not sure: 8 consistent points (need 10)",
+               "median residual 106.4 m > 45.0 m", "picture not on this machine")
+  def _recorded_reasons(sids):  # STATE-AWARE: one verdict per LIVE candidate, sha1(plan)%3
+      out = {}
+      for sid in sids:
+          for r in batch_us.candidates(sid, _rows()):
+              out[r["id"]] = _VERDICTS[int(hashlib.sha1(r["id"].encode()).hexdigest(), 16) % 3]
+      return out
+  def _check_entry(sid, row, entry, why):  # plan==row["id"]; title/url as _entry; entry["why"]==why;
+      # evidence == _source_evidence(ROOT, row); pairs == []; "gate_score" not in entry;
+      # propose.propose_for(sid, row["id"]) 2-arg DEFAULT root (same call as _entry):
+      # except (ValueError, KeyError) -> coarse is True; else each of coarse/ground/scale_m_px/
+      # rot_deg/scale_source/note that is not None == p[k]
+  ```
+  _sample() = [SERPENT, CAHOKIA, MOUNDBOTTOM, first zero-cand US site sorted (assert non-empty)].
+  Tests (4): (1) test_sample_run_records_reasons: pre_docs/pre_fit/pre_items snapshots BEFORE;
+  records = run_sites(tree, sample, _recorded_reasons(sample)); per site: detail skip for pre-docs /
+  {"outcome": "item", "why": reasons[plan]} for uncovered; auto == []; pre_fit == before;
+  no_picture == (no cands and not pre_fit); item == (bool(uncov) or no_picture); if nothing written:
+  _item == pre-item (parsed equality, incl. None); else: exactly 1 item file (catches moves),
+  resolved == pre (write-once), no_picture: candidates [] + searched ==
+  "web/data/plans.json (%d rows, matched by the sites field)" % len(rows) + at; else: candidate set ==
+  pre-item plans | uncov plans, each uncov c passes _check_entry(c, reasons[plan]), every other c ==
+  old[c["plan"]] (byte-identical survive). Explicit blocks: mound-bottom all skip / no item / no
+  no_picture; zero-cand site: no-picture item, candidates [], searched string. (2) test_no_reasons_
+  records_no_matcher: CLI form run_sites(tree, sample) (no reasons kwarg); assert at least one
+  uncovered exists in the sample; every detail "item" why == NO_MATCHER; in each item every entry
+  whose plan is uncovered has why == NO_MATCHER (pre-doc entries keep their old whys - filter on
+  the uncovered set, not on "not in pre"). (3) test_batch_adds_items_rewrites_none: golden hashes
+  equal before and after; every pre-existing file under data/ + web/ byte-identical EXCEPT the
+  sample sites' own item files (keep site/resolved/plans-subset); NO new file anywhere except
+  data/review/ items of sample sites (in particular NO new file under data/db/platefits - the batch
+  writes no docs anymore). (4) test_report_reproducible_from_seed: records = run_sites(tree, sample)
+  CLI form; write_report twice to tmp paths -> byte-identical; text startswith "# The batch, US
+  (203a)", "Seed: %d" % batch_us.SEED, "Sites run: %d" % len(sample), each count line; counts[
+  "automatic fit"] == []; sample table == ["(none)"]; per-candidate table (parse 5-cell rows after
+  "## Per candidate": skip rows = [sid, plan, "skip", "", ""], uncovered = [sid, plan, "item", "",
+  NO_MATCHER], zero-cand site = [sid, "-", "no-picture", "", ""] or [sid, "-", "no candidate changed",
+  "", ""] when pre_fit; order: sites sorted, plans sorted); synthetic: _syn_records(1,3) sample ==
+  random.Random(batch_us.SEED).sample(sorted 3, 3) (a full sample IS a seeded shuffle, not sorted!);
+  _syn_records(2,11) -> exactly random.Random(SEED).sample(sorted 22, 20) in order, every sampled
+  row's page == "#" + site and score == "1.0" (parse 3-cell rows). import random in this file.
+- **test_batch_eu.py FULL REWRITE.** Same skeleton + _row_for (per-site row lookup - the Larned
+duplicate c_ffb3daac218b481f names two sites) and _output_files (union test). Constants: REGIONLESS
+= [FORTHILL, "fudge", "highbank", "hopeton", MARIETTA, NEWARK] (order kept), NO_PIC =
+"yeavering-bell-camp-q17643662", AVEBURY, OLDSARUM. _sample() = REGIONLESS + [NO_PIC]. Tests (7):
+  1. test_sample_run_records_reasons - as US (1) but EU sample; explicit blocks: fudge/highbank/
+  hopeton (0 cands + pre_fit -> nothing written, no item, no no_picture) and NO_PIC (no-picture
+  item re-stamped: candidates [], searched string, resolved None kept). 2. test_no_reasons_records_
+  no_matcher - as US (2) (uncovered guaranteed: newark 20, forthill 3, marietta 4, avebury... not in
+  sample; 19 total). 3. test_batch_adds_items_rewrites_none - as US (3) PLUS the 6 region-less
+  data/sites/<sid>/site.json files byte-identical pre/post (they are not in the golden). 4.
+  test_report: records = run_sites(tree, sample) CLI form; batch_eu.write_report twice ->
+  byte-identical; startswith "# The batch, EU (203b)", Seed, Sites run: 7; counts: automatic fit ==
+  []; already hand-fitted == sorted(s for s in REGIONLESS if batch_us.is_pre_fit(tree, s)) (all 6
+  today - a site with items stays here: classify checks pre_fit before item); NO_PIC: no cands ->
+  no picture found == [NO_PIC], review item == []; else the reverse; sample table == ["(none)"]
+  through batch_eu's writer; PLUS synthetic _syn_records(2,11) through batch_eu.write_report: sample
+  == random.Random(SEED).sample(sorted 22, 20) (this gives _syn_records its job in this file);
+  text.endswith(batch_eu.union_section(batch_eu.union_check(tree))); "Coverage: C covered, M
+  missing, 0 in both" with C+M == n_sites(tree); the regionless sentence; default path ==
+  tree/docs/batch_eu.md byte-equal to p1 and NO tree/docs/batch_us.md. import random, re. 5.
+  test_hand_fitted_sites_get_items_for_their_other_pictures: sample [AVEBURY, OLDSARUM], reasons =
+  _recorded_reasons(sample); before/pre-item/live golden snapshots; records = run_sites(tree,
+  sample, reasons); per site: pre_fit True, auto [], no no_picture; detail skip for before / item
+  with reasons[plan] for fresh; item == bool(fresh); if fresh: 1 item file, resolved == live's
+  (write-once), no_picture_found None, candidate set == live | fresh, fresh c pass
+  _check_entry(sid, _row_for(sid, plan), c, reasons[plan]), other c == old; NO new platefits file
+  for any fresh plan; else _item == live. Golden byte-identical after. 6-7. test_union_check /
+  test_union_full_coverage_live: byte-identical to the old file EXCEPT
+  `batch_us.run_sites(tree, _sample(), _recorded_model())` -> `batch_us.run_sites(tree, _sample())`
+  (the CLI form; the union check is records-agnostic). The live one keeps its skip-gate (it reads
+  docs/batch_eu.md "Sites run" vs the live 418 EU partition).
+- **test_site_done.py (4 small edits):** (i) docstring run-bullet "no model is needed and no
+  picture is fetched" -> "the pretrained matcher is unreachable so it is never called, and no
+  picture is fetched"; (ii) _run docstring ", no model" -> "(sockets dead: the matcher is
+  unreachable and never called)"; (iii) first run: DELETE `assert lines[0] == 'fit  no model
+  given: ...'`, lines[1]->lines[0] (site header), lines[2]->lines[1] (fit summary
+  `{len(rows)} candidate picture(s): {len(docs)} fitted (doc), {len(orig)} in the review item -> no
+  batch run needed`), `len(lines) == 3 + len(docs) + 2 + len(rows) + 1` -> `2 + len(docs) + 2 +
+  len(rows) + 1`; (iv) second run: keep `lines2[0] == lines[0]` (both site headers), DELETE
+  `lines2[1] == lines[1]` (the fit summaries now DIFFER: 7 vs 0 fitted), and the explicit
+  `lines2[1] == f"fit  {len(rows)} candidate picture(s): 0 fitted (doc), {len(cands)} in the review
+  item -> no batch run needed"`. The two `_summary` mirrors (cand.get("why") or "no model answer")
+  STAY (display fallback; live entries all have a why). Rationale: Stonehenge has uncovered == 0
+  in both runs, so `any(not in docs)` is True, matchfit.reachable() IS called (dead sockets ->
+  False, no crash), the matcher never runs, need_fit False -> "no batch run" runs.
+- **test_fit_provenance.py (case b + docstrings):** module docstring case b "sockets dead, no
+  model - the refusal precedes the build, so nothing is downloaded" -> "sockets dead - the
+  matcher is unreachable so it is never called, and nothing is downloaded"; _run docstring ", no
+  model" -> "(sockets dead: the matcher is unreachable and never called)"; _mini_tree docstring
+  "needs no download, no model, no network" -> "needs no download and no network"; case b
+  asserts: DELETE lines[0] (no model given), shift: lines[1]->[0] site header, lines[2]->[1] fit
+  summary ({n_item} ... 1 fitted, {n_item-1} ...), lines[3]->[2] sync refused (NO_PROVENANCE),
+  lines[4]->[3] entry, lines[5]->[4] review line; `lines[6:6+len(expected)]` -> `[5:5+len(...)]`,
+  `lines[6+len(expected)] == "done"` -> `[5+len(...)]`, `len(lines) == 6 + len(expected) + 1` ->
+  `5 + len(expected) + 1`; the `cand.get("why") or "no model answer"` mirror in the expected
+  summary STAYS (display fallback). Second run `out2.splitlines() == lines` stays (idempotent).
+- **test_fit_queue.py (5 small edits, do NOT touch test_placement_gestures...):** _pick_site
+  docstring: "so the line's model=None path runs and lands in the item as "no model answer""
+  -> "so the no-matcher path runs and lands in the item as "no matcher on this machine""; the
+  `picks.sort(key=lambda p: not p[2])` comment "the no-model path runs" -> "the no-matcher path
+  runs"; test_save_runs_the_one_site_line docstring: "The line's model is None and every socket
+  in the server process is dead, so the run is network-free: any unfitted candidate lands in the
+  item as "no model answer"" -> "Every socket in the server process is dead, so the matcher is
+  unreachable and the run is network-free: any unfitted candidate is recorded in the item as "no
+  matcher on this machine""; the comment above the why-check "went to the item as "no model
+  answer" (the line has no model)" -> "was recorded in the item as "no matcher on this machine"
+  (the matcher was not reachable in the server process)"; the assert ->
+  `after_cands.get(u, {}).get("why") == "no matcher on this machine", u`. (Path: server process
+  runs site_done.main([site]) with sockets dead -> reachable() False -> reasons dict -> run_sites
+  items. The pick prefers a site WITH an uncovered row; if there is none, the block is skipped.)
+- **test_owner_check.py (ISOLATE to check 7; do NOT touch _run_one/_capture/screenshot-copy -
+  242's):** the check-7 comment block -> "The no-batch line prints on every run: every candidate
+  is the saved doc or an item candidate, so the matcher (unreachable - sockets dead) is never
+  called and the batch never runs" (drop the no-model sentence); want_fit drops its first element
+  -> only `f"fit  {len(rows)} candidate picture(s): {n_doc} fitted (doc), {len(rows) - n_doc} in
+  the review item -> no batch run needed"`. `assert not any("matcher" in ln ...)` stays green
+  (matcher never runs -> no "matcher" print; "no matcher on this machine" is never printed either
+  since uncovered == 0 -> reasons {}). Verify against the pick's contract (every row of the site
+  is the saved doc or an item candidate) before relying on it.
+- **test_matchfit_station.py (2 edits; fixtures STAY until (f)):** module docstring unsure bullet
+  "with the batch's own reason ("no model answer", from the socket-dead vision pass)" -> "with
+  the matcher's recorded reason ("not sure: 8 consistent points (need 10)" - the RoMa port is
+  dead, so no "; RoMa ..." suffix)"; the assert `cand["why"] == "no model answer"` -> `cand[
+  "why"] == "not sure: 8 consistent points (need 10)"`. The stdout asserts read the fixture
+  (hdr["expected_stdout"]) - unchanged here.
+- **ONE COMMIT for all of (e)** (8 files: the two rewrites + six patches; test_cover.py stays
+  byte-unchanged - zero model hits in it). **Suite is RED BY CONSTRUCTION after (e) until (f):**
+  test_matchfit_station (stale fixtures: old 11/8-line stdout + "no model answer" item) and the
+  pre-existing test_fit_queue::test_placement_gestures_and_save_in_the_browser (red since
+  2026-10-13, NOT 239's). Everything else in the 8-file set must be green; run the four fast
+  ones (batch_us, batch_eu, site_done, fit_provenance) this/next session; fit_queue's
+  test_save_runs_the_one_site_line is ~30 s and worth running; owner_check is browser-heavy -
+  if run, restore the 307d PNGs after (hygiene below).
+
+**(f)** fixture re-record: FIRST `curl -s http://127.0.0.1:8091/health`. Up: edit record.py's two
+stdout line-count asserts 11->10, 8->7 and header.task '302f'->'239', run `.venv/bin/python
+tests/fixtures/matchfit_station/record.py`, commit both refreshed fixtures (expected_stdout loses
+line 0; unsure's line 3/6 + item.why become the matcher's clause; input_hashes + matcher_health
+refreshed). Down: DECISIONS entry + come back next session; do NOT hand-edit the fixtures
+(record.py is the only writer: it also re-records responses/input_hashes).
+
+**(g)** docs/site_flow.md: reword ONLY the 300 section: usage block lines 5-7 drop `[--working |
+--model-json FILE]`; step 1 (~lines 19-27) mirrors the new site_done docstring (matcher first;
+second pass records reasons only; no model pass). Append-only for every other section.
+
+**(h)** verify + close: 8 files green; full suite no NEW reds vs the 2026-10-13 driver note (only
+the pre-existing placement_gestures red); golden byte-identity + git status clean on
+data/db/platefits and data/review; tick the 5 boxes, Status: done.
+
+**Hygiene:** .venv works. Never `git add -A` (explicit paths). After running test_fit_queue /
+test_owner_check: `git checkout -- docs/site_flow/` (they regenerate docs/site_flow/307d_*.png;
+agent c's 241 works in its own checkout but the driver merges - leave no dirt). A/B in-checkout
+only, never a bare worktree. tests must not bind fixed ports (all ephemeral) or write outside
+tmp.
+
+**Pitfalls to re-read before (e):** PITFALLS fit/ - "pre_docs matches any existing <site>.*.json"
+(snapshot pre-run state before run_sites; moot for docs now but keep the discipline), "Recorded-
+answer batch tests must be state-aware" (same for recorded reasons: compute uncovered from the
+LIVE tree), "write_report (path=None) silently falls back to docs/batch_us.md" (batch_eu pins its
+own); tools/site_done.py, fit/review.py - "A batch re-run of a review-item row replaces that
+candidate's entry whole" (the upsert replaces same-plan entries in place, keeps other plans' entries
+whole, resolved write-once - the tests assert exactly that); "Patching matchfit.reachable for an
+offline replay needs a lambda returning False - a bare False crashes the run" (the batch tests
+need no such patch: the batch never calls the matcher; the line tests rely on reachable()'s own
+except-Exception turning dead sockets into False).
 
 **State:** branch `agent/a`, tree clean. The whole (a)-(d) chain is in (see DECISIONS it.220-222):
 (a) fit/batch_us.py `run_sites(root, site_ids, reasons=None)` - no model/gate/docs, uncovered ->
