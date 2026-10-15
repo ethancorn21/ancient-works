@@ -12,7 +12,7 @@ web/data/review.json becomes the current open list; and docs/batch.md is the rep
 reads - counts per outcome, the seeded 20-sample of automatically accepted fits (page URL and
 gate score each) for the 18/20 check, and the no-picture list.
 
-usage: .venv/bin/python fit/cover.py <phase> [--root DIR] [--working | --model-json F] [--live]
+usage: .venv/bin/python fit/cover.py <phase> [--root DIR] [--working] [--live]
   phases (run in order by `all`):
     fetch      local copies for every kept files.jsonl row without one (its 1280 thumb; a
                url-only row - the ORL/Limes set - through commons.info's thumburl, falling back
@@ -30,8 +30,9 @@ usage: .venv/bin/python fit/cover.py <phase> [--root DIR] [--working | --model-j
                plans.json again (growth-only)
     loop       the normal loop, one site at a time through tools/site_done.py's one-site line:
                matchfit first (it places what it is sure of and resolves the item), the rest to
-               the review item as "no model answer", a pictureless site the batch's no-picture
-               item (the nopicture phase re-records it with the exact searched record)
+               the review item with the matcher's recorded reason per picture ("no matcher on
+               this machine" when it was not reachable), a pictureless site the batch's
+               no-picture item (the nopicture phase re-records it with the exact searched record)
     nopicture  the search-set sites that ended without a picture get a review item marked "no
                picture found" with exactly what was searched (the human can drop the site or
                name a source from the item)
@@ -47,12 +48,10 @@ usage: .venv/bin/python fit/cover.py <phase> [--root DIR] [--working | --model-j
     export     web/data/review.json = the current open list for the page's Review section (201)
                - the one and only writer of that page file
     report     docs/batch.md (see the phase)
-  --model-json F  recorded model answers for the loop (the batch's dry-run convention);
-                  the loop phase's only flag
   --live          stage: evidence.record fetches the live route for the new rows (network)
   --working       REFUSED by this task: the local vision model invented its fit points (301) and
                   the lead (ef84a05) forbids it for placement - 212's fit is the matcher. The
-                  flag stays in the parser for the batch-compat; passing it exits 2.
+                  flag stays in the parser; passing it exits 2.
 
 Every phase takes the data root (default: this checkout) so a test drives the phases on a
 temp tree. The report's 20-sample is reproducible: random.Random(SEED_212) over the sorted ids
@@ -510,23 +509,22 @@ def stage(root, classifier=None, live=False, classifier_note=None):
 
 # ---------------------------------------------------------------- loop
 
-def loop(root, model_json=None):
+def loop(root):
     """The normal loop, one site at a time: every built site that still has no fit goes
     through tools/site_done.py's one-site line (fit -> sync -> entry -> review; the line
     syncs each new document itself, refreshes the drawings count, and scopes the review
     export to the site). The fit is the MATCHER: matchfit first (it places what it is sure
     of, including pictures already in a review item - a confident fit resolves the item),
     never the vision model (the lead ef84a05; --working is refused at the CLI). The rest go
-    to the site's review item as "no model answer" (batch_us.run_sites' upsert); a site
-    with no picture gets the batch's no-picture item, which the nopicture phase re-records
-    with the exact searched record. model_json (the batch's recorded dry-run answers) is
-    forwarded as --model-json. -> {site: {rc, lines}} for the report."""
+    to the site's review item with the matcher's recorded reason per picture (its verdict
+    when the matcher refused, "no matcher on this machine" when it was not reachable) via
+    batch_us.run_sites' upsert; a site with no picture gets the batch's no-picture item,
+    which the nopicture phase re-records with the exact searched record.
+    -> {site: {rc, lines}} for the report."""
     root = str(root)
     out = {}
     for sid in sorted(_no_fit_sites(root)):
         args = [sid, "--root", root]
-        if model_json:
-            args += ["--model-json", str(model_json)]
         buf = io.StringIO()
         rc = None
         try:
@@ -824,25 +822,15 @@ def main(argv=None):
     ap.add_argument("phase", choices=["fetch", "search", "stage", "loop", "nopicture",
                                       "sync", "export", "report", "all"])
     ap.add_argument("--root", default=str(ROOT), help="the data root (default: this checkout)")
-    g = ap.add_mutually_exclusive_group()
-    g.add_argument("--working", action="store_true",
-                   help="REFUSED by this task: the vision model invented its fit points (301) "
-                        "and the lead (ef84a05) forbids it for placement - 212's fit is the matcher")
-    g.add_argument("--model-json", default=None,
-                   help="recorded model answers for the loop (the batch's dry-run convention); "
-                        "the loop phase's only")
+    ap.add_argument("--working", action="store_true",
+                    help="REFUSED by this task: the vision model invented its fit points (301) "
+                         "and the lead (ef84a05) forbids it for placement - 212's fit is the matcher")
     ap.add_argument("--live", action="store_true",
                     help="stage: evidence.record fetches the live route for the new rows (network)")
     a = ap.parse_args(argv)
     if a.working:
         print("refused: --working would place fits with the local vision model; 212's fit is the "
               "matcher (the lead, ef84a05) - never by this task")
-        return 2
-    if a.model_json and a.phase not in ("loop", "all"):
-        print("refused: --model-json applies to the loop phase only")
-        return 2
-    if a.model_json and not os.path.isfile(a.model_json):
-        print("error: --model-json file is missing: %s" % a.model_json)
         return 2
     phases = ["fetch", "search", "stage", "loop", "nopicture", "sync", "export", "report"] \
         if a.phase == "all" else [a.phase]
@@ -855,7 +843,7 @@ def main(argv=None):
             elif ph == "stage":
                 stage(a.root, live=a.live)
             elif ph == "loop":
-                loop(a.root, model_json=a.model_json)
+                loop(a.root)
             elif ph == "nopicture":
                 nopicture(a.root)
             elif ph == "sync":
