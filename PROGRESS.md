@@ -46,3 +46,6 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
     FAILED tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
     1 failed, 159 passed, 1 skipped in 424.53s (0:07:04)
     (full test output: .agent/reports/last-test-output.txt)
+
+### 2026-10-15 814 (agent c, iteration 192) HAND-OVER IN PROGRESS (context limit)
+    Task 814 (settle wait for the 307d owner check): the settle() helper is built in the probe (tests/test_owner_check.py) but the session hit its context limit. Key finding: the q1/q2 pair flake is NOT a moving camera (proven settled) - it is MapLibre 5.6.0 default integer-pixel marker rounding (subpixelPositioning=false). Next session: FIRST revert the TEMP instrumentation (clean copy at /tmp/test_owner_check.py.bak) and restore the ten docs/site_flow/307d_*.png to main's bytes (harness auto-saved the instrumented test file + dirty B_4/B_5 PNGs); THEN the probe-side subpixel fix (marker.setSubpixelPositioning(true) on P.marks - public vendored API); THEN the two-run pixel comparison (the 814 acceptance). Full detail: tasks/814-owner-check-settle-wait.md hand-over + DECISIONS.md 2026-10-15 814 entry.
