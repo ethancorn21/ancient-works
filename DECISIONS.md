@@ -229,3 +229,11 @@ The task id is the task file's number, with its letters for a subtask (e.g. 025a
 - 307d PNG hygiene (agent a's lane, 242/810/812/813/814-816): before run 1 restored all ten to main's bytes (two differed on HEAD: B_1-card, B_5-reload); across the two suite runs four re-encoded (A_1-card, A_2-placed, B_1-card, B_5-reload - the small-jitter class, not the pre-settle 28.6-33.6% drift that 814/816 killed); after run 2 restored all ten to main's bytes again and did NOT commit them (not in my Touches; HEAD keeps the stale re-encodes of the two until the driver's uncommitted-work commit, the 709734c1 pattern).
 - Claim: all four acceptance boxes ticked (box 4 = this run), Status: done. Committed this session: the two refreshed fixtures, the task file, this entry.
 
+
+## 2026-10-15 812 DRIVER: done claim rejected, task reopened
+- Test suite failed twice, and no failing test could be named (crash?):
+    The test suite did not finish within 900 s: a test hangs. Run `.venv/bin/python -m pytest -q` with a `timeout` (pytest: -x -v) to find it.
+    ........s................................................F.............. [ 36%]
+    .....
+    (output up to the timeout: .agent/reports/last-test-output.txt)
+    (run after merging main, the other agents' finished work, into your branch: fix the combination)
