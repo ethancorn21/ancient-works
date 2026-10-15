@@ -1,0 +1,15 @@
+{
+ "id": "memphis-q16563",
+ "name": "Memphis",
+ "place": "Shelby County, Tennessee, United States",
+ "lon": -90.05194444444444,
+ "lat": 35.14611111111111,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "United States",
+ "kind": "town",
+ "qid": "Q16563",
+ "summary": "Memphis is a city in Shelby County, Tennessee, United States, and its county seat. Situated along the Mississippi River, it had a population of 633,104 at the 2020 census, making it the second-most populous city in Tennessee, the fifth-most populous in the Southeast, and the 29th-most populous in the US. While being the most populous single municipality on the Mississippi River, Memphis anchors the third largest metropolitan area by population behind only the Twin Cities and St. Louis. Metropolitan Memphis includes parts of Arkansas and Mississippi, the 45th-most populous metropolitan area in the U.S. with 1.34 million residents.",
+ "wiki": "https://en.wikipedia.org/wiki/Memphis,_Tennessee"
+}

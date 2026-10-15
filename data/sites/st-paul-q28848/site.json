@@ -1,0 +1,15 @@
+{
+ "id": "st-paul-q28848",
+ "name": "St. Paul",
+ "place": "Ramsey County, Minnesota, United States",
+ "lon": -93.093611,
+ "lat": 44.944167,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "United States",
+ "kind": "town",
+ "qid": "Q28848",
+ "summary": "Saint Paul is the capital city of the U.S. state of Minnesota and the county seat of Ramsey County. As of the 2020 census, the city had a population of 311,527, making it Minnesota's second-most populous city and the 69th-most populous in the United States. Saint Paul and neighboring Minneapolis form the core of the Twin Cities metropolitan area, the third most populous in the Midwest with around 3.7 million residents.",
+ "wiki": "https://en.wikipedia.org/wiki/Saint_Paul,_Minnesota"
+}

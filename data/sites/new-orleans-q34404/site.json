@@ -1,0 +1,15 @@
+{
+ "id": "new-orleans-q34404",
+ "name": "New Orleans",
+ "place": "Orleans Parish, Louisiana, United States",
+ "lon": -90.078333,
+ "lat": 29.976111,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "United States",
+ "kind": "town",
+ "qid": "Q34404",
+ "summary": "New Orleans is a consolidated city-parish located along the Mississippi River in the U.S. state of Louisiana. With a population of 383,997 at the 2020 census, New Orleans is the most populous city in Louisiana, the second-most populous in the Deep South, and the twelfth-most populous in the Southeastern United States; the New Orleans metropolitan area, with about 1 million residents, is the 59th-most populous metropolitan area in the United States. New Orleans serves as a major port and commercial hub for the broader Gulf Coast region. The city is coextensive with Orleans Parish.",
+ "wiki": "https://en.wikipedia.org/wiki/New_Orleans"
+}

@@ -1,0 +1,15 @@
+{
+ "id": "indianapolis-q6346",
+ "name": "Indianapolis",
+ "place": "Marion County, Indiana, United States",
+ "lon": -86.158055555556,
+ "lat": 39.768611111111,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "United States",
+ "kind": "town",
+ "qid": "Q6346",
+ "summary": "Indianapolis, colloquially known as Indy, is the capital and most populous city of the U.S. state of Indiana and the county seat of Marion County. Indianapolis is situated in the state's central till plain region along the west fork of the White River. The city's official slogan, \"Crossroads of America\", reflects its historic importance as a transportation hub and its relative proximity to other major North American markets.",
+ "wiki": "https://en.wikipedia.org/wiki/Indianapolis"
+}

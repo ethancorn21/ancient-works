@@ -1,0 +1,15 @@
+{
+ "id": "boston-q100",
+ "name": "Boston",
+ "place": "Suffolk County, Massachusetts, United States",
+ "lon": -71.057778,
+ "lat": 42.360278,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "United States",
+ "kind": "town",
+ "qid": "Q100",
+ "summary": "Boston is the capital and most populous city of the U.S. state of Massachusetts. It serves as a cultural and financial center of New England, a region of the Northeastern United States. Boston has an area of 48.4 square miles (125\u00a0km2) and a population of 675,647 as of the 2020 census, making it the third-most populous city in the Northeastern United States after New York City and Philadelphia. The larger Greater Boston metropolitan statistical area had a population of 5 million in 2025, making it the largest metropolis in New England and the eleventh-largest in the United States.",
+ "wiki": "https://en.wikipedia.org/wiki/Boston"
+}

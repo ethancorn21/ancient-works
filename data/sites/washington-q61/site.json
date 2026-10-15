@@ -1,0 +1,15 @@
+{
+ "id": "washington-q61",
+ "name": "Washington, D.C.",
+ "place": "District of Columbia, United States",
+ "lon": -77.036667,
+ "lat": 38.895,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "United States",
+ "kind": "town",
+ "qid": "Q61",
+ "summary": "Washington, D.C., officially the District of Columbia and commonly shortened to Washington, or DC, is the capital city of the United States, and its only federal district.",
+ "wiki": "https://en.wikipedia.org/wiki/Washington,_D.C."
+}
