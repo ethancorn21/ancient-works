@@ -4,6 +4,7 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
+- `tasks/236c-us-cities-merge.md` (open) - hand-over: (2026-10-15, iteration 205, agent c). **Box 1 DONE and committed** (the scoped live merge over all
 - `tasks/236-us-cities.md` (split)
 - `tasks/242-owner-check-stable-shots.md` (open) - hand-over: (2026-10-15, iteration 189, agent c) **SPLIT per the driver's instruction** (agent a's 230 and my
 - `tasks/245-owner-check-stale-tier.md` (open) - hand-over: (2026-10-15, iteration 236, agent a - BUILT and committed on agent/a's branch this session,
@@ -14,7 +15,6 @@ task file (for a subtask, read its parent's too).
 - `tasks/816-owner-check-settle-subpixel-fix.md` (open) - hand-over: (2026-10-15, iteration 195, agent c - created, nothing built yet; the recipe above is complete.)
 
 ## Next open tasks
-- `tasks/236c-us-cities-merge.md`
 - `tasks/811-owner-check-pin-snapshot.md`
 - `tasks/815-fit-markers-subpixel.md`
 
@@ -22,7 +22,15 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-15 236c DECISION: iteration 205 - the scoped live merge of the four US-cities staging sets lands in the canonical data and is verified (box 1 done); the build phase is the next step
+- Chose the scoped run `.venv/bin/python fit/merge.py merge --sources us_cities,us_birdseye,us_birdseye_batch4,us_birdseye_batch5` (the 230 precedent; merge.py is the only writer of the canonical files, and --sources keeps a consolidation to one family instead of folding in other families' still-pending staging - merge.py docstring). Result: extras.jsonl 202->227 (+25 site rows), files.jsonl 1748->1795 (+47), classified.jsonl 1055->1102 (+47), refused 0; data/merge/log.jsonl rewritten to this run's snapshot (119 lines, all "merged": us_cities 34, us_birdseye 58, batch4 12, batch5 15).
+- Verified by running (not by reasoning): pure growth (the pre-merge bytes are a byte-identical prefix of each canonical file); idempotent (a second identical --sources run: +0/+0/+0, all four files including the log byte-identical); no QID held by two site ids (172 unique QIDs in extras after the merge; the union over canonical + every extras_* staging file is also QID-unique; the only extras QID the Wikidata catalog also holds, shotwick-q7502621, carries the catalog's own site id in both - one site via two provenances, a 206/211 pre-existing case); the 25 US site ids collide with no existing extras/sites id and none was built yet.
+- tests/test_merge.py (my file): STAGING gains the four US sources in all three categories (the 230 pattern when it added roman), and a new test_no_qid_is_held_by_two_sites is the durable form of box 1's "no duplicate site per QID" (extras + every extras_* staging: one QID -> one site id; extras vs the catalog: same QID -> same id). The whole file is green: 11/11 in 29.18 s.
+- The four US source modules' --check/tests are post-merge-safe BY DESIGN: their code already carries the 222-228 pattern ("the module's own rows already merged by 236c are a no-op, not a collision; a staged row whose key is in the canonical files.jsonl must be identical to the canonical row") - written in before 236c ran. Confirmed: 22/22 green after the merge (test_src_us_cities, test_src_us_birdseye, test_src_us_birdseye_batch4, test_src_us_birdseye_batch5, test_region).
+- fit/merge.py itself is UNCHANGED (it already globs every extras_/files_/classified_* and supports --sources; the 230 Roman re-run also left it alone).
+- Facts measured for the build phase: all 47 US picture rows carry a `thumb` field and all 47 local copies are missing (data/raw/commons/<site>/<sha1(title)[:16]>.jpg) -> `pipeline/commons.py thumbs` fetches exactly the missing ones and skips the existing; the matcher is reachable (http://127.0.0.1:8091, fit/matchfit.reachable() True) so tools/site_done.py can genuinely fit, not just record "no matcher on this machine".
+- Branch hygiene (team mode): this branch carries dirty docs/site_flow/307d_*.png (agent a's 241/816 lane; HEAD also differs from main on three of the ten - the driver's 023fa2cc re-committed older re-encodes on this branch after main never re-touched them). They are not my task's files: I commit only my Touches paths, never `git add -A`; after any owner-check-family run the restore target is MAIN's bytes, not HEAD's (PITFALLS tests/playwright).
+- Next (task hand-over, in order): build the 25 sites (data/merge/run_build.py, one process per site, resumable, logs to data/merge/build_sites.log) -> pipeline/commons.py thumbs -> tools/export_plans.py -> tools/site_done.py per site -> docs/sources.md section 9 US rows -> re-baseline the frozen artifacts (data/merge/sites_premerge_baseline.jsonl 499 -> the post-236c set, test constant 499 -> new count; data/merge/plans_premerge_keys.jsonl) per the 230 precedent -> full suite vs the current main baseline (194P/1S/0F per 241's it.204).
 
 ## Project-wide driver notes (newest)
 
