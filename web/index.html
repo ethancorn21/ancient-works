@@ -60,6 +60,7 @@ body { background: var(--paper); color: var(--ink); font: 15px/1.5 var(--title);
 .tabs button { background: var(--sheet); color: var(--ink); border: 0; padding: 8px 6px; font: 600 12px var(--label); letter-spacing: .1em; text-transform: uppercase; cursor: pointer; }
 .tabs button + button { border-left: 1px solid var(--ink); }
 .tabs button[aria-pressed="true"] { background: var(--ink); color: var(--sheet); }
+.bchips { display: none; }
 .group { display: flex; flex-direction: column; gap: 9px; padding: 11px 12px; border: 1px solid var(--rule); background: var(--paper); }
 .seg { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--ink); }
 .seg button { background: var(--sheet); color: var(--ink); border: 0; padding: 6px; font: 13.5px var(--title); cursor: pointer; }
@@ -242,8 +243,8 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
 /* ---------- phones: map first (Ethan 2026-10-15: "the map should take up way more of the screen"; past and present lenses).
    The panel is a bottom sheet that rests at its peek (--peek, set by the script from the view's [data-peek] part) and pulls up
    to 84%; the desktop header goes, a floating bar carries back and the site name. In a site the peek is the lens bar: one
-   slider from the oldest overlay to today (crossfading in date order), Aerial / LiDAR / Block 3D, and a hold button above the
-   sheet that flips to the other lens while held. Option "A + B" of the mockups. */
+   slider from the oldest overlay to today (crossfading in date order), Aerial / LiDAR / 3D block / Nearby, and the past button
+   above the sheet: tap for ink lines or the original drawing, hold and slide for its opacity. */
 .mtop, .mera, .mhold { display: none; }
 .lensbar { display: none; }
 @media (max-width: 760px) {
@@ -286,7 +287,19 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
     transition: transform .12s, background .12s, bottom .34s; }
   .mhold:not([hidden]) { display: block; }
   .mhold.down { transform: scale(.94); background: var(--ink); color: var(--sheet); }
-  .panel.open ~ .mhold { opacity: 0; pointer-events: none; }
+  .mhold small { display: block; font: 600 12.5px/1 var(--label); letter-spacing: .02em; margin-top: 3px; font-variant-numeric: tabular-nums; }
+  .mhold.paper { background: var(--paper-2); }
+  .panel.open ~ .mhold, .panel.open ~ .mop, .panel.open ~ .mtip { opacity: 0; pointer-events: none; }
+  /* the opacity slider the hold opens: the finger stays on the button and slides up or down */
+  .mop { position: fixed; z-index: 3; right: 88px; bottom: calc(var(--peek) + 6px); width: 50px; height: 220px; background: rgba(248, 244, 232, .96);
+    border: 1px solid var(--ink); box-shadow: 0 3px 10px rgba(16, 20, 28, .35); display: grid; grid-template-rows: auto 1fr; justify-items: center; padding: 8px 0 12px; pointer-events: none; }
+  .mop[hidden] { display: none; }
+  .mop b { font: 700 12px/1 var(--label); font-variant-numeric: tabular-nums; margin-bottom: 8px; }
+  .mop-track { position: relative; width: 6px; background: var(--paper-2); border: 1px solid var(--ink); }
+  .mop-fill { position: absolute; left: 0; right: 0; bottom: 0; background: var(--survey); }
+  .mop-knob { position: absolute; left: 50%; width: 22px; height: 22px; margin: 0 0 -11px -11px; border-radius: 50%; background: var(--sheet); border: 2px solid var(--survey); }
+  .mtip { position: fixed; z-index: 3; right: 88px; bottom: calc(var(--peek) + 18px); max-width: 200px; background: var(--ink); color: var(--sheet); font: 13px/1.35 var(--title); padding: 8px 10px; pointer-events: none; }
+  .mtip[hidden] { display: none; }
 
   .lensbar { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; min-height: 124px; align-content: start; touch-action: none; }
   .lcap { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; min-height: 20px; }
@@ -308,9 +321,23 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
   .lchips .gap { flex: none; width: 6px; }
   .lchips button[aria-pressed="true"] { background: var(--ink); color: var(--sheet); }
   .strip { padding-top: 14px; }
-  .sheet { left: 0; right: 0; top: 0; bottom: 0; outline: none; border: 0; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
-  .sheet-main { grid-template-columns: 1fr; grid-template-rows: 1fr auto; margin: 0 10px; }
-  .explain { border-left: 0; border-top: 1px solid var(--rule); max-height: 32vh; }
+  /* the block on a phone (Ethan 2026-10-15: "the block view needs to be fixed as well"): the block fills the screen above the
+     sheet's peek, the lens bar stays under it (the drape follows it), the floating bar takes you back; the explanation is a
+     Key the block's chips open, the caption goes */
+  .sheet { left: 0; right: 0; top: 0; bottom: var(--peek); outline: none; border: 0; box-shadow: none; grid-template-rows: 1fr; background: var(--paper); transition: bottom .34s; }
+  .sheet-strip, .caption { display: none; }
+  .sheet-main { display: block; margin: 0; border: 0; }
+  .stage { position: absolute; inset: 0; }
+  .explain { display: none; position: absolute; z-index: 2; left: 10px; right: 10px; top: calc(112px + env(safe-area-inset-top, 0px)); max-height: 55%;
+    background: rgba(248, 244, 232, .97); border: 1px solid var(--ink); box-shadow: 0 3px 10px rgba(16, 20, 28, .3); }
+  .sheet.keyopen .explain { display: flex; }
+  .bchips { display: flex; position: absolute; z-index: 2; right: 10px; top: calc(66px + env(safe-area-inset-top, 0px)); gap: 6px; }
+  .bchips button { background: rgba(248, 244, 232, .94); border: 1px solid var(--ink); color: var(--ink); font: 600 11px/1 var(--label); letter-spacing: .07em; text-transform: uppercase; padding: 8px 10px; cursor: pointer; }
+  .bchips button[aria-pressed="true"] { background: var(--ink); color: var(--sheet); }
+  .hint { bottom: 8px; right: 10px; }
+  .compass { bottom: 10px; left: 10px; width: 44px; height: 44px; }
+  body.blk .panel, body.blk .mtop, body.blk .mhold, body.blk .mop, body.blk .mtip { z-index: 4; }
+  body.blk .mera { display: none; }
 }
 </style>
 </head>
@@ -330,7 +357,9 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
 <!-- phones only (.mtop/.mera/.mhold show under the max-width 760px rules) -->
 <div class="mtop home" id="mtop"><button class="mt-back" id="mtback" aria-label="Back">←</button><div class="mt-name" id="mtname"><b>Ancient Works</b></div></div>
 <div class="mera" id="mera" hidden></div>
-<button class="mhold" id="mhold" hidden>Hold for today</button>
+<button class="mhold" id="mhold" hidden aria-label="Ink or original drawing; hold and slide for opacity"></button>
+<div class="mop" id="mop" hidden aria-hidden="true"><b id="mopv"></b><div class="mop-track"><div class="mop-fill" id="mopf"></div><div class="mop-knob" id="mopk"></div></div></div>
+<div class="mtip" id="mtip" hidden>Tap: ink lines or the original drawing.<br>Hold and slide up or down: fade it.</div>
 
 <section class="fitpane" id="fitpane" hidden aria-label="Old plan">
   <div class="fit-top"><span class="fit-name" id="fitname"></span><button id="fitmin">Hide plan</button></div>
@@ -347,6 +376,7 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
         <circle r="27" fill="none" stroke="#8E8478" stroke-width="0.8"/><g id="needle"><line x1="0" y1="16" x2="0" y2="-12" stroke="#2B2724" stroke-width="1.4"/><path d="M0 -17 L4.5 -7 L0 -9.5 L-4.5 -7 Z" fill="#2B2724"/><text x="0" y="-19" text-anchor="middle" font-family="Archivo Narrow, sans-serif" font-size="9" font-weight="600" fill="#2B2724">N</text></g>
       </svg>
       <span class="hint">Drag to turn · pinch or scroll to zoom</span>
+      <div class="bchips" id="bchips"><button id="bc-gap" aria-pressed="false">Open the section</button><button id="bc-key" aria-pressed="false">Key</button></div>
     </div>
     <div class="explain" id="explain"></div>
   </div>
@@ -434,7 +464,7 @@ const zoomOut = () => map.flyTo({ center: map.getCenter(), zoom: Math.min(map.ge
 map.once('load', () => { S.mapLoaded = true; });  // isStyleLoaded() is false while tiles load, so it cannot tell
 map.addControl(new maplibregl.NavigationControl({ visualizePitch: false }), 'top-right');
 map.addControl(new maplibregl.AttributionControl({ compact: true, customAttribution:
-  'Aerial photographs: Esri, Maxar, Earthstar Geographics · Plates: Squier &amp; Davis 1848' }), narrow() ? 'bottom-left' : 'bottom-right');  // phones: clear of the hold button
+  'Aerial photographs: Esri, Maxar, Earthstar Geographics · Plates: Squier &amp; Davis 1848' }), narrow() ? 'bottom-left' : 'bottom-right');  // phones: clear of the past button
 
 /* ---------- geometry ---------- */
 const R = 6378137;
@@ -925,7 +955,7 @@ function renderSite(s) {
   $('#p-paper').onclick = () => setPlateMode('paper', s);
   wireAlign('p', () => S.align[s.id], a => { S.align[s.id] = a; }, () => moveplate(s), `plates/${s.id}`, 'Saved. This is now the plate position for this site.');
 }
-function setTab(block) { const a = $('#t-map'), b = $('#t-block'); if (a && b) { a.setAttribute('aria-pressed', String(!block)); b.setAttribute('aria-pressed', String(block)); } if (block) syncBlock(); }
+function setTab(block) { const a = $('#t-map'), b = $('#t-block'); if (a && b) { a.setAttribute('aria-pressed', String(!block)); b.setAttribute('aria-pressed', String(block)); } if ($('#l-blk')) $('#l-blk').setAttribute('aria-pressed', String(block)); if (block) syncBlock(); }
 function alignDesc(a) {
   if (!a || (!a.dx && !a.dy && !a.rot && a.scale === 1)) return 'Showing the fit.';
   const dir = (v, p, n) => v ? `${Math.abs(v)} m ${v > 0 ? p : n}` : null;
@@ -969,7 +999,7 @@ function select(id) {
 }
 $('#grab').onclick = () => narrow() ? sheetOpen(!$('#panel').classList.contains('open')) : $('#panel').classList.toggle('collapsed');
 
-/* ---------- phones: the sheet, the floating bar, the lens bar (time scrub + hold for today) ----------
+/* ---------- phones: the sheet, the floating bar, the lens bar (time scrub + the past button) ----------
    Ethan 2026-10-15 picked "A + B" of the mockups (artifact 5DwCnWtZptRuvHrSDDKmnD): people should see a site through two
    lenses, the past and the present. Desktop is untouched: everything here runs only while narrow(). */
 // how much of the sheet shows at rest: down to the bottom of the view's [data-peek] part (the lens bar in a site, the search
@@ -980,7 +1010,7 @@ function peekPx() {
   const h = el ? el.offsetTop + el.offsetHeight + 12 : innerHeight * 0.42;
   return Math.round(Math.min(h, innerHeight * 0.6) + pb);
 }
-function setPeekVar() { if (narrow()) document.documentElement.style.setProperty('--peek', peekPx() + 'px'); }
+function setPeekVar() { if (narrow()) { document.documentElement.style.setProperty('--peek', peekPx() + 'px'); if (B.open) setTimeout(resizeBlock, 360); } }
 // map padding for a camera move: the floating bar on top, the sheet's peek below
 function sheetPad(side = 20) { return { top: 64, bottom: peekPx() + 8, left: side, right: side }; }
 function sheetOpen(open) {
@@ -995,10 +1025,10 @@ function syncTop() {
   $('#mtop').classList.toggle('home', !back);
   $('#mtname').innerHTML = t ? `<b>${esc(t.textContent)}</b>${a && a.textContent ? `<i>${esc(a.textContent)}</i>` : ''}` : '<b>Ancient Works</b>';
   const inSite = !!$('#body .lensbar');
-  if (!inSite) { $('#mera').hidden = true; $('#mhold').hidden = true; }
+  if (!inSite) { $('#mera').hidden = true; $('#mhold').hidden = true; $('#mop').hidden = true; $('#mtip').hidden = true; }
   setPeekVar();
 }
-$('#mtback').onclick = () => { const b = $('#body #back') || $('#body #fitback'); if (b) b.click(); sheetOpen(false); };
+$('#mtback').onclick = () => { if (B.open) { closeBlock(); return; } const b = $('#body #back') || $('#body #fitback'); if (b) b.click(); sheetOpen(false); };
 new MutationObserver(() => requestAnimationFrame(syncTop)).observe($('#body'), { childList: true });
 addEventListener('resize', () => { requestAnimationFrame(syncTop); if (!narrow() && S.plateOff) { S.plateOff = false; applyAll(); } });
 document.fonts && document.fonts.ready.then(() => syncTop());
@@ -1079,7 +1109,7 @@ function lensBar(s) {
     <div class="lrow"><div class="lchips">
       <button id="l-air" aria-pressed="${S.ground !== 'relief' || s.lidar === false}">Aerial</button>
       ${s.lidar !== false ? `<button id="l-rel" aria-pressed="${S.ground === 'relief'}">LiDAR</button>` : ''}
-      <span class="gap"></span>${s.block ? '<button id="l-blk">3D block</button>' : ''}
+      <span class="gap"></span>${s.block ? `<button id="l-blk" aria-pressed="${B.open && B.site === s}">3D block</button>` : ''}
       <button id="l-near">Nearby</button>
     </div></div>
   </div>`;
@@ -1100,19 +1130,12 @@ function wireLens(s) {
   const stops = lensStops(s), n = stops.length - 1, at = restIndex(s, stops);
   $('#l-air').onclick = () => setGround('imagery', s);
   if ($('#l-rel')) $('#l-rel').onclick = () => setGround('relief', s);
-  if ($('#l-blk')) $('#l-blk').onclick = () => openBlock(s);
+  if ($('#l-blk')) $('#l-blk').onclick = () => B.open ? closeBlock() : openBlock(s);
   $('#l-near').onclick = () => { sheetOpen(true); setTimeout(() => $('#near') && $('#near').scrollIntoView({ behavior: 'smooth', block: 'start' }), 340); };
   document.querySelectorAll('[data-near]').forEach(b => b.onclick = () => select(b.dataset.near));
   const era = $('#mera');
   era.hidden = false; era.textContent = stops[at].kind === 'today' ? 'Today' : String(stops[at].year || 'Old map'); era.classList.toggle('present', stops[at].kind === 'today');
-  // hold: the other lens while the finger is down (today over a past stop; the site's opening map over today)
-  const hold = $('#mhold');
-  const other = at < n ? n : (S.lastPast && S.lastPast.site === s.id && S.lastPast.i < n ? S.lastPast.i : n - 1);
-  hold.hidden = !n; hold.innerHTML = at < n ? 'Hold<br>for<br>today' : `Hold<br>for<br>${esc(String(stops[other] && stops[other].year || 'the past'))}`;
-  hold.onpointerdown = e => { e.preventDefault(); try { hold.setPointerCapture(e.pointerId); } catch {} hold.classList.add('down'); lensTween(s, stops, at, other); };
-  hold.onpointerup = hold.onpointercancel = () => { if (!hold.classList.contains('down')) return; hold.classList.remove('down'); lensTween(s, stops, other, at, true); };
-  hold.oncontextmenu = e => e.preventDefault();
-  if (at < n) S.lastPast = { site: s.id, i: at };
+  wirePastButton(s, stops[at]);
   const tr = $('#ltrack'); if (!tr) return;
   let drag = false;
   const tAt = e => { const r = tr.getBoundingClientRect(); return Math.max(0, Math.min(n, (e.clientX - r.left) / r.width * n)); };
@@ -1156,7 +1179,7 @@ function stopLayers(s, st) {
 let _scrHide = 0;
 function hideScrubLater(s, stops, ms) {
   clearTimeout(_scrHide);
-  _scrHide = setTimeout(() => { if (S.sel !== s.id || $('#mhold').classList.contains('down')) return;
+  _scrHide = setTimeout(() => { if (S.sel !== s.id) return;
     stops.forEach(x => { if (x.kind === 'dep') { const id = scrId(s, x.d); if (map.getLayer(id)) map.setLayoutProperty(id, 'visibility', 'none'); } }); }, ms);
 }
 function scrubBegin(s) {
@@ -1191,23 +1214,54 @@ function scrubEnd(s, stops, k) {
   // the scrub layer stays over its twin until the dep- layer has drawn the same picture
   hideScrubLater(s, stops, 250);
 }
-// hold: fade from stop a to stop b over a quarter second; on release back, and the resting layers take over again
-let _tw = 0;
-function lensTween(s, stops, a, b, back) {
-  cancelAnimationFrame(_tw); scrubBegin(s);
-  const era = $('#mera'), t0 = performance.now(), D = 240;
-  const step = now => {
-    const f = Math.max(0, Math.min(1, (now - t0) / D)), e = f * (2 - f);  // rAF's stamp can precede t0
-    stops.forEach((st, k) => {
-      const w = (k === a ? 1 - e : 0) + (k === b ? e : 0);
-      for (const [id, base] of stopLayers(s, st)) if (map.getLayer(id)) { map.setLayoutProperty(id, 'visibility', w > 0 ? 'visible' : 'none'); map.setPaintProperty(id, 'raster-opacity', w * base); }
-    });
-    if (f < 1) _tw = requestAnimationFrame(step);
-    else if (back) { applyLayers(s); applyDep(s); hideScrubLater(s, stops, 300); }
+// The past button (Ethan 2026-10-15, on his iPhone: "hold down on that button and then a slider should pop up ... slide it up
+// and down to adjust the opacity", and a way to see the original drawing). It replaced hold-for-today. On a past stop:
+// a tap swaps ink lines and the original drawing in its own colours; a hold opens a slider and the same finger fades it.
+const pastMode = st => st.kind === 'plate' ? S.plateMode : (st.d.ink && S.depMode === 'ink' ? 'ink' : 'paper');
+const pastOp = st => st.kind === 'plate' ? S.plateOpacity : S.depOpacity;
+function setPastOp(s, st, v) {
+  v = Math.round(Math.max(0, Math.min(1, v)) * 100) / 100;
+  if (st.kind === 'plate') { S.plateOpacity = v; lsSet('aw.plateOpacity', v); applyLayers(s); }
+  else { S.depOpacity = v; lsSet('aw.depOpacity', v); applyDep(s); }
+  return v;
+}
+function wirePastButton(s, st) {
+  const btn = $('#mhold'), pop = $('#mop');
+  btn.hidden = st.kind === 'today'; pop.hidden = true;
+  if (st.kind === 'today') return;
+  const canSwap = st.kind === 'plate' || !!st.d.ink;
+  const label = () => { const m = pastMode(st); btn.classList.toggle('paper', m === 'paper');
+    btn.innerHTML = `${m === 'ink' ? 'Ink' : 'Original'}<small>${Math.round(pastOp(st) * 100)}%</small>`; };
+  label();
+  const show = v => { $('#mopv').textContent = Math.round(v * 100) + '%'; $('#mopf').style.height = v * 100 + '%'; $('#mopk').style.bottom = v * 100 + '%'; };
+  let g = null;
+  btn.onpointerdown = e => {
+    e.preventDefault(); try { btn.setPointerCapture(e.pointerId); } catch {}
+    btn.classList.add('down'); $('#mtip').hidden = true;
+    g = { y0: e.clientY, v0: pastOp(st), slide: false, id: e.pointerId };
+    g.t = setTimeout(() => { if (!g) return; g.slide = true; g.y0 = g.y; g.v0 = pastOp(st); show(g.v0); pop.hidden = false; if (navigator.vibrate) navigator.vibrate(8); }, 320);
+    g.y = e.clientY;
   };
-  _tw = requestAnimationFrame(step);
-  const st = stops[b];
-  era.textContent = st.kind === 'today' ? 'Today' : String(st.year || 'Old map'); era.classList.toggle('present', st.kind === 'today');
+  btn.onpointermove = e => {
+    if (!g || e.pointerId !== g.id) return;
+    g.y = e.clientY;
+    if (!g.slide) { if (Math.abs(e.clientY - g.y0) > 10) { clearTimeout(g.t); g.slide = true; g.y0 = e.clientY; g.v0 = pastOp(st); show(g.v0); pop.hidden = false; } return; }
+    const v = setPastOp(s, st, g.v0 + (g.y0 - e.clientY) / 180);  // 180 px of travel = 0 to 100%
+    show(v); label();
+  };
+  btn.onpointerup = btn.onpointercancel = e => {
+    if (!g || e.pointerId !== g.id) return;
+    clearTimeout(g.t); btn.classList.remove('down');
+    const slid = g.slide; g = null;
+    if (slid) { setTimeout(() => { pop.hidden = true; }, 500); renderSite(s); return; }
+    if (e.type === 'pointercancel' || !canSwap) return;
+    const m = pastMode(st) === 'ink' ? 'paper' : 'ink';
+    if (st.kind === 'plate') setPlateMode(m, s);
+    else { S.depMode = m; lsSet('aw.depMode', m); ensureScrub(s); applyDep(s); renderSite(s); if (B.open) setTab(true); }
+  };
+  btn.oncontextmenu = e => e.preventDefault();
+  // the first site on a phone says what the button does, once
+  if (!lsGet('aw.pastTip', false)) { lsSet('aw.pastTip', true); const t = $('#mtip'); t.hidden = false; setTimeout(() => { t.hidden = true; }, 5000); }
 }
 
 /* ---------- plate fitting: an old book plan pinned to the ground by matching points ---------- */
@@ -1800,7 +1854,7 @@ function buildPiece(site, H, r0, r1, ve, base, tex, inkTex, cutNorth, cutSouth) 
 async function openBlock(s) {
   if (!s.block) return;  // aerial-only site: no LiDAR, no block
   B.open = true; setTab(true);
-  $('#sheet').hidden = false;
+  $('#sheet').hidden = false; document.body.classList.add('blk'); $('#sheet').classList.remove('keyopen'); syncBChips();
   if (narrow()) $('#panel').classList.add('collapsed');
   if (B.site === s && B.scene) { resizeBlock(); B.dirty = true; loop(); syncBlock(); return; }
   B.site = s; $('#loading').hidden = false; $('#loading').textContent = 'Building the block…';
@@ -1835,7 +1889,11 @@ async function openBlock(s) {
     resizeBlock(); B.dirty = true; loop();
   } catch (e) { $('#loading').textContent = 'The block could not be built: ' + e.message; }
 }
-function closeBlock() { B.open = false; $('#sheet').hidden = true; cancelAnimationFrame(B.raf); setTab(false); }
+function closeBlock() { B.open = false; $('#sheet').hidden = true; document.body.classList.remove('blk'); cancelAnimationFrame(B.raf); setTab(false); }
+// phones: the block's own two controls sit on it as chips; the explanation opens as the Key
+function syncBChips() { $('#bc-gap').setAttribute('aria-pressed', String(!!B.gap)); $('#bc-key').setAttribute('aria-pressed', String($('#sheet').classList.contains('keyopen'))); }
+$('#bc-gap').onclick = () => { B.gap = B.gap ? 0 : 1; applyGap(); if (B.site) renderExplain(B.site, B.ve); syncBChips(); };
+$('#bc-key').onclick = () => { $('#sheet').classList.toggle('keyopen'); syncBChips(); };
 
 /* The block carries what the map shows (owner 2026-10-13: "when we go into block diagram it needs
    to stay pinned to that spot ... when you rotate it around it sticks"). The block's top is the
@@ -1845,6 +1903,21 @@ function closeBlock() { B.open = false; $('#sheet').hidden = true; cancelAnimati
    affine through three of its corners - exact for the parallelograms every plan fit produces, the
    same as the map's own image source - and that canvas is draped on the terrain. */
 const DRAPE_IMG = new Map();
+function dilate(c) {
+  const g = c.getContext('2d'), W = c.width, H = c.height, im = g.getImageData(0, 0, W, H), a = im.data, b = new Uint8ClampedArray(a.length);
+  const pass = (src, dst, step, n, lines, stride) => {  // one direction: copy the most opaque of the texel and its two neighbours
+    for (let l = 0; l < lines; l++) for (let k = 0; k < n; k++) {
+      const i = l * stride + k * step;
+      let j = i;
+      if (k > 0 && src[i - step + 3] > src[j + 3]) j = i - step;
+      if (k < n - 1 && src[i + step + 3] > src[j + 3]) j = i + step;
+      dst[i] = src[j]; dst[i + 1] = src[j + 1]; dst[i + 2] = src[j + 2]; dst[i + 3] = src[j + 3];
+    }
+  };
+  pass(a, b, 4, W, H, W * 4);   // along rows
+  pass(b, a, W * 4, H, W, 4);   // along columns
+  g.putImageData(im, 0, 0);
+}
 function drapeImage(url) { if (!DRAPE_IMG.has(url)) DRAPE_IMG.set(url, loadImage(url).catch(e => { DRAPE_IMG.delete(url); throw e; })); return DRAPE_IMG.get(url); }
 async function drapeCanvas(s) {
   const W = 2048, H = Math.max(2, Math.round(2048 * s.size_m[1] / s.size_m[0]));
@@ -1861,12 +1934,14 @@ async function drapeCanvas(s) {
     const [p0, p1, , p3] = src.coordinates.map(q => px(merc(q))), iw = im.naturalWidth, ih = im.naturalHeight;
     // the block is shrunk onto the screen, so hairline ink one texel wide fades to nothing (Arbor Low's plan
     // vanished): the layer is drawn at full strength with a 2-texel spread, then laid on at its opacity
+    // The spread is a 3x3 dilation (each texel takes its most opaque neighbour). It used to be nine stacked copies, which
+    // compounded alpha: a survey sheet's soft 30% ink went solid, and Gravelines' État-major sheet painted the block crimson
+    // (Ethan's iPhone, 2026-10-15).
     const t = document.createElement('canvas'); t.width = W; t.height = H;
-    const tg = t.getContext('2d');
-    for (const [dx, dy] of [[0, 0], [1, 0], [0, 1], [1, 1], [-1, 0], [0, -1], [-1, -1], [1, -1], [-1, 1]]) {
-      tg.setTransform((p1[0] - p0[0]) / iw, (p1[1] - p0[1]) / iw, (p3[0] - p0[0]) / ih, (p3[1] - p0[1]) / ih, p0[0] + dx, p0[1] + dy);
-      tg.drawImage(im, 0, 0);
-    }
+    const tg = t.getContext('2d', { willReadFrequently: true });
+    tg.setTransform((p1[0] - p0[0]) / iw, (p1[1] - p0[1]) / iw, (p3[0] - p0[0]) / ih, (p3[1] - p0[1]) / ih, p0[0], p0[1]);
+    tg.drawImage(im, 0, 0); tg.setTransform(1, 0, 0, 1, 0, 0);
+    dilate(t);
     g.save(); g.globalAlpha = op; g.drawImage(t, 0, 0); g.restore();
     if (id.startsWith('dep-')) { const d = (S.dep[s.id] || []).find(x => x.file === S.depSel[s.id]); if (d) keys.push(d.label || d.file); }
     else if (s.plate) keys.push(`${s.plate.label}, Squier & Davis 1848`);
@@ -1925,6 +2000,11 @@ function applyGap() {
   south.position.z = B.gap * 0.14 * B.site.size_m[1]; B.dirty = true;
 }
 function applyPlate() { if (B.scene) { B.scene.traverse(o => { if (o.name === 'plate') o.visible = B.plate; }); B.dirty = true; } }
+// what a draped overlay is: a plan, drawing or view of the work is a drawing; a survey sheet is a map; an air photo an aerial
+function oldKind(s, label) {
+  const d = (S.dep[s.id] || []).find(x => x.label === label);
+  return !d || DRAWING.has(d.kind) ? 'Old drawing' : d.kind === 'aerial' ? 'Old aerial photograph' : 'Old map';
+}
 function renderExplain(s, ve) {
   const keys = B.drapeKeys || [], img = B.groundKind === 'imagery';
   $('#explain').innerHTML = `
@@ -1932,10 +2012,10 @@ function renderExplain(s, ve) {
     ${img ? `<div class="key"><span class="swatch" style="background:linear-gradient(90deg,#5b6b4a,#a9a184)"></span><span><b>Ground surface</b><i>The site's aerial photograph, laid on the LiDAR heights</i></span></div>`
       : `<div class="key"><span class="swatch" style="background:linear-gradient(90deg,#96807a,#FAF4E4)"></span><span><b>Ground surface</b><i>Shaded LiDAR relief with contours every ${s.block.contour_m} m; heavier line every ${s.block.contour_m * 5} m</i></span></div>
     <div class="key"><span class="swatch" style="background:#C4DEDC"></span><span><b>Water</b><i>Rivers, ponds, quarry lakes</i></span></div>`}
-    ${keys.map(k => `<div class="key"><span class="swatch" style="background:linear-gradient(transparent 40%, var(--survey) 40% 60%, transparent 60%), var(--sheet)"></span><span><b>Old drawing</b><i>${esc(k)}, where the map has it</i></span></div>`).join('')}
+    ${keys.map(k => `<div class="key"><span class="swatch" style="background:linear-gradient(transparent 40%, var(--survey) 40% 60%, transparent 60%), var(--sheet)"></span><span><b>${oldKind(s, k)}</b><i>${esc(k)}, where it covers the block</i></span></div>`).join('')}
     ${B.gap ? `<div class="key"><span class="swatch" style="background:#F2B5C4"></span><span><b>Section</b><i>Cut through the middle of the block; walls show as bumps in its top edge</i></span></div>` : ''}
     <div class="key"><span class="swatch" style="background:linear-gradient(90deg,#D8BCD5 50%,#B996B6 50%)"></span><span><b>Block sides</b><i>No geology implied; the ground below the surface is not mapped here</i></span></div>
-    ${keys.length ? `<label class="toggle"><input type="checkbox" id="b-plate" ${B.plate ? 'checked' : ''}> Show the old drawing</label>` : `<p class="fit">No old drawing is showing on the map; pick one in the site panel and it is laid on the block too.</p>`}
+    ${keys.length ? `<label class="toggle"><input type="checkbox" id="b-plate" ${B.plate ? 'checked' : ''}> Show the ${keys.length > 1 ? 'old overlays' : oldKind(s, keys[0]).toLowerCase()}</label>` : `<p class="fit">No old drawing is showing on the map; pick one in the site panel and it is laid on the block too.</p>`}
     <label class="toggle"><input type="checkbox" id="b-gap" ${B.gap ? 'checked' : ''}> Open the section</label>
     <p class="fit">Vertical exaggeration ×${ve}. Elevations ${s.block.zmin.toFixed(0)}–${s.block.zmax.toFixed(0)} m above sea level. The drawing, the ground and the opacity follow the map: change them in the site panel.</p>`;
   const p = $('#b-plate'); if (p) p.onchange = e => { B.plate = e.target.checked; applyPlate(); };
