@@ -60,18 +60,19 @@ are).
 
 ## Hand-over
 
-(2026-10-14, iteration 219, agent a - session 3: commit (a) LANDED (fit/batch_us.py retired:
-run_sites(reasons=...), ten model functions deleted, matcher-facing helpers kept; verified by
-scratch-tree smoke test). Next session: (b) batch_eu, then (c) site_done, (d) cover, (e) the
-five test files, (f) fixture re-record, (g) docs/site_flow.md, (h) verify + close. One commit
-per step; never `git add -A` (commit explicit paths).)
+(2026-10-14, iteration 220, agent a - session 4: commit (b) LANDED (fit/batch_eu.py retired:
+run_eu(reasons=...), --working/--model-json gone from CLI; verified by scratch-tree smoke
+run: reasons pass-through + "no matcher on this machine" fallback). Next session: (c)
+site_done, then (d) cover, (e) the five test files, (f) fixture re-record, (g)
+docs/site_flow.md, (h) verify + close. One commit per step; never `git add -A` (commit
+explicit paths).)
 
 **State:** branch `agent/a`. Working tree clean after this session's commit (only
-fit/batch_us.py was changed: 65 insertions / 365 deletions). `.venv` works. Hygiene: after any
+fit/batch_eu.py: 24 insertions / 21 deletions; a13e2ed). `.venv` works. Hygiene: after any
 run that regenerates `docs/site_flow/307d_*.png` (only test_fit_queue / test_owner_check do),
 restore `git show HEAD:docs/site_flow/<name>.png > <name>` before committing.
 
-**(a) done - what batch_us.py is now:** `run_sites(root, site_ids, reasons=None)`; reasons =
+**(a) done - batch_us.py is now:** `run_sites(root, site_ids, reasons=None)`; reasons =
 {plan: matcher's recorded verdict} (238's results via the line); uncovered -> item entry
 {plan, title, url, evidence?, pairs: [], 202's proposal fields or coarse:True, why};
 why = reasons.get(plan) or "no matcher on this machine"; covered -> "skip" (guard KEPT);
@@ -80,12 +81,23 @@ no-picture unchanged; detail outcomes "skip"|"item"; record's "auto" key kept, a
 _feature_present, _ground_lonlat, _font, _step, _grid, llm_model, recorded_model; main has no
 --working/--model-json. Kept for matchfit: gate_placement, write_doc, _norm_pairs, _save_json,
 _crop_px, _plans_rows, pre_docs, candidates, _sites, _page_url, is_pre_fit, us_sites,
-_doc_path, write_item, write_report, classify. Details + smoke-test results: session-3
-DECISIONS entry.
+_doc_path, write_item, write_report, classify. Details + smoke results: session-3 DECISIONS.
 
-**Expected fallout until (b)-(f) land (do not be surprised by reds in these files):**
-fit/batch_eu.py main + tools/site_done.py main still call deleted batch_us.llm_model/
-recorded_model; the five test files still use recorded answers / "no model answer". The 5-file
+**(b) done - batch_eu.py is now:** `run_eu(root, reasons=None)` -> `batch_us.run_sites(root,
+eu_sites(root), reasons)` (pass-through, docstring says so); main: --root/--sites/--report
+only (the mutually-exclusive --working/--model-json group and the `a.model is required`
+error are gone); docstring's first paragraph reworded to the retired form mirroring
+batch_us's (matcher is the only automatic fitter; item why = the matcher's recorded verdict
+or "no matcher on this machine"); usage block = the offline one-line form; the
+"loop imported from fit/batch_us.py" statement kept. union_check/union_section/write_report
+eu_sites byte-unchanged (verified by diff: only the four edited regions changed). Smoke:
+scratch tree (truncated sites.json to marietta, symlinked data/db+commons+sites+raw, real
+data/review) -> run_eu(reasons={p: "not sure: 8 consistent points (need 10)"}) wrote the item
+with that why; run_eu() (no reasons) wrote "no matcher on this machine".
+
+**Expected fallout until (c)-(f) land (do not be surprised by reds in these files):**
+tools/site_done.py still has --working/--model-json and calls `fit  no model given`; the
+five test files still use recorded answers / "no model answer" expectations. The 5-file
 suite must be green at the done claim (step (h)), not before.
 
 **Remaining steps (one commit each):**
