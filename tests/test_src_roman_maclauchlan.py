@@ -15,6 +15,7 @@ import json
 import os
 import socket
 import sys
+from datetime import date, timedelta
 
 import pytest
 
@@ -94,13 +95,20 @@ def test_check_staged_joins_and_passes(tmp_path, monkeypatch, capsys):
     """--check, offline: (a) the pre-merge state on this branch (the roman staging not yet in the canonical
     files) joins clean and the row PASSes the evidence check; (b) after the 211 merge (the staged site row
     in the canonical extras, identical) it still joins clean - a merged row is a no-op; (c) the same id
-    held by a DIFFERENT canonical row fails loud (the pre-merge conflict protection). The canonical path
-    constants are monkeypatched to temp copies, so the test holds whether or not 211's live merge has run."""
+    held by a DIFFERENT canonical row fails loud (the pre-merge conflict protection); (d) and (e) the 199
+    regression (817): the canonical row differs from the freshly staged row ONLY in the volatile
+    location_check.checked date (a fresh stage() stamps today; the merged canonical row carries the 211/230
+    re-run's re-stamp) and the join stays clean in BOTH directions of the skew - _canon_norm zeroes that
+    date before the identity compare. The canonical path constants are monkeypatched to temp copies, so the
+    test holds whether or not 211's live merge has run."""
     _stage_into(tmp_path, monkeypatch)
     staged_sites = sm._load(sm.EXTRAS_ROMAN)
     assert len(staged_sites) == 1
 
-    # (a) pre-merge: the canonical files are the real ones (the roman id/QID is in neither)
+    # (a) pre-merge: the canonical files are the real ones. On the pre-211 tree the roman id/QID is in
+    # neither; on main (after the 211/230 merge) the staged site IS in the real extras (checked 2026-10-14),
+    # so (a) also exercises the date-skew join against the real files - green on any day because
+    # _canon_norm zeroes that date (the 199 red, fixed by 817).
     code = sm.check_staged()
     out = capsys.readouterr().out
     assert code == 0, out
@@ -134,6 +142,23 @@ def test_check_staged_joins_and_passes(tmp_path, monkeypatch, capsys):
     join = [l for l in out.splitlines() if l.startswith("join:")]
     assert join == ["join: staged site luguvallium-q71551754 differs from its canonical row in "
                     "extras_catalog.jsonl"], join
+
+    # (d) + (e) the 199 regression (817): the canonical row differs from the freshly staged row ONLY in the
+    # volatile location_check.checked date (a fresh stage() stamps today, now(); the merged canonical row
+    # carries the 211/230 re-run's re-stamp) - in BOTH directions of the skew the join stays clean, because
+    # _canon_norm zeroes that date to 0000-00-00 (the golden _norm's treatment) before the identity compare;
+    # the evidence PASS line is untouched
+    for delta in (-1, +1):
+        d = dict(staged_sites[0])
+        d["location_check"] = dict(staged_sites[0]["location_check"],
+                                   checked=(date.today() + timedelta(days=delta)).isoformat())
+        (tmp_path / "extras_catalog.jsonl").write_text(
+            real_extras + json.dumps(d, ensure_ascii=False) + "\n", encoding="utf-8")
+        code = sm.check_staged()
+        out = capsys.readouterr().out
+        assert code == 0, out
+        assert "join:" not in out, out
+        assert "evidence: 1 rows, 1 pass, 0 fail, 0 no-tie" in out, out
 
 
 def test_evidence_offline_and_negative_control(tmp_path, monkeypatch, capsys):
