@@ -6,7 +6,7 @@ task file (for a subtask, read its parent's too).
 ## Tasks in flight
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
 - `tasks/236-us-cities.md` (split)
-- `tasks/241-us-birdseye-batch5.md` (in-progress) - hand-over: (2026-10-14, iteration 179, agent c - **COLUMBUS RESEARCH complete (city 3/5); the
+- `tasks/241-us-birdseye-batch5.md` (in-progress) - hand-over: (2026-10-14, iteration 180, agent c - **COLUMBUS LANDING (city 3/5) is DONE on disk but NOT yet
 
 ## Next open tasks
 - `tasks/230-roman-merge-rerun.md`
