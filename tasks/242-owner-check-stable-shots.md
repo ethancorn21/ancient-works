@@ -1,6 +1,6 @@
 Status: open
-Depends on: 307d
-Touches: tests/test_owner_check.py, docs/site_flow.md, docs/site_flow/
+Depends on: 307d, 810, 811
+Touches: (none - final verification only; the code/doc work moved to 810 and 811 in the 2026-10-15 split)
 
 # 242: Pin the 307d owner-check screenshots - settle before shooting, stop the per-run in-checkout re-render
 
@@ -39,15 +39,15 @@ Fix the design:
    indices shifted with re-exports (38/45 -> 3/8 on the 180-entry queue).
 
 ## Acceptance criteria
-- [ ] Two consecutive unflagged runs of `pytest tests/test_owner_check.py` on the same tree
-      produce byte-identical (or <0.5% differing pixels at threshold 32) A_4/A_5/B_4/B_5 views
-      in the temp tree (all ten stable, not just the four); both tests still pass end to end
-      and the write-once / shared-store / golden-hash checks stay green.
-- [ ] An unflagged run leaves every `docs/site_flow/307d_*.png` in the checkout byte-identical
-      (verified by the test's write-surface hash or an equivalent check); the explicit
-      refresh flag re-renders all ten from a run and writes them into `docs/site_flow/`.
-- [ ] The ten PNGs are regenerated once under the new regime and committed; the 307d section
-      of docs/site_flow.md carries the pinned-snapshot note with the refresh command.
+(Split 2026-10-15, per the driver: the boxes the parts deliver moved with them - former box 1
+(two-run stability, tests green) and box 2 (checkout byte-identical, the refresh flag) to 810;
+former box 3 (one-time regeneration + the docs pinned-snapshot note, plus the PITFALLS rewrite
+the Notes describe) to 811. This task waits on both and keeps the final verification; the plan
+for the remaining work is in the hand-over below.)
+- [ ] On the merged tree (810 and 811 done), a fresh unflagged run of the owner_check pair
+      produces views matching the ten committed pinned PNGs (byte-identical, or <0.5% differing
+      pixels at threshold 32 for all ten) - the docs' screenshots correspond to what an ordinary
+      run produces again.
 - [ ] The full suite is green (`.venv/bin/python -m pytest tests/ -q -p no:cacheprovider`) and
       `git status` on docs/site_flow/ is clean after an unflagged run.
 
@@ -62,3 +62,51 @@ Fix the design:
   307bc DECISIONS entry and in this file's goal.
 - Do not touch tests/test_fit_queue.py (the 307/235 family) or the page; this task is the
   owner-check test and its docs section only.
+
+## Hand-over
+
+(2026-10-15, iteration 189, agent c) **SPLIT per the driver's instruction** (agent a's 230 and my
+241 had nothing to build waiting on this task alone, and nothing of this task was built yet - so,
+per the split rule, this task WAITS on the parts). `Depends on:` is now `307d, 810, 811` (307d is
+done - the file the parts touch was built there; kept on the line per repo convention). `Touches:`
+cut to none: what remains here is verification only. No cycle: 810 (depends only on done 307d,
+startable immediately) -> 811 (depends on 810) -> 242 (this).
+
+The parts (the lowest free numbers in 800-1099):
+- **810** (tasks/810-owner-check-settle-captures.md; Touches tests/test_owner_check.py) - the whole
+  code change, carrying former boxes 1-2: the settle wait before the saved/reload captures (the
+  flake mechanism: the 4.5 s flyTo web/index.html:874 + 900 ms fitBounds web/fitkit.js:573 that the
+  probe's fixed sleeps never waited for), the additive double-shot <0.5%-at-threshold-32 stability
+  assert, the explicit refresh flag (named in the docstring) replacing the unconditional
+  in-checkout copy, the ten docs/site_flow/307d_*.png into _write_surface, docstrings to the new
+  regime. The pick stays derived; every existing check unchanged; tests/test_fit_queue.py and the
+  page untouched (the Notes carry over).
+- **811** (tasks/811-owner-check-pin-snapshot.md; Touches the ten PNGs + docs/site_flow.md +
+  PITFALLS.md) - former box 3 + the Notes' PITFALLS rewrite: the one-time refresh and commit of
+  the ten pinned PNGs under 810's regime, the pinned-snapshot note in the 307d section of
+  site_flow.md (date + refresh command; existing text kept; the picks it names are still the
+  derived picks oswestry n0119_1 bar / devil-s-dyke n0662_1 picture_size, indices 38/45 -> 3/8 on
+  the 180-entry queue, moving with the queue), and the PITFALLS rewrite (the per-run re-render
+  entry's What-to-do -> the new design + the flag; history lines kept; the neighbouring B-test
+  entry's stale "task 242's" pointers corrected).
+
+Waiters updated per the driver's rule: 230's Depends is now "211, 207a, 207b, 807, 808, 242, 810"
+and 241's "240, 242, 810" (810 added directly - both are blocked by the mid-transition flake / PNG
+dirt that 810 fixes; the rest reaches them transitively through 242). 236c unchanged.
+
+**What remains HERE (both boxes verification only, no file changes):** when the driver returns
+this task (after 810+811 merge): (1) run the unflagged owner_check pair once (one invocation, A
+then B - PITFALLS: B cannot run alone) and diff its ten temp-tree renders against the ten
+committed PNGs (byte-identical, or <0.5% differing pixels at threshold 32 for all ten) -> tick
+box 1; (2) run the full suite `.venv/bin/python -m pytest tests/ -q -p no:cacheprovider` and
+confirm `git status` on docs/site_flow/ is clean after that unflagged run -> tick box 2, set
+Status: done, claim. If the committed snapshot does not match a fresh render, or the pair flakes
+after 810's settle: that is a defect in 810's lane - put the run evidence in "## Proposed changes"
+on tasks/810-owner-check-settle-captures.md and hold this task; never re-file the fix here, never
+weaken or delete a test.
+
+Deviation recorded: this file's Notes section says the PITFALLS rewrite happens "on this task's
+merge"; with the split it happens in 811 (the part that completes the design) - same intent (it
+lands with the 242 family, history lines kept, the 302f iter-127 pointer preserved). Working tree
+at split time: docs/site_flow/307d_B_4/B_5 were dirty from the pre-split run and were restored to
+the committed bytes; no code changed this session.
