@@ -1,6 +1,6 @@
-Status: open
+Status: done
 Depends on: 808
-Touches: fit/src_roman_horsley.py, tests/test_src_roman_horsley.py, tests/golden/src_roman_horsley_sample.json, data/commons/files_roman.jsonl, data/commons/classified_roman.jsonl, data/catalog/extras_roman.jsonl
+Touches: fit/src_roman_horsley.py, tests/test_src_roman_horsley.py, tests/golden/src_roman_horsley_sample.json, data/commons/files_roman.jsonl, data/commons/classified_roman.jsonl, data/catalog/extras_roman.jsonl, PITFALLS.md
 
 # 809: Horsley - the offline --check, the golden sample, the no-network test
 
@@ -15,22 +15,22 @@ register() in-process; the LLM never runs in tests). This makes 207a's moved box
 stand on a hermetic, re-runnable check.
 
 ## Acceptance criteria
-- [ ] --check in fit/src_roman_horsley.py, run offline (the socket-block wrapper), passes on
+- [x] --check in fit/src_roman_horsley.py, run offline (the socket-block wrapper), passes on
       the staged set: the join holds (every one of this book's 17 staged rows names an
       existing catalog site or a staged extras_roman.jsonl site; every NEW extra site row
       this book created has at least one staged plan row) and fit/evidence.py's check passes
       on all 17 of this book's rows (the 200 evidence field verified offline from the stored
       fields - check_caption / check_book / check_book_caption, per fit/evidence.py).
-- [ ] --golden writes tests/golden/src_roman_horsley_sample.json: a stable, deterministic
+- [x] --golden writes tests/golden/src_roman_horsley_sample.json: a stable, deterministic
       subset of this book's staged rows (fixed ordering; regenerated only for an intended
       change).
-- [ ] tests/test_src_roman_horsley.py passes with NO network (the no_network fixture: import
+- [x] tests/test_src_roman_horsley.py passes with NO network (the no_network fixture: import
       urllib.request/ssl FIRST, then patch socket.socket.connect + socket.create_connection
       to raise - a naive `socket.socket = fn` breaks the ssl import, PITFALLS): it imports
       fit/src_roman_horsley.py by path via importlib, calls register() in-process, and
       asserts the join, the evidence check over the book's rows, and that the golden sample
       matches the current staged files; the LLM never runs in the test.
-- [ ] Full suite (.venv/bin/python -m pytest tests/ --ignore=tests/test_gate.py
+- [x] Full suite (.venv/bin/python -m pytest tests/ --ignore=tests/test_gate.py
       -p no:cacheprovider): no new reds against the split baseline (1 failed / 156 passed /
       1 skipped; the lone red = agent a's 307d placement test, known pre-existing).
 
@@ -71,3 +71,47 @@ this module yet; re-baseline on the final run.
 
 (Unblocked 2026-10-14, iteration 137, agent c, from the parent 207: same owner lift as
 807/808 - DECISIONS 2026-10-14 207. Runs last of the chain.)
+
+## Hand-over
+
+(2026-10-15, iteration 199, agent c) **DONE - all four boxes ticked.** This is the final
+hand-over. The book is closed: 207a/808 staged the 17 horsley rows (17 of the 18 staged roman
+file rows, 17 of 18 classified, 8 new sites of the 9 staged roman sites), 809 built the
+offline --check (whole-set join (a)-(f) + evidence over this book's rows, 17/17), the
+deterministic --golden (the 4-tie-flavour leaves 114/185/236/278 + whole-book counts
+8/17/17) and the 5-test no-network suite; 199 ran the box-4 A/B.
+
+**Box 4 (199, this session):** the full-suite A/B, both runs on the committed tree
+(`.venv/bin/python -m pytest tests/ --ignore=tests/test_gate.py -p no:cacheprovider`):
+baseline with the 809 test file moved out = **3 failed / 183 passed / 1 skipped in 548.7 s**;
+with the file restored = **3 failed / 188 passed / 1 skipped in 580.8 s**. The FAILED sets
+are byte-identical (diffed): (1) owner_check A - the 307d mid-transition/subpixel flake at
+"toolbar scale and turn change the drawing on screen" (242/810/812/814's lane, agent a is on
+810/812/814; 816 carries the settle+subpixel recipe); (2) owner_check B - fails only because
+A failed in the same invocation (the documented pair dependency, PITFALLS); (3)
+maclauchlan (e) - the now()-stamp date skew, below. 188 = 183 + the 5 horsley tests (all
+in-run green). No new reds against the measured baseline (the box's definition; the
+carried-over split baseline was stale as expected).
+
+**The maclauchlan red (pre-existing in the no-809 baseline - not 809's):** root cause
+measured, not just attributed: stage() stamps location_check.checked = now() (the fresh row
+carries 2026-10-15), the canonical row carries 230's 2026-10-14 re-stamp, and _canon_norm is
+a full-row dump - (e) fires on the date field alone (all 9 staged roman site rows verified
+dict-identical to their canonical twins; the fresh-vs-canonical diff is that one field).
+Daily and self-healing (green on 10-14, red on 10-15; the 197 "resolved" lasted one day).
+It is the same red that made the driver reject 814's done-claim (816's Why section), so it
+keeps biting other agents' gates. **Permanent fix filed as two parallel tasks (the lowest
+free numbers, one module each, both hermetic, no 230 dependency): 817 = zero the checked
+date in the 207b _canon_norm + the date-only-differs-does-not-fire control; 818 = the same
+in this book's copied _canon_norm (this module is green today only because its check reads
+committed rows - a fresh re-stage after any re-stamp would flake identically).**
+fit/merge.py's own full-row norm was deliberately left alone (the 211 merge regenerates
+canonical rows from the staged source - a re-stamp is a rewrite, not a conflict; and it is
+211/230's module).
+
+**Ops for anyone running suites on this branch until 816 lands:** each full-suite run
+re-encoded some of the ten docs/site_flow/307d_*.png (run 1: B_2/B_3/B_4/B_5; run 2:
+B_1/B_4/B_5) - main's bytes were restored before each run and in this final commit
+(`git checkout main -- docs/site_flow/307d_*.png`; the branch is byte-identical to main on
+the goldens, the conflict-free-merge rule). The run logs live at /tmp/809ab/ (the temp dir
+outside the project, as the rules allow).

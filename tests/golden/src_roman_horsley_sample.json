@@ -1,0 +1,215 @@
+{
+ "classified": [
+  {
+   "by": "hand",
+   "p_birdseye": 0.0,
+   "p_photo": 0.0,
+   "p_plan": 1.0,
+   "site": "ardoch",
+   "title": "Innerpeffery camp. and Ardoch camp."
+  },
+  {
+   "by": "hand",
+   "p_birdseye": 0.0,
+   "p_photo": 0.0,
+   "p_plan": 1.0,
+   "site": "virosidum",
+   "title": "The five fecondary ftations per lineam valli"
+  },
+  {
+   "by": "hand",
+   "p_birdseye": 0.0,
+   "p_photo": 0.0,
+   "p_plan": 1.0,
+   "site": "castrum-segedunum-q637958",
+   "title": "A general map of the Roman walls in the north of England, and so much of the adjacent countryes as includes the secondary stations per lineam valli."
+  },
+  {
+   "by": "hand",
+   "p_birdseye": 0.0,
+   "p_photo": 0.0,
+   "p_plan": 1.0,
+   "site": "bar-hill-fort",
+   "title": "A general map of Antoninus's wall in Scotland."
+  }
+ ],
+ "count": {
+  "classified": 17,
+  "extras": 8,
+  "files": 17
+ },
+ "extras": [
+  {
+   "aerial_ok": true,
+   "id": "ardoch",
+   "kind": "roman site",
+   "lat": 56.2742,
+   "location_check": {
+    "checked": "0000-00-00",
+    "method": "Wikidata Q4788225 (Ardoch camp) P625 (precision 1e-6) cross-checked against the plate's rivers and the book's text pp.43-44 (checked 2026-10-14)",
+    "note": "the Braco camp (SM1601, Black Hill beside it) - the only surviving Roman camp named Ardoch, per the plate's rivers (Knoch west, Ruchel north) and pp.43-44 following Gordon 1726; the Wikipedia Antonine Wall article confirms the Gask Ridge area; the Knoch stream is unlocated in the 18th-c. and modern sources checked (Nominatim + Wikipedia, 2026-10-14); the Innerpeffery camp (the other plan on the plate) is recorded on the n0114 files row's desc - no row of its own (the 808 box); kind 'roman site' - a legionary camp, not a fort",
+    "status": "confirmed"
+   },
+   "lon": -3.8731,
+   "name": "Ardoch",
+   "note": "new site staged by 808 (Horsley 1732, P.44, leaf n0114) - DECISIONS 808 148",
+   "place": "Braco, Gask Ridge, Perth and Kinross, Scotland",
+   "qid": null,
+   "region": "scotland",
+   "source": "fit/src_roman_horsley.py"
+  },
+  {
+   "aerial_ok": true,
+   "id": "virosidum",
+   "kind": "roman fort",
+   "lat": 54.708744,
+   "location_check": {
+    "checked": "0000-00-00",
+    "method": "Nominatim (Ellenborough, Maryport) + the book's N.1 map placement between Olenacum and Gabrosentum (checked 2026-10-14)",
+    "note": "the P.113 principal - the only one of the five forts without a catalog row (I-IV = longovicium-q6674222/whitley-castle-q7996561/voreda-roman-fort-q17642742/luguvallium-q71551754; DECISIONS 808 147 item 4); Horsley's N.1 places VIROSIDUM near Elenborough between Old Carlisle and Brougham by 'Boulneis' on the Solway coast; the only Elenborough (Ellenborough) in the region is near Maryport (Nominatim 54.708744, -3.482559); no Wikidata item for Virosum; P.113 plan V is a schematic fort with no Praetorium",
+    "status": "approx"
+   },
+   "lon": -3.482559,
+   "name": "Virosum (near Elenborough, Solway coast)",
+   "note": "new site staged by 808 (Horsley 1732, P.113, leaf n0185) - DECISIONS 808 147 item 4",
+   "place": "near Maryport (Ellenborough), Solway coast, Cumberland, England",
+   "qid": null,
+   "region": "england",
+   "source": "fit/src_roman_horsley.py"
+  }
+ ],
+ "files": [
+  {
+   "artist": "John Horsley",
+   "by": "fit/src_roman_horsley.py",
+   "cat": null,
+   "date": "1732",
+   "desc": "Horsley, Britannia Romana (1732), P.44 (leaf n0114): the two legionary camps of the Mons Graupius campaign per the book's text pp.43-44 ('the legions might poflibly have been at Ardoch, or Innerpeffery, before they marched to the battle'): Ardoch camp (the lower plan, concentric with a Praetorium box, the Knoch river on its west and the Ruchel to its north) and the Innerpeffery camp (the upper plan, a single circuit with a military way and 'a bank by which the river has formerly run'; each plan with its 200-yard scale). The Ardoch row is the Braco camp (Q4788225, Gask Ridge - DECISIONS 808 148); the Innerpeffery camp is recorded here on this row (the 808 box: no row of its own). Internet Archive britanniaromanao00hors, leaf n0114 of the 936-leaf Google scan (British Museum volume).",
+   "evidence": {
+    "checked": "0000-00-00",
+    "dist_m": 0.0,
+    "kind": "caption_coords",
+    "named_place": "Innerpeffery camp. and Ardoch camp.",
+    "place_label": "Ardoch",
+    "place_lat": 56.2742,
+    "place_lon": -3.8731,
+    "place_qid": null,
+    "rec": "evidence/1",
+    "site_lat": 56.2742,
+    "site_lon": -3.8731
+   },
+   "h": 3926,
+   "license": "public domain (the 1732 original, pre-copyright era)",
+   "mime": "image/jpeg",
+   "name": "The legionary camps of Ardoch and Innerpeffery, two plans, Horsley (1732), P.44",
+   "page": "https://archive.org/details/britanniaromanao00hors",
+   "qid": null,
+   "site": "ardoch",
+   "thumb": "https://archive.org/download/britanniaromanao00hors/page/n0114.jpg",
+   "title": "Innerpeffery camp. and Ardoch camp.",
+   "url": "https://archive.org/download/britanniaromanao00hors/page/n0114.jpg",
+   "w": 2400,
+   "wd_plan": false,
+   "year": 1732
+  },
+  {
+   "artist": "John Horsley",
+   "by": "fit/src_roman_horsley.py",
+   "cat": null,
+   "date": "1732",
+   "desc": "Horsley, Britannia Romana (1732), P.113 (leaf n0185): five fort plans - I GLANNIBANTA (Lanchester), II ALIONE (Whitley castle), III BREMETEN RACUM (Old Penrith), IV OLENACUM (Old Carlisle), V VIROSIDUM (near Elenborough), with Praetorium boxes on I and III, Watling Street, a compass and 'A feale of 100 paces'. I-IV have catalog rows (longovicium-q6674222, whitley-castle-q7996561, voreda-roman-fort-q17642742, luguvallium-q71551754); the row ties to V VIROSIDUM, the only one of the five without a catalog row, as the plate's new no-QID 'roman fort' row - all five plans are equal, so no other ranking (DECISIONS 808 147 item 4). Internet Archive britanniaromanao00hors, leaf n0185 of the 936-leaf Google scan (British Museum volume).",
+   "evidence": {
+    "checked": "0000-00-00",
+    "dist_m": 0.0,
+    "kind": "caption_coords",
+    "named_place": "The five fecondary ftations per lineam valli",
+    "place_label": "Virosum (near Elenborough, Solway coast)",
+    "place_lat": 54.708744,
+    "place_lon": -3.482559,
+    "place_qid": null,
+    "rec": "evidence/1",
+    "site_lat": 54.708744,
+    "site_lon": -3.482559
+   },
+   "h": 3861,
+   "license": "public domain (the 1732 original, pre-copyright era)",
+   "mime": "image/jpeg",
+   "name": "The five secondary stations per lineam valli, five fort plans, Horsley (1732), P.113",
+   "page": "https://archive.org/details/britanniaromanao00hors",
+   "qid": null,
+   "site": "virosidum",
+   "thumb": "https://archive.org/download/britanniaromanao00hors/page/n0185.jpg",
+   "title": "The five fecondary ftations per lineam valli",
+   "url": "https://archive.org/download/britanniaromanao00hors/page/n0185.jpg",
+   "w": 2237,
+   "wd_plan": false,
+   "year": 1732
+  },
+  {
+   "artist": "John Horsley",
+   "by": "fit/src_roman_horsley.py",
+   "cat": null,
+   "date": "1732",
+   "desc": "Horsley, Britannia Romana (1732), P.158 N.1 (leaf n0236): a general map of the Roman walls in the north of England and so much of the adjacent countryes as includes the secondary stations per lineam valli: the whole line from Segedunum (SEGEDYNVM) to Tunnocelum (TIVN NOCELVM), every station labelled (B's read: PONSAELII, CONDERCVVM, VINDOBALA, HYNVNVM, CILVRNVM, BORCOVICVS, PROCOLITIA, MAGNA, PETRIANA, AESTICA, VINDOLANA, ALIONE, GLANNIBANTA, BREMENIVM, BREMETERACVM, BROCAVVM, BRONONACAE, BLATVM VVLGIVM, CASTRA EXPLORATORVM, CORSTOPITVM, GALLAVA, HABITANCVM, VINDOMORA, ABALLABA, AMBBOGLANNA, CONGAVATA, AXELODYNYVM, LVGVAVALLIVM, OLENACVM, VIROSIDVM, GABROSENTVM; a scale of ten miles) - no inset fort plans: the map itself is the series' subject, so the row ties to the wall's east end, Segedunum (DECISIONS 808 147 item 6). Internet Archive britanniaromanao00hors, leaf n0236 of the 936-leaf Google scan (British Museum volume).",
+   "evidence": {
+    "checked": "0000-00-00",
+    "dist_m": 0.0,
+    "kind": "caption_coords",
+    "named_place": "A general map of the Roman walls in the north of England, and so much of the adjacent countryes as includes the secondary stations per lineam valli.",
+    "place_label": "Castrum Segedunum",
+    "place_lat": 54.98791,
+    "place_lon": -1.53231,
+    "place_qid": "Q637958",
+    "rec": "evidence/1",
+    "site_lat": 54.98791,
+    "site_lon": -1.53231
+   },
+   "h": 3893,
+   "license": "public domain (the 1732 original, pre-copyright era)",
+   "mime": "image/jpeg",
+   "name": "Hadrian's Wall, general map of the whole secondary-station line, Horsley (1732), N.1",
+   "page": "https://archive.org/details/britanniaromanao00hors",
+   "qid": "Q637958",
+   "site": "castrum-segedunum-q637958",
+   "thumb": "https://archive.org/download/britanniaromanao00hors/page/n0236.jpg",
+   "title": "A general map of the Roman walls in the north of England, and so much of the adjacent countryes as includes the secondary stations per lineam valli.",
+   "url": "https://archive.org/download/britanniaromanao00hors/page/n0236.jpg",
+   "w": 2427,
+   "wd_plan": false,
+   "year": 1732
+  },
+  {
+   "artist": "John Horsley",
+   "by": "fit/src_roman_horsley.py",
+   "cat": null,
+   "date": "1732",
+   "desc": "Horsley, Britannia Romana (1732), P.176 N.1 (leaf n0278): a general map of Antoninus's wall in Scotland: the whole wall line from the west end to Falkirk, with the forts and camps named (B's read: New Kirkpatrick, Old Kirkpatrick, Duntocher, Castle-hill, Bemulie, Kirkintilloch, Auchindavy, Barhill, Crowyhill, Wellerwood, Castle-cary, Rough-castle, Camelon, Falkirk, Mumrills, Caer-niden, Abercorn, Alaterva, Glasgow, Hamilton, Edinburgh, Leviston, Lindthgow, Reafew, the Calder, Alordur, Gartnavan, Dangoin hill; a scale of ten miles). Tied to the wall's west end, Bar Hill (the reused bar-hill-fort row - DECISIONS 808 147 item 6). Internet Archive britanniaromanao00hors, leaf n0278 of the 936-leaf Google scan (British Museum volume).",
+   "evidence": {
+    "checked": "0000-00-00",
+    "dist_m": 0.0,
+    "kind": "caption_coords",
+    "named_place": "A general map of Antoninus's wall in Scotland.",
+    "place_label": "Bar Hill Roman fort (Antonine Wall)",
+    "place_lat": 55.959,
+    "place_lon": -4.072,
+    "place_qid": null,
+    "rec": "evidence/1",
+    "site_lat": 55.959,
+    "site_lon": -4.072
+   },
+   "h": 3942,
+   "license": "public domain (the 1732 original, pre-copyright era)",
+   "mime": "image/jpeg",
+   "name": "Antonine Wall, general map of the wall in Scotland, Horsley (1732), N.1",
+   "page": "https://archive.org/details/britanniaromanao00hors",
+   "qid": null,
+   "site": "bar-hill-fort",
+   "thumb": "https://archive.org/download/britanniaromanao00hors/page/n0278.jpg",
+   "title": "A general map of Antoninus's wall in Scotland.",
+   "url": "https://archive.org/download/britanniaromanao00hors/page/n0278.jpg",
+   "w": 2405,
+   "wd_plan": false,
+   "year": 1732
+  }
+ ]
+}

@@ -1,6 +1,6 @@
 Status: in-progress
 # 230: The Roman staging into the canonical data - the 211 consolidation re-run
-Depends on: 211, 207a, 207b, 807, 808, 242
+Depends on: 211, 207a, 207b, 807, 808, 242, 810, 812, 813, 814
 Touches: fit/merge.py, fit/src_roman_maclauchlan.py, pipeline/commons.py, data/catalog/extras.jsonl, data/commons/files.jsonl, data/commons/classified.jsonl, data/merge/, data/books/index.jsonl, data/books/validation.json, data/books/matches.jsonl, data/sites/, docs/sources.md, web/data/sites.json, web/data/sites/, web/data/plans.json, tests/test_merge.py, tests/test_matchfit_station.py, tests/fixtures/matchfit_station/, PITFALLS.md
 
 ## Goal

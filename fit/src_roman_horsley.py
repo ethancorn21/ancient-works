@@ -40,20 +40,21 @@ usage: src_roman_horsley.py --fetch         live: triage-size page images, all 9
                                            idempotent (a second run changes no byte), 200 evidence field
                                            per row (the printed list entry is the tie), 1732 on every row;
                                            --dry previews
-       src_roman_horsley.py --check        offline (no network): join the staged roman rows (every row
-                                           names an existing or staged site; every new site has its
-                                           plans) and run fit/evidence.py's check over this book's
-                                           staged rows
+       src_roman_horsley.py --check        offline (no network): the join over the WHOLE staged roman
+                                           set (207a/b rows coexist in the shared files, tagged: every
+                                           row names an existing or staged site, every new site has its
+                                           plans, ...) and fit/evidence.py's check over this book's
+                                           17 staged rows (stored fields only)
        src_roman_horsley.py --golden       write tests/golden/src_roman_horsley_sample.json
 
-Later legs (built as the book lands, in order): --list (done: the 24-entry table HORSEY_FIGS - the 17
-kind-s maps (the 15 wall maps + n0114 P.44 and n0185 P.113, both added 2026-10-14 in 220 after that
-session proved 219's dismissal of their stage-A flags wrong) + N.11's wall section and the six
-kind-o country maps, each leaf's printed heading, corner mark and kind, transcribed by eye
-2026-10-13 in 215/216/218), then the stage-B boxes on the
-plan pages (the stage-B leg reuses the unmodified machinery now that the list exists:
-books.cmd_triage_b runs on A's site pages + the list's kind-s leaves), then --stage / --check /
---golden, and the stage-A/B recall against the list recorded in the Horsley section of
+All legs built, in order: --list (the 24-entry table HORSEY_FIGS - the 17 kind-s maps (the 15 wall
+maps + n0114 P.44 and n0185 P.113, both added 2026-10-14 in 220 after that session proved 219's
+dismissal of their stage-A flags wrong) + N.11's wall section and the six kind-o country maps, each
+leaf's printed heading, corner mark and kind, transcribed by eye 2026-10-13 in 215/216/218), the
+stage-B boxes on the plan pages (books.cmd_triage_b on A's site pages + the list's kind-s leaves;
+B's printed titles and site_names feed the STAGE_ROWS descs), --stage (808: the 17 kind-s rows into
+the shared roman staging files), --check (809: check_staged below) and --golden (809: the golden
+sample below), and the stage-A/B result against the list is recorded in the Horsley section of
 docs/lead_roman.md (books_lists.validate_book, never the shared validation.json). The ~121
 inscription/sculpture plates (Roman numerals I-CXXI) trail as HORSEY_PLATES (kind o, indexed but never
 staged) and do not block the 90%-of-site-plans box, which counts only kind-s leaves.
@@ -92,6 +93,13 @@ EXTRAS_ROMAN = os.path.join(ROOT, "data", "catalog", "extras_roman.jsonl")
 SITES_JSONL = os.path.join(ROOT, "data", "catalog", "sites.jsonl")
 EXTRAS_CANON = os.path.join(ROOT, "data", "catalog", "extras.jsonl")   # the canonical extras: the reuse source (bar-hill-fort, rough-castle-fort)
 WEB_SITES = os.path.join(ROOT, "web", "data", "sites.json")
+NO_BOOKS = os.path.join(ROOT, "data", "books", ".no-books")   # never exists: evidence.check skips an absent books file (207b's constant)
+GOLDEN = os.path.join(ROOT, "tests", "golden", "src_roman_horsley_sample.json")   # --golden's output (809)
+GOLDEN_LEAVES = (114, 185, 236, 278)   # the golden's file-row subset: one per tie flavour - n0114 -> a NEW no-QID
+                                       # "roman site" (ardoch); n0185 -> the NEW "roman fort" principal (virosidum);
+                                       # n0236 -> an EXISTING catalog QID site (castrum-segedunum-q637958);
+                                       # n0278 -> a REUSED canonical extras site (bar-hill-fort). The leaf order
+                                       # below is the golden file's fixed order.
 MODULE = "fit/src_roman_horsley.py"   # the by/source tag every staged row of this book carries (207b's landed convention)
 LICENSE = "public domain (the 1732 original, pre-copyright era)"   # the book's IA metadata has no license flag (checked 2026-10-14, live + cached)
 
@@ -612,6 +620,142 @@ def stage(dry=False):
           f"{len(site_rows)} of {len(seen)} new site rows appended ({IA})")
 
 
+def _canon_norm(r):
+    """Row identity under the 211 merge rule (the same norm fit/merge.py uses on the line): key order and
+    ASCII escaping don't matter, content does. (Copied from 207b: the family pattern keeps each book
+    module self-contained - no cross-module import of the helper.)"""
+    return json.dumps(r, sort_keys=True, ensure_ascii=False)
+
+
+def join_problems():
+    """The join over the WHOLE staged roman set - this book's rows and 207b's rows coexist in the shared
+    files, tagged (the 809 Notes: 809 checks the whole staged roman set for the join; the evidence
+    check and the golden sample cover this book's rows only). The 808 hand-over spec (a)-(f): (a)
+    every staged file row names an existing site (the catalog or the canonical extras) or a staged
+    extras_roman site; (b) every staged site has at least one staged picture; (c) (site, title) is
+    unique; (d) the classified rows are 1:1 with the file rows; (e) a staged site id already in the
+    canonical files is IDENTICAL to the canonical row under the 211 merge norm (a same-id different
+    row is a pre-merge conflict); (f) a staged QID held by a different existing site is a collision.
+    Returns the list of problem lines (empty iff the join holds); offline (no network, no LLM)."""
+    from collections import Counter
+    files = _load(FILES_ROMAN)
+    sites = _load(EXTRAS_ROMAN)
+    canon = {p: {r["id"]: _canon_norm(r) for r in _load(p) if r.get("id")}
+             for p in (SITES_JSONL, EXTRAS_CANON)}
+    known_ids = {i for rows in canon.values() for i in rows}
+    known_qids = {}
+    for p in (SITES_JSONL, EXTRAS_CANON):
+        for r in _load(p):
+            if r.get("qid"):
+                known_qids.setdefault(r["qid"], r["id"])
+    problems = []
+    staged_ids = {s["id"] for s in sites}
+    for s in sites:
+        for p, rows in canon.items():
+            if s["id"] in rows and rows[s["id"]] != _canon_norm(s):
+                problems.append(f"staged site {s['id']} differs from its canonical row in {os.path.basename(p)}")
+        q = s.get("qid")
+        if q and known_qids.get(q) not in (None, s["id"]):
+            problems.append(f"staged site {s['id']} re-uses QID {q} held by {known_qids[q]}")
+    pics = {s["id"]: 0 for s in sites}
+    seen = set()
+    for r in files:
+        sid = r.get("site")
+        if sid not in staged_ids | known_ids:
+            problems.append(f"file row names a site that is neither staged nor existing: {sid!r} ({r.get('title')!r})")
+        elif sid in pics:
+            pics[sid] += 1
+        k = (sid, r.get("title"))
+        if k in seen:
+            problems.append(f"duplicate staged row {k}")
+        seen.add(k)
+    for sid in pics:
+        if not pics[sid]:
+            problems.append(f"staged site {sid} has no staged picture")
+    if Counter((c.get("site"), c.get("title")) for c in _load(CLASSIFIED_ROMAN)) != Counter(seen):
+        problems.append("the classified rows are not 1:1 with the staged file rows")
+    return problems
+
+
+def check_staged():
+    """OFFLINE (no LLM, no network): the join over the whole staged roman set (join_problems), then
+    fit/evidence.py's check over THIS book's staged rows only (a temp file of this book's file
+    rows; the books file passed as the never-existing NO_BOOKS, so the book-index rows of
+    data/books/index.jsonl - this book's 38, written by the book machinery, never by this module -
+    are skipped; catalog = the catalog's sites). All 17 rows are caption_coords, so every field
+    re-verifies from stored fields alone (check_caption does no catalog lookup and no network),
+    including the 8 new no-QID extras_roman sites. Returns the exit code (0 iff no join problem
+    and no FAIL)."""
+    import evidence
+    import tempfile
+
+    mine = [r for r in _load(FILES_ROMAN) if r.get("by") == MODULE]
+    code = 0
+    if mine:
+        with tempfile.NamedTemporaryFile("w", suffix=".jsonl", delete=False, encoding="utf-8") as fh:
+            for r in mine:
+                fh.write(json.dumps(r, ensure_ascii=False) + "\n")
+            tmp = fh.name
+        code, text = evidence.check(tmp, NO_BOOKS, catalog=SITES_JSONL)
+        os.unlink(tmp)
+    else:
+        text = "evidence: 0 rows, 0 pass, 0 fail, 0 no-tie"
+    problems = join_problems()
+    for p in problems:
+        print("join:", p)
+    print(text)
+    return 1 if problems else code
+
+
+def _norm(rows):
+    """The rows for the golden file: the volatile "checked" dates normalized (they vary with the staging
+    date); everything else is stored content."""
+    out = []
+    for r in rows:
+        r = dict(r)
+        lc = r.get("location_check")
+        if isinstance(lc, dict) and lc.get("checked"):
+            r["location_check"] = dict(lc, checked="0000-00-00")
+        ev = r.get("evidence")
+        if isinstance(ev, dict) and ev.get("checked"):
+            r["evidence"] = dict(ev, checked="0000-00-00")
+        out.append(r)
+    return out
+
+
+def golden(path=None):
+    """OFFLINE (no LLM, no network): write tests/golden/src_roman_horsley_sample.json - a stable,
+    deterministic subset of this book's staged rows: one files row per tie flavour (GOLDEN_LEAVES,
+    leaf order), the new extras_roman sites those rows name (the other two golden leaves tie to a
+    catalog site and a canonical extras site, which have no extras_roman rows), and the subset's
+    classified rows - plus the WHOLE book's staged counts (the subset is the sample; the counts pin
+    the rest: 17 files / 17 classified / 8 new sites). Dates normalized (207b's _norm), keys
+    sorted. Regenerate only for an intended change (re-run --golden, commit the diff)."""
+    p = path or GOLDEN
+    files_rows = _load(FILES_ROMAN)
+    cls_rows = _load(CLASSIFIED_ROMAN)
+    sites_rows = _load(EXTRAS_ROMAN)
+    mine = [r for r in files_rows if r.get("by") == MODULE]
+    leaf = {int(r["url"].rsplit("/n", 1)[1].split(".")[0]): r for r in mine}
+    files = [leaf[n] for n in sorted(GOLDEN_LEAVES)]
+    sids = {r["site"] for r in files}
+    keys = {(r["site"], r["title"]) for r in files}
+    all_keys = {(r["site"], r["title"]) for r in mine}
+    my_sites = [s for s in sites_rows if s.get("source") == MODULE]
+    sites = [s for s in my_sites if s["id"] in sids]
+    cls = [c for c in cls_rows if (c.get("site"), c.get("title")) in keys]
+    out = {"count": {"extras": len(my_sites), "files": len(mine),
+                    "classified": sum(1 for c in cls_rows
+                                      if (c.get("site"), c.get("title")) in all_keys)},
+           "extras": _norm(sites),
+           "files": _norm(files),
+           "classified": _norm(cls)}
+    with open(p, "w", encoding="utf-8") as f:
+        json.dump(out, f, ensure_ascii=False, indent=1, sort_keys=True)
+        f.write("\n")
+    print("wrote", p)
+
+
 if __name__ == "__main__":
     a = sys.argv[1:]
     if a and a[0] not in ("--fetch", "--status", "--triage", "--list", "--stage", "--dry", "--check", "--golden"):
@@ -626,5 +770,9 @@ if __name__ == "__main__":
         list_cmd()
     elif a and a[0] in ("--stage", "--dry"):
         stage("--dry" in a)
+    elif a and a[0] == "--check":
+        raise SystemExit(check_staged())
+    elif a and a[0] == "--golden":
+        raise SystemExit(golden())
     else:
-        raise SystemExit("the check/golden legs are not built yet (809; see the module docstring)")
+        raise SystemExit(__doc__.strip().split("usage:")[1].strip())
