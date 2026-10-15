@@ -239,13 +239,74 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
 .caption h2 { margin: 0; font: 400 15px/1.3 var(--title); letter-spacing: .14em; text-transform: uppercase; text-wrap: balance; }
 .caption p { margin: 3px 0 0; font: italic 12.5px var(--title); color: var(--ink-2); }
 
+/* ---------- phones: map first (Ethan 2026-10-15: "the map should take up way more of the screen"; past and present lenses).
+   The panel is a bottom sheet that rests at its peek (--peek, set by the script from the view's [data-peek] part) and pulls up
+   to 84%; the desktop header goes, a floating bar carries back and the site name. In a site the peek is the lens bar: one
+   slider from the oldest overlay to today (crossfading in date order), Aerial / LiDAR / Block 3D, and a hold button above the
+   sheet that flips to the other lens while held. Option "A + B" of the mockups. */
+.mtop, .mera, .mhold { display: none; }
+.lensbar { display: none; }
 @media (max-width: 760px) {
-  .panel { top: auto; left: 0; right: 0; bottom: 0; width: auto; max-height: 54%; outline: none; border-width: 1px 0 0;
-    padding-bottom: env(safe-area-inset-bottom, 0px); }
-  .panel.collapsed { max-height: calc(92px + env(safe-area-inset-bottom, 0px)); }
-  .panel.collapsed .panel-body { display: none; }
-  .grab { display: block; position: absolute; top: 5px; left: 50%; transform: translateX(-50%); width: 44px; height: 5px;
-    background: var(--rule); border: 0; padding: 0; cursor: pointer; }
+  :root { --peek: 40vh; }
+  .panel { top: auto; left: 0; right: 0; bottom: 0; width: auto; height: 84%; max-height: none; outline: none; border-width: 1px 0 0;
+    padding-bottom: env(safe-area-inset-bottom, 0px); overflow: hidden; box-shadow: 0 -6px 18px rgba(16, 20, 28, .28);
+    transform: translateY(calc(100% - var(--peek))); transition: transform .34s cubic-bezier(.2, .8, .2, 1); }
+  .panel.open { transform: none; }
+  .panel.dragging { transition: none; }
+  .panel:not(.open) { touch-action: none; }
+  .panel:not(.open) .panel-body { overflow: hidden; }
+  .strip, .panel-head { display: none; }
+  .grab { display: block; flex: none; width: 100%; height: 24px; background: none; border: 0; padding: 0; cursor: pointer; touch-action: none; }
+  .grab::before { content: ""; display: block; margin: 8px auto 0; width: 44px; height: 5px; background: var(--rule); }
+  .panel-body { padding-top: 2px; }
+  #body > .back, .lensbar ~ .tabs, .lensbar ~ .group:has(> .seg[aria-label="Ground layer"]) { display: none; }
+  #body > .search { order: -2; touch-action: none; } #body > .tabs { order: -1; }
+  /* pulled up in a site: what it is and where to go next first, the map pickers and the owner's tools under them */
+  #body > .lensbar ~ .summary, #body > .lensbar ~ p.source, #body > .lensbar ~ div:has(> .notes), #near { order: 1; }
+  #body > .lensbar ~ .group { order: 2; }
+  .search input[type=search] { font-size: 16px; padding: 9px 10px; }  /* 16px: iOS zooms the page into smaller inputs */
+  .maplibregl-ctrl-top-right { display: none; }
+  .maplibregl-ctrl-bottom-right { bottom: var(--peek); transition: bottom .34s; }
+
+  .mtop { display: flex; position: fixed; z-index: 2; left: 10px; right: 10px; top: calc(10px + env(safe-area-inset-top, 0px)); gap: 8px; align-items: stretch; pointer-events: none; }
+  .mtop > * { pointer-events: auto; background: rgba(248, 244, 232, .94); border: 1px solid var(--ink); color: var(--ink); }
+  .mt-back { flex: none; min-width: 44px; font: 600 16px/1 var(--label); cursor: pointer; padding: 0 12px; }
+  .mt-name { flex: 1; min-width: 0; text-align: center; padding: 6px 10px; }
+  .mt-name b { display: block; font: 700 14px/1.2 var(--title); letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mt-name i { display: block; font: italic 12px/1.3 var(--title); color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mtop.home .mt-back { display: none; }
+  .mtop.home .mt-name { flex: none; margin: 0 auto; padding: 8px 14px; }
+  .mera { position: fixed; z-index: 2; left: 50%; top: calc(66px + env(safe-area-inset-top, 0px)); transform: translateX(-50%); pointer-events: none;
+    font: 700 11px/1 var(--label); letter-spacing: .14em; text-transform: uppercase; background: var(--survey); color: #fff; padding: 5px 8px 4px; white-space: nowrap; }
+  .mera:not([hidden]) { display: block; }
+  .mera.present { background: var(--ink); }
+  .mhold { position: fixed; z-index: 2; right: 12px; bottom: calc(var(--peek) + 12px); width: 66px; height: 66px; border-radius: 50%;
+    border: 2px solid var(--ink); background: var(--sheet); color: var(--ink); font: 700 10.5px/1.15 var(--label); letter-spacing: .08em; text-transform: uppercase;
+    cursor: pointer; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; box-shadow: 0 3px 10px rgba(16, 20, 28, .35);
+    transition: transform .12s, background .12s, bottom .34s; }
+  .mhold:not([hidden]) { display: block; }
+  .mhold.down { transform: scale(.94); background: var(--ink); color: var(--sheet); }
+  .panel.open ~ .mhold { opacity: 0; pointer-events: none; }
+
+  .lensbar { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; min-height: 124px; align-content: start; touch-action: none; }
+  .lcap { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; min-height: 20px; }
+  .lcap b { flex: 1; font: 700 15px/1.25 var(--title); min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .lcap span { flex: none; max-width: 40%; font: italic 12.5px/1.25 var(--title); color: var(--ink-2); text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .lcap span:empty { display: none; }
+  .track { position: relative; height: 52px; margin: 0 12px; cursor: pointer; touch-action: none; }
+  .track .ln { position: absolute; left: 0; right: 0; top: 20px; height: 2px; background: var(--ink); }
+  .track .fl { position: absolute; left: 0; top: 19px; height: 4px; background: var(--survey); }
+  .track .tk { position: absolute; top: 14px; width: 2px; height: 14px; margin-left: -1px; background: var(--ink); }
+  .track .tl { position: absolute; top: 37px; transform: translateX(-50%); font: 600 11px/1 var(--label); letter-spacing: .03em; color: var(--ink-2); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .track .tl.on { color: var(--survey); } .track .tl.today.on { color: var(--ink); }
+  .track .th { position: absolute; top: 9px; width: 24px; height: 24px; margin-left: -12px; background: var(--sheet); border: 2px solid var(--survey); border-radius: 50%; box-shadow: 0 1px 4px rgba(16, 20, 28, .25); }
+  .track .th.today { border-color: var(--ink); }
+  .track-none { margin: 0; min-height: 46px; display: flex; align-items: center; font-size: 13.5px; font-style: italic; color: var(--ink-2); }
+  .lrow { display: flex; gap: 8px; align-items: center; }
+  .lchips { display: flex; gap: 6px; flex: 1; }
+  .lchips button { flex: 1 1 0; min-width: 0; white-space: nowrap; background: var(--sheet); border: 1px solid var(--ink); color: var(--ink); font: 600 11.5px/1 var(--label); letter-spacing: .06em; text-transform: uppercase; padding: 11px 4px; cursor: pointer; }
+  .lchips .gap { flex: none; width: 6px; }
+  .lchips button[aria-pressed="true"] { background: var(--ink); color: var(--sheet); }
   .strip { padding-top: 14px; }
   .sheet { left: 0; right: 0; top: 0; bottom: 0; outline: none; border: 0; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
   .sheet-main { grid-template-columns: 1fr; grid-template-rows: 1fr auto; margin: 0 10px; }
@@ -266,6 +327,10 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
   </header>
   <div class="panel-body" id="body"></div>
 </aside>
+<!-- phones only (.mtop/.mera/.mhold show under the max-width 760px rules) -->
+<div class="mtop home" id="mtop"><button class="mt-back" id="mtback" aria-label="Back">←</button><div class="mt-name" id="mtname"><b>Ancient Works</b></div></div>
+<div class="mera" id="mera" hidden></div>
+<button class="mhold" id="mhold" hidden>Hold for today</button>
 
 <section class="fitpane" id="fitpane" hidden aria-label="Old plan">
   <div class="fit-top"><span class="fit-name" id="fitname"></span><button id="fitmin">Hide plan</button></div>
@@ -359,7 +424,11 @@ const map = new maplibregl.Map({
 // on phones the bottom sheet covers the lower half: centre the globe in the visible part
 // centre the globe in the part of the screen the panel leaves free: the bottom sheet on phones, the left panel on
 // wider screens (without it the globe sat behind the panel's edge, Ethan 2026-10-10: "it doesn't feel centered")
-map.setPadding(narrow() ? { top: 0, left: 0, right: 0, bottom: innerHeight * 0.5 } : { top: 0, left: 390, right: 0, bottom: 0 });
+map.setPadding(narrow() ? { top: 0, left: 0, right: 0, bottom: 140 } : { top: 0, left: 390, right: 0, bottom: 0 });
+// phones: one finger pans, two pinch; no twist or tilt, so a pinch never turns the map by accident
+if (narrow()) { map.touchZoomRotate.disableRotation(); map.touchPitch.disable(); }
+// phones: the credits start folded (the (i) opens them); open they cover the map above the sheet
+if (narrow()) map.once('load', () => document.querySelectorAll('.maplibregl-ctrl-attrib.maplibregl-compact-show').forEach(el => { el.classList.remove('maplibregl-compact-show'); el.removeAttribute('open'); }));
 // "All sites" zooms out where you are, to about a country across; it used to fly back to North America every time
 const zoomOut = () => map.flyTo({ center: map.getCenter(), zoom: Math.min(map.getZoom(), 5), duration: 2500 });
 map.once('load', () => { S.mapLoaded = true; });  // isStyleLoaded() is false while tiles load, so it cannot tell
@@ -412,7 +481,7 @@ function applyLayers(site) {
   if (map.getLayer(`rel-${site.id}`)) map.setLayoutProperty(`rel-${site.id}`, 'visibility', S.ground === 'relief' ? 'visible' : 'none');
   if (site.plate) for (const mode of ['ink', 'paper']) {
     const id = `${mode}-${site.id}`;
-    map.setLayoutProperty(id, 'visibility', S.plateMode === mode && S.plateOpacity > 0 ? 'visible' : 'none');
+    map.setLayoutProperty(id, 'visibility', S.plateMode === mode && S.plateOpacity > 0 && !S.plateOff ? 'visible' : 'none');
     map.setPaintProperty(id, 'raster-opacity', S.plateOpacity);
   }
   if (B.site === site) syncBlock();
@@ -579,8 +648,8 @@ function selectCat(id) {
   $('#back').onclick = () => { renderList(); zoomOut(); };
   $('#g-relief').onclick = () => { setGround('relief'); selectCat(id); };
   $('#g-imagery').onclick = () => { setGround('imagery'); selectCat(id); };
-  if (narrow()) $('#panel').classList.remove('collapsed');
-  const pad = narrow() ? { bottom: innerHeight * 0.5, top: 20, left: 20, right: 20 } : { left: 390, top: 20, right: 20, bottom: 20 };
+  if (narrow()) sheetOpen(false);
+  const pad = narrow() ? sheetPad() : { left: 390, top: 20, right: 20, bottom: 20 };
   map.flyTo({ center: [r.lon, r.lat], zoom: narrow() ? 15 : 15.6, duration: 4000, essential: true, padding: pad });
   try { history.replaceState(null, '', '#c/' + id); } catch {}
 }
@@ -775,7 +844,7 @@ function startDrag(p, get, set, redraw) {
   S.drag = { p, get, set, redraw, from: null };
   map.dragPan.disable(); map.touchZoomRotate.disableRotation(); map.getCanvas().style.cursor = 'move';
 }
-function stopDrag() { if (!S.drag) return; S.drag = null; map.dragPan.enable(); map.touchZoomRotate.enableRotation(); map.getCanvas().style.cursor = ''; }
+function stopDrag() { if (!S.drag) return; S.drag = null; map.dragPan.enable(); if (!narrow()) map.touchZoomRotate.enableRotation(); map.getCanvas().style.cursor = ''; }
 function dragAt(e) {
   if (!S.drag || !S.drag.from) return;
   const s = S.byId[S.sel], [x0, y0] = merc([S.drag.from.lng, S.drag.from.lat]), [x1, y1] = merc([e.lngLat.lng, e.lngLat.lat]);
@@ -795,7 +864,7 @@ function renderSite(s) {
   const a = S.align[s.id];
   const moved = a && (a.dx || a.dy || a.rot || a.scale !== 1);
   const feats = s.plate && s.plate.features ? s.plate.features.filter(x => x.used) : null;
-  $('#body').innerHTML = `
+  $('#body').innerHTML = `${narrow() ? lensBar(s) : ''}
     <button class="back" id="back">← All sites</button>
     <div><h2 class="site-title">${esc(s.name)}</h2><p class="site-aka">${esc([s.aka, s.place].filter(Boolean).join(' · '))}</p></div>
     ${s.block ? `<div class="tabs" role="group" aria-label="View">
@@ -836,7 +905,8 @@ function renderSite(s) {
       <div class="tools"><button class="primary" id="fitgo">Place an old plan</button></div>
     </div>` : ''}
     ${s.summary ? `<p class="summary">${esc(s.summary)}</p>${s.wiki ? `<p class="source">Summary from <a href="${esc(s.wiki)}" target="_blank" rel="noopener">Wikipedia</a> (CC BY-SA 4.0).</p>` : ''}` : ''}
-    ${s.notes && s.notes.length ? `<div><p class="section-title" style="text-align:left">What the LiDAR shows</p><ul class="notes">${s.notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul></div>` : ''}`;
+    ${s.notes && s.notes.length ? `<div><p class="section-title" style="text-align:left">What the LiDAR shows</p><ul class="notes">${s.notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul></div>` : ''}
+    ${narrow() ? nearBlock(s) : ''}`;
   $('#back').onclick = () => { closeBlock(); S.sel = null; syncMarkers(); renderList(); zoomOut(); };
   if (s.block) { $('#t-map').onclick = () => closeBlock(); $('#t-block').onclick = () => openBlock(s); }
   if ($('#g-relief')) { $('#g-relief').onclick = () => setGround('relief', s); $('#g-imagery').onclick = () => setGround('imagery', s); }
@@ -845,6 +915,7 @@ function renderSite(s) {
   const depMode = m => { S.depMode = m; lsSet('aw.depMode', m); applyDep(s); renderSite(s); if (B.open) setTab(true); };
   if ($('#d-ink')) { $('#d-ink').onclick = () => depMode('ink'); $('#d-paper').onclick = () => depMode('paper'); }
   if ($('#dop')) $('#dop').oninput = e => { S.depOpacity = e.target.value / 100; $('#dopv').textContent = e.target.value + '%'; applyDep(s); lsSet('aw.depOpacity', S.depOpacity); };
+  if (narrow()) wireLens(s);
   const dsel = (S.dep[s.id] || []).find(x => x.file === S.depSel[s.id]);
   if (dsel && $('#dsave')) wireAlign('d', () => S.depAlign[depKey(s, dsel)], a => { S.depAlign[depKey(s, dsel)] = a; }, () => applyDep(s),
     `depalign/${depKey(s, dsel)}`, 'Saved. This is now where the drawing sits for everyone.');
@@ -868,7 +939,9 @@ function select(id) {
   if (B.open && B.site !== s) closeBlock();
   // every site opens on the aerial photograph with the old drawing in ink lines (Ethan 2026-10-10); the viewer can
   // switch either back for this visit
-  S.ground = 'imagery'; S.plateMode = 'ink'; S.depMode = 'ink'; stopDrag();
+  S.ground = 'imagery'; S.plateMode = 'ink'; S.depMode = 'ink'; S.plateOff = false; stopDrag();
+  // phones show one past at a time: a site with an 1848 plate opens on it unless this viewer picked a map for the site
+  if (narrow() && s.plate && !(s.id in S.depSel)) S.depSel[s.id] = '';
   S.sel = id; F.sel = null; F.cand = null; ensureSite(s); applyAll(); renderSite(s); syncMarkers();
   loadDeps(s).then(() => {
     // a site opens with its old drawing showing, unless this viewer chose otherwise for the site; without a drawing, with
@@ -880,15 +953,249 @@ function select(id) {
       const d = ds.find(x => DRAWING.has(x.kind)) || maps.filter(x => !unsure(x)).pop() || maps.pop();
       if (d) S.depSel[s.id] = d.file;
     }
+    if (narrow()) { S.plateOff = !!(s.plate && S.depSel[s.id]); applyLayers(s); ensureScrub(s); }
     applyDep(s); if (S.sel === id && !B.open) renderSite(s);
   });
-  if (narrow()) $('#panel').classList.remove('collapsed');
-  const pad = narrow() ? { bottom: innerHeight * 0.5, top: 20, left: 20, right: 20 } : { left: 390, top: 20, right: 20, bottom: 20 };
-  const span = Math.max(...s.size_m);
-  map.flyTo({ center: [s.lon, s.lat], zoom: (narrow() ? 14.2 : 15) - Math.max(0, Math.log2(span / 1800)), duration: 4500, essential: true, padding: pad });
+  // phones: the site box fills the screen above the sheet's peek
+  if (narrow()) { sheetOpen(false); const pad = sheetPad(8), cam = map.cameraForBounds(new maplibregl.LngLatBounds(s.corners[3], s.corners[1]), { padding: pad });
+    map.flyTo({ center: [s.lon, s.lat], zoom: Math.min(17.5, cam ? cam.zoom : 15), duration: 4500, essential: true, padding: pad }); }
+  else {
+    const pad = { left: 390, top: 20, right: 20, bottom: 20 };
+    const span = Math.max(...s.size_m);
+    map.flyTo({ center: [s.lon, s.lat], zoom: 15 - Math.max(0, Math.log2(span / 1800)), duration: 4500, essential: true, padding: pad });
+  }
   try { history.replaceState(null, '', '#' + id); } catch {}
 }
-$('#grab').onclick = () => $('#panel').classList.toggle('collapsed');
+$('#grab').onclick = () => narrow() ? sheetOpen(!$('#panel').classList.contains('open')) : $('#panel').classList.toggle('collapsed');
+
+/* ---------- phones: the sheet, the floating bar, the lens bar (time scrub + hold for today) ----------
+   Ethan 2026-10-15 picked "A + B" of the mockups (artifact 5DwCnWtZptRuvHrSDDKmnD): people should see a site through two
+   lenses, the past and the present. Desktop is untouched: everything here runs only while narrow(). */
+// how much of the sheet shows at rest: down to the bottom of the view's [data-peek] part (the lens bar in a site, the search
+// row at home), else 42% of the screen
+function peekPx() {
+  const p = $('#panel'), el = $('#body [data-peek]') || $('#body > .search');
+  const pb = parseFloat(getComputedStyle(p).paddingBottom) || 0;
+  const h = el ? el.offsetTop + el.offsetHeight + 12 : innerHeight * 0.42;
+  return Math.round(Math.min(h, innerHeight * 0.6) + pb);
+}
+function setPeekVar() { if (narrow()) document.documentElement.style.setProperty('--peek', peekPx() + 'px'); }
+// map padding for a camera move: the floating bar on top, the sheet's peek below
+function sheetPad(side = 20) { return { top: 64, bottom: peekPx() + 8, left: side, right: side }; }
+function sheetOpen(open) {
+  const p = $('#panel');
+  p.classList.toggle('open', open);
+  if (!open) $('#body').scrollTop = 0;
+}
+// the floating bar mirrors the view's own title and back button, whatever drew it (review.js, fitkit.js included)
+function syncTop() {
+  if (!narrow()) return;
+  const t = $('#body .site-title'), a = $('#body .site-aka'), back = $('#body #back') || $('#body #fitback');
+  $('#mtop').classList.toggle('home', !back);
+  $('#mtname').innerHTML = t ? `<b>${esc(t.textContent)}</b>${a && a.textContent ? `<i>${esc(a.textContent)}</i>` : ''}` : '<b>Ancient Works</b>';
+  const inSite = !!$('#body .lensbar');
+  if (!inSite) { $('#mera').hidden = true; $('#mhold').hidden = true; }
+  setPeekVar();
+}
+$('#mtback').onclick = () => { const b = $('#body #back') || $('#body #fitback'); if (b) b.click(); sheetOpen(false); };
+new MutationObserver(() => requestAnimationFrame(syncTop)).observe($('#body'), { childList: true });
+addEventListener('resize', () => requestAnimationFrame(syncTop));
+document.fonts && document.fonts.ready.then(() => syncTop());
+// the search field opens the sheet, so the list is there to scroll while typing
+$('#body').addEventListener('focusin', e => { if (narrow() && e.target.id === 'q') sheetOpen(true); });
+
+// pull the sheet up or down: the handle and the peek part follow the finger; a short swipe is enough
+(() => {
+  const p = $('#panel');
+  let g = null, swiped = false;
+  p.addEventListener('pointerdown', e => {
+    if (!narrow() || e.target.closest('.track, input, textarea, select')) return;
+    const open = p.classList.contains('open');
+    // open, only the handle and the peek part close it: the rest of the sheet scrolls
+    if (open && !e.target.closest('.grab, [data-peek], #body > .search')) return;
+    g = { y0: e.clientY, t0: performance.now(), open, dy: 0, id: e.pointerId, on: false };
+    swiped = false;
+  });
+  // on window: a mouse that leaves the sheet mid-drag still moves it (a finger is captured by the page anyway)
+  addEventListener('pointermove', e => {
+    if (!g || e.pointerId !== g.id) return;
+    g.dy = e.clientY - g.y0;
+    if (!g.on && Math.abs(g.dy) > 8) { g.on = true; p.classList.add('dragging'); }
+    if (!g.on) return;
+    const H = p.offsetHeight, rest = H - peekPx(), y = Math.max(0, Math.min(rest, (g.open ? 0 : rest) + g.dy));
+    p.style.transform = `translateY(${y}px)`;
+  });
+  const end = e => {
+    if (!g || e.pointerId !== g.id) return;
+    if (g.on) {
+      const v = g.dy / Math.max(1, performance.now() - g.t0);  // px per ms
+      p.classList.remove('dragging'); p.style.transform = '';
+      sheetOpen(g.open ? !(g.dy > 60 || v > 0.5) : (g.dy < -60 || v < -0.5));
+      swiped = true; setTimeout(() => { swiped = false; }, 0);
+    }
+    g = null;
+  };
+  addEventListener('pointerup', end); addEventListener('pointercancel', end);
+  // a swipe that started on a button is not a tap on it
+  p.addEventListener('click', e => { if (swiped) { e.stopPropagation(); e.preventDefault(); swiped = false; } }, true);
+})();
+
+// the lens stops, oldest first: the 1848 plate and each old drawing, survey sheet or aerial (Cassini and Roy only when
+// the site has nothing else: they sit 250 m+ off), then today
+function lensStops(s) {
+  const out = [];
+  if (s.plate) out.push({ kind: 'plate', year: 1848, name: `${s.plate.label || 'Plate'} · Squier & Davis`, note: 'surveyed 1846' });
+  const deps = S.dep[s.id] || [], keep = deps.filter(d => !rough(d));
+  (keep.length ? keep : deps).forEach(d => out.push({ kind: 'dep', d, year: d.year || null, name: d.label,
+    note: rough(d) ? 'rough, 250 m+ off' : checkNote(d) }));
+  out.sort((a, b) => (a.year || 9999) - (b.year || 9999));
+  out.push({ kind: 'today', note: todayNote(s) });
+  return out;
+}
+const todayName = s => S.ground === 'relief' && s.lidar !== false ? 'LiDAR relief' : 'Aerial photograph';
+// where the lens rests now: the selected map, else the plate, else today
+function restIndex(s, stops) {
+  const sel = S.depSel[s.id];
+  let i = sel ? stops.findIndex(x => x.kind === 'dep' && x.d.file === sel) : -1;
+  if (i < 0 && s.plate && !S.plateOff) i = stops.findIndex(x => x.kind === 'plate');
+  return i < 0 ? stops.length - 1 : i;
+}
+// today's line says what the relief's shades mean (the desktop ramp's job)
+const todayNote = s => S.ground === 'relief' && s.lidar !== false ? `pale raised, dark sunken, ±${s.relief_clip_m} m` : '';
+function stopLabel(st, s) { return st.kind === 'today' ? `Today · ${todayName(s)}` : `${st.year || 'Undated'} · ${st.name}`; }
+function lensBar(s) {
+  const stops = lensStops(s), n = stops.length - 1, at = restIndex(s, stops), pct = i => (i / Math.max(1, n) * 100).toFixed(2) + '%';
+  const loading = !S.dep[s.id];
+  // with many stops only every other year is written under the line, and always the ends and the current one
+  const lab = i => n < 6 || i === 0 || i === n || i === at || i % 2 === 0;
+  return `<div class="lensbar" data-peek>
+    <div class="lcap"><b id="lcapb">${esc(stopLabel(stops[at], s))}</b><span id="lcaps">${esc(stops[at].note || '')}</span></div>
+    ${n ? `<div class="track" id="ltrack" role="slider" aria-label="From the oldest map to today" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${at}" tabindex="0">
+      <div class="ln"></div><div class="fl" id="lfill" style="width:${pct(at)}"></div>
+      ${stops.map((st, i) => `<div class="tk" style="left:${pct(i)}"></div>${lab(i) ? `<div class="tl ${st.kind === 'today' ? 'today' : ''} ${i === at ? 'on' : ''}" data-i="${i}" style="left:${pct(i)}">${st.kind === 'today' ? 'Today' : st.year || '?'}</div>` : ''}`).join('')}
+      <div class="th ${at === n ? 'today' : ''}" id="lthumb" style="left:${pct(at)}"></div>
+    </div>` : `<p class="track-none">${loading ? 'Loading the old maps…' : 'No old map of this site yet: only today\'s ground.'}</p>`}
+    <div class="lrow"><div class="lchips">
+      <button id="l-air" aria-pressed="${S.ground !== 'relief' || s.lidar === false}">Aerial</button>
+      ${s.lidar !== false ? `<button id="l-rel" aria-pressed="${S.ground === 'relief'}">LiDAR</button>` : ''}
+      <span class="gap"></span>${s.block ? '<button id="l-blk">3D block</button>' : ''}
+      <button id="l-near">Nearby</button>
+    </div></div>
+  </div>`;
+}
+// the closest other sites with an old overlay, for hopping on from this one
+function nearSites(s, k = 5) {
+  const km = x => Math.hypot((x.lon - s.lon) * Math.cos(s.lat * Math.PI / 180), x.lat - s.lat) * 111.2;
+  return S.sites.filter(x => x.id !== s.id && x.score > 0 && shown(x)).map(x => [km(x), x]).sort((a, b) => a[0] - b[0]).slice(0, k);
+}
+function nearBlock(s) {
+  return `<div id="near"><p class="group-title">Nearby sites</p><ul class="legend-list">${nearSites(s).map(([d, x]) => `
+    <li><button class="entry" data-near="${esc(x.id)}">
+      <span class="tiers"><span class="sq pin ${tierOf(x)}">${PIN}</span></span>
+      <span><span class="name">${esc(x.name)}</span><span class="desc">${esc([x.kind ? kindLabel(x.kind) : '', x.place].filter(Boolean).join(', '))}. ${d < 10 ? d.toFixed(1) : Math.round(d)} km away${x.oldest ? `, oldest overlay ${x.oldest}` : ''}.</span></span>
+    </button></li>`).join('')}</ul></div>`;
+}
+function wireLens(s) {
+  const stops = lensStops(s), n = stops.length - 1, at = restIndex(s, stops);
+  $('#l-air').onclick = () => setGround('imagery', s);
+  if ($('#l-rel')) $('#l-rel').onclick = () => setGround('relief', s);
+  if ($('#l-blk')) $('#l-blk').onclick = () => openBlock(s);
+  $('#l-near').onclick = () => { sheetOpen(true); setTimeout(() => $('#near') && $('#near').scrollIntoView({ behavior: 'smooth', block: 'start' }), 340); };
+  document.querySelectorAll('[data-near]').forEach(b => b.onclick = () => select(b.dataset.near));
+  const era = $('#mera');
+  era.hidden = false; era.textContent = stops[at].kind === 'today' ? 'Today' : String(stops[at].year || 'Old map'); era.classList.toggle('present', stops[at].kind === 'today');
+  // hold: the other lens while the finger is down (today over a past stop; the site's opening map over today)
+  const hold = $('#mhold');
+  const other = at < n ? n : (S.lastPast && S.lastPast.site === s.id && S.lastPast.i < n ? S.lastPast.i : n - 1);
+  hold.hidden = !n; hold.innerHTML = at < n ? 'Hold<br>for<br>today' : `Hold<br>for<br>${esc(String(stops[other] && stops[other].year || 'the past'))}`;
+  hold.onpointerdown = e => { e.preventDefault(); try { hold.setPointerCapture(e.pointerId); } catch {} hold.classList.add('down'); lensTween(s, stops, at, other); };
+  hold.onpointerup = hold.onpointercancel = () => { if (!hold.classList.contains('down')) return; hold.classList.remove('down'); lensTween(s, stops, other, at, true); };
+  hold.oncontextmenu = e => e.preventDefault();
+  if (at < n) S.lastPast = { site: s.id, i: at };
+  const tr = $('#ltrack'); if (!tr) return;
+  let drag = false;
+  const tAt = e => { const r = tr.getBoundingClientRect(); return Math.max(0, Math.min(n, (e.clientX - r.left) / r.width * n)); };
+  tr.onpointerdown = e => { e.stopPropagation(); drag = true; tr.setPointerCapture(e.pointerId); scrubBegin(s); scrubTo(s, stops, tAt(e)); };
+  tr.onpointermove = e => { if (drag) scrubTo(s, stops, tAt(e)); };
+  tr.onpointerup = tr.onpointercancel = e => { if (!drag) return; drag = false; scrubEnd(s, stops, Math.round(tAt(e))); };
+  tr.onkeydown = e => { const d = { ArrowLeft: -1, ArrowRight: 1 }[e.key]; if (d) { e.preventDefault(); scrubBegin(s); scrubEnd(s, stops, Math.max(0, Math.min(n, at + d))); } };
+}
+// one image layer per old map, hidden at rest, for crossfading while the slider moves (the dep- layer shows one map at a time)
+const scrId = (s, d) => `scr-${s.id}-${(S.dep[s.id] || []).indexOf(d)}`;
+function depView(s, d) {
+  const f = d.check && d.check.file ? d.check : d;
+  return { url: `data/sites/${s.id}/${S.depMode === 'ink' && f.ink ? f.ink : f.file}`, coordinates: shiftCorners(d.corners, S.depAlign[depKey(s, d)], s.lat) };
+}
+function ensureScrub(s) {
+  if (!S.loaded.has(s.id)) return;
+  for (const st of lensStops(s)) {
+    if (st.kind !== 'dep') continue;
+    const id = scrId(s, st.d), v = depView(s, st.d);
+    if (!map.getSource(id)) {
+      map.addSource(id, { type: 'image', url: v.url, coordinates: v.coordinates });
+      map.addLayer({ id, type: 'raster', source: id, layout: { visibility: 'none' },
+        paint: { 'raster-fade-duration': 0, 'raster-resampling': 'linear', 'raster-opacity': 0, 'raster-opacity-transition': { duration: 0 } } },
+        map.getLayer(`paper-${s.id}`) ? `paper-${s.id}` : undefined);
+      S.depUrl[id] = v.url;
+    } else if (S.depUrl[id] !== v.url) { map.getSource(id).updateImage(v); S.depUrl[id] = v.url; }
+    else map.getSource(id).setCoordinates(v.coordinates);
+  }
+}
+// the layer(s) that show stop k while scrubbing or holding, at full strength for that stop
+function stopLayers(s, st) {
+  if (st.kind === 'dep') return [[scrId(s, st.d), S.depOpacity]];
+  if (st.kind === 'plate') return [[`${S.plateMode}-${s.id}`, S.plateOpacity]];
+  return [];
+}
+function scrubBegin(s) {
+  ensureScrub(s);
+  // the resting layers hand over to the scrub layers
+  if (map.getLayer(`dep-${s.id}`)) map.setLayoutProperty(`dep-${s.id}`, 'visibility', 'none');
+  if (s.plate) map.setPaintProperty(`${S.plateMode}-${s.id}`, 'raster-opacity-transition', { duration: 0 });
+}
+function scrubTo(s, stops, t) {
+  const n = stops.length - 1;
+  stops.forEach((st, k) => {
+    const w = Math.max(0, 1 - Math.abs(t - k));
+    for (const [id, base] of stopLayers(s, st)) {
+      if (!map.getLayer(id)) continue;
+      map.setLayoutProperty(id, 'visibility', w > 0 ? 'visible' : 'none');
+      map.setPaintProperty(id, 'raster-opacity', w * base);
+    }
+  });
+  const i = Math.round(t), pct = (t / n * 100) + '%';
+  $('#lthumb').style.left = pct; $('#lfill').style.width = pct; $('#lthumb').classList.toggle('today', i === n);
+  document.querySelectorAll('#ltrack .tl').forEach(el => el.classList.toggle('on', +el.dataset.i === i));
+  $('#lcapb').textContent = stopLabel(stops[i], s); $('#lcaps').textContent = stops[i].note || '';
+  const era = $('#mera'); era.textContent = stops[i].kind === 'today' ? 'Today' : String(stops[i].year || 'Old map'); era.classList.toggle('present', stops[i].kind === 'today');
+}
+function scrubEnd(s, stops, k) {
+  scrubTo(s, stops, k);
+  const st = stops[k];
+  S.plateOff = st.kind !== 'plate';
+  S.depSel[s.id] = st.kind === 'dep' ? st.d.file : ''; lsSet('aw.depSel', S.depSel);
+  applyLayers(s); applyDep(s); renderSite(s); if (B.open) setTab(true);
+  // the scrub layer stays over its twin until the dep- layer has drawn the same picture
+  setTimeout(() => { if (S.sel !== s.id) return; stops.forEach(x => { if (x.kind === 'dep') { const id = scrId(s, x.d); if (map.getLayer(id)) map.setLayoutProperty(id, 'visibility', 'none'); } }); }, 250);
+}
+// hold: fade from stop a to stop b over a quarter second; on release back, and the resting layers take over again
+let _tw = 0;
+function lensTween(s, stops, a, b, back) {
+  cancelAnimationFrame(_tw); scrubBegin(s);
+  const era = $('#mera'), t0 = performance.now(), D = 240;
+  const step = now => {
+    const f = Math.min(1, (now - t0) / D), e = f * (2 - f);
+    stops.forEach((st, k) => {
+      const w = (k === a ? 1 - e : 0) + (k === b ? e : 0);
+      for (const [id, base] of stopLayers(s, st)) if (map.getLayer(id)) { map.setLayoutProperty(id, 'visibility', w > 0 ? 'visible' : 'none'); map.setPaintProperty(id, 'raster-opacity', w * base); }
+    });
+    if (f < 1) _tw = requestAnimationFrame(step);
+    else if (back) { applyLayers(s); applyDep(s); setTimeout(() => stops.forEach(x => { if (x.kind === 'dep') { const id = scrId(s, x.d); if (map.getLayer(id) && !$('#mhold').classList.contains('down')) map.setLayoutProperty(id, 'visibility', 'none'); } }), 300); }
+  };
+  _tw = requestAnimationFrame(step);
+  const st = stops[b];
+  era.textContent = st.kind === 'today' ? 'Today' : String(st.year || 'Old map'); era.classList.toggle('present', st.kind === 'today');
+}
 
 /* ---------- plate fitting: an old book plan pinned to the ground by matching points ---------- */
 // Pairs (page px <-> ground) give a similarity fit (shift, rotation, one scale) by least squares in Web Mercator,
@@ -1314,16 +1621,16 @@ async function selectScan(name, candId) {
   const d = await loadScan(name);
   if (candId && d.byId[candId]) return selectCand(name, candId);
   F.cand = null; renderScan(name);
-  if (narrow()) $('#panel').classList.remove('collapsed');
+  if (narrow()) sheetOpen(false);
   const [x0, y0, x1, y1] = sc.area;
-  map.fitBounds([[x0, y0], [x1, y1]], { padding: narrow() ? { bottom: innerHeight * 0.5, top: 20, left: 20, right: 20 } : { left: 400, top: 30, right: 30, bottom: 30 }, duration: 3500 });
+  map.fitBounds([[x0, y0], [x1, y1]], { padding: narrow() ? sheetPad() : { left: 400, top: 30, right: 30, bottom: 30 }, duration: 3500 });
   try { history.replaceState(null, '', '#scan-' + name); } catch {}
 }
 function selectCand(name, id) {
   const d = F.data[name], c = d && d.byId[id]; if (!c) return;
   closeBlock(); S.sel = null; syncMarkers(); F.sel = name; F.cand = id;
   showCrop(name, c); renderScan(name);
-  const pad = narrow() ? { bottom: innerHeight * 0.5, top: 20, left: 20, right: 20 } : { left: 390, top: 20, right: 20, bottom: 20 };
+  const pad = narrow() ? sheetPad() : { left: 390, top: 20, right: 20, bottom: 20 };
   map.flyTo({ center: [c.lon, c.lat], zoom: (narrow() ? 15.3 : 16) - Math.max(0, Math.log2(c.r_m / 60)), duration: 1800, essential: true, padding: pad });
   try { history.replaceState(null, '', `#scan-${name}/${id}`); } catch {}
   const row = $(`.cand[data-c="${id}"]`); if (row) row.scrollIntoView({ block: 'nearest' });
@@ -1733,12 +2040,12 @@ function addArea(a) {
     map.on('mouseleave', 'amazon-marks', () => map.getCanvas().style.cursor = '');
   }
 }
-function areaPad() { return narrow() ? { bottom: innerHeight * 0.5, top: 20, left: 20, right: 20 } : { left: 400, top: 30, right: 30, bottom: 30 }; }
+function areaPad() { return narrow() ? sheetPad() : { left: 400, top: 30, right: 30, bottom: 30 }; }
 function selectArea(name) {
   const a = A.byName[name]; if (!a) return;
   closeBlock(); S.sel = null; syncMarkers(); F.sel = null; F.cand = null; A.sel = name; A.mark = null;
   addArea(a); renderArea(name);
-  if (narrow()) $('#panel').classList.remove('collapsed');
+  if (narrow()) sheetOpen(false);
   const [x0, y0, x1, y1] = a.bounds;
   map.fitBounds([[x0, y0], [x1, y1]], { padding: areaPad(), duration: 3500 });
   try { history.replaceState(null, '', '#amazon-' + name); } catch {}
