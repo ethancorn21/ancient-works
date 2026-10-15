@@ -245,7 +245,7 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
    to 84%; the desktop header goes, a floating bar carries back and the site name. In a site the peek is the lens bar: one
    slider from the oldest overlay to today (crossfading in date order), Aerial / LiDAR / 3D block / Nearby, and the past button
    above the sheet: tap for ink lines or the original drawing, hold and slide for its opacity. */
-.mtop, .mera, .mhold { display: none; }
+.mtop, .mera, .mpop { display: none; }
 .lensbar { display: none; }
 @media (max-width: 760px) {
   :root { --peek: 40vh; }
@@ -269,57 +269,66 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
   .maplibregl-ctrl-top-right { display: none; }
   .maplibregl-ctrl-bottom-right, .maplibregl-ctrl-bottom-left { bottom: var(--peek); transition: bottom .34s; }
 
-  .mtop { display: flex; position: fixed; z-index: 2; left: 10px; right: 10px; top: calc(10px + env(safe-area-inset-top, 0px)); gap: 8px; align-items: stretch; pointer-events: none; }
-  .mtop > * { pointer-events: auto; background: rgba(248, 244, 232, .94); border: 1px solid var(--ink); color: var(--ink); }
-  .mt-back { flex: none; min-width: 44px; font: 600 16px/1 var(--label); cursor: pointer; padding: 0 12px; }
-  .mt-name { flex: 1; min-width: 0; text-align: center; padding: 6px 10px; }
+  /* the top bar is one plate label: back on its left behind a rule, the site's name centred in the rest, the year hung
+     under the name's centre (Ethan 2026-10-15: the year sat off-centre, the back box felt detached). Home shows no bar. */
+  .mtop { display: flex; position: fixed; z-index: 2; left: 10px; right: 10px; top: calc(10px + env(safe-area-inset-top, 0px)); align-items: stretch;
+    background: rgba(248, 244, 232, .95); border: 1px solid var(--ink); box-shadow: 0 2px 8px rgba(16, 20, 28, .22); }
+  .mtop.home { display: none; }
+  .mt-back { flex: none; width: 46px; display: grid; place-items: center; background: none; border: 0; border-right: 1px solid var(--rule); color: var(--ink); cursor: pointer; padding: 0; }
+  .mt-back svg { width: 22px; height: 22px; }
+  .mt-back:active { background: var(--paper-2); }
+  .mt-name { position: relative; flex: 1; min-width: 0; text-align: center; padding: 6px 46px 6px 0; }  /* right pad = back's width, so the name centres on the screen */
   .mt-name b { display: block; font: 700 14px/1.2 var(--title); letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .mt-name i { display: block; font: italic 12px/1.3 var(--title); color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .mtop.home .mt-back { display: none; }
-  .mtop.home .mt-name { flex: none; margin: 0 auto; padding: 8px 14px; }
-  .mera { position: fixed; z-index: 2; left: 50%; top: calc(66px + env(safe-area-inset-top, 0px)); transform: translateX(-50%); pointer-events: none;
+  .mera { position: absolute; left: calc(50% - 23px); top: calc(100% + 9px); transform: translateX(-50%); pointer-events: none;
     font: 700 11px/1 var(--label); letter-spacing: .14em; text-transform: uppercase; background: var(--survey); color: #fff; padding: 5px 8px 4px; white-space: nowrap; }
   .mera:not([hidden]) { display: block; }
   .mera.present { background: var(--ink); }
-  .mhold { position: fixed; z-index: 2; right: 12px; bottom: calc(var(--peek) + 12px); width: 66px; height: 66px; border-radius: 50%;
-    border: 2px solid var(--ink); background: var(--sheet); color: var(--ink); font: 700 10.5px/1.15 var(--label); letter-spacing: .08em; text-transform: uppercase;
-    cursor: pointer; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; box-shadow: 0 3px 10px rgba(16, 20, 28, .35);
-    transition: transform .12s, background .12s, bottom .34s; }
-  .mhold:not([hidden]) { display: block; }
-  .mhold.down { transform: scale(.94); background: var(--ink); color: var(--sheet); }
-  .mhold small { display: block; font: 600 12.5px/1 var(--label); letter-spacing: .02em; margin-top: 3px; font-variant-numeric: tabular-nums; }
-  .mhold.paper { background: var(--paper-2); }
-  .panel.open ~ .mhold, .panel.open ~ .mop, .panel.open ~ .mtip { opacity: 0; pointer-events: none; }
-  /* the opacity slider the hold opens: the finger stays on the button and slides up or down */
-  .mop { position: fixed; z-index: 3; right: 88px; bottom: calc(var(--peek) + 6px); width: 50px; height: 220px; background: rgba(248, 244, 232, .96);
-    border: 1px solid var(--ink); box-shadow: 0 3px 10px rgba(16, 20, 28, .35); display: grid; grid-template-rows: auto 1fr; justify-items: center; padding: 8px 0 12px; pointer-events: none; }
-  .mop[hidden] { display: none; }
-  .mop b { font: 700 12px/1 var(--label); font-variant-numeric: tabular-nums; margin-bottom: 8px; }
-  .mop-track { position: relative; width: 6px; background: var(--paper-2); border: 1px solid var(--ink); }
-  .mop-fill { position: absolute; left: 0; right: 0; bottom: 0; background: var(--survey); }
-  .mop-knob { position: absolute; left: 50%; width: 22px; height: 22px; margin: 0 0 -11px -11px; border-radius: 50%; background: var(--sheet); border: 2px solid var(--survey); }
-  .mtip { position: fixed; z-index: 3; right: 88px; bottom: calc(var(--peek) + 18px); max-width: 200px; background: var(--ink); color: var(--sheet); font: 13px/1.35 var(--title); padding: 8px 10px; pointer-events: none; }
-  .mtip[hidden] { display: none; }
 
-  .lensbar { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; min-height: 124px; align-content: start; touch-action: none; }
-  .lcap { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; min-height: 20px; }
-  .lcap b { flex: 1; font: 700 15px/1.25 var(--title); min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .lcap span { flex: none; max-width: 40%; font: italic 12.5px/1.25 var(--title); color: var(--ink-2); text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  /* the old map's look: a chip in the lens bar's row opens a small card with Ink lines / Original and an opacity slider
+     (replaced the round tap-or-hold button: "nothing indicates the button can be pressed") */
+  .mpop { position: fixed; z-index: 3; right: 12px; bottom: calc(var(--peek) + 8px); width: min(300px, calc(100vw - 24px)); box-sizing: border-box;
+    background: var(--sheet); border: 1px solid var(--ink); box-shadow: 0 4px 14px rgba(16, 20, 28, .32); padding: 10px 12px 12px; display: grid; gap: 10px; }
+  .mpop[hidden] { display: none; }
+  .mpop .mp-t { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .mpop .mp-t b { font: 600 10.5px var(--label); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); }
+  .mpop .mp-t span { font: italic 12px/1.2 var(--title); color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+  .mp-seg { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--ink); }
+  .mp-seg button { background: var(--sheet); border: 0; padding: 9px 4px; font: 600 11.5px/1 var(--label); letter-spacing: .07em; text-transform: uppercase; color: var(--ink); cursor: pointer; }
+  .mp-seg button + button { border-left: 1px solid var(--ink); }
+  .mp-seg button[aria-pressed="true"] { background: var(--ink); color: var(--sheet); }
+  .mp-seg button:disabled { color: var(--rule); cursor: default; }
+  .mp-op { display: flex; align-items: center; gap: 10px; }
+  .mp-op label { font: 600 10.5px var(--label); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); }
+  .mp-op input { flex: 1; min-width: 0; height: 30px; accent-color: var(--survey); }
+  .mp-op output { font: 700 12.5px var(--label); font-variant-numeric: tabular-nums; min-width: 3.2em; text-align: right; }
+  .panel.open ~ .mpop { display: none; }
+
+  .lensbar { display: grid; grid-template-columns: minmax(0, 1fr); gap: 5px; min-height: 104px; align-content: start; touch-action: none; }
+  .lcap { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; min-height: 18px; }
+  .lcap b { flex: 1; font: 700 14px/1.25 var(--title); min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .lcap span { flex: none; max-width: 40%; font: italic 12px/1.25 var(--title); color: var(--ink-2); text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .lcap span:empty { display: none; }
-  .track { position: relative; height: 52px; margin: 0 12px; cursor: pointer; touch-action: none; }
-  .track .ln { position: absolute; left: 0; right: 0; top: 20px; height: 2px; background: var(--ink); }
-  .track .fl { position: absolute; left: 0; top: 19px; height: 4px; background: var(--survey); }
-  .track .tk { position: absolute; top: 14px; width: 2px; height: 14px; margin-left: -1px; background: var(--ink); }
-  .track .tl { position: absolute; top: 37px; transform: translateX(-50%); font: 600 11px/1 var(--label); letter-spacing: .03em; color: var(--ink-2); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .track { position: relative; height: 44px; margin: 0 11px; cursor: pointer; touch-action: none; }
+  .track .ln { position: absolute; left: 0; right: 0; top: 16px; height: 2px; background: var(--ink); }
+  .track .fl { position: absolute; left: 0; top: 15px; height: 4px; background: var(--survey); }
+  .track .tk { position: absolute; top: 11px; width: 2px; height: 12px; margin-left: -1px; background: var(--ink); }
+  .track .tl { position: absolute; top: 31px; transform: translateX(-50%); font: 600 10.5px/1 var(--label); letter-spacing: .03em; color: var(--ink-2); white-space: nowrap; font-variant-numeric: tabular-nums; }
   .track .tl.on { color: var(--survey); } .track .tl.today.on { color: var(--ink); }
-  .track .th { position: absolute; top: 9px; width: 24px; height: 24px; margin-left: -12px; background: var(--sheet); border: 2px solid var(--survey); border-radius: 50%; box-shadow: 0 1px 4px rgba(16, 20, 28, .25); }
+  .track .th { position: absolute; top: 6px; width: 22px; height: 22px; margin-left: -11px; background: var(--sheet); border: 2px solid var(--survey); border-radius: 50%; box-shadow: 0 1px 4px rgba(16, 20, 28, .25); }
   .track .th.today { border-color: var(--ink); }
-  .track-none { margin: 0; min-height: 46px; display: flex; align-items: center; font-size: 13.5px; font-style: italic; color: var(--ink-2); }
+  .track-none { margin: 0; min-height: 44px; display: flex; align-items: center; font-size: 13px; font-style: italic; color: var(--ink-2); }
   .lrow { display: flex; gap: 8px; align-items: center; }
-  .lchips { display: flex; gap: 6px; flex: 1; }
-  .lchips button { flex: 1 1 0; min-width: 0; white-space: nowrap; background: var(--sheet); border: 1px solid var(--ink); color: var(--ink); font: 600 11.5px/1 var(--label); letter-spacing: .06em; text-transform: uppercase; padding: 11px 4px; cursor: pointer; }
-  .lchips .gap { flex: none; width: 6px; }
+  .lchips { display: flex; gap: 5px; flex: 1; min-width: 0; }
+  .lchips button { flex: 1 1 0; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; background: var(--sheet); border: 1px solid var(--ink); color: var(--ink); font: 600 11px/1 var(--label); letter-spacing: .05em; text-transform: uppercase; padding: 8px 3px; cursor: pointer; }
+  .lchips .gap { flex: none; width: 4px; }
   .lchips button[aria-pressed="true"] { background: var(--ink); color: var(--sheet); }
+  /* the old map's chip: red edge and a caret, so it reads as the thing that opens; wider than the others, it names the look and %. */
+  .lchips .lpast { flex: 1.5 1 0; border-color: var(--survey); color: var(--survey); display: flex; align-items: center; justify-content: center; gap: 4px; }
+  .lchips .lpast::after { content: ""; flex: none; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-bottom: 5px solid currentColor; }
+  .lchips .lpast[aria-expanded="true"] { background: var(--survey); color: #fff; }
+  .lchips .lpast:disabled { border-color: var(--rule); color: var(--rule); cursor: default; }
+  .lchips .lpast b { font-weight: 700; font-variant-numeric: tabular-nums; }
   .strip { padding-top: 14px; }
   /* the block on a phone (Ethan 2026-10-15: "the block view needs to be fixed as well"): the block fills the screen above the
      sheet's peek, the lens bar stays under it (the drape follows it), the floating bar takes you back; the explanation is a
@@ -336,7 +345,7 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
   .bchips button[aria-pressed="true"] { background: var(--ink); color: var(--sheet); }
   .hint { bottom: 8px; right: 10px; }
   .compass { bottom: 10px; left: 10px; width: 44px; height: 44px; }
-  body.blk .panel, body.blk .mtop, body.blk .mhold, body.blk .mop, body.blk .mtip { z-index: 4; }
+  body.blk .panel, body.blk .mtop, body.blk .mpop { z-index: 4; }
   body.blk .mera { display: none; }
 }
 </style>
@@ -354,12 +363,13 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
   </header>
   <div class="panel-body" id="body"></div>
 </aside>
-<!-- phones only (.mtop/.mera/.mhold show under the max-width 760px rules) -->
-<div class="mtop home" id="mtop"><button class="mt-back" id="mtback" aria-label="Back">←</button><div class="mt-name" id="mtname"><b>Resurface</b></div></div>
-<div class="mera" id="mera" hidden></div>
-<button class="mhold" id="mhold" hidden aria-label="Ink or original drawing; hold and slide for opacity"></button>
-<div class="mop" id="mop" hidden aria-hidden="true"><b id="mopv"></b><div class="mop-track"><div class="mop-fill" id="mopf"></div><div class="mop-knob" id="mopk"></div></div></div>
-<div class="mtip" id="mtip" hidden>Tap: ink lines or the original drawing.<br>Hold and slide up or down: fade it.</div>
+<!-- phones only (.mtop/.mera/.mpop show under the max-width 760px rules) -->
+<div class="mtop home" id="mtop"><button class="mt-back" id="mtback" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H5M11 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"/></svg></button><div class="mt-name"><div id="mtname"><b>Resurface</b></div><div class="mera" id="mera" hidden></div></div></div>
+<div class="mpop" id="mpop" hidden role="dialog" aria-label="Old map look">
+  <div class="mp-t"><b>Old map</b><span id="mp-name"></span></div>
+  <div class="mp-seg" role="group" aria-label="Look"><button id="mp-ink">Ink lines</button><button id="mp-paper">Original</button></div>
+  <div class="mp-op"><label for="mp-range">Opacity</label><input id="mp-range" type="range" min="0" max="100"><output id="mp-v"></output></div>
+</div>
 
 <section class="fitpane" id="fitpane" hidden aria-label="Old plan">
   <div class="fit-top"><span class="fit-name" id="fitname"></span><button id="fitmin">Hide plan</button></div>
@@ -970,7 +980,7 @@ function select(id) {
   if (S.sel && S.sel !== id) dropScrub(S.sel);
   // every site opens on the aerial photograph with the old drawing in ink lines (Ethan 2026-10-10); the viewer can
   // switch either back for this visit
-  S.ground = 'imagery'; S.plateMode = 'ink'; S.depMode = 'ink'; S.plateOff = false; stopDrag();
+  S.ground = 'imagery'; S.plateMode = 'ink'; S.depMode = 'ink'; S.plateOff = false; S.popOpen = false; stopDrag();
   // phones show one past at a time: a site with an 1848 plate opens on it unless this viewer picked a map for the site
   if (narrow() && s.plate && !(s.id in S.depSel)) S.depSel[s.id] = '';
   S.sel = id; F.sel = null; F.cand = null; ensureSite(s); applyAll(); renderSite(s); syncMarkers();
@@ -1025,7 +1035,7 @@ function syncTop() {
   $('#mtop').classList.toggle('home', !back);
   $('#mtname').innerHTML = t ? `<b>${esc(t.textContent)}</b>${a && a.textContent ? `<i>${esc(a.textContent)}</i>` : ''}` : '<b>Resurface</b>';
   const inSite = !!$('#body .lensbar');
-  if (!inSite) { $('#mera').hidden = true; $('#mhold').hidden = true; $('#mop').hidden = true; $('#mtip').hidden = true; }
+  if (!inSite) { $('#mera').hidden = true; pastPop(false); }
   setPeekVar();
 }
 $('#mtback').onclick = () => { if (B.open) { closeBlock(); return; } const b = $('#body #back') || $('#body #fitback'); if (b) b.click(); sheetOpen(false); };
@@ -1110,7 +1120,7 @@ function lensBar(s) {
       <button id="l-air" aria-pressed="${S.ground !== 'relief' || s.lidar === false}">Aerial</button>
       ${s.lidar !== false ? `<button id="l-rel" aria-pressed="${S.ground === 'relief'}">LiDAR</button>` : ''}
       <span class="gap"></span>${s.block ? `<button id="l-blk" aria-pressed="${B.open && B.site === s}">3D block</button>` : ''}
-      <button id="l-near">Nearby</button>
+      <button id="l-past" class="lpast" aria-haspopup="dialog" aria-controls="mpop" aria-expanded="false" ${stops[at].kind === 'today' ? 'disabled' : ''}>${pastChip(stops[at])}</button>
     </div></div>
   </div>`;
 }
@@ -1131,11 +1141,10 @@ function wireLens(s) {
   $('#l-air').onclick = () => setGround('imagery', s);
   if ($('#l-rel')) $('#l-rel').onclick = () => setGround('relief', s);
   if ($('#l-blk')) $('#l-blk').onclick = () => B.open ? closeBlock() : openBlock(s);
-  $('#l-near').onclick = () => { sheetOpen(true); setTimeout(() => $('#near') && $('#near').scrollIntoView({ behavior: 'smooth', block: 'start' }), 340); };
   document.querySelectorAll('[data-near]').forEach(b => b.onclick = () => select(b.dataset.near));
   const era = $('#mera');
   era.hidden = false; era.textContent = stops[at].kind === 'today' ? 'Today' : String(stops[at].year || 'Old map'); era.classList.toggle('present', stops[at].kind === 'today');
-  wirePastButton(s, stops[at]);
+  wirePastChip(s, stops[at]);
   const tr = $('#ltrack'); if (!tr) return;
   let drag = false;
   const tAt = e => { const r = tr.getBoundingClientRect(); return Math.max(0, Math.min(n, (e.clientX - r.left) / r.width * n)); };
@@ -1214,55 +1223,43 @@ function scrubEnd(s, stops, k) {
   // the scrub layer stays over its twin until the dep- layer has drawn the same picture
   hideScrubLater(s, stops, 250);
 }
-// The past button (Ethan 2026-10-15, on his iPhone: "hold down on that button and then a slider should pop up ... slide it up
-// and down to adjust the opacity", and a way to see the original drawing). It replaced hold-for-today. On a past stop:
-// a tap swaps ink lines and the original drawing in its own colours; a hold opens a slider and the same finger fades it.
+// The old map's look (Ethan 2026-10-15, iPhone): the original drawing as well as the ink lines, and its opacity. First a
+// round tap-or-hold button; then, as "nothing indicates the button can be pressed", a chip in the lens bar's row (in Nearby's
+// place: the nearby sites stay in the pulled-up sheet) that opens a card with Ink lines / Original and an opacity slider.
 const pastMode = st => st.kind === 'plate' ? S.plateMode : (st.d.ink && S.depMode === 'ink' ? 'ink' : 'paper');
 const pastOp = st => st.kind === 'plate' ? S.plateOpacity : S.depOpacity;
+const pastChip = st => st.kind === 'today' ? 'Old map' : `${pastMode(st) === 'ink' ? 'Ink' : 'Original'} <b>${Math.round(pastOp(st) * 100)}%</b>`;
 function setPastOp(s, st, v) {
   v = Math.round(Math.max(0, Math.min(1, v)) * 100) / 100;
   if (st.kind === 'plate') { S.plateOpacity = v; lsSet('aw.plateOpacity', v); applyLayers(s); }
   else { S.depOpacity = v; lsSet('aw.depOpacity', v); applyDep(s); }
   return v;
 }
-function wirePastButton(s, st) {
-  const btn = $('#mhold'), pop = $('#mop');
-  btn.hidden = st.kind === 'today'; pop.hidden = true;
-  if (st.kind === 'today') return;
-  const canSwap = st.kind === 'plate' || !!st.d.ink;
-  const label = () => { const m = pastMode(st); btn.classList.toggle('paper', m === 'paper');
-    btn.innerHTML = `${m === 'ink' ? 'Ink' : 'Original'}<small>${Math.round(pastOp(st) * 100)}%</small>`; };
-  label();
-  const show = v => { $('#mopv').textContent = Math.round(v * 100) + '%'; $('#mopf').style.height = v * 100 + '%'; $('#mopk').style.bottom = v * 100 + '%'; };
-  let g = null;
-  btn.onpointerdown = e => {
-    e.preventDefault(); try { btn.setPointerCapture(e.pointerId); } catch {}
-    btn.classList.add('down'); $('#mtip').hidden = true;
-    g = { y0: e.clientY, v0: pastOp(st), slide: false, id: e.pointerId };
-    g.t = setTimeout(() => { if (!g) return; g.slide = true; g.y0 = g.y; g.v0 = pastOp(st); show(g.v0); pop.hidden = false; if (navigator.vibrate) navigator.vibrate(8); }, 320);
-    g.y = e.clientY;
-  };
-  btn.onpointermove = e => {
-    if (!g || e.pointerId !== g.id) return;
-    g.y = e.clientY;
-    if (!g.slide) { if (Math.abs(e.clientY - g.y0) > 10) { clearTimeout(g.t); g.slide = true; g.y0 = e.clientY; g.v0 = pastOp(st); show(g.v0); pop.hidden = false; } return; }
-    const v = setPastOp(s, st, g.v0 + (g.y0 - e.clientY) / 180);  // 180 px of travel = 0 to 100%
-    show(v); label();
-  };
-  btn.onpointerup = btn.onpointercancel = e => {
-    if (!g || e.pointerId !== g.id) return;
-    clearTimeout(g.t); btn.classList.remove('down');
-    const slid = g.slide; g = null;
-    if (slid) { setTimeout(() => { pop.hidden = true; }, 500); renderSite(s); return; }
-    if (e.type === 'pointercancel' || !canSwap) return;
-    const m = pastMode(st) === 'ink' ? 'paper' : 'ink';
-    if (st.kind === 'plate') setPlateMode(m, s);
-    else { S.depMode = m; lsSet('aw.depMode', m); ensureScrub(s); applyDep(s); renderSite(s); if (B.open) setTab(true); }
-  };
-  btn.oncontextmenu = e => e.preventDefault();
-  // the first site on a phone says what the button does, once
-  if (!lsGet('aw.pastTip', false)) { lsSet('aw.pastTip', true); const t = $('#mtip'); t.hidden = false; setTimeout(() => { t.hidden = true; }, 5000); }
+function pastPop(open) {
+  S.popOpen = open; $('#mpop').hidden = !open;
+  const c = $('#l-past'); if (c) c.setAttribute('aria-expanded', String(open));
 }
+function wirePastChip(s, st) {
+  const chip = $('#l-past');
+  if (st.kind === 'today') { pastPop(false); return; }
+  const canInk = st.kind === 'plate' || !!st.d.ink, m = pastMode(st), v = Math.round(pastOp(st) * 100);
+  $('#mp-name').textContent = `${st.year || 'Undated'} · ${st.name}`;
+  $('#mpop .mp-t b').textContent = st.kind === 'plate' || DRAWING.has(st.d.kind) ? 'Old drawing' : st.d.kind === 'aerial' ? 'Old aerial photograph' : 'Old map';
+  $('#mp-ink').setAttribute('aria-pressed', String(m === 'ink')); $('#mp-ink').disabled = !canInk;
+  $('#mp-paper').setAttribute('aria-pressed', String(m === 'paper'));
+  $('#mp-range').value = v; $('#mp-v').textContent = v + '%';
+  chip.onclick = () => pastPop(!S.popOpen);
+  const look = mode => {
+    if (mode === pastMode(st) || (mode === 'ink' && !canInk)) return;
+    if (st.kind === 'plate') setPlateMode(mode, s);
+    else { S.depMode = mode; lsSet('aw.depMode', mode); ensureScrub(s); applyDep(s); renderSite(s); if (B.open) setTab(true); }
+  };
+  $('#mp-ink').onclick = () => look('ink'); $('#mp-paper').onclick = () => look('paper');
+  $('#mp-range').oninput = e => { const x = setPastOp(s, st, e.target.value / 100); $('#mp-v').textContent = Math.round(x * 100) + '%'; chip.innerHTML = pastChip(st); };
+  pastPop(!!S.popOpen);  // a re-render (new look) keeps the card open
+}
+// the card closes on a tap anywhere else, and when the sheet is pulled up
+document.addEventListener('pointerdown', e => { if (S.popOpen && !e.target.closest('#mpop, #l-past')) pastPop(false); }, true);
 
 /* ---------- plate fitting: an old book plan pinned to the ground by matching points ---------- */
 // Pairs (page px <-> ground) give a similarity fit (shift, rotation, one scale) by least squares in Web Mercator,
