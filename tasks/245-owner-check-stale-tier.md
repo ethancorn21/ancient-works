@@ -1,4 +1,4 @@
-Status: open
+Status: done
 Depends on: 815
 Touches: web/index.html
 
@@ -70,9 +70,9 @@ separate task this one depends on.
       the depiction->re-score gap - measured 119 ms on 2026-10-15; the page's own adoption
       then takes the stale score no matter how long the probe polls, so no test-side wait can
       clear it - this check is the pair's regression gate for the race).
-- [ ] No new red against the branch's suite at claim time
+- [x] No new red against the branch's suite at claim time
       (`.venv/bin/python -m pytest tests/ -q -p no:cacheprovider`).
-- [ ] After ANY owner_check run the ten docs/site_flow/307d_*.png are restored to the
+- [x] After ANY owner_check run the ten docs/site_flow/307d_*.png are restored to the
       committed bytes before committing (R5; 813's refresh flag retires this once it lands).
 
 ## Notes
@@ -91,86 +91,42 @@ separate task this one depends on.
 
 ## Hand-over
 
-(2026-10-15, iteration 214, agent c - **box 2 verified and ticked this session**;
-boxes 3-4 remain; the next step is the box 3 full suite).
+(2026-10-15, iteration 215, agent c - **task complete**: boxes 3 and 4 verified and
+ticked this session; all four boxes ticked; `Status: done`).
 
-**State:** branch agent/c = main (HEAD 747ca6fb) + driver bookkeeping only. The it.249
-carve did NOT move a box (no carve marks in this file, no new 200-499 tasks, no driver
-note in PROGRESS) -> boxes 2-4 all still mine. Regime = old R5 (zero
-AW_OWNER_REFRESH|SNAPSHOT_VIEWS|_shot_diff hits in tests/test_owner_check.py) ->
-unflagged runs re-copy all ten docs/site_flow/307d_*.png -> after EVERY owner_check run
-restore each to main's bytes before committing (box 4; this retires once 813's refresh
-flag lands). 815 DONE on main (f160ae5a); 812/813/810/811 OPEN - agent a runs 810/812 in
-its own checkout; the three PPID-1 `816-verify/watchlogs.py` orphans under
-/tmp/loop-ancient-works.a (up to 4 h old at it.214 orient) are ITS lane - leave them.
-My TMPDIR = /tmp/loop-ancient-works.c (session env).
+**State:** branch agent/c = main (747ca6fb, 815's PITFALLS commit) + driver
+bookkeeping only (no code delta; the 245 fix ab57da1b and 815's page hunk are both
+on main). Regime = old R5 (813 not on main yet; agent a runs 810/812 in its own
+checkout - no new commits on main since it.214). If this task is ever re-opened
+BEFORE 813 lands: the worktree is clean, all ten 307d PNGs are at main's bytes, and
+the box 4 restore discipline still applies (see the box). If re-opened AFTER 813
+lands: box 4's discipline retires per the box's own note - an unflagged run must
+leave the PNGs byte-identical (write-surface proof), no restore needed.
 
 **Box 1 (ticked it.213):** the saveFit bounded re-fetch loop is on main exactly as
-designed (fix commit ab57da1b = one hunk; diff since = only 815's 4-line
-addPairMarker hunk; six script blocks node --check clean; the loop re-verified intact
-at web/index.html 1211/1215 this session, no web/ delta since).
+designed (fix commit ab57da1b, one hunk; no other line moved since; six script
+blocks node --check clean).
 
-**Box 2 (ticked this session):** three consecutive unflagged pair runs, one
-invocation each (A then B inside each): `TMPDIR=/tmp/loop-ancient-works.c
-.venv/bin/python -m pytest tests/test_owner_check.py -q -p no:cacheprovider -o
-tmp_path_retention_policy=all` -> 2 passed each (65.02 / 66.70 / 66.06 s). In BOTH
-probe logs of ALL six probes (`$TMPDIR/pytest-of-agent/pytest-{0,1,2}/owner{A,B}0/
-owner_probe.log`) `line effect (b): the site's square takes its new score's tier`
-is `[ok]`; zero `[warn] settle` in all six. After each run exactly the three known
-dirty PNGs (A_1-card, B_1-card, B_5-reload) -> all ten restored to main's bytes after
-each run; `git diff main -- docs/site_flow/` empty before this commit. it.236's
-pre-815 green runs stay as history below; these it.214 runs supersede them for the
-claim (R5).
+**Box 2 (ticked it.214):** three consecutive unflagged pair runs (65.0/66.7/66.1
+s), "line effect (b): the site's square takes its new score's tier" [ok] on A and
+B in EVERY run, zero [warn] settle in all six probes.
 
-**The optional cross-run PIL compare was NOT possible this session (do not
-re-derive):** this environment keeps only the LATEST run's pytest-N dir after each
-green run, no matter what `-o tmp_path_retention_policy=all` does. Measured
-(it.214): my three owner runs left only pytest-2 at the end; a 4-run dummy loop left
-one dir per run; adding `-o tmp_path_retention_count=10` kept all (and pruned the
-stale older ones exactly per the keep arithmetic). Cause (verified in pytest 9.1.1
-source): the policy knob only gates the green-run whole-basetemp rmtree ("failed");
-the numbered-dir cleanup always uses `keep = retention_count` (all and failed alike;
-only "none" sets 0) and deletes dirs numbered <= max-keep whose lock file is
-gone/stale - and every session unlinks its own lock at exit, so the next session
-prunes all but the newest. The count comes from pytest.ini (1/failed), mirrored by
-the driver's agent-loop export PYTEST_ADDOPTS (the same two -o flags) for every
-session child. PITFALLS entry added under `### pytest (9.1.1, project .venv)`:
-cross-run compares need `-o tmp_path_retention_count=N` or copy-out after each run.
-If the PIL compare is still wanted for the claim: two runs with `-o
-tmp_path_retention_count=10`, then a throwaway per-channel >32 compare of the ten
-views (expect ~0.000%); never commit the script.
+**Box 3 (ticked this session):** the driver's exact full-suite command
+`TMPDIR=/tmp/loop-ancient-works.c .venv/bin/python -m pytest tests/ -q -p
+no:cacheprovider` -> **195 passed, 1 skipped, 0 failed** (593.45 s / 9:53; the
+f160ae5a baseline was 195P/1S/0F in 631 s - same counts, faster). Identical counts
+to main's last baseline -> no new red against the branch, no red to attribute (the
+driver's 2026-10-13 loop-start red, test_fit_queue placement, does not reproduce on
+current main). The suite's own owner_check run (one A-then-B invocation) passed ->
+"line effect (b)" was [ok] in the claim run too. Pre-run checks: no live
+pytest/serve in any checkout, no orphans of my lane, 24G free.
 
-**Remaining work:**
-- **Box 3 (next step):** the driver's exact full-suite command: `TMPDIR=
-  /tmp/loop-ancient-works.c .venv/bin/python -m pytest tests/ -q -p
-  no:cacheprovider` (~10.5 min; last baseline on main: 195P/1S/0F, 631 s, f160ae5a).
-  Before starting: `ps -eo pid,ppid,etime,args | grep -E "pytest|serve\.py|runpy|
-  watchlogs"` (no live run in another checkout; kill only MY checkout's PPID-1
-  orphans - never agent a's lane) and `df -h /` (a run needs ~3.5G headroom; <2G free
-  = Errno 28 cascade, PITFALLS). Attribute reds per the house rule: a red also on the
-  same-day main baseline (the driver's newest loop-start note in PROGRESS) = not mine
-  (log it in DECISIONS); a red naming tests/test_owner_check.py or the 307d PNGs = my
-  lane - fix or block, never weaken. If the suite's own owner_check run reds at "line
-  effect (b)": the diagnostic signature is effects-RED / reload-GREEN (the reload
-  section fetches fresh and passes) -> the re-fetch signal misfired (most likely the
-  pre-save in-memory entry lacked `overlays`, so the loop broke after the first
-  fetch); record the probe's [eval] effects block (markerClass vs tier vs score) in
-  DECISIONS and re-derive. NEVER clear it by loosening the check or moving the wait
-  to the test side - the adoption is a fact by then; a longer poll cannot un-adopt it.
-- **Box 4 (discipline - observed on every run so far, claimed last):** after the
-  box 3 suite run (it includes owner_check) too: `git diff --name-only --
-  docs/site_flow/`, and for every differing 307d PNG `git show
-  main:docs/site_flow/<f> > docs/site_flow/<f>` (check ALL ten, not just the known
-  three); `git diff main --stat -- docs/site_flow/` must be empty before the claim
-  commit.
-- **Claim (after box 3):** tick boxes 3 and 4, `Status: done`; DECISIONS entry with
-  the suite result + the PNG cleanliness; the commit carries ONLY the task file +
-  DECISIONS.md (+ PITFALLS.md if new) - no web/, no PNGs (a 245 commit carrying a
-  web/ or PNG hunk is a red flag for the driver).
+**Box 4 (ticked this session):** after EVERY owner_check run so far (the it.214
+pair runs and this suite run) exactly the three known dirty PNGs (307d_A_1-card.png,
+307d_B_1-card.png, 307d_B_5-reload.png) diverged - the same set as it.213/it.214;
+all ten restored to main's bytes after each; `git diff main --stat --
+docs/site_flow/` empty before this commit; worktree clean.
 
-**it.236 evidence (kept as history):** pre-fix run 1: A passed, B RED at "line effect
-(b)" (markerClass "marker t1" vs tier "t2"; pre-save 1.1 -> post 1.45; the probe's
-120 s poll never saw a change - the one-shot adoption was done; 186 s, the poll ran
-out). Post-fix runs 2-3: both passed (64.5/65.9 s), `[ok]` for A and B in EVERY run,
-zero [warn] settle; cross-run all ten views 0.000% (PIL per-channel >32). Those runs
-predate 815 (the page hunk is byte-identical since) - superseded by the it.214 runs.
+**Claim commit:** task file + DECISIONS.md only (no web/, no PNGs - the PNG
+restorations were no-ops against HEAD, since the branch's PNGs already matched
+main's).
