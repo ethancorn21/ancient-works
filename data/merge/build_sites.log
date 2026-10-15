@@ -1324,3 +1324,66 @@ built 1, skipped 0, failed 0
 marks refreshed: new-york-q60 depictions: 0
 === new-york-q60 ok ===
 === omaha-q43199 start 2026-10-15T13:21:34Z ===
+[1/1] omaha-q43199 (usgs, 2000 m)
+omaha-q43199 relief clip 1.2 m; {'imagery.jpg': 680, 'block_h.png': 235, 'block_top.jpg': 708, 'relief.jpg': 478} KB
+   ok 10s
+built 1, skipped 0, failed 0
+=== omaha-q43199 build rc=0 2026-10-15T13:21:47Z ===
+marks refreshed: omaha-q43199 depictions: 0
+=== omaha-q43199 ok ===
+=== philadelphia-q1345 start 2026-10-15T13:21:47Z ===
+[1/1] philadelphia-q1345 (usgs, 2000 m)
+philadelphia-q1345 relief clip 1.2 m; {'imagery.jpg': 802, 'block_h.png': 206, 'block_top.jpg': 978, 'relief.jpg': 435} KB
+   ok 9s
+built 1, skipped 0, failed 0
+=== philadelphia-q1345 build rc=0 2026-10-15T13:21:57Z ===
+marks refreshed: philadelphia-q1345 depictions: 0
+=== philadelphia-q1345 ok ===
+=== pittsburgh-q1342 start 2026-10-15T13:21:57Z ===
+[1/1] pittsburgh-q1342 (usgs, 2000 m)
+pittsburgh-q1342 relief clip 1.2 m; {'imagery.jpg': 675, 'block_h.png': 205, 'block_top.jpg': 465, 'relief.jpg': 393} KB
+   ok 9s
+built 1, skipped 0, failed 0
+=== pittsburgh-q1342 build rc=0 2026-10-15T13:22:08Z ===
+marks refreshed: pittsburgh-q1342 depictions: 0
+=== pittsburgh-q1342 ok ===
+=== portland-q6106 start 2026-10-15T13:22:08Z ===
+[1/1] portland-q6106 (usgs, 2000 m)
+portland-q6106 relief clip 1.2 m; {'imagery.jpg': 760, 'block_h.png': 224, 'block_top.jpg': 460, 'relief.jpg': 422} KB
+   ok 11s
+built 1, skipped 0, failed 0
+=== portland-q6106 build rc=0 2026-10-15T13:22:19Z ===
+marks refreshed: portland-q6106 depictions: 0
+=== portland-q6106 ok ===
+=== san-francisco-q62 start 2026-10-15T13:22:20Z ===
+[1/1] san-francisco-q62 (usgs, 2000 m)
+san-francisco-q62 relief clip 1.2 m; {'imagery.jpg': 757, 'block_h.png': 249, 'block_top.jpg': 573, 'relief.jpg': 496} KB
+   ok 10s
+built 1, skipped 0, failed 0
+=== san-francisco-q62 build rc=0 2026-10-15T13:22:31Z ===
+marks refreshed: san-francisco-q62 depictions: 0
+=== san-francisco-q62 ok ===
+=== st-louis-q38022 start 2026-10-15T13:22:31Z ===
+[1/1] st-louis-q38022 (usgs, 2000 m)
+st-louis-q38022 relief clip 1.16 m; {'imagery.jpg': 702, 'block_h.png': 213, 'block_top.jpg': 714, 'relief.jpg': 383} KB
+   ok 11s
+built 1, skipped 0, failed 0
+=== st-louis-q38022 build rc=0 2026-10-15T13:22:44Z ===
+marks refreshed: st-louis-q38022 depictions: 0
+=== st-louis-q38022 ok ===
+=== st-paul-q28848 start 2026-10-15T13:22:44Z ===
+[1/1] st-paul-q28848 (usgs, 2000 m)
+st-paul-q28848 relief clip 1.2 m; {'imagery.jpg': 730, 'block_h.png': 225, 'block_top.jpg': 609, 'relief.jpg': 447} KB
+   ok 10s
+built 1, skipped 0, failed 0
+=== st-paul-q28848 build rc=0 2026-10-15T13:22:56Z ===
+marks refreshed: st-paul-q28848 depictions: 0
+=== st-paul-q28848 ok ===
+=== washington-q61 start 2026-10-15T13:22:56Z ===
+[1/1] washington-q61 (usgs, 2000 m)
+washington-q61 relief clip 1.14 m; {'imagery.jpg': 805, 'block_h.png': 199, 'block_top.jpg': 735, 'relief.jpg': 431} KB
+   ok 12s
+built 1, skipped 0, failed 0
+=== washington-q61 build rc=0 2026-10-15T13:23:09Z ===
+marks refreshed: washington-q61 depictions: 0
+=== washington-q61 ok ===
