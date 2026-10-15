@@ -241,6 +241,21 @@ def _unmerc(x, y):
     return math.degrees(x / R), math.degrees(2 * math.atan(math.exp(y / R)) - math.pi / 2)
 
 
+def _shot_diff(p1, p2, thr=32):
+    """812: the fraction of pixels differing by >thr on any channel between two same-size
+    shots. The in-run double shots of a settled view must be near-identical; PIL (pinned in
+    requirements.in) makes the compare C-speed over the 1280x820 frames."""
+    from PIL import Image, ImageChops
+    a, b = Image.open(p1).convert("RGB"), Image.open(p2).convert("RGB")
+    if a.size != b.size:
+        raise AssertionError(f"double-shot sizes differ: {a.size} vs {b.size}")
+    d = ImageChops.difference(a, b).split()
+    mask = d[0].point(lambda v: 255 if v > thr else 0)
+    for ch in d[1:]:
+        mask = ImageChops.lighter(mask, ch.point(lambda v: 255 if v > thr else 0))
+    return mask.histogram()[255] / (a.size[0] * a.size[1])
+
+
 PROBE = r"""// node owner_probe.mjs <base_url> <site> <plan> <tree> <out_dir> <done_json> <item_file>
 // The owner's check (task 307d), end to end in headless Chrome on the served private tree, reading
 // only what the owner sees or gets (rewritten 2026-10-13, the owner's rule "no unit tests, only end
@@ -289,10 +304,26 @@ const page = await browser.newPage({ viewport: { width: 1280, height: 820 }, col
 // sets it, _easeEnd clears it) and false once the view settles; the bounded timeout keeps the
 // probe from hanging - a shot taken after it is mid-transition and the 812 double-shot assert
 // fails loudly on it.
+// 812 widens the settle a second way: isMoving() goes false while frames are still rendering -
+// measured it.235 on this build (globe projection: render/data events ran ~1.5 s past
+// isMoving() false) and the 812 double shot caught exactly that straggler (it.245: B 2-placed
+// 0.99% and B 5-reload 0.53% between the two shots, frame-wide, all probe checks still PASS -
+// a residual drift/re-tile after the ease). So the probe also tracks the map's last rendered
+// frame, hooked on the LIVE map from the probe side (the served tree stays untouched) and a
+// read or shot lands only after ~700 ms of render-quiet - no frame drawn since the last
+// tile/ink arrived. The render loop is event-driven (it.235's /tmp/mplib_probe: once idle the
+// frame count froze for 20 s), so a 700 ms gap is a true "nothing in flight" signal.
 const settle = async (budgetMs = 20000) => {
   const t0 = Date.now();
   while (Date.now() - t0 < budgetMs) {
-    if (await page.evaluate(() => !map.isMoving())) return;
+    const settled = await page.evaluate(() => {
+      if (!window.__awLastRender) {
+        window.__awLastRender = Date.now();  // re-hooks itself after a reload (fresh window)
+        map.on('render', () => { window.__awLastRender = Date.now(); });
+      }
+      return !map.isMoving() && Date.now() - window.__awLastRender > 700;
+    });
+    if (settled) return;
     await sleep(150);
   }
   console.log('[warn] settle: the map view was still moving after ' + budgetMs + ' ms');
@@ -315,6 +346,15 @@ const subpixel = async () => {
     }
   });
 };
+// 812: capture a view only once settled, then a second time at once: the two shots must
+// differ by <0.5% of pixels at threshold 32 (the Python side compares them), so a
+// mid-transition regression fails the test instead of dirtying the docs PNGs.
+const shot = async name => {
+  await settle();
+  await subpixel();
+  await page.screenshot({ path: outdir + '/' + name + '.png' });
+  await page.screenshot({ path: outdir + '/' + name + 'b.png' });
+};
 const lines = [];
 page.on('pageerror', e => lines.push('[pageerror] ' + e.message));
 page.on('requestfailed', r => lines.push('[reqfail] ' + r.url() + ' ' + (r.failure() && r.failure().errorText)));
@@ -331,9 +371,7 @@ const cardText = () => page.evaluate(() => { const c = document.getElementById('
 const card1 = await cardText();
 check('the card names the pick and its best row', !!card1 && card1.name === (pick.name || pick.site) &&
   card1.text.includes(pick.best.row.title || pick.best.row.id), { card1, want: pick.name });
-await settle();
-await subpixel();
-await page.screenshot({ path: outdir + '/1-card.png' });
+await shot('1-card');
 
 // ---- place
 const quad = () => page.evaluate(() => [...document.querySelectorAll('.gpin.fk-handle')]
@@ -359,9 +397,7 @@ check('place: the earlier overlay is hidden while placing', !before.vis || (awai
 check('place: the site\'s own ground is pressed (LiDAR relief unless the site has none)',
   await page.evaluate(id => document.getElementById(id) ? document.getElementById(id).getAttribute('aria-pressed') === 'true' : true,
     entry0.lidar === false ? 'g-imagery' : 'g-relief'));
-await settle();
-await subpixel();
-await page.screenshot({ path: outdir + '/2-placed.png' });
+await shot('2-placed');
 
 // ---- move it the way the owner does: a drag on it, the toolbar's scale and turn
 const mid = [q0.reduce((s, p) => s + p[0], 0) / 4, q0.reduce((s, p) => s + p[1], 0) / 4];
@@ -377,9 +413,7 @@ await subpixel();
 const q2 = await quad();
 const edge = q => Math.hypot(q[1][0] - q[0][0], q[1][1] - q[0][1]);
 check('toolbar scale and turn change the drawing on screen', Math.abs(edge(q2) / edge(q1) - 1.05) < 0.01, { e1: edge(q1), e2: edge(q2) });
-await settle();
-await subpixel();
-await page.screenshot({ path: outdir + '/3-gestured.png' });
+await shot('3-gestured');
 
 // ---- save from the toolbar: where the corners sit now is what must land
 const placedLL = await page.evaluate(q => { const r = map.getCanvas().getBoundingClientRect();
@@ -418,9 +452,7 @@ check('line effect (b): the site\'s square takes its new score\'s tier',
   (effects.markerClass || '').split(/\s+/).includes('marker') && (effects.markerClass || '').split(/\s+/).includes(effects.tier), effects);
 check('line effect (c): the site left the open review list', effects.inOpen === false, effects);
 // the save just ran the page's 900 ms easeTo - the shot must not land mid-transition
-await settle();
-await subpixel();
-await page.screenshot({ path: outdir + '/4-saved.png' });
+await shot('4-saved');
 
 // ---- the card moves on
 await page.click('#back', { timeout: 20000 });
@@ -454,9 +486,7 @@ check('reload: the site opens with the saved drawing selected and on the map, in
   reload.aerial && reload.ink, reload);
 await sleep(3000);
 // the reload re-fired the 4.5 s site flyTo via the deep link
-await settle();
-await subpixel();
-await page.screenshot({ path: outdir + '/5-reload.png' });
+await shot('5-reload');
 await page.click('#back', { timeout: 20000 });
 await page.waitForSelector('#fqcard', { timeout: 20000 }).catch(() => {});
 const card3 = await cardText();
@@ -727,6 +757,13 @@ def _run_one(fx, tag, tmp_path_factory):
 
     # the checkout (the shared store) is byte-identical around the run
     assert _write_surface(fx["picks"]) == surface, "the run wrote into the checkout's shared store"
+
+    # 812: the in-run double shot proves the view was settled when the primary shot landed -
+    # a mid-transition regression fails here instead of dirtying the docs PNGs
+    for name in ("1-card", "2-placed", "3-gestured", "4-saved", "5-reload"):
+        frac = _shot_diff(outdir / f"{name}.png", outdir / f"{name}b.png")
+        assert frac < 0.005, (f"{tag} {name}: not settled at shot time "
+                              f"({frac:.2%} of pixels differ between the in-run shots)")
 
     # the owner's five views of this run, kept with the docs
     docs = ROOT / "docs" / "site_flow"
