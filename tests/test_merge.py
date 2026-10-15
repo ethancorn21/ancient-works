@@ -7,7 +7,10 @@ written outside the project and the temp dir:
 - the merge is idempotent: a second run changes nothing (canonical files and the merge log are byte-identical);
 - on a synthetic tree the failure paths are fail-closed: a conflict keeps the first row and records the drop,
   a picture row without the 200 evidence field (or of kind "none") is refused, and the run exits 1 - stable
-  across reruns.
+  across reruns;
+- one QID names one site: the canonical extras plus every extras_* staging row the next merge would fold in
+  never assign the same QID to two site ids (236c's US cities), and an extras QID that the Wikidata catalog
+  already holds carries the catalog's own site id (the shotwick case: one site via two provenances).
 
 Box 2 (the rebuilt book index): the test asserts the data-level result, never a rebuild - every index row
 and every titled files row carries the 200 evidence field, the index rows join to their stage-A triage,
@@ -46,9 +49,12 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 CANON = ["data/catalog/extras.jsonl", "data/commons/files.jsonl", "data/commons/classified.jsonl"]
 STAGING = (
-    ["data/catalog/extras_" + n + ".jsonl" for n in ("artists", "kip", "limes", "mackenzie", "van_deventer", "roman")]
-    + ["data/commons/files_" + n + ".jsonl" for n in ("artists", "kip", "limes", "mackenzie", "numancia", "van_deventer", "wiltshire_b", "roman")]
-    + ["data/commons/classified_" + n + ".jsonl" for n in ("artists", "kip", "limes", "mackenzie", "numancia", "van_deventer", "wiltshire_b", "roman")]
+    ["data/catalog/extras_" + n + ".jsonl" for n in ("artists", "kip", "limes", "mackenzie", "van_deventer", "roman",
+                                                     "us_cities", "us_birdseye", "us_birdseye_batch4", "us_birdseye_batch5")]
+    + ["data/commons/files_" + n + ".jsonl" for n in ("artists", "kip", "limes", "mackenzie", "numancia", "van_deventer", "wiltshire_b", "roman",
+                                                      "us_cities", "us_birdseye", "us_birdseye_batch4", "us_birdseye_batch5")]
+    + ["data/commons/classified_" + n + ".jsonl" for n in ("artists", "kip", "limes", "mackenzie", "numancia", "van_deventer", "wiltshire_b", "roman",
+                                                           "us_cities", "us_birdseye", "us_birdseye_batch4", "us_birdseye_batch5")]
 )
 
 
@@ -222,6 +228,36 @@ def test_sources_filter_merges_only_named_sources(tmp_path):
     assert p.returncode == 0, p.stderr + p.stdout
     extras = open(tree / "data/catalog/extras.jsonl").read()
     assert '"xa"' in extras and extras.count('"xb"') == 1, "the unfiltered rerun picks up the rest, once"
+
+
+def test_no_qid_is_held_by_two_sites():
+    """236c box 1 (no duplicate site per QID): the QID is the stable part of a site id, so one QID names one
+site. In the canonical extras plus every extras_* staging row the next unfiltered merge would fold in, no QID
+may be held by two different site ids (the US city modules guard it at staging through known_sites; this is
+the canonical-side twin). The cross-check against the Wikidata catalog is looser on purpose: an extras row
+whose QID is already in sites.jsonl must carry the catalog's own id - the same site via two provenances
+(shotwick-q7502621), never a second site for the same QID."""
+    qid_to_ids = {}
+    paths = [os.path.join(ROOT, "data", "catalog", "extras.jsonl")]
+    paths += [os.path.join(ROOT, "data", "catalog", n)
+              for n in sorted(os.listdir(os.path.join(ROOT, "data", "catalog")))
+              if n.startswith("extras_") and n.endswith(".jsonl")]
+    for p in paths:
+        for l in _lines(p):
+            r = json.loads(l)
+            q = str(r.get("qid") or "").lower()
+            if q:
+                qid_to_ids.setdefault(q, set()).add(r["id"])
+    dup = {q: sorted(ids) for q, ids in qid_to_ids.items() if len(ids) > 1}
+    assert not dup, f"a QID is held by more than one site: {dup}"
+    cat = {}
+    for l in _lines(os.path.join(ROOT, "data", "catalog", "sites.jsonl")):
+        r = json.loads(l)
+        q = str(r.get("qid") or "").lower()
+        if q:
+            cat.setdefault(q, set()).add(r["id"])
+    bad = {q: (sorted(ids), sorted(cat[q])) for q, ids in qid_to_ids.items() if q in cat and cat[q] != ids}
+    assert not bad, f"an extras QID resolves to a different site id in the catalog: {bad}"
 
 
 def test_index_and_plan_list_rows_carry_evidence():

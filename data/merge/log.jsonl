@@ -1,45 +1,119 @@
-{"action": "merged", "key": ["ardoch"], "note": null, "source": "roman", "target": "data/catalog/extras.jsonl"}
-{"action": "merged", "key": ["carriden"], "note": null, "source": "roman", "target": "data/catalog/extras.jsonl"}
-{"action": "merged", "key": ["cilurni"], "note": null, "source": "roman", "target": "data/catalog/extras.jsonl"}
-{"action": "merged", "key": ["congavata"], "note": null, "source": "roman", "target": "data/catalog/extras.jsonl"}
-{"action": "merged", "key": ["kirkintilloch"], "note": null, "source": "roman", "target": "data/catalog/extras.jsonl"}
-{"action": "merged", "key": ["luguvallium-q71551754"], "note": null, "source": "roman", "target": "data/catalog/extras.jsonl"}
-{"action": "merged", "key": ["petriana"], "note": null, "source": "roman", "target": "data/catalog/extras.jsonl"}
-{"action": "merged", "key": ["tunnocelum"], "note": null, "source": "roman", "target": "data/catalog/extras.jsonl"}
-{"action": "merged", "key": ["virosidum"], "note": null, "source": "roman", "target": "data/catalog/extras.jsonl"}
-{"action": "merged", "key": ["aesica-q4688554", "A map of the Roman walls from BORCOVACEVS to MAGNA."], "note": null, "source": "roman", "target": "data/commons/classified.jsonl"}
-{"action": "merged", "key": ["ardoch", "Innerpeffery camp. and Ardoch camp."], "note": null, "source": "roman", "target": "data/commons/classified.jsonl"}
-{"action": "merged", "key": ["bar-hill-fort", "A general map of Antoninus's wall in Scotland."], "note": null, "source": "roman", "target": "data/commons/classified.jsonl"}
-{"action": "merged", "key": ["bar-hill-fort", "A map of the Roman wall in Scotland from the west end to Bemulie."], "note": null, "source": "roman", "target": "data/commons/classified.jsonl"}
-{"action": "merged", "key": ["birdoswald-roman-fort-and-the-section-of-q17650767", "A map of the Roman wall, from CILVRNVA to BORCOVACEVS."], "note": null, "source": "roman", "target": "data/commons/classified.jsonl"}
-{"action": "merged", "key": ["carriden", "A map of the Roman wall in Scotland from Falkirk to the east end."], "note": null, "source": "roman", "target": "data/commons/classified.jsonl"}
-{"action": "merged", "key": ["castrum-segedunum-q637958", "A general map of the Roman walls in the north of England, and so much of the adjacent countryes as includes the secondary stations per lineam valli."], "note": null, "source": "roman", "target": "data/commons/classified.jsonl"}
-{"action": "merged", "key": ["castrum-segedunum-q637958", "A map of the Roman walls from SEGEDVNAVM to CONDERCVVM."], "note": null, "source": "roman", "target": "data/commons/classified.jsonl"}
-{"action": "merged", "key": ["cilurni", "A map of the Roman wall, from HANNAVVM to CILVRNVA."], "note": null, "source": "roman", "target": "data/commons/classified.jsonl"}
-{"action": "merged", "key": ["congavata", "A map of the Roman walls in the north of England, from PETRIANA to CONGAVATA."], "note": null, "source": "roman", "target": "data/commons/classified.jsonl"}
-{"action": "merged", "key": ["haltonchesters-roman-fort-settlement-and-q17648018", "A map of the Roman wall, from VINDOBALA to HANNAVVM."], "note": null, "source": "roman", "target": "data/commons/classified.jsonl"}
-{"action": "merged", "key": ["kirkintilloch", "A map of the Roman wall in Scotland from Bemulie to Crowy-hill."], "note": null, "source": "roman", "target": "data/commons/classified.jsonl"}
-{"action": "merged", "key": ["luguvallium-q71551754", "FIG. 4. CARLISLE, COURSE OF THE WALL AND OF THE YALLUM."], "note": null, "source": "roman", "target": "data/commons/classified.jsonl"}
-{"action": "merged", "key": ["petriana", "A map of the Roman walls from MAGNA to PETRIANA."], "note": null, "source": "roman", "target": "data/commons/classified.jsonl"}
-{"action": "merged", "key": ["rough-castle-fort", "A map of the Roman wall in Scotland from Crowy-hill to Falkirk."], "note": null, "source": "roman", "target": "data/commons/classified.jsonl"}
-{"action": "merged", "key": ["rudchester-roman-fort-associated-civil-s-q17669775", "A map of the Roman wall, from CONDERCVVM to VINDOBALA."], "note": null, "source": "roman", "target": "data/commons/classified.jsonl"}
-{"action": "merged", "key": ["tunnocelum", "A map of the Roman walls in the north of England, from CONGAVATA to TVNNOCELVVM."], "note": null, "source": "roman", "target": "data/commons/classified.jsonl"}
-{"action": "merged", "key": ["virosidum", "The five fecondary ftations per lineam valli"], "note": null, "source": "roman", "target": "data/commons/classified.jsonl"}
-{"action": "merged", "key": ["aesica-q4688554", "A map of the Roman walls from BORCOVACEVS to MAGNA."], "note": null, "source": "roman", "target": "data/commons/files.jsonl"}
-{"action": "merged", "key": ["ardoch", "Innerpeffery camp. and Ardoch camp."], "note": null, "source": "roman", "target": "data/commons/files.jsonl"}
-{"action": "merged", "key": ["bar-hill-fort", "A general map of Antoninus's wall in Scotland."], "note": null, "source": "roman", "target": "data/commons/files.jsonl"}
-{"action": "merged", "key": ["bar-hill-fort", "A map of the Roman wall in Scotland from the west end to Bemulie."], "note": null, "source": "roman", "target": "data/commons/files.jsonl"}
-{"action": "merged", "key": ["birdoswald-roman-fort-and-the-section-of-q17650767", "A map of the Roman wall, from CILVRNVA to BORCOVACEVS."], "note": null, "source": "roman", "target": "data/commons/files.jsonl"}
-{"action": "merged", "key": ["carriden", "A map of the Roman wall in Scotland from Falkirk to the east end."], "note": null, "source": "roman", "target": "data/commons/files.jsonl"}
-{"action": "merged", "key": ["castrum-segedunum-q637958", "A general map of the Roman walls in the north of England, and so much of the adjacent countryes as includes the secondary stations per lineam valli."], "note": null, "source": "roman", "target": "data/commons/files.jsonl"}
-{"action": "merged", "key": ["castrum-segedunum-q637958", "A map of the Roman walls from SEGEDVNAVM to CONDERCVVM."], "note": null, "source": "roman", "target": "data/commons/files.jsonl"}
-{"action": "merged", "key": ["cilurni", "A map of the Roman wall, from HANNAVVM to CILVRNVA."], "note": null, "source": "roman", "target": "data/commons/files.jsonl"}
-{"action": "merged", "key": ["congavata", "A map of the Roman walls in the north of England, from PETRIANA to CONGAVATA."], "note": null, "source": "roman", "target": "data/commons/files.jsonl"}
-{"action": "merged", "key": ["haltonchesters-roman-fort-settlement-and-q17648018", "A map of the Roman wall, from VINDOBALA to HANNAVVM."], "note": null, "source": "roman", "target": "data/commons/files.jsonl"}
-{"action": "merged", "key": ["kirkintilloch", "A map of the Roman wall in Scotland from Bemulie to Crowy-hill."], "note": null, "source": "roman", "target": "data/commons/files.jsonl"}
-{"action": "merged", "key": ["luguvallium-q71551754", "FIG. 4. CARLISLE, COURSE OF THE WALL AND OF THE YALLUM."], "note": null, "source": "roman", "target": "data/commons/files.jsonl"}
-{"action": "merged", "key": ["petriana", "A map of the Roman walls from MAGNA to PETRIANA."], "note": null, "source": "roman", "target": "data/commons/files.jsonl"}
-{"action": "merged", "key": ["rough-castle-fort", "A map of the Roman wall in Scotland from Crowy-hill to Falkirk."], "note": null, "source": "roman", "target": "data/commons/files.jsonl"}
-{"action": "merged", "key": ["rudchester-roman-fort-associated-civil-s-q17669775", "A map of the Roman wall, from CONDERCVVM to VINDOBALA."], "note": null, "source": "roman", "target": "data/commons/files.jsonl"}
-{"action": "merged", "key": ["tunnocelum", "A map of the Roman walls in the north of England, from CONGAVATA to TVNNOCELVVM."], "note": null, "source": "roman", "target": "data/commons/files.jsonl"}
-{"action": "merged", "key": ["virosidum", "The five fecondary ftations per lineam valli"], "note": null, "source": "roman", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["baltimore-q5092"], "note": null, "source": "us_birdseye", "target": "data/catalog/extras.jsonl"}
+{"action": "merged", "key": ["boston-q100"], "note": null, "source": "us_birdseye", "target": "data/catalog/extras.jsonl"}
+{"action": "merged", "key": ["chicago-q1297"], "note": null, "source": "us_birdseye", "target": "data/catalog/extras.jsonl"}
+{"action": "merged", "key": ["cincinnati-q43196"], "note": null, "source": "us_birdseye", "target": "data/catalog/extras.jsonl"}
+{"action": "merged", "key": ["cleveland-q37320"], "note": null, "source": "us_birdseye_batch4", "target": "data/catalog/extras.jsonl"}
+{"action": "merged", "key": ["columbus-q16567"], "note": null, "source": "us_birdseye_batch5", "target": "data/catalog/extras.jsonl"}
+{"action": "merged", "key": ["denver-q16554"], "note": null, "source": "us_birdseye_batch4", "target": "data/catalog/extras.jsonl"}
+{"action": "merged", "key": ["detroit-q12439"], "note": null, "source": "us_birdseye", "target": "data/catalog/extras.jsonl"}
+{"action": "merged", "key": ["indianapolis-q6346"], "note": null, "source": "us_birdseye_batch5", "target": "data/catalog/extras.jsonl"}
+{"action": "merged", "key": ["kansas-city-q41819"], "note": null, "source": "us_birdseye", "target": "data/catalog/extras.jsonl"}
+{"action": "merged", "key": ["louisville-q43668"], "note": null, "source": "us_birdseye", "target": "data/catalog/extras.jsonl"}
+{"action": "merged", "key": ["memphis-q16563"], "note": null, "source": "us_birdseye_batch5", "target": "data/catalog/extras.jsonl"}
+{"action": "merged", "key": ["milwaukee-q37836"], "note": null, "source": "us_birdseye", "target": "data/catalog/extras.jsonl"}
+{"action": "merged", "key": ["minneapolis-q36091"], "note": null, "source": "us_birdseye_batch4", "target": "data/catalog/extras.jsonl"}
+{"action": "merged", "key": ["nashville-q23197"], "note": null, "source": "us_cities", "target": "data/catalog/extras.jsonl"}
+{"action": "merged", "key": ["new-orleans-q34404"], "note": null, "source": "us_birdseye", "target": "data/catalog/extras.jsonl"}
+{"action": "merged", "key": ["new-york-q60"], "note": null, "source": "us_cities", "target": "data/catalog/extras.jsonl"}
+{"action": "merged", "key": ["omaha-q43199"], "note": null, "source": "us_birdseye_batch5", "target": "data/catalog/extras.jsonl"}
+{"action": "merged", "key": ["philadelphia-q1345"], "note": null, "source": "us_birdseye", "target": "data/catalog/extras.jsonl"}
+{"action": "merged", "key": ["pittsburgh-q1342"], "note": null, "source": "us_birdseye", "target": "data/catalog/extras.jsonl"}
+{"action": "merged", "key": ["portland-q6106"], "note": null, "source": "us_birdseye_batch5", "target": "data/catalog/extras.jsonl"}
+{"action": "merged", "key": ["san-francisco-q62"], "note": null, "source": "us_cities", "target": "data/catalog/extras.jsonl"}
+{"action": "merged", "key": ["st-louis-q38022"], "note": null, "source": "us_birdseye", "target": "data/catalog/extras.jsonl"}
+{"action": "merged", "key": ["st-paul-q28848"], "note": null, "source": "us_birdseye_batch4", "target": "data/catalog/extras.jsonl"}
+{"action": "merged", "key": ["washington-q61"], "note": null, "source": "us_cities", "target": "data/catalog/extras.jsonl"}
+{"action": "merged", "key": ["baltimore-q5092", "File:The City of Baltimore - sketched and drawn by C.R. Parsons. LCCN90715972.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["boston-q100", "File:Bird's eye view of Boston. LOC 75694559.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["chicago-q1297", "File:Bird's eye view of Chicago, 1892. LOC 75693206.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["cincinnati-q43196", "File:Panoramic view, city of Cincinnati, U.S.A. 1900. LOC 75694914.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["cleveland-q37320", "File:Birds eye view of Cleveland, Ohio 1877. LOC 73694507.jpg"], "note": null, "source": "us_birdseye_batch4", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["columbus-q16567", "File:1872 Birds Eye View of Columbus Ohio - alternate.png"], "note": null, "source": "us_birdseye_batch5", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["denver-q16554", "File:Bird's eye view of Denver, Colorado, 1908. LOC 75693133.jpg"], "note": null, "source": "us_birdseye_batch4", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["detroit-q12439", "File:Birds eye view-showing about three miles square-of the central portion of the city of Detroit, Michigan. LOC 76693077.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["indianapolis-q6346", "File:Bird's-eye view of Indianapolis showing Spink apartments, hotels, office and industrial buildings - DPLA - d442b7431e1f90b2c13fb4f957e8026f (page 1).jpg"], "note": null, "source": "us_birdseye_batch5", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["kansas-city-q41819", "File:Bird's eye view of Kansas City, Missouri. Jan'y. 1869. LOC 73693480.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["louisville-q43668", "File:Birds-eye view of Louisville from the river front and Southern Exposition, 1883. LOC 75693235.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["memphis-q16563", "File:Bird's eye view of the city of Memphis, Tennessee 1870. LOC 73694530.jpg"], "note": null, "source": "us_birdseye_batch5", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["milwaukee-q37836", "File:Milwaukee, Wis. LOC 76693067.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["minneapolis-q36091", "File:Minneapolis, Minnesota. LOC 75694644.jpg"], "note": null, "source": "us_birdseye_batch4", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["nashville-q23197", "File:1804 Map of Nashville published 1880.jpg"], "note": null, "source": "us_cities", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["nashville-q23197", "File:1860 Haydon map of City of Nashville and Edgefield.jpg"], "note": null, "source": "us_cities", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["nashville-q23197", "File:Defenses of Chattanooga, Tenn. Battery Erwin ... Battery Coolidge. Defenses of Nashville, Tenn. Capitol (IA dr defenses-of-chattanooga-tenn-battery-erwin-battery-coolidge-defenses-01104241).jpg"], "note": null, "source": "us_cities", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["nashville-q23197", "File:Map of Nashville, Tennessee. LOC 2003630459.jpg"], "note": null, "source": "us_cities", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["nashville-q23197", "File:Tennessee Centennial Exposition, Nashville, Tennessee, 1897. LOC 77696328.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["new-orleans-q34404", "File:Bird's eye view of New Orleans (NYPL Hades-118746-54871).tif"], "note": null, "source": "us_birdseye", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["new-york-q60", "File:Afbeeldinge van de Stadt Amsterdam in Nieuw Neederlandt (NYPL Hades-118555-54682).tif"], "note": null, "source": "us_cities", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["new-york-q60", "File:Commissioners' Plan of 1811 by John Randel published in 1821.jpg"], "note": null, "source": "us_cities", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["new-york-q60", "File:New York - drawn by J. Bachmann ; print by G. Schlegel, 97 William St. N.Y. LCCN98508526.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["new-york-q60", "File:Plan of the City of New York by Bernard Ratzer, 1767.jpg"], "note": null, "source": "us_cities", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["new-york-q60", "File:The city of New York. LOC 75694818.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["new-york-q60", "File:Viele Map (Topographical map of the City of New York), 1865.jpg"], "note": null, "source": "us_cities", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["new-york-q60", "File:View of the city of New York and vicinity LOC 78692903.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["omaha-q43199", "File:Bird's eye view of the city of Omaha, Nebraska 1868. LOC 73693495.tif"], "note": null, "source": "us_birdseye_batch5", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["philadelphia-q1345", "File:Bird's eye view of Philadelphia. LOC 75694509.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["pittsburgh-q1342", "File:Pittsburgh, Pennsylvania 1902. LOC 75696521.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["portland-q6106", "File:Portland, Oregon 1890 Perspective Birds-eye-view Map.jpg"], "note": null, "source": "us_birdseye_batch5", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["san-francisco-q62", "File:(Bird's eye view of San Francisco) LOC 75693101.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["san-francisco-q62", "File:1839 Plan of Yerba Buena (Jean Jacques Vioget).jpg"], "note": null, "source": "us_cities", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["san-francisco-q62", "File:1914 San Francisco Birds Eye Map by Peter.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["san-francisco-q62", "File:Map of San Francisco, Apollo storeship at the bottom.jpg"], "note": null, "source": "us_cities", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["san-francisco-q62", "File:Official map of San Francisco compiled from the field notes of the official re-survey made by Wm. M. Eddy. surveyor of the town of San Francisco. LOC 77692722.jpg"], "note": null, "source": "us_cities", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["san-francisco-q62", "File:Official map of the City of San Francisco, Full and complete to the present date. Compiled by Wm., M. Eddy. City Surveyor. (IA dr official-map-of-the-city-of-san-francisco-full-and-complete-to-the-present-5870000).jpg"], "note": null, "source": "us_cities", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["san-francisco-q62", "File:San Francisco. 1854 (published for the History of the world) - DPLA - Original.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["san-francisco-q62", "File:The city of San Francisco. Birds eye view from the bay looking south-west. LOC 75693104.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["st-louis-q38022", "File:Bird's-Eye View of St. Louis, MO. (full view).jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["st-paul-q28848", "File:St. Paul, Minn. LOC 75694650.jpg"], "note": null, "source": "us_birdseye_batch4", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["washington-q61", "File:B.H. Warner & Co.'s Map showing a bird's-eye view of the city of Washington and suburbs - locating the public buildings and places of interest LOC 87693417.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["washington-q61", "File:Map of the defences of Washington. LOC 88690674.jpg"], "note": null, "source": "us_cities", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["washington-q61", "File:Plan of the city of Washington LOC 88694159.tif"], "note": null, "source": "us_cities", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["washington-q61", "File:Plan of the city of Washington in the territory of Columbia - ceded by the states of Virginia and Maryland to the United States of America, and by them established as the seat of their government, (NYPL b15255319-434417).jpg"], "note": null, "source": "us_cities", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["washington-q61", "File:The national capital, Washington City, D.C. LOC 75694904.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["washington-q61", "File:Washington, the beautiful capital of the nation LOC 78695113.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/classified.jsonl"}
+{"action": "merged", "key": ["baltimore-q5092", "File:The City of Baltimore - sketched and drawn by C.R. Parsons. LCCN90715972.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["boston-q100", "File:Bird's eye view of Boston. LOC 75694559.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["chicago-q1297", "File:Bird's eye view of Chicago, 1892. LOC 75693206.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["cincinnati-q43196", "File:Panoramic view, city of Cincinnati, U.S.A. 1900. LOC 75694914.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["cleveland-q37320", "File:Birds eye view of Cleveland, Ohio 1877. LOC 73694507.jpg"], "note": null, "source": "us_birdseye_batch4", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["columbus-q16567", "File:1872 Birds Eye View of Columbus Ohio - alternate.png"], "note": null, "source": "us_birdseye_batch5", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["denver-q16554", "File:Bird's eye view of Denver, Colorado, 1908. LOC 75693133.jpg"], "note": null, "source": "us_birdseye_batch4", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["detroit-q12439", "File:Birds eye view-showing about three miles square-of the central portion of the city of Detroit, Michigan. LOC 76693077.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["indianapolis-q6346", "File:Bird's-eye view of Indianapolis showing Spink apartments, hotels, office and industrial buildings - DPLA - d442b7431e1f90b2c13fb4f957e8026f (page 1).jpg"], "note": null, "source": "us_birdseye_batch5", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["kansas-city-q41819", "File:Bird's eye view of Kansas City, Missouri. Jan'y. 1869. LOC 73693480.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["louisville-q43668", "File:Birds-eye view of Louisville from the river front and Southern Exposition, 1883. LOC 75693235.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["memphis-q16563", "File:Bird's eye view of the city of Memphis, Tennessee 1870. LOC 73694530.jpg"], "note": null, "source": "us_birdseye_batch5", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["milwaukee-q37836", "File:Milwaukee, Wis. LOC 76693067.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["minneapolis-q36091", "File:Minneapolis, Minnesota. LOC 75694644.jpg"], "note": null, "source": "us_birdseye_batch4", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["nashville-q23197", "File:1804 Map of Nashville published 1880.jpg"], "note": null, "source": "us_cities", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["nashville-q23197", "File:1860 Haydon map of City of Nashville and Edgefield.jpg"], "note": null, "source": "us_cities", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["nashville-q23197", "File:Defenses of Chattanooga, Tenn. Battery Erwin ... Battery Coolidge. Defenses of Nashville, Tenn. Capitol (IA dr defenses-of-chattanooga-tenn-battery-erwin-battery-coolidge-defenses-01104241).jpg"], "note": null, "source": "us_cities", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["nashville-q23197", "File:Map of Nashville, Tennessee. LOC 2003630459.jpg"], "note": null, "source": "us_cities", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["nashville-q23197", "File:Tennessee Centennial Exposition, Nashville, Tennessee, 1897. LOC 77696328.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["new-orleans-q34404", "File:Bird's eye view of New Orleans (NYPL Hades-118746-54871).tif"], "note": null, "source": "us_birdseye", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["new-york-q60", "File:Afbeeldinge van de Stadt Amsterdam in Nieuw Neederlandt (NYPL Hades-118555-54682).tif"], "note": null, "source": "us_cities", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["new-york-q60", "File:Commissioners' Plan of 1811 by John Randel published in 1821.jpg"], "note": null, "source": "us_cities", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["new-york-q60", "File:New York - drawn by J. Bachmann ; print by G. Schlegel, 97 William St. N.Y. LCCN98508526.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["new-york-q60", "File:Plan of the City of New York by Bernard Ratzer, 1767.jpg"], "note": null, "source": "us_cities", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["new-york-q60", "File:The city of New York. LOC 75694818.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["new-york-q60", "File:Viele Map (Topographical map of the City of New York), 1865.jpg"], "note": null, "source": "us_cities", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["new-york-q60", "File:View of the city of New York and vicinity LOC 78692903.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["omaha-q43199", "File:Bird's eye view of the city of Omaha, Nebraska 1868. LOC 73693495.tif"], "note": null, "source": "us_birdseye_batch5", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["philadelphia-q1345", "File:Bird's eye view of Philadelphia. LOC 75694509.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["pittsburgh-q1342", "File:Pittsburgh, Pennsylvania 1902. LOC 75696521.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["portland-q6106", "File:Portland, Oregon 1890 Perspective Birds-eye-view Map.jpg"], "note": null, "source": "us_birdseye_batch5", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["san-francisco-q62", "File:(Bird's eye view of San Francisco) LOC 75693101.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["san-francisco-q62", "File:1839 Plan of Yerba Buena (Jean Jacques Vioget).jpg"], "note": null, "source": "us_cities", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["san-francisco-q62", "File:1914 San Francisco Birds Eye Map by Peter.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["san-francisco-q62", "File:Map of San Francisco, Apollo storeship at the bottom.jpg"], "note": null, "source": "us_cities", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["san-francisco-q62", "File:Official map of San Francisco compiled from the field notes of the official re-survey made by Wm. M. Eddy. surveyor of the town of San Francisco. LOC 77692722.jpg"], "note": null, "source": "us_cities", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["san-francisco-q62", "File:Official map of the City of San Francisco, Full and complete to the present date. Compiled by Wm., M. Eddy. City Surveyor. (IA dr official-map-of-the-city-of-san-francisco-full-and-complete-to-the-present-5870000).jpg"], "note": null, "source": "us_cities", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["san-francisco-q62", "File:San Francisco. 1854 (published for the History of the world) - DPLA - Original.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["san-francisco-q62", "File:The city of San Francisco. Birds eye view from the bay looking south-west. LOC 75693104.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["st-louis-q38022", "File:Bird's-Eye View of St. Louis, MO. (full view).jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["st-paul-q28848", "File:St. Paul, Minn. LOC 75694650.jpg"], "note": null, "source": "us_birdseye_batch4", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["washington-q61", "File:B.H. Warner & Co.'s Map showing a bird's-eye view of the city of Washington and suburbs - locating the public buildings and places of interest LOC 87693417.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["washington-q61", "File:Map of the defences of Washington. LOC 88690674.jpg"], "note": null, "source": "us_cities", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["washington-q61", "File:Plan of the city of Washington LOC 88694159.tif"], "note": null, "source": "us_cities", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["washington-q61", "File:Plan of the city of Washington in the territory of Columbia - ceded by the states of Virginia and Maryland to the United States of America, and by them established as the seat of their government, (NYPL b15255319-434417).jpg"], "note": null, "source": "us_cities", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["washington-q61", "File:The national capital, Washington City, D.C. LOC 75694904.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/files.jsonl"}
+{"action": "merged", "key": ["washington-q61", "File:Washington, the beautiful capital of the nation LOC 78695113.jpg"], "note": null, "source": "us_birdseye", "target": "data/commons/files.jsonl"}
