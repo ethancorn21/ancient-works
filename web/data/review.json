@@ -1,5 +1,5 @@
 {
- "at": "2026-10-15T11:30:08.117842+00:00",
+ "at": "2026-10-15T20:35:37.890166+00:00",
  "items": [
   {
    "site": "a-saucer-barrow-and-a-bowl-barrow-600m-n-q17677473",
@@ -188,6 +188,24 @@
       ]
      ],
      "why": "matcher fit rejected by the lead's look (2026-10-11): a single bath-house plan (scale in feet, ~30 m) stretched over ~250 m of fields west of the fort; matched at the wrong scale"
+    },
+    {
+     "book": "maclauchlan_roman_wall_1858",
+     "ia": "memoirwrittendu00maclgoog",
+     "file": "n0090.jpg",
+     "title": "Plan, Section, and Elevation of the Roman Wall, in Willow Holm, Carlisle (440 yards from the west mouth of the sewer; scale 4 feet to an inch; reduced from M'Me Kie's section, taken Sep't 7th 1858)",
+     "label": "Fig. 90",
+     "size": [
+      985,
+      1431
+     ],
+     "map_box": null,
+     "cite": "Henry Maclauchlan, Memoir, Written During a Survey of the Roman Wall, through the Counties of Northumberland and Cumberland, in the Years 1852-1854, made by direction of His Grace the Duke of Northumberland, K.G., Patron of the Society of Antiquaries of Newcastle-upon-Tyne; London, printed for private circulation (Bradbury and Evans, Whitefriars), MDCCCLVIII = 1858 (title page n0011; the preface dates the survey Wallsend summer 1852 to Bowness by winter 1854, and the 1858 printing carries later work - the Willow Holm section of Sep't 7th 1858, the Carlisle great-sewer plan)",
+     "url": "books/memoirwrittendu00maclgoog/n0090.jpg",
+     "view": false,
+     "ref": null,
+     "plan": "memoirwrittendu00maclgoog_n0090_1",
+     "place_reason": "same name, other place: in Willow Holm, Carlisle, 440 yards from the west mouth of the sewer, scale 4 feet to an inch, reduced from M'Me Kie's section, taken Sep't 7th 1858) vs Greenhead, Northumberland, England"
     }
    ],
    "no_picture_found": null
@@ -562,6 +580,29 @@
      "note": "commons row: no stage-B fields: coarse anchor",
      "why": "median residual 91.2913531398014 m > 45.0 m",
      "gate_score": 91.3
+    },
+    {
+     "book": "horsley_britannia_romana_1732",
+     "ia": "britanniaromanao00hors",
+     "file": "n0236.jpg",
+     "title": "A general map of the Roman walls in the north of England, and so much of the adjacent countryes as includes the secondary stations per lineam valli.",
+     "label": "Fig. 236",
+     "size": [
+      2427,
+      3893
+     ],
+     "map_box": [
+      0.015,
+      0.01,
+      0.95,
+      0.97
+     ],
+     "cite": "John Horsley, Britannia Romana, or the Roman Antiquities of Britain: in three books, printed for John Osborn and Thomas Longman, at the Ship in Pater-Noster Row, London, 1732 (M.DCC.XXXII); the Google scan is the British Museum volume (shelf mark RB DA 145. H 86 folio, May 25 1883, on leaf n0015)",
+     "url": "books/britanniaromanao00hors/n0236.jpg",
+     "view": false,
+     "ref": null,
+     "plan": "britanniaromanao00hors_n0236_1",
+     "place_reason": "same name, other place: and so much of the adjacent countryes as includes the secondary stations per lineam valli, England vs Maryport, Cumbria, England"
     }
    ],
    "no_picture_found": null
@@ -8989,12 +9030,33 @@
   {
    "site": "glannoventa-q16839208",
    "name": "Glannoventa",
-   "lead": null,
-   "candidates": [],
-   "no_picture_found": {
-    "searched": "wikidata Q16839208; Commons category 'Glannoventa' (4 files); P180 depictions of Q16839208: 0 of 4 file(s) checked; title searches: \"\"Glannoventa\" plan\", \"\"Glannoventa\" map OR survey\", \"\"Glannoventa\" engraving OR drawing OR view OR prospect -\"style of\"\" (1 hit); 2026-10-13",
-    "at": "2026-10-13T09:21:29.213381+00:00"
-   }
+   "lead": "britanniaromanao00hors_n0236_1",
+   "candidates": [
+    {
+     "book": "horsley_britannia_romana_1732",
+     "ia": "britanniaromanao00hors",
+     "file": "n0236.jpg",
+     "title": "A general map of the Roman walls in the north of England, and so much of the adjacent countryes as includes the secondary stations per lineam valli.",
+     "label": "Fig. 236",
+     "size": [
+      2427,
+      3893
+     ],
+     "map_box": [
+      0.015,
+      0.01,
+      0.95,
+      0.97
+     ],
+     "cite": "John Horsley, Britannia Romana, or the Roman Antiquities of Britain: in three books, printed for John Osborn and Thomas Longman, at the Ship in Pater-Noster Row, London, 1732 (M.DCC.XXXII); the Google scan is the British Museum volume (shelf mark RB DA 145. H 86 folio, May 25 1883, on leaf n0015)",
+     "url": "books/britanniaromanao00hors/n0236.jpg",
+     "view": false,
+     "ref": null,
+     "plan": "britanniaromanao00hors_n0236_1",
+     "place_reason": "same name, other place: and so much of the adjacent countryes as includes the secondary stations per lineam valli, England vs Muncaster, Cumberland, England"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "glevum-q360974",
@@ -14215,6 +14277,24 @@
      "scale_source": "bar",
      "note": "scale from the scale bar: '0 100 200 300 Feet'",
      "why": "features: North-eastern rampart corner, Eastern gate gap, South-eastern rampart corner, South-western rampart corner, North-western rampart corner, Central mound tip; only 33% of the recorded points sit on more textured ground than a typical region of this site: the features are not visible where claimed - not trusted"
+    },
+    {
+     "book": "maclauchlan_roman_wall_1858",
+     "ia": "memoirwrittendu00maclgoog",
+     "file": "n0090.jpg",
+     "title": "Plan, Section, and Elevation of the Roman Wall, in Willow Holm, Carlisle (440 yards from the west mouth of the sewer; scale 4 feet to an inch; reduced from M'Me Kie's section, taken Sep't 7th 1858)",
+     "label": "Fig. 90",
+     "size": [
+      985,
+      1431
+     ],
+     "map_box": null,
+     "cite": "Henry Maclauchlan, Memoir, Written During a Survey of the Roman Wall, through the Counties of Northumberland and Cumberland, in the Years 1852-1854, made by direction of His Grace the Duke of Northumberland, K.G., Patron of the Society of Antiquaries of Newcastle-upon-Tyne; London, printed for private circulation (Bradbury and Evans, Whitefriars), MDCCCLVIII = 1858 (title page n0011; the preface dates the survey Wallsend summer 1852 to Bowness by winter 1854, and the 1858 printing carries later work - the Willow Holm section of Sep't 7th 1858, the Carlisle great-sewer plan)",
+     "url": "books/memoirwrittendu00maclgoog/n0090.jpg",
+     "view": false,
+     "ref": null,
+     "plan": "memoirwrittendu00maclgoog_n0090_1",
+     "place_reason": "same name, other place: in Willow Holm, Carlisle, 440 yards from the west mouth of the sewer, scale 4 feet to an inch, reduced from M'Me Kie's section, taken Sep't 7th 1858) vs Oswestry Civil Parish, Shropshire, England"
     }
    ],
    "no_picture_found": null
@@ -20547,6 +20627,29 @@
      "scale_source": "bar",
      "note": "scale from the scale bar: '0 10 20 300 400 500 600 700 800 FEET'",
      "why": "features: Northwest corner of the main fort, North-east corner of the main fort, South-east corner of the main fort, South-west corner of the main fort, North gate gap, East gate gap, South gate gap, West gate gap; stated scale 0.168 disagrees with its own points (0.800 m/px): not trusted"
+    },
+    {
+     "book": "horsley_britannia_romana_1732",
+     "ia": "britanniaromanao00hors",
+     "file": "n0236.jpg",
+     "title": "A general map of the Roman walls in the north of England, and so much of the adjacent countryes as includes the secondary stations per lineam valli.",
+     "label": "Fig. 236",
+     "size": [
+      2427,
+      3893
+     ],
+     "map_box": [
+      0.015,
+      0.01,
+      0.95,
+      0.97
+     ],
+     "cite": "John Horsley, Britannia Romana, or the Roman Antiquities of Britain: in three books, printed for John Osborn and Thomas Longman, at the Ship in Pater-Noster Row, London, 1732 (M.DCC.XXXII); the Google scan is the British Museum volume (shelf mark RB DA 145. H 86 folio, May 25 1883, on leaf n0015)",
+     "url": "books/britanniaromanao00hors/n0236.jpg",
+     "view": false,
+     "ref": null,
+     "plan": "britanniaromanao00hors_n0236_1",
+     "place_reason": "same name, other place: and so much of the adjacent countryes as includes the secondary stations per lineam valli, England vs County Durham, England"
     }
    ],
    "no_picture_found": null
