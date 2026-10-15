@@ -4,7 +4,6 @@ Hand-over notes live in each task's `## Hand-over` section at the end of its tas
 task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
-- `tasks/236-us-cities.md` (split)
 - `tasks/242-owner-check-stable-shots.md` (open) - hand-over: (2026-10-15, iteration 189, agent c) **SPLIT per the driver's instruction** (agent a's 230 and my
 - `tasks/245-owner-check-stale-tier.md` (open) - hand-over: (2026-10-15, iteration 236, agent a - BUILT and committed on agent/a's branch this session,
 - `tasks/810-owner-check-settle-captures.md` (open) - hand-over: (2026-10-15, iteration 236, agent a - **STATUS CHANGE (read this first):** the it.235 build
