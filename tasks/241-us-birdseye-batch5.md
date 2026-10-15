@@ -1,5 +1,5 @@
 Status: in-progress
-Depends on: 240, 242
+Depends on: 240, 242, 810
 Touches: fit/src_us_birdseye_batch5.py, data/catalog/extras_us_birdseye_batch5.jsonl, data/commons/files_us_birdseye_batch5.jsonl, data/commons/classified_us_birdseye_batch5.jsonl, docs/lead_us_birdseye_batch5.md, tests/test_src_us_birdseye_batch5.py, tests/golden/src_us_birdseye_batch5_sample.json, PITFALLS.md, docs/site_flow/307d_*.png (R5: restoring suite re-encodes to main's bytes before committing - never content changes)
 
 # 241: US bird's-eye views, batch 5 - the final five cities to the 25-city total
