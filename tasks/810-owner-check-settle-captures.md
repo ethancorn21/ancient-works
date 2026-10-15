@@ -1,4 +1,4 @@
-Status: open
+Status: done
 Depends on: 307d, 812, 813, 246, 247
 Touches: (none - final verification only; the code change is 814 (settle) + 812 (double-shot) + 813 (refresh flag + write-surface + docstrings), all done and merged; the verification work moved to 246 (cross-run pair stability, the byte-identical snapshot) and 247 (the full-suite green run) in the 2026-10-15 iteration-254 split)
 
@@ -73,50 +73,54 @@ PNGs byte-identical after a run, git status on docs/site_flow/ clean) to **246**
 box 3 (the full suite green) to **247**. Both parts depend on nothing (the merged tree is
 final) and build in parallel. Nothing of this task was built yet, so it WAITS on both and
 keeps only the gate below; the plan for the remaining work is in the hand-over.)
-- [ ] **246 is done with its boxes ticked** - two consecutive unflagged runs of the
+- [x] **246 is done with its boxes ticked** - two consecutive unflagged runs of the
       owner_check pair are stable across runs (their ten temp-tree views match, <0.5% per
       view at threshold 32), both tests pass end to end with the pick still derived and no
       existing check changed, and each run leaves the ten docs/site_flow/307d_*.png
       byte-identical with git status on docs/site_flow/ clean (the write-surface proof).
-- [ ] **247 is done with its boxes ticked** - the full suite is green on the merged tree
+- [x] **247 is done with its boxes ticked** - the full suite is green on the merged tree
       (0 failed; the owner_check pair inside it green with settled captures) and the run
       leaves docs/site_flow/ clean.
 
 ## Hand-over
 
-(2026-10-15, iteration 254, agent a - **SPLIT per the driver's instruction; nothing of this
-task is built yet, so it WAITS on its parts 246 + 247** (never both ways). The driver puts
-the two part files into main at once so an idle agent can take them in parallel (c had had
-nothing to build for 32 minutes: its 813 just merged, its next queue task 811 is held on
-this gate). 811 and 242 need the whole verified regime, not a part, so their Depends lines
-are unchanged (811: 810; 242: 307d, 810, 811). No cycle: 246 and 247 are leaves.
+(2026-10-15, iteration 256, agent a - **DONE and claimed.** Both gate boxes ticked from
+the parts' recorded evidence (the two DECISIONS entries below), then Status: done and the
+done-claim (the 812/245 pattern: green evidence on the merged tree). This lane runs
+nothing (Touches: none - the pair runs and the suite are 246's and 247's lanes, and both
+already ran on the merged tree): this session verified the evidence in their entries plus
+a read-only tree check (working tree clean; `git diff main --
+tests/test_owner_check.py` empty; `git status --porcelain docs/site_flow/` empty) and
+wrote only this file and DECISIONS.
 
-**State:** the settled-capture regime is all merged on main (and synced into this checkout
-at b2a4c94f, working tree clean): 814's settle gate (isMoving() false + no new map frame
-for ~700 ms, 20 s budget, the built fix carried in as the 816 recipe), 812's in-run
-double shot (<0.5% at thr 32, 20 shots per pair run), 813's pinned-snapshot regime
-(AW_OWNER_REFRESH=1, the ten docs/site_flow/307d_*.png in the write-surface proof, the
-docstrings; merged as d3223f6a), plus 815's page hunk and 245's saveFit fix. Baseline on
-this tree (DECISIONS 2026-10-15 + the 813 merge commit): full suite 195 passed / 1
-skipped / 0 failed (~600-1040 s); five consecutive green pair runs; all 50 in-run
-double-shot pairs 0.0000%; zero [warn] settle; it.245's cross-run compare of two saved
-runs: 9/10 views byte-identical, worst B 1-card 0.0447% (the known card band, comfortably
-under 0.5%).
+**The evidence (durable record - the /tmp lanes died at their session boundaries):**
+- **246 (DECISIONS-archive.md, "2026-10-15 246 DECISION"; merged as c30edbf6):** two
+  consecutive unflagged pair runs (the task's exact command, one invocation each: 80.51 s
+  / 80.77 s, 2 passed each); cross-run compare of the ten views: 9/10 byte-identical,
+  only diff B 1-card 0.0452% (the known card band - it.245 measured 0.0447% on the same
+  view; all ten far under the 0.5% line), the four saved/reload views byte-identical
+  (the old 28.6-33.6% mid-transition drift does not reproduce - the settled regime holds
+  across runs, not just within); all 20 in-run double-shot pairs 0.0000%; zero
+  `[settle] TIMED OUT` / `[warn]` lines in all four probe logs; picks derived from the
+  queue and identical in both runs (A = richard-s-castle-q17650937 /
+  earthworkenglan01allcgoog_n0453_1, B = devil-s-dyke-q3307343 /
+  earthworkenglan01allcgoog_n0662_1); the module at the merged bytes at session start
+  and after both runs; git status on docs/site_flow/ clean after EACH run. All three 246
+  boxes ticked; Status: done.
+- **247 (DECISIONS.md, "2026-10-15 247 DECISION"; merged as f908676c):** one unflagged
+  full-suite run (`.venv/bin/python -m pytest tests/ -q -p no:cacheprovider` on HEAD
+  538a5744): 195 passed / 1 skipped / 0 failed in 692.72 s (the expected baseline since
+  the 245/812/813 claims - no count change); the owner_check pair inside it green with
+  settled captures (both probes RESULT PASS, zero `[warn]` / `TIMED OUT`, all 20 in-run
+  double shots 0.0000% at threshold 32); the ten 307d PNGs sha256-identical pre/post
+  run; whole tree clean after. Both 247 boxes ticked; Status: done.
 
-**Exact next step (the driver brings this task back once 246 and 247 are both done):**
-tick the gate from their recorded evidence - (1) read the DECISIONS entries "2026-10-15
-246 DECISION" and "2026-10-15 247 DECISION" (and the parts' hand-overs): 246 must record
-the per-view cross-run percentages (all ten <0.5%; the card band ~0.05%; the four
-saved/reload in the stable band, not the old 28.6-33.6%), no [settle] TIMED OUT / [warn]
-lines, the derived picks (named), the module at the merged bytes (git diff main empty),
-git status on docs/site_flow/ clean after each of its two runs; 247 must record the suite
-counts (0 failed; 195P/1S expected, count change with reason if any) and docs/site_flow
-clean after the run. (2) If both check out: tick the two boxes, set Status: done, and
-claim (the driver re-checks; the done-claim follows the 812/245 pattern - green evidence
-on the merged tree, memory-only commit). (3) If a box's evidence is missing or a number
-is out of band: do NOT tick - log the gap in DECISIONS and re-file it into the part's
-task file (the driver reopens that task); never run the pair or the suite here (246/247's
-lanes) and never re-file the fix into 811 or 242.
+**Next (NOT this task's work):** 811 (Depends: 810) is now claimable - the one-time
+`AW_OWNER_REFRESH=1` re-pin, the docs note, the PITFALLS rewrite of the per-run
+re-render entry. 813's entry flags that the committed ten are ALREADY settled-era bytes,
+so 811's re-pin is byte-level only (at most re-encoding of B_1-card and B_5-reload) -
+its docs note and PITFALLS rewrite should say so. Then 242 (Depends: 307d, 810, 811),
+the family's final check, unblocks.
 
 **History:** the superseded it.235 hand-over that followed this section (the whole
 242-family code change built in one session on this branch; its build no longer exists in
