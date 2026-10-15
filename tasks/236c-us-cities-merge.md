@@ -1,7 +1,7 @@
-Status: open
+Status: done
 # 236c: Consolidate the US cities into the page's data and build the sites
 Depends on: 236a, 236b, 240, 241
-Touches: fit/merge.py, data/catalog/extras.jsonl, data/commons/files.jsonl, data/commons/classified.jsonl, data/merge/, data/sites/, data/db/platefits/, data/review/, docs/sources.md, web/data/sites.json, web/data/sites/, web/data/plans.json, web/data/review.json, tests/test_merge.py
+Touches: fit/merge.py, data/catalog/extras.jsonl, data/commons/files.jsonl, data/commons/classified.jsonl, data/merge/, data/sites/, data/db/platefits/, data/review/, docs/sources.md, web/data/sites.json, web/data/sites/, web/data/plans.json, web/data/review.json, tests/test_merge.py, tests/fixtures/matchfit_station/ (added it.210: the 25 US review items drifted the 302f station fixture's data_review input hash - the 230/243 precedent re-records it in the drifting task; only the two fixture JSONs change, record.py and the test file stay untouched)
 
 ## Goal
 Subtask of 236. Run the 211 consolidation (fit/merge.py globs every extras_/files_/classified_ staging file)
@@ -13,8 +13,8 @@ and export plans.json so the new pictures appear on the page and in the fit queu
 - [x] Every new US city site is built (web/data/sites/<id>/ exists, aerial tiles present) and listed in
       web/data/sites.json; plans.json lists their pictures.
 - [x] Every new site ends with a fitted drawing or a review item (tools/site_done.py), as in 212.
-- [ ] The page loads with the new sites (server/serve.py), nothing that worked before breaks; full suite =
-      baseline.
+- [x] The page loads with the new sites (server/serve.py), nothing that worked before breaks; full suite =
+      baseline (it.210: 195P/1S/0F = main's 194P/1S/0F at 814's claim + this task's one new test, 196 collected).
 
 ## Notes
 - Site dirs and data/raw are per machine (gitignored): record in the hand-over which sites were built here,
@@ -35,26 +35,58 @@ and this task's hand-over records the final count.
 
 ## Hand-over
 
-(2026-10-15, iteration 209, agent c). **Boxes 1, 2, 3 DONE; steps 1 and 2 of the 208 hand-over are DONE and committed (bce2a704). Only BOX 4 (full suite) remains.**
+(2026-10-15, iteration 210, agent c). **ALL FOUR BOXES TICKED; claimed `Status: done` this session.** If the
+driver reopens this (e.g. a rejected claim), the state is fully settled: no build work remains, the only
+residual is the claim gate itself.
 
-**What it.209 did:**
-1. Step 1 (docs/sources.md) needed no work: the driver had committed it.208's uncommitted change as 709734c1. Re-read that diff with fresh eyes (Re-read item) and re-measured every number against the live data: all four US lead rows (236a 4/15, 236b 12+4/23, 240 4/4, 241 5/5 + Albuquerque dropped), the closing re-run paragraph (119 staging rows, 25 sites 508->533, plans 1572->1619 = 33 birdseye/14 plan, 47 matcher refusals -> 25 review items/481 open/0 drawings) and the Roman log-parenthetical past-tense fix are all correct and complete. No test references docs/sources.md.
-2. Step 2 (re-baseline) executed and verified:
-   - `data/merge/sites_premerge_baseline.jsonl` 499 -> **508** (current 533 minus the 25 US ids, served order, `json.dumps(entry, ensure_ascii=False)`; the old 499 lines survive byte-identical; the 9 added ids are exactly the Roman Scottish forts: ardoch, carriden, cilurni, congavata, kirkintilloch, luguvallium-q71551754, petriana, tunnocelum, virosidum).
-   - `data/merge/plans_premerge_keys.jsonl` 1510 -> **1572** (current 1619 minus the 47 US rows; {"id","site"} shape, served row order; old 1510 a verified subset, the 62 added keys are the post-211 rows 230's baseline pre-dated).
-   - `tests/test_merge.py`: assert 499 -> 508 + all four re-baseline mentions in docstrings updated to "the entries/rows served before 236c's build".
-   - Verified by running: `tests/test_merge.py` **11/11 in 37.5 s**; `test_new_sites_are_complete`'s `new` is now exactly the 25 US ids, each complete (dir, required fields, relief.jpg iff the USGS 3DEP credit, no coverable old-map layer over the US). The 9 Roman forts are now INSIDE the pure-growth baseline, so from now on `test_served_sites_grew_purely` guards them against non-marker rewrites too.
+**What it.210 did (box 4 = the full suite, plus the one fix it demanded):**
+1. 307d PNG hygiene (agent a's lane): restored all ten to main's bytes before run 1 (2 differed: B_1-card,
+   B_5-reload); after each of the two suite runs, restored all ten again. NEVER committed them (not in my
+   Touches). HEAD still holds the stale re-encodes of the two; the driver's uncommitted-work commit aligns HEAD.
+2. Run 1: full suite 193P/1S/2F of 196 (668.18 s). The 2 reds were BOTH
+   `tests/test_matchfit_station.py` (confident + unsure) at the `_drift` precondition: the fixture's
+   `data_review` input hash (sha256 over the sorted (name, sha256) list of `data/review/`) moved
+   `0322cf07…` (recorded 2026-10-15T01:23Z, pre-US) -> `f11b8ccf…` (my 25 new US item files). A legitimate
+   input change from my build, not a code regression.
+3. Fix = the 230/243 precedent (243 was dropped and absorbed into 230, which added the same paths to its own
+   Touches and re-recorded): I added `tests/fixtures/matchfit_station/` to my Touches line and ran
+   `.venv/bin/python tests/fixtures/matchfit_station/record.py` against the live ELoFTR
+   (127.0.0.1:8091, zju-community/matchanything_eloftr, RTX 5060 Ti). Verified by running: the 15 response keys
+   per fixture are UNCHANGED (request bodies byte-identical - US sites never touch badbury's plan crop/ground/
+   window); live-vs-frozen held-out 0 discrepancies; live best identical to the frozen one (six-inch-1st.webp
+   x0.35, 22 inliers, corner 58.6 m, centre 2.9 m); offline replay identical; confident in-process run green
+   (spread guard 0.228/195.7, site entry equal at score 1.45, review.json byte-identical, webp rebuilt);
+   unsure variant seed 7 -> 8 inliers, page 482 open of 506. The only header fields that moved: recorded_at
+   (now 2026-10-15T12:12:37Z), data_review, and unsure's review_counts (457/481 -> 482/506). record.py and the
+   test file itself are untouched.
+4. Station tests: 2/2 green (71.94 s). Run 2 (the claim run): **full suite 195P/1S/0F of 196, RC=0,
+   1008.95 s** = main's baseline (194P/1S/0F at 814's claim, 999e5bf3) + my `test_no_qid_is_held_by_two_sites`
+   (added by 2f7f7727 for box 1). The 2026-10-13 known red (`test_fit_queue::test_placement_gestures...`)
+   did NOT reproduce - it passed on this tree.
+5. Committed: the two refreshed fixtures, this task file, DECISIONS.md. Nothing else.
 
-**BOX 4 (the only remaining step) - exact plan:**
-1. Hygiene first: `git diff main --stat -- docs/site_flow/` - the 307d owner-check PNGs (B_1-card, B_5-reload; A_1-card == main) ride on this branch from agent a's lane and differ from main. Before the run, restore the differing ones to MAIN's bytes (`git checkout main -- docs/site_flow/307d_B_1-card.png docs/site_flow/307d_B_5-reload.png`); after the run, if the owner-check tests re-encoded them, restore again - and NEVER commit them (they are not in my Touches; agent a owns the settle family 242/810/812/814/815/816).
-2. Run the full suite: `.venv/bin/python -m pytest tests/ -q -p no:cacheprovider` (~7 min per agent a's 814/816 runs). Judge against the CURRENT main baseline **194P/1S/0F**.
-3. The known pre-existing red: `tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser` (driver note 2026-10-13, red at a loop start, failed at its seed check). If it is red at my run time: record it in DECISIONS, do NOT absorb it, do NOT claim it (the 241-187/188 pattern). Any OTHER red outside agent a's owner-check family (roman, the other lanes): record, do not absorb, do not claim; new reds in MY lane (merge/build/export/review) are mine to fix before claiming done.
-4. If green except the known red: tick box 4, set `Status: done`, commit my paths only, add a DECISIONS entry with the final counts.
+**If reopened:** the driver's claim gate runs its exact command (`.venv/bin/python -m pytest -q`, 900 s budget);
+my run 2 took 1009 s under concurrent agent-a load (run 1 same day: 668 s, both all-green) - if a timeout rejects
+the claim it is load, not code: re-run the suite in a quiet loop window and re-claim. No Re-read items outstanding.
 
-**State of this machine (for the lead's sync to the owner's Mac, per Notes):** unchanged since it.207 - ALL 25 US sites built HERE, all 47 picture files fetched HERE, all 25 completed HERE (committed item files - nothing local left to sync beyond the gitignored build dirs): baltimore-q5092, boston-q100, chicago-q1297, cincinnati-q43196, cleveland-q37320, columbus-q16567, denver-q16554, detroit-q12439, indianapolis-q6346, kansas-city-q41819, louisville-q43668, memphis-q16563, milwaukee-q37836, minneapolis-q36091, nashville-q23197, new-orleans-q34404, new-york-q60, omaha-q43199, philadelphia-q1345, pittsburgh-q1342, portland-q6106, san-francisco-q62, st-louis-q38022, st-paul-q28848, washington-q61. Per site: data/sites/<id>/site.json (TRACKED) + data/sites/<id>/{dem.npy,dem_box.json,dem_credit.json} (gitignored) and web/data/sites/<id>/{relief.jpg, imagery.jpg, block_h.png, block_top.jpg} (gitignored); lidar_credit "USGS 3DEP", relief_clip_m ~1.2, 2000 m box, drawings 0, NO depictions.json.
+**State of this machine (for the lead's sync to the owner's Mac, per Notes):** unchanged since it.207 - ALL 25
+US sites built HERE, all 47 picture files fetched HERE, all 25 completed HERE (committed item files - nothing
+local left to sync beyond the gitignored build dirs): baltimore-q5092, boston-q100, chicago-q1297,
+cincinnati-q43196, cleveland-q37320, columbus-q16567, denver-q16554, detroit-q12439, indianapolis-q6346,
+kansas-city-q41819, louisville-q43668, memphis-q16563, milwaukee-q37836, minneapolis-q36091,
+nashville-q23197, new-orleans-q34404, new-york-q60, omaha-q43199, philadelphia-q1345, pittsburgh-q1342,
+portland-q6106, san-francisco-q62, st-louis-q38022, st-paul-q28848, washington-q61. Per site:
+data/sites/<id>/site.json (TRACKED) + data/sites/<id>/{dem.npy,dem_box.json,dem_credit.json} (gitignored) and
+web/data/sites/<id>/{relief.jpg, imagery.jpg, block_h.png, block_top.jpg} (gitignored); lidar_credit
+"USGS 3DEP", relief_clip_m ~1.2, 2000 m box, drawings 0, NO depictions.json.
 
-**Team-mode hygiene on this branch (read before committing):**
-- NEVER `git add -A`; commit only my Touches paths (+ my task file + DECISIONS.md). The worktree is clean apart from my own changes; HEAD may differ from main on docs/site_flow/307d_B_1-card.png and 307d_B_5-reload.png (agent a's lane - restore to MAIN's bytes, never HEAD's, around any owner-check run; PITFALLS tests/playwright).
-- `web/data/review.json` `at` line: if a driver merge hits the known "at"-line conflict (PITFALLS 1444/1535), keep the newer `at` and verify the items list (the 25 US items must survive).
+**Team-mode hygiene (read before committing):**
+- NEVER `git add -A`; commit only my Touches paths (+ my task file + DECISIONS.md).
+- The ten `docs/site_flow/307d_*.png` are agent a's lane (242/810/812/813/814-816): after ANY test run restore
+  them all to main's bytes (`for p in docs/site_flow/307d_*.png; do git show main:"$p" > "$p"; done`) and NEVER
+  commit them; check the diff-vs-main, not just the working tree (PITFALLS tests/playwright).
+- `web/data/review.json` `at` line: if a driver merge hits the known "at"-line conflict (PITFALLS 1444/1535),
+  keep the newer `at` and verify the items list (the 25 US items must survive).
+- If any future data/review/ change lands on main while this fixture is pinned, the station tests drift again:
+  the fix is the same one-line re-record (`tests/fixtures/matchfit_station/record.py`, live ELoFTR required).
 
-**Re-read:** none outstanding (the it.208 Re-read items were all consumed this session).
