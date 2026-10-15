@@ -12,14 +12,14 @@ that is the "no network" proof.
   confident  the recorded 22-inlier six-inch-1st.webp x0.35 fit passes judge: the line writes
              the matcher document (by: agent, auto: true, fitter: matcher, its matcher block),
              the sync's spread guard passes and builds the overlay, the single candidate is
-             covered so the vision batch never runs, no review item, the site entry stays
+             covered so the batch never runs, no review item, the site entry stays
              1.45, the published review page is byte-identical.
   unsure     a fixture variant in which the ground keypoints of the two >=10-inlier responses
              are permuted so the best candidate lands at 8 inliers: the "not sure: N
              consistent points (need 10)" line, no document, the candidate in the site's
-             review item with the batch's own reason ("no model answer", from the
-             socket-dead vision pass) plus the scale-bar proposal, the page grows by exactly
-             that one item.
+             review item with the matcher's recorded reason ("not sure: 8 consistent points
+             (need 10)" - the RoMa port is dead, so no "; RoMa ..." suffix) plus the scale-bar
+             proposal, the page grows by exactly that one item.
 
 Drift: each fixture header records the sha256 of every repo input it was recorded from; the
 test fails with "rerun record.py" (working phase, live matcher required) when the repo no
@@ -310,7 +310,7 @@ def test_unsure_matcher_station(tmp_path):
     item = json.loads((tree / "data" / "review" / (DOCID + ".json")).read_text())
     assert item == hdr["item"]
     cand = item["candidates"][0]
-    assert cand["plan"] == PLAN and cand["why"] == "no model answer" and cand["pairs"] == []
+    assert cand["plan"] == PLAN and cand["why"] == "not sure: 8 consistent points (need 10)" and cand["pairs"] == []
 
     # data/review: every repo file byte-identical, exactly one new file
     tr, rr = sorted(os.listdir(tree / "data" / "review")), sorted(os.listdir(ROOT / "data" / "review"))

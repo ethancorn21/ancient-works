@@ -1,0 +1,12 @@
+{
+ "id": "ardoch",
+ "name": "Ardoch",
+ "place": "Braco, Gask Ridge, Perth and Kinross, Scotland, Scotland",
+ "lon": -3.8731,
+ "lat": 56.2742,
+ "width_m": 1200,
+ "height_m": 1200,
+ "px_m": 1.0,
+ "region": "Scotland",
+ "kind": "roman site"
+}

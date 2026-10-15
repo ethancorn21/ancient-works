@@ -13,7 +13,8 @@ dir and runs the copied line on it:
          the site's review item rewound to the 6 batch candidates the line's upsert only appended
          to; the site dir and sites.json stay exactly as in the repo (2 survey maps, 0 drawings);
   run    the copied line (this checkout's code, run against the copied data, sockets dead - any
-         network attempt fails loudly; no model is needed and no picture is fetched);
+         network attempt fails loudly: the pretrained matcher is unreachable so it is never
+         called, and no picture is fetched);
   check  exit 0; the per-picture report, line by line (7 "sent to the review queue (line check:
          ...)" and no overlay built); the site's depictions.json and sites.json byte-identical to
          the repo's (the entry stays at 0 drawings); the upserted item byte-identical to the
@@ -240,7 +241,8 @@ def _build_tree(tmp_path, docs, item, pre_item):
 
 
 def _run(tree):
-    """The command on the tree: `tools/site_done.py <site>` (copied code, copied data), no model."""
+    """The command on the tree: `tools/site_done.py <site>` (copied code, copied data; sockets
+    dead: the matcher is unreachable and never called)."""
     env = dict(os.environ, PYTHONIOENCODING="utf-8")
     return subprocess.run([sys.executable, "-c", GUARD, str(tree / "tools" / "site_done.py"), SID],
                           cwd=str(tree), env=env, capture_output=True, timeout=600)
@@ -282,9 +284,8 @@ def test_site_done_line(tmp_path):
 
     # the whole run, line by line: the seeded pattern documents hit the pre-sync check, go to
     # the item with the reason, and are deleted - none of them is built
-    assert lines[0] == 'fit  no model given: unfitted pictures (if any) go to the review item as "no model answer"'
-    assert lines[1] == f"site {SID}: the one-site line (fit -> sync -> entry -> review)"
-    assert lines[2] == (f"fit  {len(rows)} candidate picture(s): {len(docs)} fitted (doc), "
+    assert lines[0] == f"site {SID}: the one-site line (fit -> sync -> entry -> review)"
+    assert lines[1] == (f"fit  {len(rows)} candidate picture(s): {len(docs)} fitted (doc), "
                         f"{len(orig)} in the review item -> no batch run needed")
     for plan in sorted(docs):
         title = docs[plan].get("title") or plan
@@ -306,7 +307,7 @@ def test_site_done_line(tmp_path):
             why = (f"gate {gate} m - " if gate is not None else "") + (cand.get("why") or "no model answer")
             expected_summary.append(f"  {title} ({pid}): sent to the review queue ({why})")
     assert lines[lines.index(review_line) + 1:] == expected_summary + ["done"]
-    assert len(lines) == 3 + len(docs) + 2 + len(rows) + 1
+    assert len(lines) == 2 + len(docs) + 2 + len(rows) + 1
 
     # nothing was built: the site dir is still exactly the repo's (2 survey maps, 0 drawings)
     assert {f.name for f in site.iterdir() if f.name.startswith("plan_")} == set()
@@ -339,8 +340,7 @@ def test_site_done_line(tmp_path):
     assert proc2.returncode == 0, out2 + proc2.stderr.decode("utf-8")
     lines2 = out2.splitlines()
     assert lines2[0] == lines[0]
-    assert lines2[1] == lines[1]
-    assert lines2[2] == (f"fit  {len(rows)} candidate picture(s): 0 fitted (doc), "
+    assert lines2[1] == (f"fit  {len(rows)} candidate picture(s): 0 fitted (doc), "
                          f"{len(cands)} in the review item -> no batch run needed")
     assert not any(l.startswith("sync ") for l in lines2)
     # every picture is reported from the item: the 7 line-check candidates with their

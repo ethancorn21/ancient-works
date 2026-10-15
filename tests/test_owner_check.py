@@ -642,9 +642,9 @@ def _run_one(fx, tag, tmp_path_factory):
     want = set(fx["picks"]["reviewBefore"]) - gone
     assert open_sites == want, (sorted(open_sites ^ want))
 
-    # 7. the server log: the line's report and the line's own prints, exactly. The no-model line
-    #    prints on every run (the worker runs the line without a model) and so does the no-batch
-    #    line: every candidate is the saved doc or an item candidate, so the batch never runs.
+    # 7. the server log: the line's report and the line's own prints, exactly. The no-batch line
+    #    prints on every run: every candidate is the saved doc or an item candidate, so the
+    #    matcher (unreachable - sockets dead) is never called and the batch never runs.
     #    _summary's per-picture lines are two-space indented (not 'fit  ' lines) and may say
     #    'sent to the review queue' for the unfitted candidates - that is the line's own record.
     #    The finished reports are filtered by their own shape, never by the phrase: the line's own
@@ -656,8 +656,7 @@ def _run_one(fx, tag, tmp_path_factory):
     doc_plans = {json.loads(pth.read_text()).get("plan") for pth
                  in (tree / "data" / "db" / "platefits").glob("*.json") if pth.name.startswith(site + ".")}
     n_doc = sum(1 for r in rows if r["id"] in doc_plans)
-    want_fit = ['fit  no model given: unfitted pictures (if any) go to the review item as "no model answer"',
-                f"fit  {len(rows)} candidate picture(s): {n_doc} fitted (doc), "
+    want_fit = [f"fit  {len(rows)} candidate picture(s): {n_doc} fitted (doc), "
                 f"{len(rows) - n_doc} in the review item -> no batch run needed"]
     fit_lines = [ln for ln in runlog if ln.startswith("fit  ")]
     assert fit_lines == want_fit, fit_lines

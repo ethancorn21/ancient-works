@@ -1,7 +1,7 @@
 {
  "header": {
-  "task": "302f",
-  "recorded_at": "2026-10-14T06:04:35.966003+00:00",
+  "task": "239",
+  "recorded_at": "2026-10-15T01:23:16.666038+00:00",
   "matcher_url": "http://127.0.0.1:8091",
   "matcher_health": {
    "model": "zju-community/matchanything_eloftr",
@@ -37,7 +37,6 @@
    "responses_recorded": 15
   },
   "offline_replay_matches_live": true,
-  "refreshed": "2026-10-14 (238): the frozen 001 gate went between the matcher's judge and the write - the doc score is the gate's median (0.0), the matcher block gains resid_m (3.1), and the sync/review lines and the depiction source follow the new score; the recorded /match responses, the unsure fixture and the input hashes are untouched (deterministic offline replay)",
   "propose_reads": "checkout",
   "input_hashes": {
    "hand_doc": "c7cd1d06b07c17db5f33fa0c386d0c2a1d4618e61c11671d17ce6705c499e833",
@@ -45,14 +44,13 @@
    "site_dir": "9ec0c94b56c1e83bbbf3684086e6b5e1f901f3dd73e3f34e65fc55a7931b9691",
    "sites_entry": "b49af959a034691676e8a643affa358b95cf369813d4e811c78cf82c47ae9bfa",
    "plans_row": "5cf1b35e9c4dc738886bd186638ea88d30945a68a7545ce4b9b2fbde08d52f7d",
-   "index_row": "4c7be2d0d6b81833de48adf7036651ecbfc4e72345fd5d8a007fbb0f40e373e7",
+   "index_row": "003d1d77ae98549366a3cf0fd69890fee8486aefa1b3512f1932ed1108ba9335",
    "catalog_row": "7cd255f893be9d9a32aad10a2fd49268ba3a681a0d373656e0908913cb74d5d5",
    "site_json": "7b87556edc9f0be36534f4e0528ece16911bb0fb4ab130c2e72b19f18e5003e7",
    "data_review": "0322cf07ba7a7c29e09e68d866622a649906c5c56e689f879acb23c08177bfb2"
   },
   "confident": {
    "expected_stdout": [
-    "fit  no model given: unfitted pictures (if any) go to the review item as \"no model answer\"",
     "site badbury-rings-q798831: the one-site line (fit -> sync -> entry -> review)",
     "badbury-rings-q798831  Badbury Rings, Wimbome, Dorset: FIT (eloftr) 22/61 points on six-inch-1st.webp x0.35, rot 3.6 deg, 0.23 m/px, residual 3 m",
     "fit  matcher: fit written (badbury-rings-q798831.earthworkenglan01allcgoog_n0132_1.json)",
@@ -221,7 +219,7 @@
     1600,
     1600
    ],
-   "seconds": 0.533
+   "seconds": 0.305
   },
   "ffdefedb9cad9afd7366e8e64a39aa3255ee10114a2a28978d783252895491ec": {
    "keypoints0": [
@@ -265,7 +263,7 @@
     1120,
     1120
    ],
-   "seconds": 0.298
+   "seconds": 0.285
   },
   "970e92ea9a8c70a98ea29b4e89120db8b81b36627fbc5455ddf402c9a43caba3": {
    "keypoints0": [
@@ -309,7 +307,7 @@
     800,
     800
    ],
-   "seconds": 0.419
+   "seconds": 0.271
   },
   "c631bcd9950dfcb37984d3ebb14e2951ef07a2e6cb6153e58ce7417bb6071e83": {
    "keypoints0": [
@@ -344,7 +342,7 @@
     560,
     560
    ],
-   "seconds": 0.286
+   "seconds": 0.265
   },
   "d7910a1fa498d64a0f0ee5121a233fd9f6cd5f606577330a747a4a0a44e6419c": {
    "keypoints0": [
@@ -505,7 +503,7 @@
     400,
     400
    ],
-   "seconds": 0.265
+   "seconds": 0.262
   },
   "4f0efdd05aedc636b92f8103f010792cdf41625f680ef20eea348018d8311b2e": {
    "keypoints0": [
@@ -567,7 +565,7 @@
     1066,
     1066
    ],
-   "seconds": 0.29
+   "seconds": 0.282
   },
   "081464771c926c4d16518ba500ac51143f4d4cb5bdc09a36275e6b7416e5453f": {
    "keypoints0": [
@@ -980,7 +978,7 @@
     746,
     746
    ],
-   "seconds": 0.268
+   "seconds": 0.276
   },
   "cd63c82e132eac1c7e0ee83297f5d6577b876869d651a4c0cd6d0cd7946a11c2": {
    "keypoints0": [
@@ -1753,7 +1751,7 @@
     534,
     534
    ],
-   "seconds": 0.266
+   "seconds": 0.268
   },
   "86aa6a5aa0dca6c79d633635b664de94984b0255e6226c62b99a9b382a2e6b75": {
    "keypoints0": [
@@ -2319,7 +2317,7 @@
     374,
     374
    ],
-   "seconds": 0.261
+   "seconds": 0.262
   },
   "b3805af830c336dfa5f639b06a066e1dfd04d1af341d5a383acd5e21c749c18f": {
    "keypoints0": [
@@ -2390,7 +2388,7 @@
     266,
     266
    ],
-   "seconds": 0.259
+   "seconds": 0.261
   },
   "36ead424b925dc46f26f167a8ce2adc28848ed3a77162323d372b0b4360966df": {
    "keypoints0": [
@@ -2452,7 +2450,7 @@
     1600,
     1600
    ],
-   "seconds": 0.305
+   "seconds": 0.306
   },
   "427e023eda4a56e4e8331f1cf85f9606ce366f5279a474a4cfa252a6a01c20a0": {
    "keypoints0": [
@@ -2496,7 +2494,7 @@
     1120,
     1120
    ],
-   "seconds": 0.291
+   "seconds": 0.289
   },
   "f4ed8e08a5199c8d9c4323f6e54be3947149d1fd2bab0008b1d2db7ee33cb901": {
    "keypoints0": [],
@@ -2510,7 +2508,7 @@
     800,
     800
    ],
-   "seconds": 0.505
+   "seconds": 0.271
   },
   "85e08412e48a1faccaac18df7340e9f0a3df4336100a5fd53576ca47bbdc9c2f": {
    "keypoints0": [],
@@ -2524,7 +2522,7 @@
     560,
     560
    ],
-   "seconds": 0.268
+   "seconds": 0.266
   },
   "e2c4b2d84b99adeb5eb2bf1915b245daca2922cd596789e3e3e28e6b11a782db": {
    "keypoints0": [],

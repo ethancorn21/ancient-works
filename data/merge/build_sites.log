@@ -888,3 +888,102 @@ built 1, skipped 0, failed 0
 === the-hague-q36600 build rc=0 2026-10-12T22:22:10Z ===
 marks refreshed: the-hague-q36600 depictions: 1
 === the-hague-q36600 ok ===
+=== luguvallium-q71551754 start 2026-10-14T21:44:10Z ===
+[1/1] luguvallium-q71551754 (ea, 1600 m)
+luguvallium-q71551754 relief clip 1.2 m; {'block_h.png': 229, 'block_top.jpg': 546, 'relief.jpg': 314} KB
+luguvallium-q71551754 Ordnance Survey six-inch map, England and Wales, 1st edition surveyed 1840s-1880s by county coverage 100% 266 KB
+luguvallium-q71551754 six-inch-1st_ink.webp 459 KB
+   ok 26s
+built 1, skipped 0, failed 0
+=== luguvallium-q71551754 build rc=0 2026-10-14T21:44:37Z ===
+marks refreshed: luguvallium-q71551754 depictions: 1
+=== luguvallium-q71551754 ok ===
+=== ardoch start 2026-10-14T21:44:37Z ===
+[1/1] ardoch (scot, 1200 m)
+  no LiDAR here: no Scottish LiDAR tiles on this box
+ardoch aerial only (no LiDAR here)
+ardoch Ordnance Survey six-inch map, Scotland, 1st edition 1st edition, 1843-1882 coverage 100% 69 KB
+ardoch Roy's Military Survey of Scotland 1747-1755 coverage 100% 36 KB
+ardoch roy_ink.webp 113 KB
+ardoch scot-6-first_ink.webp 141 KB
+   ok 40s
+built 1, skipped 0, failed 0
+=== ardoch build rc=0 2026-10-14T21:45:18Z ===
+marks refreshed: ardoch depictions: 2
+=== ardoch ok ===
+=== virosidum start 2026-10-14T21:45:18Z ===
+[1/1] virosidum (ea, 1600 m)
+virosidum relief clip 1.2 m; {'block_h.png': 247, 'block_top.jpg': 377, 'relief.jpg': 317} KB
+virosidum Ordnance Survey six-inch map, England and Wales, 1st edition surveyed 1840s-1880s by county coverage 100% 145 KB
+virosidum six-inch-1st_ink.webp 242 KB
+   ok 25s
+built 1, skipped 0, failed 0
+=== virosidum build rc=0 2026-10-14T21:45:45Z ===
+marks refreshed: virosidum depictions: 1
+=== virosidum ok ===
+=== cilurni start 2026-10-14T21:45:45Z ===
+[1/1] cilurni (ea, 1600 m)
+cilurni relief clip 1.2 m; {'block_h.png': 228, 'block_top.jpg': 351, 'relief.jpg': 283} KB
+cilurni Ordnance Survey six-inch map, England and Wales, 1st edition surveyed 1840s-1880s by county coverage 100% 152 KB
+cilurni six-inch-1st_ink.webp 314 KB
+   ok 326s
+built 1, skipped 0, failed 0
+=== cilurni build rc=0 2026-10-14T21:51:11Z ===
+marks refreshed: cilurni depictions: 1
+=== cilurni ok ===
+=== petriana start 2026-10-14T21:51:11Z ===
+[1/1] petriana (ea, 1600 m)
+petriana relief clip 0.15 m; {'block_h.png': 68, 'block_top.jpg': 183, 'relief.jpg': 285} KB
+petriana six-inch-1st covers only 0% of the site box: skipped
+petriana scotland-6-first covers only 0% of the site box: skipped
+petriana Roy's Military Survey of Scotland 1747-1755 coverage 44% 35 KB
+petriana roy_ink.webp 52 KB
+   ok 27s
+built 1, skipped 0, failed 0
+=== petriana build rc=0 2026-10-14T21:51:39Z ===
+marks refreshed: petriana depictions: 1
+=== petriana ok ===
+=== congavata start 2026-10-14T21:51:39Z ===
+[1/1] congavata (ea, 1600 m)
+congavata relief clip 1.2 m; {'block_h.png': 231, 'block_top.jpg': 451, 'relief.jpg': 277} KB
+congavata Ordnance Survey six-inch map, England and Wales, 1st edition surveyed 1840s-1880s by county coverage 100% 155 KB
+congavata six-inch-1st_ink.webp 246 KB
+   ok 24s
+built 1, skipped 0, failed 0
+=== congavata build rc=0 2026-10-14T21:52:04Z ===
+marks refreshed: congavata depictions: 1
+=== congavata ok ===
+=== tunnocelum start 2026-10-14T21:52:04Z ===
+[1/1] tunnocelum (ea, 1600 m)
+tunnocelum relief clip 0.65 m; {'block_h.png': 175, 'block_top.jpg': 416, 'relief.jpg': 257} KB
+tunnocelum Ordnance Survey six-inch map, England and Wales, 1st edition surveyed 1840s-1880s by county coverage 100% 100 KB
+tunnocelum six-inch-1st_ink.webp 154 KB
+   ok 22s
+built 1, skipped 0, failed 0
+=== tunnocelum build rc=0 2026-10-14T21:52:26Z ===
+marks refreshed: tunnocelum depictions: 1
+=== tunnocelum ok ===
+=== kirkintilloch start 2026-10-14T21:52:26Z ===
+[1/1] kirkintilloch (scot, 1600 m)
+kirkintilloch relief clip 1.2 m; {'block_h.png': 256, 'block_top.jpg': 718, 'relief.jpg': 433} KB
+kirkintilloch Ordnance Survey six-inch map, Scotland, 1st edition 1st edition, 1843-1882 coverage 100% 176 KB
+kirkintilloch Roy's Military Survey of Scotland 1747-1755 coverage 100% 80 KB
+kirkintilloch roy_ink.webp 315 KB
+kirkintilloch scot-6-first_ink.webp 373 KB
+   ok 64s
+built 1, skipped 0, failed 0
+=== kirkintilloch build rc=0 2026-10-14T21:53:31Z ===
+marks refreshed: kirkintilloch depictions: 2
+=== kirkintilloch ok ===
+=== carriden start 2026-10-14T21:53:31Z ===
+[1/1] carriden (scot, 1200 m)
+carriden relief clip 1.2 m; {'block_h.png': 204, 'block_top.jpg': 293, 'relief.jpg': 190} KB
+carriden Ordnance Survey six-inch map, Scotland, 1st edition 1st edition, 1843-1882 coverage 100% 53 KB
+carriden Roy's Military Survey of Scotland 1747-1755 coverage 100% 41 KB
+carriden roy_ink.webp 160 KB
+carriden scot-6-first_ink.webp 148 KB
+   ok 59s
+built 1, skipped 0, failed 0
+=== carriden build rc=0 2026-10-14T21:54:31Z ===
+marks refreshed: carriden depictions: 2
+=== carriden ok ===

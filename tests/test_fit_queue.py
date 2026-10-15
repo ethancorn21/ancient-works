@@ -796,9 +796,9 @@ def _pick_site():
     row as a candidate with the page's save-floor pairs, and which has no platefits documents yet
     (the line then builds exactly one new overlay: drawings changes by one, the open count drops
     by one, and the item resolves by the saved doc) - _line_eligible. The pick prefers a site
-    with at least one uncovered row (a row naming it, no doc, no item candidate), so the line's
-    model=None path runs and lands in the item as "no model answer"; a pick without one skips
-    that assertion. Derived, never pinned (803: the population moves under the batch tasks).
+    with at least one uncovered row (a row naming it, no doc, no item candidate), so the
+    no-matcher path runs and lands in the item as "no matcher on this machine"; a pick without
+    one skips that assertion. Derived, never pinned (803: the population moves under the batch tasks).
     -> (entry, item, uncovered) or None."""
     q = json.loads((ROOT / "web" / "data" / "fit_queue.json").read_text())
     items = _review_items()
@@ -811,7 +811,7 @@ def _pick_site():
         picks.append((e, it, uncovered))
     if not picks:
         return None
-    picks.sort(key=lambda p: not p[2])  # an uncovered row first: the no-model path runs
+    picks.sort(key=lambda p: not p[2])  # an uncovered row first: the no-matcher path runs
     return picks[0]
 
 
@@ -899,9 +899,10 @@ def test_save_runs_the_one_site_line(line_served):
     (write-once {doc, at}) - without any other step. The document is built exactly as the page's
     saveFit builds it (the row's fields, the crop from the row's map_box and size or the whole
     page, the candidate's proposed pairs as the human's drag) and is stamped by: hand by the store
-    (303). The line's model is None and every socket in the server process is dead, so the run is
-    network-free: any unfitted candidate lands in the item as "no model answer" (checked when the
-    picked site has one - the pick prefers it), and the page is read from the tree's own
+    (303). Every socket in the server process is dead, so the matcher is unreachable and the run
+    is network-free: any unfitted candidate is recorded in the item as "no matcher on this
+    machine" (checked when the picked site has one - the pick prefers it), and the page is read
+    from the tree's own
     data/raw copy. The site is derived from the real queue (never pinned, 803): the first entry
     with a local book page and an unresolved item carrying it. The server's stdout is pulled by a
     reader thread and the line gets 180 s (it measures ~23 s, the heavy first import included).
@@ -999,8 +1000,9 @@ def test_save_runs_the_one_site_line(line_served):
     assert drawings_after == drawings_before + 1
 
     # ---- the review item: resolved write-once by the saved document; every other uncovered
-    # candidate (when the pick has any) went to the item as "no model answer" (the line has no
-    # model); the file did not move (its lead candidate is unchanged) ----
+    # candidate (when the pick has any) was recorded in the item as "no matcher on this machine"
+    # (the matcher was not reachable in the server process); the file did not move (its lead
+    # candidate is unchanged) ----
     item_path2, item_after = _item_of(tree, site)
     assert item_path2 == item_path
     assert item_after["resolved"] == {"doc": doc_id, "at": AT}
@@ -1009,7 +1011,7 @@ def test_save_runs_the_one_site_line(line_served):
     if uncovered:
         after_cands = {c["plan"]: c for c in item_after["candidates"]}
         for u in uncovered:
-            assert after_cands.get(u, {}).get("why") == "no model answer", u
+            assert after_cands.get(u, {}).get("why") == "no matcher on this machine", u
 
     # ---- the page's review file: republished, and the saved site's item left the open list ----
     status, rv_after = get_json(base + "/data/review.json")

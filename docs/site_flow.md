@@ -6,7 +6,7 @@ drawings, put them over the ground, count them in its entry, publish its review 
 one command the next site's session reuses:
 
 ```
-.venv/bin/python tools/site_done.py <site id> [--working | --model-json FILE]
+.venv/bin/python tools/site_done.py <site id>
 ```
 
 `--root DIR` redirects the data paths (the test runs the line on a copy of one site's files).
@@ -14,15 +14,19 @@ Exit codes: 2 = the site is not built, 1 = a document failed to sync, 0 = done.
 
 ## The line, step by step (as the next site's session runs it)
 
-1. **fit** — `fit/batch_us.py run_sites`, but only when the site has candidate pictures in
-   `web/data/plans.json` that have NEITHER a platefit document (`data/db/platefits/<site>.<plan>.json`)
-   NOR a review-item entry yet. Covered pictures are never re-fitted: the batch's item upsert
-   replaces a candidate's entry whole, so a blind re-run would swap the rich entries (gate
-   scores, pairs, the why) for "no model answer" stubs. A site whose candidates are all covered
-   skips the batch run entirely (Stonehenge: 13 candidates, 7 documented, 6 in the item).
-   A brand-new site needs a model here: `--working` (the local vision model on the AI box) or
-   `--model-json` (recorded answers, a dry run); with neither, unfitted pictures land in the
-   review item as "no model answer".
+1. **fit** — matcher first (`fit/matchfit.py`): every candidate picture without a platefit
+   document (`data/db/platefits/<site>.<plan>.json`) is offered to the pretrained matcher, and a
+   fit it is sure of becomes a matcher document. The second pass — `fit/batch_us.py run_sites`,
+   the vision-model fitting pass retired (GOAL point 2: no model places a picture or writes
+   point pairs) — records the remainder in the site's review item, only for pictures that have
+   NEITHER a platefit document NOR a review-item entry yet; the item's `why` per picture is what
+   the matcher recorded about it (the judge's "not sure" clause, the gate's clause when the
+   matcher's fit was refused, "picture not on this machine") or "no matcher on this machine"
+   when the matcher was not reachable (a recorded environment fact). Covered pictures are never
+   re-fitted: the batch's item upsert replaces a candidate's entry whole, so a blind re-run
+   would swap the rich entries (gate scores, pairs, the why) for stubs. A site whose candidates
+   are all covered skips the batch run entirely (Stonehenge: 13 candidates, 7 documented, 6 in
+   the item).
 2. **sync** — before any of them, the line's fabrication check: `plan_fit.fabrication_pattern`
    on every document's stored page-px pairs (the batch's gate passes the model's pattern class
    by construction — see What broke on Stonehenge). A document that hits is never synced: its
