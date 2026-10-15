@@ -1,6 +1,9 @@
 Status: in-progress
 Depends on: 307d, 814
-Touches: tests/test_owner_check.py
+Touches: tests/test_owner_check.py, web/data/sites/, web/data/sites.json, data/sites/, data/merge/build_sites.log
+(the extra paths: rebuilding the 25 US sites 236c built in agent c's checkout - this checkout's local
+build state lags main's tracked data after the merge, and test_merge's box-3 completeness check fails
+on it until the sites are built here too; run_build.py --force is the project's own runner)
 
 # 812: The 307d owner check - prove the settle with an in-run double shot (the stability assert)
 
@@ -45,47 +48,86 @@ always runs as one invocation, A then B (PITFALLS: the B test cannot run in isol
 
 ## Hand-over
 
-(2026-10-15, iteration 245, agent a - context-limit cut right before the final commit; all
-build + verification work is DONE)
+(2026-10-15, iteration 246, agent a - context-limit cut mid-diagnosis; 812's BUILD is untouched
+and was already proven good in the driver's own run; this session = diagnosis of the rejected
+done-claim + the fix for my branch, in flight in the background)
 
-**State:** 812 is built, verified and this file is marked `Status: done` with all three
-boxes ticked (driver re-check pending). The session's commits so far: only
-`git add DECISIONS.md tasks` (DECISIONS entry "2026-10-15 812 DECISION: iteration 245" +
-hand-over updates in 812/813/810). **STILL UNCOMMITTED in the working tree (harness-saved,
-must be committed by the next agent):** `tests/test_owner_check.py` (the whole 812 build:
-`_shot_diff` PIL helper + probe `shot()` taking `<name>.png` then `<name>b.png` after settle
-+ subpixel + the five `shot('N-...')` call-sites + the `_run_one` assert loop `<0.5%`
-before the docs copy; PLUS the one non-812 change: c's settle widened with the additive
-render-quiet gate - probe hooks `map.on('render')` on the live map into `window.__awLastRender`,
-settle waits `!map.isMoving() && Date.now() - window.__awLastRender > 700`, isMoving gate/
-budget/[warn] text preserved) and `PITFALLS.md` (new tests/playwright entry: isMoving() false
-while frames still render - the straggler the double shot caught - and the gate).
+**State:** the 812 build itself is DONE, committed (driver-carried as 8df620cf) and PROVEN
+GOOD in the driver's own rejected run (the two owner-check tests printed dots there).
+Iteration 246 = diagnosis of the rejected done-claim + the fix for my branch (in flight in
+the background). Full diagnosis: DECISIONS entry "2026-10-15 812 DECISION: iteration 246"
+(committed this session). Summary:
 
-**Test state at last run (this branch):** with c's original settle: run 1 green (in-run worst
-B 5-reload 0.2668%), run 2 red both tests (details lost to the next session's basetemp wipe),
-run 3 unrecorded, run 4 red at B (in-run B 2-placed 0.9944% / B 5-reload 0.5267%, frame-wide,
-both probe logs RESULT PASS - the straggler that motivated the gate). After the widen:
-runs 5-9 = FIVE consecutive green pair runs (90.7-97.2 s; run 9 = the pair inside the full
-suite), zero `[warn] settle` in every captured log, ALL 50 in-run double-shot pairs 0.0000%,
-cross-run of the two saved runs 9/10 byte-identical (worst B 1-card 0.0447% card band),
-picks still derived (A Richard's Castle, B Devil's Dyke). Full suite (driver's exact command):
-194 passed / 1 skipped / 0 failed, 1040 s. docs/site_flow restored to committed bytes after
-every run (R5, until 813 retires the copy). Python + extracted PROBE both parse clean.
+1. **The `F` (deterministic, the only real code-side problem):** the driver's captured
+   line 1 decodes as 72 COMPLETED tests (the `[ 36%]` is an 80-col line-wrap, not a percent
+tick); position 58 = `tests/test_merge.py::test_new_sites_are_complete`: it asserts each of
+the 25 US cities (past the frozen 508 baseline) has a local `web/data/sites/<id>/` with
+`relief.jpg` iff `lidar_credit`. 236c built those in AGENT C's checkout; the per-site dirs
+are gitignored LOCAL artifacts, so MY checkout (512 dirs) lacks all 25 while the merged
+tracked data (sites.json 533, data/review/ +25, files.jsonl +47) references them. Reproduced
+in 0.72 s. `tests/test_review.py` (the "hang" region, tests 74-79) passes 5/5 in 65 s
+standalone - not implicated.
+2. **The "hang" (no stuck test):** the 2nd verification run started 07:45:18 (the merge
+commit) and was killed at exactly 08:00:18 = the driver's 900 s timeout. The suite's green
+time is 1040 s (my it.245 measurement, the driver's exact command) > 900 s, worse under
+agent-c concurrent load; both verification runs ended with no summary (the 812.txt baseline
+is 0 bytes) => "no failing test could be named (crash?)" is a mid-run kill, not a crash
+(no OOM in dmesg; 12 Gi RAM free). **The 900 s budget is now stale for the whole project**
+(the suite grew from 249 s on 2026-10-12 to 1040 s; see .agent/reports/iter199-suite.log).
+3. **The fix (in flight, no code changes):** `data/merge/run_build.py --force <25 US ids>`
+(the project's own runner; --force needed because its skip guard keys on the sites.json
+entry, which the merge already added). Two nohup background processes from this session
+survive on the machine: (a) full suite `pytest tests/ -q -p no:cacheprovider
+--durations=200` -> **/tmp/iter246-full.log** (started ~08:10; ~39/196 at last check;
+~20-30 min to finish), (b) the US rebuild -> **/tmp/iter246-build.log**, appends to
+`data/merge/build_sites.log` (started ~08:16; 5/25 done in ~2 min at ~10 s/site => all 25
+done by ~08:21; the ids are in **/tmp/us_ids.txt**). Verified deterministic on site 1:
+rebuilt baltimore's entry + the whole sites.json byte-identical to main (git: no diff).
 
-**Current hypothesis:** none open - the build is done; the widen (never weakening the 0.5%
-line) is what makes the proof pass on this machine, per this task's own hand-over rule.
+**Test state at last check:** `test_merge.py::test_new_sites_are_complete` FAILED on my
+branch pre-rebuild (0.72 s, baltimore missing); `tests/test_review.py` 5/5 PASS in 65 s;
+the background full suite will show that same one F (it ran test_merge ~5 min in, before
+the rebuild finished) - treat that expected F as already fixed once the rebuild
+completes; ANY OTHER failure in /tmp/iter246-full.log is news and must be investigated.
 
-**Exact next step (one commit, then stop or move to the driver's queue):** 1) `git
-status --short` should show M on DECISIONS/PITFALLS/tasks/810/812/813/tests (the DECISIONS +
-tasks part may already be committed or driver-carried - check the log); 2) commit the code:
-`git add tests/test_owner_check.py PITFALLS.md && git commit -m "812: in-run double-shot
-assert + render-quiet settle gate - proves the settle in-run (five green pair runs, 50/50
-pairs 0.0000%, zero [warn] settle, suite 194/1/0)"`; 3) if the driver returns this task
-after a re-check rejection, read the DECISIONS entry first - nothing is left to build here.
+**Exact next steps (in order; both nohup processes keep running regardless):**
+1. Check the build: `tail -30 data/merge/build_sites.log` (expect 25 `=== <id> ok ===`) and
+   `ls web/data/sites/ | wc -l` (expect 537). If any site is missing/FAILED, resume with
+   `.venv/bin/python data/merge/run_build.py --force $(tr '\n' ' ' < /tmp/us_ids.txt)`
+   (one process per site; the log has per-site boundaries; a killed session leaves a clean
+   boundary at the last finished site).
+2. Verify no tracked diff beyond the build log: `git status --short` (expect M on
+   DECISIONS.md, tasks/, data/merge/build_sites.log only; web/data/sites.json UNCHANGED)
+   and `git diff web/data/sites.json` empty. baltimore proved the entries stay byte-
+   identical, but re-check all 25; if sites.json DID change, stop and investigate.
+3. **FILE THE ask_human (I intended to; the context limit hit first - the DECISIONS line
+   says "NOT yet filed"):** the driver's 900 s suite-verification timeout is shorter than
+   the suite's 1040 s green time, so every done claim on every branch of this project now
+   fails verification (killed with no summary) regardless of correctness; no in-lane code
+   fix of mine can get a 1040 s suite under 900 s (my own test file is ~200 s of it, the
+   rest is other tasks' files). Recommend: raise the driver's suite-verification timeout to
+   1800 s (1.7x the green time; a true hang still trips it). blocking=true, with the
+   recommendation and the evidence (the two kills at exactly 900 s; the 1040 s measurement;
+   the suite's growth 249 s -> 1040 s).
+4. Wait for /tmp/iter246-full.log to finish; read its summary + durations list (it shows
+   where the 1040 s goes). Then, post-rebuild, re-run `tests/test_merge.py` (expect 11/11
+   green), and finally the driver's exact command `.venv/bin/python -m pytest tests/ -q
+   -p no:cacheprovider` (expect 195 passed / 1 skipped / 0 failed, ~1040-1200 s). After
+   it, `git restore docs/site_flow` IF the 307d PNGs are dirty (R5, until 813 retires the
+   copy) and confirm `git status` shows only the expected files.
+5. **Re-claim done (all three boxes are already ticked - keep them; box 3 re-verified by
+   step 4's green run) ONLY once the ask_human has an answer** (or the loop's 120-min
+   default applies the recommendation). If the human raises the timeout: set Status: done
+   and let the driver verify. If the human says the budget stays at 900 s: do NOT spam
+   re-claims (they fail on budget, not correctness) - record the dead-end in DECISIONS
+   under this entry and ask the human how to proceed (e.g. a new top-level task to cut the
+   suite by 150+ s, which would touch other tasks' test files and needs their sign-off).
 
-**For the chain (their hand-overs were updated this session):** 813 (next, same file) ports
-the regime from `git show 3579c22b` (`_write_surface` += the ten docs PNGs, docs copy gated
-on AW_OWNER_REFRESH=1 after the write-surface assert, docstrings) without touching
-`shot()`/`settle`/`_shot_diff`; 810's verification is its boxes only (two consecutive
-unflagged pair runs + suite) on the merged file; the it.235 design record survives at
-`git show 3579c22b:tests/test_owner_check.py` (source of both ports).
+**For the chain (unchanged from it.245):** 813 (next, same file) ports the 813 regime from
+`git show 3579c22b` without touching `shot()`/`settle`/`_shot_diff`; 810's verification is
+its boxes only; the it.235 design record survives at `git show
+3579c22b:tests/test_owner_check.py`. The US-site rebuild is my-branch-LOCAL state (the
+dirs are gitignored): it fixes MY branch only; if agent b/c hit the same test_merge F in
+their own checkouts in the future, the same one-line resume (`run_build.py --force` + the
+25 ids, computable as sites.json minus data/merge/sites_premerge_baseline.jsonl) fixes
+them.
