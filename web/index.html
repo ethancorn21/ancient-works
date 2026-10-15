@@ -266,7 +266,7 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
   #body > .lensbar ~ .group { order: 2; }
   .search input[type=search] { font-size: 16px; padding: 9px 10px; }  /* 16px: iOS zooms the page into smaller inputs */
   .maplibregl-ctrl-top-right { display: none; }
-  .maplibregl-ctrl-bottom-right { bottom: var(--peek); transition: bottom .34s; }
+  .maplibregl-ctrl-bottom-right, .maplibregl-ctrl-bottom-left { bottom: var(--peek); transition: bottom .34s; }
 
   .mtop { display: flex; position: fixed; z-index: 2; left: 10px; right: 10px; top: calc(10px + env(safe-area-inset-top, 0px)); gap: 8px; align-items: stretch; pointer-events: none; }
   .mtop > * { pointer-events: auto; background: rgba(248, 244, 232, .94); border: 1px solid var(--ink); color: var(--ink); }
@@ -434,7 +434,7 @@ const zoomOut = () => map.flyTo({ center: map.getCenter(), zoom: Math.min(map.ge
 map.once('load', () => { S.mapLoaded = true; });  // isStyleLoaded() is false while tiles load, so it cannot tell
 map.addControl(new maplibregl.NavigationControl({ visualizePitch: false }), 'top-right');
 map.addControl(new maplibregl.AttributionControl({ compact: true, customAttribution:
-  'Aerial photographs: Esri, Maxar, Earthstar Geographics · Plates: Squier &amp; Davis 1848' }), 'bottom-right');
+  'Aerial photographs: Esri, Maxar, Earthstar Geographics · Plates: Squier &amp; Davis 1848' }), narrow() ? 'bottom-left' : 'bottom-right');  // phones: clear of the hold button
 
 /* ---------- geometry ---------- */
 const R = 6378137;
@@ -937,6 +937,7 @@ function select(id) {
   A.sel = null; A.mark = null; if (typeof refreshMarks === "function" && map.getSource("amazon-marks")) refreshMarks();
   const s = S.byId[id]; if (!s || P.active) return;
   if (B.open && B.site !== s) closeBlock();
+  if (S.sel && S.sel !== id) dropScrub(S.sel);
   // every site opens on the aerial photograph with the old drawing in ink lines (Ethan 2026-10-10); the viewer can
   // switch either back for this visit
   S.ground = 'imagery'; S.plateMode = 'ink'; S.depMode = 'ink'; S.plateOff = false; stopDrag();
@@ -999,7 +1000,7 @@ function syncTop() {
 }
 $('#mtback').onclick = () => { const b = $('#body #back') || $('#body #fitback'); if (b) b.click(); sheetOpen(false); };
 new MutationObserver(() => requestAnimationFrame(syncTop)).observe($('#body'), { childList: true });
-addEventListener('resize', () => requestAnimationFrame(syncTop));
+addEventListener('resize', () => { requestAnimationFrame(syncTop); if (!narrow() && S.plateOff) { S.plateOff = false; applyAll(); } });
 document.fonts && document.fonts.ready.then(() => syncTop());
 // the search field opens the sheet, so the list is there to scroll while typing
 $('#body').addEventListener('focusin', e => { if (narrow() && e.target.id === 'q') sheetOpen(true); });
@@ -1141,13 +1142,25 @@ function ensureScrub(s) {
     else map.getSource(id).setCoordinates(v.coordinates);
   }
 }
+function dropScrub(sid) {
+  for (const l of (map.getStyle().layers || []).filter(l => l.id.startsWith(`scr-${sid}-`))) {
+    map.removeLayer(l.id); if (map.getSource(l.id)) map.removeSource(l.id); delete S.depUrl[l.id];
+  }
+}
 // the layer(s) that show stop k while scrubbing or holding, at full strength for that stop
 function stopLayers(s, st) {
   if (st.kind === 'dep') return [[scrId(s, st.d), S.depOpacity]];
   if (st.kind === 'plate') return [[`${S.plateMode}-${s.id}`, S.plateOpacity]];
   return [];
 }
+let _scrHide = 0;
+function hideScrubLater(s, stops, ms) {
+  clearTimeout(_scrHide);
+  _scrHide = setTimeout(() => { if (S.sel !== s.id || $('#mhold').classList.contains('down')) return;
+    stops.forEach(x => { if (x.kind === 'dep') { const id = scrId(s, x.d); if (map.getLayer(id)) map.setLayoutProperty(id, 'visibility', 'none'); } }); }, ms);
+}
 function scrubBegin(s) {
+  clearTimeout(_scrHide);
   ensureScrub(s);
   // the resting layers hand over to the scrub layers
   if (map.getLayer(`dep-${s.id}`)) map.setLayoutProperty(`dep-${s.id}`, 'visibility', 'none');
@@ -1176,7 +1189,7 @@ function scrubEnd(s, stops, k) {
   S.depSel[s.id] = st.kind === 'dep' ? st.d.file : ''; lsSet('aw.depSel', S.depSel);
   applyLayers(s); applyDep(s); renderSite(s); if (B.open) setTab(true);
   // the scrub layer stays over its twin until the dep- layer has drawn the same picture
-  setTimeout(() => { if (S.sel !== s.id) return; stops.forEach(x => { if (x.kind === 'dep') { const id = scrId(s, x.d); if (map.getLayer(id)) map.setLayoutProperty(id, 'visibility', 'none'); } }); }, 250);
+  hideScrubLater(s, stops, 250);
 }
 // hold: fade from stop a to stop b over a quarter second; on release back, and the resting layers take over again
 let _tw = 0;
@@ -1184,13 +1197,13 @@ function lensTween(s, stops, a, b, back) {
   cancelAnimationFrame(_tw); scrubBegin(s);
   const era = $('#mera'), t0 = performance.now(), D = 240;
   const step = now => {
-    const f = Math.min(1, (now - t0) / D), e = f * (2 - f);
+    const f = Math.max(0, Math.min(1, (now - t0) / D)), e = f * (2 - f);  // rAF's stamp can precede t0
     stops.forEach((st, k) => {
       const w = (k === a ? 1 - e : 0) + (k === b ? e : 0);
       for (const [id, base] of stopLayers(s, st)) if (map.getLayer(id)) { map.setLayoutProperty(id, 'visibility', w > 0 ? 'visible' : 'none'); map.setPaintProperty(id, 'raster-opacity', w * base); }
     });
     if (f < 1) _tw = requestAnimationFrame(step);
-    else if (back) { applyLayers(s); applyDep(s); setTimeout(() => stops.forEach(x => { if (x.kind === 'dep') { const id = scrId(s, x.d); if (map.getLayer(id) && !$('#mhold').classList.contains('down')) map.setLayoutProperty(id, 'visibility', 'none'); } }), 300); }
+    else if (back) { applyLayers(s); applyDep(s); hideScrubLater(s, stops, 300); }
   };
   _tw = requestAnimationFrame(step);
   const st = stops[b];
