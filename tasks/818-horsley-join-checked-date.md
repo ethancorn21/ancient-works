@@ -1,4 +1,4 @@
-Status: open
+Status: done
 Depends on: none
 Touches: fit/src_roman_horsley.py, tests/test_src_roman_horsley.py
 
@@ -35,18 +35,18 @@ the golden sample and test_check_offline's exact PASS lines stay byte-stable.
 
 ## Acceptance criteria
 
-- [ ] `_canon_norm` zeros `location_check.checked` (guard: absent field passes through);
+- [x] `_canon_norm` zeros `location_check.checked` (guard: absent field passes through);
       `--dry` staging still idempotent (0 appended) and the rows written keep the live date.
-- [ ] `--check` under the socket-block wrapper still exits 0 with zero `join:` lines and
+- [x] `--check` under the socket-block wrapper still exits 0 with zero `join:` lines and
       `evidence: 17 rows, 17 pass, 0 fail, 0 no-tie` (the committed rows are in sync with
       canonical, so the normalization must not change any current outcome).
-- [ ] The new date-only-differs-does-not-fire control and the unchanged qid-differs-fires
+- [x] The new date-only-differs-does-not-fire control and the unchanged qid-differs-fires
       control both pass in tests/test_src_roman_horsley.py; no assertion in any other test
       of this file was edited or deleted; the no_network fixture and the import-by-path
       setup stay as the 809 box built them.
-- [ ] tests/golden/src_roman_horsley_sample.json is byte-identical before and after
+- [x] tests/golden/src_roman_horsley_sample.json is byte-identical before and after
       (the golden path already normalizes; this change must not move it).
-- [ ] No new reds against the branch suite at claim time (.venv/bin/python -m pytest tests/
+- [x] No new reds against the branch suite at claim time (.venv/bin/python -m pytest tests/
       --ignore=tests/test_gate.py -q -p no:cacheprovider); if a red appears that also fails
       on this branch without the change (A/B it the 809 way), log it in DECISIONS and stop.
 
@@ -69,4 +69,44 @@ the golden sample and test_check_offline's exact PASS lines stay byte-stable.
 
 ## Hand-over
 
-(2026-10-15, iteration 199, agent c - created, nothing built yet.)
+(2026-10-15, iteration 201, agent c - BUILT AND VERIFIED; all five boxes ticked, ready for the
+driver's re-check.)
+
+Done this session (one step = the whole 818 recipe):
+- fit/src_roman_horsley.py: `_canon_norm` zeros `location_check.checked` ("0000-00-00", the same
+  `isinstance(lc, dict) and lc.get("checked")` guard the golden `_norm` uses) before the
+  sorted-key dump; the `join_problems` (e) docstring documents the both-sides zeroing. `stage()`
+  and every row it writes keep the live date (that code is untouched).
+- tests/test_src_roman_horsley.py: new (d-d) negative control in `test_check_negative_controls`
+  (a canonical ardoch row differing from the staged row ONLY in `location_check.checked` joins
+  clean; the (d-c) qid-alteration control and every other assertion unchanged - the diff is
+  additions only: two docstring lines + the (d-d) block).
+- Pre-fix proof (the 809 way): the control run against the UNFIXED module fails with exactly one
+  line, `join: staged site ardoch differs from its canonical row in extras.jsonl`, exit 1 - the
+  control pins the daily flake. Post-fix the same state joins clean (exit 0, no join line).
+- Verified: test file 5/5 green; `--dry` and a real `--stage` both 0-appended with the staging
+  files byte-identical (sha256 vs /tmp/818-baseline-shas.txt); a scratch re-stage (one file row
+  + one site row deleted) re-appended rows carrying today's live date (2026-10-15) and
+  `_canon_norm` zeroed it; `--check` exits 0, zero join lines, `evidence: 17 rows, 17 pass, 0
+  fail, 0 no-tie`; the golden is byte-identical (af87ec84... before and after).
+- Full suite WITH the change: 3 failed / 188 passed / 1 skipped (589 s). A/B with both files
+  restored to HEAD: the SAME 3 reds (test_owner_check ×2 = agent a's 307d lane;
+  test_src_roman_maclauchlan ×1) - no new reds from this change, logged in DECISIONS. The two
+  re-encoded 307d PNGs were committed restored to main's bytes.
+
+What a later agent touching this file needs to know:
+- The fix is COMPLETE in this module; the twin 817 (the maclauchlan module) is still open. Main now
+  carries agent a's fa230d24 ("230: done") with an INTERIM patch to that module (a fresh re-stage
+  keeps a stored CHECKED constant instead of now() - per the 207 note, it.200: that constant
+  self-ages at the next 230 re-stamp, so 817's _canon_norm zeroing remains the permanent fix there;
+  whoever claims 817 should read fa230d24 first, since its test's "passes on two different days"
+  criterion now plays out against the stored-constant shape, not a now() stamp). fa230d24 is NOT
+  yet in this branch (its last main sync predates it); my branch is untouched in that file, so the
+  driver's next merge is clean.
+- PITFALLS line ~1105 ("...until 817/818 zero the date out") is half-stale now (818 done); per
+  818's Notes neither task edits PITFALLS - the 817 owner or the driver should update it.
+- This branch is behind main on fit/src_roman_maclauchlan.py (230's fix), tests/test_owner_check.py
+  and the deleted tasks/245 (agent a's 307d re-split): all untouched in my worktree, so the
+  driver's next merge of main should be clean.
+- Scratch scripts /tmp/818-prefix-repro.py and /tmp/818-freshdate.py (plus the two orig file
+  copies) are throwaway, not part of the repo; delete at will.

@@ -622,8 +622,16 @@ def stage(dry=False):
 
 def _canon_norm(r):
     """Row identity under the 211 merge rule (the same norm fit/merge.py uses on the line): key order and
-    ASCII escaping don't matter, content does. (Copied from 207b: the family pattern keeps each book
-    module self-contained - no cross-module import of the helper.)"""
+    ASCII escaping don't matter, content does - except the volatile location_check.checked date, which is
+    zeroed before the dump: stage() stamps now() on every (re-)stage and the 211 re-run re-stamps the
+    canonical rows, so a re-stamped row differs from its twin on that provenance stamp alone, and the
+    (e) identity check must not treat a re-stamp as a content conflict (the golden _norm zeros the same
+    field for the same reason; 818). A row without the field passes through unchanged. (Copied from
+    207b: the family pattern keeps each book module self-contained - no cross-module import of the
+    helper.)"""
+    lc = r.get("location_check")
+    if isinstance(lc, dict) and lc.get("checked"):
+        r = dict(r, location_check=dict(lc, checked="0000-00-00"))
     return json.dumps(r, sort_keys=True, ensure_ascii=False)
 
 
@@ -635,7 +643,9 @@ def join_problems():
     extras_roman site; (b) every staged site has at least one staged picture; (c) (site, title) is
     unique; (d) the classified rows are 1:1 with the file rows; (e) a staged site id already in the
     canonical files is IDENTICAL to the canonical row under the 211 merge norm (a same-id different
-    row is a pre-merge conflict); (f) a staged QID held by a different existing site is a collision.
+    row is a pre-merge conflict); the volatile location_check.checked date is zeroed on both sides
+    before the comparison (818: a re-stamp is provenance, not content); (f) a staged QID held by a
+    different existing site is a collision.
     Returns the list of problem lines (empty iff the join holds); offline (no network, no LLM)."""
     from collections import Counter
     files = _load(FILES_ROMAN)
