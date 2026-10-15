@@ -1,5 +1,5 @@
 Status: in-progress
-Depends on: 240
+Depends on: 240, 242
 Touches: fit/src_us_birdseye_batch5.py, data/catalog/extras_us_birdseye_batch5.jsonl, data/commons/files_us_birdseye_batch5.jsonl, data/commons/classified_us_birdseye_batch5.jsonl, docs/lead_us_birdseye_batch5.md, tests/test_src_us_birdseye_batch5.py, tests/golden/src_us_birdseye_batch5_sample.json, PITFALLS.md, docs/site_flow/307d_*.png (R5: restoring suite re-encodes to main's bytes before committing - never content changes)
 
 # 241: US bird's-eye views, batch 5 - the final five cities to the 25-city total
@@ -96,47 +96,49 @@ restore main's bytes before committing (the PITFALLS test_owner_check entry); on
 (same-sheet scans recorded in the lead doc, the LOC .jpg staged where it is the best scan).
 
 ## Hand-over
-(2026-10-15, iteration 187, agent c) **DONE work complete, done claimed; THIS SESSION'S FILES STILL UNCOMMITTED** (lead
-doc + test file - harness-saved; commit them per step 3 below). The 186 plan is fully executed:
-the seven lead-doc edits applied verbatim (582 -> 779 lines; all anchors matched this time -
-the 186 atomic failure was the Not-done-yet line-wrap mismatch, gone now) and the test
-extension (Portland PASS key, SITES/years/points/named maps, pdx date check; negative control
-unchanged = files[0] Omaha).
+(2026-10-15, iteration 188, agent c) **HELD on "Depends on: 242" (the 230 it.216 path): the driver rejected the
+187 done claim (3 new reds after the main merge); this session FIXED the test_merge red in this checkout
+(the 9 Roman site directories 230's merge added - built byte-identical to agent a's reference build;
+test_merge now 10/10) and found the owner_check pair red a 2nd consecutive time (the 307d mid-transition
+family - the fix is open task 242). No done claim while held; when the driver brings 241 back after 242
+merges: re-verify, then claim.**
 
-**Tests when last run:** module tests 5/5 (2.34 s, socket-blocking); FULL suite in-session
-183P/1S/3F (558 s, /tmp/aw241_suite_187.log may be wiped): all 3 reds proven outside this
-task's lane - (1) test_merge::test_new_sites_are_complete: "ardoch: no web/data/sites
-directory" - re-ran it ALONE, fails identically in 0.86 s: a deterministic THIS-CHECKOUT
-build-state red (the ardoch entry came from 211/230's Roman work on main via the b19169b
-merge; web/data/sites/ardoch is a gitignored local build this checkout never made; my diff
-vs main touches only my batch-5 files + bookkeeping, never web/ or the catalog; the test
-was red at session start); (2)+(3) the test_owner_check A/B pair = the 307d mid-transition
-flake family (A: "RESULT FAIL: toolbar scale and turn change the drawing on screen"; B:
-itemBytes None) - 242's, fix open; agent a's 239 it.228 was ACCEPTED by the driver with
-exactly this pair red (239 is no longer in the flight list) - that is the standing precedent
-my claim rides on; the last recorded loop-start baseline's only red (test_fit_queue
-placement_gestures) is now GREEN. R5 done: all ten docs/site_flow/307d_*.png restored to
-main's bytes (working tree clean on them); final --check 5/5 zero join lines, exit 0.
+**State (all committed; tree clean):** Status: in-progress, Depends on: 240, 242, all five boxes ticked -
+the staging work is COMPLETE and verified (5/5 cities staged; lead doc 779 lines; golden 5/5/5; module
+tests 5/5; --check 5/5 zero-join). The driver committed my 187 session's files (f8f99a3/d8084b5/a5d4b3b)
+and merged main (411a9e5) before rejecting (c034a56). This session changed no data rows: it only built
+the gitignored web/data/sites/<id>/ directories for the nine Roman sites the merge added to
+web/data/sites.json (build log /tmp/aw241_build_188.log may be wiped; data/raw + data/tilecache +
+data/sites/*/dem* caches are the gitignored build inputs) and restored web/data/sites.json + the three
+re-rendered docs/site_flow/307d_*.png to committed bytes (R5).
 
-**State:** task file = Status: done, all five boxes ticked, this hand-over. The three
-session-changed files (docs/lead_us_birdseye_batch5.md, tests/test_src_us_birdseye_batch5.py,
-tasks/241-us-birdseye-batch5.md) are UNCOMMITTED; DECISIONS.md still lacks the 187 entry
-(this hand-over is the only committed record of the session so far).
+**Facts established this session (verified by running):**
+- The test_merge red was deterministic local build state, not a code bug: the nine new sites (ardoch,
+  carriden, cilurni, congavata, kirkintilloch, luguvallium-q71551754, petriana, tunnocelum, virosidum =
+  808's no-QID extras rows) had sites.json entries but no directories in this checkout (the main checkout
+  lacks all nine too - the reference build is in agent a's checkout). Fixed with
+  `.venv/bin/python pipeline/build_catalog.py --ids <9 ids> --force`: built 9, skipped 0, failed 0
+  (EA WCS x6 english, srsp-open-data S3 DTM x2 scottish, ardoch aerial-only - no scot tiles on its box,
+  matching its committed no-credit entry). relief_clip_m matched the committed entries exactly; every
+  built file byte-identical to agent a's reference (cmp -s, zero diff). The only tracked file dirtied was
+  web/data/sites.json (--force zeroes rebuilt sites' score/oldest/overlays - build_catalog does not
+  recompute markers; 230's --marks pass did) -> `git checkout -- web/data/sites.json`. test_merge 10/10
+  here now, deterministic for the driver's re-check too. (New PITFALLS entry under data/merge/.)
+- The owner_check A/B pair RED a 2nd consecutive time in this checkout (187, 188): A test_owner_save_bar_scale
+  (the 307d mid-transition probe), B test_owner_save_site_size_fallback (the designed cascade, A's
+  itemBytes None). Machine-state flake: green here at it.168/169, red on agent a's it.226/228; 242 measured
+  28.6-33.6% pixel drift between runs an hour apart on the identical tree (captures land mid-transition).
+  The fix is task 242 (open; Depends on: 307d merged; next in the driver's queue after 236c; its regime:
+  settle before shooting + no unconditional in-checkout re-render of the 307d PNGs).
+- The driver's "fix the combination" = these two: red 1 fixed, reds 2+3 await 242 - the exact 230 it.216
+  hold (230 is still in flight on the same declaration).
 
-**NEXT (one short session):** 1) append the full 187 DECISIONS entry (header "##
-2026-10-15 241 DECISION: iteration 187 - ...") covering: state verified at start (tree
-clean, 96156ee held the Portland landing, --check green); the seven lead-doc edits (anchors
-matched, content = the 186 entry's planned text); the test spec as applied; module tests
-5/5; full suite 183P/1S/3F with the 3-red attribution above (cite new-failures-306d.txt +
-306d it.161 for the ardoch/211-gate family, 230 it.214-216 + 242 for the owner_check family,
-239 it.228's acceptance as the driver precedent; note placement_gestures now green; note
-non-interaction proof: only my own test imports the batch-5 module/staging files); R5;
-claim done; if the driver reopens (e.g. its re-check run hits the owner_check flake): re-
-verify (module tests, --check, one owner_check pair run to gauge machine state - restore
-the 307d PNGs after) and re-claim; if the pair is still red after a clean re-verify, add
-"Depends on: 242" and stop claiming (the 230 it.216 path); never weaken/delete a test.
-2) commit everything with EXPLICIT paths (team hygiene, never git add -A):
-docs/lead_us_birdseye_batch5.md tests/test_src_us_birdseye_batch5.py
-tasks/241-us-birdseye-batch5.md DECISIONS.md - message "241: Portland (city 5 of 5) landed
-- lead doc + tests; all five batch-5 cities complete, done claimed". 3) stop; the driver
-re-checks (236c then consolidates the 25 total = 16 + 4 + 5 and checks it).
+**NEXT (one session, when the driver brings 241 back after 242 merges):** 1) Confirm 242 is merged
+(git log / driver notes; 242 commits the ten pinned 307d PNGs and the settle-before-shooting fix in
+tests/test_owner_check.py). 2) Re-verify in this checkout: module tests (5/5), --check (5/5), test_merge
+(10/10), the owner_check pair (should be deterministically green under 242's regime; if any 307d PNG ends
+up dirtied, investigate before claiming). 3) One full-suite run for the record; if green, claim done
+(Status: done; boxes already ticked) - the driver re-checks, and 236c (Depends on 241) then consolidates
+the 25-city total (16 + 4 + 5). 4) If the pair is STILL red post-242, that is a 242 defect: add
+"## Proposed changes" to tasks/242-*.md with the run evidence and stop claiming (do not edit 242's files;
+never weaken or delete a test).
