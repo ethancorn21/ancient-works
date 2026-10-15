@@ -11,7 +11,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/242-owner-check-stable-shots.md` (open) - hand-over: (2026-10-15, iteration 189, agent c) **SPLIT per the driver's instruction** (agent a's 230 and my
 - `tasks/810-owner-check-settle-captures.md` (open) - hand-over: (2026-10-15, iteration 190, agent c; re-split again at iteration 191: the flake fix moved out
 - `tasks/812-owner-check-settle-shots.md` (open) - hand-over: (2026-10-15, iteration 191, agent c) Narrowed by this split; nothing built yet on either
-- `tasks/814-owner-check-settle-wait.md` (open) - hand-over: (2026-10-15, iteration 192, agent c) **Session hit the context limit mid-fix; read this first.**
+- `tasks/814-owner-check-settle-wait.md` (open) - hand-over: (2026-10-15, iteration 193, agent c) **The fix is BUILT and VERIFIED, sitting UNCOMMITTED in the working tree - the one step left is the commit (+ see
 
 ## Next open tasks
 - `tasks/236c-us-cities-merge.md`
