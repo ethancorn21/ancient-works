@@ -96,10 +96,81 @@ restore main's bytes before committing (the PITFALLS test_owner_check entry); on
 (same-sheet scans recorded in the lead doc, the LOC .jpg staged where it is the best scan).
 
 ## Hand-over
-(2026-10-14, iteration 185, agent c) **Portland LANDING half-done: module edited + staged
-(5/5/5) + --verify clean + --check green + --golden written - ALL UNCOMMITTED in the working
-tree (harness-saved). The lead doc, the tests, the suite and the close are still to do -
-specs below, everything recorded here so no research is repeated.**
+(2026-10-14, iteration 186, agent c) **All FIVE cities staged AND committed** (driver commit
+96156ee "uncommitted work after iteration 185" saved the 185 Portland landing: module +
+staging 5/5/5 + golden 5/5/5; tree clean at session start). Verified this session: --check
+green ("evidence: 5 rows, 5 pass, 0 fail, 0 no-tie", zero join lines, exit 0 -
+/tmp/aw241_pdx_check_186.log) and the Portland file row (date "1890", no date_commons, PD,
+13760x9520, named_place "Portland", point = site point, dist 0). **Remaining =
+documentation + tests ONLY (no research, no staging). The 186 DECISIONS entry carries the
+full planned lead-doc text (verbatim newText + oldText anchors) and the test spec - read it
+first; the 184 entry (DECISIONS.md ~line 192) has the 184/185 provenance it quotes.**
+
+**State on this tree (verify before trusting):** `git status` clean; staging files 5/5/5;
+module (fit/src_us_birdseye_batch5.py, 751 lines) has SITES["Q6106"] + PORTLAND_1890 +
+SOURCES["portland_1890"] (lines ~226-275, ~395-445); golden 5/5/5; lead doc 583 lines
+UNCHANGED (my 186 edit call failed atomically at edits[6] - the Not-done-yet oldText didn't
+match exactly, probably a blank-line/line-wrap difference - and wrote NOTHING).
+
+**NEXT (one session, in this order):**
+1. **Lead doc** (7 non-overlapping edits, one edit call - all oldText anchors + full newText
+   in the 186 DECISIONS entry bullets 2-9): (1) intro: after the Memphis LANDED clause add
+   the Portland LANDED clause ("all FIVE LANDED"); (2) QID section: append the 5-QID
+   verbatim transcript (session-12 run) + the no-FLAG/no-TRAP paragraph; (3) insert the new
+   "## Albuquerque (DROPPED ...)" section AND the new "## Portland (site portland-q6106..."
+   section between the Memphis section's end and "## Staging and checks (2026-10-14)" (one
+   edit - anchor `catalog slug rule (catalog.slug("Memphis") = "memphis", verified).\n\n##
+   Staging and checks (2026-10-14)`); (4) Staging heading paragraph: "**4 views / 4 site
+   rows so far...**" -> "**5 views / 5 site rows - all of the final five** (...Portland
+   staged in the 241 session-12 run - all five LANDED; ...Albuquerque ... DROPPED, its
+   section above)"; (5) transcript block: "the 241 session-10 run:" -> "the 241 session-12
+   run:" + add the Portland PASS line + "4 rows, 4 pass" -> "5 rows, 5 pass"; (6) golden
+   "(4/4/4" -> "(5/5/5"; (7) Not-done-yet: replace the whole paragraph (from "**Not done
+   yet" to end of file) with the short all-LANDED version (236c consolidates and checks the
+   25 total = 16 + 4 + 5, no shortfall; the future-candidate hits: Port Townsend 1878 LOC
+   2003679983 x2, Seattle 1878 MAPS 64, Santa Fe 1882 LOC 75694742, Las Vegas NM 1882 LOC
+   75694741 - San Miguel County - all PD all >= 4000 px; the richmond/miami note - verified
+   this session: those hits are mention-text in three UK site descriptions (Fort Ancient,
+   Hampton Court, Stanwick Camp) and the Miamisburg Mound name, NOT city sites, so Richmond
+   VA / Miami FL remain open candidates) + keep the standing "Do NOT write the canonical
+   files" tail. **After the edits: grep the file for "4/4/4", "session-10 run", "4 views / 4
+   site rows" - all must be gone except the historical city-section prose.**
+2. **Tests** (tests/test_src_us_birdseye_batch5.py, 262 lines) - exact spec in 186 entry
+   bullet 10: add the Portland PASS key to test_check_staged_files_join_and_pass; in
+   test_sites_table_and_staged_rows: SITES map += "Q6106": "portland-q6106", years +=
+   "File:Portland, Oregon 1890 Perspective Birds-eye-view Map.jpg": 1890, points +=
+   "portland-q6106": (-122.67916666666666, 45.515), named_by_qid += "Q6106": "Portland",
+   + pdx row check (date "1890", no date_commons); golden test docstring 4/4/4 -> 5/5/5.
+   Negative control UNCHANGED (files[0] = Omaha).
+3. **Module tests**: `.venv/bin/python -m pytest tests/test_src_us_birdseye_batch5.py -p
+   no:cacheprovider` -> expect 5/5 (the three-state test's victim stays files[0] = Omaha;
+   test_evidence negative control rebinds to files[0] too - both still Omaha, fine).
+4. **FULL suite IN-SESSION BLOCKING**: `.venv/bin/python -m pytest tests/ --ignore=
+   tests/test_gate.py -p no:cacheprovider` (expect 187P/1S/0F = the 183 baseline, no
+   change: this session adds no tests, only extends existing ones; the only tolerated red =
+   test_fit_queue test_placement_gestures_and_save_in_the_browser = agent a's 239; the 183
+   entry has the full decomposition; the three test_gate tests pass standalone). NEVER
+   nohup past the session (174 lesson). NOTE: if the 240/236a/239 work merged into main in
+   the meantime changed other test counts, use the 183 decomposition logic (common base +
+   module tests) rather than the raw number.
+5. **R5**: `git checkout main -- docs/site_flow/307d_*.png` (every full-suite run re-encodes
+   up to ten; restore ALL of them), verify `git diff main -- docs/site_flow/` empty.
+6. **Commit** everything (lead doc, test, DECISIONS, this hand-over; the staging files/
+   module/golden are already committed): `git add -A && git commit -m "241: Portland
+   (city 5 of 5) landed - lead doc + tests; all five batch-5 cities complete"`.
+7. **CLOSE**: final `--check` = 5/5 PASS no join problems (it is; re-run once after the
+   tests), FULL suite zero red (step 4), tick ALL FIVE acceptance boxes, `Status: done`
+   (the driver re-checks; 236c then consolidates and checks the 25 total).
+
+**Rules (unchanged):** never write the canonical files (236c); 236a's/236b's/240's files
+read-only; live commands under .venv/bin/python (module top stays stdlib-only); the golden
+is the contract (5/5/5 already committed - do NOT re-run --golden; this session's changes
+are documentation/test-only, so the golden must stay byte-identical); tests never bind
+fixed network ports or write outside the project + temp dir; every full-suite run
+re-encodes up to ten docs/site_flow/307d_*.png - restore main's bytes before committing
+(R5). /tmp artifacts from 184/185 survive in /tmp/aw241_* (pdx_pool.json with all 55 rows
++ flags is the source for the grouped DROP bullets - already transcribed into the 186
+entry bullet 5, so /tmp is not needed).
 
 **State on this tree (verify before trusting):** tree at session start was clean (the 184
 research commit d1f3bcc was the tip); the working tree now has, UNCOMMITTED: the module
