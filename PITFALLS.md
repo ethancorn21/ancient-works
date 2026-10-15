@@ -889,6 +889,11 @@ Where: the Commons `action=query&titles=...&prop=imageinfo` (`pipeline/commons.p
 Symptom: the batch query for `File:Plan of the City of New York by Ratzer, 1776.jpg` (capital-C "City") came back with no url - it looked deleted (stale search index), while the search list showed the real page `File:Plan of the city of New York by Ratzer, 1776.jpg` (lowercase "city") next door: live, PD, 2202x1446.
 Why: MediaWiki page titles are case-sensitive except in the first character; a mid-title "city"/"City" is a different page. When an expected file looks missing, search first (`srnamespace 6`) and use the exact title from the results, never the remembered one.
 
+#### The Wikimedia thumb API accepts only certain widths: 1280 and 1920 work, 2400/2560 come back 400
+Where: `thumb.wikimedia.org` thumb URLs (`.../wikipedia/commons/thumb/<x>/<xx>/<File>/NNNpx-<File>`), the research thumb-eyeballing workflow (241, 2026-10-14)
+Symptom: requesting `/2400px-...` (or `/2560px-...`) of an 11764-px original returns HTTP 400 "Use thumbnail sizes listed on https://w.wiki/GHai", while `/1280px-...` and `/1920px-...` succeed
+Why: the thumb endpoint serves only a fixed set of widths (listed at w.wiki/GHai); 1920 is the largest confirmed working (a ~5 MB JPEG for an 11764-px original). For zooms request the 1920-px thumb and use the PIL resize-then-crop path (a direct PIL crop save can render blank in the read tool).
+
 ### fit/
 
 #### record._fake_match takes the fixture's responses dict, not the fixture

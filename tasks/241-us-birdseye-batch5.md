@@ -97,49 +97,55 @@ restore main's bytes before committing (the PITFALLS test_owner_check entry); on
 
 
 ## Hand-over
-(2026-10-14, iteration 178, agent c - **INDIANAPOLIS LANDING complete and committed (city 2/5);
-the COLUMBUS research is the next step** (city 3/5). The full landing record (deviation note on
-the date type, transcripts, test changes) is in the 178 DECISIONS entry; the per-city playbook
-is in the task Notes above and unchanged.
+(2026-10-14, iteration 179, agent c - **COLUMBUS RESEARCH complete (city 3/5); the
+COLUMBUS LANDING is the next step.** The 179 DECISIONS entry carries the full research
+record (QID facts, the 87-row pool, the 11-item eyeball verdict, the three-scan comparison,
+extra probes) and the verbatim LANDING SPEC; the per-city playbook is in the task Notes
+above and unchanged. The three memory files (this entry, the DECISIONS 179 entry, the
+PITFALLS thumb-widths entry) are committed with this hand-over; no code/staging changes.
 
-**State after 178 (all committed; tree clean):**
+**State after 179 (committed; tree clean except the memory files being committed now):**
 - Module fit/src_us_birdseye_batch5.py: SITES = {Q43199 Omaha, Q6346 Indianapolis}, SOURCES =
-  omaha_1868 + indianapolis_1925; both cities marked LANDED in the header/SITES comments.
-  The indianapolis_1925 row's extra dict carries **date="1925" as a STRING** (the Zwolle-style
-  swap; commons.year_of() crashes on an int date - do not "fix" it to an int).
-- Staging files at 2/2/2; --check green (2/2/2, no join problems); golden 2/2/2 (the indy
-  date_commons normalizes to "0000-00-00"); lead doc carries the Indianapolis section (STAGED
-  bullet + the 42-item DROP list + the QID-facts paragraph + the 1925 date evidence), the
-  session-6 --verify transcript and the updated Staging/Not-done-yet sections.
+  omaha_1868 + indianapolis_1925; both LANDED in the comments. The indy row's extra dict carries
+  date="1925" as a STRING (the Zwolle swap; commons.year_of() crashes on an int - do not "fix").
+- Staging files at 2/2/2; --check green (2/2/2, no join problems); golden 2/2/2; lead doc carries
+  the Omaha + Indianapolis sections and the "Not done yet" pointer (Columbus, Memphis, then the
+  collection's search order).
 - Tests: the five functions extended in place; the negative control stays on files[0] = the
-  Omaha row (the 176 pattern - do NOT rebind it).
-- Full suite 190P/1S/0F (541 s, in-session); the four re-encoded 307d pngs were restored to
-  main's bytes before the commit.
+  Omaha row (do NOT rebind it).
+- 179 was research-only: no code, no staging files, no suite run.
 
-**Next: COLUMBUS research (city 3/5)** - then Memphis (4/5), then one more from the
-collection's search order (5/5). The playbook (the 175/177 pattern): (1) RESEARCH: the QID
-(Wikidata: the label - first-guess mislabels are the usual trap class (Q16556=Phoenix was
-exactly that for Indianapolis); every P625 value; P373 - a string is the usual US quirk, write
-the place from county + state; P131, P17, enwiki; the name-search trap check at limit 5 AND 20;
-record everything in the SITES comment; MEASURE distance claims with fit/evidence.hav_m; check
-no existing site holds the QID - catalog, extras, 236a's/236b's/240's extras files, THIS task's
-batch5 extras (Omaha + Indianapolis now), web/data/sites.json) + the pool (the six plain-phrase
-forms + "filetype:bitmap", srnamespace 6, srlimit 40, deduped; gates: commons.keep() judged
-AFTER any known-date swap, the caption names the city (books_match.norm over title + desc),
-Public domain, >= 4000 px; eyeball EVERY gate-pass item one by one - the gate is a substring
-match, PITFALLS fit/). Columbus caveat: the LOC Panoramic pool may mix Columbus (Ohio) and
-Columbus (Indiana) - disambiguate each sheet from its caption (the state in the banner, the
-LCCN) and record the choice in the lead doc. Save scripts/logs under /tmp/aw241_col_*.
-(2) LANDING (mirror 178/176): module edit (SITES entry + the full QID-facts comment, the
-<CITY>_<YEAR> row list, the SOURCES entry, mark LANDED in the comments) -> --verify (expect 3
-QIDs; NO FLAG/TRAP on the new one; transcript verbatim into the lead doc's QID section) ->
---dry -> stage (live commons.info re-check) -> --check (expect "evidence: 3 rows, 3 pass,
-0 fail, 0 no-tie", zero join lines; verbatim into the lead doc) -> lead-doc section (STAGED
-bullet + the full DROP list with exact titles + the QID-facts paragraph + the running count
-"3 views / 3 site rows so far of the final five") -> --golden (3/3/3) -> tests (key list,
-SITES/years/points/named tables, the row's date check; negative control stays on files[0]) ->
-module tests 5/5 -> FULL suite in-session BLOCKING (restore the re-encoded 307d pngs first) ->
-commit.
+**Next: COLUMBUS LANDING (city 3/5)** - the 179 LANDING SPEC (verbatim in the DECISIONS entry):
+(1) Module edit: SITES["Q16567"] (id **columbus-q16567**, name/named "Columbus", point = the
+    verified P625 -83.00055555555555/39.96222222222222, place "Franklin County, Ohio", region
+    "United States", kind "town", wikipedia https://en.wikipedia.org/wiki/Columbus,_Ohio, note =
+    the oblique-angle paragraph in the 179 entry, Omaha/Indy note style); BAILEY_1872 =
+    [("File:1872 Birds Eye View of Columbus Ohio - alternate.png", "Q16567", "Columbus", dict())]
+    (page date 1872 = the drawing's year - **no Zwolle swap**, the Omaha pattern);
+    SOURCES["columbus_1872"] = dict(rows=BAILEY_1872, p="birdseye", label="{name}, the H. H. &
+    O. H. Bailey bird's-eye view (1872)"); header + SITES comments mark Columbus LANDED (city 3
+    of 5). (2) --verify (expect 3 QIDs, the new one clean; transcript verbatim into the lead
+    doc's QID section) -> --dry -> stage (1 new site / 1 new picture) -> --check (expect
+    "evidence: 3 rows, 3 pass, 0 fail, 0 no-tie", zero join lines; verbatim into the lead doc) ->
+    lead-doc Columbus section (STAGED bullet + the three-scan same-sheet note + the full 87-item
+    DROP list + the QID-facts paragraph incl. Q1405=Augustus + running count "3 views / 3 site
+    rows so far of the final five"; Not-done-yet -> Memphis, then the search order for city 5)
+    -> --golden (3/3/3) -> tests (PASS key line; the SITES/years/points/named tables; the row's
+    year 1872 with NO date_commons; the negative control stays on files[0]) -> module tests 5/5
+    -> FULL suite in-session BLOCKING (restore the re-encoded 307d pngs first) -> commit
+    "241: Columbus (Ohio) landed (batch-5 city 3/5) - the 1872 H. H. & O. H. Bailey sheet
+    (alternate.png - the best of the three scans)".
+- /tmp research artifacts (loop maintenance may wipe them - the 179 entry carries the full
+  record): aw241_col_qid.py/.log, aw241_col_pool.py/.json/.log, aw241_col_thumbs.py,
+  /tmp/aw241_col_thumbs/ (00, 01, 02, 03, 10, 35, 39, 41, 42, 82, 86 thumbs + 82_1920.jpg
+  + the zoom crops 01_zbanner/01_zcentral/01_zcornerbl/01_ztopband/01_ztopleft/
+  82_zbanner/82_zcentral/82_zcornerbl).
+
+**After Columbus: MEMPHIS research (city 4/5)** - then one more from the collection's search
+order (city 5/5). The playbook is the 175-179 pattern; the pool caveat for Memphis is the same
+city-name mixing (Memphis, Tennessee vs e.g. Memphis, Missouri/Ink/... - disambiguate each
+sheet from its caption: the state in the banner, the LCCN) and the first-guess QID must be
+verified live (the Q1405=Augustus and Q16556=Phoenix mislabels show the trap is live).
 
 **Rules (unchanged):** never write the canonical files (236c); 236a's/236b's/240's files
 read-only; live commands under .venv/bin/python (module top stays stdlib-only); the golden is
