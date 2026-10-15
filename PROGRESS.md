@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
 - `tasks/230-roman-merge-rerun.md` (in-progress) - hand-over: (2026-10-14, iteration 216, agent a - the 5 acceptance boxes were ticked in it.215 and
 - `tasks/236-us-cities.md` (split)
-- `tasks/239-retire-vision-fit.md` (in-progress) - hand-over: (2026-10-14, iteration 219, agent a - session 3: commit (a) LANDED (fit/batch_us.py retired:
+- `tasks/239-retire-vision-fit.md` (in-progress) - hand-over: (2026-10-14, iteration 220, agent a - session 4: commit (b) LANDED (fit/batch_eu.py retired:
 - `tasks/241-us-birdseye-batch5.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
 
 ## Next open tasks
@@ -44,6 +44,14 @@ Session 2 finished the reading and set the baseline; no code changed.
 - **Touches updated:** tests/fixtures/matchfit_station/ added to the task file (the 302f fixture re-record is this task's cleanup per 302f's PITFALLS; record.py's own hardcoded stdout line counts 11/8 and its header.task '302f' need updating first).
 
 ... (4.7 KB more: `grep -n -A 200 -F '## 2026-10-14 239 DECISION: iteration 218, session 2 - cover-flag question resolved (drop --model-json from cover's CLI and loop(); keep --working refused) and 5-file baseline recorded GREEN (21 passed, 1 skipped, 154.54s, tree clean after); implementation starts next session at commit (a) batch_us' DECISIONS.md`)
+
+### 2026-10-14 239 DECISION: iteration 220, session 4 - commit (b) landed: fit/batch_eu.py retired (run_eu(reasons=...), the two model flags gone from the CLI); next session: (c) tools/site_done.py
+
+Session 4 executed the hand-over's step (b), one commit (a13e2ed, 24 insertions / 21 deletions, only fit/batch_eu.py; explicit paths, no `git add -A`).
+
+- **Changes (mirroring the retired batch_us form exactly):** `run_eu(root, model=None)` -> `run_eu(root, reasons=None)` -> `batch_us.run_sites(root, eu_sites(root), reasons)` with a docstring stating `reasons` is passed through (see run_sites' docstring). `main`: the mutually-exclusive `--working`/`--model-json` group and the `a.model is required: ...` error line are deleted; only `--root`/`--sites`/`--report` remain and the model-resolution block disappears (so the calls to the deleted `batch_us.llm_model`/`recorded_model` are gone). Module docstring: first paragraph reworded to the retired form mirroring batch_us's (GOAL point 2 quote; 301/306a-f/212b; matcher = only automatic fitter via the one-site line; item `why` = the matcher's recorded verdict or "no matcher on this machine"), the "loop imported from fit/batch_us.py, not re-implemented" statement kept true, and the usage block becomes the offline two-line form of batch_us. `eu_sites`, `union_check`, `union_section`, `write_report` are byte-unchanged (diff confirmed only the four edited regions).
+- **Verification (no project tests run - that is commit (e)/(h)):** `py_compile` clean; `--help` shows only `--root/--sites/--report` and the retired first line; scratch-tree smoke test (truncated `web/data/sites.json` to marietta, full plans.json, symlinked data/db+commons+sites+raw, fresh data/review): `eu_sites` == [marietta]; `run_eu(t, reasons={p: "not sure: 8 consistent points (need 10)"})` -> record {item: True, auto: []}, item entries carry exactly that `why`; `run_eu(t)` with no reasons -> the item's `why` is "no matcher on this machine". All green on first attempt.
+- **Known fallout until (c)-(f) land (expected, all in this task's file set):** `tools/site_done.py` still has `--working`/`--model-json` and the `fit  no model given` first-line print (fixed by (c)); the five test files still use recorded answers / "no model answer" (fixed by (e)/(f)). The 5-file suite is red in the meantime by construction; it must be green at the done claim (step (h)).
 
 ## Project-wide driver notes (newest)
 
