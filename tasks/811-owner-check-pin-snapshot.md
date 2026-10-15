@@ -5,8 +5,10 @@ Touches: docs/site_flow/307d_*.png, docs/site_flow.md, PITFALLS.md
 # 811: The 307d owner check - pin the ten 307d PNGs under 810's regime: the one-time refresh, the docs pinned-snapshot note, the PITFALLS rewrite
 
 Part 2 of 242's split (2026-10-15): the one-time refresh of the pinned snapshot and the record of
-it - no test-code change (242 waits on this and on 810; this waits on 810 because the refresh flag
-it runs is 810's). Background: 242's goal and the 2026-10-14 307bc DECISIONS entry (now in the
+it - no test-code change (242 waits on this and on 810; this waits on 810, which waits on
+812 + 813: the refresh flag it runs is 813's, and the snapshot it burns must be what the
+verified 810 regime produces). Background: 242's goal and the 2026-10-14 307bc DECISIONS
+entry (now in the
 archive): the ten PNGs in docs/site_flow/ no longer correspond to the 307d-acceptance bytes they
 replaced - every suite run re-rendered them (often mid-transition), so the committed bytes are just
 the last run's, not a stable snapshot.
