@@ -1,4 +1,4 @@
-Status: open
+Status: done
 Depends on: 812
 Touches: tests/test_owner_check.py
 
@@ -39,48 +39,54 @@ touch tests/test_fit_queue.py (the 307/235 family) or the page.
 
 ## Acceptance criteria
 
-- [ ] An unflagged run leaves every `docs/site_flow/307d_*.png` in the checkout byte-identical
+- [x] An unflagged run leaves every `docs/site_flow/307d_*.png` in the checkout byte-identical
       (verified by the test's write-surface hash or an equivalent check); the explicit refresh flag
       (the one named in the docstring) re-renders all ten from a run and writes them into
       `docs/site_flow/`.
-- [ ] No existing check changed (same flow, same asserts); the refresh flag, the write-surface
+- [x] No existing check changed (same flow, same asserts); the refresh flag, the write-surface
       addition and the docstrings are additive.
-- [ ] The full suite is green (`.venv/bin/python -m pytest tests/ -q -p no:cacheprovider`) and
+- [x] The full suite is green (`.venv/bin/python -m pytest tests/ -q -p no:cacheprovider`) and
       `git status` on `docs/site_flow/` is clean after an unflagged run.
 
 ## Hand-over
 
-(2026-10-15, iteration 245, agent a) **812 is DONE and claimed on this file** (its
-hand-over + the DECISIONS entry "2026-10-15 812 DECISION: iteration 245" have the details):
-the double shot is IN tests/test_owner_check.py now (`_shot_diff` + the probe's `shot()`
-taking `<name>.png`/`<name>b.png` + the `_run_one` assert loop before the docs copy), and
-c's settle gained the additive render-quiet gate (the 812-prescribed widen; isMoving gate,
-budget and [warn] text preserved). Verified: five consecutive green pair runs, all 50
-in-run double-shot pairs 0.0000%, zero [warn] settle, full suite 194/1/0.
-**Your part (unchanged from below, now landing on the 812-built file):** port the regime
-from `git show 3579c22b:tests/test_owner_check.py` - the ten docs/site_flow/307d_*.png into
-`_write_surface`, the docs copy gated on `AW_OWNER_REFRESH=1` moved after the write-surface
-assert, the module + test docstrings (describe the 814 settle WITH its render-quiet gate
-and the 812 double shot as the regime). Leave `shot()`/`settle`/`_shot_diff` exactly as
-812 verified them. Until your regime lands, every unflagged run still re-copies the ten
-PNGs: `git restore -- docs/site_flow/` after each run (R5). Verify per your boxes:
-unflagged run leaves docs/site_flow byte-identical (write-surface) and git status clean,
-flagged run re-renders all ten, full suite green; the one-time refresh run itself is 811's
-job. When the driver returns this task, re-confirm the suite green and claim.
+(2026-10-15, iteration 253, agent a) **813 is BUILT and all three boxes verified this
+session - Status: done.** Base = main (812 merged: the 816 recipe with the 812 render-quiet
+widen + `shot()`/`_shot_diff`/double-shot loop; worktree clean, ten PNGs == main). The
+regime landed exactly per the it.241 prep: `SNAPSHOT_VIEWS` + `REFRESH = bool(os.environ.get(
+"AW_OWNER_REFRESH"))` module constants (read at import, the file's `AW_CHROME`/
+`AW_NODE_MODULES` convention); the explicit ten into `_write_surface` (comment: explicit
+list, never a glob); the unconditional in-checkout copy deleted and re-inserted gated on
+`REFRESH` AFTER the write-surface assert (assert statement verbatim; 812's loop gained only
+the mechanical `SNAPSHOT_VIEWS` reuse - R1); module + `_run_one` + test A + test B
+docstrings describe the pinned-snapshot regime (settle clause worded against the merged
+reality: isMoving + ~700 ms render-quiet) and name `AW_OWNER_REFRESH=1`. PROBE untouched
+(extract + `node --check` clean). `git diff main` = exactly those four hunk families, no
+PNG hunks (811 commits the one-time re-pin).
 
-<superseded it.235 text kept for the design record only:
+**Verification (all this session, agent/a, TMPDIR=/tmp/loop-ancient-works.a):** T1 unflagged
+pair x2 (80.28s/79.34s; both `2 passed`; `git status --porcelain docs/site_flow/` EMPTY
+after each). T2 flagged pair x2 (`AW_OWNER_REFRESH=1`, 79.17s/80.07s; both `2 passed`);
+byte reproducibility run1->run2 = 8/10 identical, B_1-card + B_5-reload re-encode at the
+byte level. T3 the driver's exact gate: full suite 195 passed / 1 skipped / 0 failed
+(670.37s, matches the current baseline), docs/site_flow clean after. In-run double shots
+0.0000% on all ten of the flagged run #2's retained trees (zero `[warn] settle` observable
+in them; the unflagged runs' logs were pruned by pytest retention, but a passed run with
+812's double shot in hand is a settled run - a mid-transition capture fails the assert).
 
-(2026-10-15, iteration 235, agent a) **BUILT on agent/a's branch with 814 + 812 in the same
-file (tests/test_owner_check.py), uncommitted until 810's session commits.** The regime:
-`_write_surface` now includes the ten committed docs/site_flow/307d_*.png, so the existing
-pre/post hash assert proves an unflagged run left them byte-identical; the old unconditional
-`shutil.copy2` of the fresh renders into docs/site_flow/ is gone - the copy now happens only
-under the explicit env var `AW_OWNER_REFRESH=1` (named in the module and both test
-docstrings) and AFTER the write-surface assert; module + test A + test B docstrings describe
-the pinned-snapshot regime (ordinary run never touches the ten; the flag re-renders them;
-814's zeroed transitions + idle settle and 812's double shot are part of the regime they
-protect). No existing check changed. **Boxes unticked**: 810's session (next) runs the pair
-twice unflagged (`git status` clean after each - box 1/2) + the full suite (box 3) and ticks
-these boxes per 810's hand-over; the one-time refresh run of the flag itself is 811's job
-(this task only provides the flag). When the driver returns this task, re-confirm the
-suite green and claim. Design rationale in DECISIONS.md "2026-10-15 810 DECISION".
+**Fact for 811/810 - the it.241 prep's premise is STALE:** main's committed ten are NOT
+the 2026-10-13/14 pre-settle bytes (28.6-33.6% content drift) it described - the 812/814-era
+sessions ran the old-regime unconditional copy with the SETTLED recipe, and the driver's
+sync commits (f44c6035/b2e8f872/197085de on agent/a) swept the settled re-encodes into main
+(814's own claim: "vs main's goldens all ten <=0.0451%" - only possible for settled-era
+goldens). Measured here: flagged run #2's fresh renders vs main's committed bytes = all ten
+<=0.0006% of pixels at threshold 32 (throwaway PIL, same metric as `_shot_diff`). So 811's
+one-time `AW_OWNER_REFRESH=1` re-pin produces NO content change - at most byte-level
+re-encoding of B_1-card/B_5-reload; word its docs note and PITFALLS rewrite (box 3: retire
+the R5 restore workaround, name the flag) accordingly. The flag's canonical spelling is now
+`AW_OWNER_REFRESH=1`, named in the module and both test docstrings.
+
+**If the driver returns this file:** no open sub-work; re-confirm the full suite green and
+the ten PNGs clean against main, then hold. The chain continues: 810 (final verification;
+waits on 812+813 = both done) -> 811 (one-time refresh + re-commit, docs note, PITFALLS
+rewrite) -> 242.
