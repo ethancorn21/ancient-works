@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
 - `tasks/230-roman-merge-rerun.md` (in-progress) - hand-over: (2026-10-14, iteration 216, agent a - the 5 acceptance boxes were ticked in it.215 and
 - `tasks/236-us-cities.md` (split)
-- `tasks/239-retire-vision-fit.md` (in-progress) - hand-over: (2026-10-14, iteration 225, agent a - (e) is HALF DONE: the two batch test files are rewritten
+- `tasks/239-retire-vision-fit.md` (in-progress) - hand-over: (2026-10-14, iteration 226, agent a - (a)-(e) are all DONE and committed. NEXT SESSION:
 - `tasks/241-us-birdseye-batch5.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
 
 ## Next open tasks
@@ -43,6 +43,10 @@ Session executed (e) part 1 per the it.224 design and hit the context limit befo
 **Written (on disk, uncommitted, harness-saved):** tests/test_batch_us.py full rewrite (4 tests) and tests/test_batch_eu.py full rewrite (7 tests), exactly per the it.223/224 designs: NO_MATCHER + _VERDICTS + state-aware _recorded_reasons (sha1(plan)%3) + _check_entry (2-arg propose mirroring batch_us._entry, pairs==[], no gate_score) + _syn_records(1,3)/(2,11); deleted the model machinery (_answers/_corner_pairs/_expected/_stub_site/STUB_*/*ANSWER_PLANS/_recorded_model/fit_gate/plan_fit imports). EU specifics: run_eu used for the no-reasons test; counts already hand-fitted == sorted(region-less with is_pre_fit); NO_PIC re-stamp block (candidates [], batch's searched string, resolved None kept, name <site>.json); test_hand_fitted... on AVEBURY/OLDSARUM with recorded reasons; union tests kept with the CLI-form call; the k==n sample-shuffle correction from it.224 applied (US 1x3 branch expects random.Random(SEED).sample(sorted,3)).
 
 **Not done (next session, exact spec in the task hand-over):** (e) part 2 - the FIVE targeted patches (test_site_done 5 spots incl. the two deleted lines and 3->2 line-count; test_fit_provenance case-b index shifts 6->5 and docstrings; test_fit_queue 5 wording/assert spots, why -> "no matcher on this machine"; test_owner_check check-7 comment + want_fit minus its first element; test_matchfit_station docstring + why assert) - all old->new text is in the hand-over. Then run `.venv/bin/python -m pytest tests/test_batch_us.py tests/test_batch_eu.py tests/test_site_done.py tests/test_fit_provenance.py -p no:cacheprovider` (must be green), optionally the ~30-180 s test_fit_queue::test_save_runs_the_one_site_line (restore docs/site_flow/307d_*.png if run owner_check), then ONE commit of all eight files. Red by construction until (f): test_matchfit_station (stale 11/8-line fixtures) + the pre-existing placement_gestures. Then (f) fixture re-record (ELoFTR was up - re-check; record.py asserts 11->10, 8->7, task 302f->239), (g) docs/site_flow.md 300 section only, (h) full-suite verify + close.
+
+### 2026-10-14 239 DECISION: iteration 226 - (e) complete: the five targeted patches applied and verified (commit 8d14844); the owner_check reds root-caused as the 307d mid-transition family (242's, not 239's - A/B proved); (f) next (ELoFTR up, fixtures still stale vs the retired line)
+
+... (4.2 KB more: `grep -n -A 200 -F '## 2026-10-14 239 DECISION: iteration 225 - (e) half done: both batch test files rewritten on disk (uncommitted, harness-saved); the five patch files still untouched; no tests run this session (context limit)' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
