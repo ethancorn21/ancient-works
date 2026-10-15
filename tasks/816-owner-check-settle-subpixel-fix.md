@@ -211,3 +211,24 @@ logs; 4) compare the two runs' ten views (20-line PIL compare: count pixels diff
 any channel, report the fraction per view; A_4/A_5/B_4/B_5 must be byte-identical or <0.5%);
 5) restore the re-rendered 307d PNGs (box 4); 6) one full-suite run (box 5); 7) claim done,
 recording the run evidence in DECISIONS.
+
+## Proposed changes (2026-10-15, iteration 242, agent a - task 814, which Depends on this)
+
+The fix this task republishes is ALREADY ON MAIN - not via this task, but via the driver's
+takeover-carry commit 693b0ea3 ("814 taken over from agent c: its work carried
+(c@26853066)"), which landed agent c's 63a4e4e settle+subpixel diff (the recipe above, 54
+lines) into main's tests/test_owner_check.py. Verified at it.242: `git diff main --
+tests/test_owner_check.py` is 0/0 (main's file carries settle()/subpixel() at all eight
+sites), and 814's re-verification on the current tree (= main in code) shows the fix
+working: three unflagged pair runs green (70.39/75.11/69.70 s), zero [warn] settle, ratio
+check [ok] in every captured probe log, all ten 307d views stable run-vs-run (worst
+0.0447%, the card-view jitter band), full suite 194/1/0 all green (the roman red dead via
+817/818). So this task's goal ("the pair is stable on every branch") is met, and its it.195
+claim steps 2-6 (apply the recipe, pair runs, view compare, PNG restore, full suite) are
+satisfied by that evidence - the recipe is now a 0/0 no-op (the it.195 hunk-failure escape
+hatch lands in exactly this place: the context lines no longer match because the fix is
+already applied).
+
+Recommend: close this task as done via a no-op verification (the claiming agent confirms
+the 0/0 diff and that the pair is green on main; no file changes needed). That unblocks
+814's done-claim (its remaining dependency: this task). No code change is required anywhere.
