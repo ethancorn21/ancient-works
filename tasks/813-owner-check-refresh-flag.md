@@ -47,3 +47,39 @@ touch tests/test_fit_queue.py (the 307/235 family) or the page.
       addition and the docstrings are additive.
 - [ ] The full suite is green (`.venv/bin/python -m pytest tests/ -q -p no:cacheprovider`) and
       `git status` on `docs/site_flow/` is clean after an unflagged run.
+
+## Hand-over
+
+(2026-10-15, iteration 236, agent a) **BUILD STATUS CHANGE (read this first):** the it.235
+refresh-flag build described below was committed by the driver at 3579c22b, then REPLACED
+by 693b0ea3 (c's 54-line settle + subpixel fix, = the 816 recipe, now in the file) - the
+AW_OWNER_REFRESH regime is NOT in the file now: unflagged runs still re-copy all ten
+docs/site_flow/307d_*.png on every run (restore them to committed bytes after each run,
+R5 - B_1-card is always byte-identical, the other nine re-encode). The it.235 file survives
+verbatim at `git show 3579c22b:tests/test_owner_check.py` (port the regime onto the
+current 816-recipe file: `_write_surface` += the ten PNGs, the docs copy gated on
+`AW_OWNER_REFRESH=1` moved after the write-surface assert, docstrings).
+
+**Pair state at it.236:** GREEN on this branch with the 816 recipe + the 245 page fix (3
+unflagged runs, both tests pass, zero [warn] settle).
+**Boxes unticked**: 810's session runs the pair twice unflagged (`git status` clean after
+each - box 1/2) + the full suite (box 3) and ticks these boxes per 810's hand-over; the
+one-time refresh run of the flag itself is 811's job (this task only provides the flag).
+When the driver returns this task, re-confirm the suite green and claim.
+
+<superseded it.235 text kept for the design record only:
+
+(2026-10-15, iteration 235, agent a) **BUILT on agent/a's branch with 814 + 812 in the same
+file (tests/test_owner_check.py), uncommitted until 810's session commits.** The regime:
+`_write_surface` now includes the ten committed docs/site_flow/307d_*.png, so the existing
+pre/post hash assert proves an unflagged run left them byte-identical; the old unconditional
+`shutil.copy2` of the fresh renders into docs/site_flow/ is gone - the copy now happens only
+under the explicit env var `AW_OWNER_REFRESH=1` (named in the module and both test
+docstrings) and AFTER the write-surface assert; module + test A + test B docstrings describe
+the pinned-snapshot regime (ordinary run never touches the ten; the flag re-renders them;
+814's zeroed transitions + idle settle and 812's double shot are part of the regime they
+protect). No existing check changed. **Boxes unticked**: 810's session (next) runs the pair
+twice unflagged (`git status` clean after each - box 1/2) + the full suite (box 3) and ticks
+these boxes per 810's hand-over; the one-time refresh run of the flag itself is 811's job
+(this task only provides the flag). When the driver returns this task, re-confirm the
+suite green and claim. Design rationale in DECISIONS.md "2026-10-15 810 DECISION".

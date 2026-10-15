@@ -280,6 +280,41 @@ const nextAfter = pending[pending.findIndex(e => e.site === site) + 1];
 const browser = await chromium.launch({ channel: 'chrome', headless: true,
   args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
 const page = await browser.newPage({ viewport: { width: 1280, height: 820 }, colorScheme: 'light' });
+// Settle the map view before every capture and quad read: place chains the 4.5 s site flyTo
+// (index.html select) with a 900 ms fitBounds (fitkit _fkActivate), save runs a 900 ms
+// easeTo, and a deep-link reload re-fires the 4.5 s flyTo - a fixed sleep ends
+// mid-transition, and a mid-transition shot shifts the overlay rectangle against the ground
+// imagery (the 28.6-33.6% run-to-run drift the 242 family measured).
+// isMoving() is true while any camera animation is in flight (MapLibre 5.6.0: _prepareEase
+// sets it, _easeEnd clears it) and false once the view settles; the bounded timeout keeps the
+// probe from hanging - a shot taken after it is mid-transition and the 812 double-shot assert
+// fails loudly on it.
+const settle = async (budgetMs = 20000) => {
+  const t0 = Date.now();
+  while (Date.now() - t0 < budgetMs) {
+    if (await page.evaluate(() => !map.isMoving())) return;
+    await sleep(150);
+  }
+  console.log('[warn] settle: the map view was still moving after ' + budgetMs + ' ms');
+};
+// The quad reads quantise a second way, once the camera is settled: MapLibre 5.6.0's Marker
+// defaults subpixelPositioning to false (ctor: e&&e.subpixelPositioning||!1) and _update rounds
+// _pos to integer pixels on every setLngLat and moveend update, so the page's fit markers
+// (addPairMarker: no subpixel option) sit at whole pixels - a 1-px rounding error exceeds the
+// 1% tolerance on an ~83-px edge (192 measured it: true q1 edge 82.9807 read 82.0, true q2 edge
+// 87.1384 read 87.0057 - exactly the 1.06105 the 230/239/241 flake recorded; the true ratio
+// 1.0501 passes). _fkApply recreates the marker objects with the fresh false default, so this
+// re-enables the vendored public API on the LIVE markers before every read and shot, then forces
+// one re-position (setLngLat of the same point) so an already-rounded marker actually moves.
+// Idempotent with the page-side fix (addPairMarker passing subpixelPositioning: true).
+const subpixel = async () => {
+  await page.evaluate(() => {
+    for (const m of P.marks) {
+      if (!m._subpixelPositioning) m.setSubpixelPositioning(true);
+      if (m._lngLat) m.setLngLat(m.getLngLat());
+    }
+  });
+};
 const lines = [];
 page.on('pageerror', e => lines.push('[pageerror] ' + e.message));
 page.on('requestfailed', r => lines.push('[reqfail] ' + r.url() + ' ' + (r.failure() && r.failure().errorText)));
@@ -296,6 +331,8 @@ const cardText = () => page.evaluate(() => { const c = document.getElementById('
 const card1 = await cardText();
 check('the card names the pick and its best row', !!card1 && card1.name === (pick.name || pick.site) &&
   card1.text.includes(pick.best.row.title || pick.best.row.id), { card1, want: pick.name });
+await settle();
+await subpixel();
 await page.screenshot({ path: outdir + '/1-card.png' });
 
 // ---- place
@@ -311,6 +348,9 @@ await page.click('#fqplace');
 await page.waitForSelector('#fkbar', { timeout: 60000 });
 await page.waitForFunction(() => [...document.querySelectorAll('.gpin.fk-handle')].filter(el => el.style.display !== 'none').length === 4, null, { timeout: 30000 });
 await sleep(2500);
+// the place chain: the 4.5 s site flyTo interrupted by the 900 ms fitBounds
+await settle();
+await subpixel();
 const q0 = await quad(), c0 = await groundOnScreen([propC[2], propC[3]]);
 const sites0 = await served('data/sites.json');
 const entry0 = (sites0.sites || sites0).find(x => x.id === site) || {};
@@ -319,18 +359,26 @@ check('place: the earlier overlay is hidden while placing', !before.vis || (awai
 check('place: the site\'s own ground is pressed (LiDAR relief unless the site has none)',
   await page.evaluate(id => document.getElementById(id) ? document.getElementById(id).getAttribute('aria-pressed') === 'true' : true,
     entry0.lidar === false ? 'g-imagery' : 'g-relief'));
+await settle();
+await subpixel();
 await page.screenshot({ path: outdir + '/2-placed.png' });
 
 // ---- move it the way the owner does: a drag on it, the toolbar's scale and turn
 const mid = [q0.reduce((s, p) => s + p[0], 0) / 4, q0.reduce((s, p) => s + p[1], 0) / 4];
 await page.mouse.move(...mid); await page.mouse.down(); await page.mouse.move(mid[0] + 30, mid[1] + 20, { steps: 6 }); await page.mouse.up();
 await sleep(400);
+await settle();
+await subpixel();
 const q1 = await quad();
 check('drag on the drawing moves it by the pointer', q1.every((p, i) => Math.hypot(p[0] - q0[i][0] - 30, p[1] - q0[i][1] - 20) < 2.5), { q0, q1 });
 await page.click('#fkbar [data-a="s+"]'); await page.click('#fkbar [data-a="r+"]'); await sleep(500);
+await settle();
+await subpixel();
 const q2 = await quad();
 const edge = q => Math.hypot(q[1][0] - q[0][0], q[1][1] - q[0][1]);
 check('toolbar scale and turn change the drawing on screen', Math.abs(edge(q2) / edge(q1) - 1.05) < 0.01, { e1: edge(q1), e2: edge(q2) });
+await settle();
+await subpixel();
 await page.screenshot({ path: outdir + '/3-gestured.png' });
 
 // ---- save from the toolbar: where the corners sit now is what must land
@@ -369,6 +417,9 @@ if (effects.corners) {
 check('line effect (b): the site\'s square takes its new score\'s tier',
   (effects.markerClass || '').split(/\s+/).includes('marker') && (effects.markerClass || '').split(/\s+/).includes(effects.tier), effects);
 check('line effect (c): the site left the open review list', effects.inOpen === false, effects);
+// the save just ran the page's 900 ms easeTo - the shot must not land mid-transition
+await settle();
+await subpixel();
 await page.screenshot({ path: outdir + '/4-saved.png' });
 
 // ---- the card moves on
@@ -402,6 +453,9 @@ check('reload: the site opens with the saved drawing selected and on the map, in
   reload.selectedDep === effects.overlayFile && reload.depVis === 'visible' && reload.depSrc === 'data/sites/' + site + '/' + effects.overlayInk &&
   reload.aerial && reload.ink, reload);
 await sleep(3000);
+// the reload re-fired the 4.5 s site flyTo via the deep link
+await settle();
+await subpixel();
 await page.screenshot({ path: outdir + '/5-reload.png' });
 await page.click('#back', { timeout: 20000 });
 await page.waitForSelector('#fqcard', { timeout: 20000 }).catch(() => {});
