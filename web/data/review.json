@@ -1,5 +1,5 @@
 {
- "at": "2026-10-14T17:31:17.306439+00:00",
+ "at": "2026-10-15T11:30:08.117842+00:00",
  "items": [
   {
    "site": "a-saucer-barrow-and-a-bowl-barrow-600m-n-q17677473",
@@ -1970,6 +1970,40 @@
     "searched": "no wikidata item; no Commons category; title searches: \"\"Balnuaran of Clava cairns\" plan\", \"\"Balnuaran of Clava cairns\" map OR survey\", \"\"Balnuaran of Clava cairns\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:28.217098+00:00"
    }
+  },
+  {
+   "site": "baltimore-q5092",
+   "name": "Baltimore",
+   "lead": "c_4ddeb8f58cf060f5",
+   "candidates": [
+    {
+     "plan": "c_4ddeb8f58cf060f5",
+     "title": "Baltimore, the Parsons bird's-eye view (1880)",
+     "url": "media/commons/baltimore-q5092/4ddeb8f58cf060f5.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "Baltimore",
+      "place_qid": "Q5092",
+      "place_label": "Baltimore",
+      "place_lon": -76.615,
+      "place_lat": 39.286389,
+      "site_lon": -76.615,
+      "site_lat": 39.286389,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 4 consistent points (need 10)"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "bapaume-q317235",
@@ -4050,6 +4084,40 @@
    }
   },
   {
+   "site": "boston-q100",
+   "name": "Boston",
+   "lead": "c_feba3eac82111e59",
+   "candidates": [
+    {
+     "plan": "c_feba3eac82111e59",
+     "title": "Boston, the Walker bird's-eye view (1902)",
+     "url": "media/commons/boston-q100/feba3eac82111e59.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "Boston",
+      "place_qid": "Q100",
+      "place_label": "Boston",
+      "place_lon": -71.057778,
+      "place_lat": 42.360278,
+      "site_lon": -71.057778,
+      "site_lat": 42.360278,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 5 consistent points (need 10)"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "bottle-creek-indian-mounds-q4949038",
    "name": "Bottle Creek Indian Mounds",
    "lead": null,
@@ -5768,6 +5836,40 @@
    "no_picture_found": null
   },
   {
+   "site": "chicago-q1297",
+   "name": "Chicago",
+   "lead": "c_4bfe0d63bbb631fa",
+   "candidates": [
+    {
+     "plan": "c_4bfe0d63bbb631fa",
+     "title": "Chicago, the Peter Roy bird's-eye view (1892)",
+     "url": "media/commons/chicago-q1297/4bfe0d63bbb631fa.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "Chicago",
+      "place_qid": "Q1297",
+      "place_label": "Chicago",
+      "place_lon": -87.627778,
+      "place_lat": 41.881944,
+      "site_lon": -87.627778,
+      "site_lat": 41.881944,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 4 consistent points (need 10)"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "chimay-q95380",
    "name": "Chimay",
    "lead": "c_85545a4f2f3cd8bd",
@@ -5958,6 +6060,40 @@
    "no_picture_found": null
   },
   {
+   "site": "cincinnati-q43196",
+   "name": "Cincinnati",
+   "lead": "c_d7c32f8968a54ea8",
+   "candidates": [
+    {
+     "plan": "c_d7c32f8968a54ea8",
+     "title": "Cincinnati, the Trout bird's-eye view (1900)",
+     "url": "media/commons/cincinnati-q43196/d7c32f8968a54ea8.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "Cincinnati",
+      "place_qid": "Q43196",
+      "place_label": "Cincinnati",
+      "place_lon": -84.5125,
+      "place_lat": 39.1,
+      "site_lon": -84.5125,
+      "site_lat": 39.1,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 4 consistent points (need 10)"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "civil-war-earthworks-at-tallahatchie-cro-q61456836",
    "name": "Civil War Earthworks at Tallahatchie Crossing",
    "lead": null,
@@ -5966,6 +6102,40 @@
     "searched": "wikidata Q61456836; Commons category 'Civil War Earthworks at Tallahatchie Crossing' (10 files); P180 depictions of Q61456836: 0 of 10 file(s) checked; title searches: \"\"Civil War Earthworks at Tallahatchie Crossing\" plan\", \"\"Civil War Earthworks at Tallahatchie Crossing\" map OR survey\", \"\"Civil War Earthworks at Tallahatchie Crossing\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:28.193607+00:00"
    }
+  },
+  {
+   "site": "cleveland-q37320",
+   "name": "Cleveland",
+   "lead": "c_3c7244f2e1995dc6",
+   "candidates": [
+    {
+     "plan": "c_3c7244f2e1995dc6",
+     "title": "Cleveland, the A. Ruger / Shober & Carqueville bird's-eye view (1877)",
+     "url": "media/commons/cleveland-q37320/3c7244f2e1995dc6.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "Cleveland",
+      "place_qid": "Q37320",
+      "place_label": "Cleveland",
+      "place_lon": -81.69472222222223,
+      "place_lat": 41.49916666666667,
+      "site_lon": -81.69472222222223,
+      "site_lat": 41.49916666666667,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 4 consistent points (need 10)"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "clun-castle-q5136615",
@@ -6081,6 +6251,40 @@
     "searched": "wikidata Q5139587; Commons category 'Cockermouth Castle' (37 files); P180 depictions of Q5139587: 0 of 38 file(s) checked; title searches: \"\"Cockermouth Castle\" plan\", \"\"Cockermouth Castle\" map OR survey\", \"\"Cockermouth Castle\" engraving OR drawing OR view OR prospect -\"style of\"\" (2 hits); 2026-10-13",
     "at": "2026-10-13T09:21:28.240880+00:00"
    }
+  },
+  {
+   "site": "columbus-q16567",
+   "name": "Columbus",
+   "lead": "c_6a10cb94adb8c13c",
+   "candidates": [
+    {
+     "plan": "c_6a10cb94adb8c13c",
+     "title": "Columbus, the H. H. & O. H. Bailey bird's-eye view (1872)",
+     "url": "media/commons/columbus-q16567/6a10cb94adb8c13c.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "Columbus",
+      "place_qid": "Q16567",
+      "place_label": "Columbus",
+      "place_lon": -83.00055555555555,
+      "place_lat": 39.96222222222222,
+      "site_lon": -83.00055555555555,
+      "site_lat": 39.96222222222222,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 4 consistent points (need 10)"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "colwyn-castle-q5150338",
@@ -6379,6 +6583,40 @@
    "no_picture_found": null
   },
   {
+   "site": "denver-q16554",
+   "name": "Denver",
+   "lead": "c_27675e0aa1425495",
+   "candidates": [
+    {
+     "plan": "c_27675e0aa1425495",
+     "title": "Denver, the Birdseye View Publishing Co. bird's-eye view (1908)",
+     "url": "media/commons/denver-q16554/27675e0aa1425495.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "Denver",
+      "place_qid": "Q16554",
+      "place_label": "Denver",
+      "place_lon": -104.984722,
+      "place_lat": 39.739167,
+      "site_lon": -104.984722,
+      "site_lat": 39.739167,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: the consistent points lie nearly on a line (spread 0.63, 10 px across): the scale is not pinned"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "desborough-castle-q5263651",
    "name": "Desborough Castle",
    "lead": "earthworkenglan01allcgoog_n0465_1",
@@ -6452,6 +6690,40 @@
      "place_reason": "306d audit 2026-10-13: the 8 anchors are a trustworthy uniform 1.0 m/px square (resid 0, rot 0), but the drawn 'Roundabout' ring - labelled '90 x 60 paces' and 'in area about an acre', the real hillfort (~90 m, hatched 'Desborough Castle (Rondabout)' at the site point on the OS 6-inch) - is drawn ~500x670 m, ~5-6x too big, with its centre ~450 m SE of the real hill (the site point lands on the drawn ring's NW rim, over housing); the plate's own text matches the drawing only at ~0.18 m/px, not the fitted 1.0 m/px, and the drawn scarp oval stretches far beyond the hill (the drawn arcs over Castlefield Wood and the fields in the OS composite). Document deleted.",
      "why": "line check: fabricated anchor pattern: 2D lattice (regular ladders on both page axes); grid-round page coordinates (11 of 11 distinct values on a 10-px grid); the gate's 0.0 m measures internal consistency of the anchors, not their truth",
      "gate_score": 0.0
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "detroit-q12439",
+   "name": "Detroit",
+   "lead": "c_671b74057e62006b",
+   "candidates": [
+    {
+     "plan": "c_671b74057e62006b",
+     "title": "Detroit, the Calvert bird's-eye view (1889)",
+     "url": "media/commons/detroit-q12439/671b74057e62006b.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "Detroit",
+      "place_qid": "Q12439",
+      "place_label": "Detroit",
+      "place_lon": -83.0475,
+      "place_lat": 42.331667,
+      "site_lon": -83.0475,
+      "site_lat": 42.331667,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 4 consistent points (need 10)"
     }
    ],
    "no_picture_found": null
@@ -10080,6 +10352,40 @@
    }
   },
   {
+   "site": "indianapolis-q6346",
+   "name": "Indianapolis",
+   "lead": "c_7b0f20b65aa5c3be",
+   "candidates": [
+    {
+     "plan": "c_7b0f20b65aa5c3be",
+     "title": "Indianapolis, the E. G. Spink Company bird's-eye view (1925)",
+     "url": "media/commons/indianapolis-q6346/7b0f20b65aa5c3be.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "Indianapolis",
+      "place_qid": "Q6346",
+      "place_label": "Indianapolis",
+      "place_lon": -86.158055555556,
+      "place_lat": 39.768611111111,
+      "site_lon": -86.158055555556,
+      "site_lat": 39.768611111111,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 8 consistent points (need 10)"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "isca-augusta-q929778",
    "name": "Isca Augusta",
    "lead": null,
@@ -10172,6 +10478,40 @@
     "searched": "no wikidata item; no Commons category; title searches: \"\"Jersika hillfort\" plan\", \"\"Jersika hillfort\" map OR survey\", \"\"Jersika hillfort\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:30.053543+00:00"
    }
+  },
+  {
+   "site": "kansas-city-q41819",
+   "name": "Kansas City",
+   "lead": "c_2dce28785be63091",
+   "candidates": [
+    {
+     "plan": "c_2dce28785be63091",
+     "title": "Kansas City, the Ruger bird's-eye view (1869)",
+     "url": "media/commons/kansas-city-q41819/2dce28785be63091.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "Kansas City",
+      "place_qid": "Q41819",
+      "place_label": "Kansas City",
+      "place_lon": -94.583333,
+      "place_lat": 39.05,
+      "site_lon": -94.583333,
+      "site_lat": 39.05,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 4 consistent points (need 10)"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "kapersburg-q1735382",
@@ -11183,6 +11523,40 @@
    }
   },
   {
+   "site": "louisville-q43668",
+   "name": "Louisville",
+   "lead": "c_4d182a8fb649ec9b",
+   "candidates": [
+    {
+     "plan": "c_4d182a8fb649ec9b",
+     "title": "Louisville, the Clarke bird's-eye view (1883)",
+     "url": "media/commons/louisville-q43668/4d182a8fb649ec9b.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "Louisville",
+      "place_qid": "Q43668",
+      "place_label": "Louisville",
+      "place_lon": -85.751389,
+      "place_lat": 38.256111,
+      "site_lon": -85.751389,
+      "site_lat": 38.256111,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 4 consistent points (need 10)"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "lsu-campus-mounds-q6460005",
    "name": "LSU Campus Mounds",
    "lead": null,
@@ -11757,6 +12131,40 @@
    "no_picture_found": null
   },
   {
+   "site": "memphis-q16563",
+   "name": "Memphis",
+   "lead": "c_8a0fc530d78bf11f",
+   "candidates": [
+    {
+     "plan": "c_8a0fc530d78bf11f",
+     "title": "Memphis, the A. Ruger bird's-eye view (1870)",
+     "url": "media/commons/memphis-q16563/8a0fc530d78bf11f.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "Memphis",
+      "place_qid": "Q16563",
+      "place_label": "Memphis",
+      "place_lon": -90.05194444444444,
+      "place_lat": 35.14611111111111,
+      "site_lon": -90.05194444444444,
+      "site_lat": 35.14611111111111,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 3 consistent points (need 10)"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "miamisburg-mound-q34827561",
    "name": "Miamisburg Mound",
    "lead": null,
@@ -11765,6 +12173,74 @@
     "searched": "wikidata Q34827561; Commons category 'Miamisburg Mound' (16 files); P180 depictions of Q34827561: 0 of 16 file(s) checked; title searches: \"\"Miamisburg Mound\" plan\", \"\"Miamisburg Mound\" map OR survey\", \"\"Miamisburg Mound\" engraving OR drawing OR view OR prospect -\"style of\"\" (1 hit); 2026-10-13",
     "at": "2026-10-13T09:21:30.846137+00:00"
    }
+  },
+  {
+   "site": "milwaukee-q37836",
+   "name": "Milwaukee",
+   "lead": "c_5d8d17eb22e110f7",
+   "candidates": [
+    {
+     "plan": "c_5d8d17eb22e110f7",
+     "title": "Milwaukee, the Bailey bird's-eye view (1872)",
+     "url": "media/commons/milwaukee-q37836/5d8d17eb22e110f7.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "Milwaukee",
+      "place_qid": "Q37836",
+      "place_label": "Milwaukee",
+      "place_lon": -87.95,
+      "place_lat": 43.05,
+      "site_lon": -87.95,
+      "site_lat": 43.05,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 4 consistent points (need 10)"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "minneapolis-q36091",
+   "name": "Minneapolis",
+   "lead": "c_3b4a78e2c577925d",
+   "candidates": [
+    {
+     "plan": "c_3b4a78e2c577925d",
+     "title": "Minneapolis, the W. V. Herancourt / I. Monasch bird's-eye view (1885)",
+     "url": "media/commons/minneapolis-q36091/3b4a78e2c577925d.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "Minneapolis",
+      "place_qid": "Q36091",
+      "place_label": "Minneapolis",
+      "place_lon": -93.26916666666666,
+      "place_lat": 44.981944444444444,
+      "site_lon": -93.26916666666666,
+      "site_lat": 44.981944444444444,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 4 consistent points (need 10)"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "mitford-castle-q6881554",
@@ -12515,6 +12991,144 @@
    }
   },
   {
+   "site": "nashville-q23197",
+   "name": "Nashville",
+   "lead": "c_a627153118b524e5",
+   "candidates": [
+    {
+     "plan": "c_a627153118b524e5",
+     "title": "Nashville, the Tennessee Centennial Exposition bird's-eye view (1897)",
+     "url": "media/commons/nashville-q23197/a627153118b524e5.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "Nashville",
+      "place_qid": "Q23197",
+      "place_label": "Nashville",
+      "place_lon": -86.78152,
+      "place_lat": 36.16529,
+      "site_lon": -86.78152,
+      "site_lat": 36.16529,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 4 consistent points (need 10)"
+    },
+    {
+     "plan": "c_acd3cd4a8bdc2f58",
+     "title": "Nashville, the Clayton/Temple plan (1804, engraved 1880)",
+     "url": "media/commons/nashville-q23197/acd3cd4a8bdc2f58.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "Nashville",
+      "place_qid": "Q23197",
+      "place_label": "Nashville",
+      "place_lon": -86.78152,
+      "place_lat": 36.16529,
+      "site_lon": -86.78152,
+      "site_lat": 36.16529,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "not sure: 4 consistent points (need 10)"
+    },
+    {
+     "plan": "c_0d31466fb347c8cd",
+     "title": "Nashville, the Haydon & Booth plan (1860)",
+     "url": "media/commons/nashville-q23197/0d31466fb347c8cd.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "Nashville",
+      "place_qid": "Q23197",
+      "place_label": "Nashville",
+      "place_lon": -86.78152,
+      "place_lat": 36.16529,
+      "site_lon": -86.78152,
+      "site_lat": 36.16529,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "not sure: 4 consistent points (need 10)"
+    },
+    {
+     "plan": "c_7489aa387d763321",
+     "title": "Nashville, the O.M. Poe survey map (1860s, Chief Engineer's Office)",
+     "url": "media/commons/nashville-q23197/7489aa387d763321.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "Nashville",
+      "place_qid": "Q23197",
+      "place_label": "Nashville",
+      "place_lon": -86.78152,
+      "place_lat": 36.16529,
+      "site_lon": -86.78152,
+      "site_lat": 36.16529,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "not sure: 4 consistent points (need 10)"
+    },
+    {
+     "plan": "c_d2ed9616d1d5c7e5",
+     "title": "Nashville, the Civil War fortifications (1895 atlas plate, surveyed Dec 1864)",
+     "url": "media/commons/nashville-q23197/d2ed9616d1d5c7e5.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "Nashville",
+      "place_qid": "Q23197",
+      "place_label": "Nashville",
+      "place_lon": -86.78152,
+      "place_lat": 36.16529,
+      "site_lon": -86.78152,
+      "site_lat": 36.16529,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "not sure: 4 consistent points (need 10)"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "navio-roman-fort-q17667745",
    "name": "Navio Roman fort",
    "lead": null,
@@ -12554,6 +13168,230 @@
      "scale_source": "picture_size",
      "note": "commons row: no stage-B fields: coarse anchor",
      "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "new-orleans-q34404",
+   "name": "New Orleans",
+   "lead": "c_187c8506049a27f6",
+   "candidates": [
+    {
+     "plan": "c_187c8506049a27f6",
+     "title": "New Orleans, the Bachman bird's-eye view (1851)",
+     "url": "media/commons/new-orleans-q34404/187c8506049a27f6.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "New Orleans",
+      "place_qid": "Q34404",
+      "place_label": "New Orleans",
+      "place_lon": -90.078333,
+      "place_lat": 29.976111,
+      "site_lon": -90.078333,
+      "site_lat": 29.976111,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 3 consistent points (need 10)"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "new-york-q60",
+   "name": "New York City",
+   "lead": "c_921b186549bc7036",
+   "candidates": [
+    {
+     "plan": "c_921b186549bc7036",
+     "title": "New York, the Bachmann bird's-eye view (1874)",
+     "url": "media/commons/new-york-q60/921b186549bc7036.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "New York",
+      "place_qid": "Q60",
+      "place_label": "New York City",
+      "place_lon": -74.006111,
+      "place_lat": 40.712778,
+      "site_lon": -74.006111,
+      "site_lat": 40.712778,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 3 consistent points (need 10)"
+    },
+    {
+     "plan": "c_7b8ec065bef1ed42",
+     "title": "New York, the Will L. Taylor bird's-eye view (1879)",
+     "url": "media/commons/new-york-q60/7b8ec065bef1ed42.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "New York",
+      "place_qid": "Q60",
+      "place_label": "New York City",
+      "place_lon": -74.006111,
+      "place_lat": 40.712778,
+      "site_lon": -74.006111,
+      "site_lat": 40.712778,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 0.8814,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 4 consistent points (need 10)"
+    },
+    {
+     "plan": "c_ce3478f0db8ad544",
+     "title": "New York, the Ohmann & Co. bird's-eye view (1907, metro-wide)",
+     "url": "media/commons/new-york-q60/ce3478f0db8ad544.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "New York",
+      "place_qid": "Q60",
+      "place_label": "New York City",
+      "place_lon": -74.006111,
+      "place_lat": 40.712778,
+      "site_lon": -74.006111,
+      "site_lat": 40.712778,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 5 consistent points (need 10)"
+    },
+    {
+     "plan": "c_02fd531870944f7b",
+     "title": "New York, the Castello plan (1660 Dutch survey of New Amsterdam)",
+     "url": "media/commons/new-york-q60/02fd531870944f7b.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-13",
+      "named_place": "New York",
+      "place_qid": "Q60",
+      "place_label": "New York City",
+      "place_lon": -74.006111,
+      "place_lat": 40.712778,
+      "site_lon": -74.006111,
+      "site_lat": 40.712778,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "not sure: 4 consistent points (need 10)"
+    },
+    {
+     "plan": "c_9fbbe4eede6a58a4",
+     "title": "New York, Bernard Ratzer's plan (1767)",
+     "url": "media/commons/new-york-q60/9fbbe4eede6a58a4.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-13",
+      "named_place": "New York",
+      "place_qid": "Q60",
+      "place_label": "New York City",
+      "place_lon": -74.006111,
+      "place_lat": 40.712778,
+      "site_lon": -74.006111,
+      "site_lat": 40.712778,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.1983,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "not sure: 4 consistent points (need 10)"
+    },
+    {
+     "plan": "c_6501fcb809b471e1",
+     "title": "New York, the Commissioners' Plan (1811, bird's-eye view; published 1821)",
+     "url": "media/commons/new-york-q60/6501fcb809b471e1.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-13",
+      "named_place": "New York",
+      "place_qid": "Q60",
+      "place_label": "New York City",
+      "place_lon": -74.006111,
+      "place_lat": 40.712778,
+      "site_lon": -74.006111,
+      "site_lat": 40.712778,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 4 consistent points (need 10)"
+    },
+    {
+     "plan": "c_111f23674ba71b09",
+     "title": "New York, Egbert Viele's topographical map (1865)",
+     "url": "media/commons/new-york-q60/111f23674ba71b09.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-13",
+      "named_place": "New York",
+      "place_qid": "Q60",
+      "place_label": "New York City",
+      "place_lon": -74.006111,
+      "place_lat": 40.712778,
+      "site_lon": -74.006111,
+      "site_lat": 40.712778,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "not sure: 4 consistent points (need 10)"
     }
    ],
    "no_picture_found": null
@@ -13143,6 +13981,40 @@
    }
   },
   {
+   "site": "omaha-q43199",
+   "name": "Omaha",
+   "lead": "c_42ec242fc73d0b42",
+   "candidates": [
+    {
+     "plan": "c_42ec242fc73d0b42",
+     "title": "Omaha, the E. Ruger / Chicago Lithographing Co. bird's-eye view (1868)",
+     "url": "media/commons/omaha-q43199/42ec242fc73d0b42.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "Omaha",
+      "place_qid": "Q43199",
+      "place_label": "Omaha",
+      "place_lon": -95.9375,
+      "place_lat": 41.25861111111111,
+      "site_lon": -95.9375,
+      "site_lat": 41.25861111111111,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 5 consistent points (need 10)"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "oostum-q2598567",
    "name": "Oostum",
    "lead": null,
@@ -13518,6 +14390,40 @@
    }
   },
   {
+   "site": "philadelphia-q1345",
+   "name": "Philadelphia",
+   "lead": "c_61b6073da1807052",
+   "candidates": [
+    {
+     "plan": "c_61b6073da1807052",
+     "title": "Philadelphia, the Davis bird's-eye view (1872)",
+     "url": "media/commons/philadelphia-q1345/61b6073da1807052.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "Philadelphia",
+      "place_qid": "Q1345",
+      "place_label": "Philadelphia",
+      "place_lon": -75.163611,
+      "place_lat": 39.952778,
+      "site_lon": -75.163611,
+      "site_lat": 39.952778,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 3 consistent points (need 10)"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "pickering-castle-q7190805",
    "name": "Pickering Castle",
    "lead": "earthworkenglan01allcgoog_n0325_1",
@@ -13864,6 +14770,40 @@
     "searched": "wikidata Q4363053; Commons category 'Pinson Mounds State Archaeological Park' (10 files); P180 depictions of Q4363053: 0 of 11 file(s) checked; title searches: \"\"Pinson Mounds\" plan\", \"\"Pinson Mounds\" map OR survey\", \"\"Pinson Mounds\" engraving OR drawing OR view OR prospect -\"style of\"\" (0 hits); 2026-10-13",
     "at": "2026-10-13T09:21:32.024744+00:00"
    }
+  },
+  {
+   "site": "pittsburgh-q1342",
+   "name": "Pittsburgh",
+   "lead": "c_7b7c5bb5bce390a9",
+   "candidates": [
+    {
+     "plan": "c_7b7c5bb5bce390a9",
+     "title": "Pittsburgh, the Fowler bird's-eye view (1902)",
+     "url": "media/commons/pittsburgh-q1342/7b7c5bb5bce390a9.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "Pittsburgh",
+      "place_qid": "Q1342",
+      "place_label": "Pittsburgh",
+      "place_lon": -80.0,
+      "place_lat": 40.441667,
+      "site_lon": -80.0,
+      "site_lat": 40.441667,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 4 consistent points (need 10)"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "plum-bayou-mounds-archeological-state-pa-q7814641",
@@ -14500,6 +15440,40 @@
    }
   },
   {
+   "site": "portland-q6106",
+   "name": "Portland",
+   "lead": "c_28e8b2e0e5ab7bca",
+   "candidates": [
+    {
+     "plan": "c_28e8b2e0e5ab7bca",
+     "title": "Portland, the J. McI. Wood perspective bird's-eye view (1890)",
+     "url": "media/commons/portland-q6106/28e8b2e0e5ab7bca.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "Portland",
+      "place_qid": "Q6106",
+      "place_label": "Portland",
+      "place_lon": -122.67916666666666,
+      "place_lat": 45.515,
+      "site_lon": -122.67916666666666,
+      "site_lat": 45.515,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 4 consistent points (need 10)"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
    "site": "horseshoe-mound-q116268128",
    "name": "Portsmouth Earthworks (Horseshoe Mound)",
    "lead": null,
@@ -15095,6 +16069,222 @@
      "scale_source": "picture_size",
      "note": "commons row: no stage-B fields: coarse anchor",
      "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "san-francisco-q62",
+   "name": "San Francisco",
+   "lead": "c_985e6d378343b8b1",
+   "candidates": [
+    {
+     "plan": "c_985e6d378343b8b1",
+     "title": "San Francisco, the Henry Bill bird's-eye view (1854, drawn 1852)",
+     "url": "media/commons/san-francisco-q62/985e6d378343b8b1.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "San Francisco",
+      "place_qid": "Q62",
+      "place_label": "San Francisco",
+      "place_lon": -122.40289,
+      "place_lat": 37.79213,
+      "site_lon": -122.40289,
+      "site_lat": 37.79213,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 4 consistent points (need 10)"
+    },
+    {
+     "plan": "c_865e981e273f3075",
+     "title": "San Francisco, the Goddard bird's-eye view (1868)",
+     "url": "media/commons/san-francisco-q62/865e981e273f3075.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "San Francisco",
+      "place_qid": "Q62",
+      "place_label": "San Francisco",
+      "place_lon": -122.40289,
+      "place_lat": 37.79213,
+      "site_lon": -122.40289,
+      "site_lat": 37.79213,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 4 consistent points (need 10)"
+    },
+    {
+     "plan": "c_1d79f2fb0899b9de",
+     "title": "San Francisco, the Parsons/Currier & Ives bird's-eye view (1878)",
+     "url": "media/commons/san-francisco-q62/1d79f2fb0899b9de.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "San Francisco",
+      "place_qid": "Q62",
+      "place_label": "San Francisco",
+      "place_lon": -122.40289,
+      "place_lat": 37.79213,
+      "site_lon": -122.40289,
+      "site_lat": 37.79213,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 4 consistent points (need 10)"
+    },
+    {
+     "plan": "c_3d2fe84db288c7e8",
+     "title": "San Francisco, the C. Merriman Peter bird's-eye view (1914)",
+     "url": "media/commons/san-francisco-q62/3d2fe84db288c7e8.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "San Francisco",
+      "place_qid": "Q62",
+      "place_label": "San Francisco",
+      "place_lon": -122.40289,
+      "place_lat": 37.79213,
+      "site_lon": -122.40289,
+      "site_lat": 37.79213,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 4 consistent points (need 10)"
+    },
+    {
+     "plan": "c_8e2fc23385eac72c",
+     "title": "San Francisco, the Eddy survey map (1849, the original)",
+     "url": "media/commons/san-francisco-q62/8e2fc23385eac72c.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-13",
+      "named_place": "San Francisco",
+      "place_qid": "Q62",
+      "place_label": "San Francisco",
+      "place_lon": -122.40289,
+      "place_lat": 37.79213,
+      "site_lon": -122.40289,
+      "site_lat": 37.79213,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.1891,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "not sure: 7 consistent points (need 10)"
+    },
+    {
+     "plan": "c_d61f6e15a4941c17",
+     "title": "San Francisco, the first published map (1850, 'Copied From Originals')",
+     "url": "media/commons/san-francisco-q62/d61f6e15a4941c17.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-13",
+      "named_place": "San Francisco",
+      "place_qid": "Q62",
+      "place_label": "San Francisco",
+      "place_lon": -122.40289,
+      "place_lat": 37.79213,
+      "site_lon": -122.40289,
+      "site_lat": 37.79213,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.3021,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "not sure: 3 consistent points (need 10)"
+    },
+    {
+     "plan": "c_2cbc7ef2a832c38a",
+     "title": "San Francisco, the Eddy 'full and complete' sheet (1854)",
+     "url": "media/commons/san-francisco-q62/2cbc7ef2a832c38a.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-13",
+      "named_place": "San Francisco",
+      "place_qid": "Q62",
+      "place_label": "San Francisco",
+      "place_lon": -122.40289,
+      "place_lat": 37.79213,
+      "site_lon": -122.40289,
+      "site_lat": 37.79213,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.3063,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "not sure: 4 consistent points (need 10)"
+    },
+    {
+     "plan": "c_9be7a7ee2597ea9b",
+     "title": "San Francisco, the Vioget plan (1839, the first plan of the old town)",
+     "url": "media/commons/san-francisco-q62/9be7a7ee2597ea9b.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-13",
+      "named_place": "San Francisco",
+      "place_qid": "Q62",
+      "place_label": "San Francisco",
+      "place_lon": -122.40289,
+      "place_lat": 37.79213,
+      "site_lon": -122.40289,
+      "site_lat": 37.79213,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "not sure: 7 consistent points (need 10)"
     }
    ],
    "no_picture_found": null
@@ -16501,6 +17691,74 @@
      "scale_source": "picture_size",
      "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
      "why": "no model answer"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "st-louis-q38022",
+   "name": "St. Louis",
+   "lead": "c_4dd99d37fdc1485f",
+   "candidates": [
+    {
+     "plan": "c_4dd99d37fdc1485f",
+     "title": "St. Louis, the Palmatary bird's-eye view (1858)",
+     "url": "media/commons/st-louis-q38022/4dd99d37fdc1485f.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "St. Louis",
+      "place_qid": "Q38022",
+      "place_label": "St. Louis",
+      "place_lon": -90.199444,
+      "place_lat": 38.626389,
+      "site_lon": -90.199444,
+      "site_lat": 38.626389,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 5 consistent points (need 10)"
+    }
+   ],
+   "no_picture_found": null
+  },
+  {
+   "site": "st-paul-q28848",
+   "name": "St. Paul",
+   "lead": "c_64336c87c1e1c710",
+   "candidates": [
+    {
+     "plan": "c_64336c87c1e1c710",
+     "title": "St. Paul, the Robert M. Saint bird's-eye view (1906)",
+     "url": "media/commons/st-paul-q28848/64336c87c1e1c710.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "St. Paul",
+      "place_qid": "Q28848",
+      "place_label": "St. Paul",
+      "place_lon": -93.093611,
+      "place_lat": 44.944167,
+      "site_lon": -93.093611,
+      "site_lat": 44.944167,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 3 consistent points (need 10)"
     }
    ],
    "no_picture_found": null
@@ -19434,6 +20692,170 @@
     "searched": "wikidata Q922422; Commons category 'Warkworth Castle' (307 files); P180 depictions of Q922422: 0 of 307 file(s) checked; title searches: \"\"Warkworth Castle\" plan\", \"\"Warkworth Castle\" map OR survey\", \"\"Warkworth Castle\" engraving OR drawing OR view OR prospect -\"style of\"\" (13 hits); 2026-10-13",
     "at": "2026-10-13T09:21:34.327664+00:00"
    }
+  },
+  {
+   "site": "washington-q61",
+   "name": "Washington, D.C.",
+   "lead": "c_1afe8abaaad4d3f5",
+   "candidates": [
+    {
+     "plan": "c_1afe8abaaad4d3f5",
+     "title": "Washington, the A. Sachse & Co. bird's-eye view (1883)",
+     "url": "media/commons/washington-q61/1afe8abaaad4d3f5.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "Washington",
+      "place_qid": "Q61",
+      "place_label": "Washington, D.C.",
+      "place_lon": -77.036667,
+      "place_lat": 38.895,
+      "site_lon": -77.036667,
+      "site_lat": 38.895,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.23,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 5 consistent points (need 10)"
+    },
+    {
+     "plan": "c_63a6b4d0d5e11c2b",
+     "title": "Washington, the B.H. Warner & Co. bird's-eye view (1886)",
+     "url": "media/commons/washington-q61/63a6b4d0d5e11c2b.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "Washington",
+      "place_qid": "Q61",
+      "place_label": "Washington, D.C.",
+      "place_lon": -77.036667,
+      "place_lat": 38.895,
+      "site_lon": -77.036667,
+      "site_lat": 38.895,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 4 consistent points (need 10)"
+    },
+    {
+     "plan": "c_23d117a7a5726f7a",
+     "title": "Washington, the Olsen bird's-eye view (1921)",
+     "url": "media/commons/washington-q61/23d117a7a5726f7a.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-14",
+      "named_place": "Washington",
+      "place_qid": "Q61",
+      "place_label": "Washington, D.C.",
+      "place_lon": -77.036667,
+      "place_lat": 38.895,
+      "site_lon": -77.036667,
+      "site_lat": 38.895,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+     "why": "not sure: 4 consistent points (need 10)"
+    },
+    {
+     "plan": "c_da0d937e99fbb2a7",
+     "title": "Washington, D.C., the L'Enfant plan (1791, first printed 1792)",
+     "url": "media/commons/washington-q61/da0d937e99fbb2a7.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-13",
+      "named_place": "Washington",
+      "place_qid": "Q61",
+      "place_label": "Washington, D.C.",
+      "place_lon": -77.036667,
+      "place_lat": 38.895,
+      "site_lon": -77.036667,
+      "site_lat": 38.895,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "not sure: 5 consistent points (need 10)"
+    },
+    {
+     "plan": "c_3f20c4d9e9fbcbd3",
+     "title": "Washington, D.C., Andrew Ellicott's plan (1792, the first official plan)",
+     "url": "media/commons/washington-q61/3f20c4d9e9fbcbd3.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-13",
+      "named_place": "Washington",
+      "place_qid": "Q61",
+      "place_label": "Washington, D.C.",
+      "place_lon": -77.036667,
+      "place_lat": 38.895,
+      "site_lon": -77.036667,
+      "site_lat": 38.895,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.5625,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "not sure: 4 consistent points (need 10)"
+    },
+    {
+     "plan": "c_7fc4c7ef2b2e3ee2",
+     "title": "Washington, D.C., the Civil War defences (1865 map of the fortification ring)",
+     "url": "media/commons/washington-q61/7fc4c7ef2b2e3ee2.jpg",
+     "evidence": {
+      "rec": "evidence/1",
+      "kind": "caption_coords",
+      "checked": "2026-10-13",
+      "named_place": "Washington",
+      "place_qid": "Q61",
+      "place_label": "Washington, D.C.",
+      "place_lon": -77.036667,
+      "place_lat": 38.895,
+      "site_lon": -77.036667,
+      "site_lat": 38.895,
+      "dist_m": 0.0
+     },
+     "pairs": [],
+     "coarse": true,
+     "ground": "relief",
+     "scale_m_px": 1.1507,
+     "rot_deg": 0.0,
+     "scale_source": "picture_size",
+     "note": "commons row: no stage-B fields: coarse anchor",
+     "why": "not sure: 5 consistent points (need 10)"
+    }
+   ],
+   "no_picture_found": null
   },
   {
    "site": "wat-s-dyke-q696088",

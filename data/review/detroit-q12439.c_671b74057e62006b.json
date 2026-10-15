@@ -1,0 +1,33 @@
+{
+ "site": "detroit-q12439",
+ "candidates": [
+  {
+   "plan": "c_671b74057e62006b",
+   "title": "Detroit, the Calvert bird's-eye view (1889)",
+   "url": "media/commons/detroit-q12439/671b74057e62006b.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-14",
+    "named_place": "Detroit",
+    "place_qid": "Q12439",
+    "place_label": "Detroit",
+    "place_lon": -83.0475,
+    "place_lat": 42.331667,
+    "site_lon": -83.0475,
+    "site_lat": 42.331667,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.5625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "not sure: 4 consistent points (need 10)"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

@@ -12,7 +12,7 @@ and export plans.json so the new pictures appear on the page and in the fit queu
 - [x] fit/merge.py consolidates the two new staging sets; no duplicate site per QID; the merge test passes.
 - [x] Every new US city site is built (web/data/sites/<id>/ exists, aerial tiles present) and listed in
       web/data/sites.json; plans.json lists their pictures.
-- [ ] Every new site ends with a fitted drawing or a review item (tools/site_done.py), as in 212.
+- [x] Every new site ends with a fitted drawing or a review item (tools/site_done.py), as in 212.
 - [ ] The page loads with the new sites (server/serve.py), nothing that worked before breaks; full suite =
       baseline.
 
@@ -35,53 +35,49 @@ and this task's hand-over records the final count.
 
 ## Hand-over
 
-(2026-10-15, iteration 206, agent c). **Boxes 1 and 2 DONE** (merge it.205; build + fetch + plans
-export this session, all verified by running). Remaining: box 3 (per-site completion) and box 4
-(full suite).
+(2026-10-15, iteration 207, agent c). **Boxes 1, 2, 3 DONE.** Remaining: the docs/sources.md rows,
+the frozen-baseline re-baseline, and box 4 (full suite).
+
+**BOX 3 done this session (all 25 US sites through the one-site line, `tools/site_done.py`, matcher
+reachable at 127.0.0.1:8091):** baltimore first as a probe (22 s), then the remaining 24 in one batch
+(19 m 09 s; one process per site; per-site log in data/merge/site_done.log, all rc=0, no FAILED). OUTCOME
+EVERYWHERE: the matcher refused all 47 pictures - 46 with "not sure: 3-8 consistent points (need 10)"
+(the confidence gate) and 1 (denver) "consistent points lie nearly on a line (spread 0.63, 10 px): the
+scale is not pinned"; NO confident fit, hence NO platefit documents (data/db/platefits/ untouched), NO
+overlays, drawings 0 -> 0 for all 25 (consistent with box 2: no old-map layer covers the US, the page
+shows live aerial tiles). Every picture therefore landed in its site's review item: 25 NEW item files
+under data/review/ (one per site, key = the site's first candidate's plan id, e.g.
+nashville-q23197.c_a627153118b524e5.json carries all 5 nashville candidates; washington 6, new-york 7,
+san-francisco 8), each entry with the batch's coarse anchor (coarse: true, ground relief/imagery,
+scale_m_px from picture size), the files.jsonl evidence block, and the matcher's recorded `why`.
+web/data/review.json re-published: 481 OPEN items written (the page lists open only) of 505 items in
+the store (24 pre-existing resolved); +25 US items = the 481. The `at` stamp was re-stamped by the last
+(washington) run - if the driver's next merge hits the known "at"-line conflict (PITFALLS 1444/1535),
+keep the newer `at` and verify the items list (25 US must survive).
+VERIFIED: tests/test_merge.py (11) + tests/test_site_done.py::test_site_done_line +
+tests/test_fit_provenance.py::test_line_refuses_unmarked_non_auto_doc = 13/13 green (56 s) - the
+three count-deriving tests read the open count from the live page, and store+page are consistent, so
+the new items do not break them. git status after: M web/data/review.json + the 25 new item files +
+data/merge/site_done.log - all in my Touches; nothing else (sites.json byte-unchanged, no 307d PNGs).
 
 **State of this machine (for the lead's sync to the owner's Mac, per Notes):** ALL 25 US sites built
-here, all 47 picture files fetched here: baltimore-q5092, boston-q100, chicago-q1297, cincinnati-q43196,
-cleveland-q37320, columbus-q16567, denver-q16554, detroit-q12439, indianapolis-q6346, kansas-city-q41819,
-louisville-q43668, memphis-q16563, milwaukee-q37836, minneapolis-q36091, nashville-q23197,
-new-orleans-q34404, new-york-q60, omaha-q43199, philadelphia-q1345, pittsburgh-q1342,
-portland-q6106, san-francisco-q62, st-louis-q38022, st-paul-q28848, washington-q61. Per site:
-data/sites/<id>/site.json (TRACKED - committed here) + data/sites/<id>/{dem.npy,dem_box.json,
-dem_credit.json} (gitignored) and web/data/sites/<id>/{relief.jpg, imagery.jpg, block_h.png,
-block_top.jpg} (gitignored), lidar_credit "USGS 3DEP", relief_clip_m ~1.2, 2000 m box, drawings 0,
-NO depictions.json (no old-map layer covers the US - the page shows live aerial tiles).
-
-**Done this session (all verified by running):**
-- Built all 25 with `data/merge/run_build.py` (baltimore as a probe: 14 s; then the remaining 24 in
-  one batch: 6 m 22 s; one process per site, log appended to data/merge/build_sites.log, all rc=0,
-  no NOT BUILT/FAILED in the run). web/data/sites.json 508 -> 533, PURE GROWTH (the 508 HEAD entries
-  byte-identical in content, zero changed; the 9 non-baseline ones in HEAD are Roman Scottish forts:
-  ardoch, carriden, cilurni, congavata, kirkintilloch, luguvallium-q71551754, petriana, tunnocelum,
-  virosidum).
-- `pipeline/commons.py thumbs`: a read-only probe (rows() + local()) showed exactly 47 missing-with-
-  thumb (new-york 7, washington 6, san-francisco 8, nashville 5, the other 21 one each) - all 47
-  fetched in 1 min, 0 remaining (the one missing-without-thumb row is skipped by design).
-- `tools/export_plans.py`: web/data/plans.json 1572 -> 1619, EXACTLY +47 US rows (33 birdseye p=1.0,
-  14 plan p=1.0, 0 photo), zero lost keys, no duplicate (id, sites[0]), all 1510 frozen pre-merge
-  keys survive. The DecompressionBombWarnings (a few ~90-110 Mpx book scans) are pre-existing/harmless.
-- tests/test_merge.py 11/11 green both before and after the export (the 499-baseline pure-growth
-  check passes because the build touched no baseline entry; new-sites completeness passes for all 34
-  non-baseline sites including the 25 US ones).
-- serve.py smoke on an ephemeral port: the page serves 533 sites (25 US-region) and 1619 plans;
-  baltimore's imagery.jpg 200.
+HERE, all 47 picture files fetched HERE, all 25 completed HERE (committed item files - nothing local
+left to sync beyond the gitignored build dirs): baltimore-q5092, boston-q100, chicago-q1297,
+cincinnati-q43196, cleveland-q37320, columbus-q16567, denver-q16554, detroit-q12439,
+indianapolis-q6346, kansas-city-q41819, louisville-q43668, memphis-q16563, milwaukee-q37836,
+minneapolis-q36091, nashville-q23197, new-orleans-q34404, new-york-q60, omaha-q43199,
+philadelphia-q1345, pittsburgh-q1342, portland-q6106, san-francisco-q62, st-louis-q38022,
+st-paul-q28848, washington-q61. Per site: data/sites/<id>/site.json (TRACKED) +
+data/sites/<id>/{dem.npy,dem_box.json,dem_credit.json} (gitignored) and web/data/sites/<id>/
+{relief.jpg, imagery.jpg, block_h.png, block_top.jpg} (gitignored), lidar_credit "USGS 3DEP",
+relief_clip_m ~1.2, 2000 m box, drawings 0, NO depictions.json.
 
 **Remaining steps (in order; every command under `.venv/bin/python`):**
-1. BOX 3: `tools/site_done.py <sid>` per site for all 25 (matcher reachable, 127.0.0.1:8091): a
-   confident fit becomes a matcher document in data/db/platefits/ + a synced overlay; the rest land
-   in the site's review item (data/review/<sid>.<lead>.json) with the matcher's recorded `why`; the
-   drawings count in sites.json and web/data/review.json refresh. Every new site must end with a
-   fitted drawing OR a review item. Its writes land in the paths added to my Touches this session:
-   data/db/platefits/, data/review/, web/data/review.json. One site per run; covered pictures are
-   never re-fitted; batch across sessions if needed.
-2. docs/sources.md section 9: one row per US lead (236a: 4 city sites / 15 plan rows; 236b: 12 sites /
+1. docs/sources.md section 9: one row per US lead (236a: 4 city sites / 15 plan rows; 236b: 12 sites /
    23 views; 240: 4/4; 241: 5/5 - staged counts and documented drops from docs/lead_us_cities.md,
    docs/lead_us_birdseye.md, docs/lead_us_birdseye_batch4.md, docs/lead_us_birdseye_batch5.md and
    data/merge/log.jsonl) plus the merge summary (25 sites / 47 views, 0 refused) - the 211/230 pattern.
-3. RE-BASELINE the frozen artifacts - SEMANTICS: the baseline is the PRE-PHASE set (the test's own
+2. RE-BASELINE the frozen artifacts - SEMANTICS: the baseline is the PRE-PHASE set (the test's own
    docstring; 230's precedent), NOT "post-236c" as it.205's draft had (a post-build baseline makes
    test_new_sites_are_complete's non-empty `new` assertion fail):
    - data/merge/sites_premerge_baseline.jsonl <- the 508 pre-build entries (extract from the now-
@@ -89,21 +85,22 @@ NO depictions.json (no old-map layer covers the US - the page shows live aerial 
    - tests/test_merge.py::test_served_sites_grew_purely constant 499 -> 508 (+ its docstrings:
      "the 508 entries served before 236c's build: 230's 499 plus the nine Roman Scottish forts");
    - data/merge/plans_premerge_keys.jsonl <- the 1572 pre-export keys (same {"id","site"} shape).
-4. BOX 4: full suite `tests/ -q -p no:cacheprovider` judged against the CURRENT main baseline
+3. BOX 4: full suite `tests/ -q -p no:cacheprovider` judged against the CURRENT main baseline
    (194P/1S/0F per 241 it.204) - never by weakening a frozen check. The owner-check pair is IN the
    suite: before any run that may re-encode the 307d PNGs, restore the differing ones to MAIN's
    bytes (hygiene below); after it, restore again and commit only my files.
 
 **Team-mode hygiene on this branch (read before committing):**
-- Agent a's 307d lane rides on this branch: the worktree is CLEAN, but HEAD differs from main on
-  docs/site_flow/307d_B_1-card.png and 307d_B_5-reload.png (A_1-card == main) - agent a is actively
-  working the settle family (242/810/812/814/816). NEVER `git add -A`; commit only my Touches paths.
-  The restore target for any owner-check run is always MAIN's bytes (`git diff main --
-  docs/site_flow/`), never HEAD's.
+- Agent a's 307d lane rides on this branch: the worktree is CLEAN (after my commit, only my files),
+  but HEAD differs from main on docs/site_flow/307d_B_1-card.png and 307d_B_5-reload.png
+  (A_1-card == main) - agent a is actively working the settle family (242/810/812/814/816).
+  NEVER `git add -A`; commit only my Touches paths. The restore target for any owner-check run is
+  always MAIN's bytes (`git diff main -- docs/site_flow/`), never HEAD's.
 - A full-suite red outside this lane (the owner-check family, roman, the 817/818 lanes): record it,
   do not absorb it, do not claim (the 241-187/188 pattern); new reds in MY lane are mine to fix.
 
-**Re-read:** tools/site_done.py _fit - the matcher-first flow and the review-item `why` recording
-(the next step goes through exactly this); fit/review.py item_path - the item file layout
-(data/review/<site>.<lead>.json); tests/test_merge.py test_served_sites_grew_purely /
-test_new_sites_are_complete - the re-baseline points of step 3 and the non-empty `new` assertion.
+**Re-read:** tests/test_merge.py test_served_sites_grew_purely / test_new_sites_are_complete - the
+re-baseline points of step 2 (the 499 constant, the two frozen artifacts, the non-empty `new`
+assertion); docs/sources.md section 9 - the exact row shape 211/230 used for their leads (step 1
+copies it); fit/review.py export - what the page file contains (OPEN items only; n_total counts the
+whole store).

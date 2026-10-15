@@ -1,0 +1,33 @@
+{
+ "site": "st-paul-q28848",
+ "candidates": [
+  {
+   "plan": "c_64336c87c1e1c710",
+   "title": "St. Paul, the Robert M. Saint bird's-eye view (1906)",
+   "url": "media/commons/st-paul-q28848/64336c87c1e1c710.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-14",
+    "named_place": "St. Paul",
+    "place_qid": "Q28848",
+    "place_label": "St. Paul",
+    "place_lon": -93.093611,
+    "place_lat": 44.944167,
+    "site_lon": -93.093611,
+    "site_lat": 44.944167,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.5625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "not sure: 3 consistent points (need 10)"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

@@ -1,0 +1,33 @@
+{
+ "site": "philadelphia-q1345",
+ "candidates": [
+  {
+   "plan": "c_61b6073da1807052",
+   "title": "Philadelphia, the Davis bird's-eye view (1872)",
+   "url": "media/commons/philadelphia-q1345/61b6073da1807052.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-14",
+    "named_place": "Philadelphia",
+    "place_qid": "Q1345",
+    "place_label": "Philadelphia",
+    "place_lon": -75.163611,
+    "place_lat": 39.952778,
+    "site_lon": -75.163611,
+    "site_lat": 39.952778,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.5625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "not sure: 3 consistent points (need 10)"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

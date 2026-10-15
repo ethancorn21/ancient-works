@@ -1,0 +1,33 @@
+{
+ "site": "pittsburgh-q1342",
+ "candidates": [
+  {
+   "plan": "c_7b7c5bb5bce390a9",
+   "title": "Pittsburgh, the Fowler bird's-eye view (1902)",
+   "url": "media/commons/pittsburgh-q1342/7b7c5bb5bce390a9.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-14",
+    "named_place": "Pittsburgh",
+    "place_qid": "Q1342",
+    "place_label": "Pittsburgh",
+    "place_lon": -80.0,
+    "place_lat": 40.441667,
+    "site_lon": -80.0,
+    "site_lat": 40.441667,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.5625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "not sure: 4 consistent points (need 10)"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

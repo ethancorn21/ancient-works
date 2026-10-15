@@ -1,0 +1,33 @@
+{
+ "site": "indianapolis-q6346",
+ "candidates": [
+  {
+   "plan": "c_7b0f20b65aa5c3be",
+   "title": "Indianapolis, the E. G. Spink Company bird's-eye view (1925)",
+   "url": "media/commons/indianapolis-q6346/7b0f20b65aa5c3be.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-14",
+    "named_place": "Indianapolis",
+    "place_qid": "Q6346",
+    "place_label": "Indianapolis",
+    "place_lon": -86.158055555556,
+    "place_lat": 39.768611111111,
+    "site_lon": -86.158055555556,
+    "site_lat": 39.768611111111,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.5625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "not sure: 8 consistent points (need 10)"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}
