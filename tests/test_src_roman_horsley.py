@@ -11,7 +11,8 @@ runs, no fixed ports. The negative controls pin the traps the stored evidence an
 for: a stored distance that does not reproduce from the stored coordinates, a caption that no
 longer names the place, a file row whose site exists neither staged nor in the catalog (including
 the cascade on a single-picture staged site), and the 211-merge states (pre-merge /
-merged-identical / same-id-different-row, plus the QID collision) - all on temp copies, with the
+merged-identical / a canonical row differing ONLY in the volatile location_check.checked date
+joins clean, 818 / same-id-different-row, plus the QID collision) - all on temp copies, with the
 committed files sha256-verified untouched. The golden file (tests/golden/
 src_roman_horsley_sample.json) pins the staged rows; it is regenerated only via the module's
 --golden flag for an intended change.
@@ -139,8 +140,10 @@ def test_check_negative_controls(tmp_path, monkeypatch, capsys):
           cascade: corrupting the ONLY row of a single-picture staged site fires all three join
           problems it implies;
       (d) the 211-merge states, hermetically: pre-merge joins clean, merged-identical joins clean,
-          a same-id different canonical row fails the (e) conflict check alone, and (pre-merge) a
-          staged QID held by a different catalog site fails (f)."""
+          a canonical row differing from the staged row ONLY in the volatile location_check.checked
+          date joins clean (818: a re-stamp is provenance, not content), a same-id different
+          canonical row fails the (e) conflict check alone, and (pre-merge) a staged QID held by a
+          different catalog site fails (f)."""
     orig, clean = _copies(tmp_path, monkeypatch)
 
     def rewrite(name, rows):
@@ -242,6 +245,20 @@ def test_check_negative_controls(tmp_path, monkeypatch, capsys):
     join = [l for l in out.splitlines() if l.startswith("join:")]
     assert join == ["join: staged site ardoch differs from its canonical row in extras.jsonl"], join
     assert f"evidence: {STAGED} rows, {STAGED} pass, 0 fail, 0 no-tie" in out, out
+
+    # (d-d) 818's regression: a canonical row differing from the staged row ONLY in the volatile
+    # location_check.checked (a fresh stage() stamps now(); the 211 re-run's re-stamp differs from
+    # it) joins clean - the (e) identity check normalizes the provenance date, it is not content
+    # (pre-fix this single field fired (e) on every fresh re-stage: the daily red)
+    staged_ardoch = next(s for s in sites if s["id"] == "ardoch")
+    alt = "2026-01-01" if staged_ardoch["location_check"].get("checked") != "2026-01-01" else "2026-01-02"
+    rewrite("EXTRAS_CANON", [dict(r, location_check=dict(r["location_check"], checked=alt))
+                             if r["id"] == "ardoch" else r for r in canon_extras])
+    code, out = run()
+    assert code == 0, out
+    assert "join:" not in out, out
+    assert f"evidence: {STAGED} rows, {STAGED} pass, 0 fail, 0 no-tie" in out, out
+    rewrite("EXTRAS_CANON", canon_extras)
 
     # (d-f) pre-merge, a staged QID held by a DIFFERENT existing site: (f) fires
     holder_map = {}
