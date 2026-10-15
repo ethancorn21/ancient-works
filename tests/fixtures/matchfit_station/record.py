@@ -357,7 +357,7 @@ def _run(tmp):
 
     input_hashes = _input_hashes()
     header_base = {
-        "task": "302f",
+        "task": "239",
         "recorded_at": datetime.now(timezone.utc).isoformat(),
         "matcher_url": MATCHER_URL,
         "matcher_health": health,
@@ -405,9 +405,9 @@ def _run(tmp):
         print(out, file=sys.stderr)
         raise SystemExit("the confident run failed (see above)")
     c_out = out.splitlines()
-    if len(c_out) != 11:
+    if len(c_out) != 10:
         print(out, file=sys.stderr)
-        raise SystemExit("confident run printed %d lines, expected 11: %r" % (len(c_out), c_out))
+        raise SystemExit("confident run printed %d lines, expected 10: %r" % (len(c_out), c_out))
     assert after == before, "the in-process confident run wrote outside the tree: %r" % (
         {k: (after.get(k), before.get(k)) for k in set(before) | set(after) if before.get(k) != after.get(k)})
 
@@ -490,9 +490,9 @@ def _run(tmp):
         print(out, file=sys.stderr)
         raise SystemExit("the unsure run failed (see above)")
     u_out = out.splitlines()
-    if len(u_out) != 8:
+    if len(u_out) != 7:
         print(out, file=sys.stderr)
-        raise SystemExit("unsure run printed %d lines, expected 8: %r" % (len(u_out), u_out))
+        raise SystemExit("unsure run printed %d lines, expected 7: %r" % (len(u_out), u_out))
     assert after2 == before, "the in-process unsure run wrote outside the tree"
 
     new_item = t2 / "data" / "review" / (DOCID + ".json")
