@@ -53,8 +53,8 @@ dismissal of their stage-A flags wrong) + N.11's wall section and the six kind-o
 leaf's printed heading, corner mark and kind, transcribed by eye 2026-10-13 in 215/216/218), the
 stage-B boxes on the plan pages (books.cmd_triage_b on A's site pages + the list's kind-s leaves;
 B's printed titles and site_names feed the STAGE_ROWS descs), --stage (808: the 17 kind-s rows into
-the shared roman staging files), --check (809: check_staged below) and --golden (809, the next
-step), and the stage-A/B result against the list is recorded in the Horsley section of
+the shared roman staging files), --check (809: check_staged below) and --golden (809: the golden
+sample below), and the stage-A/B result against the list is recorded in the Horsley section of
 docs/lead_roman.md (books_lists.validate_book, never the shared validation.json). The ~121
 inscription/sculpture plates (Roman numerals I-CXXI) trail as HORSEY_PLATES (kind o, indexed but never
 staged) and do not block the 90%-of-site-plans box, which counts only kind-s leaves.
@@ -94,6 +94,12 @@ SITES_JSONL = os.path.join(ROOT, "data", "catalog", "sites.jsonl")
 EXTRAS_CANON = os.path.join(ROOT, "data", "catalog", "extras.jsonl")   # the canonical extras: the reuse source (bar-hill-fort, rough-castle-fort)
 WEB_SITES = os.path.join(ROOT, "web", "data", "sites.json")
 NO_BOOKS = os.path.join(ROOT, "data", "books", ".no-books")   # never exists: evidence.check skips an absent books file (207b's constant)
+GOLDEN = os.path.join(ROOT, "tests", "golden", "src_roman_horsley_sample.json")   # --golden's output (809)
+GOLDEN_LEAVES = (114, 185, 236, 278)   # the golden's file-row subset: one per tie flavour - n0114 -> a NEW no-QID
+                                       # "roman site" (ardoch); n0185 -> the NEW "roman fort" principal (virosidum);
+                                       # n0236 -> an EXISTING catalog QID site (castrum-segedunum-q637958);
+                                       # n0278 -> a REUSED canonical extras site (bar-hill-fort). The leaf order
+                                       # below is the golden file's fixed order.
 MODULE = "fit/src_roman_horsley.py"   # the by/source tag every staged row of this book carries (207b's landed convention)
 LICENSE = "public domain (the 1732 original, pre-copyright era)"   # the book's IA metadata has no license flag (checked 2026-10-14, live + cached)
 
@@ -701,6 +707,55 @@ def check_staged():
     return 1 if problems else code
 
 
+def _norm(rows):
+    """The rows for the golden file: the volatile "checked" dates normalized (they vary with the staging
+    date); everything else is stored content."""
+    out = []
+    for r in rows:
+        r = dict(r)
+        lc = r.get("location_check")
+        if isinstance(lc, dict) and lc.get("checked"):
+            r["location_check"] = dict(lc, checked="0000-00-00")
+        ev = r.get("evidence")
+        if isinstance(ev, dict) and ev.get("checked"):
+            r["evidence"] = dict(ev, checked="0000-00-00")
+        out.append(r)
+    return out
+
+
+def golden(path=None):
+    """OFFLINE (no LLM, no network): write tests/golden/src_roman_horsley_sample.json - a stable,
+    deterministic subset of this book's staged rows: one files row per tie flavour (GOLDEN_LEAVES,
+    leaf order), the new extras_roman sites those rows name (the other two golden leaves tie to a
+    catalog site and a canonical extras site, which have no extras_roman rows), and the subset's
+    classified rows - plus the WHOLE book's staged counts (the subset is the sample; the counts pin
+    the rest: 17 files / 17 classified / 8 new sites). Dates normalized (207b's _norm), keys
+    sorted. Regenerate only for an intended change (re-run --golden, commit the diff)."""
+    p = path or GOLDEN
+    files_rows = _load(FILES_ROMAN)
+    cls_rows = _load(CLASSIFIED_ROMAN)
+    sites_rows = _load(EXTRAS_ROMAN)
+    mine = [r for r in files_rows if r.get("by") == MODULE]
+    leaf = {int(r["url"].rsplit("/n", 1)[1].split(".")[0]): r for r in mine}
+    files = [leaf[n] for n in sorted(GOLDEN_LEAVES)]
+    sids = {r["site"] for r in files}
+    keys = {(r["site"], r["title"]) for r in files}
+    all_keys = {(r["site"], r["title"]) for r in mine}
+    my_sites = [s for s in sites_rows if s.get("source") == MODULE]
+    sites = [s for s in my_sites if s["id"] in sids]
+    cls = [c for c in cls_rows if (c.get("site"), c.get("title")) in keys]
+    out = {"count": {"extras": len(my_sites), "files": len(mine),
+                    "classified": sum(1 for c in cls_rows
+                                      if (c.get("site"), c.get("title")) in all_keys)},
+           "extras": _norm(sites),
+           "files": _norm(files),
+           "classified": _norm(cls)}
+    with open(p, "w", encoding="utf-8") as f:
+        json.dump(out, f, ensure_ascii=False, indent=1, sort_keys=True)
+        f.write("\n")
+    print("wrote", p)
+
+
 if __name__ == "__main__":
     a = sys.argv[1:]
     if a and a[0] not in ("--fetch", "--status", "--triage", "--list", "--stage", "--dry", "--check", "--golden"):
@@ -718,6 +773,6 @@ if __name__ == "__main__":
     elif a and a[0] == "--check":
         raise SystemExit(check_staged())
     elif a and a[0] == "--golden":
-        raise SystemExit("the golden leg is not built yet (809; see the module docstring)")
+        raise SystemExit(golden())
     else:
         raise SystemExit(__doc__.strip().split("usage:")[1].strip())
