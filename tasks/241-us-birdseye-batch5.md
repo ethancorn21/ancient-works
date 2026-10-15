@@ -1,5 +1,5 @@
 Status: in-progress
-Depends on: 240, 242, 810, 812, 813
+Depends on: 240, 242, 810, 812, 813, 814
 Touches: fit/src_us_birdseye_batch5.py, data/catalog/extras_us_birdseye_batch5.jsonl, data/commons/files_us_birdseye_batch5.jsonl, data/commons/classified_us_birdseye_batch5.jsonl, docs/lead_us_birdseye_batch5.md, tests/test_src_us_birdseye_batch5.py, tests/golden/src_us_birdseye_batch5_sample.json, PITFALLS.md, docs/site_flow/307d_*.png (R5: restoring suite re-encodes to main's bytes before committing - never content changes)
 
 # 241: US bird's-eye views, batch 5 - the final five cities to the 25-city total
@@ -96,14 +96,21 @@ restore main's bytes before committing (the PITFALLS test_owner_check entry); on
 (same-sheet scans recorded in the lead doc, the LOC .jpg staged where it is the best scan).
 
 ## Hand-over
+(2026-10-15, iteration 191, agent c) **191 note:** the 242 family was re-split - the fix
+chain is now 814 (the settle wait, depends only on done 307d, STARTABLE IMMEDIATELY) -> 812
+(the in-run double-shot assert) -> 813 (the refresh-flag regime) -> 810 -> 811 -> 242; 814
+added to this task's Depends (230 got it too). The hold below stands: still HELD on 242 (the
+family's final gate), the same 230 it.216 path.
+
 (2026-10-15, iteration 188, agent c) **HELD on "Depends on: 242" (the 230 it.216 path): the driver rejected the
 187 done claim (3 new reds after the main merge); this session FIXED the test_merge red in this checkout
 (the 9 Roman site directories 230's merge added - built byte-identical to agent a's reference build;
 test_merge now 10/10) and found the owner_check pair red a 2nd consecutive time (the 307d mid-transition
-family - the fix is open task 242). No done claim while held; when the driver brings 241 back after 242
+family - the fix is the 242 family, split: 814 settle -> 812 double-shot -> 813 regime ->
+810/811 -> 242). No done claim while held; when the driver brings 241 back after 242
 merges: re-verify, then claim.**
 
-**State (all committed; tree clean):** Status: in-progress, Depends on: 240, 242, all five boxes ticked -
+**State (all committed; tree clean):** Status: in-progress, Depends on: 240, 242, 810, 812, 813, 814 (190 added 810/812/813, 191 added 814), all five boxes ticked -
 the staging work is COMPLETE and verified (5/5 cities staged; lead doc 779 lines; golden 5/5/5; module
 tests 5/5; --check 5/5 zero-join). The driver committed my 187 session's files (f8f99a3/d8084b5/a5d4b3b)
 and merged main (411a9e5) before rejecting (c034a56). This session changed no data rows: it only built
@@ -128,7 +135,8 @@ re-rendered docs/site_flow/307d_*.png to committed bytes (R5).
   (the 307d mid-transition probe), B test_owner_save_site_size_fallback (the designed cascade, A's
   itemBytes None). Machine-state flake: green here at it.168/169, red on agent a's it.226/228; 242 measured
   28.6-33.6% pixel drift between runs an hour apart on the identical tree (captures land mid-transition).
-  The fix is task 242 (open; Depends on: 307d merged; next in the driver's queue after 236c; its regime:
+  The fix is the 242 family (open; the split: 814 settle, depends only on done 307d,
+  startable immediately -> 812 -> 813 -> 810 -> 811 -> 242; its regime:
   settle before shooting + no unconditional in-checkout re-render of the 307d PNGs).
 - The driver's "fix the combination" = these two: red 1 fixed, reds 2+3 await 242 - the exact 230 it.216
   hold (230 is still in flight on the same declaration).

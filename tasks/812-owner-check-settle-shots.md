@@ -1,52 +1,57 @@
 Status: open
-Depends on: 307d
+Depends on: 307d, 814
 Touches: tests/test_owner_check.py
 
-# 812: The 307d owner check - settle the map view before every capture, proved by a double shot
+# 812: The 307d owner check - prove the settle with an in-run double shot (the stability assert)
 
-Part 1 of 810's split (2026-10-15, iteration 190): the flake fix in tests/test_owner_check.py
-and its embedded PROBE. 813 (the pinned-snapshot regime on the SAME file) runs after this; 810
-keeps the final verification and waits on this and on 813; 811 then 242 wait on 810. The waiters
-230 and 241 carry this number on their Depends lines directly - they are held on the
-mid-transition flake this part fixes. Background: 242's goal and the 2026-10-14 307bc
-DECISIONS entry (now in the archive); the drift is measured, not guessed:
-
-- On the IDENTICAL tree, runs an hour apart differ by 28.6-33.6% of pixels (threshold >32) on
-  the four saved/reload views (A_4/A_5/B_4/B_5) - the captures land mid-transition: the
-  placement chains the 4.5 s site flyTo (web/index.html:874) with a 900 ms fitBounds
-  (web/fitkit.js:573) and the probe's fixed sleeps never wait for `moveend`; visually the
-  overlay rectangle shifts slightly relative to the ground imagery. The card/placed/gestured
-  views stay 0-1.25% (encoding noise).
-- The same mid-transition signature flakes the owner_check A/B pair itself (the gesture check
-  `toolbar scale and turn change the drawing on screen`, e2/e1 = 1.06105 ~= 1.05 x 82.863):
-  230 it.214-216, 239 it.226-228, 241 it.187-188.
+Narrowed by its own split (2026-10-15, iteration 191, driver instruction: agent a had nothing
+to build for 76 minutes, and every open task in the chain waited on this task alone): the
+flake fix (the settle wait) moved to **814** (Depends: done 307d, startable immediately), and
+this task keeps the other half of what it was created with - the in-run double-shot
+stability assert that proves the settle in a single run. Runs after 814 (same file; the
+double shot passes only once the captures are settled); 813 (the pinned-snapshot regime on
+the same file) runs after this; 810 keeps the final verification and waits on this + 813;
+811 then 242 wait on 810. Chain: 814 -> 812 -> 813 -> 810 -> 811 -> 242 -> {230, 241} ->
+236c. The waiters 230 and 241 carry 814 (the flake fix) and this number on their Depends
+lines. Background: 814's header (the measured drift, the pair flake) and 242's goal; the
+2026-10-14 307bc DECISIONS entry (now in the archive).
 
 ## Goal
 
-In tests/test_owner_check.py and its embedded PROBE. The pick (derived, never pinned) and every
-existing check stay exactly as they are; this is a capture-timing fix, not a flow change. Do not
-touch tests/test_fit_queue.py (the 307/235 family) or the page. The pair always runs as one
-invocation, A then B (PITFALLS: the B test cannot run in isolation).
+In tests/test_owner_check.py and its embedded PROBE. The pick (derived, never pinned) and
+every existing check stay exactly as they are; this is a capture-timing proof, not a flow
+change. Do not touch tests/test_fit_queue.py (the 307/235 family) or the page. The pair
+always runs as one invocation, A then B (PITFALLS: the B test cannot run in isolation).
 
-1. **Stable captures.** Before the `4-saved` and `5-reload` screenshots (and any other view
-   where the map can still be moving - the q1/q2 gesture samples included, where the pair
-   flake shows up, and the `2-placed` shot and the quad reads after place, which follow the
-   4.5 s flyTo + 900 ms fitBounds chain) wait for the map view to settle: e.g. wait for
-   maplibre's `moveend`/`idle` after the last interaction, or disable the page's transitions
-   in the test view.
-2. **Prove the stability in one run.** Once settled, take each capture a second time and
-   assert the two shots differ by <0.5% of pixels at threshold 32 (all ten views, not just
-   the four - the other six stay at their historical 0-1.25% encoding noise, comfortably
-   under the line), so a mid-transition regression fails the test instead of dirtying PNGs
-   (additive; no existing assert changes).
+1. **Prove the stability in one run.** Once 814's settle is in, take each of the ten views
+   (the five screenshots per run - 1-card, 2-placed, 3-gestured, 4-saved, 5-reload - for A
+   and B) a second time, right after the settled shot, and assert the two shots differ by
+   <0.5% of pixels at threshold 32 - so a mid-transition regression fails the test instead
+   of dirtying the PNGs (additive; no existing assert changes). The probe (node) writes
+   both shots per view into the run's outdir; the pixel comparison is on the Python side of
+   the test (there is no reusable pixel-diff helper in the repo - 307bc measured with a
+   throwaway script; PIL is in the .venv).
 
 ## Acceptance criteria
 
-- [ ] Two consecutive unflagged runs of `pytest tests/test_owner_check.py` on the same tree produce
-      byte-identical (or <0.5% differing pixels at threshold 32) A_4/A_5/B_4/B_5 views in the temp
-      tree (all ten stable, not just the four - the other six stay at their historical 0-1.25%
-      encoding noise); both tests still pass end to end and the write-once / shared-store /
-      golden-hash checks stay green.
-- [ ] The pick is still derived and no existing check changed (same flow, same asserts); the settle
-      wait and the double-shot stability assert are additive.
+- [ ] With 814 merged, the in-run double-shot assert covers all ten views (five per run, A
+      and B) and passes: the two settled shots differ by <0.5% of pixels at threshold 32
+      (the other six views stay at their historical 0-1.25% encoding noise, comfortably
+      under the line); a mid-transition regression fails the test instead of dirtying the
+      PNGs.
+- [ ] The pick is still derived and no existing check changed (same flow, same asserts); the
+      double-shot assert and its second shots are additive.
 - [ ] The full suite is green (`.venv/bin/python -m pytest tests/ -q -p no:cacheprovider`).
+
+## Hand-over
+
+(2026-10-15, iteration 191, agent c) Narrowed by this split; nothing built yet on either
+half. Start where 814's hand-over says the settle landed (the probe's five shots and the
+q0/q1/q2 quad reads; re-locate the line numbers - they drift). What this task adds: per
+view, a second settled shot in the probe (e.g. 1b-card.png ... 5b-reload.png in the run's
+outdir, taken after the same settle as the primary), and on the Python side a PIL compare
+of primary vs second (count pixels differing by >32 on any channel; both images same size;
+assert the differing fraction < 0.5%, for A and B, ten views total). The pick stays derived;
+no existing assert changes; the suite-green box is the claim gate. After any owner_check
+run, restore the re-rendered docs/site_flow/307d_*.png to committed bytes before committing
+(the R5 / 6af207b workaround until 813 retires it).
