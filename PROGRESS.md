@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
 - `tasks/230-roman-merge-rerun.md` (in-progress) - hand-over: (2026-10-14, iteration 216, agent a - the 5 acceptance boxes were ticked in it.215 and
 - `tasks/236-us-cities.md` (split)
-- `tasks/239-retire-vision-fit.md` (in-progress) - hand-over: (2026-10-14, iteration 218, agent a - session 2: reading COMPLETE (incl. test_cover.py, the last
+- `tasks/239-retire-vision-fit.md` (in-progress) - hand-over: (2026-10-14, iteration 219, agent a - session 3: commit (a) LANDED (fit/batch_us.py retired:
 - `tasks/241-us-birdseye-batch5.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
 
 ## Next open tasks
@@ -43,7 +43,7 @@ Session 2 finished the reading and set the baseline; no code changed.
 - **Golden data invariance check pinned:** tests/golden/hand_fit_docs.sha256 is a plain sha256sum list of 41 data/db/platefits docs, asserted by test_batch_us/test_batch_eu/test_fit_provenance - so the acceptance box "22 golden hand-fit docs + 49 matcher docs byte-unchanged" is carried by those checks passing plus git status clean on data/db/platefits and data/review.
 - **Touches updated:** tests/fixtures/matchfit_station/ added to the task file (the 302f fixture re-record is this task's cleanup per 302f's PITFALLS; record.py's own hardcoded stdout line counts 11/8 and its header.task '302f' need updating first).
 
-... (0.6 KB more: `grep -n -A 200 -F '## 2026-10-14 239 DECISION: iteration 218, session 2 - cover-flag question resolved (drop --model-json from cover's CLI and loop(); keep --working refused) and 5-file baseline recorded GREEN (21 passed, 1 skipped, 154.54s, tree clean after); implementation starts next session at commit (a) batch_us' DECISIONS.md`)
+... (4.7 KB more: `grep -n -A 200 -F '## 2026-10-14 239 DECISION: iteration 218, session 2 - cover-flag question resolved (drop --model-json from cover's CLI and loop(); keep --working refused) and 5-file baseline recorded GREEN (21 passed, 1 skipped, 154.54s, tree clean after); implementation starts next session at commit (a) batch_us' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
