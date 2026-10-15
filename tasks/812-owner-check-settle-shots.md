@@ -45,6 +45,29 @@ always runs as one invocation, A then B (PITFALLS: the B test cannot run in isol
 
 ## Hand-over
 
+(2026-10-15, iteration 236, agent a) **BUILD STATUS CHANGE (read this first):** the it.235
+double-shot build described below was committed by the driver at 3579c22b, then REPLACED
+by 693b0ea3 (the driver took 814 over from agent c and carried c's 54-line settle +
+subpixel fix, 63a4e4e = the 816 recipe, into tests/test_owner_check.py) - the double shot
+is NOT in the file now. The it.235 file survives verbatim at
+`git show 3579c22b:tests/test_owner_check.py` (port the `shot()` double-shot + `_shot_diff`
+parts onto the current 816-recipe file; the design below still holds: per-view
+`<name>b.png` after one settle, Python `_shot_diff` per-channel >32 asserting <0.5% in
+`_run_one` for both tags - pillow is pinned in requirements.in).
+
+**Pair state at it.236:** GREEN on this branch with the 816 recipe + the 245 page fix (3
+unflagged runs, both tests pass, zero [warn] settle; cross-run all ten views 0.000% -
+810's hand-over carries the numbers). The double shot will be re-verified when it is
+rebuilt (810's session runs the pair twice and ticks these boxes per 810's hand-over).
+**Boxes unticked**: when the driver returns this task (after 814/816/230 are on main and
+the rebuild is in), re-confirm: the in-run double-shot assert covers all ten views and
+passes, the pick is still derived, no existing check changed, full suite green - then
+claim. The pre-run "restore the re-rendered PNGs" workaround is RETIRED by 813 (an
+unflagged run no longer touches docs/site_flow/ at all) - until 813 lands, restore them
+after every run.
+
+<superseded it.235 text kept for the design record only:
+
 (2026-10-15, iteration 235, agent a) **BUILT on agent/a's branch with 814 + 813 in the same
 file (tests/test_owner_check.py), uncommitted until 810's session commits.** The double shot:
 the probe's `shot(name)` takes `<name>.png` and immediately `<name>b.png` after ONE settle

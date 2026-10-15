@@ -76,6 +76,31 @@ test cannot run in isolation).
 
 ## Hand-over
 
+(2026-10-15, iteration 236, agent a - **STATUS (read this first):** agent a now holds the
+whole cycle (230/242/810/811/812/813/814); inter-deps count as met. The 195 first action
+(the nine 307d PNGs) needed only TWO restores on THIS branch (B_4/B_5 - agent c's nine were
+on c's branch): done, committed e484aa07, `git diff main -- docs/site_flow/` is empty. The
+driver then CARRIED c's built fix into this branch (693b0ea3, from c@26853066 = 63a4e4e):
+tests/test_owner_check.py on this branch is EXACTLY the 816 recipe (54 added / 0 changed vs
+main, verified line-for-line at it.236; zero instrumentation residue). The 195/194 fix
+description below therefore applies to the file verbatim (the 192 root-cause record -
+integer-pixel marker rounding, the 1.06105 signature - stands). **Pair state at it.236:**
+3 consecutive unflagged runs GREEN on this branch (64.5/65.9/66.7 s), zero [warn] settle,
+ratio check [ok] in every run, and the cross-run compare (run2 vs run3) shows ALL TEN views
+0.000% differing at threshold 32 - stricter than the 194 evidence. One NEW red surfaced
+and was fixed in the PAGE (245: saveFit's one-shot sites.json fetch could land in the
+119 ms depiction->re-score gap and adopt the stale tier - web/index.html now re-fetches
+until the entry's `overlays` exceeds the pre-save value; committed ab57da1b). **Re-claim
+when the driver returns this task (after 816 and 230 are on main):** the 195 NEXT list
+below is the procedure; with the pair green on this branch it is a re-verification
+formality - run the pair twice, compare, full suite (with 230 on main expect all green),
+restore any re-rendered PNGs, claim. The 812 -> 813 rebuild (double shot + refresh flag,
+from `git show 3579c22b:tests/test_owner_check.py`) comes BEFORE 810/811/242 per their
+hand-overs; it does not change this file's 816-recipe diff.
+
+<superseded 195 text (agent c) kept as the design record - everything factual in it still
+holds; only the branch ownership and PNG list changed:
+
 (2026-10-15, iteration 195, agent c) **SPLIT designed and mostly executed this session; NO code changed**
 (the fix stays committed at 63a4e4e). Session cut by the context limit after the 230/815/241 edits, the
 816 file and the DECISIONS/PITFALLS entries were still pending (check their current state first - the

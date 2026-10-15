@@ -91,10 +91,23 @@ separate task this one depends on.
 
 ## Hand-over
 
-(2026-10-15, iteration 236, agent a - BUILT on agent/a's branch, committed; the pair
-verification runs are pending below.) Claim steps when the driver returns this task (after
-815's claim): re-run the pair 2-3 times (box 2), restore the 307d PNGs after each run
-(box 4), full suite (box 3), then claim. If "line effect (b)" reds again after the fix: the
-re-fetch signal misfired (e.g. the pre-save in-memory entry lacked `overlays`) - record the
-probe's `[eval]` effects block (markerClass vs tier vs score) in DECISIONS and re-derive;
-never clear it by loosening the check.
+(2026-10-15, iteration 236, agent a - BUILT and committed on agent/a's branch this session,
+ab57da1b; boxes verified on this branch, claim when the driver returns it after 815).
+**Verification (all it.236, unflagged, TMPDIR=/tmp/loop-ancient-works.a, retention via
+`-o tmp_path_retention_policy=all` - note: `--tmp-retention-policy` is NOT a valid pytest
+9.1.1 CLI flag):** BEFORE the fix, pair run 1: A passed, B RED at "line effect (b)" -
+markerClass "marker t1" vs tier "t2" (pre-save 1.1 -> post 1.45), reload read the correct
+t2, the probe's 120 s poll never saw a change (the one-shot adoption was done) - that run
+is the pre-fix evidence (186 s: the effects poll ran its full budget). AFTER the fix, pair
+runs 2 and 3: 2 passed each (64.5 s / 65.9 s), "new score's tier" [ok] for A and B in
+EVERY run, zero [warn] settle, no pageerrors; cross-run (run2 vs run3, PIL per-channel
+threshold 32): ALL TEN views 0.000% differing. All six script blocks of web/index.html pass
+`node --check`. The 307d PNGs were restored to committed bytes after every run (R5 - box 4
+discipline observed; 813's refresh flag will retire the re-copy). Remaining at claim time:
+box 3 (full suite - on this branch it rides with 230's done-claim gate, the driver
+re-checks it), then set Status: done.
+**If "line effect (b)" reds again after the fix:** the re-fetch signal misfired (e.g. the
+pre-save in-memory entry lacked `overlays`) - record the probe's [eval] effects block
+(markerClass vs tier vs score) in DECISIONS and re-derive; the reload-side check passing
+while the effects-side check reds is the diagnostic signature. Never clear it by loosening
+the check.

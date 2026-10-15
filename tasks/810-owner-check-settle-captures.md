@@ -71,6 +71,55 @@ is in the hand-over below.)
 
 ## Hand-over
 
+(2026-10-15, iteration 236, agent a - **STATUS CHANGE (read this first):** the it.235 build
+named below (139 lines: zero-duration served-tree transitions + the `window.__awSettle`
+idle tracker + settle, plus 812's double shot and 813's refresh flag) was committed by the
+driver at 3579c22b, then REPLACED by 693b0ea3 ("814 taken over from agent c: its work
+carried"), which put agent c's TESTED 54-line settle + subpixel fix (63a4e4e = the 816
+recipe; verified byte-identical in this branch's file at it.236) in tests/test_owner_check.py
+instead. The it.235 file survives verbatim at `git show 3579c22b:tests/test_owner_check.py`.
+The it.235 build was never verified (the session was cut before its first pair run, and it
+still carried the missing-`//` bug); c's fix was verified (194: two green runs, all ten
+views stable) - so the cycle now builds on c's recipe, not on the idle tracker described
+below.
+
+**State at it.236 (agent a holds the whole cycle; inter-deps count as met):** the pair is
+GREEN on this branch with c's settle + subpixel in the file: 3 consecutive unflagged runs
+(64.5/65.9/66.7 s), both tests RESULT PASS, zero [warn] settle, the old ratio flake gone.
+One NEW red surfaced and was fixed: B red at "line effect (b)" (the tier check) - a page
+race (saveFit's one-shot sites.json fetch landed in the 119 ms depiction->re-score gap)
+- filed as 245 and fixed on the page (web/index.html, committed ab57da1b); after the fix
+the pair is green again, and the cross-run compare (run2 vs run3, threshold 32 per
+channel) shows ALL TEN views 0.000% differing - that is this task's box-1 (cross-run)
+evidence, in hand. The 307d PNGs were restored to committed bytes after every run (R5).
+
+**What remains (when the driver returns it - after 812+813 are rebuilt and 814/816/230
+land on main):** 1) REBUILD the 812 + 813 parts on top of the 816 recipe (port from
+3579c22b: the probe's `shot()` double-shot + the Python `_shot_diff` <0.5%-at-thr-32
+assert, the ten docs/site_flow/307d_*.png into `_write_surface`, the docs copy gated on
+`AW_OWNER_REFRESH=1` moved after the write-surface assert, docstrings; adapt a's settle
+references to c's `!map.isMoving()` + subpixel; DROP a's zero-duration served-tree
+patching - c's approach leaves the served tree untouched); 2) run the boxes: two
+consecutive unflagged pair runs (one invocation each; the in-run double shot proves
+per-run stability, this is the cross-run check for box 1 - expect <0.5% on all ten,
+realistically ~0%), `git status -- docs/site_flow/` clean after each run (box 2, once
+813's write-surface registration is in - until then unflagged runs still re-copy all
+ten, so restore to committed bytes after every run), full suite (box 3; last
+known-green baseline ~180 passed / 1 skipped / 0 failed, 2026-10-14, per the archive);
+3) tick the boxes, set Status: done, claim (the driver re-checks).
+
+**If it flakes after the rebuild:** a settle timeout = the settle gate (814's lane - on
+c's recipe that is the `!map.isMoving()` poll; the it.235 escalation was a second gate of
+no `render` event for ~700 ms - the /tmp/mplib_probe evidence for maplibre 5.6.0's
+`idle` semantics is in the DECISIONS "2026-10-15 810 DECISION" entry); a double-shot
+assert failure naming a view = a straggler tile/ink between the two shots (widen the
+settle; never weaken the 0.5% line); a tier-check red = 245's lane (point at 245's file
+with the probe's [eval] effects block); red at the OLD ratio step = 816's lane (point at
+814/816). Never weaken or delete a test; never re-file the fix here.
+
+<superseded it.235 text kept for the design record only - the build it describes no longer
+exists in the file; its content lives on at `git show 3579c22b:tests/test_owner_check.py`:
+
 (2026-10-15, iteration 235, agent a - **TAKEN OVER and nearly finished; the next session is
 verification + memory only, see below.**) The CYCLE (230/242/810/811/812/813/814 held by agent
 a; inter-deps count as met) was broken this session: the whole 242-family code change is now
