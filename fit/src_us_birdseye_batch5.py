@@ -13,10 +13,12 @@ resolves stageable: it fell out of 236b's batch order, its pool has a strong pic
 Indiana State Library scan), Columbus (LANDED: the 1872 H. H. & O. H. Bailey sheet - the only
 drawn whole-city view in its pool, staged as its best of three scans), Memphis (LANDED: the
 1870 A. Ruger sheet - the steepest (true oblique) whole-city view in its pool; the 1887 Wellge
-and the 1887 "Appeal" newspaper page dropped on angle/scan), then whatever the collection's
-search order adds to reach five. This task
-owes FIVE staged cities, not specifically these - a city with no usable view gets a lead-doc
-note and the next candidate.
+and the 1887 "Appeal" newspaper page dropped on angle/scan), Portland (LANDED: the 1890 J. McI.
+Wood perspective sheet - the only drawn whole-city view in its pool that passes the 4000-px
+width gate; the first city-5 candidate, Albuquerque, was researched and dropped - no drawn
+view in the Commons mirror). All five cities are now LANDED: the task owes FIVE staged cities,
+not specifically these - a city with no usable view gets a lead-doc note and the next
+candidate.
 
 This module is a copy of fit/src_us_birdseye_batch4.py (240's module), which is itself a copy of
 fit/src_us_birdseye.py (236b's module) - the template this module keeps in sync with: the
@@ -89,11 +91,13 @@ NO_BOOKS = os.path.join(ROOT, "data", "books", ".no-books")  # never exists: che
 # the 1872 H. H. & O. H. Bailey sheet, the only drawn whole-city view in its pool; staged as
 # its best of three scans), Memphis (LANDED, city 4 of 5 - the 1870 A. Ruger sheet, the
 # steepest (true oblique) whole-city view in its pool; the 1887 Wellge and the 1887 "Appeal"
-# newspaper page dropped on angle/scan), then whatever the collection's search order adds to
-# reach five (each new entry verified live, --verify re-checks;
-# per-view STAGED/DROP verdicts in docs/lead_us_birdseye_batch5.md). This task owes FIVE staged
-# cities, not specifically these - a city with no usable view gets a lead-doc note and the next
-# candidate.
+# newspaper page dropped on angle/scan), Portland (LANDED, city 5 of 5 - the 1890 J. McI. Wood
+# perspective sheet, the only drawn whole-city view in its pool that passes the 4000-px width
+# gate; the first city-5 candidate, Albuquerque, was researched and dropped - no drawn view in
+# the Commons mirror) - all five cities LANDED (each new entry verified live, --verify
+# re-checks; per-view STAGED/DROP verdicts in docs/lead_us_birdseye_batch5.md). This task owes
+# FIVE staged cities, not specifically these - a city with no usable view gets a lead-doc note
+# and the next candidate.
 SITES = {
     # Q43199: P625 = ONE 30 m value (-95.9375, 41.25861111111111) - the downtown core (no
     # refinement needed). P373 is the STRING "Omaha, Nebraska" (a Wikidata quirk, not a country
@@ -225,6 +229,49 @@ SITES = {
                        "true oblique - the built-up grid still fills the sheet beyond the 2000 m "
                        "town box, so its fit is likely to end a review item (the 236a NY-1811 / "
                        "DC-ring precedent)"),
+    # Q6106: P625 = ONE 31 m value (-122.67916666666666, 45.515) - the downtown core (no
+    # refinement needed). P373 is the STRING "Portland, Oregon" (a Wikidata quirk, not a
+    # country entity - the place is written from the county + the state); P131 = Q450374
+    # Multnomah (the county seat) + Q484404 Clackamas + Q484538 Washington (a three-county
+    # metro like Columbus, the seat county leads) - hence place "Multnomah County, Oregon";
+    # P17 = Q30 (a proper entity); enwiki "Portland, Oregon". Name search at limit 5 AND
+    # limit 20 (the 241 session-11 research run): NO TRAP - the first hit with P625, what
+    # record --live would store, is Q6106 itself (dist 0; the #1 hit outright at both
+    # limits) - no first-guess QID from memory was used (the search identified the city
+    # directly, so the 177/179 mislabel trap class did not fire); the hits that never come
+    # first: the other US Portlands - Q49201 Portland (Maine, 2nd at both limits, 4081.9
+    # km), Q753876 Portland (Connecticut, 3991.2 km), Q1807259 Portland (Indiana, 3089.3
+    # km), Q3308164 Portland (Michigan, 2998.2 km), Q80163 Portland (Arkansas, 2980.8 km),
+    # Q980152 Portland (Texas, 2969.3 km) (all measured with evidence.hav_m - the pool
+    # mixes the US Portlands, so every sheet was disambiguated from its caption: the state
+    # in the title/bibliographic desc), Q29168518 Portland (Dorset, England), Q1663450
+    # Portland (Victoria, Australia, 13324.1 km), Q774215 Isle of Portland, Portland State
+    # University (Q1771717, an in-city institution 0.5 km from the city point - the
+    # Pittsburgh/Chicago trap class, but it never comes first), University of Portland
+    # (Q513658, in-city, 7.4 km), the Blazers/Pilots clubs and the name entities. No
+    # existing site holds the QID (checked at the 241 session-11 run in the catalog,
+    # extras, 236a's, 236b's and 240's extras files and web/data/sites.json - zero case-
+    # insensitive "portland" in all of them); site id portland-q6106 (catalog.slug(
+    # "Portland") = "portland", verified; a future Portland ME would be portland-q49201 -
+    # the id carries the QID, no collision).
+    "Q6106": dict(id="portland-q6106", name="Portland", named="Portland",
+                  lon=-122.67916666666666, lat=45.515,
+                  place="Multnomah County, Oregon", region="United States", kind="town",
+                  wikipedia="https://en.wikipedia.org/wiki/Portland,_Oregon",
+                  note="aerial-photograph ground (no open LiDAR over the built-up city: bare-earth "
+                       "LiDAR erases the streets); the street grid and the Willamette carry the "
+                       "fit; the 1890 J. McI. Wood perspective sheet is the steepest (near-"
+                       "vertical) - in fact the ONLY - drawn whole-city view of the pool that "
+                       "passes the 4000-px width gate (the 1880 J.K. Gill sheet's only scan is "
+                       "1742 px, the two NYPL 1880s scans 3072 px): drawn from a high vantage "
+                       "to the NORTHWEST (the Eastside bluffs) looking southeast - the "
+                       "Willamette River runs diagonally upper-left to lower-right with the "
+                       "downtown grid on both banks, a long steel-truss railway bridge mid-"
+                       "sheet, river traffic, Mt. St. Helens and the Cascade range a background "
+                       "mountain band at right, a sky band along the top, prominent-building "
+                       "vignettes framing the sheet - the grid fills the sheet beyond the 2000 m "
+                       "town box, so its fit is likely to end a review item (the 236a NY-1811 / "
+                       "DC-ring precedent)"),
 }
 
 # The per-view source rows land here as each city lands, keyed by <city>_<year> like the batch-4
@@ -349,6 +396,38 @@ RUGER_1870 = [
     ("File:Bird's eye view of the city of Memphis, Tennessee 1870. LOC 73694530.jpg", "Q16563", "Memphis", dict()),
 ]
 
+# Portland (batch 5, city 5; checked live 2026-10-14; the pool 55 unique / 12 gate-pass, per-view
+# STAGED/DROP verdicts in docs/lead_us_birdseye_batch5.md). One row per city: the steepest,
+# best-scanned whole-city view of the collection; the other pool (two photographic "Panoram"
+# prints, the Portland ME 1876 sheet x3 scans, a Casco Bay regional view, the Port Townsend and
+# Seattle sheets pulled in by "Portland, Oregon" publisher credits, in-city photos, other-city
+# postcards, book/OCR hits, too-small scans, licence rejects) are DROPS recorded in the lead
+# doc (the 236b/240 precedent).
+PORTLAND_1890 = [
+    # 1890 (the lower-centre cartouche reads "JAMES MCI. WOOD, REAL ESTATE AND INVESTMENT
+    # BROKER. / PORTLAND, OREGON. / 1890." - the page date 1890 matches the banner - no
+    # Zwolle-style swap): the 1890 J. McI. Wood perspective sheet in its LOC mirror (13760x9520,
+    # Public domain; page artist "Library of Congress, Geography and Map Division" - a LOC
+    # Panoramic maps item; the title prints "Portland, Oregon"): THE steepest AND best-scanned
+    # drawn whole-city view in the pool (13760 px, the widest scan in the pool) and the only
+    # gate-pass one (the 1880 J.K. Gill sheet's only scan is 1742 px and the two NYPL 1880s
+    # scans 3072 px - all under the 4000-px width gate): a hand-drawn, hand-colored sheet from
+    # a high vantage to the NORTHWEST (the Eastside bluffs) looking southeast - the Willamette
+    # River runs diagonally upper-left to lower-right with the downtown grid on both banks, a
+    # long steel-truss railway bridge mid-sheet, river traffic, Mt. St. Helens and the Cascade
+    # range a background mountain band at right, a sky band along the top, prominent-building
+    # vignettes framing the sheet (a real-estate promo sheet, the Omaha/Indianapolis class, with
+    # a mountain horizon instead of open farmland); the built-up grid fills the sheet beyond the
+    # 2000 m town box, so its fit is likely to end a review item (the 236a NY-1811 / DC-ring
+    # precedent). A same-sheet dupe was found by the landing's title re-search: the LOC
+    # 75694939 .tif (13760x9520, Public domain, LC Panoramic maps (2nd ed.), 724, artist
+    # "Clohessy & Strengele; Elliott Pu Co.") - verified a SEPARATE scan of the same sheet (the
+    # 1920-px comparison shows a mean absolute difference of 11, not a re-encoding), warmer-toned
+    # and slightly hazier in the downtown grid, with more smudging in the lower legend panels -
+    # this sharper .jpg stays staged (the 1872-Columbus best-of-scans rule); the .tif is a DROP.
+    ("File:Portland, Oregon 1890 Perspective Birds-eye-view Map.jpg", "Q6106", "Portland", dict()),
+]
+
 SOURCES = {
     "omaha_1868": dict(rows=OMAHA_1868, p="birdseye",
                        label="{name}, the E. Ruger / Chicago Lithographing Co. bird's-eye view (1868)"),
@@ -358,6 +437,8 @@ SOURCES = {
                           label="{name}, the H. H. & O. H. Bailey bird's-eye view (1872)"),
     "memphis_1870": dict(rows=RUGER_1870, p="birdseye",
                          label="{name}, the A. Ruger bird's-eye view (1870)"),
+    "portland_1890": dict(rows=PORTLAND_1890, p="birdseye",
+                          label="{name}, the J. McI. Wood perspective bird's-eye view (1890)"),
 }
 
 
