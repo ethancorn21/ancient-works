@@ -1,4 +1,4 @@
-Status: open
+Status: done
 Depends on: 307d
 Touches: tests/test_owner_check.py, docs/site_flow/307d_*.png (R5: restoring suite re-encodes to
 main's bytes before committing - never content changes)
@@ -151,22 +151,22 @@ runs as one invocation, A then B (PITFALLS: the B test cannot run in isolation).
 
 ## Acceptance criteria
 
-- [ ] The fix is applied exactly: the file's diff against the pre-edit file is the 54 lines
+- [x] The fix is applied exactly: the file's diff against the pre-edit file is the 54 lines
       above (0 changed / 0 removed); no TEMP instrumentation residue
       (`grep -cE "TEMP|camlog|__cam|dumpHandles" tests/test_owner_check.py` = 0).
-- [ ] Two or three consecutive unflagged pair runs pass end to end (`.venv/bin/python -m pytest
+- [x] Two or three consecutive unflagged pair runs pass end to end (`.venv/bin/python -m pytest
       tests/test_owner_check.py -q -p no:cacheprovider`, one invocation, A then B); every
       run's probe log shows zero `[warn] settle` lines and the ratio check `toolbar scale and
       turn change the drawing on screen` is `[ok]` (pre-fix on this same checkout: red 4/4 at
       the recorded 1.06105, it.214-216).
-- [ ] A two-run comparison finds A_4/A_5/B_4/B_5 byte-identical or <0.5% differing pixels at
+- [x] A two-run comparison finds A_4/A_5/B_4/B_5 byte-identical or <0.5% differing pixels at
       threshold 32 (the 28.6-33.6% run-to-run drift is gone) and the other six views at/below
       their historical 0-1.25% band.
-- [ ] After ANY owner_check run the ten docs/site_flow/307d_*.png are restored to the committed
+- [x] After ANY owner_check run the ten docs/site_flow/307d_*.png are restored to the committed
       bytes before committing (`git show HEAD:docs/site_flow/<name>.png > docs/site_flow/<name>.png`
       per changed file); the committed tree is clean (R5 - 813's refresh flag retires this once
       it lands).
-- [ ] No new red against this branch's suite at claim time (`.venv/bin/python -m pytest tests/ -q
+- [x] No new red against this branch's suite at claim time (`.venv/bin/python -m pytest tests/ -q
       -p no:cacheprovider`). On this (agent a's) branch the roman red is expected GREEN from
       230's data state (verify with the 2 s isolated run); if it is red, that is a 230-lane
       issue: log it in DECISIONS and stop - do not fix 230's data in passing.
@@ -200,14 +200,63 @@ runs as one invocation, A then B (PITFALLS: the B test cannot run in isolation).
 
 ## Hand-over
 
-(2026-10-15, iteration 195, agent c - created, nothing built yet; the recipe above is complete.)
-Claim steps: 1) on this branch verify the roman test is green in isolation (`.venv/bin/python -m
-pytest tests/test_src_roman_maclauchlan.py -q -p no:cacheprovider`, 2 s) - if red, log it (230's
-lane) and stop; 2) apply the recipe (the context lines match the current main file exactly; if
-any hunk fails to apply, main has moved - stop and re-derive the diff against this branch's
-file with `git diff main <the 814 fix commit> -- tests/test_owner_check.py` if it is reachable,
-otherwise stop and ask); 3) run the pair 2-3 times (one invocation each), capturing the probe
-logs; 4) compare the two runs' ten views (20-line PIL compare: count pixels differing by >32 on
-any channel, report the fraction per view; A_4/A_5/B_4/B_5 must be byte-identical or <0.5%);
-5) restore the re-rendered 307d PNGs (box 4); 6) one full-suite run (box 5); 7) claim done,
-recording the run evidence in DECISIONS.
+(2026-10-15, iteration 243, agent a - **DONE claimed this session via no-op verification**,
+exactly as the it.242 Proposed changes recommended: the 54-line recipe is ALREADY ON MAIN -
+the driver's 693b0ea3 takeover carry of 814 carried agent c's 63a4e4e (the recipe verbatim),
+and main's file is byte-identical to 63a4e4e's. No file changed this session: I verified,
+did not edit. The it.195 claim steps 2-6 were satisfied by that carry plus this session's
+fresh evidence below.)
+
+Evidence (this branch, this session; full record in the 816 it.243 DECISIONS entry):
+- Box 1: current tests/test_owner_check.py == 63a4e4e's file byte-for-byte (194 proved 54
+  added / 0 changed against its main base); all 54 recipe lines present in order (54/54
+  script-checked); 0/0 diff vs main; no TEMP residue. The carry commit's own diff is 69/124,
+  not 54/0/0, because 693b0ea3 ALSO re-synced the file against main's later 812/813-generation
+  variant (AW_OWNER_REFRESH regime, _shot_diff double-shot, __awSettle flag) - none of those
+  lines are in the current file (0 matches); the still-open 812/813 tasks rebuild them on top
+  of this file (their chain: 812 -> 813 -> 810 -> 811 -> 242).
+- Box 2: FOUR consecutive unflagged pair runs (the driver's exact invocation, one A-then-B
+  invocation each): 77.58 / 67.99 / 73.25 / 74.64 s, all `2 passed`. Probe logs captured with
+  the 0.1 s watcher for runs 1, 3, 4 (A and B of each; a fresh watcher per run): zero
+  `[warn] settle` in all six, ratio check `toolbar scale and turn change the drawing on
+  screen` `[ok]` 8/8, every log `RESULT PASS`. Run 2's log was lost to a watcher key
+  collision (new PITFALLS note); its end-to-end pass proves its probe's checks.
+- Box 3: run3 vs run4 - 8 of 10 views byte-identical, B_1-card and B_5-reload <0.0001%;
+  run1 vs run3 - 8 of 10 byte-identical, B_1-card 0.0447% (the documented historical-band
+  top) and B_5 0.0006%. A_4/A_5/B_4/B_5 byte-identical in both comparisons; the 28.6-33.6%
+  mid-transition drift stays dead on this tree.
+- Box 4: after every pair run and after the full suite, all ten docs/site_flow/307d_*.png
+  restored to main's bytes (`git show main:<name>` per file); the committed tree is clean and
+  `git diff main -- docs/site_flow/` is empty at claim time.
+- Box 5: roman isolated GREEN (4 passed, 6 s - the 194-claim-rejection red stays dead via
+  817/818 + 230's data state; no 230-lane stop needed); full suite 194 passed / 1 skipped /
+  0 failed in 609.10 s - no new reds against this branch.
+
+What this unblocks: **814's claim** (its one held dependency is now done - next 814 session:
+confirm the 0/0 diff, one fresh pair run as run-4, restore the PNGs, claim). 815 unblocks in
+parallel (the page-side addPairMarker subpixelPositioning: true, web/index.html). If the
+driver rejects this claim, that is the 194 pattern: the red would be OUTSIDE this task's
+file (which is byte-frozen at 63a4e4e's content) - diagnose the red's own lane, never
+weaken the owner test. R5 note: 813's refresh flag retires the per-run PNG restore regime
+once it lands.
+
+## Proposed changes (2026-10-15, iteration 242, agent a - task 814, which Depends on this)
+
+The fix this task republishes is ALREADY ON MAIN - not via this task, but via the driver's
+takeover-carry commit 693b0ea3 ("814 taken over from agent c: its work carried
+(c@26853066)"), which landed agent c's 63a4e4e settle+subpixel diff (the recipe above, 54
+lines) into main's tests/test_owner_check.py. Verified at it.242: `git diff main --
+tests/test_owner_check.py` is 0/0 (main's file carries settle()/subpixel() at all eight
+sites), and 814's re-verification on the current tree (= main in code) shows the fix
+working: three unflagged pair runs green (70.39/75.11/69.70 s), zero [warn] settle, ratio
+check [ok] in every captured probe log, all ten 307d views stable run-vs-run (worst
+0.0447%, the card-view jitter band), full suite 194/1/0 all green (the roman red dead via
+817/818). So this task's goal ("the pair is stable on every branch") is met, and its it.195
+claim steps 2-6 (apply the recipe, pair runs, view compare, PNG restore, full suite) are
+satisfied by that evidence - the recipe is now a 0/0 no-op (the it.195 hunk-failure escape
+hatch lands in exactly this place: the context lines no longer match because the fix is
+already applied).
+
+Recommend: close this task as done via a no-op verification (the claiming agent confirms
+the 0/0 diff and that the pair is green on main; no file changes needed). That unblocks
+814's done-claim (its remaining dependency: this task). No code change is required anywhere.
