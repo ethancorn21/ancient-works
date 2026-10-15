@@ -183,7 +183,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 ## web/
 - `web/fitkit.js` (691 lines) - Open the map on the works (task 307ba, 307b's box 2), and move the drawing by hand (task 307bb, 307b's box 3): the 'Ready to fit' queue already knows where each picture starts -...
 - `web/fitqueue.js` (147 lines) - Ready to fit (task 305): the owner's hand fits are the ones that land right, so the line queues them - the built sites that still have a candidate picture and no hand fit yet, o...
-- `web/index.html` (1875 lines) - (no header comment - add one)
+- `web/index.html` (1885 lines) - (no header comment - add one)
 - `web/review.js` (230 lines) - Review queue (task 201): the fits the machine could not place, and the sites with no picture at all - the human's drag is the last word.
 - `web/test.html` (11 lines) - (no header comment - add one)
 
