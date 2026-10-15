@@ -96,136 +96,84 @@ restore main's bytes before committing (the PITFALLS test_owner_check entry); on
 (same-sheet scans recorded in the lead doc, the LOC .jpg staged where it is the best scan).
 
 ## Hand-over
-(2026-10-14, iteration 182, agent c) **MEMPHIS LANDING (city 4/5) is DONE EXCEPT the final two
-steps: the FULL suite run and the commit.** The harness saved all working-tree changes for
-you (module, lead doc, golden, tests, the three staging files with the 4th Memphis row);
-`git status` shows them uncommitted. **State (all verified in the 182 session):**
-- Module `fit/src_us_birdseye_batch5.py`: SITES["Q16563"] (memphis-q16563, point
-  -90.05194444444444/35.14611111111111, place "Shelby County, Tennessee", the oblique-angle
-  note) + RUGER_1870 (the LOC 73694530 .jpg row, empty extra dict - NO Zwolle swap) +
-  SOURCES["memphis_1870"] (label "the A. Ruger bird's-eye view (1870)") + header/SITES/
-  source comments marking Memphis LANDED city 4 of 5.
-- `--verify` ran live: 4 QIDs, NO FLAG/TRAP, the new Memphis first name-search hit = itself
-  (transcript verbatim in the lead-doc QID section; also /tmp/aw241_mem_verify.log if it
-  survived loop maintenance).
-- stage (live): "1 new sites, 1 new pictures"; the staging files now hold 4/4/4 rows.
-- `--check` (offline): "evidence: 4 rows, 4 pass, 0 fail, 0 no-tie", zero join lines
-  (transcript verbatim in the lead-doc Staging section; /tmp/aw241_mem_check.log).
-- Lead doc `docs/lead_us_birdseye_batch5.md`: Memphis section (STAGED bullet + the full
-  42-item DROP list rebuilt verbatim from /tmp/aw241_mem_pool.json, which survived; the 10
-  gate-passes itemised, the 32 gate-fails grouped 26 keep-fails/6 gate-fails) + extra probes
-  + QID facts + 4-QID transcript + Staging "4 views / 4 site rows" + Not-done-yet now names
-  city 5 (after New Orleans, which is SKIPPED - 236b's new-orleans-q34404).
-- Golden regenerated: 4/4/4 (Memphis row: date "1870", year 1870, NO date_commons, PD,
-  10400x6832, artist "Ruger, A.").
-- Tests extended (PASS key, SITES/years/points/named tables += Memphis, the no-swap date
-  check; the negative control still on files[0] = Omaha; the golden-docstring count fixed to
-  4/4/4). Module tests ran 5/5 PASS (2.4 s, socket-blocking fixture, offline).
+(2026-10-14, iteration 183, agent c) **Memphis (city 4/5) is fully committed. NEXT: city 5/5 -
+research (one session) + landing (one session), then the close step.**
 
-**YOUR EXACT NEXT STEPS (one session):** (1) `git status` - confirm the working tree holds
-exactly the 7+3 files: module, lead doc, golden, test file, and the three staging files
-(extras_us_birdseye_batch5.jsonl / files_us_birdseye_batch5.jsonl /
-classified_us_birdseye_batch5.jsonl) - plus nothing unexpected (agent a's files must be
-touched by no one here). (2) **Run the FULL suite in-session (blocking, never nohup'd - the
-174 driver-kill lesson):** `.venv/bin/python -m pytest tests/ --ignore=tests/test_gate.py
--p no:cacheprovider` (the 241 178/180 pattern; expect the 190P/1S/0F baseline of 178 -
-re-grep the 180 DECISIONS entry for the exact command if the counts differ; a driver note of
-2026-10-13 records test_fit_queue.py::test_placement_gestures_and_save_in_the_browser as a
-known red at loop start - if it is the ONLY failure it is agent a's in-flight 239 work, not
-yours; any other failure: stop and investigate). (3) **R5:** after the run, `git status
-docs/site_flow/` - restore any re-encoded `docs/site_flow/307d_*.png` to main's bytes:
-`git checkout main -- docs/site_flow/307d_*.png` (the PITFALLS test_owner_check entry). (4)
-Commit EVERYTHING: `git add -A && git commit -m "241: Memphis landed (batch-5 city 4/5) -
-the 1870 A. Ruger sheet (LOC 73694530 .jpg) staged to memphis-q16563 - steepest drawn
-whole-city view in the pool, Q16563 verified clean"`. (5) Rewrite this hand-over for the
-city-5 session. **Then city 5/5** (research + landing, the same session-pair pattern):
-city 5 = the next city in the 181 candidate list's order NOT staged anywhere - New Orleans
-is SKIPPED (236b's new-orleans-q34404), so it is the city after New Orleans in that list's
-order; if the exact order can't be recovered, any US city with a usable LOC Panoramic view
-not staged anywhere serves (the task owes FIVE cities, not specific ones; check against all
-five staging sets + the catalog + web/data/sites.json). The lead-doc Not-done-yet section
-carries the full pointer. After city 5 lands: the close step (prep notes section 2, step 6:
-final suite = baseline, `--check` ends 5/5, tick the boxes, Status: done).
+**State (all verified in the 183 session):**
+- FOUR cities LANDED + committed: Omaha (Q43199, 1868 E. Ruger .tif), Indianapolis (Q6346,
+  1925 Spink page-1 .jpg, Zwolle swap), Columbus (Q16567, 1872 Bailey alternate.png), Memphis
+  (Q16563, 1870 Ruger .jpg). Staging files 4/4/4, golden 4/4/4, lead doc complete (four city
+  sections, Staging at "4 views / 4 site rows", Not-done-yet pointer naming city 5).
+- Full suite GREEN at exactly the 178 baseline: 187P/1S/0F with `--ignore=tests/test_gate.py`
+  (542.84 s, in-session) + tests/test_gate.py standalone 3P (2.25 s) = 190P/1S/0F over
+  191 tests. Zero red. The 182 hand-over's "expect 190P" vs the 187 the run reports = the 3
+  test_gate tests 178 included but the hand-over command excludes - measured decomposition in
+  the 183 DECISIONS entry, NOT a regression.
+- docs/site_flow/ matches main byte-for-byte again (5 re-encoded 307d PNGs restored - R5;
+  the suite re-encodes up to ten on EVERY run).
+- `--check` offline re-verified green (4/4 PASS caption_coords, exit 0, zero join lines);
+  module tests 5/5 (2.29 s).
 
-**Rules (unchanged):** never write the canonical files (236c); 236a's/236b's/240's files
-read-only; live commands under .venv/bin/python (module top stays stdlib-only); the golden
-is the contract (--golden only for an intended change); tests never bind fixed ports or
-write outside the project and /tmp; every full-suite run re-encodes up to ten
-docs/site_flow/307d_*.png - restore main's bytes before committing (R5); run the suite
-in-session (blocking), never nohup'd past the session (the 174 driver-kill lesson).
+**CITY 5 = the last city (session N: research, session N+1: landing, then close).**
+The 181 candidate list ends with "..." after New Orleans (already staged by 236b - skipped),
+so the box-5 fallback governs: **any US city with a usable LOC Panoramic view that is not
+staged anywhere** (the task owes FIVE cities, not specific ones). Suggested first-probe
+list, in order (name-checked clean against all five staging sets + catalog + web/data/
+sites.json in 183; the QID-level no-collision check still happens per city in research):
+**Albuquerque, Portland (OR), Salt Lake City, San Antonio, Seattle, Richmond, Buffalo,
+Miami.** Probe in that order with the six plain-phrase forms + `filetype:bitmap`
+(srnamespace 6, srlimit 40; the 236b lead-doc Fetch route; the /tmp/aw236b_b3_dvr.py pool
+builder is the template if it survived loop maintenance - rebuild from the 181 entry if
+not); the first city whose pool yields a usable view (Public domain, >= 4000 px, caption
+names the city, drawn whole-city view, steepest/best-scanned picked from the gate-passes)
+is city 5. A city whose pool yields none: record the drop with its reason in the lead doc,
+take the next probe city. The skip list is also enforced mechanically by the module's
+known_sites() at --verify/--check (catalog + 236a's + 236b's + 240's extras + web/data/
+sites.json) - never a second site for a QID.
 
-/tmp artifacts from this session (loop maintenance may wipe them; the lead doc now carries
-the full record verbatim, nothing is lost): aw241_mem_verify.log, aw241_mem_check.log, plus
-the 181 research set (aw241_mem_qid.py/.log, _pool.py/.json/.log, _thumbs.py +
-/tmp/aw241_mem_thumbs/, _crops.py + /tmp/aw241_mem_crops/, _probes.py/.json/.log,
-_probe_meta.py/.log + /tmp/aw241_mem_probe_thumbs/).
+**RESEARCH (live, /tmp artifacts named aw241_city5_*; the 179/181 per-city record is the
+pattern - both are in DECISIONS.md / DECISIONS-archive.md):** (1) QID via Wikidata
+wbgetentities (the 181 /tmp/aw241_mem_qid.py pattern if it survived): label, EVERY P625
+(measure all distances with fit/evidence.hav_m before writing them), P373 (a string is the
+usual US quirk -> place = county + state), P131, P17, enwiki, name search at limit 5 AND 20
+(first hit with P625). The mislabel trap class hit in 177 (Q16556 = Phoenix), 179
+(Q1405 = Augustus) and 240 (Q131855 = a roadster): never trust a first-guess QID from
+memory - take the QID from the live search hit. (2) Pool: build, dedupe, gates (keep after
+the Zwolle known-date swap + caption names the city + Public domain + >= 4000 px), eyeball
+every gate-pass with a 1280-px thumb one by one. Record EVERY non-staged pool item with
+its reason (same-sheet dupes, shallow, regional, photo, other-city, licence, small).
 
-**State after 181 (tree clean; nothing uncommitted):**
-- 3 cities LANDED (Omaha Q43199 / Indianapolis Q6346 / Columbus Q16567): module
-  fit/src_us_birdseye_batch5.py (SITES + OMAHA_1868/SPINK_1925/BAILEY_1872 + SOURCES), staging
-  files 3/3/3, lead doc, golden 3/3/3, tests 5/5.
-- Memphis research facts (the 181 DECISIONS entry carries the full record; /tmp artifacts
-  listed at its end, loop maintenance may wipe them - re-verify live if gone):
-  - **QID Q16563 = Memphis (TN)**: label "Memphis"; P625 = ONE 31 m value
-    (-90.05194444444444, 35.14611111111111) the downtown core; P373 = the STRING
-    "Memphis, Tennessee" -> place "Shelby County, Tennessee" (P131 = Shelby County Q501602
-    ONLY); P17 = Q30; enwiki "Memphis, Tennessee". Name search NO TRAP at limit 5 AND 20
-    (Q16563 is the #1 hit with P625 at both limits; no first-guess QID from memory was used -
-    the mislabel trap did not fire). Other P625 hits: Q962034 Memphis MO (235.5 km), Q979971
-    Memphis TX (1166.4 km), Q67363 Memphis AL (195.1 km) (all measured), Q5715 Egypt,
-    Q19343442 an NL street, Q2094177 University of Memphis (12.8 km, the trap class),
-    Q866831 the airport. No existing site holds the QID (zero grep hits anywhere);
-    slug("Memphis") = "memphis" -> site id **memphis-q16563**.
-  - **POOL 42 unique / 10 gate-pass; the pick = the 1870 A. Ruger sheet, staged scan
-    `File:Bird's eye view of the city of Memphis, Tennessee 1870. LOC 73694530.jpg`**
-    (10400x6832, PD, page date 1870 = the banner year - no Zwolle swap). The other 9:
-    same-sheet dupes of the Ruger (the .tif twin, the "Memphis airview 1870.jpg" re-upload -
-    verified the same scan pixel-for-pixel, the TSL 1873 REISSUE impression, the
-    "Forrest's jail" detail crop) + the 1887 Wellge (monochrome, centre fold, inset strips -
-    dropped on angle/scan) + the 1887 "Memphis Appeal" newspaper page + the 1861 Bachmann
-    Cairo-confluence regional view x3 scans (title names Cairo, not Memphis). The 32
-    gate-fails: 26 keep-fails (NBY/photos/bird photos) + 6 gate-fails (incl. the 14538 px
-    1861 balloon view of the Middle States - regional, "Memphis" only in the distance
-    labels). EXTRA probes (3, the Columbus pattern): no further drawn whole-city view on
-    Commons (11 candidates eyeballed - all photos, scene engravings or the flat 1858
-    cadastral map).
-- LANDING (one session, the 176-180 pattern - full spec in the 181 DECISIONS entry):
-  module edit (SITES["Q16563"] + RUGER_1870 + SOURCES["memphis_1870"] + header/SITES
-  comments marking Memphis LANDED, city 4 of 5) -> --verify (transcript verbatim into the
-  lead-doc QID section; expect 4 QIDs, the new one clean) -> --dry -> stage (1 new site /
-  1 new picture) -> --check (expect "evidence: 4 rows, 4 pass, 0 fail, 0 no-tie", zero join
-  lines; verbatim into the lead doc) -> lead-doc Memphis section (STAGED bullet + the
-  same-sheet-scan note + the full 42-item DROP list + the extra probes + the QID-facts
-  paragraph; Staging count "4 views / 4 site rows"; Not-done-yet -> city 5) -> --golden
-  (4/4/4) -> test extension (PASS key, tables += Memphis: year 1870, point
-  -90.05194444444444/35.14611111111111, named "Memphis", date "1870" with NO date_commons;
-  the negative control STAYS on files[0] = the Omaha row) -> module tests 5/5 -> FULL
-  suite in-session BLOCKING (restore the re-encoded 307d pngs first) -> commit.
+**LANDING (the 176-182 pattern, one city per step-set):** module edit (SITES entry with the
+verified P625 point + the staged view's apparent-angle note, <CITY>_<YEAR> row, SOURCES
+entry, header/comments marking city 5 LANDED) -> `--verify` (save the exact output; it goes
+verbatim into the lead-doc QID section; expect no FLAG/TRAP) -> `--dry` -> stage (live
+commons.info re-check; "1 new sites, 1 new pictures") -> `--check` (expect "evidence:
+5 rows, 5 pass, 0 fail, 0 no-tie", zero join lines; verbatim into the lead-doc Staging
+section) -> lead-doc section (STAGED bullet + full DROP list + QID facts; Staging ->
+"5 views / 5 site rows" + the note that 236c consolidates and checks the 25 total,
+16+4+5) -> `--golden` (5/5/5, an intended change) -> tests (PASS key, SITES/years/points/
+named tables += city 5, golden docstring count 5/5/5; the negative control stays on
+files[0] = the Omaha row) -> module tests 5/5 -> FULL suite in-session BLOCKING (expect
+187P/1S/0F with `--ignore=tests/test_gate.py` on this tree - main may have grown since;
+zero red is the criterion, and if the ONLY failure is
+test_fit_queue.py::test_placement_gestures_and_save_in_the_browser it is agent a's
+in-flight 239 work, not yours - any other failure: stop and investigate) -> R5 restore
+(`git checkout main -- docs/site_flow/307d_*.png`) -> commit.
 
-**After Memphis: city 5/5** - the next city after New Orleans in the LOC Panoramic
-collection's search order. New Orleans is SKIPPED (236b already staged it as
-new-orleans-q34404). The 236b 181 candidate list (see docs/lead_us_birdseye.md at commit
-0707a29, quoted in 240's lead-doc Not-done-yet) runs "...Kansas City, Omaha,
-St. Paul/Minneapolis, Indianapolis, Columbus, Memphis, New Orleans, ..." and ends there
-with "..."; the batch-3 note's continuation "the collection's state-by-state range (New
-Orleans, Denver, St. Paul, Minneapolis, Cleveland, ...)" already consumed Denver and
-Cleveland (240) - so city 5 = the next city in that order NOT staged anywhere (check
-against 236a's/236b's/240's/this task's extras + the catalog + web/data/sites.json; if the
-exact order can't be recovered, any US city with a usable LOC Panoramic view that is not
-staged anywhere serves - the task owes FIVE cities, not specific ones). Research + landing
-follow the same session-pair pattern. Then the close step (prep notes section 2, step 6:
-final suite = baseline, --check ends at 5/5, tick the boxes, Status: done).
+**CLOSE (same session as the landing, once city 5 is in):** final full suite = baseline
+(zero red), `--check` ends at 5/5 PASS with no join problems, tick ALL FIVE acceptance
+boxes (they are verified at that point), set `Status: done`. 236c consolidates the staging
+into the canonical data and checks the 25 total - never write the canonical files here.
 
 **Rules (unchanged):** never write the canonical files (236c); 236a's/236b's/240's files
-read-only; live commands under .venv/bin/python (module top stays stdlib-only); the golden
-is the contract (--golden only for an intended change); tests never bind fixed ports or
-write outside the project and /tmp; every full-suite run re-encodes up to ten
-docs/site_flow/307d_*.png - restore main's bytes before committing (R5); run the suite
-in-session (blocking), never nohup'd past the session (the 174 driver-kill lesson).
+read-only (the module's cross-check enforces); live commands under .venv/bin/python (module
+top stays stdlib-only; system python3 has no numpy); the golden is the contract (--golden
+only for an intended change); tests never bind fixed network ports or write outside the
+project and the temp dir; every full-suite run re-encodes up to ten docs/site_flow/307d_*.
+png - restore main's bytes before committing (R5); run the suite in-session (blocking),
+never nohup'd past the session (the 174 driver-kill lesson).
 
-**/tmp artifacts from this session (loop maintenance may wipe them; the 181 DECISIONS entry
-carries the full record):** aw241_mem_qid.py/.log, aw241_mem_pool.py/.json/.log,
-aw241_mem_thumbs.py + /tmp/aw241_mem_thumbs/ (10 thumbs), aw241_mem_crops.py +
-/tmp/aw241_mem_crops/ (1920-px thumbs + 9 corner/centre crops of pool idx 2/4/5),
-aw241_mem_probes.py/.json/.log, aw241_mem_probe_meta.py/.log + /tmp/aw241_mem_probe_thumbs/
-(11 thumbs).
+**/tmp artifacts (loop maintenance may wipe; the lead doc + the DECISIONS entries carry
+the full record verbatim):** 183 added none (verification + bookkeeping only). The Memphis
+research set (aw241_mem_*) and the pool-builder template (aw236b_b3_dvr.py) are listed in
+the 181/179 DECISIONS entries.
