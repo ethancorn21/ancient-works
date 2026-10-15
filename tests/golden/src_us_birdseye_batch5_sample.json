@@ -23,6 +23,14 @@
    "p_plan": 0.0,
    "site": "columbus-q16567",
    "title": "File:1872 Birds Eye View of Columbus Ohio - alternate.png"
+  },
+  {
+   "by": "hand",
+   "p_birdseye": 1.0,
+   "p_photo": 0.0,
+   "p_plan": 0.0,
+   "site": "memphis-q16563",
+   "title": "File:Bird's eye view of the city of Memphis, Tennessee 1870. LOC 73694530.jpg"
   }
  ],
  "extras": [
@@ -67,6 +75,20 @@
    "region": "United States",
    "source": "fit/src_us_birdseye_batch5.py columbus_1872",
    "wikipedia": "https://en.wikipedia.org/wiki/Columbus,_Ohio"
+  },
+  {
+   "aerial_ok": true,
+   "id": "memphis-q16563",
+   "kind": "town",
+   "lat": 35.14611111111111,
+   "lon": -90.05194444444444,
+   "name": "Memphis",
+   "note": "aerial-photograph ground (no open LiDAR over the built-up city: bare-earth LiDAR erases the streets); the street grid and the Mississippi carry the fit; the 1870 A. Ruger sheet is the steepest (true oblique) whole-city view in the pool (the 1887 Wellge and the 1887 'Appeal' newspaper page are the only other drawn whole-city views - both shallower and worse-scanned): drawn from a high vantage across the Mississippi River (from the Missouri side) - the river and its steamboat landings a foreground band lower-left, the city up the bluffs across the centre (the downtown grid, the squares, the rail yards), the open plain to the horizon upper-left, a visible sky band with clouds along the sheet's top - unlike the Omaha/Indianapolis near-verticals, like the Columbus 1872 true oblique - the built-up grid still fills the sheet beyond the 2000 m town box, so its fit is likely to end a review item (the 236a NY-1811 / DC-ring precedent)",
+   "place": "Shelby County, Tennessee",
+   "qid": "Q16563",
+   "region": "United States",
+   "source": "fit/src_us_birdseye_batch5.py memphis_1870",
+   "wikipedia": "https://en.wikipedia.org/wiki/Memphis,_Tennessee"
   }
  ],
  "files": [
@@ -169,6 +191,39 @@
    "w": 11764,
    "wd_plan": false,
    "year": 1872
+  },
+  {
+   "artist": "Ruger, A.",
+   "by": "fit/src_us_birdseye_batch5.py memphis_1870",
+   "cat": null,
+   "date": "1870",
+   "desc": "Perspective map not drawn to scale. LC Panoramic maps (2nd ed.), 901 Available also through the Library of Congress Web site as a raster image. Indexed for points of interest. Vault AACR2: 100; 651/1",
+   "evidence": {
+    "checked": "0000-00-00",
+    "dist_m": 0.0,
+    "kind": "caption_coords",
+    "named_place": "Memphis",
+    "place_label": "Memphis",
+    "place_lat": 35.14611111111111,
+    "place_lon": -90.05194444444444,
+    "place_qid": "Q16563",
+    "rec": "evidence/1",
+    "site_lat": 35.14611111111111,
+    "site_lon": -90.05194444444444
+   },
+   "h": 6832,
+   "license": "Public domain",
+   "mime": "image/jpeg",
+   "name": "Memphis, the A. Ruger bird's-eye view (1870)",
+   "page": "https://commons.wikimedia.org/wiki/File:Bird%27s_eye_view_of_the_city_of_Memphis,_Tennessee_1870._LOC_73694530.jpg",
+   "qid": "Q16563",
+   "site": "memphis-q16563",
+   "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2e/Bird%27s_eye_view_of_the_city_of_Memphis%2C_Tennessee_1870._LOC_73694530.jpg/1280px-Bird%27s_eye_view_of_the_city_of_Memphis%2C_Tennessee_1870._LOC_73694530.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "title": "File:Bird's eye view of the city of Memphis, Tennessee 1870. LOC 73694530.jpg",
+   "url": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Bird%27s_eye_view_of_the_city_of_Memphis%2C_Tennessee_1870._LOC_73694530.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "w": 10400,
+   "wd_plan": false,
+   "year": 1870
   }
  ]
 }

@@ -16,7 +16,9 @@ city 1 of 5; 236b skipped it with no recorded drop reason and the re-run resolve
 it simply fell out of 236b's batch order, its pool has a strong pick), Indianapolis (LANDED -
 city 2 of 5; the 1925 E. G. Spink Company sheet - the only whole-city view in its pool),
 Columbus (LANDED - city 3 of 5; the 1872 H. H. & O. H. Bailey sheet - the only drawn whole-city
-view in its pool, staged as its best of three scans), Memphis**, then whatever the collection's
+view in its pool, staged as its best of three scans), Memphis (LANDED - city 4 of 5; the 1870
+A. Ruger sheet - the steepest (true oblique) whole-city view in its pool; the 1887 Wellge and
+the 1887 "Appeal" newspaper page dropped on angle/scan), then whatever the collection's
 search order adds to reach five. The task owes FIVE
 staged cities, not specifically these - a city with no usable view gets a note here and the next
 candidate.
@@ -113,6 +115,42 @@ AND limit 20 in the session-7 research run: the #1 hit outright at both limits -
 US Columbuses rank 2nd or later, and the in-city institution Q5935366 never comes first). The
 first-guess QID Q1405 was caught as AUGUSTUS, the Roman emperor (the first-guess mislabel trap)
 - the real city is Q16567.
+
+Transcript for Memphis (the 241 session-10 run 2026-10-14, verbatim):
+
+```
+checked 2026-10-14 - 4 QIDs (Wikidata)
+  Q16563  'Memphis'  (site id: memphis-q16563, new (this task))
+      P625: [(-90.05194444444444, 35.14611111111111)]  (table site point: -90.05194444444444, 35.14611111111111)
+      P373: ['Memphis, Tennessee']
+      P131: [('Shelby County', 'Q501602')]  (table place: 'Shelby County, Tennessee')
+      enwiki: 'Memphis, Tennessee'  (table wikipedia: 'https://en.wikipedia.org/wiki/Memphis,_Tennessee')
+      search 'Memphis': first hit with P625 is Q16563 'Memphis' (-90.05194444444444, 35.14611111111111)
+  Q16567  'Columbus'  (site id: columbus-q16567, new (this task))
+      P625: [(-83.00055555555555, 39.96222222222222)]  (table site point: -83.00055555555555, 39.96222222222222)
+      P373: ['Columbus, Ohio']
+      P131: [('Franklin County', 'Q113237'), ('Delaware County', 'Q485524'), ('Fairfield County', 'Q490157')]  (table place: 'Franklin County, Ohio')
+      enwiki: 'Columbus, Ohio'  (table wikipedia: 'https://en.wikipedia.org/wiki/Columbus,_Ohio')
+      search 'Columbus': first hit with P625 is Q16567 'Columbus' (-83.00055555555555, 39.96222222222222)
+  Q43199  'Omaha'  (site id: omaha-q43199, new (this task))
+      P625: [(-95.9375, 41.25861111111111)]  (table site point: -95.9375, 41.25861111111111)
+      P373: ['Omaha, Nebraska']
+      P131: [('Douglas County', 'Q490695')]  (table place: 'Douglas County, Nebraska')
+      enwiki: 'Omaha, Nebraska'  (table wikipedia: 'https://en.wikipedia.org/wiki/Omaha,_Nebraska')
+      search 'Omaha': first hit with P625 is Q43199 'Omaha' (-95.9375, 41.25861111111111)
+  Q6346  'Indianapolis'  (site id: indianapolis-q6346, new (this task))
+      P625: [(-86.158055555556, 39.768611111111)]  (table site point: -86.158055555556, 39.768611111111)
+      P373: ['Indianapolis']
+      P131: [('Marion County', 'Q506230')]  (table place: 'Marion County, Indiana')
+      enwiki: 'Indianapolis'  (table wikipedia: 'https://en.wikipedia.org/wiki/Indianapolis')
+      search 'Indianapolis': first hit with P625 is Q6346 'Indianapolis' (-86.158055555556, 39.768611111111)
+```
+
+No FLAG / TRAP line on any of the four QIDs: each single P625 IS the table point (dist 0) and
+the first name-search hit with coordinates is the city itself (for Memphis checked at limit 5
+AND limit 20 in the session-9 research run: the #1 hit outright at both limits - and no
+first-guess QID from memory was used this time, the search identified the city directly, so
+the 177/179 first-guess mislabel trap class did not fire).
 
 ## The evidence field (as in 236a/236b/240)
 
@@ -409,44 +447,136 @@ Columbus entries in the catalog are the Columbus Country Club Mound Q104842892 a
 Mound mention in a site summary); the site id `columbus-q16567` is the catalog slug rule
 (catalog.slug("Columbus") = "columbus", verified).
 
+## Memphis (site `memphis-q16563`, this task's point = the verified P625; 1 view staged)
+
+**STAGED** (one row per sheet; dupes dropped):
+
+- `File:Bird's eye view of the city of Memphis, Tennessee 1870. LOC 73694530.jpg`
+  - 1870 (the banner reads "MEMPHIS TENNESSEE. 1870." - the page date 1870 matches the drawing -
+    no Zwolle-style swap; the row's extra dict is empty, the Omaha pattern), the A. Ruger sheet
+    (page artist "Ruger, A."; the sheet's own signature "A. Ruger, 75 B'wd St." lower-left),
+    10400x6832, Public domain (LC Panoramic maps (2nd ed.), 901). **A true oblique whole-city
+    view drawn from a high vantage across the Mississippi River (from the Missouri side)**:
+    the river and its steamboat landings a foreground band lower-left, the city up the bluffs
+    across the centre (the downtown grid, the squares, the rail yards), the open plain to the
+    horizon upper-left, a visible sky band with clouds along the sheet's top - unlike the
+    Omaha/Indianapolis near-verticals (like the Columbus 1872 true oblique) - the built-up grid
+    still fills the sheet beyond the 2000 m town box, so its fit is likely to end a review item
+    (the 236a NY-1811 / DC-ring precedent). The banner "MEMPHIS TENNESSEE. 1870." with two
+    landmark-legend columns; a small hand-written call number in the lower-right legend panel.
+    The steepest (true oblique) whole-city view in the pool and the best-scanned drawn sheet of
+    Memphis (Tennessee) on Commons (three extra probes found nothing else).
+
+**DROP (with reasons):** the pool is **42 unique rows, 10 gate-pass** (keep +
+caption-names-Memphis + Public domain + >= 4000 px); all 10 good items eyeballed one by one
+(1280-px thumbs; 1920-px corner/centre crops for the same-scan detection). The pool mixes the
+US cities named Memphis (TN dominates; the MO ghost town and the TX/AL small towns have no
+drawn views in the pool) - every sheet was disambiguated from its caption (the state in the
+banner/LCCN):
+
+- `File:Memphis - Bird's Eye View - Memphis Appeal 15 October 1887.jpg` (10104x7320, Public domain, page date 1887-10-15) - the 1887 "Memphis Appeal" newspaper SUPPLEMENT page (a two-page spread with a centre fold, a printed title band across the bottom, woodcut quality): a drawn whole-city view from across the river (the steamboat landings a foreground band, the city up the bluffs, the plain beyond) but a newspaper page, not a lithograph sheet -> DROPPED (the 1870 Ruger is steeper and better scanned).
+- `File:OCLC 5486148 Tennessee State Library Bird's-eye view of the City of Memphis, Tennessee in the 1870s.jpg` (9344x7135, Public domain, page date "1870s") - the 1870 A. Ruger sheet, but a SEPARATE 1873 REISSUE impression (bottom-right note "MEMPHIS, TENNESSEE in 1870 Republished in 1873 by HISTORIC URBAN PLANS, Thiru, New York, from a lithograph in the Library of Congress. This is number 17 1/2 of an edition limited to 350 copies", a hand-written "23 1/4" in the left margin) -> same-sheet dupe (another impression), inferior to the LOC scan.
+- `File:Forrest's jail in Memphis from Bird's-eye view of the City of Memphis, Tennessee in the 1870s.jpg` (5445x5269, Public domain) - a DETAIL CROP from the TSL 1870s (Ruger) impression with a red-rectangle annotation marking the jail -> DROPPED (not a whole-city view).
+- `File:Bird's eye view of the city of Memphis, Tennessee 1870. LOC 73694530.tif` (10400x6832, Public domain) - the .tif twin of the staged .jpg's exact same scan -> same-sheet dupe.
+- `File:Memphis airview 1870.jpg` (10400x6832, Public domain, artist "Albert Ruger") - a RE-UPLOAD of the LOC 73694530 scan under a different name - verified the same physical scan (the 1920-px bottom-right corner crop and the centre crop match pixel-for-pixel, including the hand-written call number) -> same-sheet dupe.
+- `File:Perspective map of the city of Memphis, Tenn. 1887. LOC 75696582.jpg` (12960x8880, Public domain, page date 1887, artist "Henry Wellge & Co.") - the 1887 Wellge sheet: monochrome (brown) lithograph, a vertical FOLD LINE down the sheet's centre, inset landmark-building strips across the top and bottom (Crescent City Lumber Co., Zelner & Co., W. B. Bloode & Co., the Gayoso Hotel, the Chickasaw Iron Works, the Pratt Gin Co., N. Wetter Manufacturing, Joe Palace Co., the Cole Manufacturing, Christian Brothers' College, the Chickasaw Land Company), the view from across the river - the LARGEST scan in the pool, but a shallower wide panorama with the fold and no colour -> DROPPED (the 1870 Ruger is steeper and the better scan).
+- `File:Bird's eye view of junction of the Ohio & Mississippi Rivers, showing Cairo and part of the southern states.tif` (6608x5160, 1861, Bachmann/Rumpf) + `File:Bird's eye view of junction of the Ohio & Mississippi Rivers, showing Cairo and part of the southern states LOC 99447003.jpg` + `File:Bird's eye view of junction of the Ohio & Mississippi Rivers, showing Cairo and part of the southern states LOC 99447003.tif` - ONE sheet in three scans: a REGIONAL view looking south from Vienna, Illinois; the TITLE names CAIRO, not Memphis (the gate passed on the description's distance table "Memphis 265" and the distant "MEMPHIS, TENN" label) -> DROPPED (not a Memphis sheet; the caption does not name the city).
+
+**The 32 gate-fail rows** (grouped): **26 keep-fails** = the NBY aerial PHOTOs (`File:Aerial View of Memphis Business District (NBY 2544).jpg` 811x505 PD 1940, `File:Skyscraper District, Court Square and Main Street (NBY 7545).jpg` 819x521 PD no date - Public domain but < 4000 px anyway), the zoo/park BEV photos (`File:Memphis Zoo BEV.jpg` 672x480, `File:Overton Park Memphis BEV.jpg` 864x816 - CC BY-SA 3.0, 2012 - licence reject and too small), the Jim Harvey double-neck guitar photos x2 (1958, for Paul Buskirk, Nashville Country Music Hall of Fame museum, CC0, 3024x4032 - the search matched the "bird's-eye maple" in the title), and 20 BIRD photographs (Japanese white-eye x4, White-eyed vireo x3, Dark-eyed junco x13 - all CC BY 2.0 - the search matched the birds' "Memphis"/white-eye names, e.g. "Dark-eyed junco in Overton Park, Memphis, TN"); **6 gate-fails** (the caption gate is a substring match over title + description; these never print "Memphis") = `File:Untitled - General Views (NBY 1648).jpg` (800x496, PD photo, circa 1913), the "The birds of America - from drawings made in the United States and their territories (1840)" plate (2020x3210, No restrictions - the search matched "bird's-eye"), the "War Map of the Middle States - Balloon View of Virginia, Maryland, Kentucky, Tennessee and parts of Arkansas, Missouri" (14538x21054, PD, 1861-era balloon view of the Middle States - a REGIONAL view; "Memphis" appears only in the printed distance labels, so even the gate rejected it), the two "The hunter and the trapper in North America" book plates (2004x1420 / 2000x1420, No restrictions), `File:Breeder and sportsman (1898) (20221728940).jpg` (788x306, No restrictions).
+
+**EXTRA probes** (beyond the six-form route, to be sure no drawn sheet was missed):
+"bird's eye view of 'Memphis, Tennessee' filetype:bitmap" (11 hits - all pool members, 0
+new), "'Memphis, Tennessee' LOC filetype:bitmap" (40 hits, 36 new), "memphis tennessee
+panoramic filetype:bitmap" (19 hits, 13 new; two overlap the previous probe). The 11 distinct
+new candidates that could be drawn views were ALL eyeballed (1280-px thumbs): the three 1910
+LOC "Panoram"/"Street scene" series (photographs: LCCN2007662799 1536 px river landing,
+LCCN2007662814 5065 px elevated city view, LCCN2007662813 5277 px downtown square) - photos;
+"Memphis (Tennessee) before the war - sketched by Porte Crayon. LCCN95509535" .jpg/.tif
+(4096x3254, 1862 wood engraving; the Harper's Weekly 19 March 1862 page with THREE scene
+vignettes - Old Battery at the Navy-Yard, Steamboat Landing, The Cotton Levee) - scenes, not a
+whole city; "Scenes in Memphis, Tennessee, during the riot LCCN94507780" .tif/.jpg (3286x4096,
+1866; the Harper's Weekly 26 May 1866 page, two wood engravings of the 1866 riot) - scenes, too
+small; "The levee at Memphis ... sketched by Mr. Alex Simplot. LCCN95504268.jpg" (1862 scene
+sketch, 3384 px); "Map of the city of Memphis - including Fort Pickering and Hopefield, Ark.
+LOC 2012586237.jpg" (23471x15189, 1858) - a FLAT cadastral map (hachured relief, lot numbers),
+not a bird's-eye; "Memphis-naval-battle.jpg" (1157 px, the 1862 naval-battle engraving after
+Simplot); "Riverboats at Memphis.jpg" (9051x7201, c1906 LOC 019395 river-landing PHOTOGRAPH);
+plus a batch of modern photos (the Pyramid, Graceland, the Liberty Bowl panorama) and 1940s
+photos (Cotton Carnival) from the same probes. **Verdict: the 1870 A. Ruger sheet is the
+steepest, best-scanned drawn whole-city view of Memphis (Tennessee) in the pool and in the
+probes** (the only other drawn whole-city views are the 1887 Wellge and the 1887 "Appeal"
+newspaper page, both dropped above).
+
+**The QID's facts** (verified live 2026-10-14 at the 241 session-9 research run; the
+transcript is in the QID section above): Q16563, label "Memphis" (description "city in and
+county seat of Shelby County, Tennessee, United States" - no first-guess QID from memory was
+used this time, the search identified the city directly, so the 177/179 mislabel trap class
+did not fire), enwiki "Memphis, Tennessee". P625 = ONE value (-90.05194444444444,
+35.14611111111111, ~31 m) - the downtown core (no refinement needed). P373 = the STRING
+"Memphis, Tennessee" (a Wikidata quirk, not a country entity - the place is written from the
+county + the state). P131 = Q501602 Shelby County ONLY (no multi-county like Columbus) -
+hence place "Shelby County, Tennessee". P17 = Q30 (a proper entity). Name search at limit 5
+AND limit 20: **no trap** (the first hit with P625, what `record --live` would store, is
+Q16563 itself, dist 0 - the #1 hit outright at both limits; the hits that never come first:
+the other US Memphises - Q962034 Memphis (Missouri, a ghost town, 235.5 km from TN), Q979971
+Memphis (Texas, 1166.4 km), Q67363 Memphis (Alabama, 195.1 km) (all measured with
+evidence.hav_m - the pool mixes the cities, so every sheet was disambiguated from its
+caption: the state in the banner/LCCN), Q5715 Memphis (Egypt), Q19343442 (a street in
+Amersfoort, Netherlands), the University of Memphis (Q2094177, an in-city institution 12.8 km
+from the city point - the Pittsburgh/Chicago trap class, but it never comes first), Memphis
+International Airport (Q866831, in-city) - none comes first). No existing site holds the QID
+(checked in the catalog, extras, 236a's, 236b's and 240's extras files and web/data/sites.json
+- zero case-insensitive "memphis" in all of them); the site id `memphis-q16563` is the
+catalog slug rule (catalog.slug("Memphis") = "memphis", verified).
+
 ## Staging and checks (2026-10-14)
 
-**3 views / 3 site rows so far of the final five** (Omaha staged in the 241 session-4 run;
-Indianapolis staged in the 241 session-6 run; Columbus staged in the 241 session-8 run; the
-remaining two land in this task's files the same way; the counts end at FIVE views / FIVE
-site rows, or a recorded shortfall, when the five are done). All batch-5 cities stage in this task's own files only: `data/catalog/extras_us_birdseye_batch5.jsonl` (the site rows - region
+**4 views / 4 site rows so far of the final five** (Omaha staged in the 241 session-4 run;
+Indianapolis staged in the 241 session-6 run; Columbus staged in the 241 session-8 run;
+Memphis staged in the 241 session-10 run; the last one lands in this task's files the same
+way; the counts end at FIVE views / FIVE site rows, or a recorded shortfall, when the five
+are done). All batch-5 cities stage in this task's own files only: `data/catalog/extras_us_birdseye_batch5.jsonl` (the site rows - region
 "United States", kind "town", aerial_ok true, the point = the city's verified P625 or a
 recorded refinement, the note recording the staged view's apparent angle so 236c / the matcher
 can order the oblique views), `data/commons/files_us_birdseye_batch5.jsonl` (files.jsonl shape
 + the 200 evidence field) and `data/commons/classified_us_birdseye_batch5.jsonl` (p_birdseye
-1.0, by "hand"). `--check` (offline, no network), the 241 session-8 run:
+1.0, by "hand"). `--check` (offline, no network), the 241 session-10 run:
 
 ```
 PASS caption_coords  omaha-q43199|File:Bird's eye view of the city of Omaha, Nebraska 1868. LOC 73693495.tif
 PASS caption_coords  indianapolis-q6346|File:Bird's-eye view of Indianapolis showing Spink apartments, hotels, office and industrial buildings - DPLA - d442b7431e1f90b2c13fb4f957e8026f (page 1).jpg
 PASS caption_coords  columbus-q16567|File:1872 Birds Eye View of Columbus Ohio - alternate.png
-evidence: 3 rows, 3 pass, 0 fail, 0 no-tie
+PASS caption_coords  memphis-q16563|File:Bird's eye view of the city of Memphis, Tennessee 1870. LOC 73694530.jpg
+evidence: 4 rows, 4 pass, 0 fail, 0 no-tie
 ```
 
 No join problems (the file rows name the staged sites; classified rows 1:1; no staged id or QID
 collides with an existing site - the module's `known_sites()` reads the catalog, extras,
 236a's, 236b's and 240's extras files plus web/data/sites.json on every run). The golden sample
-`tests/golden/src_us_birdseye_batch5_sample.json` pins the staged rows (3/3/3; regenerated only
+`tests/golden/src_us_birdseye_batch5_sample.json` pins the staged rows (4/4/4; regenerated only
 via the module's `--golden` for an intended change).
 
 **Not done yet - this task's five (batch 5, the final five of the 25 total): Omaha done (city
 1/5, the 1868 E. Ruger sheet staged above), Indianapolis done (city 2/5, the 1925 E. G. Spink
 Company sheet staged above), Columbus done (city 3/5, the 1872 H. H. & O. H. Bailey sheet
-staged above).** The remaining two in the candidate order: **Memphis**, then whatever the
-collection's search order adds to reach five (the 181 candidate list continues past Memphis:
-"...New Orleans, ..." - New Orleans is already staged by 236b, so it is skipped; the collection
-has ~1,500 views, so any US city not already staged - the skip list: 236a's four, 236b's
-sixteen, 240's four, this task's staged cities, the catalog, web/data/sites.json - is fair game
-as the search continues). The pool caveat for Memphis is the same city-name mixing (Memphis,
-Tennessee vs e.g. Memphis, Missouri - disambiguate each sheet from its caption: the state in
-the banner, the LCCN) and the first-guess QID must be verified live (the Q1405=Augustus and
-Q16556=Phoenix mislabels show the trap is live). A city whose pool yields no usable view gets a
-drop note here and the next candidate. **236c** consolidates every staging set into
+staged above), Memphis done (city 4/5, the 1870 A. Ruger sheet staged above).** The last one:
+whatever the collection's search order adds to reach five - **city 5 = the next city in the
+181 candidate list's order NOT staged anywhere**: the 236b 181 candidate list (see
+docs/lead_us_birdseye.md at its commit, quoted in 240's lead-doc Not-done-yet) runs
+"...Kansas City, Omaha, St. Paul/Minneapolis, Indianapolis, Columbus, Memphis, New Orleans, ..."
+and ends there with "..."; the batch-3 note's continuation "the collection's state-by-state
+range (New Orleans, Denver, St. Paul, Minneapolis, Cleveland, ...)" already consumed Denver and
+Cleveland (240) - so New Orleans is the next city in that order and is SKIPPED (236b already
+staged it as new-orleans-q34404), and city 5 is the city after it (check against all five
+staging sets + the catalog + web/data/sites.json; if the exact order can't be recovered, any
+US city with a usable LOC Panoramic view that is not staged anywhere serves - the task owes
+FIVE cities, not specific ones; the skip list: 236a's four, 236b's sixteen, 240's four, this
+task's staged cities, the catalog, web/data/sites.json). The pool caveat for the next city is
+the same city-name mixing (disambiguate each sheet from its caption: the state in the banner,
+the LCCN) and the first-guess QID must be verified live (the Q1405=Augustus and
+Q16556=Phoenix mislabels show the trap is live; Memphis's search identified its QID directly -
+no first-guess used). A city whose pool yields no usable view gets a drop note here and the
+next candidate. **236c** consolidates every staging set into
 the canonical data and checks the 25 total (16 + 4 + 5, or a recorded shortfall for a city whose
 pool yields no usable view). **Do NOT write the canonical files - that is 236c; do NOT
 re-stage the sixteen cities in 236b or the four in 240's doc.**

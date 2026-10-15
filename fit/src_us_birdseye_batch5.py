@@ -11,8 +11,10 @@ the 236b lead doc): Omaha (LANDED first: the 1868 E. Ruger sheet - the 236b sile
 resolves stageable: it fell out of 236b's batch order, its pool has a strong pick), Indianapolis
 (LANDED: the 1925 E. G. Spink Company sheet - the only whole-city view in its pool, the DPLA /
 Indiana State Library scan), Columbus (LANDED: the 1872 H. H. & O. H. Bailey sheet - the only
-drawn whole-city view in its pool, staged as its best of three scans), Memphis, then whatever
-the collection's search order adds to reach five. This task
+drawn whole-city view in its pool, staged as its best of three scans), Memphis (LANDED: the
+1870 A. Ruger sheet - the steepest (true oblique) whole-city view in its pool; the 1887 Wellge
+and the 1887 "Appeal" newspaper page dropped on angle/scan), then whatever the collection's
+search order adds to reach five. This task
 owes FIVE staged cities, not specifically these - a city with no usable view gets a lead-doc
 note and the next candidate.
 
@@ -85,8 +87,10 @@ NO_BOOKS = os.path.join(ROOT, "data", "books", ".no-books")  # never exists: che
 # Indianapolis (LANDED, city 2 of 5 - the 1925 E. G. Spink Company sheet, the only whole-city
 # view in its pool; the DPLA / Indiana State Library scan), Columbus (LANDED, city 3 of 5 -
 # the 1872 H. H. & O. H. Bailey sheet, the only drawn whole-city view in its pool; staged as
-# its best of three scans), Memphis, then whatever the collection's search order adds to reach
-# five (each new entry verified live, --verify re-checks;
+# its best of three scans), Memphis (LANDED, city 4 of 5 - the 1870 A. Ruger sheet, the
+# steepest (true oblique) whole-city view in its pool; the 1887 Wellge and the 1887 "Appeal"
+# newspaper page dropped on angle/scan), then whatever the collection's search order adds to
+# reach five (each new entry verified live, --verify re-checks;
 # per-view STAGED/DROP verdicts in docs/lead_us_birdseye_batch5.md). This task owes FIVE staged
 # cities, not specifically these - a city with no usable view gets a lead-doc note and the next
 # candidate.
@@ -184,6 +188,43 @@ SITES = {
                        "Omaha/Indianapolis near-verticals - the built-up grid still fills the "
                        "sheet beyond the 2000 m town box, so its fit is likely to end a review "
                        "item (the 236a NY-1811 / DC-ring precedent)"),
+    # Q16563: P625 = ONE 31 m value (-90.05194444444444, 35.14611111111111) - the downtown core
+    # (no refinement needed). P373 is the STRING "Memphis, Tennessee" (a Wikidata quirk, not a
+    # country entity - the place is written from the county + the state); P131 = Q501602 Shelby
+    # County (the only one, + the state - no multi-county like Columbus) - hence place "Shelby
+    # County, Tennessee"; P17 = Q30 (a proper entity); enwiki "Memphis, Tennessee". Name search
+    # at limit 5 AND limit 20 (the 241 session-9 research run): NO TRAP - the first hit with
+    # P625, what record --live would store, is Q16563 itself (dist 0; the #1 hit outright at
+    # both limits) - no first-guess QID from memory was used (the search identified the city
+    # directly, so the 177/179 mislabel trap class did not fire); the hits that never come
+    # first: the other US Memphises - Q962034 Memphis (Missouri, a ghost town, 235.5 km),
+    # Q979971 Memphis (Texas, 1166.4 km), Q67363 Memphis (Alabama, 195.1 km) (all measured with
+    # evidence.hav_m - the pool mixes the cities, so every sheet was disambiguated from its
+    # caption: the state in the banner/LCCN), Q5715 Memphis (Egypt), Q19343442 (a street in
+    # Amersfoort, Netherlands), the University of Memphis (Q2094177, an in-city institution
+    # 12.8 km from the city point - the Pittsburgh/Chicago trap class, but it never comes
+    # first), Memphis International Airport (Q866831, in-city). No existing site holds the QID
+    # (checked at the 241 session-9 run in the catalog, extras, 236a's, 236b's and 240's extras
+    # files and web/data/sites.json - zero case-insensitive "memphis" in all of them); site id
+    # memphis-q16563 (catalog.slug("Memphis") = "memphis", verified).
+    "Q16563": dict(id="memphis-q16563", name="Memphis", named="Memphis",
+                  lon=-90.05194444444444, lat=35.14611111111111,
+                  place="Shelby County, Tennessee", region="United States", kind="town",
+                  wikipedia="https://en.wikipedia.org/wiki/Memphis,_Tennessee",
+                  note="aerial-photograph ground (no open LiDAR over the built-up city: bare-earth "
+                       "LiDAR erases the streets); the street grid and the Mississippi carry the "
+                       "fit; the 1870 A. Ruger sheet is the steepest (true oblique) whole-city "
+                       "view in the pool (the 1887 Wellge and the 1887 'Appeal' newspaper page "
+                       "are the only other drawn whole-city views - both shallower and worse-"
+                       "scanned): drawn from a high vantage across the Mississippi River (from "
+                       "the Missouri side) - the river and its steamboat landings a foreground "
+                       "band lower-left, the city up the bluffs across the centre (the downtown "
+                       "grid, the squares, the rail yards), the open plain to the horizon "
+                       "upper-left, a visible sky band with clouds along the sheet's top - "
+                       "unlike the Omaha/Indianapolis near-verticals, like the Columbus 1872 "
+                       "true oblique - the built-up grid still fills the sheet beyond the 2000 m "
+                       "town box, so its fit is likely to end a review item (the 236a NY-1811 / "
+                       "DC-ring precedent)"),
 }
 
 # The per-view source rows land here as each city lands, keyed by <city>_<year> like the batch-4
@@ -281,6 +322,33 @@ BAILEY_1872 = [
     ("File:1872 Birds Eye View of Columbus Ohio - alternate.png", "Q16567", "Columbus", dict()),
 ]
 
+# Memphis (batch 5, city 4; checked live 2026-10-14; the pool 42 unique / 10 gate-pass, per-view
+# STAGED/DROP verdicts in docs/lead_us_birdseye_batch5.md). One row per city: the steepest,
+# best-scanned whole-city view of the collection; the other pool (same-sheet dupes, the 1887
+# Wellge and the 1887 "Appeal" newspaper page - the only other drawn whole-city views, both
+# shallower and worse-scanned - a Cairo regional view, a detail crop, NBY/bird photographs,
+# too-small scans, licence rejects) are DROPS recorded in the lead doc (the 236b/240 precedent).
+RUGER_1870 = [
+    # 1870 (the banner reads "MEMPHIS TENNESSEE. 1870." - the page date 1870 matches the drawing
+    # - no Zwolle-style swap): the 1870 A. Ruger sheet in its LOC mirror (10400x6832, Public
+    # domain; page artist "Ruger, A."), THE steepest (true oblique) whole-city view in the pool
+    # and the best-scanned drawn sheet of Memphis (Tennessee) on Commons (three extra probes
+    # found nothing else): drawn from a high vantage across the Mississippi River (from the
+    # Missouri side) - the river and its steamboat landings a foreground band lower-left, the
+    # city up the bluffs across the centre (the downtown grid, the squares, the rail yards),
+    # the open plain to the horizon upper-left, a visible sky band with clouds along the
+    # sheet's top (unlike the Omaha/Indianapolis near-verticals, like the Columbus 1872 true
+    # oblique); the banner "MEMPHIS TENNESSEE. 1870." with two landmark-legend columns, the
+    # lithographer's signature "A. Ruger, 75 B'wd St." lower-left, a small hand-written call
+    # number in the lower-right legend panel. The built-up grid still fills the sheet beyond
+    # the 2000 m town box, so its fit is likely to end a review item (the 236a NY-1811 /
+    # DC-ring precedent). Same-sheet dupes (one row per sheet): the LOC 73694530 .tif twin,
+    # the "Memphis airview 1870.jpg" re-upload (verified the same physical scan
+    # pixel-for-pixel), the TSL 1873 reissue impression, and the "Forrest's jail" detail crop -
+    # all dropped.
+    ("File:Bird's eye view of the city of Memphis, Tennessee 1870. LOC 73694530.jpg", "Q16563", "Memphis", dict()),
+]
+
 SOURCES = {
     "omaha_1868": dict(rows=OMAHA_1868, p="birdseye",
                        label="{name}, the E. Ruger / Chicago Lithographing Co. bird's-eye view (1868)"),
@@ -288,6 +356,8 @@ SOURCES = {
                               label="{name}, the E. G. Spink Company bird's-eye view (1925)"),
     "columbus_1872": dict(rows=BAILEY_1872, p="birdseye",
                           label="{name}, the H. H. & O. H. Bailey bird's-eye view (1872)"),
+    "memphis_1870": dict(rows=RUGER_1870, p="birdseye",
+                         label="{name}, the A. Ruger bird's-eye view (1870)"),
 }
 
 
