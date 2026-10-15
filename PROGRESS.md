@@ -9,6 +9,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/236-us-cities.md` (split)
 - `tasks/241-us-birdseye-batch5.md` (in-progress) - hand-over: (2026-10-15, iteration 191, agent c) **191 note:** the 242 family was re-split - the fix
 - `tasks/242-owner-check-stable-shots.md` (open) - hand-over: (2026-10-15, iteration 189, agent c) **SPLIT per the driver's instruction** (agent a's 230 and my
+- `tasks/809-horsley-check.md` (in-progress) - hand-over: (2026-10-15, iteration 196, agent c) **PREP-STEP 1 DONE AND COMMITTED-ish (module edit in the working
 - `tasks/810-owner-check-settle-captures.md` (open) - hand-over: (2026-10-15, iteration 190, agent c; re-split again at iteration 191: the flake fix moved out
 - `tasks/812-owner-check-settle-shots.md` (open) - hand-over: (2026-10-15, iteration 191, agent c) Narrowed by this split; nothing built yet on either
 - `tasks/814-owner-check-settle-wait.md` (in-progress) - hand-over: (2026-10-15, iteration 195, agent c) **SPLIT designed and mostly executed this session; NO code changed**
@@ -16,14 +17,19 @@ task file (for a subtask, read its parent's too).
 
 ## Next open tasks
 - `tasks/236c-us-cities-merge.md`
-- `tasks/809-horsley-check.md`
 - `tasks/811-owner-check-pin-snapshot.md`
+- `tasks/813-owner-check-refresh-flag.md`
 
 ## Your task's journal
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-15 809 DECISION: built the --check leg per the 155 prep after re-verifying its assumptions on current main - two of the prep's "verified" facts are stale at 196, and the prep's runpy wrapper as written fails
+- **Stale prep fact 1:** prep §0 says `grep -c britanniaromanao00hors data/books/index.jsonl` = 0; on main at 196 it is **38** (211 box-2's book-index rebuild, commit 214c6425, landed between 155 and 196: the book machinery's own leaf rows, never written by 207a/808). No design impact: check_staged passes NO_BOOKS so evidence.check skips the books file entirely; the applicable route remains check_commons -> check_caption only (prep risk 2, re-confirmed by reading fit/evidence.py in full this session).
+- **Stale prep fact 2:** prep §1 says luguvallium's Q71551754 is held by NO canonical row; on main at 196 **all 9 staged roman sites (incl. luguvallium-q71551754) are already folded into the canonical data/catalog/extras.jsonl** (211's original consolidation ran on main; the staging files stay in place; 230 = agent a's re-run, in flight). Consequences, all verified by running the join: (e) canonical-identity is LIVE and passes for all 9 staged sites (byte-identical under _canon_norm); (f) cannot fire alone for a mutated staged site (a row with a colliding qid necessarily differs from its canonical twin, so (e) flags first - (f) still matters pre-merge and for QIDs held by a different canonical site); the 230-ordering worry (prep risk 4) is satisfied in BOTH merge states (the 155 simulation + the now-real merged state both pass). (Context from the DECISIONS tail at 196: the 207b maclauchlan test was RED on main a few hours earlier over exactly this (e) check - "staged site luguvallium-q71551754 differs from its canonical row in extras.jsonl" - i.e. agent a's in-flight 211/230 work had mutated the canonical row then and re-synced it since; another reason the step-4 baseline must be freshly measured.)
+- **Built (working tree, UNCOMMITTED - the context-limit harness saved it; next session commits it first):** fit/src_roman_horsley.py gained `_canon_norm` (copied from 207b: the family pattern keeps each book module self-contained - no cross-module import of the helper), `join_problems()` (the whole staged roman set per the 808 spec (a)-(f); this book's and 207b's rows coexist tagged in the shared files), `check_staged()` (join once, then fit/evidence.py's check over a temp file of THIS book's 17 rows with NO_BOOKS and catalog=SITES_JSONL; 0 iff no join problem and no FAIL), the `--check` dispatch in `__main__` (no-arg now prints usage, 207b-style), and the "Later legs" docstring rewritten to the built state. The `--golden` leg stays a stub until the next session (prep step 2).
+- **Verified (all under .venv/bin/python, project root):** --check under the socket-block wrapper -> exit 0, no "join:" lines, `evidence: 17 rows, 17 pass, 0 fail, 0 no-tie`; 6 join negative controls on temp copies all fire (unknown site / no picture / duplicate row / canonical-differs-ALONE / QID-collision / classified-not-1:1); 3 evidence negative controls fire with the exact FAIL strings recorded in the task hand-over (the 2-space + reason format of evidence._line); --dry staging still idempotent; the three staging files byte-identical to HEAD. **Cascade note for the step-3 test:** corrupting the ONLY row of a single-picture site (e.g. the 207b luguvallium row = row 0 of files_roman.jsonl) fires THREE join problems (unknown site + that site's no-picture + classified-not-1:1) - the test must assert the full fired list; for a 2-problem unknown-site case use a two-picture site (n236 -> castrum-segedunum-q637958, which also holds n238).
+... (0.7 KB more: `grep -n -A 200 -F '## 2026-10-15 809 DECISION: built the --check leg per the 155 prep after re-verifying its assumptions on current main - two of the prep's "verified" facts are stale at 196, and the prep's runpy wrapper as written fails' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
