@@ -1,0 +1,33 @@
+{
+ "site": "milwaukee-q37836",
+ "candidates": [
+  {
+   "plan": "c_5d8d17eb22e110f7",
+   "title": "Milwaukee, the Bailey bird's-eye view (1872)",
+   "url": "media/commons/milwaukee-q37836/5d8d17eb22e110f7.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-14",
+    "named_place": "Milwaukee",
+    "place_qid": "Q37836",
+    "place_label": "Milwaukee",
+    "place_lon": -87.95,
+    "place_lat": 43.05,
+    "site_lon": -87.95,
+    "site_lat": 43.05,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.5625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "not sure: 4 consistent points (need 10)"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

@@ -1,0 +1,33 @@
+{
+ "site": "minneapolis-q36091",
+ "candidates": [
+  {
+   "plan": "c_3b4a78e2c577925d",
+   "title": "Minneapolis, the W. V. Herancourt / I. Monasch bird's-eye view (1885)",
+   "url": "media/commons/minneapolis-q36091/3b4a78e2c577925d.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-14",
+    "named_place": "Minneapolis",
+    "place_qid": "Q36091",
+    "place_label": "Minneapolis",
+    "place_lon": -93.26916666666666,
+    "place_lat": 44.981944444444444,
+    "site_lon": -93.26916666666666,
+    "site_lat": 44.981944444444444,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.5625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "not sure: 4 consistent points (need 10)"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

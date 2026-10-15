@@ -1,0 +1,15 @@
+{
+ "id": "chicago-q1297",
+ "name": "Chicago",
+ "place": "Cook County, Illinois, United States",
+ "lon": -87.627778,
+ "lat": 41.881944,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "United States",
+ "kind": "town",
+ "qid": "Q1297",
+ "summary": "Chicago is the most populous city in the U.S. state of Illinois and in the Midwestern United States. Located on the western shore of Lake Michigan, it is the third-most populous city in the United States and the fifth-most populous city in North America, with a population of 2.74 million at the 2020 census. The Chicago metropolitan area has approximately 9.62 million residents according to the 2020 census and is the third-largest metropolitan statistical area in the country and part of the fourth-largest combined statistical area in the United States, spanning 19 counties in three states and with a population of nearly 10 million. Chicago is the county seat of Cook County, the second-most populous county in the U.S.",
+ "wiki": "https://en.wikipedia.org/wiki/Chicago"
+}

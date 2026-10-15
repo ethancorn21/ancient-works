@@ -1,0 +1,15 @@
+{
+ "id": "columbus-q16567",
+ "name": "Columbus",
+ "place": "Franklin County, Ohio, United States",
+ "lon": -83.00055555555555,
+ "lat": 39.96222222222222,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "United States",
+ "kind": "town",
+ "qid": "Q16567",
+ "summary": "Columbus is the capital and most populous city of the U.S. state of Ohio. With a population of 905,748 at the 2020 census, it is the 14th-most populous city in the U.S., second-most populous city in the Midwest, and third-most populous U.S. state capital. The Columbus metropolitan area, with an estimated 2.23 million residents, is the largest metropolitan area entirely in Ohio and 32nd-largest metropolitan area in the U.S. Columbus is the county seat of Franklin County; it also extends into Delaware and Fairfield counties.",
+ "wiki": "https://en.wikipedia.org/wiki/Columbus,_Ohio"
+}

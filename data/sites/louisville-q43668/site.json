@@ -1,0 +1,15 @@
+{
+ "id": "louisville-q43668",
+ "name": "Louisville",
+ "place": "Jefferson County, Kentucky, United States",
+ "lon": -85.751389,
+ "lat": 38.256111,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "United States",
+ "kind": "town",
+ "qid": "Q43668",
+ "summary": "Louisville is the most populous city in the U.S. state of Kentucky, sixth-most populous city in the Southeast, and the 27th-most-populous city in the United States. By land area, it is the country's 24th-largest city; however, by population density, it is the 265th most dense city. Louisville is the historical county seat and, since 2003, the nominal seat of Jefferson County, on the Indiana state line.",
+ "wiki": "https://en.wikipedia.org/wiki/Louisville,_Kentucky"
+}

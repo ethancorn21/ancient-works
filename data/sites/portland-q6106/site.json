@@ -1,0 +1,15 @@
+{
+ "id": "portland-q6106",
+ "name": "Portland",
+ "place": "Multnomah County, Oregon, United States",
+ "lon": -122.67916666666666,
+ "lat": 45.515,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "United States",
+ "kind": "town",
+ "qid": "Q6106",
+ "summary": "Portland is the most populous city in the U.S. state of Oregon. Located in the Pacific Northwest at the confluence of the Willamette and Columbia rivers, it is the 28th-most populous city in the United States, sixth-most populous on the West Coast, and fourth-most populous in the Pacific Northwest, with a population of 652,503 at the 2020 census. The Portland metropolitan area, with over 2.54 million residents, is the 26th-largest metropolitan area in the nation. Almost half of Oregon's population resides within the Portland metro area. It is the county seat of Multnomah County, the most populous in the state.",
+ "wiki": "https://en.wikipedia.org/wiki/Portland,_Oregon"
+}

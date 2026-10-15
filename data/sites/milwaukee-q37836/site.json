@@ -1,0 +1,15 @@
+{
+ "id": "milwaukee-q37836",
+ "name": "Milwaukee",
+ "place": "Milwaukee County, Wisconsin, United States",
+ "lon": -87.95,
+ "lat": 43.05,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "United States",
+ "kind": "town",
+ "qid": "Q37836",
+ "summary": "Milwaukee is the most populous city in the U.S. state of Wisconsin. Located on the western shore of Lake Michigan, it had a population of 577,222 at the 2020 census, making it the 31st-most populous city in the United States and the fifth-most populous city in the Midwest. The Milwaukee metropolitan area has over 1.57 million residents and ranks as the 40th-largest metropolitan area in the nation. The city is the county seat of Milwaukee County.",
+ "wiki": "https://en.wikipedia.org/wiki/Milwaukee"
+}

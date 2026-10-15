@@ -1,0 +1,33 @@
+{
+ "site": "columbus-q16567",
+ "candidates": [
+  {
+   "plan": "c_6a10cb94adb8c13c",
+   "title": "Columbus, the H. H. & O. H. Bailey bird's-eye view (1872)",
+   "url": "media/commons/columbus-q16567/6a10cb94adb8c13c.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-14",
+    "named_place": "Columbus",
+    "place_qid": "Q16567",
+    "place_label": "Columbus",
+    "place_lon": -83.00055555555555,
+    "place_lat": 39.96222222222222,
+    "site_lon": -83.00055555555555,
+    "site_lat": 39.96222222222222,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.5625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "not sure: 4 consistent points (need 10)"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

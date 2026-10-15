@@ -1,0 +1,15 @@
+{
+ "id": "omaha-q43199",
+ "name": "Omaha",
+ "place": "Douglas County, Nebraska, United States",
+ "lon": -95.9375,
+ "lat": 41.25861111111111,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "United States",
+ "kind": "town",
+ "qid": "Q43199",
+ "summary": "Omaha is the most populous city in the U.S. state of Nebraska. It is located in the Midwestern United States along the Missouri River, about 10\u00a0mi (15\u00a0km) north of the mouth of the Platte River. Omaha had a population of 486,051 at the 2020 census, and with a 2025 population estimate of 488,797, it is the 42nd-most populous U.S. city. The eight-county Omaha\u2013Council Bluffs metropolitan area extending into Iowa has approximately 1 million residents, the 55th-largest metropolitan area in the U.S. It is the county seat of Douglas County.",
+ "wiki": "https://en.wikipedia.org/wiki/Omaha,_Nebraska"
+}

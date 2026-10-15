@@ -1,0 +1,33 @@
+{
+ "site": "kansas-city-q41819",
+ "candidates": [
+  {
+   "plan": "c_2dce28785be63091",
+   "title": "Kansas City, the Ruger bird's-eye view (1869)",
+   "url": "media/commons/kansas-city-q41819/2dce28785be63091.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-14",
+    "named_place": "Kansas City",
+    "place_qid": "Q41819",
+    "place_label": "Kansas City",
+    "place_lon": -94.583333,
+    "place_lat": 39.05,
+    "site_lon": -94.583333,
+    "site_lat": 39.05,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.5625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "not sure: 4 consistent points (need 10)"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

@@ -1,0 +1,15 @@
+{
+ "id": "cleveland-q37320",
+ "name": "Cleveland",
+ "place": "Cuyahoga County, Ohio, United States",
+ "lon": -81.69472222222223,
+ "lat": 41.49916666666667,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "United States",
+ "kind": "town",
+ "qid": "Q37320",
+ "summary": "Cleveland is a city in the U.S. state of Ohio, located along the southern shore of Lake Erie. It is across the lake from the Canadian province of Ontario, and is approximately 60 miles west of the Ohio\u2013Pennsylvania state line. Cleveland is the most populous city on Lake Erie, the 2nd-most populous city in Ohio, and the 53rd-most populous city in the United States, with a population of 372,624 at the 2020 census. It also serves as the county seat of Cuyahoga County. The Greater Cleveland metropolitan area, with an estimated 2.17 million residents, is the 34th-largest metropolitan area in the U.S.",
+ "wiki": "https://en.wikipedia.org/wiki/Cleveland"
+}

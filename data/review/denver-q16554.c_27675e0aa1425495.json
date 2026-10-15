@@ -1,0 +1,33 @@
+{
+ "site": "denver-q16554",
+ "candidates": [
+  {
+   "plan": "c_27675e0aa1425495",
+   "title": "Denver, the Birdseye View Publishing Co. bird's-eye view (1908)",
+   "url": "media/commons/denver-q16554/27675e0aa1425495.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-14",
+    "named_place": "Denver",
+    "place_qid": "Q16554",
+    "place_label": "Denver",
+    "place_lon": -104.984722,
+    "place_lat": 39.739167,
+    "site_lon": -104.984722,
+    "site_lat": 39.739167,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.5625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "not sure: the consistent points lie nearly on a line (spread 0.63, 10 px across): the scale is not pinned"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

@@ -1,0 +1,15 @@
+{
+ "id": "philadelphia-q1345",
+ "name": "Philadelphia",
+ "place": "Philadelphia County, Pennsylvania, United States",
+ "lon": -75.163611,
+ "lat": 39.952778,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "United States",
+ "kind": "town",
+ "qid": "Q1345",
+ "summary": "Philadelphia, colloquially referred to as Philly, is the most populous city in the U.S. state of Pennsylvania and the sixth-most populous city in the United States. Its population was 1.60 million at the 2020 census and estimated at 1.57 million in 2025. The Philadelphia metropolitan area, also known as the Delaware Valley, is located in both the Mid-Atlantic and northeastern United States; home to 6.33 million residents, it is the nation's ninth-largest metropolitan area. Philadelphia is known for its culture, cuisine, and history, maintaining contemporary influence in technology and business, sports, and music.",
+ "wiki": "https://en.wikipedia.org/wiki/Philadelphia"
+}

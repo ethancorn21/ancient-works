@@ -1,0 +1,33 @@
+{
+ "site": "baltimore-q5092",
+ "candidates": [
+  {
+   "plan": "c_4ddeb8f58cf060f5",
+   "title": "Baltimore, the Parsons bird's-eye view (1880)",
+   "url": "media/commons/baltimore-q5092/4ddeb8f58cf060f5.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-14",
+    "named_place": "Baltimore",
+    "place_qid": "Q5092",
+    "place_label": "Baltimore",
+    "place_lon": -76.615,
+    "place_lat": 39.286389,
+    "site_lon": -76.615,
+    "site_lat": 39.286389,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.5625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "not sure: 4 consistent points (need 10)"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

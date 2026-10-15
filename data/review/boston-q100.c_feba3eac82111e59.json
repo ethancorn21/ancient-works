@@ -1,0 +1,33 @@
+{
+ "site": "boston-q100",
+ "candidates": [
+  {
+   "plan": "c_feba3eac82111e59",
+   "title": "Boston, the Walker bird's-eye view (1902)",
+   "url": "media/commons/boston-q100/feba3eac82111e59.jpg",
+   "evidence": {
+    "rec": "evidence/1",
+    "kind": "caption_coords",
+    "checked": "2026-10-14",
+    "named_place": "Boston",
+    "place_qid": "Q100",
+    "place_label": "Boston",
+    "place_lon": -71.057778,
+    "place_lat": 42.360278,
+    "site_lon": -71.057778,
+    "site_lat": 42.360278,
+    "dist_m": 0.0
+   },
+   "pairs": [],
+   "coarse": true,
+   "ground": "relief",
+   "scale_m_px": 1.5625,
+   "rot_deg": 0.0,
+   "scale_source": "picture_size",
+   "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only",
+   "why": "not sure: 5 consistent points (need 10)"
+  }
+ ],
+ "no_picture_found": null,
+ "resolved": null
+}

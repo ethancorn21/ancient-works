@@ -1,0 +1,15 @@
+{
+ "id": "nashville-q23197",
+ "name": "Nashville",
+ "place": "Davidson County, Tennessee, United States",
+ "lon": -86.78152,
+ "lat": 36.16529,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "United States",
+ "kind": "town",
+ "qid": "Q23197",
+ "summary": "Nashville is the capital and most populous city in the U.S. state of Tennessee. It is the seat of Davidson County in Middle Tennessee, located on the Cumberland River. It is the 20th-most populous city in the United States and fourth-most populous city in the Southeast, with a population of 689,447 at the 2020 census. The Nashville metropolitan area, with over 2.15 million people, is the 35th-largest metropolitan area in the country. Nashville is among the fastest-growing cities in the U.S.",
+ "wiki": "https://en.wikipedia.org/wiki/Nashville,_Tennessee"
+}

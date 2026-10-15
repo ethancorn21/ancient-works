@@ -1,0 +1,15 @@
+{
+ "id": "new-york-q60",
+ "name": "New York City",
+ "place": "New York County, New York, United States",
+ "lon": -74.006111,
+ "lat": 40.712778,
+ "width_m": 2000,
+ "height_m": 2000,
+ "px_m": 1.0,
+ "region": "United States",
+ "kind": "town",
+ "qid": "Q60",
+ "summary": "New York, often called New York City (NYC), is the most populous city in the United States. It is located at the southern tip of New York State on New York Harbor, one of the world's largest natural harbors. The city comprises five boroughs\u2014Manhattan, Brooklyn, Queens, the Bronx, and Staten Island\u2014each being coextensive with its respective county. It is the geographical and demographic center of both the Northeast megalopolis and the New York metropolitan area, the largest metropolitan area in the United States by both population and urban area. New York is a global center of technology, finance, commerce, culture, entertainment and media, academics and scientific output, the arts and fashion\u2014and as home to the headquarters of the United Nations, international diplomacy. New York City is known for its fast pace and continuous urban energy.",
+ "wiki": "https://en.wikipedia.org/wiki/New_York_City"
+}
