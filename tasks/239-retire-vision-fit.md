@@ -61,78 +61,47 @@ are).
 
 ## Hand-over
 
-(2026-10-14, iteration 226, agent a - (a)-(e) are all DONE and committed. NEXT SESSION:
-(f) the fixture re-record (ELoFTR was UP at it.226 end - re-curl first), then (g) and (h).)
+(2026-10-15, iteration 227, agent a - (a)-(g) are all DONE and committed. NEXT SESSION:
+(h) the full-suite verify + close - no live matcher needed, no fixture re-record needed.)
 
-**State:** branch `agent/a`, tree clean. Commits: (a)-(d) in the log (`8adf7b9` is (d); the
-it.220/221 work is in `9ff955b`); (e) part 1 (the two batch test rewrites) in the driver's
-`05ac246`; (e) part 2 (the five targeted patches: test_site_done, test_fit_provenance,
-test_fit_queue, test_owner_check, test_matchfit_station) in `8d14844` (test-files only;
-the owner run's re-rendered 307d_B_4/B_5 PNGs were restored to committed bytes first - they
-are 242's files). test_cover.py stays byte-unchanged through the whole task.
+**State:** branch `agent/a`, tree clean. Commits: (a)-(d) in the log (`8adf7b9` is (d));
+(e) part 1 in the driver's `05ac246`, (e) part 2 in `8d14844`; **(f)+(g) in `b5f7b0d`**
+(record.py 302f->239 + 11->10/8->7 asserts, both fixtures re-recorded live, site_flow 300
+section reworded). test_cover.py stays byte-unchanged through the whole task.
 
-**Verified this session:** fast four (batch_us, batch_eu, site_done, fit_provenance) =
-18 passed / 1 skipped (the skip = test_union_full_coverage_live's expected skip-gate:
-docs/batch_eu.md "Sites run: 294" != live EU 418). test_fit_queue::
-test_save_runs_the_one_site_line green (18.6 s). test_matchfit_station 2/2 red EXACTLY at
-the stale fixtures' expected_stdout (red by construction until (f); no drift check fired).
-owner_check 2/2 red - NOT 239's: see DECISIONS it.226.
+**Verified this session (all by running code):** ELoFTR re-curl UP (zju-community/
+matchanything_eloftr, RTX 5060 Ti) -> re-record ran live and landed EXACTLY as the it.226
+hand-over predicted: 15/15 keys distinct, **0 live-vs-frozen held-out discrepancies**,
+replay identical, confident 10 lines (guard 0.228346/195.702), unsure seed 7 -> 8 inliers,
+why "not sure: 8 consistent points (need 10)", 7 lines, item 481->482 files / 457 published;
+per fixture the 15 response keys and all 9 input_hashes are UNCHANGED (the 0d21b0d re-stamp
+is still current; agent c's 207a/241 merges did not re-stamp the badbury-relevant rows).
+`pytest tests/test_matchfit_station.py` **2/2 green** (was red by construction); 
+`tests/test_matchfit_gate.py` 3/3 green (consumes the same fixture; its "302f" mention is a
+name only). The only reds left in the suite are the known three families minus matchfit:
+placement_gestures (pre-existing since the 2026-10-13 loop start - do not touch) and
+owner_check x2 (the 307d mid-transition family - 242's, proven not 239's by A/B in it.226;
+230's done claim is held by the driver on exactly this family per 0d21b0d).
 
-**Red inventory for the (h) done claim (no NEW reds = exactly these three families):**
-1. test_fit_queue::test_placement_gestures_and_save_in_the_browser - pre-existing red since
-   the 2026-10-13 driver note (before any 239 code landed); the suite's only red at that
-   loop start. Do not touch.
-2. test_matchfit_station (2) - red by construction until (f) re-records the fixtures
-   against the retired line. (f) fixes both.
-3. test_owner_check (2) - the 307d mid-transition flake family, proven not 239's by A/B
-   (it.226: probe fails at owner_probe.mjs:333 with 87.00574693662483/82 = 1.06105 vs
-   1.05+/-0.01, deterministic, identical with my file at HEAD bytes). Remedy queued as
-   242 (Depends on: 307d; Touches test_owner_check.py + docs/site_flow/); 230's done claim
-   is held by the driver on exactly this family (0d21b0d: "the driver holds the done claim
-   until the 307d stability fix merges"). If 242/307d have not merged by my done claim,
-   document it that way (the 230 precedent) - do not fix 242's files.
-
-**(f) fixture re-record (the one remaining code step):** ELoFTR was UP at it.226 end
-(`curl -s -m 5 http://127.0.0.1:8091/health` -> zju-community/matchanything_eloftr, RTX
-5060 Ti) - RE-CURL FIRST; if down, log a DECISIONS entry and come back next session.
-Then: (1) in tests/fixtures/matchfit_station/record.py (the ONLY writer - never
-hand-edit the fixtures): L360 `"task": "302f"` -> `"239"`, L408 `len(c_out) != 11` (+ its
-SystemExit text "expected 11") -> 10, L493 `len(u_out) != 8` (+ "expected 8") -> 7. (2)
-Run `.venv/bin/python tests/fixtures/matchfit_station/record.py` (live ELoFTR; it
-re-records both fixtures, re-stamps the 9 input hashes, validates the replay against the
-frozen held-out data/matchfit/heldout/results.json). (3) Expected refreshed content: both
-expected_stdout lose line 0 (11->10, 8->7); the unsure item's candidate why and the
-unsure stdout's per-picture lines become "not sure: 8 consistent points (need 10)"
-(the RoMa port is dead -> no "; RoMa ..." suffix); recorded_at moves; the 15 request-body
-sha256 keys per fixture should be unchanged (same crops/grounds/windows - the only drift
-since the 302f/238 record was 230's index evidence re-stamp, which 0d21b0d already
-re-recorded). (4) Run `pytest tests/test_matchfit_station.py` -> 2/2 green. (5) Commit
-record.py + both fixtures.
-
-**(g) docs/site_flow.md - ONLY the 300 section** (append-only for every other section,
-302g's rule): the usage block drops `[--working | --model-json FILE]` and step 1's
-wording mirrors tools/site_done.py's current module docstring (matcher first; the second
-pass only records the matcher's reasons, never model coordinates; "no matcher on this
-machine" when unreachable).
-
-**(h) verify + close:** full suite (`.venv/bin/python -m pytest tests/ -p
-no:cacheprovider`, --ignore=tests/test_gate.py if you hit its 424 s - the 2026-10-13
-driver note ran it in 7 min; the owner_check 2 + placement_gestures 1 are the accepted
-reds per the inventory above) must show NO red outside those three families; golden
-byte-identity (`sha256sum -c tests/golden/hand_fit_docs.sha256` and the
-tests/golden/src_... sample checks) and `git status` clean on data/db/platefits +
-data/review; tick the 5 acceptance boxes, set Status: done, commit. If the driver rejects
-the claim, its reasons land in DECISIONS.md - the 230/0d21b0d A/B accounting is the
+**(h) verify + close (no matcher, no code - one session):** 1. Full suite:
+`.venv/bin/python -m pytest tests/ -p no:cacheprovider` (~7 min per the 2026-10-13 driver
+note; if the run is threatened by the 424 s test_gate.py, `--ignore=tests/test_gate.py` -
+its status is covered by the driver's loop-start note). Accept: **NO red outside**
+{test_fit_queue::test_placement_gestures_and_save_in_the_browser, test_owner_check x2}.
+If test_owner_check is GREEN by then, 242/307d have merged - even better, say so. If you
+took the owner_check family down (ran it) restore `docs/site_flow/307d_*.png` with
+`git checkout -- docs/site_flow/` before the claim. 2. Golden byte-identity:
+`sha256sum -c tests/golden/hand_fit_docs.sha256` (the 22 hand docs) and the
+`tests/golden/src_...` sample checks the suite already runs; `git status` clean on
+data/db/platefits + data/review (the recorder runs are in-process on throwaway trees -
+the checkout surface is hash-checked by record.py itself, so it must be). 3. Tick all 5
+acceptance boxes (all now verifiably true: (a)-(d) code, (e) the eight test files, (f)
+fixtures green, (g) doc reworded), set `Status: done`, commit. 4. If the driver rejects
+the claim its reasons land in DECISIONS.md; the 230/0d21b0d A/B accounting is the
 precedent for the owner_check family.
 
 **Hygiene:** .venv works. Never `git add -A` (explicit paths; the 307d PNGs re-render on
 any owner_check run - restore with `git checkout -- docs/site_flow/`). Tests: no fixed
 ports, no writes outside project/tmp. A/B in-checkout only, never a bare worktree
-(PITFALLS 306d: locally-built site data is not in git).
-
-**Re-read before (f):** record.py's run flow (it serves the line's subprocess over a
-private tree, so read what it asserts beyond the line counts - the replay/heldout
-validation is the real gate) and tests/test_matchfit_station.py's _drift (it recomputes
-the 9 input hashes - if (f)'s re-record lands while agent c's 207a/241 work re-stamps
-index/catalog rows on main, the next merge could re-fire the drift check; that is (f)'s
-known exposure, the remedy is re-running record.py, which needs the live matcher).
+(PITFALLS 306d). ELoFTR is only needed again if the matchfit fixtures drift (the test's
+_drift check would say so).
