@@ -7,7 +7,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/207-roman-books.md` (split) - hand-over: (2026-10-14, iteration 137, agent c - the driver returned the parent after 207a (done),
 - `tasks/230-roman-merge-rerun.md` (in-progress) - hand-over: (2026-10-14, iteration 216, agent a - the 5 acceptance boxes were ticked in it.215 and
 - `tasks/236-us-cities.md` (split)
-- `tasks/239-retire-vision-fit.md` (in-progress) - hand-over: (2026-10-14, iteration 222, agent a - step (d) fit/cover.py DONE (commit 8adf7b9). NEXT SESSION:
+- `tasks/239-retire-vision-fit.md` (in-progress) - hand-over: (2026-10-14, iteration 223, agent a - (e) NOT started (no edits this session); the FULL
 - `tasks/241-us-birdseye-batch5.md` (open) - hand-over: (2026-10-14, iteration 195, agent a - created at the 236b split, driver instruction; nothing
 
 ## Next open tasks
