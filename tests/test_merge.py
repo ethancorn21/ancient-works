@@ -19,15 +19,16 @@ row is recorded.
 
 Box 4 (the refreshed plan list): the test asserts the data-level result of the tools/export_plans.py
 refresh, read-only - every (id, sites[0]) key of the frozen pre-run list (data/merge/plans_premerge_keys.jsonl,
-230 re-baselined it to the post-211 rows) is still present, (id, sites[0]) stays unique (the shared-id picture
+236c re-baselined it to the rows served before the US cities build) is still present, (id, sites[0]) stays unique (the shared-id picture
 keeps one row per (picture, site)), the merged pictures that qualify as plans/bird's-eye views reach the
 list, and every picture row joins a files row carrying the 200 evidence field.
 
 Box 3 (the built sites): the test asserts the data-level result of the build phase, read-only on the
 served data (never a rebuild). web/data/sites.json grew purely against the frozen pre-run baseline
-(data/merge/sites_premerge_baseline.jsonl, the 499 entries served after 211's consolidation - the 385
-pre-211 set plus 211's 114 builds, re-baselined by 230 before the Roman re-run): nothing removed, no
-entry rewritten except the marker fields 212's page-facing sync later owns; and every site built in this
+(data/merge/sites_premerge_baseline.jsonl, the 508 entries served before 236c's build - 230's 499, the 385
+pre-211 set plus 211's 114 builds, plus the nine Roman Scottish forts 230 built; 236c re-baselined it before
+the US cities build): nothing removed, and no entry rewritten except the marker fields 212's page-facing sync
+later owns; and every site built in this
 phase is complete (its directory, the page's required fields, relief.jpg iff the entry credits a LiDAR
 source, and a coverable old-map layer implies a depictions.json), with three sites pinned to the exact
 values their recorded builds produced.
@@ -313,9 +314,9 @@ def test_record_appends_evidence_and_rerun_is_a_noop(tmp_path):
 
 def test_plan_list_refresh_is_pure_growth():
     """Box 4, read-only on the served data: web/data/plans.json was refreshed with tools/export_plans.py
-    after the merge. Every key of the frozen pre-run list (the post-211 rows) is still present, (id,
-    sites[0]) stays unique, the merged pictures that qualify as plans reach the list, and each picture
-    row's files row carries the 200 evidence field."""
+    after the merge. Every key of the frozen pre-run list (the rows served before 236c's build) is still
+    present, (id, sites[0]) stays unique, the merged pictures that qualify as plans reach the list, and each
+    picture row's files row carries the 200 evidence field."""
     pre = [json.loads(l) for l in _lines(os.path.join(ROOT, "data/merge/plans_premerge_keys.jsonl"))]
     assert pre, "the frozen pre-merge key list is empty"
     d = json.load(open(os.path.join(ROOT, "web", "data", "plans.json")))
@@ -361,11 +362,11 @@ def _baseline_entries():
 
 def test_served_sites_grew_purely():
     """Box 3, read-only: the served sites.json grew without ever rewriting the pre-run set. The frozen
-    baseline is the 499 entries served after 211's consolidation (the 385 pre-211 set plus its 114 builds;
-    230 re-baselined it before the Roman re-run). Nothing was removed, and no baseline entry changed
-    outside the marker fields 212 later owns."""
+    baseline is the 508 entries served before 236c's build (230's 499 - the 385 pre-211 set plus its 114
+    builds - plus the nine Roman Scottish forts 230 built; 236c re-baselined it before the US cities build).
+    Nothing was removed, and no baseline entry changed outside the marker fields 212 later owns."""
     pre = _baseline_entries()
-    assert len(pre) == 499, f"the frozen baseline holds {len(pre)} entries, expected 499"
+    assert len(pre) == 508, f"the frozen baseline holds {len(pre)} entries, expected 508"
     sites = _site_entries()["sites"]
     assert len({s["id"] for s in sites}) == len(sites), "duplicate site ids in the served file"
     by_id = {s["id"]: s for s in sites}
