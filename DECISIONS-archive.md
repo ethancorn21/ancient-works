@@ -11008,6 +11008,12 @@ No code built yet (the hand-over carries the full design; next session writes --
 - **Done:** box 4 ticked, `Status: done`. The Horsley book (207a/808 staging + 809 check/golden/test) is closed and hermetic: 17/17 evidence offline, the whole staged roman set's join (a)-(f), the 4-tie-flavour golden, 5 no-network tests.
 
 
+<!-- task 812 -->
+# Task 812 owner-check-settle-shots
+
+## 2026-10-15 812 DECISION: iteration 191 - SPLIT per the driver's instruction (agent a had nothing to build for 76 minutes; every open task in the chain waited on 812 alone): the flake fix (the settle wait) moved to new top-level task 814 (Depends: done 307d, STARTABLE IMMEDIATELY), and 812 NARROWED to the other half it was created with - the in-run double-shot stability assert (Depends: 307d, 814; same file, after 814). One direction only: 814 -> 812 -> 813 -> 810 -> 811 -> 242 -> {230, 241} -> 236c, no cycle (token-scanned all 106 pending Depends lines: no self-mentions, no cycles). Chose NARROW over EMPTY: 812 keeps build work (the double shot), so the chain gains no extra verification-only stop (810 and 242 already are). Box move: former 812 box 1 (two-run stability) to 814, former box 2 split across 814 (settle additive) and 812 (double shot additive), former box 3 (suite green) to both parts; 812's Touches unchanged (it still changes tests/test_owner_check.py itself). Waiters per the driver's rule: 814 added to 230's and 241's Depends lines (the part they are held on - the flake fix - is now 814's); family files kept accurate: 810 (goal item 1 -> 814, item 2 -> 812, parts bullets, chain, waiters, Touches note), 813 (header: family head is 812 over the 814+812 pair), 811 (PITFALLS-rewrite pointer: 814 does the settle), 242 (hand-over chain line), 241 (my other in-flight task: 191 note in its hand-over, fix references updated). Facts re-verified before writing: web/index.html:874 is the site-select map.flyTo(duration: 4500, essential: true) and web/fitkit.js:573 is the map.fitBounds(duration: 900, essential: true); there is NO reusable pixel-diff helper in the repo (307bc measured the 28.6-33.6% drift with a throwaway script - the parts' hand-overs say to write a small PIL compare in the test file). No code, data, or other file changed this session; the working tree was clean apart from the task files named here.
+
+
 <!-- task 814 -->
 # Task 814 owner-check-settle-wait
 
