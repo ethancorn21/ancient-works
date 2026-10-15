@@ -92,7 +92,6 @@ import json
 import os
 import re
 import sys
-import time
 import urllib.parse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -149,10 +148,6 @@ MACLAUCHLAN_FIGS = """
 115|TABLE OF STATIONS. (printed p.97: the stations of the Notitia, the Ravenna and the Chorographus, with their distances)|97|o|hand
 129|MARKS ON ROMAN TILES, BINCHESTER. (inline figure on p.7 of the Watling Street memoir: two boxed letter-marks from Roman tiles with a 6-inches bar)|7|o|hand
 """
-
-
-def now():
-    return time.strftime("%Y-%m-%d")
 
 
 def _load(path):
@@ -255,6 +250,11 @@ SITE_QID = "Q71551754"
 SITE_LON, SITE_LAT = -2.94077, 54.896187              # the item's P625 (verified 2026-10-14)
 PLACE_QID = "Q192896"                                 # the city of Carlisle (the item's P131)
 PLACE_LON, PLACE_LAT = -2.936388889, 54.894722222     # the city's P625 (verified 2026-10-14)
+# The day the LIVE verification ran (the P625 cross-check above, the sitelinks check in the note below). A pure
+# OFFLINE re-stage must NOT re-stamp it with today's date: the merged canonical row (211) carries this date, and
+# a re-stamped row differs from it on any later day, so --check's content-join would report a false "staged site
+# differs from its canonical row" (230 iteration 237: the 2026-10-15 re-stamp red'd test_check_staged_joins_and_passes).
+CHECKED = "2026-10-14"
 FILE_TITLE = "FIG. 4. CARLISLE, COURSE OF THE WALL AND OF THE YALLUM."  # the plate's own printed heading
 FILE_NAME = ("Carlisle, plan of the course of the Wall and of the Vallum between Stanwix and the Castle, "
              "with the 1857-58 great sewer, Maclauchlan (1858)")
@@ -300,7 +300,7 @@ def stage(dry=False):
                                          f"station stands (pp.76-77) and the plan's Wall and Vallum meet; {dist:.0f} m "
                                          "from the city's P625 point; VICI 12444; the item has no enwiki article "
                                          "(sitelinks checked 2026-10-14)"),
-                               "checked": now()},
+                               "checked": CHECKED},
             "source": MODULE,
             "note": ("new site staged by 207b (Maclauchlan 1858, Fig. 4, leaf n0093): the fort's own item, "
                      "not Carlisle Castle (Q614836) - DECISIONS 207b 130")}
@@ -310,7 +310,7 @@ def stage(dry=False):
          "w": w, "h": h, "mime": "image/jpeg", "date": "1858", "desc": FILE_DESC,
          "artist": "Henry Maclauchlan", "license": "public domain (IA: NOT_IN_COPYRIGHT, the 1858 original)",
          "page": f"https://archive.org/details/{IA}",
-         "evidence": {"rec": "evidence/1", "kind": "caption_coords", "checked": now(),
+         "evidence": {"rec": "evidence/1", "kind": "caption_coords", "checked": CHECKED,
                       "named_place": "Carlisle", "place_qid": PLACE_QID, "place_label": "Carlisle",
                       "place_lon": PLACE_LON, "place_lat": PLACE_LAT,
                       "site_lon": SITE_LON, "site_lat": SITE_LAT, "dist_m": dist}}
@@ -411,8 +411,9 @@ def check_staged():
 
 
 def _norm(rows):
-    """The rows for the golden file: the volatile "checked" dates normalized (they vary with the staging
-    date); everything else is stored content."""
+    """The rows for the golden file: the "checked" dates normalized to a placeholder (they record the day the
+    verification ran, see CHECKED - kept out of the pin so the golden survives a future re-verification);
+    everything else is stored content."""
     out = []
     for r in rows:
         r = dict(r)

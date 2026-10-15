@@ -1,7 +1,7 @@
-Status: in-progress
+Status: done
 # 230: The Roman staging into the canonical data - the 211 consolidation re-run
 Depends on: 211, 207a, 207b, 807, 808, 242
-Touches: fit/merge.py, pipeline/commons.py, data/catalog/extras.jsonl, data/commons/files.jsonl, data/commons/classified.jsonl, data/merge/, data/books/index.jsonl, data/books/validation.json, data/books/matches.jsonl, data/sites/, docs/sources.md, web/data/sites.json, web/data/sites/, web/data/plans.json, tests/test_merge.py, tests/test_matchfit_station.py, tests/fixtures/matchfit_station/, PITFALLS.md
+Touches: fit/merge.py, fit/src_roman_maclauchlan.py, pipeline/commons.py, data/catalog/extras.jsonl, data/commons/files.jsonl, data/commons/classified.jsonl, data/merge/, data/books/index.jsonl, data/books/validation.json, data/books/matches.jsonl, data/sites/, docs/sources.md, web/data/sites.json, web/data/sites/, web/data/plans.json, tests/test_merge.py, tests/test_matchfit_station.py, tests/fixtures/matchfit_station/, PITFALLS.md
 
 ## Goal
 211's lead note: the 211 consolidation ran without the Roman books (207 was stopped by
@@ -54,89 +54,69 @@ books that landed).
 
 ## Hand-over
 
-(2026-10-15, iteration 236, agent a - I hold the WHOLE CYCLE (230/242/810/811/812/813/814,
-driver 236: inter-deps count as met; build them together on this branch so the tests pass
-with all of it in place). STATE: all four reds of the a423d19 done-claim rejection are
-GREEN on this branch now; the ONE remaining gate for the done-claim is a full-suite run.
+(2026-10-15, iteration 237, agent a - I hold the WHOLE CYCLE (230/242/810/811/812/813/814; inter-deps
+count as met, build them together on this branch). STATE: DONE AND CLAIMED THIS SESSION - full suite
+run 2 on the fixed content: 184 passed / 1 skipped / 0 failed in 573.83 s
+(/tmp/loop-ancient-works.a/fullsuite-237b.log); Status flipped to done; the driver re-checks (every
+box ticked + suite green on this branch) and, on acceptance, merges this branch - 230 lands with
+everything else on it (245's page fix, the 814/816 recipe file, the maclachlan date fix) - and the
+cycle's remaining tasks come back next.)
 
-**This session (it.236):**
-1. Merged main: CLEAN (the driver's warned 814 conflict did not occur - my 693b0ea3 and
-   main's 8694e910 carried identical 814 content; the merge only added tasks/816).
-2. Restored docs/site_flow/307d_B_4-saved.png + B_5-reload.png to main's bytes
-   (committed e484aa07) - they were re-encoded dirt from the it.216 failed pair run; all
-   ten 307d PNGs now match main (merge-clean, b14918f precedent).
-3. Verified tests/test_owner_check.py on this branch is EXACTLY the 816 recipe (54 added
-   / 0 changed vs main; the settle + subpixel fix; zero instrumentation residue). The
-   driver's 693b0ea3 REPLACED my it.235 810-session build (139-line settle/double-shot/
-   refresh-flag, in git at 3579c22b) with agent c's tested 54-line fix - see 810/812/813
-   hand-overs: the 812 double-shot + 813 refresh-flag still need REBUILDING on top of the
-   816 recipe (their designs survive in the 3579c22b file + their hand-overs).
-4. Pair run 1 (unflagged, retention=all): A GREEN (the it.214-216 ratio flake is GONE -
-   the 816 fix works), B RED at a NEW step: "line effect (b): the site's square takes its
-   new score's tier" (markerClass "marker t1" vs tier "t2"; score 1.45 post / 1.1 pre;
-   reload read the correct t2; the probe's 120 s poll never saw a change). ROOT CAUSE
-   (measured): the one-site line (server/serve.py _fit_worker -> tools/site_done.py) writes
-   depictions.json 01:57:23.310 and re-scores sites.json :23.429 (119 ms later - the
-   order is mandatory, the score is computed from the built overlays); web/index.html
-   saveFit() polls depictions.json every 1.5 s and, when the depiction appears, fetches
-   sites.json ONCE and adopts the tier from that fetch - a poll in the gap adopts the
-   stale score and the marker keeps its old tier until reload (a real owner-visible
-   defect, not a test flake; no test-side wait can fix a one-shot adoption).
-5. Filed tasks/245-owner-check-stale-tier.md (Depends on: 815, Touches: web/index.html) and
-   BUILT the fix on this branch (committed ab57da1b): saveFit's one-shot fetch is now a
-   bounded re-fetch loop (8 x 250 ms) that adopts the fields each time and breaks when the
-   fetched entry's `overlays` exceeds the pre-save in-memory value (new depiction = +1
-   overlay); missing `overlays` on either side keeps today's single-fetch behaviour; the
-   marker-class line and everything else in the function unchanged; all six script blocks
-   pass `node --check`.
-6. Verification: pair runs 2 and 3 (after the fix): 2 passed each (64.5/65.9/66.7 s),
-   "new score's tier" [ok] for A and B in EVERY run, zero [warn] settle; cross-run
-   (run2 vs run3, PIL compare, threshold 32 per channel): ALL TEN views 0.000% differing
-   - better than 814's 194 evidence (B_5 0.0073%, rest <=0.0447%); this is also 810's box-1
-   (cross-run) evidence in hand, and 816's boxes 2-3 evidence. The 307d PNGs were restored
-   to committed bytes after every run (9 of 10 re-encode; B_1-card always identical).
-7. test_matchfit_station 2/2 green (55.9 s, hermetic) - the it.216 re-record still stands.
+**This session (it.237):**
+1. Finished the it.236 housekeeping item (a): PITFALLS web/ entry "saveFit's one-shot sites.json fetch
+   could land in the ~119 ms depiction->re-score gap..." (Where/Symptom/Why + the 245 fix + measured
+   evidence). Items (b)/(c) were already committed by the driver sweep a3003b03 (245/810/812/813/814
+   hand-overs all carry their it.236 updates).
+2. Full suite run 1 (branch as it stood): 1 failed / 183 passed / 1 skipped in 585.97 s
+   (/tmp/loop-ancient-works.a/fullsuite-237.log). The four a423d19 reds all green (matchfit 2/2,
+   owner_check pair green, merge/data/serve all green). The ONE new red:
+   test_src_roman_maclauchlan.py::test_check_staged_joins_and_passes at step (a) -
+   "join: staged site luguvallium-q71551754 differs from its canonical row in extras.jsonl".
+3. Root cause (measured): fit/src_roman_maclauchlan.py stage() stamps now() (the RUN date) into
+   location_check.checked and evidence.checked. The committed staging rows AND the canonical rows 230
+   merged from them carry 2026-10-14 = the day the LIVE verification ran (P625 cross-check; the note
+   hard-codes "sitelinks checked 2026-10-14"). A re-stage on any later day re-stamps to that day, the
+   full-content join (same norm as fit/merge.py) sees the two date fields differ -> false "differs" ->
+   exit 1. The test passed in a423d19 only because that run was on 2026-10-14, the same day as the
+   merge. Date-bomb: it reds on every later day, so waiting is not a fix. Verified by walking the
+   fresh-vs-canonical row: ONLY the two checked fields differ.
+4. Fix (fit/src_roman_maclauchlan.py added to this task's Touches - the it.216 "caused by my own
+   change fixes itself" absorption; my merge made the row canonical, which exposed the re-stamp):
+   CHECKED = "2026-10-14" stored constant replaces now() (function + time import dropped; _norm
+   docstring corrected). Committed staging/canonical rows UNCHANGED (already 2026-10-14; stage() is
+   idempotent, writes no byte on a populated file). The test file was NOT touched. Verified:
+   test_src_roman_maclauchlan 4/4 in 4.2 s (offline, socket-blocked, temp trees); the module's --check
+   CLI exits 0 on the real post-merge tree. No other file imports the module.
+5. Flagged, NOT fixed (agent c's 809 lane, see the DECISIONS entry): fit/src_roman_horsley.py has the
+   IDENTICAL trap (now() at 536 evidence.checked and 588 location_check.checked; all 8 horsley rows
+   checked 2026-10-14, all canonical since the 230 merge) - 809's new offline --check will hit the
+   same false "differs" on any run after 2026-10-14 unless it stores the verification date.
+   src_mackenzie.py also stamps now() (line 369) but its tests are green - awareness only.
+6. Full suite run 2 (the claim gate, fixed content): 184 passed / 1 skipped / 0 failed in 573.83 s
+   (log /tmp/loop-ancient-works.a/fullsuite-237b.log) - exactly run 1's 185 tests with the one red
+   turned green, nothing else moved. The merge was deliberately NOT re-run this session (its index
+   rebuild re-stamps evidence.checked - the it.215 trap that needed the it.216 fixture re-record; the
+   data files stand exactly as it.215/it.216 left them and the suite re-verifies them as-is).
 
-**NEXT SESSION (exact steps):**
-1. Memory housekeeping this session was cut before: (a) add the PITFALLS entry for the tier
-   race under the `### web/` section (fact: "saveFit's one-shot sites.json fetch could land
-   in the depiction->re-score gap (~119 ms) and adopt the pre-rescore tier; 245 re-fetches
-   until overlays exceeds the pre-save value; the pipeline order is mandatory, never
-   reorder; a probe-side longer poll cannot fix a one-shot adoption" - full evidence is in
-   the it.236 DECISIONS entry); (b) 245's Hand-over still says "pending" - update it with
-   the run evidence (3 green runs, the cross-run 0.000% numbers); (c) if any of the 810/812/
-   813/814 hand-over updates below were not committed, finish them.
-2. THE GATE: one full-suite run: `.venv/bin/python -m pytest tests/ -q -p no:cacheprovider`
-   (~8-10 min; TMPDIR=/tmp/loop-ancient-works.a). After its owner_check run, restore the
-   re-rendered 307d PNGs to the committed bytes (git restore docs/site_flow/) - 813's
-   refresh flag is not in the branch file yet, so unflagged runs still re-copy all ten;
-   NEVER git add -A over them. Last known-green baseline ~180 passed / 1 skipped / 0
-   failed (2026-10-14, per the archive).
-3. If ALL green: re-claim 230 done (the five boxes were ticked it.215; data-level numbers
-   stand: merge idempotent +0/+0/+0, evidence 1456 pass / 0 fail, sites 508, plans 1572
-   sha256 dee768f2db7c..., test_merge 10/10, test_data 3/3, hand-fits 1/1). If a red
-   appears: owner_check at the tier check = a 245 defect (point at 245's file with the
-   probe's [eval] effects block - markerClass vs tier vs score); owner_check at the OLD
-   ratio step = 816 defect (point at 814/816); roman tests red = 230's own data lane -
-   re-verify against the it.215 numbers; anything else = cross-lane, log it in DECISIONS,
-   do NOT absorb another lane's fix, and do not claim.
-4. After 230 merges (or whenever the driver returns them), the next builds on this branch
-   are the 812/813 rebuild (double-shot assert + AW_OWNER_REFRESH regime) on top of the
-   816 recipe - the it.235 build survives verbatim at `git show 3579c22b:tests/test_owner_check.py`
-   (rebase its parts onto the current file, keeping c's settle/subpixel), then 811
-   (one-time refresh + pinned PNGs + docs note + PITFALLS rewrite), then the 810/242
-   verification passes. See those files' hand-overs.
+**NEXT SESSION (only if the driver REOPENS 230 - otherwise the remaining cycle work below is next on
+this branch):**
+1. If reopened: the reason is in DECISIONS.md (the driver's note on the rejected claim names the reds).
 
-**Standing discipline:** the pair always runs in ONE invocation (A then B - B cannot run
-alone); after ANY owner_check run, restore the ten docs/site_flow/307d_*.png to committed
-bytes before committing (R5); the probe logs of a green run die with the session - read
-them from `$TMPDIR/pytest-of-agent/pytest-<N>/owner{A,B}0/owner_probe.log` with retention
-(`-o tmp_path_retention_policy=all`; NOTE: `--tmp-retention-policy` is NOT a valid pytest
-CLI flag in 9.1.1, use the `-o` override; retention_count=1 in pytest.ini keeps only the
-latest run - copy a run's PNGs out before the next one if you need a cross-run compare).
+**What happens next on this branch (the driver hands the remaining cycle tasks back after 230
+merges):** the 812/813 rebuild (double-shot assert + AW_OWNER_REFRESH regime) on top of the 816 recipe
+- the it.235 build survives verbatim at `git show 3579c22b:tests/test_owner_check.py` (rebase its parts
+onto the current file, keeping c's settle/subpixel); then 811 (one-time refresh + pinned PNGs + docs
+note + PITFALLS rewrite); then the 810/242 verification passes. See those files' hand-overs.
 
-**Hand-over updates written this session (my cycle's files):** 810 (the it.235 build was
-replaced by 693b0ea3; rebuild 812+813, then verify), 812 + 813 (build replaced; designs
-survive in 3579c22b + their hand-overs; rebuild pending), 814 (PNG-restore first action
-done on this branch; the file is now the 816 recipe itself; re-claim after 816+230 merge
-is a re-verification formality - the pair is green here, 3 runs).
+**Standing discipline (applies to every owner_check work on this branch):** the pair always runs in ONE
+invocation (A then B - B cannot run alone); after ANY owner_check run, restore the ten
+docs/site_flow/307d_*.png to committed bytes before committing (git restore docs/site_flow/; R5) -
+813's refresh flag is not in the branch file yet, so unflagged runs re-copy all ten (run 2 re-encoded 9
+of the 10; B_1-card always byte-identical); NEVER git add -A over them. The probe logs of a green run
+die with the session - read them from $TMPDIR/pytest-of-agent/pytest-<N>/owner{A,B}0/owner_probe.log
+with retention (`-o tmp_path_retention_policy=all`; NOTE: `--tmp-retention-policy` is NOT a valid pytest
+9.1.1 CLI flag, use the `-o` override; retention_count=1 in pytest.ini keeps only the latest run - copy
+a run's PNGs out before the next one if you need a cross-run compare). If 230 is ever REOPENED: the
+reason is the driver's note in DECISIONS.md; triage per the run-2 red taxonomy (tier check = 245's
+defect, old ratio step = the 816 defect, roman date-stamp = check the checked dates, horsley = agent
+c's 809 not mine, anything else = cross-lane: log, do not absorb, do not claim).
