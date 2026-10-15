@@ -64,7 +64,7 @@ separate task this one depends on.
       re-fetch loop; everything else in the function and the file unchanged - diff review:
       no other line moved); the page still passes its own syntax check (extract the script
       block, `node --check`).
-- [ ] The owner_check pair passes with the fix: in two or three consecutive unflagged runs
+- [x] The owner_check pair passes with the fix: in two or three consecutive unflagged runs
       (one invocation each, A then B) the check "line effect (b): the site's square takes its
       new score's tier" is `[ok]` in EVERY run (pre-fix it red's when the 1.5 s poll lands in
       the depiction->re-score gap - measured 119 ms on 2026-10-15; the page's own adoption
@@ -91,83 +91,86 @@ separate task this one depends on.
 
 ## Hand-over
 
-(2026-10-15, iteration 213, agent c - **box 1 verified and ticked this session**; boxes
-2-4 remain; the it.249 carve session may have moved some of them - re-read first).
+(2026-10-15, iteration 214, agent c - **box 2 verified and ticked this session**;
+boxes 3-4 remain; the next step is the box 3 full suite).
 
-**State:** branch agent/c = main (HEAD 747ca6fb) + driver bookkeeping. 815 (subpixel
-`addPairMarker`) is DONE on main (f160ae5a; audit: site squares 513 and scan-area labels
-1255 stay integer). 814/816 done (the probe carries the 816 recipe: JS `settle` 292 +
-`subpixel` 310, awaited at the eight sites 334-422; the "line effect (b)" check at 417).
-812/813/810/811 OPEN - agent a runs 810/812 (the it.235 double-shot + refresh-flag build
-survives verbatim at 3579c22b; the file was replaced by 693b0ea3 = "814 taken over from
-agent c"). **Regime = old R5:** zero `AW_OWNER_REFRESH|SNAPSHOT_VIEWS|_shot_diff` hits in
-the file -> unflagged runs still re-copy all ten 307d PNGs -> after EVERY run restore each
-to main's bytes (box 4; 813's refresh flag retires this once it lands).
+**State:** branch agent/c = main (HEAD 747ca6fb) + driver bookkeeping only. The it.249
+carve did NOT move a box (no carve marks in this file, no new 200-499 tasks, no driver
+note in PROGRESS) -> boxes 2-4 all still mine. Regime = old R5 (zero
+AW_OWNER_REFRESH|SNAPSHOT_VIEWS|_shot_diff hits in tests/test_owner_check.py) ->
+unflagged runs re-copy all ten docs/site_flow/307d_*.png -> after EVERY owner_check run
+restore each to main's bytes before committing (box 4; this retires once 813's refresh
+flag lands). 815 DONE on main (f160ae5a); 812/813/810/811 OPEN - agent a runs 810/812 in
+its own checkout; the three PPID-1 `816-verify/watchlogs.py` orphans under
+/tmp/loop-ancient-works.a (up to 4 h old at it.214 orient) are ITS lane - leave them.
+My TMPDIR = /tmp/loop-ancient-works.c (session env).
 
-**Box 1 (ticked this session, evidence in DECISIONS):** (a) `git diff ab57da1b^..ab57da1b
--- web/index.html` = only the `saveFit` hunk (one-shot fetch -> bounded re-fetch loop);
-(b) `git diff ab57da1b..HEAD -- web/index.html` = only 815's 4-line `addPairMarker` hunk
-(disjoint function) -> no other line moved; (c) re-read the loop where it now sits
-(function at 1186, loop 1208-1217): `prevOverlays = s.overlays`; <=8 fetches of
-`data/sites.json?t=` at 250 ms; each fetch adopts drawings/score/oldest/overlays; break on
-`prevOverlays == null || s.overlays == null || s.overlays > prevOverlays` (missing on
-either side = pre-fix single-fetch behaviour); marker-class line, source cleanup,
-`endFit(); applyDep(s); return;` and the 60x1.5 s timeout fallback all unchanged;
-(d) node --check: all six script blocks OK (inline + review/fitqueue/fitkit + 2 vendor).
+**Box 1 (ticked it.213):** the saveFit bounded re-fetch loop is on main exactly as
+designed (fix commit ab57da1b = one hunk; diff since = only 815's 4-line
+addPairMarker hunk; six script blocks node --check clean; the loop re-verified intact
+at web/index.html 1211/1215 this session, no web/ delta since).
 
-**PNG state (box 4's subject; why the worktree shows three modified 307d PNGs that are
-correct, not dirt):** my branch's HEAD carried three re-encoded 307d PNGs (A_1-card,
-B_1-card, B_5-reload) diverging from main - the driver's bookkeeping commit 23574871
-swallowed re-encodings from my it.212 815 lane (this VM's re-encode differs from main's;
-B_1-card is NOT immune on this VM, contrary to agent a's observation). All ten are now at
-main's bytes in the worktree (`git show main:<f> > <f>` on the three differing; the other
-seven already matched), left UNSTAGED: my commits carry no PNG hunks (a 245 commit
-carrying a web/ or PNG hunk is a red flag); the driver's next snapshot commits the
-restorations and the branch's PNG state converges to main. The it.249 carve prompt lists
-exactly these three files as staying with 245 - box 4 is the discipline over them.
+**Box 2 (ticked this session):** three consecutive unflagged pair runs, one
+invocation each (A then B inside each): `TMPDIR=/tmp/loop-ancient-works.c
+.venv/bin/python -m pytest tests/test_owner_check.py -q -p no:cacheprovider -o
+tmp_path_retention_policy=all` -> 2 passed each (65.02 / 66.70 / 66.06 s). In BOTH
+probe logs of ALL six probes (`$TMPDIR/pytest-of-agent/pytest-{0,1,2}/owner{A,B}0/
+owner_probe.log`) `line effect (b): the site's square takes its new score's tier`
+is `[ok]`; zero `[warn] settle` in all six. After each run exactly the three known
+dirty PNGs (A_1-card, B_1-card, B_5-reload) -> all ten restored to main's bytes after
+each run; `git diff main -- docs/site_flow/` empty before this commit. it.236's
+pre-815 green runs stay as history below; these it.214 runs supersede them for the
+claim (R5).
 
-**Carve in flight (read this first next session):** an it.249 CARVE session was running
-concurrently at my orient (ps); it carves 245's unticked boxes into new 200-499 top-level
-tasks that other agents build beside me, and the driver marks the moved boxes in this
-file when it lands (the carve never writes into my checkout). Next session: re-read the
-box list below and the driver's notes in PROGRESS.md; run ONLY what is still mine. If a
-box was carved out, its new task owns it - do not re-run it.
+**The optional cross-run PIL compare was NOT possible this session (do not
+re-derive):** this environment keeps only the LATEST run's pytest-N dir after each
+green run, no matter what `-o tmp_path_retention_policy=all` does. Measured
+(it.214): my three owner runs left only pytest-2 at the end; a 4-run dummy loop left
+one dir per run; adding `-o tmp_path_retention_count=10` kept all (and pruned the
+stale older ones exactly per the keep arithmetic). Cause (verified in pytest 9.1.1
+source): the policy knob only gates the green-run whole-basetemp rmtree ("failed");
+the numbered-dir cleanup always uses `keep = retention_count` (all and failed alike;
+only "none" sets 0) and deletes dirs numbered <= max-keep whose lock file is
+gone/stale - and every session unlinks its own lock at exit, so the next session
+prunes all but the newest. The count comes from pytest.ini (1/failed), mirrored by
+the driver's agent-loop export PYTEST_ADDOPTS (the same two -o flags) for every
+session child. PITFALLS entry added under `### pytest (9.1.1, project .venv)`:
+cross-run compares need `-o tmp_path_retention_count=N` or copy-out after each run.
+If the PIL compare is still wanted for the claim: two runs with `-o
+tmp_path_retention_count=10`, then a throwaway per-channel >32 compare of the ten
+views (expect ~0.000%); never commit the script.
 
-**Remaining work (only for boxes still in this file):**
-- **Box 2:** three consecutive unflagged pair runs, one invocation each (A then B inside
-  each): `TMPDIR=/tmp/loop-ancient-works.c .venv/bin/python -m pytest
-  tests/test_owner_check.py -q -p no:cacheprovider -o tmp_path_retention_policy=all`
-  (TMPDIR = my lane, confirmed in the session env; `--tmp-retention-policy` is NOT a valid
-  pytest 9.1.1 flag). Per run: both tests pass; in BOTH probe logs
-  (`$TMPDIR/pytest-of-agent/pytest-<N>/owner{A,B}0/owner_probe.log`) `line effect (b): the
-  site's square takes its new score's tier` is `[ok]`; record any `[warn] settle`. After
-  EACH run: `git diff main --name-only -- docs/site_flow/` -> for every differing 307d PNG
-  `git show main:docs/site_flow/<f> > docs/site_flow/<f>` (check ALL ten, not just the
-  known three). Expect ~65 s per run (it.236: 64.5/65.9/66.7; 815: 69-74), zero [warn]
-  settle. Optional: throwaway PIL cross-run compare (ten views, per-channel >32) - expect
-  ~0.000%; never commit the script.
-- **Box 3:** full suite, the driver's exact command: `TMPDIR=/tmp/loop-ancient-works.c
-  .venv/bin/python -m pytest tests/ -q -p no:cacheprovider` (~10.5 min; last baseline
-  195P/1S/0F, 631 s). Before starting: `ps -eo pid,ppid,etime,args | grep -E
-  "pytest|serve.py|runpy|watchlogs"` (no live run in another checkout; kill only MY
-  checkout's PPID-1 orphans) and `df -h /` (a run needs ~3.5G headroom; <2G free = Errno
-  28 cascade, PITFALLS 377-380). Attribute reds: a red also on the same-day main baseline
-  (driver's newest loop-start note in PROGRESS) = not mine (log it); a red naming
-  tests/test_owner_check.py or the 307d PNGs = my lane - fix or block, never weaken.
-- **Claim:** tick the remaining boxes, `Status: done`; the commit carries the task file +
-  DECISIONS.md only (no web/, no PNGs).
+**Remaining work:**
+- **Box 3 (next step):** the driver's exact full-suite command: `TMPDIR=
+  /tmp/loop-ancient-works.c .venv/bin/python -m pytest tests/ -q -p
+  no:cacheprovider` (~10.5 min; last baseline on main: 195P/1S/0F, 631 s, f160ae5a).
+  Before starting: `ps -eo pid,ppid,etime,args | grep -E "pytest|serve\.py|runpy|
+  watchlogs"` (no live run in another checkout; kill only MY checkout's PPID-1
+  orphans - never agent a's lane) and `df -h /` (a run needs ~3.5G headroom; <2G free
+  = Errno 28 cascade, PITFALLS). Attribute reds per the house rule: a red also on the
+  same-day main baseline (the driver's newest loop-start note in PROGRESS) = not mine
+  (log it in DECISIONS); a red naming tests/test_owner_check.py or the 307d PNGs = my
+  lane - fix or block, never weaken. If the suite's own owner_check run reds at "line
+  effect (b)": the diagnostic signature is effects-RED / reload-GREEN (the reload
+  section fetches fresh and passes) -> the re-fetch signal misfired (most likely the
+  pre-save in-memory entry lacked `overlays`, so the loop broke after the first
+  fetch); record the probe's [eval] effects block (markerClass vs tier vs score) in
+  DECISIONS and re-derive. NEVER clear it by loosening the check or moving the wait
+  to the test side - the adoption is a fact by then; a longer poll cannot un-adopt it.
+- **Box 4 (discipline - observed on every run so far, claimed last):** after the
+  box 3 suite run (it includes owner_check) too: `git diff --name-only --
+  docs/site_flow/`, and for every differing 307d PNG `git show
+  main:docs/site_flow/<f> > docs/site_flow/<f>` (check ALL ten, not just the known
+  three); `git diff main --stat -- docs/site_flow/` must be empty before the claim
+  commit.
+- **Claim (after box 3):** tick boxes 3 and 4, `Status: done`; DECISIONS entry with
+  the suite result + the PNG cleanliness; the commit carries ONLY the task file +
+  DECISIONS.md (+ PITFALLS.md if new) - no web/, no PNGs (a 245 commit carrying a
+  web/ or PNG hunk is a red flag for the driver).
 
-**If "line effect (b)" reds again after the fix:** (carried from it.236) the re-fetch
-signal misfired (most likely: the pre-save in-memory entry lacked `overlays`, so the loop
-broke after the first fetch) - record the probe's [eval] effects block (markerClass vs
-tier vs score) in DECISIONS and re-derive; the diagnostic signature is effects-RED /
-reload-GREEN (the reload section fetches fresh and passes). Never clear it by loosening
-the check or moving the wait to the test side - the one-shot adoption is a fact by then;
-a longer poll cannot un-adopt it.
-
-**it.236 evidence (kept as history):** pre-fix run 1: A passed, B RED at "line effect (b)"
-(markerClass "marker t1" vs tier "t2"; pre-save 1.1 -> post 1.45; the probe's 120 s poll
-never saw a change - the one-shot adoption was done; 186 s, the poll ran out). Post-fix
-runs 2-3: both passed (64.5/65.9 s), `[ok]` for A and B in EVERY run, zero [warn] settle;
-cross-run all ten views 0.000% (PIL per-channel >32). Those runs predate the 815 hunk
-(page hunk byte-identical since; R5: fresh runs at claim time).
+**it.236 evidence (kept as history):** pre-fix run 1: A passed, B RED at "line effect
+(b)" (markerClass "marker t1" vs tier "t2"; pre-save 1.1 -> post 1.45; the probe's
+120 s poll never saw a change - the one-shot adoption was done; 186 s, the poll ran
+out). Post-fix runs 2-3: both passed (64.5/65.9 s), `[ok]` for A and B in EVERY run,
+zero [warn] settle; cross-run all ten views 0.000% (PIL per-channel >32). Those runs
+predate 815 (the page hunk is byte-identical since) - superseded by the it.214 runs.
