@@ -1133,7 +1133,10 @@ function refit() {
 }
 function addPairMarker(p) {
   const el = document.createElement('div'); el.className = 'gpin'; el.textContent = P.pairs.length;
-  const m = new maplibregl.Marker({ element: el, draggable: true }).setLngLat([p.lon, p.lat]).addTo(map);
+  // subpixel: the vendored Marker default (false) rounds _pos to whole pixels on every
+  // setLngLat and moveend update, so the handles would jitter 1 px on each drag, toolbar
+  // scale/turn and re-emission - pass true so they track the true projected point (815)
+  const m = new maplibregl.Marker({ element: el, draggable: true, subpixelPositioning: true }).setLngLat([p.lon, p.lat]).addTo(map);
   m.on('dragend', () => { const ll = m.getLngLat(); p.lon = ll.lng; p.lat = ll.lat; refit(); });
   P.marks.push(m);
 }
