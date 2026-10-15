@@ -118,7 +118,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 
 ## server/
 - `server/relief_tiles.py` (256 lines) - Live LiDAR relief tiles for serve.py: /tiles/relief/{z}/{x}/{y}.webp, z 12-17. Exports: Unavailable L43-44, Cancelled L47-48, covered L224-226, tile L229-256.
-- `server/serve.py` (412 lines) - Serve Ancient Works from this Mac: the page and its data from web/, a small JSON document store, and live LiDAR relief tiles. Exports: Handler L57-245, not_this L257-291, after_write L350-368, lan_address L371-380, main L383-412.
+- `server/serve.py` (414 lines) - Serve Ancient Works from this Mac: the page and its data from web/, a small JSON document store, and live LiDAR relief tiles. Exports: Handler L57-245, not_this L257-291, after_write L352-370, lan_address L373-382, main L385-414.
 
 ## tests/
 - `tests/conftest.py` (112 lines) - Test harness for Ancient Works: the real product, end to end. Exports: get, get_json, put_json, copy_web, served, golden_sites.
@@ -178,7 +178,7 @@ Line ranges (L...) are as of the start of this session, for files of 150+ lines:
 - `tools/grid.py` (18 lines) - Gridded preview of an image (or a crop of it) for reading off pixel coordinates.
 - `tools/right_place.py` (696 lines) - The right-place check (task 309): does the queue pair a picture with the right place, not a namesake? Exports: norm L67-70, name_keys L76-84, tokens L86-87, place_of L89-109, site_place L111-114, site_toks L116-121, name_lookup_keys L123-130, row_inputs L132-165, score_candidate L167-204, phrases L212-222, ... (+6 more).
 - `tools/shot.mjs` (16 lines) - Headless screenshot + console capture for local pages: node tools/shot.mjs <url> <out.png> [waitMs] [w] [h] [js]
-- `tools/site_done.py` (347 lines) - Finish one site, end to end: fit, sync to the map, the sites.json entry, the review queue (task 300). Exports: main L305-347.
+- `tools/site_done.py` (352 lines) - Finish one site, end to end: fit, sync to the map, the sites.json entry, the review queue (task 300). Exports: main L322-352.
 
 ## web/
 - `web/fitkit.js` (691 lines) - Open the map on the works (task 307ba, 307b's box 2), and move the drawing by hand (task 307bb, 307b's box 3): the 'Ready to fit' queue already knows where each picture starts -...
