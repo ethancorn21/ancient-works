@@ -62,7 +62,8 @@ def test_check_staged_files_join_and_pass(capsys):
     n = len(src_us_birdseye_batch5._load(src_us_birdseye_batch5.FILES_BIRDS))
     assert f"evidence: {n} rows, {n} pass, 0 fail, 0 no-tie" in out, out
     for key in ("omaha-q43199|File:Bird's eye view of the city of Omaha, Nebraska 1868. LOC 73693495.tif",
-                "indianapolis-q6346|File:Bird's-eye view of Indianapolis showing Spink apartments, hotels, office and industrial buildings - DPLA - d442b7431e1f90b2c13fb4f957e8026f (page 1).jpg"):
+                "indianapolis-q6346|File:Bird's-eye view of Indianapolis showing Spink apartments, hotels, office and industrial buildings - DPLA - d442b7431e1f90b2c13fb4f957e8026f (page 1).jpg",
+                "columbus-q16567|File:1872 Birds Eye View of Columbus Ohio - alternate.png"):
         assert f"PASS caption_coords  {key}" in out, f"missing PASS line for {key}:\n{out}"
 
 
@@ -160,7 +161,7 @@ def test_sites_table_and_staged_rows():
     # the hand-verified SITES table (slug rule, P625 points, aerial ground) - grows one entry per
     # city landing (five at close)
     assert {qid: s["id"] for qid, s in src_us_birdseye_batch5.SITES.items()} == {
-        "Q43199": "omaha-q43199", "Q6346": "indianapolis-q6346"}
+        "Q43199": "omaha-q43199", "Q6346": "indianapolis-q6346", "Q16567": "columbus-q16567"}
     for s in src_us_birdseye_batch5.SITES.values():
         assert s["region"] == "United States" and s["kind"] == "town" and s["named"]
         assert s["note"]  # the staged view's apparent angle, for 236c/the matcher's fit order
@@ -175,11 +176,13 @@ def test_sites_table_and_staged_rows():
     assert {(r["title"], r["qid"]) for r in files} == want
     assert len(files) == len(src_us_birdseye_batch5.SITES)  # one view per city
     years = {"File:Bird's eye view of the city of Omaha, Nebraska 1868. LOC 73693495.tif": 1868,
-             "File:Bird's-eye view of Indianapolis showing Spink apartments, hotels, office and industrial buildings - DPLA - d442b7431e1f90b2c13fb4f957e8026f (page 1).jpg": 1925}
+             "File:Bird's-eye view of Indianapolis showing Spink apartments, hotels, office and industrial buildings - DPLA - d442b7431e1f90b2c13fb4f957e8026f (page 1).jpg": 1925,
+             "File:1872 Birds Eye View of Columbus Ohio - alternate.png": 1872}
     # the new-cities' P625s (verified here): the stored evidence point must be the site's own point
     points = {"omaha-q43199": (-95.9375, 41.25861111111111),
-              "indianapolis-q6346": (-86.158055555556, 39.768611111111)}
-    named_by_qid = {"Q43199": "Omaha", "Q6346": "Indianapolis"}
+              "indianapolis-q6346": (-86.158055555556, 39.768611111111),
+              "columbus-q16567": (-83.00055555555555, 39.96222222222222)}
+    named_by_qid = {"Q43199": "Omaha", "Q6346": "Indianapolis", "Q16567": "Columbus"}
     for r in files:
         assert r["year"] == years[r["title"]]
         assert r["site"] in points and r["qid"] in named_by_qid
@@ -200,6 +203,11 @@ def test_sites_table_and_staged_rows():
     # commons.MAX_YEAR, keep() passes at the boundary) and keeps the page's empty value as
     # date_commons (the golden sample normalizes it to "0000-00-00")
     assert indy["date"] == "1925" and indy["date_commons"] == "" and indy["year"] == 1925
+    col = next(r for r in files
+               if r["title"] == "File:1872 Birds Eye View of Columbus Ohio - alternate.png")
+    # the Columbus 1872 pick: the banner prints "1872." and the page date 1872 matches the
+    # drawing - no Zwolle swap (the Omaha pattern)
+    assert col["date"] == "1872" and "date_commons" not in col
 
 
 def test_evidence_offline_and_negative_control(tmp_path):

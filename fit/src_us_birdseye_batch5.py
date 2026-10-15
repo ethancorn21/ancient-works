@@ -10,8 +10,9 @@ The candidate order (240's lead-doc "Not done yet" pointer, continuing the 181 c
 the 236b lead doc): Omaha (LANDED first: the 1868 E. Ruger sheet - the 236b silent-skip question
 resolves stageable: it fell out of 236b's batch order, its pool has a strong pick), Indianapolis
 (LANDED: the 1925 E. G. Spink Company sheet - the only whole-city view in its pool, the DPLA /
-Indiana State Library scan), Columbus, Memphis, then whatever the collection's search order adds
-to reach five. This task
+Indiana State Library scan), Columbus (LANDED: the 1872 H. H. & O. H. Bailey sheet - the only
+drawn whole-city view in its pool, staged as its best of three scans), Memphis, then whatever
+the collection's search order adds to reach five. This task
 owes FIVE staged cities, not specifically these - a city with no usable view gets a lead-doc
 note and the next candidate.
 
@@ -82,8 +83,10 @@ NO_BOOKS = os.path.join(ROOT, "data", "books", ".no-books")  # never exists: che
 # doc): Omaha (LANDED, city 1 of 5 - the 1868 E. Ruger sheet; the 236b silent-skip question
 # resolves stageable: it fell out of 236b's batch order, its pool has a strong pick),
 # Indianapolis (LANDED, city 2 of 5 - the 1925 E. G. Spink Company sheet, the only whole-city
-# view in its pool; the DPLA / Indiana State Library scan), Columbus, Memphis, then whatever the
-# collection's search order adds to reach five (each new entry verified live, --verify re-checks;
+# view in its pool; the DPLA / Indiana State Library scan), Columbus (LANDED, city 3 of 5 -
+# the 1872 H. H. & O. H. Bailey sheet, the only drawn whole-city view in its pool; staged as
+# its best of three scans), Memphis, then whatever the collection's search order adds to reach
+# five (each new entry verified live, --verify re-checks;
 # per-view STAGED/DROP verdicts in docs/lead_us_birdseye_batch5.md). This task owes FIVE staged
 # cities, not specifically these - a city with no usable view gets a lead-doc note and the next
 # candidate.
@@ -143,6 +146,44 @@ SITES = {
                        "up to the State Fair Grounds at the top (north) - no horizon band - the "
                        "city grid fills the sheet beyond the 2000 m town box, so its fit is "
                        "likely to end a review item (the 236a NY-1811 / DC-ring precedent)"),
+    # Q16567: P625 = ONE 31 m value (-83.00055555555555, 39.96222222222222) - the downtown core
+    # (no refinement needed). P373 is the STRING "Columbus, Ohio" (a Wikidata quirk, not a
+    # country entity - the place is written from the county + the state); P131 = Franklin
+    # Q113237 + Delaware Q485524 + Fairfield Q490157 (the county seat is Franklin) - hence
+    # place "Franklin County, Ohio"; P17 = Q30 (a proper entity); enwiki "Columbus, Ohio".
+    # Name search at limit 5 AND limit 20 (the 241 session-7 research run): NO TRAP - the first
+    # hit with P625, what record --live would store, is Q16567 itself (dist 0; the #1 hit
+    # outright at both limits); the hits that never come first: the other eight US Columbuses
+    # (Georgia Q239870, Mississippi Q985648, Indiana Q941870 - 262.9 km away, Texas Q975782,
+    # North Carolina Q2026104, Nebraska Q932391, Kansas Q2232985, Wisconsin Q1570063, Montana
+    # Q961735 - all rank 2nd or later), the Columbus Museum of Art (Q5935366, an in-city
+    # institution 1116 m from the city point - the Pittsburgh/Chicago trap class, measured),
+    # the Columbus Crew (Q457163) and Blue Jackets (Q207507) (in-city clubs, no P625),
+    # Christopher Columbus (Q7322, no P625), the Columbus ISS module (Q155935, no P625), the
+    # Columbus surname/given-name entities (no P625) and a Galapagos Islands hit (Q38095, last
+    # hit at limit 20, no P625 conflict with the city). The first-guess Q1405 was caught as
+    # AUGUSTUS, the Roman emperor - the first-guess mislabel trap (the real city is Q16567).
+    # No existing site holds the QID (checked at the 241 session-7 run in the catalog, extras,
+    # 236a's, 236b's and 240's extras files and web/data/sites.json - the only Columbus entries
+    # in the catalog are the Columbus Country Club Mound Q104842892 and a Shrum Mound mention
+    # in a site summary); site id columbus-q16567 (catalog.slug("Columbus") = "columbus",
+    # verified).
+    "Q16567": dict(id="columbus-q16567", name="Columbus", named="Columbus",
+                  lon=-83.00055555555555, lat=39.96222222222222,
+                  place="Franklin County, Ohio", region="United States", kind="town",
+                  wikipedia="https://en.wikipedia.org/wiki/Columbus,_Ohio",
+                  note="aerial-photograph ground (no open LiDAR over the built-up city: bare-earth "
+                       "LiDAR erases the streets); the street grid and the Scioto River carry the "
+                       "fit; the 1872 H. H. & O. H. Bailey sheet is the ONLY drawn whole-city "
+                       "view in the pool (the LOC .jpg/.tif scans are its same-sheet dupes, the "
+                       "DPLA reproduction the smaller same-sheet dupe): a true OBLIQUE drawn "
+                       "from a high vantage to the south (the Scioto River side) - the river's "
+                       "bend a foreground band lower-left, the Statehouse square at centre, the "
+                       "street grid receding north toward a visible sky/horizon band along the "
+                       "sheet's top (open farmland beyond the built-up area) - unlike the "
+                       "Omaha/Indianapolis near-verticals - the built-up grid still fills the "
+                       "sheet beyond the 2000 m town box, so its fit is likely to end a review "
+                       "item (the 236a NY-1811 / DC-ring precedent)"),
 }
 
 # The per-view source rows land here as each city lands, keyed by <city>_<year> like the batch-4
@@ -208,11 +249,45 @@ SPINK_1925 = [
     ("File:Bird's-eye view of Indianapolis showing Spink apartments, hotels, office and industrial buildings - DPLA - d442b7431e1f90b2c13fb4f957e8026f (page 1).jpg", "Q6346", "Indianapolis", dict(date="1925")),
 ]
 
+# Columbus (batch 5, city 3; checked live 2026-10-14; the pool 87 unique / 11 gate-pass, per-view
+# STAGED/DROP verdicts in docs/lead_us_birdseye_batch5.md). One row per city: the steepest,
+# best-scanned whole-city view of the collection; the other pool (same-sheet dupes, a
+# Civil-War prison-camp sheet, the DPLA postcard booklet, postcard backs and street photos,
+# detail crops, other-city sheets and views, night-aerial photographs, too-small scans, licence
+# rejects) are DROPS recorded in the lead doc (the 236b/240 precedent).
+BAILEY_1872 = [
+    # 1872 (the banner reads "Bird's Eye View of / COLUMBUS, OHIO. / 1872." - the page date
+    # 1872 matches the drawing - no Zwolle-style swap): the 1872 H. H. & O. H. Bailey sheet in
+    # its BEST scan - "File:1872 Birds Eye View of Columbus Ohio - alternate.png" (11764x7542,
+    # Public domain; page artist "Drawn by H.H. & O.H. Bailey. Printed by Strobridge & Co.
+    # Lith. Cincinnati. O. Published by Fowler & Bailey."): the largest, cleanest,
+    # faithful-colour (blue sky, yellow streets, green lawns) of the three scans of the sheet
+    # on Commons - the LOC 84690606 .jpg/.tif (11360x7064) is the faded brown mono copy with
+    # vertical fold creases across the sheet and a dark smudge lower-left (the page itself says
+    # "LC copy imperfect. PM3"), the DPLA e49f94947c28afd4055194f533f7e03c colour reproduction
+    # (5400x3598) the smaller yellowed one ("the original can be found at the Ohio History
+    # Center") - so this .png is staged, not the LOC .jpg (the 1854 San Francisco precedent in
+    # 236b's lead doc: the better non-LOC scan is staged when the LOC scan is the inferior
+    # copy). "Drawn by H.H. & O.H. Bailey" above the cartouche, the REFERENCES + CHURCHES
+    # landmark tables below. THE ONLY drawn whole-city view of Columbus (Ohio) in the pool and
+    # on Commons (three extra probes found nothing else - the pool's other gate-passes are a
+    # Wisconsin same-name city, the Civil-War Camp Chase sheet, the booklet and postcard
+    # photos). A true oblique (unlike the Omaha/Indianapolis near-verticals): drawn from a high
+    # vantage to the south (the Scioto River side) - the river's bend a foreground band
+    # lower-left, the Statehouse square at centre, the street grid receding north toward a
+    # visible sky/horizon band along the sheet's top (open farmland beyond the built-up area) -
+    # the grid still fills the sheet beyond the 2000 m town box, so its fit is likely to end a
+    # review item (the 236a NY-1811 / DC-ring precedent).
+    ("File:1872 Birds Eye View of Columbus Ohio - alternate.png", "Q16567", "Columbus", dict()),
+]
+
 SOURCES = {
     "omaha_1868": dict(rows=OMAHA_1868, p="birdseye",
                        label="{name}, the E. Ruger / Chicago Lithographing Co. bird's-eye view (1868)"),
     "indianapolis_1925": dict(rows=SPINK_1925, p="birdseye",
                               label="{name}, the E. G. Spink Company bird's-eye view (1925)"),
+    "columbus_1872": dict(rows=BAILEY_1872, p="birdseye",
+                          label="{name}, the H. H. & O. H. Bailey bird's-eye view (1872)"),
 }
 
 
