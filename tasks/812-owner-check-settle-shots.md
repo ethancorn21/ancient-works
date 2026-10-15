@@ -45,13 +45,17 @@ always runs as one invocation, A then B (PITFALLS: the B test cannot run in isol
 
 ## Hand-over
 
-(2026-10-15, iteration 191, agent c) Narrowed by this split; nothing built yet on either
-half. Start where 814's hand-over says the settle landed (the probe's five shots and the
-q0/q1/q2 quad reads; re-locate the line numbers - they drift). What this task adds: per
-view, a second settled shot in the probe (e.g. 1b-card.png ... 5b-reload.png in the run's
-outdir, taken after the same settle as the primary), and on the Python side a PIL compare
-of primary vs second (count pixels differing by >32 on any channel; both images same size;
-assert the differing fraction < 0.5%, for A and B, ten views total). The pick stays derived;
-no existing assert changes; the suite-green box is the claim gate. After any owner_check
-run, restore the re-rendered docs/site_flow/307d_*.png to committed bytes before committing
-(the R5 / 6af207b workaround until 813 retires it).
+(2026-10-15, iteration 235, agent a) **BUILT on agent/a's branch with 814 + 813 in the same
+file (tests/test_owner_check.py), uncommitted until 810's session commits.** The double shot:
+the probe's `shot(name)` takes `<name>.png` and immediately `<name>b.png` after ONE settle
+(10 per pair: A and B x 1-card/2-placed/3-gestured/4-saved/5-reload); Python `_shot_diff`
+(PIL ImageChops - per-channel >32 masks OR'd via ImageChops.lighter, C-speed; pillow already
+pinned in requirements.in) asserts the differing fraction <0.5% in `_run_one` for BOTH tags,
+so a mid-transition regression fails the test here instead of dirtying the docs PNGs. A
+double-shot assert failure naming a view = a straggler tile/ink between the two shots -
+widen the settle (814's lane), never weaken the 0.5% line. Pick still derived; no existing
+assert changed. **Boxes unticked**: 810's session (next) runs the pair twice + the full
+suite and ticks these boxes per 810's hand-over; when the driver returns this task,
+re-confirm the suite green and claim. Design rationale in DECISIONS.md "2026-10-15 810
+DECISION". The pre-run "restore the re-rendered PNGs" workaround is RETIRED by 813 (an
+unflagged run no longer touches docs/site_flow/ at all).

@@ -61,18 +61,22 @@ test cannot run in isolation).
 
 ## Hand-over
 
-(2026-10-15, iteration 191, agent c) Created by the driver's split of 812; nothing built yet.
-Where the fix goes (current file, line numbers drift - re-locate): the probe's fixed sleeps
-- `sleep(2500)` ~313 after place (shorter than the 4.5 s flyTo it follows: the mid-transition
-landing), `sleep(400)` ~327 after the drag, `sleep(500)` ~330 after the s+/r+ clicks, the
-`sleep(1000)`-x-120 effects poll ~360, the `sleep(500)`-x-60 reload poll ~399, `sleep(3000)`
-~404 before the reload shot; the shots at ~299 (1-card), ~322 (2-placed), ~334 (3-gestured),
-~372 (4-saved), ~405 (5-reload); the quad reads q0/q1/q2 at ~328-332. The 4.5 s flyTo is the
-site-select `map.flyTo(..., duration: 4500, essential: true)` at web/index.html:874; the
-900 ms fitBounds is `map.fitBounds(..., duration: 900, essential: true)` at web/fitkit.js:573.
-For the two-run acceptance check there is NO reusable pixel-diff helper in the repo (307bc
-measured the 28.6-33.6% with a throwaway script): a small PIL compare (count pixels differing
-by >32 on any channel, both images same size) can live in the test file. The suite-green box
-is the claim gate; after any owner_check run in this family, restore the re-rendered
-docs/site_flow/307d_*.png to committed bytes before committing (the R5 / 6af207b workaround
-until 813 retires it).
+(2026-10-15, iteration 235, agent a) **BUILT on agent/a's branch with 812 + 813 in the same
+file (tests/test_owner_check.py), uncommitted until 810's session commits.** The settle:
+`owner_served` patches the SERVED tree's private copies only (on-disk web/ untouched) - zeroes
+the four owner-flow camera transitions (the 4.5 s site flyTo index.html:874, the 900 ms
+endFit/openPlan easeTos index.html:906/983, the 900 ms fitBounds fitkit.js:573) with `count ==
+1` anchor asserts that fail loudly if the page edits, and injects `window.__awSettle =
+{ idle: false }` plus render/idle listeners before the unique `map.once('load', ...)` anchor.
+The probe's `settle(label)` waits on that flag (30 s timeout, proceeds + logs `[settle] ...`
+or `[settle] ... TIMED OUT`) before every q0/q1/q2 read and every shot. Why idle: maplibre
+5.6.0 fires `idle` exactly when the camera is at rest and the event-driven render loop has no
+pending frame - verified 2026-10-15 on this build (/tmp/mplib_probe: after the 4.5 s + 900 ms
+chain the camera kept moving to ~8 s and frames to ~9.5 s, one `idle` at 9.49 s, then zero
+events for 20 s) - so the old fixed sleeps always landed mid-transition (the 28.6-33.6%
+saved/reload drift, the 1.06105 q1/q2 pair flake). Pick still derived; no existing check
+changed. **Boxes unticked**: 810's session (next) runs the pair twice + the full suite and
+ticks these boxes per 810's hand-over (the work itself is complete); when the driver returns
+this task, re-confirm the suite green and claim. Design rationale in DECISIONS.md "2026-10-15
+810 DECISION". The pre-run "restore the re-rendered PNGs" workaround is RETIRED by 813 (an
+unflagged run no longer touches docs/site_flow/ at all).
