@@ -11,7 +11,7 @@ task file (for a subtask, read its parent's too).
 - `tasks/242-owner-check-stable-shots.md` (open) - hand-over: (2026-10-15, iteration 189, agent c) **SPLIT per the driver's instruction** (agent a's 230 and my
 - `tasks/810-owner-check-settle-captures.md` (open) - hand-over: (2026-10-15, iteration 190, agent c; re-split again at iteration 191: the flake fix moved out
 - `tasks/812-owner-check-settle-shots.md` (open) - hand-over: (2026-10-15, iteration 191, agent c) Narrowed by this split; nothing built yet on either
-- `tasks/814-owner-check-settle-wait.md` (open) - hand-over: (2026-10-15, iteration 191, agent c) Created by the driver's split of 812; nothing built yet.
+- `tasks/814-owner-check-settle-wait.md` (open) - hand-over: (2026-10-15, iteration 192, agent c) **Session hit the context limit mid-fix; read this first.**
 
 ## Next open tasks
 - `tasks/236c-us-cities-merge.md`
@@ -22,7 +22,14 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-15 814 DECISION: iteration 192 - the q1/q2 pair flake is NOT a moving camera: it is MapLibre 5.6.0's default integer-pixel marker rounding (subpixelPositioning=false); the settle wait (built) fixes the 4-saved/5-reload drift but cannot fix the ratio check - next step is a probe-side setSubpixelPositioning(true) (public vendored API) before the quad reads
+
+- Built the settle mechanism the task prescribes: in the PROBE, `settle()` = poll `page.evaluate(() => !map.isMoving())` at 150 ms with a 20 s budget (`[warn]` on timeout), called before all five screenshots and before the q0/q1/q2 quad reads, after the existing fixed sleeps (additive; Python side untouched; `node --check` clean). MapLibre 5.6.0 semantics verified in the vendor file: `_prepareEase` sets `_moving`, `_easeEnd` clears it, and `Map.isMoving()` = `_moving || handlers.isMoving()` - true exactly while a camera animation is in flight.
+- ATTEMPT 1 (settle alone) FAILED, 4/4 runs this session, all at the same recorded flake: `toolbar scale and turn change the drawing on screen :: {"e1":82,"e2":87.00574693662483}` (ratio 1.06105 - the exact value 230/239/241 recorded, "1.05 x 82.863" read as e2 = 1.05 x 82.863 vs e1 = 82).
+- Proven by temporary probe instrumentation (camera-event log with zoom/center/isMoving timestamps + per-handle dump of style.transform / getBoundingClientRect / marker `_lngLat` / `map.project(lngLat)` / `_pos` / `_subpixelPositioning`): the camera was FULLY SETTLED at both q1 and q2 - zoom 15.03110021085413 identical to 10 digits, zero movestart/moveend/zoomstart/zoomend/resize events between the reads (timeline: place click 1580, last camera anim 2786->4292, moveend 4307, idle 4997, q1 read 6943, s+/r+ ~7000, q2 read 7649). The ResizeObserver theory (50 ms-debounced `resize()` -> `_resizeTransform` without `_moving`) was also ruled out: `#map` is `position:fixed; inset:0` (never changes box) and no resize events fired.
+- The real defect, with the arithmetic: MapLibre 5.6.0 `Marker` defaults `subpixelPositioning` to false (vendor: `this._subpixelPositioning=e&&e.subpixelPositioning||!1`), and `Marker._update` rounds `_pos` to integer pixels on direct-`setLngLat` updates (no event arg) and on `moveend` updates (`this._subpixelPositioning||(e&&"moveend"!==e.type)||(this._pos=this._pos.round())`); only event-driven ('render'/'move') updates while the map is moving keep subpixel positions. The page's fit markers are created in `addPairMarker` (web/index.html:1134: `new maplibregl.Marker({ element: el, draggable: true })` - no subpixel option) and the probe's drag/s+/r+ steps position them via direct `setLngLat` calls while the map is settled -> integer-pixel DOM positions. Measured: true q1 top edge = 82.9807 px (both corners' projected y identical; endpoints round +0.4925/-0.4882) -> 82.0; true q2 edge = 87.1384 (dx 87.1188, dy 1.5194; rounding -> dx 87.0, dy 1.0) -> 87.00574693662483. True ratio = 1.0501 (passes 1.05±0.01); rounded ratio = 1.06105 (fails). Rounding can shift each edge by up to ~1 px, which exceeds the 1% tolerance on an ~83-px edge.
+- Why it flaked historically but is 100% here: the error depends on the fractional parts of the two endpoints' projected x - a property of the derived pick's placed geometry; with this pick/site (richard-s-castle-q17650937 / earthworkenglan01allcgoog_n0453_1, edge ~83 px) it reproduces every run.
+... (2.1 KB more: `grep -n -A 200 -F '## 2026-10-15 814 DECISION: iteration 192 - the q1/q2 pair flake is NOT a moving camera: it is MapLibre 5.6.0's default integer-pixel marker rounding (subpixelPositioning=false); the settle wait (built) fixes the 4-saved/5-reload drift but cannot fix the ratio check - next step is a probe-side setSubpixelPositioning(true) (public vendored API) before the quad reads' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
@@ -46,6 +53,3 @@ Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected
     FAILED tests/test_fit_queue.py::test_placement_gestures_and_save_in_the_browser
     1 failed, 159 passed, 1 skipped in 424.53s (0:07:04)
     (full test output: .agent/reports/last-test-output.txt)
-
-### 2026-10-15 814 (agent c, iteration 192) HAND-OVER IN PROGRESS (context limit)
-    Task 814 (settle wait for the 307d owner check): the settle() helper is built in the probe (tests/test_owner_check.py) but the session hit its context limit. Key finding: the q1/q2 pair flake is NOT a moving camera (proven settled) - it is MapLibre 5.6.0 default integer-pixel marker rounding (subpixelPositioning=false). Next session: FIRST revert the TEMP instrumentation (clean copy at /tmp/test_owner_check.py.bak) and restore the ten docs/site_flow/307d_*.png to main's bytes (harness auto-saved the instrumented test file + dirty B_4/B_5 PNGs); THEN the probe-side subpixel fix (marker.setSubpixelPositioning(true) on P.marks - public vendored API); THEN the two-run pixel comparison (the 814 acceptance). Full detail: tasks/814-owner-check-settle-wait.md hand-over + DECISIONS.md 2026-10-15 814 entry.
