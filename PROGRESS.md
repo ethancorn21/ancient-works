@@ -5,10 +5,11 @@ task file (for a subtask, read its parent's too).
 
 ## Tasks in flight
 - `tasks/242-owner-check-stable-shots.md` (open) - hand-over: (2026-10-15, iteration 189, agent c) **SPLIT per the driver's instruction** (agent a's 230 and my
-- `tasks/810-owner-check-settle-captures.md` (open) - hand-over: (2026-10-15, iteration 245, agent a - **STATUS UPDATE (read this first):** 812 is DONE and
-- `tasks/813-owner-check-refresh-flag.md` (open) - hand-over: (2026-10-15, iteration 245, agent a) **812 is DONE and claimed on this file** (its
+- `tasks/810-owner-check-settle-captures.md` (open) - hand-over: (2026-10-15, iteration 254, agent a - **SPLIT per the driver's instruction; nothing of this
 
 ## Next open tasks
+- `tasks/246-owner-check-crossrun-verify.md`
+- `tasks/247-owner-check-suite-verify.md`
 - `tasks/811-owner-check-pin-snapshot.md`
 
 ## Your task's journal
