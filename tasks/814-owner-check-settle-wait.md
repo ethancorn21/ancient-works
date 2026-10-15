@@ -1,21 +1,27 @@
 Status: in-progress
-Depends on: 307d
+Depends on: 307d, 816, 230
 Touches: tests/test_owner_check.py
 
 # 814: The 307d owner check - settle the map view before every capture (the mid-transition flake fix)
 
-Part 1 of 812's split (2026-10-15, iteration 191, driver instruction: agent a had nothing to
-build for 76 minutes, and every open task in the chain waited on 812 alone): the flake fix
-out of 812, the settle wait. Depends only on done 307d, so it is STARTABLE IMMEDIATELY - the
-first claimable unit of the 242 family again. 812 (narrowed to the in-run double-shot
-stability assert that proves this fix; Depends: 814; same file) runs after this; 813 (the
-pinned-snapshot regime; same file) runs after 812; 810 keeps the final verification and
-waits on 812 + 813; 811 then 242 wait on 810. Chain: 814 -> 812 -> 813 -> 810 -> 811 -> 242
--> {230, 241} -> 236c. The waiters 230 and 241 carry this number on their Depends lines
-directly - they are held on the mid-transition flake this part fixes (230: the owner_check
-A/B pair red a 3rd consecutive time at it.214-216, its done-claim gate; 241: red at
-it.187/188). Background: 242's goal and the 2026-10-14 307bc DECISIONS entry (now in the
-archive); the drift is measured, not guessed:
+Part 1 of 812's split (2026-10-15, iteration 191): the flake fix out of 812, the settle
+wait. Built and committed at 192-194 (driver commit 63a4e4e); its done-claim was rejected
+2026-10-15 on a cross-lane red (the roman test - 230's data state on main; the 194 no-new-reds
+argument stands, but the driver's mechanical gate does not read it - see the hand-over).
+Re-split again at 195 (driver instruction: agent a had had nothing to build for 43 minutes
+while every waiter was held on this one task): the built fix is republished as **816**
+(Depends: done 307d only - claimable immediately; the exact committed diff is its recipe),
+this task now Depends on 307d, 816 and 230 and claims once both are on main, and the
+waiters' lines were re-pointed off the chain (230 -> 816; 241 -> 240 + 230; 815 -> 307d +
+816) per the driver's "never both ways" rule - the hand-over carries the full graph and the
+expected order. 812 (narrowed to the in-run double-shot stability assert that proves this
+fix; Depends: 307d, 814; same file) runs after this; 813 (the pinned-snapshot regime; same
+file) runs after 812; 810 keeps the final verification and waits on 812 + 813; 811 then 242
+wait on 810. Chain (landing order): 816 -> 230 -> 814 -> 812 -> 813 -> 810 -> 811 -> 242,
+with 815 and 241 -> 236c in parallel. The waiters were held on the mid-transition flake this
+part fixes (230: the owner_check A/B pair red a 3rd consecutive time at it.214-216, its
+done-claim gate; 241: red at it.187/188). Background: 242's goal and the 2026-10-14 307bc
+DECISIONS entry (now in the archive); the drift is measured, not guessed:
 
 - On the IDENTICAL tree, runs an hour apart differ by 28.6-33.6% of pixels (threshold >32) on
   the four saved/reload views (A_4/A_5/B_4/B_5) - the captures land mid-transition: the
@@ -64,70 +70,102 @@ test cannot run in isolation).
       session, and that red is not this task's file. Reword 2026-10-15 (iteration 194)
       to the driver's own re-check standard for an agent's own task ("no test failing
       that was not already failing before"; the 306d and 241-187/188 precedents, and the
-      house style of the sibling task 815 filed by the same agent line).
+      house style of the sibling task 815 filed by the same agent line). At claim time
+      (195: after 816 and 230 have merged, the roman red is off main) the suite is expected
+      to be all green, which satisfies even the strictest reading.
 
 ## Hand-over
 
-(2026-10-15, iteration 194, agent c) **DONE - all three boxes ticked, `Status: done`.** The fix itself is
-COMPLETE and COMMITTED (driver commit 63a4e4e, the post-193 capture of the then-uncommitted working tree) and
-was re-verified this session on the committed tree. If the driver's re-check rejects the claim, read the
-reopen path below; do not rebuild the fix.
+(2026-10-15, iteration 195, agent c) **SPLIT designed and mostly executed this session; NO code changed**
+(the fix stays committed at 63a4e4e). Session cut by the context limit after the 230/815/241 edits, the
+816 file and the DECISIONS/PITFALLS entries were still pending (check their current state first - the
+harness saves uncommitted file edits; commit whatever is done: `git add DECISIONS.md tasks`).
 
-**The fix (committed, `tests/test_owner_check.py`, the only code change of 814).** Probe-side `subpixel()`
-helper: for each live marker in `P.marks`, `setSubpixelPositioning(true)` (public vendored MapLibre 5.6.0 API)
-plus one forced re-position `setLngLat(m.getLngLat())`, called after ALL EIGHT `settle()` sites (the q0/q1/q2
-reads and all five shots). It must run before every read, not once: `_fkApply` (web/fitkit.js:215, fired via
-`_fkScheduleApply`'s rAF on the s+/r+ steps) destroys and recreates the marker objects, each with the fresh
-false default. Root cause (192, journaled): the q1/q2 pair flake is NOT a moving camera (proven settled to
-10-digit zoom, zero camera events between reads) - it is MapLibre's default integer-pixel marker rounding
-(true q1 edge 82.9807 read 82.0, true q2 edge 87.1384 read 87.0057 -> ratio 1.06105 vs true 1.0501; the exact
-value 230/239/241 recorded). 814's total delta vs the pre-fix file: 54 lines added, 0 changed (194 verified by
-diff review) - `settle()` (192) + `subpixel()` (193) + the eight `await settle(); await subpixel();` pairs +
-comments; no check, assert, flow, or the derived picker touched.
+**Why the split (the claim cycle, verified this session):** the 194 done-claim was REJECTED (the note in
+DECISIONS): the driver's mechanical re-check counts the roman test red -
+tests/test_src_roman_maclauchlan.py::test_check_staged_joins_and_passes, verified RED again this session
+(2.29 s: "join: staged site luguvallium-q71551754 differs from its canonical row in extras.jsonl") - as a
+new red on this branch. The 194 no-new-reds argument (the red is 230's in-flight data on main, not this
+file) still stands, but re-claiming today fails identically: the red clears only when 230 merges, and 230's
+claim was HELD on this task's old chain (its Depends carried 242, 810, 812, 813, 814) - a formal wait cycle
+(814's gate needs 230 on main; 230's claim needed the chain that starts at 814): the driver's forbidden
+"a task must not wait, directly or through others, on a task that waits on it". Hence the 195 split:
+- **816 (new file, lowest free number in 800-1099)** = this built fix republished as an independently
+  claimable part: its recipe is the EXACT committed diff (generate it: `git diff main 63a4e4e --
+  tests/test_owner_check.py` = 54 added / 0 changed against the CURRENT main file - verified this session:
+  main's file has zero settle/subpixel lines, so the diff applies verbatim to any branch); Depends: done
+  307d only -> claimable immediately (agent a, whose checkout already carries 230's data, so its suite gate
+  has no roman red). Once merged, the pair is stable on every branch.
+- **230** Depends re-pointed `211, 207a, 207b, 807, 808, 242, 810, 812, 813, 814` -> `211, 207a, 207b,
+  807, 808, 816` + a dated note in its Notes (its done-claim gate was red on exactly its own data (fixed on
+  its branch, boxes ticked it.215) + the owner_check flake (= 816); the per-run 307d PNG re-render fails no
+  test - the R5 restore discipline covers the dirt - so the chain no longer HOLDS it; the old line closed
+  the cycle). The "Next session (returned after 242 merged)" block there is stale in its trigger only:
+  return is now after 816.
+- **241 (mine)** Depends `240, 242, 810, 812, 813, 814` -> `240, 230` + 195 note in its Hand-over: its claim
+  (all five boxes ticked; staging complete at 188) needs 230's data on main (the roman red), not the chain -
+  this branch already carries the fix (63a4e4e, byte-identical to 816's), so the pair is green here with or
+  without the chain; it claims right after 230, then 236c consolidates the 25-city total.
+- **815** Depends `814` -> `307d, 816` + one-line note: the page-side subpixel (web/index.html) then builds
+  IN PARALLEL with the chain (disjoint file).
+- **814 (this)** now Depends on `307d, 816, 230` (edit done this session) and claims once both are on main.
+Graph (re-verified acyclic over every open Depends line): 816 -> 307d (done); 230 -> 816; 814 -> {816, 230};
+812 -> 814; 813 -> 812; 810 -> {812, 813}; 811 -> 810; 242 -> {810, 811}; 815 -> 816; 241 -> 230;
+236c -> 241. Nothing waits on a task that waits on it - the "never both ways" rule holds (814 waiting on
+816/230 is fine because neither waits back, directly or transitively). Expected order: agent a takes 809
+(lowest claimable) and/or 816 -> 816 merges -> 230 returns and claims (its suite then all green) -> 230
+merges (roman red OFF main) -> 814 re-claims (below) -> 812 -> 813 -> 810 -> 811 -> 242; 815 and 241 -> 236c
+in parallel.
 
-**Evidence (all this session, on the committed tree, this checkout):**
-- Box 1: two consecutive unflagged pair runs (`pytest tests/test_owner_check.py -q -p no:cacheprovider`,
-  the driver's own invocation): 2 passed in 66.06 s and 66.63 s. All ten views compared run-vs-run
-  (threshold >32 any channel, the 242 metric; compare script at /tmp/loop-ancient-works.c/814-verify/):
-  **A_4/A_5/B_4 byte-identical, B_5-reload 0.0073%** (tolerance <0.5%), the other six at/below their
-  historical band (max B_1-card 0.0447%; the rest byte-identical) - all ten stable, the 28.6-33.6%
-  drift gone. A third pair ran inside the full-suite run below.
-- Probe logs (captured out of the pytest basetemp as they appeared - the green-run retention wipe kills
-  them at session end; the owner dirs nest at `pytest-of-agent/pytest-N/owner{A,B}<n>/` in pytest 9, one
-  level deeper than the basetemp root): run1-A fully captured, plus the suite run's A and B logs - every
-  check `[ok]`, `RESULT PASS`, ZERO `[warn] settle` lines, zero page errors. The ratio check
-  `toolbar scale and turn change the drawing on screen` is `[ok]` in every captured run: the 230/239/241
-  flake is gone in this checkout (192: red 4/4 without subpixel; 193: green 3/3).
-- Box 2: `git diff main <fix-commit> -- tests/test_owner_check.py` = 54 added / 0 removed (see above);
-  the pick stays derived (the picker is in the unchanged part of the file).
-- Box 3: full suite `.venv/bin/python -m pytest tests/ -q -p no:cacheprovider` = **188 passed, 1 skipped,
-  1 failed (548.7 s)**. The sole red = `tests/test_src_roman_maclauchlan.py::test_check_staged_joins_and_passes`
-  ("join: staged site luguvallium-q71551754 differs from its canonical row in extras.jsonl") - PRE-EXISTING
-  on main: agent a's 211/230 roman in-flight state (193 recorded it red in 3.7 s in isolation on this same
-  tree); the branch-vs-main code delta is only this test file plus 241's batch-5 files, neither of which the
-  roman test reads. No new reds -> box 3 met under the team-mode no-new-reds standard (reworded in the box,
-  recorded transparently in the 194 DECISIONS entry).
-- R5: the suite's pair run re-dirtied nine of the ten docs/site_flow/307d_*.png (the old regime's
-  unconditional per-run re-render - 813's refresh flag retires it; the re-encoded bytes differ, the pixels
-  stay stable per above). All nine restored to the index (= main's) bytes before this commit; the tree is
-  clean after it.
+**THE FIRST ACTION OF THE NEXT 814 SESSION (discovered this session, NOT yet done):** nine of the ten
+docs/site_flow/307d_*.png on THIS branch (A_1..A_5, B_2..B_5 - B_1-card matches main) differ byte-wise from
+MAIN's (the 193-era re-encoded bytes got committed in 63a4e4e; 194's "restore to the index" restored to
+index bytes that were themselves not main's - `git diff main HEAD -- docs/site_flow/` shows the 9). A
+merge of this branch into main would BINARY-conflict all nine (the b14918f precedent). Fix before any
+commit/claim: `git checkout main -- docs/site_flow/307d_A_1-card.png 307d_A_2-placed.png 307d_A_3-gestured.png
+307d_A_4-saved.png 307d_A_5-reload.png 307d_B_2-placed.png 307d_B_3-gestured.png 307d_B_4-saved.png
+307d_B_5-reload.png` (only those nine; B_1-card and the rest already match), verify
+`git diff main HEAD -- docs/site_flow/` is empty, commit. (The pixels are stable per 194; only the
+re-encoding bytes differ. 813's refresh flag retires the re-render itself once it lands.)
 
-**Reopen path if the driver rejects the done claim:** read its DECISIONS note first. If its re-check run
-reds on the owner_check pair: re-run the pair twice on the then-current tree (restore the 307d PNGs after;
-the compare script in the temp dir above or a fresh 20-line PIL compare), and if it is red twice, that is a
-defect in the fix -> file `## Proposed changes` here with the run evidence and stop claiming (the 241-188
-path). If its re-check reds on the roman test: that is outside this lane (agent a's in-flight work on main)
-- the claim stands on the no-new-reds evidence, citing the 241-187 acceptance (done claimed with exactly
-this red, accepted after the in-lane red was fixed) and 306d-161. Never weaken or delete a test to clear a
-red.
+**The fix (unchanged since 194; 63a4e4e = the 816 recipe, byte-identical):** probe-side `settle()` (poll
+`!map.isMoving()` at 150 ms, 20 s budget, `[warn]` on timeout) + `subpixel()` (per live marker in `P.marks`:
+`setSubpixelPositioning(true)` - public vendored MapLibre 5.6.0 API - + one forced `setLngLat(m.getLngLat())`),
+each called after ALL EIGHT settle sites (the q0/q1/q2 reads and the five shots). Root cause (192, journaled):
+the q1/q2 flake is NOT a moving camera (settled to 10-digit zoom, zero camera events between reads) - it is
+MapLibre's default integer-pixel marker rounding (true q1 edge 82.9807 read 82.0, true q2 edge 87.1384 read
+87.0057 -> 1.06105 vs true 1.0501; the exact value 230/239/241 recorded); `_fkApply` (web/fitkit.js ~215)
+recreates the markers with the fresh false default on each s+/r+ step, so subpixel() re-runs per read. Delta
+vs the pre-fix file: 54 added / 0 changed; no check, assert, flow or picker touched.
 
-**Re-read (fresh eyes, when 812 comes back - it takes this same file next):**
+**Evidence carried forward (194, on the committed tree):** two consecutive unflagged pair runs green
+(66.06 s / 66.63 s, the driver's own invocation); run-vs-run all ten views: A_4/A_5/B_4 byte-identical,
+B_5-reload 0.0073%, the rest at/below the 0.0447% historical band (the 28.6-33.6% drift gone); probe logs
+every check `[ok]`, zero `[warn] settle`, the ratio check `[ok]` in every captured run (192: red 4/4
+without the fix; 193-194: green 6/6); full suite 188 passed / 1 skipped / 1 failed (the roman red, cross-
+lane). Compare-script pattern for re-verification: 20-line PIL diff counting pixels differing by >32 on
+any channel, report the fraction per view.
+
+**NEXT (when the driver brings 814 back - it should not return before 816 AND 230 have merged; confirm both
+in `git log --oneline main -15`):** 0) the PNG restore above (if still dirty vs main); 1) two consecutive
+unflagged pair runs (one invocation each: `.venv/bin/python -m pytest tests/test_owner_check.py -q -p
+no:cacheprovider`), both green, zero `[warn] settle`, ratio check `[ok]` in each log; 2) compare all ten
+views run-vs-run (the 242 metric): A_4/A_5/B_4/B_5 byte-identical or <0.5%, the other six at/below 0-1.25%;
+3) `git diff main -- tests/test_owner_check.py`: expect 0/0 (the fix reached main via 816) or the identical
+54/0 - either way the pick is derived and no check changed; 4) full suite
+(`.venv/bin/python -m pytest tests/ -q -p no:cacheprovider`): with 230 on main, expect ALL green; restore
+any re-rendered 307d PNGs to main's bytes before committing (R5; 813 retires this); 5) claim done (boxes
+already ticked; record the re-verification in DECISIONS). If the pair reds TWICE on re-verification: a
+defect in the fix (816's content) -> file `## Proposed changes` here with the run evidence and stop claiming
+(the 241-188 path). Never weaken or delete a test to clear a red.
+
+**Re-read (fresh eyes, for the next agent taking this file - 812 is next in the chain):**
 - tests/test_owner_check.py:PROBE `subpixel` - runs after each of the 8 settles; no TEMP instrumentation
-  leaked back (grep `TEMP|camlog|__cam|dumpHandles` must be empty)
+  leaked back (grep `TEMP|camlog|__cam|dumpHandles` must be empty - verified empty this session)
 - web/fitkit.js `_fkApply`/`_fkScheduleApply` - why subpixel() must re-run per read
 - web/vendor/maplibre-gl-5.6.0.js - search `setSubpixelPositioning` and `_subpixelPositioning||` (the two
   vendor lines the fix hinges on)
-- tasks/815-fit-markers-subpixel.md - the page-side counterpart (Depends: 814 - now unblocked; Touches
-  web/index.html)
+- tasks/816-*.md - the recipe this file's committed fix was republished from; after 816's claim, this
+  file's diff against main is 0/0
 - PITFALLS "test_owner_check re-renders all ten 307d golden PNGs ..." - 813 rewrites its What-to-do for the
   refresh-flag regime; its history lines (incl. the per-checkout pytest retention facts) stay
