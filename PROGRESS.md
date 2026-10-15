@@ -9,9 +9,10 @@ task file (for a subtask, read its parent's too).
 - `tasks/236-us-cities.md` (split)
 - `tasks/241-us-birdseye-batch5.md` (in-progress) - hand-over: (2026-10-15, iteration 191, agent c) **191 note:** the 242 family was re-split - the fix
 - `tasks/242-owner-check-stable-shots.md` (open) - hand-over: (2026-10-15, iteration 189, agent c) **SPLIT per the driver's instruction** (agent a's 230 and my
-- `tasks/810-owner-check-settle-captures.md` (open) - hand-over: (2026-10-15, iteration 190, agent c; re-split again at iteration 191: the flake fix moved out
-- `tasks/812-owner-check-settle-shots.md` (open) - hand-over: (2026-10-15, iteration 191, agent c) Narrowed by this split; nothing built yet on either
-- `tasks/814-owner-check-settle-wait.md` (open) - hand-over: (2026-10-15, iteration 191, agent c) Created by the driver's split of 812; nothing built yet.
+- `tasks/810-owner-check-settle-captures.md` (open) - hand-over: (2026-10-15, iteration 235, agent a - **TAKEN OVER and nearly finished; the next session is
+- `tasks/812-owner-check-settle-shots.md` (open) - hand-over: (2026-10-15, iteration 235, agent a) **BUILT on agent/a's branch with 814 + 813 in the same
+- `tasks/813-owner-check-refresh-flag.md` (open) - hand-over: (2026-10-15, iteration 235, agent a) **BUILT on agent/a's branch with 814 + 812 in the same
+- `tasks/814-owner-check-settle-wait.md` (in-progress) - hand-over: (2026-10-15, iteration 195, agent c) **SPLIT designed and mostly executed this session; NO code changed**
 
 ## Next open tasks
 - `tasks/236c-us-cities-merge.md`
@@ -22,7 +23,32 @@ task file (for a subtask, read its parent's too).
 
 Its newest `DECISIONS.md` entries, the driver's notes on it included (a rejected done claim says why here). Search `DECISIONS.md` and `DECISIONS-archive.md` for other tasks' reasoning.
 
-(no entries yet)
+### 2026-10-14 230 DECISION: iteration 215 - DONE (all 5 boxes, committed). it.214's code changes were lost by the driver's dc7f9ee sweep (PNGs only) and were restored from the /tmp backups and re-verified from scratch; the owner-check red's last suspect (divergent local site builds) is REFUTED - all site files byte-identical across the three checkouts, so the red is the 307d mid-transition family (remedy = queued task 242); the 302f fixture re-record is task 243 (created)
+
+**The loss + restore (the session's first finding):** at session start the tree was CLEAN but pipeline/commons.py had the PRE-fix NO (bare `google`) and web/data/plans.json was the 1555-row file - the it.214 uncommitted fix and 1572-row export had been dropped when the driver committed dc7f9ee ("uncommitted work after iteration 214", which contained only the three dirty 307d PNGs). The /tmp backups made in it.214 (/tmp/commons_230s5.py, /tmp/plans_230s5.json) were intact; both restored (the backup commons.py diffs from HEAD by exactly the 4 comment lines + the refined NO alternative; the backup plans.json is pure growth over the current 1555 file: 0 lost keys, 17 added = the previously-dropped horsley commons rows).
+
+**Fresh verification (all run this session, none inferred):** (1) NO fix re-probe: 17/17 horsley "936-leaf Google scan" files rows pass keep(); Google Art Project/Earth/Maps/Street View/satellite titles all still dropped; 0 non-roman files rows contain bare "google". (2) export_plans run TWICE: first run's output sha256 dee768f2db7c... is BYTE-IDENTICAL to the it.214 backup (the regeneration is exactly reproducible), second run byte-identical to the first (the it.213/214 pending idempotence check, now closed). (3) fit/merge.py merge --sources roman re-run on the current tree: +0/+0/+0, refused 0, the 3 canonical files sha256-unchanged (box 1 idempotence re-proven post-merge-state). (4) fit/evidence.py check: rc 0, "2751 rows, 1456 pass, 0 fail, 1295 no-tie". (5) sites.json 508, all 9 roman site dirs present and complete. (6) test_merge.py 10/10, test_data.py 3/3, test_serve.py::test_hand_fits_are_the_reference 1/1 alone, tests/golden/hand_fit_docs.sha256 all OK.
+
+**data/raw finding (why regeneration is reproducible here):** data/raw in this checkout is a SYMLINK to /home/agent/projects/ancient-works/data/raw (the lead's shared raw store; aeeb5aa "data/raw synced both ways Mac<->VM so any export is complete"). `find data/raw -type f` reports 0 because find does not follow the top-level arg symlink - the content is all there (britanniaromanao00hors/full 24, memoirwrittendu00maclgoog/full 6, the 18 roman commons copies).
+
+... (4.5 KB more: `grep -n -A 200 -F '## 2026-10-14 230 DECISION: iteration 215 - DONE (all 5 boxes, committed). it.214's code changes were lost by the driver's dc7f9ee sweep (PNGs only) and were restored from the /tmp backups and re-verified from scratch; the owner-check red's last suspect (divergent local site builds) is REFUTED - all site files byte-identical across the three checkouts, so the red is the 307d mid-transition family (remedy = queued task 242); the 302f fixture re-record is task 243 (created)' DECISIONS.md`)
+
+### 2026-10-14 230 DRIVER: done claim rejected, task reopened
+- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
+    tests/test_matchfit_station.py::test_confident_matcher_station
+    tests/test_matchfit_station.py::test_unsure_matcher_station
+    tests/test_owner_check.py::test_owner_save_bar_scale
+    tests/test_owner_check.py::test_owner_save_site_size_fallback
+
+### 2026-10-14 230 DECISION: iteration 216 - the 243 fixture re-record ABSORBED into 230 and run (matchfit 2/2 green, 243 dropped); owner_check pair red a 3rd consecutive time at the same A probe step (branch content proven byte-identical in it.215, so machine-state flake) - declared "Depends on: 242" per the TEAM MODE rule, the driver holds 230 until 242 merges; NOT claiming done this session
+
+**Context (the deadlock the driver's rejection created):** a423d19 rejected it.215's done-claim naming 4 new reds. Two were 230's own fault (the step-2 index rebuild re-stamped evidence.checked; the 302f fixtures' whole-row input_hashes drifted; proven in it.215: the pinned row's hash at 37edbfb^ == the fixture's, `evidence` the only changed field). The fix was filed as task 243 with "Depends on: 230" - but the driver will never accept 230 while 243's tests are red, and 243 cannot run until 230 is accepted. The mechanical rule ("known failures are allowed, new ones are not") does not credit fault attribution. Resolution: a task caused by my own change fixes itself - the fixture paths (tests/test_matchfit_station.py, tests/fixtures/matchfit_station/) joined 230's Touches line, 243 dropped.
+
+**The re-record (this session, live ELoFTR 127.0.0.1:8091, health: zju-community/matchanything_eloftr on RTX 5060 Ti):** 15/15 request keys distinct per run, 0 discrepancies vs the frozen heldout checkpoint (live best == frozen: 22 inliers, corner 58.6 m, centre 2.9 m), offline replay identical (the `seconds` timing field excluded by design), confident + unsure in-process site_done runs rc=0 (unsure seed 7 lands 8 inliers). Fixture diff is minimal: recorded_at re-stamp; index_row 4c7be2d0 -> 003d1d77 (the intended drift fix); the unsure section's recorded item carries evidence.checked 2026-10-12 -> 2026-10-14 (the in-process run re-derived it from the current index); the non-reproducible `seconds` fields; 238's hand-written `refreshed` note dropped (record.py regenerates the header; the note survives in git history; the test reads none of it). The other 7 input hashes are unchanged since 238's 06:04Z recording. Verified after: test_matchfit_station 2/2 (55 s, hermetic - ephemeral loopback stub, no network).
+
+**owner_check, the 3rd red:** re-ran the pair in one invocation (the 306d way: A then B on the shared module tree). A failed at the SAME probe step as it.214/it.215: "RESULT FAIL: toolbar scale and turn change the drawing on screen" (pick richard-s-castle-q17650937 / earthworkenglan01allcgoog_n0453_1; the ArcGIS World_Imagery reqfail ERR_ABORTED lines in its log are normal in-flight aborts, not the cause); B failed as the designed consequence (A's itemBytes never recorded). Consecutive reds on this checkout: it.214 (full suite), it.215 (pair), it.216 (pair). it.215 already proved branch content cannot be the cause: all richard-s-castle site files (data/sites + web/data/sites), fit_queue.json, review.json, the 71 platefits docs and the Chrome binary are byte-identical across this checkout, agent c's checkout and main. Remaining variable is machine state: the probe compares before/after screen pixels while the map view is still settling, and the parallel agents run full browser test suites on the same VM concurrently (agent c on 207a/241 this session) - GPU contention perturbing render timing is the hypothesis (not proven). 242's own measurement is the same signature: same-tree runs an hour apart differ 28.6-33.6% of pixels on the saved/reload views (the 1.06105 ~= 1.05 x 82.863 camera-settle number from it.215).
+
+... (1.4 KB more: `grep -n -A 200 -F '## 2026-10-14 230 DECISION: iteration 216 - the 243 fixture re-record ABSORBED into 230 and run (matchfit 2/2 green, 243 dropped); owner_check pair red a 3rd consecutive time at the same A probe step (branch content proven byte-identical in it.215, so machine-state flake) - declared "Depends on: 242" per the TEAM MODE rule, the driver holds 230 until 242 merges; NOT claiming done this session' DECISIONS.md`)
 
 ## Project-wide driver notes (newest)
 
