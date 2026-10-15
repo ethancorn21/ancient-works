@@ -1,4 +1,4 @@
-Status: open
+Status: done
 Depends on: none
 Touches: (none - verification only; runs the full suite as merged and changes no file)
 
@@ -29,13 +29,13 @@ regime).
 
 ## Acceptance criteria
 
-- [ ] The full suite (`.venv/bin/python -m pytest tests/ -q -p no:cacheprovider`) on the
+- [x] The full suite (`.venv/bin/python -m pytest tests/ -q -p no:cacheprovider`) on the
       merged tree is green: 0 failed; expected 195 passed / 1 skipped (the baseline since
       the 245/812/813 claims - a count change is recorded with the reason, e.g. tests added
       or removed by merged work, and is fine; a red is not). The owner_check pair inside
       the run passes with no `[settle] TIMED OUT` / `[warn]` settle lines and every in-run
       double-shot pair <0.5% at threshold 32.
-- [ ] After the run, `git status` on `docs/site_flow/` is clean (the ten 307d PNGs
+- [x] After the run, `git status` on `docs/site_flow/` is clean (the ten 307d PNGs
       byte-identical - the run's in-test write-surface proof plus this external view) and
       the working tree is otherwise untouched (this task changes no file).
 
@@ -54,3 +54,27 @@ regime).
   [settle]/picks lines are wanted as DECISIONS evidence, capture them while the run's tree
   still exists (the probe log's B-side window is only ~1 s: the 0.1 s watcher started
   BEFORE pytest, PITFALLS) or before the next session starts.
+
+## Hand-over
+
+(2026-10-15, iteration 218, agent c - **done, driver re-check pending**: both boxes verified in-session
+by one unflagged full-suite run on the merged tree; this task changed no file.)
+
+**State:** `.venv/bin/python -m pytest tests/ -q -p no:cacheprovider` on HEAD 538a5744 (synced from main
+before the session; tree clean at start and after; no AW_OWNER_REFRESH) finished **195 passed / 1 skipped
+/ 0 failed in 692.72 s** (WALL 694 s, inside the 1800 s verification budget; counts exactly as expected).
+The owner_check pair inside the run: both probes RESULT PASS, 0 pageerror, zero `[settle] TIMED OUT`/
+`[warn]` lines, and all 20 in-run double-shot pairs 0.0000% at threshold 32 (the in-test 812 assert
+enforces the same bound; the printed values are the DECISIONS record). The ten docs/site_flow/307d_*.png
+are sha256-identical pre/post run and `git status --short` on the whole tree is empty after. Surviving
+evidence lane: /tmp/aw-247-218/ (pytest.log = full -q output; owner-trees/ = the probe logs + all 20
+shots, mirrored live by the 0.1 s watcher because a green run rmtree's the basetemp at exit;
+pre.sha256/post.sha256; summary) - /tmp dies at the session boundary, so the DECISIONS entry
+"2026-10-15 247 DECISION" is the durable record, including the two self-inflicted failed attempts
+(the broken `&&` chain; the `pkill -f` self-kill now in PITFALLS).
+
+**Nothing left to do.** If the driver's re-check rejects the claim, the DECISIONS entry names the exact
+command, the counts, and the log locations (re-running the same command on this tree IS the re-check;
+the 813 merge already proved this tree green at 670.37 s). The parent 810's gate also needs 246's
+cross-run evidence - that is agent a's lane, not this task's; 810's boxes are ticked in the parent's
+own lane once both parts' evidence is in.
