@@ -38,6 +38,29 @@
    "scale_source": "bar",
    "note": "scale from the scale bar: '0 10 20 300 400 500 600 700 800 FEET'",
    "why": "features: Northwest corner of the main fort, North-east corner of the main fort, South-east corner of the main fort, South-west corner of the main fort, North gate gap, East gate gap, South gate gap, West gate gap; stated scale 0.168 disagrees with its own points (0.800 m/px): not trusted"
+  },
+  {
+   "book": "horsley_britannia_romana_1732",
+   "ia": "britanniaromanao00hors",
+   "file": "n0236.jpg",
+   "title": "A general map of the Roman walls in the north of England, and so much of the adjacent countryes as includes the secondary stations per lineam valli.",
+   "label": "Fig. 236",
+   "size": [
+    2427,
+    3893
+   ],
+   "map_box": [
+    0.015,
+    0.01,
+    0.95,
+    0.97
+   ],
+   "cite": "John Horsley, Britannia Romana, or the Roman Antiquities of Britain: in three books, printed for John Osborn and Thomas Longman, at the Ship in Pater-Noster Row, London, 1732 (M.DCC.XXXII); the Google scan is the British Museum volume (shelf mark RB DA 145. H 86 folio, May 25 1883, on leaf n0015)",
+   "url": "books/britanniaromanao00hors/n0236.jpg",
+   "view": false,
+   "ref": null,
+   "plan": "britanniaromanao00hors_n0236_1",
+   "place_reason": "same name, other place: and so much of the adjacent countryes as includes the secondary stations per lineam valli, England vs County Durham, England"
   }
  ],
  "no_picture_found": null,

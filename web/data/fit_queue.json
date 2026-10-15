@@ -1,33 +1,31 @@
 {
- "at": "2026-10-14T02:52:17.030055+00:00",
+ "at": "2026-10-15T20:34:43.500592+00:00",
  "entries": [
   {
-   "site": "fort-ancient-q5470727",
-   "name": "Fort Ancient",
+   "site": "binchester-roman-fort-q4913955",
+   "name": "Binchester Roman Fort",
    "best": {
-    "plan": "ancientmonuments00squi_n0076_1",
-    "reason": "the clearest scan",
+    "plan": "memoirwrittendu00maclgoog_n0129_1",
+    "reason": "the only candidate",
     "row": {
-     "id": "ancientmonuments00squi_n0076_1",
-     "book": "Squier & Davis 1848",
-     "ia": "ancientmonuments00squi",
-     "file": "n0076.jpg",
-     "title": "\"Fort Ancient,\" Warren county, Ohio",
-     "label": "Plate VII",
+     "id": "memoirwrittendu00maclgoog_n0129_1",
+     "book": "maclauchlan_roman_wall_1858",
+     "ia": "memoirwrittendu00maclgoog",
+     "file": "n0129.jpg",
+     "title": "MARKS ON ROMAN TILES, BINCHESTER. (inline figure on p.7 of the Watling Street memoir: two boxed letter-marks from Roman tiles with a 6-inches bar)",
+     "label": "Fig. 129",
      "size": [
-      2912,
-      4064
+      3294,
+      5182
      ],
-     "map_box": [
-      0.05,
-      0.09,
-      0.94,
-      0.92
-     ],
+     "map_box": null,
      "sites": [
-      "fort-ancient-q5470727"
+      "two-bowl-barrows-940m-south-east-of-bar-q17663198",
+      "llanrhaeadr-ym-mochnant-crop-marks-w-of-q122219351",
+      "binchester-roman-fort-q4913955",
+      "castlerigg-stone-circle-q1850757"
      ],
-     "cite": "E. G. Squier and E. H. Davis, Ancient Monuments of the Mississippi Valley (Smithsonian Contributions to Knowledge vol. 1), Washington 1848",
+     "cite": "Henry Maclauchlan, Memoir, Written During a Survey of the Roman Wall, through the Counties of Northumberland and Cumberland, in the Years 1852-1854, made by direction of His Grace the Duke of Northumberland, K.G., Patron of the Society of Antiquaries of Newcastle-upon-Tyne; London, printed for private circulation (Bradbury and Evans, Whitefriars), MDCCCLVIII = 1858 (title page n0011; the preface dates the survey Wallsend summer 1852 to Bowness by winter 1854, and the 1858 printing carries later work - the Willow Holm section of Sep't 7th 1858, the Carlisle great-sewer plan)",
      "url": null,
      "view": false,
      "ref": null
@@ -35,65 +33,1190 @@
    },
    "candidates": [
     {
-     "plan": "ancientmonuments00squi_n0076_1",
-     "title": "\"Fort Ancient,\" Warren county, Ohio",
-     "book": "Squier & Davis 1848",
+     "plan": "memoirwrittendu00maclgoog_n0129_1",
+     "title": "MARKS ON ROMAN TILES, BINCHESTER. (inline figure on p.7 of the Watling Street memoir: two boxed letter-marks from Roman tiles with a 6-inches bar)",
+     "book": "maclauchlan_roman_wall_1858",
      "view": false,
-     "draw_px": 8742048
-    },
-    {
-     "plan": "b24849959_n0264_1",
-     "title": "Fort Ancient, Warren county",
-     "book": "Fowke 1902",
-     "view": false,
-     "draw_px": 7570307
-    },
-    {
-     "plan": "ArcheologicalAtlasOfOhio_n0188_1",
-     "title": "MAP OF FORT ANCIENT",
-     "book": "Mills 1914",
-     "view": false,
-     "draw_px": 1876361
+     "draw_px": 17069508
     }
    ],
    "propose": {
     "pairs": [
      [
-      145.6,
-      365.8,
-      -84.0932849,
-      39.4108016
+      0.0,
+      0.0,
+      -1.6833408,
+      54.6834859
      ],
      [
-      2737.3,
-      365.8,
-      -84.0873151,
-      39.4108016
+      3294.0,
+      0.0,
+      -1.6675392,
+      54.6834859
      ],
      [
-      2737.3,
-      3738.9,
-      -84.0873151,
-      39.4047983
+      3294.0,
+      5182.0,
+      -1.6675392,
+      54.6691128
      ],
      [
-      145.6,
-      3738.9,
-      -84.0932849,
-      39.4047983
+      0.0,
+      5182.0,
+      -1.6833408,
+      54.6691128
      ],
      [
-      1441.4,
-      2052.3,
-      -84.0903,
-      39.4078
+      1647.0,
+      2591.0,
+      -1.67544,
+      54.6763
      ]
     ],
-    "scale_m_px": 0.1981,
+    "scale_m_px": 0.3088,
     "rot_deg": 0.0,
-    "scale_source": "ratio",
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "no scale text recorded"
+   }
+  },
+  {
+   "site": "king-arthur-s-round-table-q283800",
+   "name": "King Arthur's Round Table",
+   "best": {
+    "plan": "britanniaromanao00hors_n0867_1",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "britanniaromanao00hors_n0867_1",
+     "book": "horsley_britannia_romana_1732",
+     "ia": "britanniaromanao00hors",
+     "file": "n0867.jpg",
+     "title": "TABVLAE ITINERARIAE ANTIQVAE SEGMENTVM PRIMVM (the Peutinger table, Gaul segment; an \"A scale of miles\" bar)",
+     "label": "Fig. 867",
+     "size": [
+      2492,
+      4116
+     ],
+     "map_box": null,
+     "sites": [
+      "king-arthur-s-round-table-q283800",
+      "beausale-camp-a-multivallate-hillfort-q17655512",
+      "bwrdd-arthur-q5003701",
+      "motte-castle-230m-north-west-of-nant-y-b-q17678744"
+     ],
+     "cite": "John Horsley, Britannia Romana, or the Roman Antiquities of Britain: in three books, printed for John Osborn and Thomas Longman, at the Ship in Pater-Noster Row, London, 1732 (M.DCC.XXXII); the Google scan is the British Museum volume (shelf mark RB DA 145. H 86 folio, May 25 1883, on leaf n0015)",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "britanniaromanao00hors_n0867_1",
+     "title": "TABVLAE ITINERARIAE ANTIQVAE SEGMENTVM PRIMVM (the Peutinger table, Gaul segment; an \"A scale of miles\" bar)",
+     "book": "horsley_britannia_romana_1732",
+     "view": false,
+     "draw_px": 10257072
+    },
+    {
+     "plan": "c_cfc493f72253fa8e",
+     "title": "Rude Stone Monuments 0154",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1608960
+    },
+    {
+     "plan": "memoirwrittendu00maclgoog_n0115_1",
+     "title": "TABLE OF STATIONS. (printed p.97: the stations of the Notitia, the Ravenna and the Chorographus, with their distances)",
+     "book": "maclauchlan_roman_wall_1858",
+     "view": false,
+     "draw_px": 1409535
+    },
+    {
+     "plan": "c_984782b9e35e8ded",
+     "title": "Mayburgh-1769",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1164800
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -2.74496,
+      54.6526913
+     ],
+     [
+      2492.0,
+      0.0,
+      -2.73556,
+      54.6526913
+     ],
+     [
+      2492.0,
+      4116.0,
+      -2.73556,
+      54.6437082
+     ],
+     [
+      0.0,
+      4116.0,
+      -2.74496,
+      54.6437082
+     ],
+     [
+      1246.0,
+      2058.0,
+      -2.74026,
+      54.6482
+     ]
+    ],
+    "scale_m_px": 0.243,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "no scale text recorded"
+   }
+  },
+  {
+   "site": "aesica-q4688554",
+   "name": "Aesica",
+   "best": {
+    "plan": "c_12fc2441b7e6c854",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_12fc2441b7e6c854",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Hadrian's Wall, map from Borcovaceus to Magna with inset fort plans, Horsley (1732), N.7",
+     "label": "1732",
+     "size": [
+      2498,
+      3975
+     ],
+     "map_box": null,
+     "sites": [
+      "aesica-q4688554"
+     ],
+     "cite": "by John Horsley; public domain (the 1732 original, pre-copyright era); https://archive.org/details/britanniaromanao00hors",
+     "url": "media/commons/aesica-q4688554/12fc2441b7e6c854.jpg",
+     "view": false,
+     "ref": "A map of the Roman walls from BORCOVACEVS to MAGNA."
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_12fc2441b7e6c854",
+     "title": "Hadrian's Wall, map from Borcovaceus to Magna with inset fort plans, Horsley (1732), N.7",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 9929550
+    },
+    {
+     "plan": "britanniaromanao00hors_n0246_1",
+     "title": "A map of the Roman wall, from CILVRNVA to BORCOVACEVS.",
+     "book": "horsley_britannia_romana_1732",
+     "view": false,
+     "draw_px": 8898197
+    },
+    {
+     "plan": "britanniaromanao00hors_n0280_1",
+     "title": "A map of the Roman wall in Scotland from the west end to Bemulie.",
+     "book": "horsley_britannia_romana_1732",
+     "view": false,
+     "draw_px": 8705464
+    },
+    {
+     "plan": "britanniaromanao00hors_n0252_1",
+     "title": "A map of the Roman walls in the north of England, from PETRIANA to CONGAVATA.",
+     "book": "horsley_britannia_romana_1732",
+     "view": false,
+     "draw_px": 8665079
+    },
+    {
+     "plan": "britanniaromanao00hors_n0238_1",
+     "title": "A map of the Roman walls from SEGEDVNAVM to CONDERCVVM.",
+     "book": "horsley_britannia_romana_1732",
+     "view": false,
+     "draw_px": 8198482
+    },
+    {
+     "plan": "britanniaromanao00hors_n0278_1",
+     "title": "A general map of Antoninus's wall in Scotland.",
+     "book": "horsley_britannia_romana_1732",
+     "view": false,
+     "draw_px": 7610479
+    },
+    {
+     "plan": "c_e28ed261168b49c9",
+     "title": "Befundplan Therme Great-Chesters",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1212160
+    },
+    {
+     "plan": "britanniaromanao00hors_n0248_3",
+     "title": "AESICA",
+     "book": "horsley_britannia_romana_1732",
+     "view": false,
+     "draw_px": 253204
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -2.4734725,
+      55.0006859
+     ],
+     [
+      2498.0,
+      0.0,
+      -2.4577275,
+      55.0006859
+     ],
+     [
+      2498.0,
+      3975.0,
+      -2.4577275,
+      54.9863128
+     ],
+     [
+      0.0,
+      3975.0,
+      -2.4734725,
+      54.9863128
+     ],
+     [
+      1249.0,
+      1987.5,
+      -2.4656,
+      54.9935
+     ]
+    ],
+    "scale_m_px": 0.4025,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "carriden",
+   "name": "Carriden (east end of the Antonine Wall near Bo'ness)",
+   "best": {
+    "plan": "c_b243a8f570ba799a",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_b243a8f570ba799a",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Antonine Wall, map from Falkirk to the east end (Carriden), Horsley (1732), N.5",
+     "label": "1732",
+     "size": [
+      2471,
+      4002
+     ],
+     "map_box": null,
+     "sites": [
+      "carriden"
+     ],
+     "cite": "by John Horsley; public domain (the 1732 original, pre-copyright era); https://archive.org/details/britanniaromanao00hors",
+     "url": "media/commons/carriden/b243a8f570ba799a.jpg",
+     "view": false,
+     "ref": "A map of the Roman wall in Scotland from Falkirk to the east end."
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_b243a8f570ba799a",
+     "title": "Antonine Wall, map from Falkirk to the east end (Carriden), Horsley (1732), N.5",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 9888942
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -3.5703889,
+      56.0154465
+     ],
+     [
+      2471.0,
+      0.0,
+      -3.5584831,
+      56.0154465
+     ],
+     [
+      2471.0,
+      4002.0,
+      -3.5584831,
+      56.0046667
+     ],
+     [
+      0.0,
+      4002.0,
+      -3.5703889,
+      56.0046667
+     ],
+     [
+      1235.5,
+      2001.0,
+      -3.564436,
+      56.010057
+     ]
+    ],
+    "scale_m_px": 0.2999,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "cilurni",
+   "name": "Cilurni (Chesters)",
+   "best": {
+    "plan": "c_6e77d8ffde355e08",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_6e77d8ffde355e08",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Hadrian's Wall, map from Hannavum to Cilurni (Chesters), Horsley (1732), N.5",
+     "label": "1732",
+     "size": [
+      2487,
+      3969
+     ],
+     "map_box": null,
+     "sites": [
+      "cilurni"
+     ],
+     "cite": "by John Horsley; public domain (the 1732 original, pre-copyright era); https://archive.org/details/britanniaromanao00hors",
+     "url": "media/commons/cilurni/6e77d8ffde355e08.jpg",
+     "view": false,
+     "ref": "A map of the Roman wall, from HANNAVVM to CILVRNVA."
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_6e77d8ffde355e08",
+     "title": "Hadrian's Wall, map from Hannavum to Cilurni (Chesters), Horsley (1732), N.5",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 9870903
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -2.146856,
+      55.0331859
+     ],
+     [
+      2487.0,
+      0.0,
+      -2.131144,
+      55.0331859
+     ],
+     [
+      2487.0,
+      3969.0,
+      -2.131144,
+      55.0188128
+     ],
+     [
+      0.0,
+      3969.0,
+      -2.146856,
+      55.0188128
+     ],
+     [
+      1243.5,
+      1984.5,
+      -2.139,
+      55.026
+     ]
+    ],
+    "scale_m_px": 0.4031,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "tunnocelum",
+   "name": "Tunnocelum (Boulneis, north of the Esk mouth)",
+   "best": {
+    "plan": "c_bff059febc7d7d68",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_bff059febc7d7d68",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Hadrian's Wall, map from Congavata to Tunnocelum (Solway fold-out), Horsley (1732), N.10",
+     "label": "1732",
+     "size": [
+      2482,
+      3953
+     ],
+     "map_box": null,
+     "sites": [
+      "tunnocelum"
+     ],
+     "cite": "by John Horsley; public domain (the 1732 original, pre-copyright era); https://archive.org/details/britanniaromanao00hors",
+     "url": "media/commons/tunnocelum/bff059febc7d7d68.jpg",
+     "view": false,
+     "ref": "A map of the Roman walls in the north of England, from CONGAVATA to TVNNOCELVVM."
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_bff059febc7d7d68",
+     "title": "Hadrian's Wall, map from Congavata to Tunnocelum (Solway fold-out), Horsley (1732), N.10",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 9811346
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -3.0198469,
+      54.9051859
+     ],
+     [
+      2482.0,
+      0.0,
+      -3.0041531,
+      54.9051859
+     ],
+     [
+      2482.0,
+      3953.0,
+      -3.0041531,
+      54.8908128
+     ],
+     [
+      0.0,
+      3953.0,
+      -3.0198469,
+      54.8908128
+     ],
+     [
+      1241.0,
+      1976.5,
+      -3.012,
+      54.898
+     ]
+    ],
+    "scale_m_px": 0.4048,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "congavata",
+   "name": "Congavata (Castlesteads)",
+   "best": {
+    "plan": "c_d6099942ba7a12c1",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_d6099942ba7a12c1",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Hadrian's Wall, map from Petriana to Congavata (Castlesteads), Horsley (1732), N.9",
+     "label": "1732",
+     "size": [
+      2492,
+      3937
+     ],
+     "map_box": null,
+     "sites": [
+      "congavata"
+     ],
+     "cite": "by John Horsley; public domain (the 1732 original, pre-copyright era); https://archive.org/details/britanniaromanao00hors",
+     "url": "media/commons/congavata/d6099942ba7a12c1.jpg",
+     "view": false,
+     "ref": "A map of the Roman walls in the north of England, from PETRIANA to CONGAVATA."
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_d6099942ba7a12c1",
+     "title": "Hadrian's Wall, map from Petriana to Congavata (Castlesteads), Horsley (1732), N.9",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 9811004
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -2.7689238,
+      54.9721859
+     ],
+     [
+      2492.0,
+      0.0,
+      -2.7530762,
+      54.9721859
+     ],
+     [
+      2492.0,
+      3937.0,
+      -2.7530762,
+      54.9578128
+     ],
+     [
+      0.0,
+      3937.0,
+      -2.7689238,
+      54.9578128
+     ],
+     [
+      1246.0,
+      1968.5,
+      -2.761,
+      54.965
+     ]
+    ],
+    "scale_m_px": 0.4064,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "birdoswald-roman-fort-and-the-section-of-q17650767",
+   "name": "Birdoswald Roman Fort (Banna)",
+   "best": {
+    "plan": "c_df15aee7c29998bd",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_df15aee7c29998bd",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Hadrian's Wall, map from Cilurni to Borcovaceus (Birdoswald), Horsley (1732), N.6",
+     "label": "1732",
+     "size": [
+      2465,
+      3959
+     ],
+     "map_box": null,
+     "sites": [
+      "birdoswald-roman-fort-and-the-section-of-q17650767"
+     ],
+     "cite": "by John Horsley; public domain (the 1732 original, pre-copyright era); https://archive.org/details/britanniaromanao00hors",
+     "url": "media/commons/birdoswald-roman-fort-and-the-section-of-q17650767/df15aee7c29998bd.jpg",
+     "view": false,
+     "ref": "A map of the Roman wall, from CILVRNVA to BORCOVACEVS."
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_df15aee7c29998bd",
+     "title": "Hadrian's Wall, map from Cilurni to Borcovaceus (Birdoswald), Horsley (1732), N.6",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 9758935
+    },
+    {
+     "plan": "britanniaromanao00hors_n0256_1",
+     "title": "A section of both the Roman walls between one castellum and another (the south agger, Severus's ditch and vallum, Hadrian's north agger, ditch, principal vallum and south agger; a scale of 9 paces or 15 yards)",
+     "book": "horsley_britannia_romana_1732",
+     "view": false,
+     "draw_px": 9128336
+    },
+    {
+     "plan": "britanniaromanao00hors_n0242_1",
+     "title": "A map of the Roman walls in the north of England from VINDOBALA to HVNVM.",
+     "book": "horsley_britannia_romana_1732",
+     "view": false,
+     "draw_px": 8630325
+    },
+    {
+     "plan": "britanniaromanao00hors_n0240_1",
+     "title": "A map of the Roman wall, from CONDERCVVM to VINDOBALA.",
+     "book": "horsley_britannia_romana_1732",
+     "view": false,
+     "draw_px": 8584146
+    },
+    {
+     "plan": "britanniaromanao00hors_n0242_2",
+     "title": "A map of the Roman walls in the north of England from VINDOBALA to HVNNVM.",
+     "book": "horsley_britannia_romana_1732",
+     "view": false,
+     "draw_px": 954971
+    },
+    {
+     "plan": "memoirwrittendu00maclgoog_n0093_1",
+     "title": "FIG. 4. CARLISLE, COURSE OF THE WALL AND OF THE YALLUM. (plan of Carlisle: the course of the Wall and the Vallum between Stanwix and the Castle, with the 1857-58 great sewer and its drain; 'From Burgh / Trinity Church' and 'From WIGTON' direction notes, compass, scale of chains and scale of feet; 'H M^L delin', 'Sandridge & Co. Litho London')",
+     "book": "maclauchlan_roman_wall_1858",
+     "view": false,
+     "draw_px": 488756
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -2.6080745,
+      54.9941913
+     ],
+     [
+      2465.0,
+      0.0,
+      -2.5983255,
+      54.9941913
+     ],
+     [
+      2465.0,
+      3959.0,
+      -2.5983255,
+      54.9852082
+     ],
+     [
+      0.0,
+      3959.0,
+      -2.6080745,
+      54.9852082
+     ],
+     [
+      1232.5,
+      1979.5,
+      -2.6032,
+      54.9897
+     ]
+    ],
+    "scale_m_px": 0.2526,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "bar-hill-fort",
+   "name": "Bar Hill Roman fort (Antonine Wall)",
+   "best": {
+    "plan": "c_0c5dd391120442a5",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_0c5dd391120442a5",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Antonine Wall, map from the west end to Bemulie, Horsley (1732), N.2",
+     "label": "1732",
+     "size": [
+      2416,
+      4035
+     ],
+     "map_box": null,
+     "sites": [
+      "bar-hill-fort"
+     ],
+     "cite": "by John Horsley; public domain (the 1732 original, pre-copyright era); https://archive.org/details/britanniaromanao00hors",
+     "url": "media/commons/bar-hill-fort/0c5dd391120442a5.jpg",
+     "view": false,
+     "ref": "A map of the Roman wall in Scotland from the west end to Bemulie."
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_0c5dd391120442a5",
+     "title": "Antonine Wall, map from the west end to Bemulie, Horsley (1732), N.2",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 9748560
+    },
+    {
+     "plan": "c_186b68b096139b34",
+     "title": "Antonine Wall, general map of the wall in Scotland, Horsley (1732), N.1",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 9480510
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -4.0768043,
+      55.9634913
+     ],
+     [
+      2416.0,
+      0.0,
+      -4.0671957,
+      55.9634913
+     ],
+     [
+      2416.0,
+      4035.0,
+      -4.0671957,
+      55.9545082
+     ],
+     [
+      0.0,
+      4035.0,
+      -4.0768043,
+      55.9545082
+     ],
+     [
+      1208.0,
+      2017.5,
+      -4.072,
+      55.959
+     ]
+    ],
+    "scale_m_px": 0.2478,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "kirkintilloch",
+   "name": "Kirkintilloch (the Peel)",
+   "best": {
+    "plan": "c_86226f62168a8726",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_86226f62168a8726",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Antonine Wall, map from Bemulie to Crowy-hill with fort plans, Horsley (1732), N.3",
+     "label": "1732",
+     "size": [
+      2427,
+      4013
+     ],
+     "map_box": null,
+     "sites": [
+      "kirkintilloch"
+     ],
+     "cite": "by John Horsley; public domain (the 1732 original, pre-copyright era); https://archive.org/details/britanniaromanao00hors",
+     "url": "media/commons/kirkintilloch/86226f62168a8726.jpg",
+     "view": false,
+     "ref": "A map of the Roman wall in Scotland from Bemulie to Crowy-hill."
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_86226f62168a8726",
+     "title": "Antonine Wall, map from Bemulie to Crowy-hill with fort plans, Horsley (1732), N.3",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 9739551
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -4.1624818,
+      55.9430192
+     ],
+     [
+      2427.0,
+      0.0,
+      -4.1469627,
+      55.9430192
+     ],
+     [
+      2427.0,
+      4013.0,
+      -4.1469627,
+      55.9286461
+     ],
+     [
+      0.0,
+      4013.0,
+      -4.1624818,
+      55.9286461
+     ],
+     [
+      1213.5,
+      2006.5,
+      -4.1547222,
+      55.9358333
+     ]
+    ],
+    "scale_m_px": 0.3987,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "rough-castle-fort",
+   "name": "Rough Castle Roman fort (Antonine Wall)",
+   "best": {
+    "plan": "c_aa55e24458af0694",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_aa55e24458af0694",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Antonine Wall, map from Crowy-hill to Falkirk with fort plans, Horsley (1732), N.4",
+     "label": "1732",
+     "size": [
+      2438,
+      3991
+     ],
+     "map_box": null,
+     "sites": [
+      "rough-castle-fort"
+     ],
+     "cite": "by John Horsley; public domain (the 1732 original, pre-copyright era); https://archive.org/details/britanniaromanao00hors",
+     "url": "media/commons/rough-castle-fort/aa55e24458af0694.jpg",
+     "view": false,
+     "ref": "A map of the Roman wall in Scotland from Crowy-hill to Falkirk."
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_aa55e24458af0694",
+     "title": "Antonine Wall, map from Crowy-hill to Falkirk with fort plans, Horsley (1732), N.4",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 9730058
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -3.8609064,
+      56.0022913
+     ],
+     [
+      2438.0,
+      0.0,
+      -3.8510936,
+      56.0022913
+     ],
+     [
+      2438.0,
+      3991.0,
+      -3.8510936,
+      55.9933082
+     ],
+     [
+      0.0,
+      3991.0,
+      -3.8609064,
+      55.9933082
+     ],
+     [
+      1219.0,
+      1995.5,
+      -3.856,
+      55.9978
+     ]
+    ],
+    "scale_m_px": 0.2506,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "petriana",
+   "name": "Petriana (Horsley's N.8 Solway-coast station)",
+   "best": {
+    "plan": "c_91c123d52ac55dc7",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_91c123d52ac55dc7",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Hadrian's Wall, map from Magna to Petriana with inset fort plans, Horsley (1732), N.8",
+     "label": "1732",
+     "size": [
+      2465,
+      3937
+     ],
+     "map_box": null,
+     "sites": [
+      "petriana"
+     ],
+     "cite": "by John Horsley; public domain (the 1732 original, pre-copyright era); https://archive.org/details/britanniaromanao00hors",
+     "url": "media/commons/petriana/91c123d52ac55dc7.jpg",
+     "view": false,
+     "ref": "A map of the Roman walls from MAGNA to PETRIANA."
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_91c123d52ac55dc7",
+     "title": "Hadrian's Wall, map from Magna to Petriana with inset fort plans, Horsley (1732), N.8",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 9704705
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -3.4578253,
+      54.9071859
+     ],
+     [
+      2465.0,
+      0.0,
+      -3.4421747,
+      54.9071859
+     ],
+     [
+      2465.0,
+      3937.0,
+      -3.4421747,
+      54.8928128
+     ],
+     [
+      0.0,
+      3937.0,
+      -3.4578253,
+      54.8928128
+     ],
+     [
+      1232.5,
+      1968.5,
+      -3.45,
+      54.9
+     ]
+    ],
+    "scale_m_px": 0.4064,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "castrum-segedunum-q637958",
+   "name": "Castrum Segedunum",
+   "best": {
+    "plan": "c_c5b30482ebc29c71",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "c_c5b30482ebc29c71",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Hadrian's Wall, general map of the whole secondary-station line, Horsley (1732), N.1",
+     "label": "1732",
+     "size": [
+      2427,
+      3893
+     ],
+     "map_box": null,
+     "sites": [
+      "castrum-segedunum-q637958"
+     ],
+     "cite": "by John Horsley; public domain (the 1732 original, pre-copyright era); https://archive.org/details/britanniaromanao00hors",
+     "url": "media/commons/castrum-segedunum-q637958/c5b30482ebc29c71.jpg",
+     "view": false,
+     "ref": "A general map of the Roman walls in the north of England, and so much of the adjacent countryes as includes the secondary stations per lineam valli."
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_c5b30482ebc29c71",
+     "title": "Hadrian's Wall, general map of the whole secondary-station line, Horsley (1732), N.1",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 9448311
+    },
+    {
+     "plan": "c_7af3a0b6ae085619",
+     "title": "Hadrian's Wall, map from Segedunum to Condercum, Horsley (1732), N.2",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 9391159
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -1.5401188,
+      54.9950959
+     ],
+     [
+      2427.0,
+      0.0,
+      -1.5245012,
+      54.9950959
+     ],
+     [
+      2427.0,
+      3893.0,
+      -1.5245012,
+      54.9807228
+     ],
+     [
+      0.0,
+      3893.0,
+      -1.5401188,
+      54.9807228
+     ],
+     [
+      1213.5,
+      1946.5,
+      -1.53231,
+      54.98791
+     ]
+    ],
+    "scale_m_px": 0.411,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "oswestry-castle-q20713795",
+   "name": "Oswestry Castle",
+   "best": {
+    "plan": "britanniaromanao00hors_n0246_1",
+    "reason": "the clearest scan",
+    "row": {
+     "id": "britanniaromanao00hors_n0246_1",
+     "book": "horsley_britannia_romana_1732",
+     "ia": "britanniaromanao00hors",
+     "file": "n0246.jpg",
+     "title": "A map of the Roman wall, from CILVRNVA to BORCOVACEVS.",
+     "label": "Fig. 246",
+     "size": [
+      2465,
+      3959
+     ],
+     "map_box": [
+      0.03,
+      0.01,
+      0.97,
+      0.98
+     ],
+     "sites": [
+      "aesica-q4688554",
+      "oswestry-castle-q20713795",
+      "milecastle-24-q15253379",
+      "milecastle-33-q6851171"
+     ],
+     "cite": "John Horsley, Britannia Romana, or the Roman Antiquities of Britain: in three books, printed for John Osborn and Thomas Longman, at the Ship in Pater-Noster Row, London, 1732 (M.DCC.XXXII); the Google scan is the British Museum volume (shelf mark RB DA 145. H 86 folio, May 25 1883, on leaf n0015)",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "britanniaromanao00hors_n0246_1",
+     "title": "A map of the Roman wall, from CILVRNVA to BORCOVACEVS.",
+     "book": "horsley_britannia_romana_1732",
+     "view": false,
+     "draw_px": 8898197
+    },
+    {
+     "plan": "britanniaromanao00hors_n0280_1",
+     "title": "A map of the Roman wall in Scotland from the west end to Bemulie.",
+     "book": "horsley_britannia_romana_1732",
+     "view": false,
+     "draw_px": 8705464
+    },
+    {
+     "plan": "britanniaromanao00hors_n0278_1",
+     "title": "A general map of Antoninus's wall in Scotland.",
+     "book": "horsley_britannia_romana_1732",
+     "view": false,
+     "draw_px": 7610479
+    },
+    {
+     "plan": "earthworkenglan01allcgoog_n0119_1",
+     "title": "Camp, Old Oswestry, Salop",
+     "book": "Allcroft 1908",
+     "view": false,
+     "draw_px": 7021873
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      74.0,
+      39.6,
+      -3.1255894,
+      52.931426
+     ],
+     [
+      2391.0,
+      39.6,
+      -2.9849106,
+      52.931426
+     ],
+     [
+      2391.0,
+      3879.8,
+      -2.9849106,
+      52.7906599
+     ],
+     [
+      74.0,
+      3879.8,
+      -3.1255894,
+      52.7906599
+     ],
+     [
+      1232.5,
+      1959.7,
+      -3.05525,
+      52.8611
+     ]
+    ],
+    "scale_m_px": 4.0805,
+    "rot_deg": 0.0,
+    "scale_source": "bar",
     "coarse": false,
-    "note": "scale from the printed ratio at 500 ppi (the scale-bar box holds the ratio text, not ticks)"
+    "note": "scale from the scale bar: 'A scale of two miles.'"
    }
   },
   {
@@ -199,6 +1322,82 @@
    }
   },
   {
+   "site": "virosidum",
+   "name": "Virosum (near Elenborough, Solway coast)",
+   "best": {
+    "plan": "c_de1ce0efed07c447",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_de1ce0efed07c447",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "The five secondary stations per lineam valli, five fort plans, Horsley (1732), P.113",
+     "label": "1732",
+     "size": [
+      2237,
+      3861
+     ],
+     "map_box": null,
+     "sites": [
+      "virosidum"
+     ],
+     "cite": "by John Horsley; public domain (the 1732 original, pre-copyright era); https://archive.org/details/britanniaromanao00hors",
+     "url": "media/commons/virosidum/de1ce0efed07c447.jpg",
+     "view": false,
+     "ref": "The five fecondary ftations per lineam valli"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_de1ce0efed07c447",
+     "title": "The five secondary stations per lineam valli, five fort plans, Horsley (1732), P.113",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 8637057
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -3.4897661,
+      54.7159299
+     ],
+     [
+      2237.0,
+      0.0,
+      -3.4753519,
+      54.7159299
+     ],
+     [
+      2237.0,
+      3861.0,
+      -3.4753519,
+      54.7015568
+     ],
+     [
+      0.0,
+      3861.0,
+      -3.4897661,
+      54.7015568
+     ],
+     [
+      1118.5,
+      1930.5,
+      -3.482559,
+      54.708744
+     ]
+    ],
+    "scale_m_px": 0.4144,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "forthill",
    "name": "Fort Hill",
    "best": {
@@ -298,89 +1497,6 @@
     "scale_source": "ratio",
     "coarse": false,
     "note": "scale from the printed ratio at 500 ppi (the scale-bar box holds the ratio text, not ticks)"
-   }
-  },
-  {
-   "site": "oswestry-castle-q20713795",
-   "name": "Oswestry Castle",
-   "best": {
-    "plan": "earthworkenglan01allcgoog_n0119_1",
-    "reason": "the only candidate",
-    "row": {
-     "id": "earthworkenglan01allcgoog_n0119_1",
-     "book": "Allcroft 1908",
-     "ia": "earthworkenglan01allcgoog",
-     "file": "n0119.jpg",
-     "title": "Camp, Old Oswestry, Salop",
-     "label": "Fig. 17",
-     "size": [
-      3367,
-      5050
-     ],
-     "map_box": [
-      0.198,
-      0.168,
-      0.875,
-      0.778
-     ],
-     "sites": [
-      "oswestry-castle-q20713795",
-      "coed-y-gaer-hillfort-q17642475",
-      "old-oswestry-hillfort-and-two-adjacent-s-q17673191"
-     ],
-     "cite": "A. Hadrian Allcroft, Earthwork of England: Prehistoric, Roman, Saxon, Danish, Norman and Mediaeval, London 1908",
-     "url": null,
-     "view": false,
-     "ref": null
-    }
-   },
-   "candidates": [
-    {
-     "plan": "earthworkenglan01allcgoog_n0119_1",
-     "title": "Camp, Old Oswestry, Salop",
-     "book": "Allcroft 1908",
-     "view": false,
-     "draw_px": 7021873
-    }
-   ],
-   "propose": {
-    "pairs": [
-     [
-      666.7,
-      848.4,
-      -3.0580411,
-      52.8633773
-     ],
-     [
-      2946.1,
-      848.4,
-      -3.0524589,
-      52.8633773
-     ],
-     [
-      2946.1,
-      3928.9,
-      -3.0524589,
-      52.8588226
-     ],
-     [
-      666.7,
-      3928.9,
-      -3.0580411,
-      52.8588226
-     ],
-     [
-      1806.4,
-      2388.7,
-      -3.05525,
-      52.8611
-     ]
-    ],
-    "scale_m_px": 0.1646,
-    "rot_deg": 0.0,
-    "scale_source": "bar",
-    "coarse": false,
-    "note": "scale from the scale bar: '0 100 200 300 Feet'"
    }
   },
   {
@@ -4873,6 +5989,117 @@
    }
   },
   {
+   "site": "washington-q61",
+   "name": "Washington, D.C.",
+   "best": {
+    "plan": "c_7fc4c7ef2b2e3ee2",
+    "reason": "a true plan",
+    "row": {
+     "id": "c_7fc4c7ef2b2e3ee2",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Washington, D.C., the Civil War defences (1865 map of the fortification ring)",
+     "label": "1865",
+     "size": [
+      1280,
+      1738
+     ],
+     "map_box": null,
+     "sites": [
+      "washington-q61"
+     ],
+     "cite": "by Unknown author Unknown author; Public domain; https://commons.wikimedia.org/wiki/File:Map_of_the_defences_of_Washington._LOC_88690674.jpg",
+     "url": "media/commons/washington-q61/7fc4c7ef2b2e3ee2.jpg",
+     "view": false,
+     "ref": "File:Map of the defences of Washington. LOC 88690674.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_7fc4c7ef2b2e3ee2",
+     "title": "Washington, D.C., the Civil War defences (1865 map of the fortification ring)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2224640
+    },
+    {
+     "plan": "c_da0d937e99fbb2a7",
+     "title": "Washington, D.C., the L'Enfant plan (1791, first printed 1792)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1301760
+    },
+    {
+     "plan": "c_3f20c4d9e9fbcbd3",
+     "title": "Washington, D.C., Andrew Ellicott's plan (1792, the first official plan)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1294080
+    },
+    {
+     "plan": "c_1afe8abaaad4d3f5",
+     "title": "Washington, the A. Sachse & Co. bird's-eye view (1883)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 2081280
+    },
+    {
+     "plan": "c_63a6b4d0d5e11c2b",
+     "title": "Washington, the B.H. Warner & Co. bird's-eye view (1886)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1273600
+    },
+    {
+     "plan": "c_23d117a7a5726f7a",
+     "title": "Washington, the Olsen bird's-eye view (1921)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1080320
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -77.0451675,
+      38.9039826
+     ],
+     [
+      1280.0,
+      0.0,
+      -77.0281665,
+      38.9039826
+     ],
+     [
+      1280.0,
+      1738.0,
+      -77.0281665,
+      38.8860163
+     ],
+     [
+      0.0,
+      1738.0,
+      -77.0451675,
+      38.8860163
+     ],
+     [
+      640.0,
+      869.0,
+      -77.036667,
+      38.895
+     ]
+    ],
+    "scale_m_px": 1.1507,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "the-roman-fort-vicus-bridge-abutments-an-q17650519",
    "name": "Chesters Roman Fort (Cilurnum)",
    "best": {
@@ -5058,6 +6285,131 @@
    }
   },
   {
+   "site": "san-francisco-q62",
+   "name": "San Francisco",
+   "best": {
+    "plan": "c_8e2fc23385eac72c",
+    "reason": "a true plan",
+    "row": {
+     "id": "c_8e2fc23385eac72c",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "San Francisco, the Eddy survey map (1849, the original)",
+     "label": "1849",
+     "size": [
+      1280,
+      1682
+     ],
+     "map_box": null,
+     "sites": [
+      "san-francisco-q62"
+     ],
+     "cite": "by Eddy, William M.; Brady, John; Public domain; https://commons.wikimedia.org/wiki/File:Official_map_of_San_Francisco_compiled_from_the_field_notes_of_the_official_re-survey_made_by_Wm._M._Eddy._surveyor_of_the_town_of_San_Francisco._LOC_77692722.jpg",
+     "url": "media/commons/san-francisco-q62/8e2fc23385eac72c.jpg",
+     "view": false,
+     "ref": "File:Official map of San Francisco compiled from the field notes of the official re-survey made by Wm. M. Eddy. surveyor of the town of San Francisco. LOC 77692722.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_8e2fc23385eac72c",
+     "title": "San Francisco, the Eddy survey map (1849, the original)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2152960
+    },
+    {
+     "plan": "c_2cbc7ef2a832c38a",
+     "title": "San Francisco, the Eddy 'full and complete' sheet (1854)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1959680
+    },
+    {
+     "plan": "c_d61f6e15a4941c17",
+     "title": "San Francisco, the first published map (1850, 'Copied From Originals')",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1901568
+    },
+    {
+     "plan": "c_9be7a7ee2597ea9b",
+     "title": "San Francisco, the Vioget plan (1839, the first plan of the old town)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1438720
+    },
+    {
+     "plan": "c_3d2fe84db288c7e8",
+     "title": "San Francisco, the C. Merriman Peter bird's-eye view (1914)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1272320
+    },
+    {
+     "plan": "c_1d79f2fb0899b9de",
+     "title": "San Francisco, the Parsons/Currier & Ives bird's-eye view (1878)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1191680
+    },
+    {
+     "plan": "c_865e981e273f3075",
+     "title": "San Francisco, the Goddard bird's-eye view (1868)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1038080
+    },
+    {
+     "plan": "c_985e6d378343b8b1",
+     "title": "San Francisco, the Henry Bill bird's-eye view (1854, drawn 1852)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 972800
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -122.4115408,
+      37.8011126
+     ],
+     [
+      1280.0,
+      0.0,
+      -122.3942392,
+      37.8011126
+     ],
+     [
+      1280.0,
+      1682.0,
+      -122.3942392,
+      37.7831463
+     ],
+     [
+      0.0,
+      1682.0,
+      -122.4115408,
+      37.7831463
+     ],
+     [
+      640.0,
+      841.0,
+      -122.40289,
+      37.79213
+     ]
+    ],
+    "scale_m_px": 1.1891,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "alesia-q835966",
    "name": "Alesia",
    "best": {
@@ -5141,6 +6493,124 @@
      ]
     ],
     "scale_m_px": 0.9564,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "new-york-q60",
+   "name": "New York City",
+   "best": {
+    "plan": "c_9fbbe4eede6a58a4",
+    "reason": "a true plan",
+    "row": {
+     "id": "c_9fbbe4eede6a58a4",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "New York, Bernard Ratzer's plan (1767)",
+     "label": "1767",
+     "size": [
+      1280,
+      1669
+     ],
+     "map_box": null,
+     "sites": [
+      "new-york-q60"
+     ],
+     "cite": "by Bernard Ratzer; Public domain; https://commons.wikimedia.org/wiki/File:Plan_of_the_City_of_New_York_by_Bernard_Ratzer,_1767.jpg",
+     "url": "media/commons/new-york-q60/9fbbe4eede6a58a4.jpg",
+     "view": false,
+     "ref": "File:Plan of the City of New York by Bernard Ratzer, 1767.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_9fbbe4eede6a58a4",
+     "title": "New York, Bernard Ratzer's plan (1767)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 2136320
+    },
+    {
+     "plan": "c_02fd531870944f7b",
+     "title": "New York, the Castello plan (1660 Dutch survey of New Amsterdam)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1240320
+    },
+    {
+     "plan": "c_111f23674ba71b09",
+     "title": "New York, Egbert Viele's topographical map (1865)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 503040
+    },
+    {
+     "plan": "c_7b8ec065bef1ed42",
+     "title": "New York, the Will L. Taylor bird's-eye view (1879)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 2904320
+    },
+    {
+     "plan": "c_ce3478f0db8ad544",
+     "title": "New York, the Ohmann & Co. bird's-eye view (1907, metro-wide)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1176320
+    },
+    {
+     "plan": "c_6501fcb809b471e1",
+     "title": "New York, the Commissioners' Plan (1811, bird's-eye view; published 1821)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1141760
+    },
+    {
+     "plan": "c_921b186549bc7036",
+     "title": "New York, the Bachmann bird's-eye view (1874)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1130240
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -74.0152001,
+      40.7217605
+     ],
+     [
+      1280.0,
+      0.0,
+      -73.9970219,
+      40.7217605
+     ],
+     [
+      1280.0,
+      1669.0,
+      -73.9970219,
+      40.7037942
+     ],
+     [
+      0.0,
+      1669.0,
+      -74.0152001,
+      40.7037942
+     ],
+     [
+      640.0,
+      834.5,
+      -74.006111,
+      40.712778
+     ]
+    ],
+    "scale_m_px": 1.1983,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,
@@ -6697,6 +8167,13 @@
      "book": "Wikimedia Commons",
      "view": false,
      "draw_px": 1112320
+    },
+    {
+     "plan": "memoirwrittendu00maclgoog_n0111_1",
+     "title": "GATEWAY RECENTLY DISCOVERED NEAR HOUSESTEADS. (inline figure on printed p.93: the gateway of 1856 near the station of Borcovicus in the Knag Burn valley; caption 'Gateway discovered near Housesteads (Borcovicus) in 1856.'; blank in this copy - faint frame only)",
+     "book": "maclauchlan_roman_wall_1858",
+     "view": false,
+     "draw_px": 6158
     }
    ],
    "propose": {
@@ -7127,89 +8604,6 @@
      ]
     ],
     "scale_m_px": 0.625,
-    "rot_deg": 0.0,
-    "scale_source": "picture_size",
-    "coarse": true,
-    "note": "commons row: no stage-B fields: coarse anchor"
-   }
-  },
-  {
-   "site": "king-arthur-s-round-table-q283800",
-   "name": "King Arthur's Round Table",
-   "best": {
-    "plan": "c_cfc493f72253fa8e",
-    "reason": "the clearest scan",
-    "row": {
-     "id": "c_cfc493f72253fa8e",
-     "book": "Wikimedia Commons",
-     "ia": null,
-     "file": null,
-     "title": "Rude Stone Monuments 0154",
-     "label": "1872",
-     "size": [
-      1280,
-      1257
-     ],
-     "map_box": null,
-     "sites": [
-      "king-arthur-s-round-table-q283800"
-     ],
-     "cite": "by James Fergusson (1808\u20131886); Public domain; https://commons.wikimedia.org/wiki/File:Rude_Stone_Monuments_0154.png",
-     "url": "media/commons/king-arthur-s-round-table-q283800/cfc493f72253fa8e.jpg",
-     "view": false,
-     "ref": "File:Rude Stone Monuments 0154.png"
-    }
-   },
-   "candidates": [
-    {
-     "plan": "c_cfc493f72253fa8e",
-     "title": "Rude Stone Monuments 0154",
-     "book": "Wikimedia Commons",
-     "view": false,
-     "draw_px": 1608960
-    },
-    {
-     "plan": "c_984782b9e35e8ded",
-     "title": "Mayburgh-1769",
-     "book": "Wikimedia Commons",
-     "view": false,
-     "draw_px": 1164800
-    }
-   ],
-   "propose": {
-    "pairs": [
-     [
-      0.0,
-      0.0,
-      -2.7480229,
-      54.6526106
-     ],
-     [
-      1280.0,
-      0.0,
-      -2.7324971,
-      54.6526106
-     ],
-     [
-      1280.0,
-      1257.0,
-      -2.7324971,
-      54.6437889
-     ],
-     [
-      0.0,
-      1257.0,
-      -2.7480229,
-      54.6437889
-     ],
-     [
-      640.0,
-      628.5,
-      -2.74026,
-      54.6482
-     ]
-    ],
-    "scale_m_px": 0.7812,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,
@@ -8117,6 +9511,82 @@
      ]
     ],
     "scale_m_px": 0.7812,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
+   "site": "luguvallium-q71551754",
+   "name": "Luguvallium (Carlisle)",
+   "best": {
+    "plan": "c_63f60d2b66b26967",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_63f60d2b66b26967",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Carlisle, plan of the course of the Wall and of the Vallum between Stanwix and the Castle, with the 1857-58 great sewer, Maclauchlan (1858)",
+     "label": "1858",
+     "size": [
+      985,
+      1431
+     ],
+     "map_box": null,
+     "sites": [
+      "luguvallium-q71551754"
+     ],
+     "cite": "by Henry Maclauchlan; public domain (IA: NOT_IN_COPYRIGHT, the 1858 original); https://archive.org/details/memoirwrittendu00maclgoog",
+     "url": "media/commons/luguvallium-q71551754/63f60d2b66b26967.jpg",
+     "view": false,
+     "ref": "FIG. 4. CARLISLE, COURSE OF THE WALL AND OF THE YALLUM."
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_63f60d2b66b26967",
+     "title": "Carlisle, plan of the course of the Wall and of the Vallum between Stanwix and the Castle, with the 1857-58 great sewer, Maclauchlan (1858)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1409535
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -2.9493721,
+      54.9033729
+     ],
+     [
+      985.0,
+      0.0,
+      -2.9321679,
+      54.9033729
+     ],
+     [
+      985.0,
+      1431.0,
+      -2.9321679,
+      54.8889998
+     ],
+     [
+      0.0,
+      1431.0,
+      -2.9493721,
+      54.8889998
+     ],
+     [
+      492.5,
+      715.5,
+      -2.94077,
+      54.896187
+     ]
+    ],
+    "scale_m_px": 1.1181,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,
@@ -9742,6 +11212,110 @@
    }
   },
   {
+   "site": "nashville-q23197",
+   "name": "Nashville",
+   "best": {
+    "plan": "c_acd3cd4a8bdc2f58",
+    "reason": "a true plan",
+    "row": {
+     "id": "c_acd3cd4a8bdc2f58",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Nashville, the Clayton/Temple plan (1804, engraved 1880)",
+     "label": "1804",
+     "size": [
+      1280,
+      958
+     ],
+     "map_box": null,
+     "sites": [
+      "nashville-q23197"
+     ],
+     "cite": "by Unknown author Unknown author; Public domain; https://commons.wikimedia.org/wiki/File:1804_Map_of_Nashville_published_1880.jpg",
+     "url": "media/commons/nashville-q23197/acd3cd4a8bdc2f58.jpg",
+     "view": false,
+     "ref": "File:1804 Map of Nashville published 1880.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_acd3cd4a8bdc2f58",
+     "title": "Nashville, the Clayton/Temple plan (1804, engraved 1880)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 1226240
+    },
+    {
+     "plan": "c_0d31466fb347c8cd",
+     "title": "Nashville, the Haydon & Booth plan (1860)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 995840
+    },
+    {
+     "plan": "c_d2ed9616d1d5c7e5",
+     "title": "Nashville, the Civil War fortifications (1895 atlas plate, surveyed Dec 1864)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 944640
+    },
+    {
+     "plan": "c_7489aa387d763321",
+     "title": "Nashville, the O.M. Poe survey map (1860s, Chief Engineer's Office)",
+     "book": "Wikimedia Commons",
+     "view": false,
+     "draw_px": 939520
+    },
+    {
+     "plan": "c_a627153118b524e5",
+     "title": "Nashville, the Tennessee Centennial Exposition bird's-eye view (1897)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1143040
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -86.7926472,
+      36.172013
+     ],
+     [
+      1280.0,
+      0.0,
+      -86.7703928,
+      36.172013
+     ],
+     [
+      1280.0,
+      958.0,
+      -86.7703928,
+      36.1585664
+     ],
+     [
+      0.0,
+      958.0,
+      -86.7926472,
+      36.1585664
+     ],
+     [
+      640.0,
+      479.0,
+      -86.78152,
+      36.16529
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor"
+   }
+  },
+  {
    "site": "binche-q95121",
    "name": "Binche",
    "best": {
@@ -9887,82 +11461,6 @@
      ]
     ],
     "scale_m_px": 0.7812,
-    "rot_deg": 0.0,
-    "scale_source": "picture_size",
-    "coarse": true,
-    "note": "commons row: no stage-B fields: coarse anchor"
-   }
-  },
-  {
-   "site": "aesica-q4688554",
-   "name": "Aesica",
-   "best": {
-    "plan": "c_e28ed261168b49c9",
-    "reason": "the only candidate",
-    "row": {
-     "id": "c_e28ed261168b49c9",
-     "book": "Wikimedia Commons",
-     "ia": null,
-     "file": null,
-     "title": "Befundplan Therme Great-Chesters",
-     "label": "1897",
-     "size": [
-      1280,
-      947
-     ],
-     "map_box": null,
-     "sites": [
-      "aesica-q4688554"
-     ],
-     "cite": "by Unknown author Unknown author; Public domain; https://commons.wikimedia.org/wiki/File:Befundplan_Therme_Great-Chesters.png",
-     "url": "media/commons/aesica-q4688554/e28ed261168b49c9.jpg",
-     "view": false,
-     "ref": "File:Befundplan Therme Great-Chesters.png"
-    }
-   },
-   "candidates": [
-    {
-     "plan": "c_e28ed261168b49c9",
-     "title": "Befundplan Therme Great-Chesters",
-     "book": "Wikimedia Commons",
-     "view": false,
-     "draw_px": 1212160
-    }
-   ],
-   "propose": {
-    "pairs": [
-     [
-      0.0,
-      0.0,
-      -2.4781273,
-      54.9988166
-     ],
-     [
-      1280.0,
-      0.0,
-      -2.4530727,
-      54.9988166
-     ],
-     [
-      1280.0,
-      947.0,
-      -2.4530727,
-      54.9881827
-     ],
-     [
-      0.0,
-      947.0,
-      -2.4781273,
-      54.9881827
-     ],
-     [
-      640.0,
-      473.5,
-      -2.4656,
-      54.9935
-     ]
-    ],
-    "scale_m_px": 1.25,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,
@@ -10777,6 +12275,13 @@
      "book": "Wikimedia Commons",
      "view": false,
      "draw_px": 812911
+    },
+    {
+     "plan": "britanniaromanao00hors_n0185_4",
+     "title": "The five fecondary ftations per lineam valli.",
+     "book": "horsley_britannia_romana_1732",
+     "view": false,
+     "draw_px": 681680
     },
     {
      "plan": "c_36ba572df9678a2a",
@@ -11682,6 +13187,87 @@
    }
   },
   {
+   "site": "glannoventa-q16839208",
+   "name": "Glannoventa",
+   "best": {
+    "plan": "britanniaromanao00hors_n0185_5",
+    "reason": "the only candidate",
+    "row": {
+     "id": "britanniaromanao00hors_n0185_5",
+     "book": "horsley_britannia_romana_1732",
+     "ia": "britanniaromanao00hors",
+     "file": "n0185.jpg",
+     "title": "The five fecondary ftations per lineam valli.",
+     "label": "",
+     "size": [
+      2237,
+      3861
+     ],
+     "map_box": [
+      0.24,
+      0.75,
+      0.67,
+      0.975
+     ],
+     "sites": [
+      "glannoventa-q16839208"
+     ],
+     "cite": "John Horsley, Britannia Romana, or the Roman Antiquities of Britain: in three books, printed for John Osborn and Thomas Longman, at the Ship in Pater-Noster Row, London, 1732 (M.DCC.XXXII); the Google scan is the British Museum volume (shelf mark RB DA 145. H 86 folio, May 25 1883, on leaf n0015)",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "britanniaromanao00hors_n0185_5",
+     "title": "The five fecondary ftations per lineam valli.",
+     "book": "horsley_britannia_romana_1732",
+     "view": false,
+     "draw_px": 835635
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      536.9,
+      2895.8,
+      -3.4169602,
+      54.3560898
+     ],
+     [
+      1498.8,
+      2895.8,
+      -3.3922998,
+      54.3560898
+     ],
+     [
+      1498.8,
+      3764.5,
+      -3.3922998,
+      54.3431092
+     ],
+     [
+      536.9,
+      3764.5,
+      -3.4169602,
+      54.3431092
+     ],
+     [
+      1017.8,
+      3330.1,
+      -3.40463,
+      54.3496
+     ]
+    ],
+    "scale_m_px": 1.6634,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "no scale text recorded"
+   }
+  },
+  {
    "site": "bolsover-castle-q2968590",
    "name": "Bolsover Castle",
    "best": {
@@ -12543,7 +14129,7 @@
    "name": "Bremetennacum",
    "best": {
     "plan": "c_cf067786b1b33db5",
-    "reason": "the only candidate",
+    "reason": "the clearest scan",
     "row": {
      "id": "c_cf067786b1b33db5",
      "book": "Wikimedia Commons",
@@ -12572,6 +14158,13 @@
      "book": "Wikimedia Commons",
      "view": false,
      "draw_px": 621600
+    },
+    {
+     "plan": "britanniaromanao00hors_n0185_3",
+     "title": "The five fecondary ftations per lineam valli.",
+     "book": "horsley_britannia_romana_1732",
+     "view": false,
+     "draw_px": 594230
     }
    ],
    "propose": {
@@ -13622,6 +15215,90 @@
    }
   },
   {
+   "site": "vindomora-q7932358",
+   "name": "Vindomora",
+   "best": {
+    "plan": "memoirwrittendu00maclgoog_n0111_1",
+    "reason": "the only candidate",
+    "row": {
+     "id": "memoirwrittendu00maclgoog_n0111_1",
+     "book": "maclauchlan_roman_wall_1858",
+     "ia": "memoirwrittendu00maclgoog",
+     "file": "n0111.jpg",
+     "title": "GATEWAY RECENTLY DISCOVERED NEAR HOUSESTEADS. (inline figure on printed p.93: the gateway of 1856 near the station of Borcovicus in the Knag Burn valley; caption 'Gateway discovered near Housesteads (Borcovicus) in 1856.'; blank in this copy - faint frame only)",
+     "label": "Fig. 111",
+     "size": [
+      985,
+      1431
+     ],
+     "map_box": [
+      0.338,
+      0.495,
+      0.595,
+      0.512
+     ],
+     "sites": [
+      "milecastle-37-q16156512",
+      "housesteads-fort-section-of-wall-and-val-q17677378",
+      "coria-q3819299",
+      "vindomora-q7932358"
+     ],
+     "cite": "Henry Maclauchlan, Memoir, Written During a Survey of the Roman Wall, through the Counties of Northumberland and Cumberland, in the Years 1852-1854, made by direction of His Grace the Duke of Northumberland, K.G., Patron of the Society of Antiquaries of Newcastle-upon-Tyne; London, printed for private circulation (Bradbury and Evans, Whitefriars), MDCCCLVIII = 1858 (title page n0011; the preface dates the survey Wallsend summer 1852 to Bowness by winter 1854, and the 1858 printing carries later work - the Willow Holm section of Sep't 7th 1858, the Carlisle great-sewer plan)",
+     "url": null,
+     "view": false,
+     "ref": null
+    }
+   },
+   "candidates": [
+    {
+     "plan": "memoirwrittendu00maclgoog_n0111_1",
+     "title": "GATEWAY RECENTLY DISCOVERED NEAR HOUSESTEADS. (inline figure on printed p.93: the gateway of 1856 near the station of Borcovicus in the Knag Burn valley; caption 'Gateway discovered near Housesteads (Borcovicus) in 1856.'; blank in this copy - faint frame only)",
+     "book": "maclauchlan_roman_wall_1858",
+     "view": false,
+     "draw_px": 6158
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      332.9,
+      708.3,
+      -1.8528264,
+      54.8950906
+     ],
+     [
+      586.1,
+      708.3,
+      -1.8278336,
+      54.8950906
+     ],
+     [
+      586.1,
+      732.7,
+      -1.8278336,
+      54.8937094
+     ],
+     [
+      332.9,
+      732.7,
+      -1.8528264,
+      54.8937094
+     ],
+     [
+      459.5,
+      720.5,
+      -1.84033,
+      54.8944
+     ]
+    ],
+    "scale_m_px": 6.3205,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "no usable scale text: '0 10 20'"
+   }
+  },
+  {
    "site": "stanway-house-q7600303",
    "name": "Stanway House",
    "best": {
@@ -14071,6 +15748,234 @@
      ]
     ],
     "scale_m_px": 1.25,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "eye-castle-q5422609",
+   "name": "Eye Castle",
+   "best": {
+    "plan": "c_2dce28785be63091",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_2dce28785be63091",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Kansas City, the Ruger bird's-eye view (1869)",
+     "label": "1869",
+     "size": [
+      1280,
+      1011
+     ],
+     "map_box": null,
+     "sites": [
+      "eye-castle-q5422609"
+     ],
+     "cite": "by Ruger, A.; Christy, A. C.; Merchant'S Lithographing Company; Ruger & Stoner; Public domain; https://commons.wikimedia.org/wiki/File:Bird%27s_eye_view_of_Kansas_City,_Missouri._Jan%27y._1869._LOC_73693480.jpg",
+     "url": "media/commons/kansas-city-q41819/2dce28785be63091.jpg",
+     "view": true,
+     "ref": "File:Bird's eye view of Kansas City, Missouri. Jan'y. 1869. LOC 73693480.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_2dce28785be63091",
+     "title": "Kansas City, the Ruger bird's-eye view (1869)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1294080
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      1.1439414,
+      52.322938
+     ],
+     [
+      1280.0,
+      0.0,
+      1.1556986,
+      52.322938
+     ],
+     [
+      1280.0,
+      1011.0,
+      1.1556986,
+      52.3172618
+     ],
+     [
+      0.0,
+      1011.0,
+      1.1439414,
+      52.3172618
+     ],
+     [
+      640.0,
+      505.5,
+      1.14982,
+      52.3201
+     ]
+    ],
+    "scale_m_px": 0.625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "omaha-q43199",
+   "name": "Omaha",
+   "best": {
+    "plan": "c_42ec242fc73d0b42",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_42ec242fc73d0b42",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Omaha, the E. Ruger / Chicago Lithographing Co. bird's-eye view (1868)",
+     "label": "1868",
+     "size": [
+      1280,
+      1011
+     ],
+     "map_box": null,
+     "sites": [
+      "omaha-q43199"
+     ],
+     "cite": "by Ruger, A.; Chicago Lithographing Co.; Public domain; https://commons.wikimedia.org/wiki/File:Bird%27s_eye_view_of_the_city_of_Omaha,_Nebraska_1868._LOC_73693495.tif",
+     "url": "media/commons/omaha-q43199/42ec242fc73d0b42.jpg",
+     "view": true,
+     "ref": "File:Bird's eye view of the city of Omaha, Nebraska 1868. LOC 73693495.tif"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_42ec242fc73d0b42",
+     "title": "Omaha, the E. Ruger / Chicago Lithographing Co. bird's-eye view (1868)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1294080
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -95.9494498,
+      41.265706
+     ],
+     [
+      1280.0,
+      0.0,
+      -95.9255502,
+      41.265706
+     ],
+     [
+      1280.0,
+      1011.0,
+      -95.9255502,
+      41.2515154
+     ],
+     [
+      0.0,
+      1011.0,
+      -95.9494498,
+      41.2515154
+     ],
+     [
+      640.0,
+      505.5,
+      -95.9375,
+      41.2586111
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "new-orleans-q34404",
+   "name": "New Orleans",
+   "best": {
+    "plan": "c_187c8506049a27f6",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_187c8506049a27f6",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "New Orleans, the Bachman bird's-eye view (1851)",
+     "label": "1851",
+     "size": [
+      1280,
+      1008
+     ],
+     "map_box": null,
+     "sites": [
+      "new-orleans-q34404"
+     ],
+     "cite": "by Scan by NYPL; Public domain; https://commons.wikimedia.org/wiki/File:Bird%27s_eye_view_of_New_Orleans_(NYPL_Hades-118746-54871).tif",
+     "url": "media/commons/new-orleans-q34404/187c8506049a27f6.jpg",
+     "view": true,
+     "ref": "File:Bird's eye view of New Orleans (NYPL Hades-118746-54871).tif"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_187c8506049a27f6",
+     "title": "New Orleans, the Bachman bird's-eye view (1851)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1290240
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -90.0887034,
+      29.983185
+     ],
+     [
+      1280.0,
+      0.0,
+      -90.0679626,
+      29.983185
+     ],
+     [
+      1280.0,
+      1008.0,
+      -90.0679626,
+      29.9690365
+     ],
+     [
+      0.0,
+      1008.0,
+      -90.0887034,
+      29.9690365
+     ],
+     [
+      640.0,
+      504.0,
+      -90.078333,
+      29.976111
+     ]
+    ],
+    "scale_m_px": 1.5625,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,
@@ -14997,6 +16902,842 @@
    }
   },
   {
+   "site": "indianapolis-q6346",
+   "name": "Indianapolis",
+   "best": {
+    "plan": "c_7b0f20b65aa5c3be",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_7b0f20b65aa5c3be",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Indianapolis, the E. G. Spink Company bird's-eye view (1925)",
+     "label": "1925",
+     "size": [
+      1280,
+      917
+     ],
+     "map_box": null,
+     "sites": [
+      "indianapolis-q6346"
+     ],
+     "cite": "by E. G. Spink Company; Public domain; https://commons.wikimedia.org/wiki/File:Bird%27s-eye_view_of_Indianapolis_showing_Spink_apartments,_hotels,_office_and_industrial_buildings_-_DPLA_-_d442b7431e1f90b2c13fb4f957e8026f_(page_1).jpg",
+     "url": "media/commons/indianapolis-q6346/7b0f20b65aa5c3be.jpg",
+     "view": true,
+     "ref": "File:Bird's-eye view of Indianapolis showing Spink apartments, hotels, office and industrial buildings - DPLA - d442b7431e1f90b2c13fb4f957e8026f (page 1).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_7b0f20b65aa5c3be",
+     "title": "Indianapolis, the E. G. Spink Company bird's-eye view (1925)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1173760
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -86.1697427,
+      39.7750464
+     ],
+     [
+      1280.0,
+      0.0,
+      -86.1463684,
+      39.7750464
+     ],
+     [
+      1280.0,
+      917.0,
+      -86.1463684,
+      39.7621752
+     ],
+     [
+      0.0,
+      917.0,
+      -86.1697427,
+      39.7621752
+     ],
+     [
+      640.0,
+      458.5,
+      -86.1580556,
+      39.7686111
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "minneapolis-q36091",
+   "name": "Minneapolis",
+   "best": {
+    "plan": "c_3b4a78e2c577925d",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_3b4a78e2c577925d",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Minneapolis, the W. V. Herancourt / I. Monasch bird's-eye view (1885)",
+     "label": "1885",
+     "size": [
+      1280,
+      916
+     ],
+     "map_box": null,
+     "sites": [
+      "minneapolis-q36091"
+     ],
+     "cite": "by Herancourt, W. V.; Monasch, I. (Isador); Public domain; https://commons.wikimedia.org/wiki/File:Minneapolis,_Minnesota._LOC_75694644.jpg",
+     "url": "media/commons/minneapolis-q36091/3b4a78e2c577925d.jpg",
+     "view": true,
+     "ref": "File:Minneapolis, Minnesota. LOC 75694644.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_3b4a78e2c577925d",
+     "title": "Minneapolis, the W. V. Herancourt / I. Monasch bird's-eye view (1885)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1172480
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -93.2818668,
+      44.9883727
+     ],
+     [
+      1280.0,
+      0.0,
+      -93.2564666,
+      44.9883727
+     ],
+     [
+      1280.0,
+      916.0,
+      -93.2564666,
+      44.9755155
+     ],
+     [
+      0.0,
+      916.0,
+      -93.2818668,
+      44.9755155
+     ],
+     [
+      640.0,
+      458.0,
+      -93.2691667,
+      44.9819444
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "milwaukee-q37836",
+   "name": "Milwaukee",
+   "best": {
+    "plan": "c_5d8d17eb22e110f7",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_5d8d17eb22e110f7",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Milwaukee, the Bailey bird's-eye view (1872)",
+     "label": "1872",
+     "size": [
+      1280,
+      901
+     ],
+     "map_box": null,
+     "sites": [
+      "milwaukee-q37836"
+     ],
+     "cite": "by Bailey, H. H. (Howard Heston); Milwaukee Lith. & Engr. Co.; Holzapfel & Eskuche; Bailey, H. H.; Public domain; https://commons.wikimedia.org/wiki/File:Milwaukee,_Wis._LOC_76693067.jpg",
+     "url": "media/commons/milwaukee-q37836/5d8d17eb22e110f7.jpg",
+     "view": true,
+     "ref": "File:Milwaukee, Wis. LOC 76693067.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_5d8d17eb22e110f7",
+     "title": "Milwaukee, the Bailey bird's-eye view (1872)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1153280
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -87.9622929,
+      43.056323
+     ],
+     [
+      1280.0,
+      0.0,
+      -87.9377071,
+      43.056323
+     ],
+     [
+      1280.0,
+      901.0,
+      -87.9377071,
+      43.0436764
+     ],
+     [
+      0.0,
+      901.0,
+      -87.9622929,
+      43.0436764
+     ],
+     [
+      640.0,
+      450.5,
+      -87.95,
+      43.05
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "baltimore-q5092",
+   "name": "Baltimore",
+   "best": {
+    "plan": "c_4ddeb8f58cf060f5",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_4ddeb8f58cf060f5",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Baltimore, the Parsons bird's-eye view (1880)",
+     "label": "1880",
+     "size": [
+      1280,
+      899
+     ],
+     "map_box": null,
+     "sites": [
+      "baltimore-q5092"
+     ],
+     "cite": "by Currier & Ives.; Parsons, Charles R. (Charles Richard), 1844-1918?, artist; Public domain; https://commons.wikimedia.org/wiki/File:The_City_of_Baltimore_-_sketched_and_drawn_by_C.R._Parsons._LCCN90715972.jpg",
+     "url": "media/commons/baltimore-q5092/4ddeb8f58cf060f5.jpg",
+     "view": true,
+     "ref": "File:The City of Baltimore - sketched and drawn by C.R. Parsons. LCCN90715972.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_4ddeb8f58cf060f5",
+     "title": "Baltimore, the Parsons bird's-eye view (1880)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1150720
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -76.6266063,
+      39.292698
+     ],
+     [
+      1280.0,
+      0.0,
+      -76.6033937,
+      39.292698
+     ],
+     [
+      1280.0,
+      899.0,
+      -76.6033937,
+      39.2800795
+     ],
+     [
+      0.0,
+      899.0,
+      -76.6266063,
+      39.2800795
+     ],
+     [
+      640.0,
+      449.5,
+      -76.615,
+      39.286389
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "philadelphia-q1345",
+   "name": "Philadelphia",
+   "best": {
+    "plan": "c_61b6073da1807052",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_61b6073da1807052",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Philadelphia, the Davis bird's-eye view (1872)",
+     "label": "1872",
+     "size": [
+      1280,
+      895
+     ],
+     "map_box": null,
+     "sites": [
+      "philadelphia-q1345"
+     ],
+     "cite": "by Davis, Theodore R.; Harper & Brothers; Public domain; https://commons.wikimedia.org/wiki/File:Bird%27s_eye_view_of_Philadelphia._LOC_75694509.jpg",
+     "url": "media/commons/philadelphia-q1345/61b6073da1807052.jpg",
+     "view": true,
+     "ref": "File:Bird's eye view of Philadelphia. LOC 75694509.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_61b6073da1807052",
+     "title": "Philadelphia, the Davis bird's-eye view (1872)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1145600
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -75.1753296,
+      39.9590589
+     ],
+     [
+      1280.0,
+      0.0,
+      -75.1518924,
+      39.9590589
+     ],
+     [
+      1280.0,
+      895.0,
+      -75.1518924,
+      39.9464965
+     ],
+     [
+      0.0,
+      895.0,
+      -75.1753296,
+      39.9464965
+     ],
+     [
+      640.0,
+      447.5,
+      -75.163611,
+      39.952778
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "portland-q6106",
+   "name": "Portland",
+   "best": {
+    "plan": "c_28e8b2e0e5ab7bca",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_28e8b2e0e5ab7bca",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Portland, the J. McI. Wood perspective bird's-eye view (1890)",
+     "label": "1890",
+     "size": [
+      1280,
+      886
+     ],
+     "map_box": null,
+     "sites": [
+      "portland-q6106"
+     ],
+     "cite": "by Library of Congress, Geography and Map Division; Public domain; https://commons.wikimedia.org/wiki/File:Portland,_Oregon_1890_Perspective_Birds-eye-view_Map.jpg",
+     "url": "media/commons/portland-q6106/28e8b2e0e5ab7bca.jpg",
+     "view": true,
+     "ref": "File:Portland, Oregon 1890 Perspective Birds-eye-view Map.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_28e8b2e0e5ab7bca",
+     "title": "Portland, the J. McI. Wood perspective bird's-eye view (1890)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1134080
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -122.6919865,
+      45.5212177
+     ],
+     [
+      1280.0,
+      0.0,
+      -122.6663468,
+      45.5212177
+     ],
+     [
+      1280.0,
+      886.0,
+      -122.6663468,
+      45.5087816
+     ],
+     [
+      0.0,
+      886.0,
+      -122.6919865,
+      45.5087816
+     ],
+     [
+      640.0,
+      443.0,
+      -122.6791667,
+      45.515
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "boston-q100",
+   "name": "Boston",
+   "best": {
+    "plan": "c_feba3eac82111e59",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_feba3eac82111e59",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Boston, the Walker bird's-eye view (1902)",
+     "label": "1902",
+     "size": [
+      1280,
+      882
+     ],
+     "map_box": null,
+     "sites": [
+      "boston-q100"
+     ],
+     "cite": "by Geo. H. Walker & Co.; Public domain; https://commons.wikimedia.org/wiki/File:Bird%27s_eye_view_of_Boston._LOC_75694559.jpg",
+     "url": "media/commons/boston-q100/feba3eac82111e59.jpg",
+     "view": true,
+     "ref": "File:Bird's eye view of Boston. LOC 75694559.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_feba3eac82111e59",
+     "title": "Boston, the Walker bird's-eye view (1902)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1128960
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -71.0699351,
+      42.3664676
+     ],
+     [
+      1280.0,
+      0.0,
+      -71.0456209,
+      42.3664676
+     ],
+     [
+      1280.0,
+      882.0,
+      -71.0456209,
+      42.3540877
+     ],
+     [
+      0.0,
+      882.0,
+      -71.0699351,
+      42.3540877
+     ],
+     [
+      640.0,
+      441.0,
+      -71.057778,
+      42.360278
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "denver-q16554",
+   "name": "Denver",
+   "best": {
+    "plan": "c_27675e0aa1425495",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_27675e0aa1425495",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Denver, the Birdseye View Publishing Co. bird's-eye view (1908)",
+     "label": "1908",
+     "size": [
+      1280,
+      880
+     ],
+     "map_box": null,
+     "sites": [
+      "denver-q16554"
+     ],
+     "cite": "by Birdseye View Publishing Co.; Denver Lith. Co.; Public domain; https://commons.wikimedia.org/wiki/File:Bird%27s_eye_view_of_Denver,_Colorado,_1908._LOC_75693133.jpg",
+     "url": "media/commons/denver-q16554/27675e0aa1425495.jpg",
+     "view": true,
+     "ref": "File:Bird's eye view of Denver, Colorado, 1908. LOC 75693133.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_27675e0aa1425495",
+     "title": "Denver, the Birdseye View Publishing Co. bird's-eye view (1908)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1126400
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -104.9964042,
+      39.7453426
+     ],
+     [
+      1280.0,
+      0.0,
+      -104.9730398,
+      39.7453426
+     ],
+     [
+      1280.0,
+      880.0,
+      -104.9730398,
+      39.7329908
+     ],
+     [
+      0.0,
+      880.0,
+      -104.9964042,
+      39.7329908
+     ],
+     [
+      640.0,
+      440.0,
+      -104.984722,
+      39.739167
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "cincinnati-q43196",
+   "name": "Cincinnati",
+   "best": {
+    "plan": "c_d7c32f8968a54ea8",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_d7c32f8968a54ea8",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Cincinnati, the Trout bird's-eye view (1900)",
+     "label": "1900",
+     "size": [
+      1280,
+      864
+     ],
+     "map_box": null,
+     "sites": [
+      "cincinnati-q43196"
+     ],
+     "cite": "by Trout, John L.; Henderson Lithographing Co.; Public domain; https://commons.wikimedia.org/wiki/File:Panoramic_view,_city_of_Cincinnati,_U.S.A._1900._LOC_75694914.jpg",
+     "url": "media/commons/cincinnati-q43196/d7c32f8968a54ea8.jpg",
+     "view": true,
+     "ref": "File:Panoramic view, city of Cincinnati, U.S.A. 1900. LOC 75694914.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_d7c32f8968a54ea8",
+     "title": "Cincinnati, the Trout bird's-eye view (1900)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1105920
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -84.5240755,
+      39.1060634
+     ],
+     [
+      1280.0,
+      0.0,
+      -84.5009245,
+      39.1060634
+     ],
+     [
+      1280.0,
+      864.0,
+      -84.5009245,
+      39.0939361
+     ],
+     [
+      0.0,
+      864.0,
+      -84.5240755,
+      39.0939361
+     ],
+     [
+      640.0,
+      432.0,
+      -84.5125,
+      39.1
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "pittsburgh-q1342",
+   "name": "Pittsburgh",
+   "best": {
+    "plan": "c_7b7c5bb5bce390a9",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_7b7c5bb5bce390a9",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Pittsburgh, the Fowler bird's-eye view (1902)",
+     "label": "1902",
+     "size": [
+      1280,
+      857
+     ],
+     "map_box": null,
+     "sites": [
+      "pittsburgh-q1342"
+     ],
+     "cite": "by Fowler, T. M. (Thaddeus Mortimer); Moyer, James; Fowler, T. M.; Public domain; https://commons.wikimedia.org/wiki/File:Pittsburgh,_Pennsylvania_1902._LOC_75696521.jpg",
+     "url": "media/commons/pittsburgh-q1342/7b7c5bb5bce390a9.jpg",
+     "view": true,
+     "ref": "File:Pittsburgh, Pennsylvania 1902. LOC 75696521.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_7b7c5bb5bce390a9",
+     "title": "Pittsburgh, the Fowler bird's-eye view (1902)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1096960
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -80.0118034,
+      40.4476812
+     ],
+     [
+      1280.0,
+      0.0,
+      -79.9881966,
+      40.4476812
+     ],
+     [
+      1280.0,
+      857.0,
+      -79.9881966,
+      40.4356522
+     ],
+     [
+      0.0,
+      857.0,
+      -80.0118034,
+      40.4356522
+     ],
+     [
+      640.0,
+      428.5,
+      -80.0,
+      40.441667
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "memphis-q16563",
+   "name": "Memphis",
+   "best": {
+    "plan": "c_8a0fc530d78bf11f",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_8a0fc530d78bf11f",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Memphis, the A. Ruger bird's-eye view (1870)",
+     "label": "1870",
+     "size": [
+      1280,
+      841
+     ],
+     "map_box": null,
+     "sites": [
+      "memphis-q16563"
+     ],
+     "cite": "by Ruger, A.; Public domain; https://commons.wikimedia.org/wiki/File:Bird%27s_eye_view_of_the_city_of_Memphis,_Tennessee_1870._LOC_73694530.jpg",
+     "url": "media/commons/memphis-q16563/8a0fc530d78bf11f.jpg",
+     "view": true,
+     "ref": "File:Bird's eye view of the city of Memphis, Tennessee 1870. LOC 73694530.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_8a0fc530d78bf11f",
+     "title": "Memphis, the A. Ruger bird's-eye view (1870)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1076480
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -90.0629305,
+      35.1520131
+     ],
+     [
+      1280.0,
+      0.0,
+      -90.0409584,
+      35.1520131
+     ],
+     [
+      1280.0,
+      841.0,
+      -90.0409584,
+      35.1402087
+     ],
+     [
+      0.0,
+      841.0,
+      -90.0629305,
+      35.1402087
+     ],
+     [
+      640.0,
+      420.5,
+      -90.0519444,
+      35.1461111
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
    "site": "glevum-q360974",
    "name": "Glevum",
    "best": {
@@ -15066,6 +17807,158 @@
      ]
     ],
     "scale_m_px": 1.25,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "columbus-q16567",
+   "name": "Columbus",
+   "best": {
+    "plan": "c_6a10cb94adb8c13c",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_6a10cb94adb8c13c",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Columbus, the H. H. & O. H. Bailey bird's-eye view (1872)",
+     "label": "1872",
+     "size": [
+      1280,
+      821
+     ],
+     "map_box": null,
+     "sites": [
+      "columbus-q16567"
+     ],
+     "cite": "by Drawn by H.H. & O.H. Bailey. Printed by Strobridge & Co. Lith. Cincinnati. O. Published by Fowler & Bailey.; Public domain; https://commons.wikimedia.org/wiki/File:1872_Birds_Eye_View_of_Columbus_Ohio_-_alternate.png",
+     "url": "media/commons/columbus-q16567/6a10cb94adb8c13c.jpg",
+     "view": true,
+     "ref": "File:1872 Birds Eye View of Columbus Ohio - alternate.png"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_6a10cb94adb8c13c",
+     "title": "Columbus, the H. H. & O. H. Bailey bird's-eye view (1872)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1050880
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -83.0122757,
+      39.9679838
+     ],
+     [
+      1280.0,
+      0.0,
+      -82.9888354,
+      39.9679838
+     ],
+     [
+      1280.0,
+      821.0,
+      -82.9888354,
+      39.9564601
+     ],
+     [
+      0.0,
+      821.0,
+      -83.0122757,
+      39.9564601
+     ],
+     [
+      640.0,
+      410.5,
+      -83.0005556,
+      39.9622222
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "louisville-q43668",
+   "name": "Louisville",
+   "best": {
+    "plan": "c_4d182a8fb649ec9b",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_4d182a8fb649ec9b",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Louisville, the Clarke bird's-eye view (1883)",
+     "label": "1883",
+     "size": [
+      1280,
+      816
+     ],
+     "map_box": null,
+     "sites": [
+      "louisville-q43668"
+     ],
+     "cite": "by Clarke, William F.; Levyeau (M.P.) & Co.; Public domain; https://commons.wikimedia.org/wiki/File:Birds-eye_view_of_Louisville_from_the_river_front_and_Southern_Exposition,_1883._LOC_75693235.jpg",
+     "url": "media/commons/louisville-q43668/4d182a8fb649ec9b.jpg",
+     "view": true,
+     "ref": "File:Birds-eye view of Louisville from the river front and Southern Exposition, 1883. LOC 75693235.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_4d182a8fb649ec9b",
+     "title": "Louisville, the Clarke bird's-eye view (1883)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1044480
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -85.7628289,
+      38.2618375
+     ],
+     [
+      1280.0,
+      0.0,
+      -85.7399491,
+      38.2618375
+     ],
+     [
+      1280.0,
+      816.0,
+      -85.7399491,
+      38.250384
+     ],
+     [
+      0.0,
+      816.0,
+      -85.7628289,
+      38.250384
+     ],
+     [
+      640.0,
+      408.0,
+      -85.751389,
+      38.256111
+     ]
+    ],
+    "scale_m_px": 1.5625,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,
@@ -15156,6 +18049,234 @@
    }
   },
   {
+   "site": "detroit-q12439",
+   "name": "Detroit",
+   "best": {
+    "plan": "c_671b74057e62006b",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_671b74057e62006b",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Detroit, the Calvert bird's-eye view (1889)",
+     "label": "1889",
+     "size": [
+      1280,
+      786
+     ],
+     "map_box": null,
+     "sites": [
+      "detroit-q12439"
+     ],
+     "cite": "by Calvert Lithographing Co. (Detroit, Mich.); Public domain; https://commons.wikimedia.org/wiki/File:Birds_eye_view-showing_about_three_miles_square-of_the_central_portion_of_the_city_of_Detroit,_Michigan._LOC_76693077.jpg",
+     "url": "media/commons/detroit-q12439/671b74057e62006b.jpg",
+     "view": true,
+     "ref": "File:Birds eye view-showing about three miles square-of the central portion of the city of Detroit, Michigan. LOC 76693077.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_671b74057e62006b",
+     "title": "Detroit, the Calvert bird's-eye view (1889)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1006080
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -83.0596516,
+      42.337183
+     ],
+     [
+      1280.0,
+      0.0,
+      -83.0353484,
+      42.337183
+     ],
+     [
+      1280.0,
+      786.0,
+      -83.0353484,
+      42.3261505
+     ],
+     [
+      0.0,
+      786.0,
+      -83.0596516,
+      42.3261505
+     ],
+     [
+      640.0,
+      393.0,
+      -83.0475,
+      42.331667
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "cleveland-q37320",
+   "name": "Cleveland",
+   "best": {
+    "plan": "c_3c7244f2e1995dc6",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_3c7244f2e1995dc6",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Cleveland, the A. Ruger / Shober & Carqueville bird's-eye view (1877)",
+     "label": "1877",
+     "size": [
+      1280,
+      783
+     ],
+     "map_box": null,
+     "sites": [
+      "cleveland-q37320"
+     ],
+     "cite": "by Ruger, A.; Stoner, J. J.; Shober & Carqueville; Public domain; https://commons.wikimedia.org/wiki/File:Birds_eye_view_of_Cleveland,_Ohio_1877._LOC_73694507.jpg",
+     "url": "media/commons/cleveland-q37320/3c7244f2e1995dc6.jpg",
+     "view": true,
+     "ref": "File:Birds eye view of Cleveland, Ohio 1877. LOC 73694507.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_3c7244f2e1995dc6",
+     "title": "Cleveland, the A. Ruger / Shober & Carqueville bird's-eye view (1877)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 1002240
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -81.7067163,
+      41.5046616
+     ],
+     [
+      1280.0,
+      0.0,
+      -81.6827281,
+      41.5046616
+     ],
+     [
+      1280.0,
+      783.0,
+      -81.6827281,
+      41.4936713
+     ],
+     [
+      0.0,
+      783.0,
+      -81.7067163,
+      41.4936713
+     ],
+     [
+      640.0,
+      391.5,
+      -81.6947222,
+      41.4991667
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "chicago-q1297",
+   "name": "Chicago",
+   "best": {
+    "plan": "c_4bfe0d63bbb631fa",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_4bfe0d63bbb631fa",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "Chicago, the Peter Roy bird's-eye view (1892)",
+     "label": "1892",
+     "size": [
+      1280,
+      730
+     ],
+     "map_box": null,
+     "sites": [
+      "chicago-q1297"
+     ],
+     "cite": "by Roy, Peter; Public domain; https://commons.wikimedia.org/wiki/File:Bird%27s_eye_view_of_Chicago,_1892._LOC_75693206.jpg",
+     "url": "media/commons/chicago-q1297/4bfe0d63bbb631fa.jpg",
+     "view": true,
+     "ref": "File:Bird's eye view of Chicago, 1892. LOC 75693206.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_4bfe0d63bbb631fa",
+     "title": "Chicago, the Peter Roy bird's-eye view (1892)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 934400
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -87.6398437,
+      41.887067
+     ],
+     [
+      1280.0,
+      0.0,
+      -87.6157123,
+      41.887067
+     ],
+     [
+      1280.0,
+      730.0,
+      -87.6157123,
+      41.8768206
+     ],
+     [
+      0.0,
+      730.0,
+      -87.6398437,
+      41.8768206
+     ],
+     [
+      640.0,
+      365.0,
+      -87.627778,
+      41.881944
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
    "site": "oakham-castle-q2968294",
    "name": "Oakham Castle",
    "best": {
@@ -15232,6 +18353,158 @@
      ]
     ],
     "scale_m_px": 0.625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "st-paul-q28848",
+   "name": "St. Paul",
+   "best": {
+    "plan": "c_64336c87c1e1c710",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_64336c87c1e1c710",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "St. Paul, the Robert M. Saint bird's-eye view (1906)",
+     "label": "1906",
+     "size": [
+      1280,
+      725
+     ],
+     "map_box": null,
+     "sites": [
+      "st-paul-q28848"
+     ],
+     "cite": "by Saint, Robert M.; Public domain; https://commons.wikimedia.org/wiki/File:St._Paul,_Minn._LOC_75694650.jpg",
+     "url": "media/commons/st-paul-q28848/64336c87c1e1c710.jpg",
+     "view": true,
+     "ref": "File:St. Paul, Minn. LOC 75694650.jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_64336c87c1e1c710",
+     "title": "St. Paul, the Robert M. Saint bird's-eye view (1906)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 928000
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -93.1063027,
+      44.9492549
+     ],
+     [
+      1280.0,
+      0.0,
+      -93.0809193,
+      44.9492549
+     ],
+     [
+      1280.0,
+      725.0,
+      -93.0809193,
+      44.9390787
+     ],
+     [
+      0.0,
+      725.0,
+      -93.1063027,
+      44.9390787
+     ],
+     [
+      640.0,
+      362.5,
+      -93.093611,
+      44.944167
+     ]
+    ],
+    "scale_m_px": 1.5625,
+    "rot_deg": 0.0,
+    "scale_source": "picture_size",
+    "coarse": true,
+    "note": "commons row: no stage-B fields: coarse anchor; perspective picture: the similarity anchor is a seed only"
+   }
+  },
+  {
+   "site": "st-louis-q38022",
+   "name": "St. Louis",
+   "best": {
+    "plan": "c_4dd99d37fdc1485f",
+    "reason": "the only candidate",
+    "row": {
+     "id": "c_4dd99d37fdc1485f",
+     "book": "Wikimedia Commons",
+     "ia": null,
+     "file": null,
+     "title": "St. Louis, the Palmatary bird's-eye view (1858)",
+     "label": "1858",
+     "size": [
+      1280,
+      692
+     ],
+     "map_box": null,
+     "sites": [
+      "st-louis-q38022"
+     ],
+     "cite": "by James T. Palmatary; Public domain; https://commons.wikimedia.org/wiki/File:Bird%27s-Eye_View_of_St._Louis,_MO._(full_view).jpg",
+     "url": "media/commons/st-louis-q38022/4dd99d37fdc1485f.jpg",
+     "view": true,
+     "ref": "File:Bird's-Eye View of St. Louis, MO. (full view).jpg"
+    }
+   },
+   "candidates": [
+    {
+     "plan": "c_4dd99d37fdc1485f",
+     "title": "St. Louis, the Palmatary bird's-eye view (1858)",
+     "book": "Wikimedia Commons",
+     "view": true,
+     "draw_px": 885760
+    }
+   ],
+   "propose": {
+    "pairs": [
+     [
+      0.0,
+      0.0,
+      -90.2109427,
+      38.6312454
+     ],
+     [
+      1280.0,
+      0.0,
+      -90.1879453,
+      38.6312454
+     ],
+     [
+      1280.0,
+      692.0,
+      -90.1879453,
+      38.6215323
+     ],
+     [
+      0.0,
+      692.0,
+      -90.2109427,
+      38.6215323
+     ],
+     [
+      640.0,
+      346.0,
+      -90.199444,
+      38.626389
+     ]
+    ],
+    "scale_m_px": 1.5625,
     "rot_deg": 0.0,
     "scale_source": "picture_size",
     "coarse": true,
