@@ -894,6 +894,11 @@ Where: `thumb.wikimedia.org` thumb URLs (`.../wikipedia/commons/thumb/<x>/<xx>/<
 Symptom: requesting `/2400px-...` (or `/2560px-...`) of an 11764-px original returns HTTP 400 "Use thumbnail sizes listed on https://w.wiki/GHai", while `/1280px-...` and `/1920px-...` succeed
 Why: the thumb endpoint serves only a fixed set of widths (listed at w.wiki/GHai); 1920 is the largest confirmed working (a ~5 MB JPEG for an 11764-px original). For zooms request the 1920-px thumb and use the PIL resize-then-crop path (a direct PIL crop save can render blank in the read tool).
 
+#### Commons search matches file titles case-insensitively but OCR full text case-sensitively: a city whose mirror pool is empty returns 0 for every form, and only lowercase variants surface OCR-text hits
+Where: the Commons search API (`action=query&list=search&srnamespace=6`, `pipeline/commons.py:get`), the 236b/241 pool builders, 2026-10-14 (task 241's Albuquerque probe)
+Symptom: all six documented pool forms for Albuquerque ("bird's-eye view of Albuquerque", "Albuquerque bird's eye", ...) returned 0, while the lowercase "albuquerque bird's eye" returned 5 hits and "albuquerque aerial view" matched TITLES whose name is capitalized ("File:Albuquerque - aerial view of ...jpg") - so the query's casing decides which fields can hit, and a city with no file-title match looks exactly like "no such files".
+Why: the title field matches case-insensitively either way, but the OCR full-text field matches case-sensitively (book body text is indexed lowercase; a capitalized query word never matches it). When a city's pool comes back 0/0/0/0/0/0 that is a signal, not a rate-limit: before dropping the city, probe (a) the six forms with the city name in LOWERCASE, (b) the LOC Panoramic title variants that do not say "bird's eye" ("Panoram of <name>", "<name> LOC", "<name> LCCN"), and (c) "<state> bird eye view" (that last one surfaced the drawn Santa Fe / Las Vegas, N.M. 1882 sheets that city-level queries missed). Record every probe in the lead doc.
+
 ### fit/
 
 #### record._fake_match takes the fixture's responses dict, not the fixture

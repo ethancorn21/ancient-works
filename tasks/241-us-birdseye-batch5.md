@@ -96,84 +96,100 @@ restore main's bytes before committing (the PITFALLS test_owner_check entry); on
 (same-sheet scans recorded in the lead doc, the LOC .jpg staged where it is the best scan).
 
 ## Hand-over
-(2026-10-14, iteration 183, agent c) **Memphis (city 4/5) is fully committed. NEXT: city 5/5 -
-research (one session) + landing (one session), then the close step.**
+(2026-10-14, iteration 184, agent c) **City 5 RESEARCH complete: Albuquerque DROPPED (no drawn
+bird's-eye view in the Commons mirror), Portland (Oregon) researched - the pick is the 1890
+J. McI. Wood sheet (File:Portland, Oregon 1890 Perspective Birds-eye-view Map.jpg, 13760x9520,
+Public domain). NEXT: the Portland landing (one session), then the close.**
 
-**State (all verified in the 183 session):**
-- FOUR cities LANDED + committed: Omaha (Q43199, 1868 E. Ruger .tif), Indianapolis (Q6346,
-  1925 Spink page-1 .jpg, Zwolle swap), Columbus (Q16567, 1872 Bailey alternate.png), Memphis
-  (Q16563, 1870 Ruger .jpg). Staging files 4/4/4, golden 4/4/4, lead doc complete (four city
-  sections, Staging at "4 views / 4 site rows", Not-done-yet pointer naming city 5).
-- Full suite GREEN at exactly the 178 baseline: 187P/1S/0F with `--ignore=tests/test_gate.py`
-  (542.84 s, in-session) + tests/test_gate.py standalone 3P (2.25 s) = 190P/1S/0F over
-  191 tests. Zero red. The 182 hand-over's "expect 190P" vs the 187 the run reports = the 3
-  test_gate tests 178 included but the hand-over command excludes - measured decomposition in
-  the 183 DECISIONS entry, NOT a regression.
-- docs/site_flow/ matches main byte-for-byte again (5 re-encoded 307d PNGs restored - R5;
-  the suite re-encodes up to ten on EVERY run).
-- `--check` offline re-verified green (4/4 PASS caption_coords, exit 0, zero join lines);
-  module tests 5/5 (2.29 s).
+**State (all verified in the 184 session):**
+- FOUR cities LANDED + committed (unchanged): Omaha (Q43199, 1868 E. Ruger .tif), Indianapolis
+  (Q6346, 1925 Spink page-1 .jpg), Columbus (Q16567, 1872 Bailey alternate.png), Memphis
+  (Q16563, 1870 Ruger .jpg). Staging files 4/4/4, golden 4/4/4, lead doc at "4 views / 4 site
+  rows". Tree clean (git status empty) at session start; no repo file changed this session
+  (research only: DECISIONS.md + PITFALLS.md + this hand-over).
+- FULL suite was green at exactly the 178 baseline when the four landed (187P/1S/0F with
+  `--ignore=tests/test_gate.py`; 190P/1S/0F over 191 tests counting the 3 green test_gate
+  tests standalone; the 183 entry has the decomposition). No suite has run since - the
+  landing session runs the FULL suite again (expect the same: 187P/1S/0F on this tree, zero
+  red; main may have grown - zero red is the criterion, and the only tolerated exception is
+  test_fit_queue.py::test_placement_gestures_and_save_in_the_browser = agent a's in-flight 239).
 
-**CITY 5 = the last city (session N: research, session N+1: landing, then close).**
-The 181 candidate list ends with "..." after New Orleans (already staged by 236b - skipped),
-so the box-5 fallback governs: **any US city with a usable LOC Panoramic view that is not
-staged anywhere** (the task owes FIVE cities, not specific ones). Suggested first-probe
-list, in order (name-checked clean against all five staging sets + catalog + web/data/
-sites.json in 183; the QID-level no-collision check still happens per city in research):
-**Albuquerque, Portland (OR), Salt Lake City, San Antonio, Seattle, Richmond, Buffalo,
-Miami.** Probe in that order with the six plain-phrase forms + `filetype:bitmap`
-(srnamespace 6, srlimit 40; the 236b lead-doc Fetch route; the /tmp/aw236b_b3_dvr.py pool
-builder is the template if it survived loop maintenance - rebuild from the 181 entry if
-not); the first city whose pool yields a usable view (Public domain, >= 4000 px, caption
-names the city, drawn whole-city view, steepest/best-scanned picked from the gate-passes)
-is city 5. A city whose pool yields none: record the drop with its reason in the lead doc,
-take the next probe city. The skip list is also enforced mechanically by the module's
-known_sites() at --verify/--check (catalog + 236a's + 236b's + 240's extras + web/data/
-sites.json) - never a second site for a QID.
+**CITY 5 = Portland (Oregon), Q6106 - LANDED next session, then close.**
+Research record (verbatim in the 184 DECISIONS entry; /tmp artifacts aw241_pdx_* and
+aw241_city5_* - loop maintenance may wipe them, the DECISIONS entry is the record):
+- Q6106 (live Wikidata, NO trap - Q6106 is the #1 search hit at both limits 5 and 20, the
+  first hit with P625 at both): label "Portland"; P625 = ONE 31 m value
+  (-122.67916666666666, 45.515) the downtown core, no refinement; P373 = the STRING
+  "Portland, Oregon" (the usual US quirk) -> place "Multnomah County, Oregon" (P131 =
+  Q450374 Multnomah (county seat) + Q484404 Clackamas + Q484538 Washington - the
+  three-county pattern, like Columbus); P17 = Q30; enwiki "Portland, Oregon". Other
+  Portlands never come first (Q49201 Maine 4081.9 km 2nd, CT 3991.2, IN 3089.3, MI 2998.2,
+  AR 2980.8, TX 2969.3, Dorset EN, Australia 13324.1; in-city institutions PSU 0.5 km,
+  University of Portland 7.4 km - all measured). No existing site holds Q6106 (grep clean
+  in all seven files). id = **portland-q6106** (slug verified; a future Portland ME would
+  be portland-q49201 - no collision, the id carries the QID).
+- The pick: "File:Portland, Oregon 1890 Perspective Birds-eye-view Map.jpg" - 13760x9520,
+  Public domain, page date 1890 = the banner (NO Zwolle swap), artist field "Library of
+  Congress, Geography and Map Division" (a LOC Panoramic maps item), the caption (title)
+  prints "Portland, Oregon". The hand-drawn hand-colored sheet, lower-centre cartouche
+  "JAMES MCI. WOOD, REAL ESTATE AND INVESTMENT BROKER. / PORTLAND, OREGON. / 1890": drawn
+  from a high vantage to the northwest looking southeast - the Willamette River diagonal
+  upper-left to lower-right with the downtown grid both banks, a steel-truss railway
+  bridge mid-sheet, river traffic, Mt. St. Helens + the Cascades a background mountain
+  band at right, a sky band along the top, building vignettes framing the sheet (the
+  Omaha/Indianapolis near-vertical class with a mountain horizon). The ONLY gate-pass
+  drawn whole-city view of Portland OR in the pool: the 1903 LCCN91719502 photo (x2
+  scans) and the 1908 LCCN2007662704 photo-panorama strip drop as photos; the 1880 J.K.
+  Gill sheet (1742 px) and two NYPL 1880s scans (3072 px) drop on width; the rest of the
+  55-row pool is the other Portlands (Maine 1876 x3 scans, Casco Bay 1906 x2), other
+  cities (Port Townsend 1878 x2, Seattle 1878 - all "published/drawn by ..., Portland,
+  Oregon" credits; Boston/Tacoma/Walla Walla/etc. postcards and photos), books and
+  OCR hits - every item itemised in the 184 DECISIONS entry (full per-row flags in
+  /tmp/aw241_pdx_pool.json if it survived).
+- Albuquerque (the first probe) is DROPPED and needs its lead-doc section at the landing
+  (the drop reason: six documented forms 0/0/0/0/0/0 - the Commons case-quirk, now a
+  PITFALLS entry - plus the only LOC Panoramic item is the 1915 photographic "Panoram of
+  Albuquerque, N. Mex LCCN2007662623.tif" 4563x697 strip, a photo; extended probes found
+  no drawn sheet).
 
-**RESEARCH (live, /tmp artifacts named aw241_city5_*; the 179/181 per-city record is the
-pattern - both are in DECISIONS.md / DECISIONS-archive.md):** (1) QID via Wikidata
-wbgetentities (the 181 /tmp/aw241_mem_qid.py pattern if it survived): label, EVERY P625
-(measure all distances with fit/evidence.hav_m before writing them), P373 (a string is the
-usual US quirk -> place = county + state), P131, P17, enwiki, name search at limit 5 AND 20
-(first hit with P625). The mislabel trap class hit in 177 (Q16556 = Phoenix), 179
-(Q1405 = Augustus) and 240 (Q131855 = a roadster): never trust a first-guess QID from
-memory - take the QID from the live search hit. (2) Pool: build, dedupe, gates (keep after
-the Zwolle known-date swap + caption names the city + Public domain + >= 4000 px), eyeball
-every gate-pass with a 1280-px thumb one by one. Record EVERY non-staged pool item with
-its reason (same-sheet dupes, shallow, regional, photo, other-city, licence, small).
-
-**LANDING (the 176-182 pattern, one city per step-set):** module edit (SITES entry with the
-verified P625 point + the staged view's apparent-angle note, <CITY>_<YEAR> row, SOURCES
-entry, header/comments marking city 5 LANDED) -> `--verify` (save the exact output; it goes
-verbatim into the lead-doc QID section; expect no FLAG/TRAP) -> `--dry` -> stage (live
-commons.info re-check; "1 new sites, 1 new pictures") -> `--check` (expect "evidence:
-5 rows, 5 pass, 0 fail, 0 no-tie", zero join lines; verbatim into the lead-doc Staging
-section) -> lead-doc section (STAGED bullet + full DROP list + QID facts; Staging ->
-"5 views / 5 site rows" + the note that 236c consolidates and checks the 25 total,
-16+4+5) -> `--golden` (5/5/5, an intended change) -> tests (PASS key, SITES/years/points/
-named tables += city 5, golden docstring count 5/5/5; the negative control stays on
-files[0] = the Omaha row) -> module tests 5/5 -> FULL suite in-session BLOCKING (expect
-187P/1S/0F with `--ignore=tests/test_gate.py` on this tree - main may have grown since;
-zero red is the criterion, and if the ONLY failure is
-test_fit_queue.py::test_placement_gestures_and_save_in_the_browser it is agent a's
-in-flight 239 work, not yours - any other failure: stop and investigate) -> R5 restore
-(`git checkout main -- docs/site_flow/307d_*.png`) -> commit.
+**LANDING (the 176-182 pattern, one step-set):** module edit (SITES["Q6106"] with the
+verified P625 point + the staged view's apparent-angle note - northwest-oblique, grid
+fills the sheet beyond the 2000 m town box + mountain horizon, likely a review item like
+the other four; the Q6106 SITES comment with the full QID-facts
+pattern used for the other four; PORTLAND_1890 row
+("File:Portland, Oregon 1890 Perspective Birds-eye-view Map.jpg", "Q6106", "Portland",
+dict()) - EMPTY extra dict, no Zwolle swap; SOURCES["portland_1890"] (label "the J. McI.
+Wood perspective bird's-eye view (1890)"); header/SITES/source comments mark city 5
+LANDED) -> `--verify` (save the exact output verbatim for the lead-doc QID section;
+expect 5 QIDs, NO FLAG/TRAP for the new one) -> `--dry` -> stage (live commons.info
+re-check; "1 new sites, 1 new pictures"; before staging re-search by title for
+same-sheet mirrors and record the result) -> `--check` (expect "evidence: 5 rows, 5
+pass, 0 fail, 0 no-tie", zero join lines; verbatim into the lead-doc Staging section) ->
+lead-doc sections (the Albuquerque DROP section with its probe record + the Portland
+STAGED bullet with the full DROP list + the QID-facts paragraph with the transcript;
+Staging -> "5 views / 5 site rows" + the note that 236c consolidates and checks the 25
+total = 16 + 4 + 5; Not-done-yet -> all five done) -> `--golden` (5/5/5, an intended
+change) -> tests (PASS key + SITES/years/points/named tables += portland-q6106, the
+1890 year, the (-122.67916666666666, 45.515) point, named "Portland"; golden docstring
+count 5/5/5; the negative control stays on files[0] = the Omaha row) -> module tests
+5/5 -> FULL suite in-session BLOCKING (expect 187P/1S/0F with
+`--ignore=tests/test_gate.py` on this tree, zero red = the criterion; see the tolerated
+exception above) -> R5 restore (`git checkout main -- docs/site_flow/307d_*.png`) ->
+commit.
 
 **CLOSE (same session as the landing, once city 5 is in):** final full suite = baseline
 (zero red), `--check` ends at 5/5 PASS with no join problems, tick ALL FIVE acceptance
-boxes (they are verified at that point), set `Status: done`. 236c consolidates the staging
-into the canonical data and checks the 25 total - never write the canonical files here.
+boxes (they are verified at that point), set `Status: done`. 236c consolidates the
+staging into the canonical data and checks the 25 total - never write the canonical
+files here.
 
 **Rules (unchanged):** never write the canonical files (236c); 236a's/236b's/240's files
-read-only (the module's cross-check enforces); live commands under .venv/bin/python (module
-top stays stdlib-only; system python3 has no numpy); the golden is the contract (--golden
-only for an intended change); tests never bind fixed network ports or write outside the
-project and the temp dir; every full-suite run re-encodes up to ten docs/site_flow/307d_*.
-png - restore main's bytes before committing (R5); run the suite in-session (blocking),
-never nohup'd past the session (the 174 driver-kill lesson).
-
-**/tmp artifacts (loop maintenance may wipe; the lead doc + the DECISIONS entries carry
-the full record verbatim):** 183 added none (verification + bookkeeping only). The Memphis
-research set (aw241_mem_*) and the pool-builder template (aw236b_b3_dvr.py) are listed in
-the 181/179 DECISIONS entries.
+read-only (the module's cross-check enforces); live commands under .venv/bin/python
+(module top stays stdlib-only; system python3 has no numpy); the golden is the contract
+(--golden only for an intended change); tests never bind fixed network ports or write
+outside the project and the temp dir; every full-suite run re-encodes up to ten
+docs/site_flow/307d_*.png - restore main's bytes before committing (R5); run the suite
+in-session (blocking), never nohup'd past the session (the 174 driver-kill lesson).
+The new PITFALLS entry (Commons search case-quirk) applies to every future pool search:
+run the six forms in both capitalizations, and probe the lowercase + "Panoram of" +
+"<state> bird eye view" variants when a pool comes back empty.
