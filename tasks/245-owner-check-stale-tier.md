@@ -1,4 +1,4 @@
-Status: open
+Status: done
 Depends on: 815
 Touches: web/index.html
 
@@ -60,19 +60,19 @@ separate task this one depends on.
 
 ## Acceptance criteria
 
-- [ ] The fix is applied in `saveFit()` as designed (the one-shot fetch becomes the bounded
+- [x] The fix is applied in `saveFit()` as designed (the one-shot fetch becomes the bounded
       re-fetch loop; everything else in the function and the file unchanged - diff review:
       no other line moved); the page still passes its own syntax check (extract the script
       block, `node --check`).
-- [ ] The owner_check pair passes with the fix: in two or three consecutive unflagged runs
+- [x] The owner_check pair passes with the fix: in two or three consecutive unflagged runs
       (one invocation each, A then B) the check "line effect (b): the site's square takes its
       new score's tier" is `[ok]` in EVERY run (pre-fix it red's when the 1.5 s poll lands in
       the depiction->re-score gap - measured 119 ms on 2026-10-15; the page's own adoption
       then takes the stale score no matter how long the probe polls, so no test-side wait can
       clear it - this check is the pair's regression gate for the race).
-- [ ] No new red against the branch's suite at claim time
+- [x] No new red against the branch's suite at claim time
       (`.venv/bin/python -m pytest tests/ -q -p no:cacheprovider`).
-- [ ] After ANY owner_check run the ten docs/site_flow/307d_*.png are restored to the
+- [x] After ANY owner_check run the ten docs/site_flow/307d_*.png are restored to the
       committed bytes before committing (R5; 813's refresh flag retires this once it lands).
 
 ## Notes
@@ -91,23 +91,42 @@ separate task this one depends on.
 
 ## Hand-over
 
-(2026-10-15, iteration 236, agent a - BUILT and committed on agent/a's branch this session,
-ab57da1b; boxes verified on this branch, claim when the driver returns it after 815).
-**Verification (all it.236, unflagged, TMPDIR=/tmp/loop-ancient-works.a, retention via
-`-o tmp_path_retention_policy=all` - note: `--tmp-retention-policy` is NOT a valid pytest
-9.1.1 CLI flag):** BEFORE the fix, pair run 1: A passed, B RED at "line effect (b)" -
-markerClass "marker t1" vs tier "t2" (pre-save 1.1 -> post 1.45), reload read the correct
-t2, the probe's 120 s poll never saw a change (the one-shot adoption was done) - that run
-is the pre-fix evidence (186 s: the effects poll ran its full budget). AFTER the fix, pair
-runs 2 and 3: 2 passed each (64.5 s / 65.9 s), "new score's tier" [ok] for A and B in
-EVERY run, zero [warn] settle, no pageerrors; cross-run (run2 vs run3, PIL per-channel
-threshold 32): ALL TEN views 0.000% differing. All six script blocks of web/index.html pass
-`node --check`. The 307d PNGs were restored to committed bytes after every run (R5 - box 4
-discipline observed; 813's refresh flag will retire the re-copy). Remaining at claim time:
-box 3 (full suite - on this branch it rides with 230's done-claim gate, the driver
-re-checks it), then set Status: done.
-**If "line effect (b)" reds again after the fix:** the re-fetch signal misfired (e.g. the
-pre-save in-memory entry lacked `overlays`) - record the probe's [eval] effects block
-(markerClass vs tier vs score) in DECISIONS and re-derive; the reload-side check passing
-while the effects-side check reds is the diagnostic signature. Never clear it by loosening
-the check.
+(2026-10-15, iteration 215, agent c - **task complete**: boxes 3 and 4 verified and
+ticked this session; all four boxes ticked; `Status: done`).
+
+**State:** branch agent/c = main (747ca6fb, 815's PITFALLS commit) + driver
+bookkeeping only (no code delta; the 245 fix ab57da1b and 815's page hunk are both
+on main). Regime = old R5 (813 not on main yet; agent a runs 810/812 in its own
+checkout - no new commits on main since it.214). If this task is ever re-opened
+BEFORE 813 lands: the worktree is clean, all ten 307d PNGs are at main's bytes, and
+the box 4 restore discipline still applies (see the box). If re-opened AFTER 813
+lands: box 4's discipline retires per the box's own note - an unflagged run must
+leave the PNGs byte-identical (write-surface proof), no restore needed.
+
+**Box 1 (ticked it.213):** the saveFit bounded re-fetch loop is on main exactly as
+designed (fix commit ab57da1b, one hunk; no other line moved since; six script
+blocks node --check clean).
+
+**Box 2 (ticked it.214):** three consecutive unflagged pair runs (65.0/66.7/66.1
+s), "line effect (b): the site's square takes its new score's tier" [ok] on A and
+B in EVERY run, zero [warn] settle in all six probes.
+
+**Box 3 (ticked this session):** the driver's exact full-suite command
+`TMPDIR=/tmp/loop-ancient-works.c .venv/bin/python -m pytest tests/ -q -p
+no:cacheprovider` -> **195 passed, 1 skipped, 0 failed** (593.45 s / 9:53; the
+f160ae5a baseline was 195P/1S/0F in 631 s - same counts, faster). Identical counts
+to main's last baseline -> no new red against the branch, no red to attribute (the
+driver's 2026-10-13 loop-start red, test_fit_queue placement, does not reproduce on
+current main). The suite's own owner_check run (one A-then-B invocation) passed ->
+"line effect (b)" was [ok] in the claim run too. Pre-run checks: no live
+pytest/serve in any checkout, no orphans of my lane, 24G free.
+
+**Box 4 (ticked this session):** after EVERY owner_check run so far (the it.214
+pair runs and this suite run) exactly the three known dirty PNGs (307d_A_1-card.png,
+307d_B_1-card.png, 307d_B_5-reload.png) diverged - the same set as it.213/it.214;
+all ten restored to main's bytes after each; `git diff main --stat --
+docs/site_flow/` empty before this commit; worktree clean.
+
+**Claim commit:** task file + DECISIONS.md only (no web/, no PNGs - the PNG
+restorations were no-ops against HEAD, since the branch's PNGs already matched
+main's).
