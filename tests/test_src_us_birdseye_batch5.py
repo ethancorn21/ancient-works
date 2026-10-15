@@ -64,7 +64,8 @@ def test_check_staged_files_join_and_pass(capsys):
     for key in ("omaha-q43199|File:Bird's eye view of the city of Omaha, Nebraska 1868. LOC 73693495.tif",
                 "indianapolis-q6346|File:Bird's-eye view of Indianapolis showing Spink apartments, hotels, office and industrial buildings - DPLA - d442b7431e1f90b2c13fb4f957e8026f (page 1).jpg",
                 "columbus-q16567|File:1872 Birds Eye View of Columbus Ohio - alternate.png",
-                "memphis-q16563|File:Bird's eye view of the city of Memphis, Tennessee 1870. LOC 73694530.jpg"):
+                "memphis-q16563|File:Bird's eye view of the city of Memphis, Tennessee 1870. LOC 73694530.jpg",
+                "portland-q6106|File:Portland, Oregon 1890 Perspective Birds-eye-view Map.jpg"):
         assert f"PASS caption_coords  {key}" in out, f"missing PASS line for {key}:\n{out}"
 
 
@@ -163,7 +164,7 @@ def test_sites_table_and_staged_rows():
     # city landing (five at close)
     assert {qid: s["id"] for qid, s in src_us_birdseye_batch5.SITES.items()} == {
         "Q43199": "omaha-q43199", "Q6346": "indianapolis-q6346", "Q16567": "columbus-q16567",
-        "Q16563": "memphis-q16563"}
+        "Q16563": "memphis-q16563", "Q6106": "portland-q6106"}
     for s in src_us_birdseye_batch5.SITES.values():
         assert s["region"] == "United States" and s["kind"] == "town" and s["named"]
         assert s["note"]  # the staged view's apparent angle, for 236c/the matcher's fit order
@@ -180,14 +181,16 @@ def test_sites_table_and_staged_rows():
     years = {"File:Bird's eye view of the city of Omaha, Nebraska 1868. LOC 73693495.tif": 1868,
              "File:Bird's-eye view of Indianapolis showing Spink apartments, hotels, office and industrial buildings - DPLA - d442b7431e1f90b2c13fb4f957e8026f (page 1).jpg": 1925,
              "File:1872 Birds Eye View of Columbus Ohio - alternate.png": 1872,
-             "File:Bird's eye view of the city of Memphis, Tennessee 1870. LOC 73694530.jpg": 1870}
+             "File:Bird's eye view of the city of Memphis, Tennessee 1870. LOC 73694530.jpg": 1870,
+             "File:Portland, Oregon 1890 Perspective Birds-eye-view Map.jpg": 1890}
     # the new-cities' P625s (verified here): the stored evidence point must be the site's own point
     points = {"omaha-q43199": (-95.9375, 41.25861111111111),
               "indianapolis-q6346": (-86.158055555556, 39.768611111111),
               "columbus-q16567": (-83.00055555555555, 39.96222222222222),
-              "memphis-q16563": (-90.05194444444444, 35.14611111111111)}
+              "memphis-q16563": (-90.05194444444444, 35.14611111111111),
+              "portland-q6106": (-122.67916666666666, 45.515)}
     named_by_qid = {"Q43199": "Omaha", "Q6346": "Indianapolis", "Q16567": "Columbus",
-                    "Q16563": "Memphis"}
+                    "Q16563": "Memphis", "Q6106": "Portland"}
     for r in files:
         assert r["year"] == years[r["title"]]
         assert r["site"] in points and r["qid"] in named_by_qid
@@ -218,6 +221,11 @@ def test_sites_table_and_staged_rows():
     # the Memphis 1870 pick: the banner prints "MEMPHIS TENNESSEE. 1870." and the page date 1870
     # matches the drawing - no Zwolle swap (the Omaha pattern)
     assert mem["date"] == "1870" and "date_commons" not in mem
+    pdx = next(r for r in files
+               if r["title"] == "File:Portland, Oregon 1890 Perspective Birds-eye-view Map.jpg")
+    # the Portland 1890 pick: the cartouche prints "JAMES MCI. WOOD ... PORTLAND, OREGON. / 1890."
+    # and the page date 1890 matches the banner - no Zwolle swap (the Omaha/Memphis pattern)
+    assert pdx["date"] == "1890" and "date_commons" not in pdx
 
 
 def test_evidence_offline_and_negative_control(tmp_path):
@@ -251,7 +259,7 @@ def test_evidence_offline_and_negative_control(tmp_path):
 def test_golden_sample_matches_staged_rows():
     """tests/golden/src_us_birdseye_batch5_sample.json (written by the module's --golden, keys
     sorted, checked/date_commons normalized) is the staged rows exactly - the pin the staging
-    files are final against (4/4/4 after the Memphis landing; --golden only for an intended
+    files are final against (5/5/5 after the Portland landing; --golden only for an intended
     change)."""
     golden = json.load(open(os.path.join(ROOT, "tests", "golden", "src_us_birdseye_batch5_sample.json"),
                             encoding="utf-8"))

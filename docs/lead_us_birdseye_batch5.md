@@ -18,8 +18,10 @@ city 2 of 5; the 1925 E. G. Spink Company sheet - the only whole-city view in it
 Columbus (LANDED - city 3 of 5; the 1872 H. H. & O. H. Bailey sheet - the only drawn whole-city
 view in its pool, staged as its best of three scans), Memphis (LANDED - city 4 of 5; the 1870
 A. Ruger sheet - the steepest (true oblique) whole-city view in its pool; the 1887 Wellge and
-the 1887 "Appeal" newspaper page dropped on angle/scan), then whatever the collection's
-search order adds to reach five. The task owes FIVE
+the 1887 "Appeal" newspaper page dropped on angle/scan), Portland (LANDED - city 5 of 5;
+the 1890 J. McI. Wood perspective sheet - the only drawn whole-city view in its pool that
+passes the 4000-px gate; the first city-5 candidate, Albuquerque, was researched and
+dropped - its section below) - all FIVE LANDED. The task owes FIVE
 staged cities, not specifically these - a city with no usable view gets a note here and the next
 candidate.
 
@@ -151,6 +153,58 @@ the first name-search hit with coordinates is the city itself (for Memphis check
 AND limit 20 in the session-9 research run: the #1 hit outright at both limits - and no
 first-guess QID from memory was used this time, the search identified the city directly, so
 the 177/179 first-guess mislabel trap class did not fire).
+
+Transcript for Portland (the 241 session-12 run 2026-10-14, verbatim):
+
+```
+checked 2026-10-14 - 5 QIDs (Wikidata)
+  Q16563  'Memphis'  (site id: memphis-q16563, new (this task))
+      P625: [(-90.05194444444444, 35.14611111111111)]  (table site point: -90.05194444444444, 35.14611111111111)
+      P373: ['Memphis, Tennessee']
+      P131: [('Shelby County', 'Q501602')]  (table place: 'Shelby County, Tennessee')
+      enwiki: 'Memphis, Tennessee'  (table wikipedia: 'https://en.wikipedia.org/wiki/Memphis,_Tennessee')
+      search 'Memphis': first hit with P625 is Q16563 'Memphis' (-90.05194444444444, 35.14611111111111)
+  Q16567  'Columbus'  (site id: columbus-q16567, new (this task))
+      P625: [(-83.00055555555555, 39.96222222222222)]  (table site point: -83.00055555555555, 39.96222222222222)
+      P373: ['Columbus, Ohio']
+      P131: [('Franklin County', 'Q113237'), ('Delaware County', 'Q485524'), ('Fairfield County', 'Q490157')]  (table place: 'Franklin County, Ohio')
+      enwiki: 'Columbus, Ohio'  (table wikipedia: 'https://en.wikipedia.org/wiki/Columbus,_Ohio')
+      search 'Columbus': first hit with P625 is Q16567 'Columbus' (-83.00055555555555, 39.96222222222222)
+  Q43199  'Omaha'  (site id: omaha-q43199, new (this task))
+      P625: [(-95.9375, 41.25861111111111)]  (table site point: -95.9375, 41.25861111111111)
+      P373: ['Omaha, Nebraska']
+      P131: [('Douglas County', 'Q490695')]  (table place: 'Douglas County, Nebraska')
+      enwiki: 'Omaha, Nebraska'  (table wikipedia: 'https://en.wikipedia.org/wiki/Omaha,_Nebraska')
+      search 'Omaha': first hit with P625 is Q43199 'Omaha' (-95.9375, 41.25861111111111)
+  Q6106  'Portland'  (site id: portland-q6106, new (this task))
+      P625: [(-122.67916666666666, 45.515)]  (table site point: -122.67916666666666, 45.515)
+      P373: ['Portland, Oregon']
+      P131: [('Multnomah County', 'Q450374'), ('Clackamas County', 'Q484404'), ('Washington County', 'Q484538')]  (table place: 'Multnomah County, Oregon')
+      enwiki: 'Portland, Oregon'  (table wikipedia: 'https://en.wikipedia.org/wiki/Portland,_Oregon')
+      search 'Portland': first hit with P625 is Q6106 'Portland' (-122.67916666666666, 45.515)
+  Q6346  'Indianapolis'  (site id: indianapolis-q6346, new (this task))
+      P625: [(-86.158055555556, 39.768611111111)]  (table site point: -86.158055555556, 39.768611111111)
+      P373: ['Indianapolis']
+      P131: [('Marion County', 'Q506230')]  (table place: 'Marion County, Indiana')
+      enwiki: 'Indianapolis'  (table wikipedia: 'https://en.wikipedia.org/wiki/Indianapolis')
+      search 'Indianapolis': first hit with P625 is Q6346 'Indianapolis' (-86.158055555556, 39.768611111111)
+```
+
+No FLAG / TRAP line on any of the five QIDs: each single P625 IS the table point (dist 0)
+and the first name-search hit with coordinates is the city itself (for Portland checked at
+limit 5 AND limit 20 in the session-11 research run: the #1 hit outright at both limits -
+and no first-guess QID from memory was used this time, the search identified the city
+directly, so the 177/179 first-guess mislabel trap class did not fire; the hits that never
+come first: the other US Portlands - Q49201 Portland (Maine, 2nd at both limits, 4081.9
+km), Q753876 Portland (Connecticut, 3991.2 km), Q1807259 Portland (Indiana, 3089.3 km),
+Q3308164 Portland (Michigan, 2998.2 km), Q80163 Portland (Arkansas, 2980.8 km), Q980152
+Portland (Texas, 2969.3 km) (all measured with evidence.hav_m - the pool mixes the US
+Portlands, so every sheet was disambiguated from its caption: the state in the
+title/bibliographic desc), Q29168518 Portland (Dorset, England), Q1663450 Portland
+(Victoria, Australia, 13324.1 km), Q774215 Isle of Portland, Portland State University
+(Q1771717, an in-city institution 0.5 km from the city point - the Pittsburgh/Chicago
+trap class, but it never comes first), University of Portland (Q513658, in-city, 7.4 km),
+the Blazers/Pilots clubs and the name entities - none comes first).
 
 ## The evidence field (as in 236a/236b/240)
 
@@ -529,54 +583,197 @@ International Airport (Q866831, in-city) - none comes first). No existing site h
 - zero case-insensitive "memphis" in all of them); the site id `memphis-q16563` is the
 catalog slug rule (catalog.slug("Memphis") = "memphis", verified).
 
+## Albuquerque (DROPPED - no drawn view in the Commons mirror)
+
+The first city-5 candidate (the 183 first-probe list's first: Albuquerque, Portland (OR),
+Salt Lake City, San Antonio, Seattle, Richmond, Buffalo, Miami - the 236b/240 "Not done
+yet" pointers name no further order, so box 5's fallback governs: any US city with a
+usable LOC Panoramic view not staged anywhere). Researched in the 241 session-11 run and
+DROPPED:
+
+**The QID** (live Wikidata, the session-11 run): Q34804 = Albuquerque (New Mexico): label
+"Albuquerque", description "city and county seat of Bernalillo County, New Mexico,
+United States and the largest city in the state". P625 = ONE 31 m value (-106.65027777777777,
+35.08444444444444) - the downtown core; no refinement. P373 = the STRING "Albuquerque" (the
+usual US string quirk, not even the "city, state" form) -> place would be "Bernalillo
+County, New Mexico" (P131 = Q156297 Bernalillo County ONLY). P17 = Q30. enwiki
+"Albuquerque, New Mexico". Name search at limit 5 AND limit 20 (R5): **no trap** - the
+first hit with P625 at BOTH limits is Q34804 itself (the #1 hit outright at both; no
+first-guess QID from memory was used). Hits that never come first (all distances measured
+with evidence.hav_m): Q16146839 (family name), Q4712800 (a 1999 "Weird Al" song),
+Q3208258 (a 1948 film), Q716981 (Filipe Albuquerque, a racing driver), Q18112876 (an
+insect genus), Q16487426 Albuquerque (a Corumbá district, Brazil, 7979.8 km), Q61879324
+(a Brazilian politician), Q4712813 Albuquerque Journal (an in-city newspaper),
+Q21583958 (a Neil Young song), Q24260754 Albuquerque (a Wilson County TX ghost town,
+1044.8 km), Q115557844 (undescriptioned), Q79947122/Q64156862/Q79942596 (photographs),
+Q125979435 (a painting), Q96699785 (an academic journal), Q1578972 Albuquerque
+International Sunport (an in-city institution, 6.17 km - the Pittsburgh/Chicago trap
+class, but it never comes first), Q4712839 (the metropolitan area), Q74368447 (a
+researcher). No existing site holds the QID (zero case-insensitive "albuquerque"/"q34804"
+hits in the catalog, extras, 236a's, 236b's, 240's and this task's extras files and
+web/data/sites.json); catalog.slug("Albuquerque") = "albuquerque" (a would-be site id
+albuquerque-q34804 - never staged).
+
+**The pool** (the session-11 run): the six documented plain-phrase forms (236b's route,
+srnamespace 6, srlimit 40) returned 0/0/0/0/0/0 - not a rate-limit, a real empty (probed
+live, repeated). Root cause (now a PITFALLS entry): Commons search matches FILE TITLES
+case-insensitively but OCR FULL TEXT case-sensitively, so the capitalized forms only
+matched titles (none exist), and the lowercase variants only found OCR-text false
+positives (ornithology books). Extended probes (all logged in /tmp/aw241_city5_probe*.log):
+"albuquerque LOC filetype:bitmap" -> HABS single-building surveys, US Veterans
+Administration aerial PHOTOs of hospital/airfield buildings, a 1931 foundry photo,
+Route-66 photos - no drawn whole-city view; "panoramic albuquerque" -> found
+File:Panoram of Albuquerque, N. Mex LCCN2007662623.tif (1915, 4563x697, Public domain, NO
+description): a 6:1 PHOTOGRAPHIC PANORAMA strip (eyeballed: a high-vantage wide strip over
+the low downtown grid, the sand dunes, the Sandias behind, a big domed building at the
+right) - DROPPED (a photograph, not a drawn bird's-eye view; the "Panoram of <city>" is a
+LOC Panoramic collection title variant - the mirror's only Albuquerque item); "new mexico
+bird eye view" -> the mirror DOES hold drawn LOC Panoramic sheets for OTHER New Mexico
+cities: File:Bird's eye view of the city of Santa Fé, N.M. 1882. LOC 75694742.jpg and
+File:Bird's eye view of Las Vegas, N.M. c.s. San Miguel County 1882. LOC 75694741.jpg
+(both future-candidate pool hits, recorded in the Not-done-yet section for when the queue
+reaches them); broad "albuquerque bird" and "albuquerque view LOC" dumps (40 titles
+each) -> only birdwatch photos, books, HABS and postcards.
+
+**Verdict**: Albuquerque DROPPED - no drawn bird's-eye view of Albuquerque in the Commons
+mirror (a documented-search drop per box 5's disjunct). City 5 = the next probe-list
+candidate: **Portland (Oregon) - LANDED below**.
+
+## Portland (site `portland-q6106`, this task's point = the verified P625; 1 view staged)
+
+**STAGED** (one row per sheet; dupes dropped):
+
+- `File:Portland, Oregon 1890 Perspective Birds-eye-view Map.jpg`
+  - 1890 (the lower-centre cartouche reads "JAMES MCI. WOOD, REAL ESTATE AND INVESTMENT
+    BROKER. / PORTLAND, OREGON. / 1890." - the page date 1890 matches the banner - no
+    Zwolle-style swap), the 1890 J. McI. Wood perspective sheet in its LOC mirror
+    (13760x9520, Public domain; page artist "Library of Congress, Geography and Map
+    Division" - a LOC Panoramic maps item; the title prints "Portland, Oregon"): THE
+    steepest AND best-scanned drawn whole-city view in the pool (13760 px, the widest scan
+    in the pool) and the only gate-pass one (the 1880 J.K. Gill sheet's only scan is 1742
+    px and the two NYPL 1880s scans 3072 px - all under the 4000-px width gate): a
+    hand-drawn, hand-colored sheet from a high vantage to the NORTHWEST (the Eastside
+    bluffs) looking southeast - the Willamette River runs diagonally upper-left to
+    lower-right with the downtown grid on both banks, a long steel-truss railway bridge
+    mid-sheet, river traffic, Mt. St. Helens and the Cascade range a background mountain
+    band at right, a sky band along the top, prominent-building vignettes framing the sheet
+    (a real-estate promo sheet, the Omaha/Indianapolis class, with a mountain horizon
+    instead of open farmland) - the built-up grid fills the sheet beyond the 2000 m town
+    box, so its fit is likely to end a review item (the 236a NY-1811 / DC-ring precedent).
+- `File:Portland, Oregon 1890. LOC 75694939.tif` (13760x9520, Public domain, date 1890,
+  artist "Clohessy & Strengele; Elliott Pu Co.", desc "Perspective map not drawn to scale.
+  Bird's-eye-view. LC Panoramic maps (2nd ed.), 724 ...") - a SECOND scan of the STAGED
+  1890 sheet (NOT in the 12-query pool - its title has no bird's-eye phrase; found by the
+  landing's title re-search, the Omaha LCCN-search step): verified a SEPARATE scan, not a
+  re-upload (the 1920-px thumbnails differ with mean absolute diff 11 - a re-upload would
+  match pixel-for-pixel, the Memphis verification pattern); side-by-side crops
+  (cartouche / downtown grid / top vignette band): the staged .jpg is the SHARPER scan -
+  crisper vignette linework and cartouche type, cleaner downtown grid; the .tif is
+  warmer-toned and slightly hazier in the centre with more smudging in the lower legend
+  panels -> the .jpg stays staged (the 1872-Columbus best-of-scans rule), the .tif
+  DROPPED (same-sheet dupe).
+
+**DROP (with reasons):** the pool is **55 unique rows, 12 gate-pass** (keep +
+caption-names-Portland + Public domain + >= 4000 px; the six documented forms were run in
+BOTH capitalizations of the city name per the case-quirk lesson - 12 queries total:
+"bird's-eye view of Portland" 40 / "bird's eye view of Portland" 40 / "birdseye view of
+Portland" 10 / "Portland bird's eye" 40 / "Portland birdseye" 10 / "Birds' eye view of
+Portland" 40 / lowercase twins 40/40/10/40/10/40). The pool mixes the US cities named
+Portland (OR and ME dominate; the rest small towns and other states) - every sheet was
+disambiguated from its caption (the state in the title/bibliographic desc). All 12 good
+items + the 3 width-failing keep-pass eyeballed one by one (1280-px thumbs):
+
+- `File:Bird's eye view of the city of Portland, Maine 1876. LOC 75693248.jpg`/`.tif` (10448x6912, Public domain, Warner/J. J. Stoner/Charles Shober/Chicago Lith.) - a drawn sheet of Portland, MAINE (monochrome litho, "BIRD'S EYE VIEW OF THE CITY OF PORTLAND 1876", the Fore River/Back Cove with the numbered landmark legend) -> DROPPED (another city: Q49201; the .jpg/.tif are same-sheet twins).
+- `File:1876 Birds eye view of the city of Portland Maine, by Jos. Warner, from the Digital Commonwealth - commonwealth wd376120q` (10088x7336, Public domain) - the SAME ME 1876 sheet (Warner/J. J. Stoner), a third scan -> DROPPED (same sheet + another city).
+- `File:Bird's-eye view of Portland, Oregon with Mt. St. Helens in background LCCN91719502.jpg`/`.tif` (4096x3272, Public domain, 1903) - a PHOTOGRAPHIC print (eyeballed: a hillside view over residential rooftops toward the downtown, Mt. St. Helens towering) -> DROPPED (a photograph, not a drawn view; the .jpg/.tif are same-sheet twins).
+- `File:Bird's eye view of Portland LCCN2007662704.tif` (4278x708, Public domain, 1908, NO description) - a 6:1 PHOTOGRAPHIC PANORAMA strip (eyeballed: a hillside wide-strip view over a dome-topped building with mountain ranges behind; the state ambiguous but a photo either way) -> DROPPED (a photograph; the "Panoram" family, like Albuquerque's 1915 item).
+- `File:Bird's eye view of Port Townsend, Puget Sound, Washington Territory. From the north-east. 1878 - drawn and published by E.S. Glover, Portland, Oregon ; A.L. Bancroft & Co., lith., San LCCN2003679983.jpg` (8755x5818) and its twin scan (5104x4121) (both Public domain) - a drawn whole-city view of PORT TOWNSEND (the "Portland, Oregon" PUBLISHER credit is what pulled it into this pool) -> DROPPED (another city); recorded as a strong pool hit for when a future batch reaches Port Townsend (the 185 grep found it staged nowhere).
+- `File:Birds eye view of Casco Bay, Portland, Maine, and surroundings. LOC 80693592.jpg`/`.tif` (8371x6028, Public domain, 1906) - a REGIONAL view (Portland ME small at left, the bay and its islands, the red rail line, "BIRDS EYE VIEW OF CASCO BAY: PORTLAND, MAINE AND SURROUNDINGS") -> DROPPED (another city + regional, not whole-city).
+- `File:Bird's-eye View of the City of Seattle, Puget Sound, Washington Territory, 1878 (MAPS 64).jpg` (7613x4804, Public domain) - a drawn whole-city view of SEATTLE ("Drawn by W. B. Glover, Portland, Oregon; published by A. T. Mott & Co., New York, 1878" - again the "Portland, Oregon" credit pulled it in; the city on the bluffs, the crowded harbor, Mt. Rainier faint at the right horizon, a sky band) -> DROPPED (another city); recorded as a strong pool hit for when the queue reaches Seattle (5th on the 183 probe list).
+- The **3 width-failing keep-pass** (gate-pass but < 4000 px - the only other drawn
+  Portland OR sheets in the pool): `File:Birds-Eye View of Portland, Oregon.jpg` (J.K. Gill
+  Company c1880, 1742x1273, Public domain) - a drawn whole-city view of Portland OR (the
+  famous hand-colored 1880 Gill sheet) but the only scan is 1742 px wide -> DROPPED (width
+  < 4000); the two NYPL 1880s scans `File:Bird's-eye view of Portland (NYPL b11707231-G89F234 076ZB).tiff`/`076ZF` (3072x1899 / 3072x1940, Public domain, no date, "Scan by
+  NYPL") - black-and-white scans of drawn 1880s Portland OR sheets -> DROPPED (width 3072
+  < 4000).
+
+**The 40 remaining pool rows** (grouped): **9 keep-fails** =
+`File:Bird's Eye View of the Southern End of The Fleet - geograph.org.uk - 2311554.jpg`
+(640x384, CC BY-SA 2.0, 2011 - a photo of The Fleet, Isle of Portland (Dorset), modern);
+the two NARA 1973 gas-station aerials `File:BIRD'S EYE VIEW OF AN AVERAGE GAS STATION IN PORTLAND ... NARA - 555457.jpg`/`.tif` (2000x1361, Public domain, David Falconer - modern photos, no keep); `File:Birds eye view of Casco Bay, Portland, Maine, and surroundings (2675184791).jpg` (2000x1257, CC BY 2.0, 2008 - a BPL maps.bpl.org re-scan of the 1906 Walker & Co. map - no page date, licence reject); `File:Essayons dredge construction - USACE-p15141coll5-6199.jpeg` (4797x6660, Public domain, c1980 - a shipyard photo, no keep); the four `File:Flounce Rock (...).jpg` (1920x1080 x3 / 1252x1042, Public domain, 2012, BLM - "for a birdseye view of the Upper Rogue area ... from Portland, America" - modern photos, no keep). **11 gate-fails with keep** (the caption gate is a substring match over title + description; these never print "Portland") = `File:Bird's Eye View of Walla Walla, Washington Territory, 1876 (MAPS 127).jpg` (7882x5061, Public domain, E. S. Glover - the "Portland, Oregon" publisher credit sits outside the caption), the two Boston waterfront photo prints `File:Bird's-eye view of waterfront, Boston, Mass. LCCN2005691058.jpg`/`.tif` (5541x4401, Public domain, 1890s, Detroit Publishing Co.), `File:Aiken - Bird's-eye view.jpg` (1320x852, Public domain, 1905 Leighton postcard), `File:Bird's-eye View of Rumford Falls, ME.jpg` (1020x596, Public domain postcard), `File:Bird's-eye View of Machine Shops & Mills, Biddeford, ME.jpg` (649x401, Public domain postcard), `File:Bird's-eye view of Oregon City, Oregon with pedestrian suspension bridge, between 1906 and 1916 (AL+CA 1811).jpg` (768x483, Public domain, Pacific Novelty postcard), `File:Alaska-Yukon-Pacific Exposition birdseye postcard (front).jpg`/`(back).jpg` (1645x1062 / 1652x1067, Public domain, 1909 Seattle), `File:The Architect and engineer of California and the Pacific Coast (1916) (14783351953).jpg` (1352x1698, "No restrictions" - a book page, licence reject too), `File:1753 maps of the African West Coast.jpg` (1268x2000, CC BY 2.0 - licence reject too). **20 keep-pass gate-pass width/licence-fails** (the rest < 4000 px or non-Public-domain) = `File:1876 Birds eye view of the city of Portland Maine BPL.png` (930x663, Public domain - the ME 1876 sheet, BPL scan, too small); the four M. F. King 1865?-1883? Portland ME photos `File:Bird's-eye view of Portland, by M. F. King.jpg`/`.png` (2737x1592) and `File:Bird's-eye view of Portland, Maine, by M. F. King.jpg`/`.png` (2737x1373, all Public domain - photos, too small); `File:Birds eye view of the city of Portland, Maine, 1876 (2675082575).jpg` (2000x1455, CC BY 2.0 - a maps.bpl.org re-scan of the ME 1876 sheet, licence reject); `File:(1882) BIRD'S EYE VIEW OF PORTLAND.jpg` (2934x1881, Public domain, 1882, too small); `File:Bird's-eye View of Wells River, VT.jpg` (828x517, Public domain, a 1907 Leighton postcard of another town, too small); `File:Bird's-eye view of Post Office with Hotel Portland and American Bank Building in the background, Portland, Oregon (AL+CA 1766).jpg` (768x480, Public domain, c1916 in-city photo, too small); the two NYPL Portland ME 1876 scans `File:Bird's-eye view of Portland, Maine (NYPL b11707231-G89F234 036B).tiff`/`036F` (3072x1751 / 3072x1747 - width + another city); `File:Bird's-eye map of Tacoma, Washington, 1878 (WASTATE 651).jpeg` (768x504, Public domain - a photograph of the E. S. Glover Tacoma lithograph, too small); `File:Bird's eye map of buildings and grounds, Alaska-Yukon-Pacific-Exposition, Seattle, Washington, 1909 (AYP 930).jpg` (768x488, Public domain, another city, too small); `File:Bird's-eye View, Meredith, NH.jpg` (645x395, Public domain, a 1905 postcard of another town, too small); `File:1879 map of Portland, Oregon with Goose Hollow boundary and geographical place names overlaid.jpg` (5000x3000, CC BY-SA 3.0, 2012 - a modern overlay map, licence reject); `File:Seattle, Birdseyes, 1888-1889 (SEATTLE 304).jpg` (768x582, Public domain, a pre-fire Seattle postcard, another city, too small); `File:Official catalogue of the Lewis and CLark Centennial and American Pacific Exposition and Oriental Fair, Portland, Oregon, U.S.A., June 1 to October 15, 1905 (1905) (14762958631).jpg` (3488x2136, "No restrictions" - a book page, licence reject); the two Motoring Magazine 1915 street-map pages `File:Portland-Motoring Magazine-1915-070.jpg` (2272x1207) / `File:Portland map from Motoring Magazine 1915.png` (2277x1232, Public domain, too small); `File:Birds-eye view of Winona, Washington, circa 1909 - DPLA - 8cd23a9f4e09eea931fdbfc8b30d0ac8.jpg` (1953x1280, Public domain, a postcard PHOTO of another town, too small).
+
+**The QID's facts** (verified live 2026-10-14 at the 241 session-11 research run; the
+transcript is in the QID section above): Q6106, label "Portland" (description "seat of
+Multnomah County, and largest city in state of Oregon, United States" - no first-guess QID
+from memory was used this time, the search identified the city directly, so the 177/179
+mislabel trap class did not fire), enwiki "Portland, Oregon". P625 = ONE value
+(-122.67916666666666, 45.515, ~31 m) - the downtown core (no refinement needed). P373 =
+the STRING "Portland, Oregon" (a Wikidata quirk, not a country entity - the place is
+written from the county + the state). P131 = Q450374 Multnomah (the county seat) +
+Q484404 Clackamas + Q484538 Washington (a three-county metro like Columbus, the seat
+county leads) - hence place "Multnomah County, Oregon". P17 = Q30 (a proper entity). Name
+search at limit 5 AND limit 20: **no trap** (the first hit with P625, what `record --live`
+would store, is Q6106 itself, dist 0 - the #1 hit outright at both limits; the hits that
+never come first: the other US Portlands - Q49201 Portland (Maine, 2nd at both limits,
+4081.9 km), Q753876 Portland (Connecticut, 3991.2 km), Q1807259 Portland (Indiana,
+3089.3 km), Q3308164 Portland (Michigan, 2998.2 km), Q80163 Portland (Arkansas, 2980.8
+km), Q980152 Portland (Texas, 2969.3 km) (all measured with evidence.hav_m - the pool
+mixes the US Portlands, so every sheet was disambiguated from its caption: the state in
+the title/bibliographic desc), Q29168518 Portland (Dorset, England), Q1663450 Portland
+(Victoria, Australia, 13324.1 km), Q774215 Isle of Portland, Portland State University
+(Q1771717, an in-city institution 0.5 km from the city point - the Pittsburgh/Chicago
+trap class, but it never comes first), University of Portland (Q513658, in-city, 7.4 km),
+the Blazers/Pilots clubs and the name entities - none comes first). No existing site
+holds the QID (checked in the catalog, extras, 236a's, 236b's and 240's extras files and
+web/data/sites.json - zero case-insensitive "portland" in all of them); the site id
+`portland-q6106` is the catalog slug rule (catalog.slug("Portland") = "portland", verified;
+a future Portland ME would be portland-q49201 - the id carries the QID, no collision).
+
 ## Staging and checks (2026-10-14)
 
-**4 views / 4 site rows so far of the final five** (Omaha staged in the 241 session-4 run;
+**5 views / 5 site rows - all of the final five** (Omaha staged in the 241 session-4 run;
 Indianapolis staged in the 241 session-6 run; Columbus staged in the 241 session-8 run;
-Memphis staged in the 241 session-10 run; the last one lands in this task's files the same
-way; the counts end at FIVE views / FIVE site rows, or a recorded shortfall, when the five
-are done). All batch-5 cities stage in this task's own files only: `data/catalog/extras_us_birdseye_batch5.jsonl` (the site rows - region
+Memphis staged in the 241 session-10 run; Portland staged in the 241 session-12 run - all
+five LANDED; the first city-5 candidate, Albuquerque, was researched and DROPPED, its
+section above). All batch-5 cities stage in this task's own files only: `data/catalog/extras_us_birdseye_batch5.jsonl` (the site rows - region
 "United States", kind "town", aerial_ok true, the point = the city's verified P625 or a
 recorded refinement, the note recording the staged view's apparent angle so 236c / the matcher
 can order the oblique views), `data/commons/files_us_birdseye_batch5.jsonl` (files.jsonl shape
 + the 200 evidence field) and `data/commons/classified_us_birdseye_batch5.jsonl` (p_birdseye
-1.0, by "hand"). `--check` (offline, no network), the 241 session-10 run:
+1.0, by "hand"). `--check` (offline, no network), the 241 session-12 run:
 
 ```
 PASS caption_coords  omaha-q43199|File:Bird's eye view of the city of Omaha, Nebraska 1868. LOC 73693495.tif
 PASS caption_coords  indianapolis-q6346|File:Bird's-eye view of Indianapolis showing Spink apartments, hotels, office and industrial buildings - DPLA - d442b7431e1f90b2c13fb4f957e8026f (page 1).jpg
 PASS caption_coords  columbus-q16567|File:1872 Birds Eye View of Columbus Ohio - alternate.png
 PASS caption_coords  memphis-q16563|File:Bird's eye view of the city of Memphis, Tennessee 1870. LOC 73694530.jpg
-evidence: 4 rows, 4 pass, 0 fail, 0 no-tie
+PASS caption_coords  portland-q6106|File:Portland, Oregon 1890 Perspective Birds-eye-view Map.jpg
+evidence: 5 rows, 5 pass, 0 fail, 0 no-tie
 ```
 
 No join problems (the file rows name the staged sites; classified rows 1:1; no staged id or QID
 collides with an existing site - the module's `known_sites()` reads the catalog, extras,
 236a's, 236b's and 240's extras files plus web/data/sites.json on every run). The golden sample
-`tests/golden/src_us_birdseye_batch5_sample.json` pins the staged rows (4/4/4; regenerated only
+`tests/golden/src_us_birdseye_batch5_sample.json` pins the staged rows (5/5/5; regenerated only
 via the module's `--golden` for an intended change).
 
-**Not done yet - this task's five (batch 5, the final five of the 25 total): Omaha done (city
-1/5, the 1868 E. Ruger sheet staged above), Indianapolis done (city 2/5, the 1925 E. G. Spink
-Company sheet staged above), Columbus done (city 3/5, the 1872 H. H. & O. H. Bailey sheet
-staged above), Memphis done (city 4/5, the 1870 A. Ruger sheet staged above).** The last one:
-whatever the collection's search order adds to reach five - **city 5 = the next city in the
-181 candidate list's order NOT staged anywhere**: the 236b 181 candidate list (see
-docs/lead_us_birdseye.md at its commit, quoted in 240's lead-doc Not-done-yet) runs
-"...Kansas City, Omaha, St. Paul/Minneapolis, Indianapolis, Columbus, Memphis, New Orleans, ..."
-and ends there with "..."; the batch-3 note's continuation "the collection's state-by-state
-range (New Orleans, Denver, St. Paul, Minneapolis, Cleveland, ...)" already consumed Denver and
-Cleveland (240) - so New Orleans is the next city in that order and is SKIPPED (236b already
-staged it as new-orleans-q34404), and city 5 is the city after it (check against all five
-staging sets + the catalog + web/data/sites.json; if the exact order can't be recovered, any
-US city with a usable LOC Panoramic view that is not staged anywhere serves - the task owes
-FIVE cities, not specific ones; the skip list: 236a's four, 236b's sixteen, 240's four, this
-task's staged cities, the catalog, web/data/sites.json). The pool caveat for the next city is
-the same city-name mixing (disambiguate each sheet from its caption: the state in the banner,
-the LCCN) and the first-guess QID must be verified live (the Q1405=Augustus and
-Q16556=Phoenix mislabels show the trap is live; Memphis's search identified its QID directly -
-no first-guess used). A city whose pool yields no usable view gets a drop note here and the
-next candidate. **236c** consolidates every staging set into
-the canonical data and checks the 25 total (16 + 4 + 5, or a recorded shortfall for a city whose
-pool yields no usable view). **Do NOT write the canonical files - that is 236c; do NOT
+**All five of this task's cities are LANDED** (Omaha session-4, the 1868 E. Ruger sheet;
+Indianapolis session-6, the 1925 E. G. Spink Company sheet; Columbus session-8, the 1872
+H. H. & O. H. Bailey sheet; Memphis session-10, the 1870 A. Ruger sheet; Portland session-12,
+the 1890 J. McI. Wood perspective sheet; the first city-5 candidate, Albuquerque, was
+researched and DROPPED - its section above). The project total is the 25 cities (16 from
+236b + 4 from 240 + 5 here) with no shortfall: **236c** now consolidates every staging set
+into the canonical data and checks the 25 total. Future-candidate pool hits recorded along
+the way (for later batches, NOT staged here - the 185/186 grep found none of them staged
+anywhere: Seattle, Salt Lake City, San Antonio, Port Townsend and Buffalo are absent from
+all the extras files, the catalog and web/data/sites.json; the "richmond"/"miami" hits in
+web/data/sites.json are mention-text in three UK site descriptions (Fort Ancient, Hampton
+Court Palace, Stanwick Camp) and the Miamisburg Mound name, not city sites - so Richmond
+(VA) and Miami (FL) remain open candidates too): Port Townsend
+1878 (the LOC 2003679983 scans, in the Portland pool above), Seattle 1878 (MAPS 64, in the
+Portland pool above), Santa Fe 1882 (LOC 75694742, from the 184 Albuquerque probe), Las
+Vegas NM 1882 (LOC 75694741 - a DIFFERENT city from Las Vegas, Nevada - disambiguate by
+county: San Miguel County; from the same probe) - all Public domain, all >= 4000 px.
+**Do NOT write the canonical files - that is 236c; do NOT
 re-stage the sixteen cities in 236b or the four in 240's doc.**
