@@ -1,4 +1,4 @@
-Status: in-progress
+Status: done
 # 230: The Roman staging into the canonical data - the 211 consolidation re-run
 Depends on: 211, 207a, 207b, 807, 808, 242, 810, 812, 813, 814
 Touches: fit/merge.py, fit/src_roman_maclauchlan.py, pipeline/commons.py, data/catalog/extras.jsonl, data/commons/files.jsonl, data/commons/classified.jsonl, data/merge/, data/books/index.jsonl, data/books/validation.json, data/books/matches.jsonl, data/sites/, docs/sources.md, web/data/sites.json, web/data/sites/, web/data/plans.json, tests/test_merge.py, tests/test_matchfit_station.py, tests/fixtures/matchfit_station/, PITFALLS.md
@@ -54,69 +54,72 @@ books that landed).
 
 ## Hand-over
 
-(2026-10-15, iteration 237, agent a - I hold the WHOLE CYCLE (230/242/810/811/812/813/814; inter-deps
-count as met, build them together on this branch). STATE: DONE AND CLAIMED THIS SESSION - full suite
-run 2 on the fixed content: 184 passed / 1 skipped / 0 failed in 573.83 s
-(/tmp/loop-ancient-works.a/fullsuite-237b.log); Status flipped to done; the driver re-checks (every
-box ticked + suite green on this branch) and, on acceptance, merges this branch - 230 lands with
-everything else on it (245's page fix, the 814/816 recipe file, the maclachlan date fix) - and the
-cycle's remaining tasks come back next.)
+(2026-10-15, iteration 238, agent a - I hold the WHOLE CYCLE (230/242/810/811/812/813/814; inter-deps
+count as met, built together on this branch). STATE: RE-CLAIMED DONE THIS SESSION (Status: done
+above). The driver's it.237 rejection was a pure branch conflict with main, not the work: the merge
+is done (f3b39f5b; the single conflict was this file - resolved as the union of both sides: main's
+extended Depends chain + my maclachlan Touches entry + my hand-over). The claim-gate suite is green
+on the driver's exact command: 194 passed / 1 skipped / 0 failed, 606.10 s, 195 collected
+(/tmp/loop-ancient-works.a/fullsuite-238.log) - all three reds on main (owner-check pair x2, the
+maclauchlan date skew) are fixed on this branch, and main's new tests (809's horsley 5, 241's batch5
+5) all pass on my tree. If the driver accepts, the WHOLE branch lands on main (245's page fix, the
+816 recipe in test_owner_check.py, the maclachlan fix, plus my copies of main's 809/batch5/815/817/818
+files) and the remaining cycle comes back in chain order: 814 -> 812 -> 813 -> 810 -> 811 -> 242.)
 
-**This session (it.237):**
-1. Finished the it.236 housekeeping item (a): PITFALLS web/ entry "saveFit's one-shot sites.json fetch
-   could land in the ~119 ms depiction->re-score gap..." (Where/Symptom/Why + the 245 fix + measured
-   evidence). Items (b)/(c) were already committed by the driver sweep a3003b03 (245/810/812/813/814
-   hand-overs all carry their it.236 updates).
-2. Full suite run 1 (branch as it stood): 1 failed / 183 passed / 1 skipped in 585.97 s
-   (/tmp/loop-ancient-works.a/fullsuite-237.log). The four a423d19 reds all green (matchfit 2/2,
-   owner_check pair green, merge/data/serve all green). The ONE new red:
-   test_src_roman_maclauchlan.py::test_check_staged_joins_and_passes at step (a) -
-   "join: staged site luguvallium-q71551754 differs from its canonical row in extras.jsonl".
-3. Root cause (measured): fit/src_roman_maclauchlan.py stage() stamps now() (the RUN date) into
-   location_check.checked and evidence.checked. The committed staging rows AND the canonical rows 230
-   merged from them carry 2026-10-14 = the day the LIVE verification ran (P625 cross-check; the note
-   hard-codes "sitelinks checked 2026-10-14"). A re-stage on any later day re-stamps to that day, the
-   full-content join (same norm as fit/merge.py) sees the two date fields differ -> false "differs" ->
-   exit 1. The test passed in a423d19 only because that run was on 2026-10-14, the same day as the
-   merge. Date-bomb: it reds on every later day, so waiting is not a fix. Verified by walking the
-   fresh-vs-canonical row: ONLY the two checked fields differ.
-4. Fix (fit/src_roman_maclauchlan.py added to this task's Touches - the it.216 "caused by my own
-   change fixes itself" absorption; my merge made the row canonical, which exposed the re-stamp):
-   CHECKED = "2026-10-14" stored constant replaces now() (function + time import dropped; _norm
-   docstring corrected). Committed staging/canonical rows UNCHANGED (already 2026-10-14; stage() is
-   idempotent, writes no byte on a populated file). The test file was NOT touched. Verified:
-   test_src_roman_maclauchlan 4/4 in 4.2 s (offline, socket-blocked, temp trees); the module's --check
-   CLI exits 0 on the real post-merge tree. No other file imports the module.
-5. Flagged, NOT fixed (agent c's 809 lane, see the DECISIONS entry): fit/src_roman_horsley.py has the
-   IDENTICAL trap (now() at 536 evidence.checked and 588 location_check.checked; all 8 horsley rows
-   checked 2026-10-14, all canonical since the 230 merge) - 809's new offline --check will hit the
-   same false "differs" on any run after 2026-10-14 unless it stores the verification date.
-   src_mackenzie.py also stamps now() (line 369) but its tests are green - awareness only.
-6. Full suite run 2 (the claim gate, fixed content): 184 passed / 1 skipped / 0 failed in 573.83 s
-   (log /tmp/loop-ancient-works.a/fullsuite-237b.log) - exactly run 1's 185 tests with the one red
-   turned green, nothing else moved. The merge was deliberately NOT re-run this session (its index
-   rebuild re-stamps evidence.checked - the it.215 trap that needed the it.216 fixture re-record; the
-   data files stand exactly as it.215/it.216 left them and the suite re-verifies them as-is).
+**This session (it.238):**
+1. `git merge main` (f3b39f5b). One conflict (this file): Depends = main's 10-item chain (the
+   242-split bookkeeping; satisfied here since I hold the cycle), Touches = mine (+
+   fit/src_roman_maclauchlan.py), hand-over = mine. Merged in from main: 809 DONE (final horsley
+   module + 5 tests + golden + PITFALLS checked-date entry), task files 815/817/818, agent c's
+   IN-PROGRESS 241 batch5 files (not mine - do not touch; byte-identical to main).
+2. Suite (the driver's exact `.venv/bin/python -m pytest -q`; 900 s timeout budgeted - test_gate is
+   only 2.24 s): 194/1/0 in 606.10 s. 195 = it.237's 185 + the 10 new main tests, all green.
+   The owner-check pair is the 6th consecutive green run in this branch's lineage (it.236 x3,
+   it.237 x2, it.238 x1) - the 816 recipe (settle+subpixel) + 245's page fix (tier race) hold.
+   The run re-encoded 9 of the ten 307d PNGs (B_1-card always byte-identical); restored to the
+   committed bytes before the merge commit (identical to HEAD and main).
+3. Cross-lane note for the driver / the 817-818 claimers (I cannot edit their task files): 817
+   (open on main) fixes the same maclauchlan red the other way - zero location_check.checked in
+   _canon_norm, keep the live now() stamp; 818 is the horsley twin. My it.237 fix is the opposite
+   interim (frozen CHECKED = "2026-10-14" in stage(); _canon_norm untouched). The two touch
+   disjoint regions of fit/src_roman_maclauchlan.py, so when my branch lands and 817 is claimed
+   on main, the module should 3-way auto-merge (both hunks survive). I did NOT add their side
+   from my branch (their regression control lives in tests/test_src_roman_maclauchlan.py, which
+   is 817's, not my, file; my constant alone keeps every suite green on any day). Recommendation
+   for the claimer, recorded in the DECISIONS entry: after the zeroing, restore the live now()
+   stamp (safe - the join ignores the date; better - honest provenance; 817's box 1 asks for it).
+   The frozen constant stays a valid stopgap until then. Horsley: I touch nothing (818's lane).
 
-**NEXT SESSION (only if the driver REOPENS 230 - otherwise the remaining cycle work below is next on
-this branch):**
-1. If reopened: the reason is in DECISIONS.md (the driver's note on the rejected claim names the reds).
+**What happens next on this branch (the cycle comes back in chain order - each task file carries
+its own hand-over with the exact build steps):**
+1. 814 (in-progress, mine): its Depends (307d done, 816, 230) all satisfied in this branch - the
+   settle+subpixel fix is ALREADY in tests/test_owner_check.py (verified byte-identical to the
+   816 recipe in it.236). Remaining = verification only: two consecutive unflagged pair runs
+   (A then B, ONE invocation), all ten 307d views stable run-to-run, then tick its boxes.
+2. 812: add the in-run double-shot stability assert to tests/test_owner_check.py. The it.235 build
+   survives verbatim at `git show 3579c22b:tests/test_owner_check.py` - rebase its double-shot part
+   onto the current file (which is the 816 recipe), keeping c's settle/subpixel; verify additive
+   by diff.
+3. 813: the AW_OWNER_REFRESH refresh flag + write-surface + docstrings - also in the it.235 build;
+   same rebase. (Until this lands, unflagged owner-check runs re-copy all ten 307d PNGs.)
+4. 810: verification only (settle + double-shot + refresh in place; pair green; no new reds).
+5. 811: the one-time flagged refresh run + pinned 307d PNGs + docs/site_flow.md note + the
+   PITFALLS rewrite; then 242: final verification only (Depends 307d, 810, 811 - all met in the
+   cycle).
+6. 245 (mine, built in it.236 ab57da1b; Depends 815): the web/index.html fix is in the branch.
+   Once 815 (agent c's page-side subpixel, open on main, Depends 814) lands, 245 is claimable:
+   pair green + no new reds + the Marker-site audit note in its hand-over.
 
-**What happens next on this branch (the driver hands the remaining cycle tasks back after 230
-merges):** the 812/813 rebuild (double-shot assert + AW_OWNER_REFRESH regime) on top of the 816 recipe
-- the it.235 build survives verbatim at `git show 3579c22b:tests/test_owner_check.py` (rebase its parts
-onto the current file, keeping c's settle/subpixel); then 811 (one-time refresh + pinned PNGs + docs
-note + PITFALLS rewrite); then the 810/242 verification passes. See those files' hand-overs.
-
-**Standing discipline (applies to every owner_check work on this branch):** the pair always runs in ONE
-invocation (A then B - B cannot run alone); after ANY owner_check run, restore the ten
-docs/site_flow/307d_*.png to committed bytes before committing (git restore docs/site_flow/; R5) -
-813's refresh flag is not in the branch file yet, so unflagged runs re-copy all ten (run 2 re-encoded 9
-of the 10; B_1-card always byte-identical); NEVER git add -A over them. The probe logs of a green run
-die with the session - read them from $TMPDIR/pytest-of-agent/pytest-<N>/owner{A,B}0/owner_probe.log
-with retention (`-o tmp_path_retention_policy=all`; NOTE: `--tmp-retention-policy` is NOT a valid pytest
-9.1.1 CLI flag, use the `-o` override; retention_count=1 in pytest.ini keeps only the latest run - copy
-a run's PNGs out before the next one if you need a cross-run compare). If 230 is ever REOPENED: the
-reason is the driver's note in DECISIONS.md; triage per the run-2 red taxonomy (tier check = 245's
-defect, old ratio step = the 816 defect, roman date-stamp = check the checked dates, horsley = agent
-c's 809 not mine, anything else = cross-lane: log, do not absorb, do not claim).
+**Standing discipline (every owner-check work on this branch):** the pair runs in ONE invocation
+(A then B - B cannot run alone); after ANY owner-check run restore the ten docs/site_flow/307d_*.png
+to the committed bytes before committing (`git restore docs/site_flow/`; R5) - until 813's flag
+lands, unflagged runs re-copy all ten (this run re-encoded 9; B_1-card always byte-identical);
+NEVER `git add -A` over them. Probe logs die with the session - read them from
+$TMPDIR/pytest-of-agent/pytest-<N>/owner{A,B}0/owner_probe.log with retention
+(`-o tmp_path_retention_policy=all`; `--tmp-retention-policy` is NOT a valid pytest 9.1.1 CLI flag;
+pytest.ini's retention_count=1 keeps only the latest run - copy a run's PNGs out first if a
+cross-run compare is needed). If 230 is EVER reopened again: the reason is the driver's note in
+DECISIONS.md; triage the reds by taxonomy: tier check = 245's defect, the q1/q2 ratio step = the
+816 defect, a roman checked-date "differs" = check the stamped dates (maclauchlan = my constant,
+horsley = 818's lane), anything batch5/207a = agent c's lane, anything else = cross-lane: log it,
+do not absorb it, do not claim.
