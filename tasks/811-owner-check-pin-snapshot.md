@@ -35,7 +35,8 @@ the last run's, not a stable snapshot.
    Keep the Symptom/Why history lines (the 28.6-33.6% drift measurement, the pointer to agent c's
    302f iter-127 entry). Also correct the stale pointers in the neighbouring B-test entry: "The
    stability fix (settle before shooting) is task 242's; 230's done-claim is gated on it (Depends
-   on: 242)" -> name the 242 split (810 does the settle; 810/811/242 carry the waits).
+   on: 242)" -> name the 242 split (814 does the settle, 812 the double-shot assert, 813 the
+   regime; 810/811/242 carry the waits).
 
 ## Acceptance criteria
 

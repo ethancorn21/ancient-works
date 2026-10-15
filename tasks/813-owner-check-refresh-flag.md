@@ -5,9 +5,12 @@ Touches: tests/test_owner_check.py
 # 813: The 307d owner check - stop the per-run in-checkout re-render: the explicit refresh flag, the ten PNGs into the write surface, the docstrings
 
 Part 2 of 810's split (2026-10-15, iteration 190): the pinned-snapshot regime in
-tests/test_owner_check.py. It runs AFTER 812 (same file, and the docstrings this part
-rewrites describe 812's settle as part of the new regime); 810 keeps the final verification
-and waits on 812 + this; 811 (the one-time refresh, the docs note, the PITFALLS rewrite)
+tests/test_owner_check.py. It runs AFTER 812 (Depends: 812 - after the 2026-10-15
+iteration-191 re-split, 812 is the family head over the settle + double-shot pair: 814's
+settle wait and 812's in-run double-shot assert; same file, and the docstrings this part
+rewrites describe the 814 settle and the 812 double shot as part of the new regime); 810
+keeps the final verification and waits on 812 + this; 811 (the one-time refresh, the docs
+note, the PITFALLS rewrite)
 waits on 810 and runs the flag this part introduces; 242 waits on both. Background: 242's
 goal - `_run_one` copies the ten fresh renders into `docs/site_flow/` on EVERY run and never
 compares them against the committed bytes (the PITFALLS entry "test_owner_check re-renders

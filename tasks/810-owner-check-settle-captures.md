@@ -1,32 +1,36 @@
 Status: open
 Depends on: 307d, 812, 813
-Touches: (none - final verification only; the code change moved to 812 (settle + double-shot) and 813 (refresh flag + write-surface + docstrings) in the 2026-10-15 iteration-190 re-split)
+Touches: (none - final verification only; the code change moved to 814 (settle) + 812 (double-shot) + 813 (refresh flag + write-surface + docstrings) in the 2026-10-15 splits)
 
 # 810: The 307d owner check - settle the map before the saved/reload captures and stop the per-run in-checkout re-render (explicit refresh flag)
 
 Part 1 of 242's split (2026-10-15). Re-split 2026-10-15 (iteration 190, per the driver: agent a
 had nothing to build for 68 minutes while every waiter - 230, 241, 242, 811, and 236c through
-241 - waited on this one task alone): the whole code change moved to two parts on the one file
-tests/test_owner_check.py - **812** (the settle wait and the double-shot stability assert, the
-flake fix; depends only on done 307d, startable immediately) and **813** (the explicit refresh
-flag, the ten PNGs into the write surface, the docstrings; after 812 because it is the same
-file and its docstrings describe 812's settle as part of the regime). This task now WAITS on
-both and keeps only the final verification (the 242 pattern). 811 (the one-time refresh, the
-docs note, the PITFALLS rewrite) and 242 (the family's final check) wait on this. The
-measured-drift background (28.6-33.6% on the four saved/reload views, the mid-transition
-signature, the pair flake) is in 242's goal and in 812's header. The waiters 230 and 241
-carry 812 and 813 on their Depends lines directly (they are held on the mid-transition flake
-812 fixes and the PNG dirt 813 stops).
+241 - waited on this one task alone): the whole code change moved to parts on the one file
+tests/test_owner_check.py - **813** (the explicit refresh flag, the ten PNGs into the write
+surface, the docstrings) and the settle/double-shot pair, re-split again 2026-10-15
+(iteration 191, per the driver: agent a had nothing to build for 76 minutes while the chain
+812 -> 813 -> 810 -> 811 -> 242 -> {230, 241} -> 236c waited on 812 alone): **814** (the
+settle wait, the flake fix; depends only on done 307d, startable immediately) and **812** (the
+in-run double-shot stability assert that proves the settle; Depends: 814; same file, after
+814). 813 runs after 812 (same file, and its docstrings describe the 814 settle and the 812
+double shot as part of the regime). This task WAITS on 812 + 813 (unchanged) and keeps only
+the final verification (the 242 pattern). 811 (the one-time refresh, the docs note, the
+PITFALLS rewrite) and 242 (the family's final check) wait on this. The measured-drift
+background (28.6-33.6% on the four saved/reload views, the mid-transition signature, the pair
+flake) is in 242's goal and in 814's header. The waiters 230 and 241 carry 814 (the flake
+fix), 812 and 813 on their Depends lines directly (they are held on the mid-transition flake
+814 fixes and the PNG dirt 813 stops).
 
 ## Goal
 
-(Kept as the design spec for 812/813; the boxes the parts deliver moved with them. In
+(Kept as the design spec for 812/813/814; the boxes the parts deliver moved with them. In
 tests/test_owner_check.py and its embedded PROBE. The pick (derived, never pinned) and every
 existing check stay exactly as they are; this is a capture-timing fix, not a flow change. Do
 not touch tests/test_fit_queue.py (the 307/235 family) or the page. The pair always runs as
 one invocation, A then B (PITFALLS: the B test cannot run in isolation).)
 
-1. **Stable captures** (812). Before the `4-saved` and `5-reload` screenshots (and any other
+1. **Stable captures** (814). Before the `4-saved` and `5-reload` screenshots (and any other
    view where the map can still be moving - the q1/q2 gesture samples included, where the
    pair flake shows up) wait for the map view to settle: e.g. wait for maplibre's
    `moveend`/`idle` after the last interaction, or disable the page's transitions in the
@@ -67,36 +71,45 @@ is in the hand-over below.)
 
 ## Hand-over
 
-(2026-10-15, iteration 190, agent c) **RE-SPLIT per the driver's instruction** (agent a had
+(2026-10-15, iteration 190, agent c; re-split again at iteration 191: the flake fix moved out
+of 812 to new part 814 and 812 narrowed to the double-shot assert - see the parts below)
+**RE-SPLIT per the driver's instruction** (agent a had
 nothing to build for 68 minutes while every waiter - 230, 241, 242, 811, and 236c through 241
 - waited on this one task alone; the 189 split had made this the whole code change). Nothing
 of the code was built yet, so per the split rule this task WAITS on the parts (never both
 ways) and keeps only the final verification (the 242 pattern): `Depends on:` is now
-`307d, 812, 813`; `Touches:` cut to none. No cycle: 812 (depends only on done 307d, startable
-immediately) -> 813 (same file, after 812) -> 810 (this) -> 811 -> 242 -> {230, 241} -> 236c.
+`307d, 812, 813`; `Touches:` cut to none. No cycle: 814 (depends only on done 307d,
+startable immediately) -> 812 (Depends: 814, same file) -> 813 (Depends: 812, same file) ->
+810 (this) -> 811 -> 242 -> {230, 241} -> 236c.
 
-The parts (the lowest free numbers in 800-1099; both Touches the one file tests/test_owner_check.py,
+The parts (the lowest free numbers in 800-1099; each Touches the one file tests/test_owner_check.py,
 so they are serial, not parallel):
-- **812** (tasks/812-owner-check-settle-shots.md) - the flake fix: the settle wait
-  (maplibre `moveend`/`idle` after each interaction chain - the 4.5 s flyTo
-  web/index.html:874 + 900 ms fitBounds web/fitkit.js:573 that the probe's fixed sleeps
-  never waited for) before every capture, and the in-run double-shot assert (two shots per
-  view, <0.5% differing pixels at threshold 32, all ten views). Carried former box 1 and the
-  settle/double-shot half of former box 3. The pick stays derived; every existing check
-  unchanged; tests/test_fit_queue.py and the page untouched.
+- **814** (tasks/814-owner-check-settle-wait.md; Depends: done 307d, startable immediately) -
+  the flake fix: the settle wait (maplibre `moveend`/`idle` after each interaction chain - the
+  4.5 s flyTo web/index.html:874 + 900 ms fitBounds web/fitkit.js:573 that the probe's fixed
+  sleeps never waited for) before every capture where the map can still be moving (the q0/q1/
+  q2 quad reads, the 2-placed and 4-saved/5-reload shots). Carried former box 1 and the settle
+  half of former box 3. The pick stays derived; every existing check unchanged;
+  tests/test_fit_queue.py and the page untouched.
+- **812** (tasks/812-owner-check-settle-shots.md; Depends: 814; after 814, same file) - the
+  in-run double-shot assert (two shots per view, <0.5% differing pixels at threshold 32, all
+  ten views) that proves 814's settle in one run, so a mid-transition regression fails the
+  test instead of dirtying the PNGs. Carried the double-shot half of former box 3; additive.
 - **813** (tasks/813-owner-check-refresh-flag.md) - the pinned-snapshot regime: the explicit
   refresh flag (env var or pytest flag, named in the docstring) replacing the unconditional
   in-checkout copy, the ten docs/site_flow/307d_*.png into `_write_surface`, the module and
   test docstrings to the new regime. Carried former box 2, the additive discipline of former
   box 3 for the regime, and former box 4. Runs after 812 (same file; the docstrings describe
-  812's settle as part of the regime).
+  the 814 settle and the 812 double shot as part of the regime).
 
 Waiters updated per the driver's rule: 230's Depends is now "211, 207a, 207b, 807, 808, 242,
-810, 812, 813" and 241's "240, 242, 810, 812, 813" (812/813 added directly - both are blocked
-by the mid-transition flake 812 fixes and the PNG dirt 813 stops; the rest reaches them
-transitively through 810/242). 811 (Depends: 810, unchanged - the one-time refresh runs
+810, 812, 813, 814" and 241's "240, 242, 810, 812, 813, 814" (190 added 812/813 directly - both
+are blocked by the mid-transition flake the settle part fixes and the PNG dirt 813 stops;
+191 adds 814, the part that carries that flake fix now; the rest reaches them transitively
+through 810/242). 811 (Depends: 810, unchanged - the one-time refresh runs
 813's flag, which 810 has verified) and 242 (307d, 810, 811, unchanged) and 236c (unchanged)
-need no new numbers; 242's hand-over chain line was corrected to the new shape.
+need no new numbers; 242's hand-over chain line was corrected to the new shape (814 -> 812 ->
+813 -> 810 -> 811 -> 242).
 
 **What remains HERE (verification only, no file changes):** when the driver returns this task
 (after 812+813 merge): (1) run the unflagged owner_check pair twice (one invocation per run,
