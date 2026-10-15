@@ -27,10 +27,29 @@ done map kept), and the card still names the next pending.
 
 Reverted before the test ends: the private tree is discarded (tmp dir), and the shared store
 in the repo is proven byte-identical to before each run (the checkout's write surface - every
-platefits doc, every review item, sites.json, review.json, fit_queue.json and every file under
-both picks' site dirs, hashed through the checkout's own symlinks into the store). The
-golden hand-fit hash check (tests/golden/hand_fit_docs.sha256) and test_fit_provenance run on
-the same checkout and stay green for the same reason.
+platefits doc, every review item, sites.json, review.json, fit_queue.json, every file under
+both picks' site dirs, and the ten committed docs/site_flow/307d_*.png, hashed through the
+checkout's own symlinks into the store). The golden hand-fit hash check
+(tests/golden/hand_fit_docs.sha256) and test_fit_provenance run on the same checkout and stay
+green for the same reason.
+
+The ten docs/site_flow/307d_*.png are a PINNED snapshot committed in the repo: an ordinary
+run never touches them (they enter the write-surface proof above, which proves an unflagged
+run left them byte-identical), and they are re-rendered from a run only under the explicit
+env var AW_OWNER_REFRESH=1, named here and in the test docstrings. The captures themselves
+are taken settled (the 242 family: 814's settle wait - its built fix carried into the file
+as the 816 recipe - and 812's in-run double shot, the regime this paragraph protects): at
+each of the eight capture/read sites the probe waits until the page's own map.isMoving() is
+false AND no new map frame has been drawn for ~700 ms (the 812 widen: isMoving() goes false
+while frames are still rendering), under a 20 s bounded budget, and re-enables subpixel
+marker positioning on the live fit markers; each view is then shot twice in a row and the
+two shots must differ by <0.5% of pixels at threshold 32, so a mid-transition regression
+fails the test instead of dirtying the PNGs. The transitions the settle waits out: the
+place chain's 4.5 s site flyTo + 900 ms fitBounds, the save's 900 ms easeTo, and the
+deep-link reload's re-fired flyTo - the ones the old fixed sleeps used to end inside
+(measured 2026-10-14: same-tree runs an hour apart then differed 28.6-33.6% of pixels at
+threshold 32 on the four saved/reload views while card/placed/gestured stayed at 0-1.25%
+encoding noise).
 """
 import json
 import math
@@ -52,6 +71,15 @@ ROOT = Path(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 CHROME = os.environ.get("AW_CHROME", "/opt/google/chrome/chrome")
 NODE_MODULES = os.environ.get("AW_NODE_MODULES", "/home/agent/tools/shot/node_modules")
+
+# 813 (the 242 family, the pinned-snapshot regime): the ten docs/site_flow/307d_*.png are a
+# committed snapshot. An ordinary run (the driver's plain pytest command) never sets REFRESH
+# and never touches the ten; AW_OWNER_REFRESH=1 re-renders all ten from the A and B runs of
+# one invocation into docs/site_flow/ (811's one-time refresh, then a future re-pin). Named
+# here and in the test docstrings.
+SNAPSHOT_VIEWS = ("1-card", "2-placed", "3-gestured", "4-saved", "5-reload")
+REFRESH = bool(os.environ.get("AW_OWNER_REFRESH"))
+
 AT = "2026-10-12T00:00:00.000Z"  # the done-map timestamp 307bb's card runs seed with
 
 # The page's own filter and default pick (web/index.html): surveys only at 150 years or older,
@@ -588,11 +616,16 @@ def owner_served(tmp_path_factory):
 
 def _write_surface(picks):
     """Every file a run could touch in the CHECKOUT (the shared store): every platefits doc and
-    review item, the page data files, and every file under both picks' site dirs (they are
-    symlinks into the store - hashing through them proves the store never moved)."""
+    review item, the page data files, the ten pinned docs/site_flow/307d_*.png snapshot views,
+    and every file under both picks' site dirs (they are symlinks into the store - hashing
+    through them proves the store never moved)."""
     paths = list((ROOT / "data" / "db" / "platefits").glob("*.json")) + list((ROOT / "data" / "review").glob("*.json"))
     paths += [ROOT / "web" / "data" / "sites.json", ROOT / "web" / "data" / "review.json",
               ROOT / "web" / "data" / "fit_queue.json"]
+    # 813: the ten committed docs/site_flow/307d_*.png - the pinned snapshot an unflagged run
+    # must leave byte-identical (explicit list, not a glob: the directory holds other files
+    # the run never touches)
+    paths += [ROOT / "docs" / "site_flow" / f"307d_{tag}_{n}.png" for tag in "AB" for n in SNAPSHOT_VIEWS]
     for tag in "AB":
         sd = ROOT / "web" / "data" / "sites" / picks[tag]["site"]
         paths += [p for p in sd.rglob("*") if p.is_file()]
@@ -601,7 +634,9 @@ def _write_surface(picks):
 
 def _run_one(fx, tag, tmp_path_factory):
     """One owner run on the fixture's shared private tree: the probe (the browser), then the
-    Python-side checks read from the tree, then the revert proof and the screenshots."""
+    Python-side checks read from the tree, then the revert proof (the write-surface assert
+    covers the ten pinned docs/site_flow/307d_*.png; the fresh views stay in the run's temp
+    tree) and, only under the AW_OWNER_REFRESH refresh flag, the snapshot refresh."""
     base, tree, out = fx["base"], fx["tree"], fx["out"]
     p = fx["picks"][tag]
     site, plan, row = p["site"], p["plan"], p["row"]
@@ -755,20 +790,25 @@ def _run_one(fx, tag, tmp_path_factory):
     assert data["reload"]["depVis"] == "visible" and data["reload"]["depSrc"] == f"data/sites/{site}/{ov['ink']}"
     assert data["effects"]["drawings"] == entry["drawings"] and data["effects"]["score"] == entry["score"]
 
-    # the checkout (the shared store) is byte-identical around the run
+    # the checkout (the shared store) is byte-identical around the run - the ten committed
+    # docs/site_flow/307d_*.png included (they are in _write_surface): an unflagged run
+    # never touches them
     assert _write_surface(fx["picks"]) == surface, "the run wrote into the checkout's shared store"
 
     # 812: the in-run double shot proves the view was settled when the primary shot landed -
     # a mid-transition regression fails here instead of dirtying the docs PNGs
-    for name in ("1-card", "2-placed", "3-gestured", "4-saved", "5-reload"):
+    for name in SNAPSHOT_VIEWS:
         frac = _shot_diff(outdir / f"{name}.png", outdir / f"{name}b.png")
         assert frac < 0.005, (f"{tag} {name}: not settled at shot time "
                               f"({frac:.2%} of pixels differ between the in-run shots)")
 
-    # the owner's five views of this run, kept with the docs
-    docs = ROOT / "docs" / "site_flow"
-    for name in ("1-card", "2-placed", "3-gestured", "4-saved", "5-reload"):
-        shutil.copy2(outdir / f"{name}.png", docs / f"307d_{tag}_{name}.png")
+    # 813: the docs' ten PNGs are the pinned snapshot - an unflagged run leaves them
+    # byte-identical (the write-surface assert above); AW_OWNER_REFRESH=1 re-renders them
+    # from this run (A and B together, all ten) into docs/site_flow/
+    if REFRESH:
+        docs = ROOT / "docs" / "site_flow"
+        for name in SNAPSHOT_VIEWS:
+            shutil.copy2(outdir / f"{name}.png", docs / f"307d_{tag}_{name}.png")
     if tag == "A":
         # B's run must not rewrite A's already-resolved item file (write-once): record the bytes
         fx["picks"]["A"]["itemBytes"] = _h(tree / "data" / "review" / p["itemFile"])
@@ -779,7 +819,9 @@ def test_owner_save_bar_scale(owner_served, tmp_path_factory):
     """A: the owner's flow on the derived BAR-SCALE queue site (a recorded scale bar sets the
     starting scale): card -> place on the works -> drag -> wheel -> shift+wheel -> save -> the
     line's four effects -> the fit loads back unchanged on reload; the checkout's shared store
-    is byte-identical around the run and the five views land in docs/site_flow/."""
+    (the ten pinned docs/site_flow/307d_*.png included) is byte-identical around the run, and
+    an unflagged run never touches that snapshot - it is re-rendered only under
+    AW_OWNER_REFRESH=1 (the module docstring names the flag)."""
     _run_one(owner_served, "A", tmp_path_factory)
 
 
@@ -787,7 +829,8 @@ def test_owner_save_site_size_fallback(owner_served, tmp_path_factory):
     """B: the same on the derived SITE-SIZE-ONLY queue site (the fallback scale: no recorded
     bar, the site's known size over the recorded page size). Its run sees A's tree state (the
     shared private tree): B's line must not rewrite A's already-resolved item file, and the
-    checkout's shared store is still byte-identical when B finishes."""
+    checkout's shared store (the pinned docs/site_flow/307d_*.png included) is still
+    byte-identical when B finishes."""
     data = _run_one(owner_served, "B", tmp_path_factory)
     a = owner_served["picks"]["A"]
     assert a.get("itemBytes"), "test A did not run first (the write-once check records A's item bytes)"
