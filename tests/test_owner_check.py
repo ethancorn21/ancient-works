@@ -310,30 +310,6 @@ await page.waitForSelector('#fqcard #fqplace', { timeout: 60000 });
 
 const cardText = () => page.evaluate(() => { const c = document.getElementById('fqcard');
   return c ? { name: (c.querySelector('.fq-site b') || {}).textContent || null, text: c.textContent } : null; });
-// TEMP INSTRUMENTATION (814 session, reverted before commit)
-const T0 = Date.now(), camLog = [];
-await page.evaluate(() => { window.__cam = []; window.__t0 = Date.now();
-  ['movestart','moveend','zoomstart','zoomend','resize','idle'].forEach(ev =>
-    map.on(ev, () => { const c = map.getCenter();
-      window.__cam.push([Date.now() - window.__t0, 'evt:' + ev, map.getZoom().toFixed(5),
-        c.lng.toFixed(5) + ',' + c.lat.toFixed(5), map.isMoving()].join(' ')); })); });
-const cam = async tag => { const ln = await page.evaluate(t => { const c = map.getCenter();
-  return [Date.now() - window.__t0, t, map.getZoom().toFixed(5),
-    c.lng.toFixed(5) + ',' + c.lat.toFixed(5), map.isMoving()].join(' '); }, tag);
-  camLog.push(ln);
-  const evs = await page.evaluate(() => window.__cam.splice(0)); camLog.push(...evs); };
-const dumpHandles = async tag => { const rows = await page.evaluate(() => {
-  const els = [...document.querySelectorAll('.gpin.fk-handle')].filter(el => el.style.display !== 'none');
-  return els.map(el => { const r = el.getBoundingClientRect();
-    const m = P.marks.find(x => x._element === el);
-    const ll = m ? m._lngLat : null, pr = ll ? map.project(ll) : null;
-    return [el.style.transform, r.x.toFixed(4) + ',' + r.y.toFixed(4),
-      ll ? ll.lng.toFixed(8) + ',' + ll.lat.toFixed(8) : 'n/a',
-      pr ? pr.x.toFixed(4) + ',' + pr.y.toFixed(4) : 'n/a',
-      m ? 'sub=' + m._subpixelPositioning + ' pos=' + (m._pos ? m._pos.x.toFixed(4) + ',' + m._pos.y.toFixed(4) : '?') : 'nomark'].join(' | ');
-  }); });
-  for (const r of rows) console.log('[handles] ' + tag + ' ' + r);
-  console.log('[handles] ' + tag + ' zoom=' + (await page.evaluate(() => map.getZoom()))); };
 const card1 = await cardText();
 check('the card names the pick and its best row', !!card1 && card1.name === (pick.name || pick.site) &&
   card1.text.includes(pick.best.row.title || pick.best.row.id), { card1, want: pick.name });
@@ -356,7 +332,6 @@ await sleep(2500);
 // the place chain: the 4.5 s site flyTo interrupted by the 900 ms fitBounds
 await settle();
 const q0 = await quad(), c0 = await groundOnScreen([propC[2], propC[3]]);
-cam('read:' + 'q0');
 const sites0 = await served('data/sites.json');
 const entry0 = (sites0.sites || sites0).find(x => x.id === site) || {};
 check('place: the drawing opens on the works under the toolbar', q0.length === 4 && inside(q0, ...c0), { q0, c0 });
@@ -373,14 +348,10 @@ await page.mouse.move(...mid); await page.mouse.down(); await page.mouse.move(mi
 await sleep(400);
 await settle();
 const q1 = await quad();
-await cam('read:' + 'q1');
-await dumpHandles('q1');
 check('drag on the drawing moves it by the pointer', q1.every((p, i) => Math.hypot(p[0] - q0[i][0] - 30, p[1] - q0[i][1] - 20) < 2.5), { q0, q1 });
 await page.click('#fkbar [data-a="s+"]'); await page.click('#fkbar [data-a="r+"]'); await sleep(500);
 await settle();
 const q2 = await quad();
-await cam('read:' + 'q2');
-await dumpHandles('q2');
 const edge = q => Math.hypot(q[1][0] - q[0][0], q[1][1] - q[0][1]);
 check('toolbar scale and turn change the drawing on screen', Math.abs(edge(q2) / edge(q1) - 1.05) < 0.01, { e1: edge(q1), e2: edge(q2) });
 await settle();
@@ -465,7 +436,7 @@ await page.waitForSelector('#fqcard', { timeout: 20000 }).catch(() => {});
 const card3 = await cardText();
 check('after reload: the card still names the next pending entry', !!card3 && !!nextAfter && card3.name === (nextAfter.name || nextAfter.site), card3);
 
-console.log('[camlog] ' + JSON.stringify(camLog)); console.log('[eval] ' + JSON.stringify({ card1, placedLL, mpp, doc, effects, card2, reload, card3 }));
+console.log('[eval] ' + JSON.stringify({ card1, placedLL, mpp, doc, effects, card2, reload, card3 }));
 for (const ln of lines) console.log(ln);
 check('no page errors in the run', !lines.some(ln => ln.startsWith('[pageerror')));
 check('no network-level request failures outside the map tiles',
