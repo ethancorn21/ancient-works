@@ -1723,6 +1723,19 @@ Ten views of the two runs, in `docs/site_flow/`: `307d_A_{1-card,2-placed,3-gest
 and `307d_B_*.png` - the card, the drawing on the works, after the three gestures, the saved overlay on the
 map, and the unchanged reload.
 
+**The ten PNGs are a pinned snapshot (task 811, 2026-10-15), not a per-run re-render.** An ordinary test run
+leaves them byte-identical - they are part of the run's write-surface proof (all ten hashed before and after),
+and the 242 family's settled-capture regime (814's settle wait, 812's in-run double shot) is what makes a
+re-render byte-stable. They are re-rendered only by the explicit refresh named in the test's module docstring:
+`AW_OWNER_REFRESH=1 .venv/bin/python -m pytest tests/test_owner_check.py -q -p no:cacheprovider` (the pair, A
+then B, in one invocation; it re-renders all ten from that run and commits the result). The picks are derived
+and move with the queue, so a snapshot's picks are whatever its refresh run derived: the 2026-10-15 refresh
+that pinned these bytes named A = **Richard's Castle** (`richard-s-castle-q17650937`, Allcroft 1908 n0453_1, bar
+scale, queue entry 9) and B = **Devil's Dyke** (`devil-s-dyke-q3307343`, n0662_1, site-size fallback, entry 8),
+on the 180-entry queue; the section text above names the 2026-10-13 queue's derived picks (Old Oswestry
+n0119_1 at entry 38, Devil's Dyke at 45 - the two sites now sit at entries 3 and 8 on the 180-entry queue). That
+refresh found the committed bytes already this run's settled renders, so the pin came back byte-identical.
+
 ## The matcher-first line on Stonehenge: the live run, the map check, the plain statement (task 302g, 2026-10-14)
 
 302's last box, method-agnostic, run as the line stands: the pretrained matcher first on every undocumented picture, the vision batch the second pass, the fabrication and spread guards fencing both (`site_done._fit`) - explicitly not the dropped ink work.
