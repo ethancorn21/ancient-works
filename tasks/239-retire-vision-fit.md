@@ -1,4 +1,4 @@
-Status: in-progress
+Status: done
 # 239: The vision-model fitting pass is retired - the matcher is the only automatic fitter
 Depends on: 238, 212, 302f, 302g
 Touches: fit/batch_us.py, fit/batch_eu.py, tools/site_done.py, fit/cover.py, tests/test_batch_us.py, tests/test_batch_eu.py, tests/test_site_done.py, tests/test_matchfit_station.py, tests/test_cover.py, tests/fixtures/matchfit_station/, tests/test_fit_provenance.py, tests/test_fit_queue.py, tests/test_owner_check.py (added it.221: the retirement deletes the line's first stdout line and changes the recorded why of new candidates; all three pin that - their owners are done, except 242 owns test_owner_check.py's capture region, my edit stays on check 7's runlog expectation), server/serve.py (it.221: its _fit_line docstring's "no model answer" wording only), docs/site_flow.md
@@ -18,7 +18,7 @@ tie pictures, write code (212a's cover search and the Clef-flash classification 
 are).
 
 ## Acceptance criteria
-- [ ] `fit/batch_us.py`: `run_sites` no longer accepts or calls a model. The fitting machinery
+- [x] `fit/batch_us.py`: `run_sites` no longer accepts or calls a model. The fitting machinery
       (`_sheet`, `_model_prompt`, `_parse_answer`, `llm_model`, `recorded_model` and the sheet
       drawing helpers) is deleted; an uncovered candidate yields a review-item entry whose
       "why" is the matcher's recorded reason for that picture (the per-candidate result 238
@@ -27,7 +27,7 @@ are).
       site still gets the batch's "no picture found" item. The gate adapter (`gate_placement`),
       the upsert (`write_item` / `_entry`) and the report (`write_report`, incl. the seeded
       sample machinery) stay, with the fitting out.
-- [ ] The line (`tools/site_done.py`): step 1 is reworded to match — matcher first (as it
+- [x] The line (`tools/site_done.py`): step 1 is reworded to match — matcher first (as it
       already is), the second pass only records reasons, no model; the `--working` /
       `--model-json` flags are gone from the CLI and usage. The line's own checks
       (provenance refusal, the fabrication/spread line check, sync, entry, scoped export) are
@@ -35,16 +35,16 @@ are).
       way. `fit/cover.py`'s loop phase stops forwarding `--model-json` to the line and its
       docstring's "no model answer" wording is updated; its search / classify phases and
       their model use are untouched.
-- [ ] No test calls the model server: `tests/test_batch_us.py`, `tests/test_batch_eu.py`,
+- [x] No test calls the model server: `tests/test_batch_us.py`, `tests/test_batch_eu.py`,
       `tests/test_site_done.py`, 302f's `tests/test_matchfit_station.py` and 212's
       `tests/test_cover.py` are updated to the retired line (their `--working` /
       `--model-json` invocations and "no model answer" expectations become the matcher's
       recorded reasons) and all pass with no model endpoint configured and the matcher
       stubbed per 302f's fixture idiom.
-- [ ] `docs/site_flow.md`: step 1 of the one-site-line section reworded to the retired form
+- [x] `docs/site_flow.md`: step 1 of the one-site-line section reworded to the retired form
       (matcher first, the item records why each picture is not on the map, no model pass);
       the file stays append-only for the other tasks' sections, as 302g's note requires.
-- [ ] The 22 golden hand-fit documents and the 49 existing matcher documents are
+- [x] The 22 golden hand-fit documents and the 49 existing matcher documents are
       byte-unchanged; the suite has no new reds against the newest driver loop-start note.
 
 ## Notes
@@ -61,47 +61,38 @@ are).
 
 ## Hand-over
 
-(2026-10-15, iteration 227, agent a - (a)-(g) are all DONE and committed. NEXT SESSION:
-(h) the full-suite verify + close - no live matcher needed, no fixture re-record needed.)
+(2026-10-15, iteration 228, agent a - **DONE and closed.** (h) full-suite verify + close
+executed; all 5 acceptance boxes ticked; `Status: done`.)
 
-**State:** branch `agent/a`, tree clean. Commits: (a)-(d) in the log (`8adf7b9` is (d));
-(e) part 1 in the driver's `05ac246`, (e) part 2 in `8d14844`; **(f)+(g) in `b5f7b0d`**
-(record.py 302f->239 + 11->10/8->7 asserts, both fixtures re-recorded live, site_flow 300
-section reworded). test_cover.py stays byte-unchanged through the whole task.
+**What (h) verified (all by running code, tree clean at start):** 242 open / 307d done,
+so the owner_check reds were the expected 307d mid-transition family. Pre-checks:
+zero `--working`/`--model-json` in fit/batch_us.py, fit/batch_eu.py, tools/site_done.py
+(cover.py keeps only its 212-designed CLI refusal: L15/L52/L518/L825/L832); zero
+"no model answer" in fit/tools/tests/docs; `sha256sum -c tests/golden/hand_fit_docs.sha256`
+all OK (the 22 hand docs); tree clean before the suite. Full suite
+`.venv/bin/python -m pytest tests/ -p no:cacheprovider`: **2 failed, 182 passed, 1
+skipped, 554.24 s**. The 2 fails = the two test_owner_check tests (A bar-scale probe
+"toolbar scale and turn change the drawing on screen" = the deterministic 1.0610 >
+1.05+/-0.01 family it.226 A/B-proved on HEAD bytes, 242's; B is its dependent cascade -
+needs A's itemBytes). The 1 skip = test_union_full_coverage_live's known skip-gate
+(docs/batch_eu.md "Sites run: 294" vs live EU 418, until the next EU batch). **New vs the
+2026-10-13 driver note: test_fit_queue::test_placement_gestures_and_save_in_the_browser is
+now GREEN** (it was that note's only red) - the red set is strictly inside the bar. After
+the suite the only dirty files were docs/site_flow/307d_B_4-saved.png + 307d_B_5-reload.png
+(the owner run's re-render of 242's files) - restored with `git checkout -- docs/site_flow/`;
+data/db/platefits + data/review byte-clean; golden hand docs re-verified after the run.
 
-**Verified this session (all by running code):** ELoFTR re-curl UP (zju-community/
-matchanything_eloftr, RTX 5060 Ti) -> re-record ran live and landed EXACTLY as the it.226
-hand-over predicted: 15/15 keys distinct, **0 live-vs-frozen held-out discrepancies**,
-replay identical, confident 10 lines (guard 0.228346/195.702), unsure seed 7 -> 8 inliers,
-why "not sure: 8 consistent points (need 10)", 7 lines, item 481->482 files / 457 published;
-per fixture the 15 response keys and all 9 input_hashes are UNCHANGED (the 0d21b0d re-stamp
-is still current; agent c's 207a/241 merges did not re-stamp the badbury-relevant rows).
-`pytest tests/test_matchfit_station.py` **2/2 green** (was red by construction); 
-`tests/test_matchfit_gate.py` 3/3 green (consumes the same fixture; its "302f" mention is a
-name only). The only reds left in the suite are the known three families minus matchfit:
-placement_gestures (pre-existing since the 2026-10-13 loop start - do not touch) and
-owner_check x2 (the 307d mid-transition family - 242's, proven not 239's by A/B in it.226;
-230's done claim is held by the driver on exactly this family per 0d21b0d).
+**If the driver holds the done claim** (230/0d21b0d precedent: held on the owner_check
+family until the 307d stability fix merges): the two reds are 242's - 239's own A/B
+(it.226) plus this run are the on-record evidence. When 242 merges and the task is
+reopened, re-run just `tests/test_owner_check.py` (restore `docs/site_flow/` PNGs after:
+`git checkout -- docs/site_flow/`); if green, re-assert done without re-running the full
+suite (nothing else in this task can move: code, tests, fixtures, docs, goldens are all
+committed - commits `8adf7b9` (d), `05ac246` (e)1, `8d14844` (e)2, `b5f7b0d` (f)+(g)).
 
-**(h) verify + close (no matcher, no code - one session):** 1. Full suite:
-`.venv/bin/python -m pytest tests/ -p no:cacheprovider` (~7 min per the 2026-10-13 driver
-note; if the run is threatened by the 424 s test_gate.py, `--ignore=tests/test_gate.py` -
-its status is covered by the driver's loop-start note). Accept: **NO red outside**
-{test_fit_queue::test_placement_gestures_and_save_in_the_browser, test_owner_check x2}.
-If test_owner_check is GREEN by then, 242/307d have merged - even better, say so. If you
-took the owner_check family down (ran it) restore `docs/site_flow/307d_*.png` with
-`git checkout -- docs/site_flow/` before the claim. 2. Golden byte-identity:
-`sha256sum -c tests/golden/hand_fit_docs.sha256` (the 22 hand docs) and the
-`tests/golden/src_...` sample checks the suite already runs; `git status` clean on
-data/db/platefits + data/review (the recorder runs are in-process on throwaway trees -
-the checkout surface is hash-checked by record.py itself, so it must be). 3. Tick all 5
-acceptance boxes (all now verifiably true: (a)-(d) code, (e) the eight test files, (f)
-fixtures green, (g) doc reworded), set `Status: done`, commit. 4. If the driver rejects
-the claim its reasons land in DECISIONS.md; the 230/0d21b0d A/B accounting is the
-precedent for the owner_check family.
-
-**Hygiene:** .venv works. Never `git add -A` (explicit paths; the 307d PNGs re-render on
-any owner_check run - restore with `git checkout -- docs/site_flow/`). Tests: no fixed
-ports, no writes outside project/tmp. A/B in-checkout only, never a bare worktree
-(PITFALLS 306d). ELoFTR is only needed again if the matchfit fixtures drift (the test's
-_drift check would say so).
+**Hygiene (for anyone re-entering this task):** .venv works (Python 3.12.3). Never
+`git add -A` - explicit paths (the 307d PNGs re-render on ANY owner_check run - restore
+with `git checkout -- docs/site_flow/`). Tests: no fixed ports, no writes outside
+project/tmp. A/B in-checkout only, never a bare worktree (PITFALLS 306d). ELoFTR
+(127.0.0.1:8091, zju-community/matchanything_eloftr) is only needed again if the matchfit
+fixtures drift (the test's _drift check would say so); it is not needed for the re-verify.
