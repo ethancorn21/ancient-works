@@ -8,11 +8,12 @@ task file (for a subtask, read its parent's too).
 - `tasks/230-roman-merge-rerun.md` (in-progress) - hand-over: (2026-10-14, iteration 216, agent a - the 5 acceptance boxes were ticked in it.215 and
 - `tasks/236-us-cities.md` (split)
 - `tasks/241-us-birdseye-batch5.md` (in-progress) - hand-over: (2026-10-15, iteration 188, agent c) **HELD on "Depends on: 242" (the 230 it.216 path): the driver rejected the
+- `tasks/242-owner-check-stable-shots.md` (open) - hand-over: (2026-10-15, iteration 189, agent c) **SPLIT per the driver's instruction** (agent a's 230 and my
 
 ## Next open tasks
 - `tasks/236c-us-cities-merge.md`
-- `tasks/242-owner-check-stable-shots.md`
 - `tasks/809-horsley-check.md`
+- `tasks/810-owner-check-settle-captures.md`
 
 ## Your task's journal
 
