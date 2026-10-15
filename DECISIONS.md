@@ -329,3 +329,10 @@ Session executed (h) per the it.227 hand-over. At start: branch `agent/a`, tree 
 - Took the task's recommended approach: re-verifying the bullets would keep going stale again (the 211/212/230 bullets prove it), so only the Qwen bullet needed current wording (239's retirement made its `fit/batch_us.py --working` mention false in a present-tense page doc, and GOAL point 2 pins that division); the rest of the section is marked a dated snapshot pointing to docs/site_flow.md (one-site line + queues), docs/matchfit.md (the matcher, the only automatic fitter) and docs/gate.md (the frozen rule).
 - Facts verified against the current tree before writing: docs/PLAN.md:21 still carries the "NOT used by this project" quote; fit/cover.py's default classifier is the Clef-flash batch via pipeline/clef.py, but Clef-flash is not running anywhere (fit/cover_qwen8080.py header: the 5060 Ti now serves the matcher) and the 212a live run used the one-off Qwen3.8-27B on the VM's own vLLM 127.0.0.1:8080 answering the same three Clef questions; fit/batch_us.py's header confirms the retirement (GOAL point 2, 2026-10-13); tools/site_done.py runs the matcher first in the one-site line; commit d3b24b4 = 2026-10-11 22:27:07 -0500 (matches the document's own intro).
 - Box checks: (1) `grep -n "working\|model-json" docs/how-it-works.md` -> the only hit is "working tree" (line 205, a kept-as-written bullet - a phrase, not a fitting flag); (2) snapshot note in place with the three pointers; (3) `git diff` shows only the `## Doc vs code` section changed (14+/2-), every other section byte-identical. No test pins this file (grep of tests/ empty) - docs-only change, no test impact.
+
+## 2026-10-14 241 DRIVER: done claim rejected, task reopened
+- Tests failing that were not failing before this task (known failures are allowed, new ones are not):
+    tests/test_merge.py::test_new_sites_are_complete
+    tests/test_owner_check.py::test_owner_save_bar_scale
+    tests/test_owner_check.py::test_owner_save_site_size_fallback
+    (run after merging main, the other agents' finished work, into your branch: fix the combination)
