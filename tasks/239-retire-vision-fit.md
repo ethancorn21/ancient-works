@@ -58,157 +58,81 @@ are).
   seeded 20-sample is drawn from the automatically accepted fits union, which from now on is
   the matcher's documents (GOAL point 3's 18/20 check).
 
+
 ## Hand-over
 
-(2026-10-14, iteration 225, agent a - (e) is HALF DONE: the two batch test files are rewritten
-on disk (uncommitted, harness-saved); the FIVE patch files are still untouched; no tests were
-run this session. NEXT SESSION: apply the five targeted patches below, run the four fast test
-files, commit all eight in ONE commit, then do (f) - ELoFTR was UP at it.225 start.)
+(2026-10-14, iteration 226, agent a - (a)-(e) are all DONE and committed. NEXT SESSION:
+(f) the fixture re-record (ELoFTR was UP at it.226 end - re-curl first), then (g) and (h).)
 
-**State:** branch `agent/a`, tree: only `tests/test_batch_us.py` and `tests/test_batch_eu.py`
-modified (the (e) rewrites, verified by git status at session end). (a)-(d) all committed
-(DECISIONS it.220-222). test_cover.py stays byte-unchanged in (e) (re-grep-verify at session
-start: zero model hits).
+**State:** branch `agent/a`, tree clean. Commits: (a)-(d) in the log (`8adf7b9` is (d); the
+it.220/221 work is in `9ff955b`); (e) part 1 (the two batch test rewrites) in the driver's
+`05ac246`; (e) part 2 (the five targeted patches: test_site_done, test_fit_provenance,
+test_fit_queue, test_owner_check, test_matchfit_station) in `8d14844` (test-files only;
+the owner run's re-rendered 307d_B_4/B_5 PNGs were restored to committed bytes first - they
+are 242's files). test_cover.py stays byte-unchanged through the whole task.
 
-**it.225 live re-verification (all confirmed by running code; tree clean at start):**
-US 90 / EU 418 sites. serpent 16 cands / pre-doc ancientmonuments00squi_n0210_1 / 15 item
-cands / unresolved; cahokia 5 / pre-docs [c_1a7c2a11c3a0dd21, c_aff1b996dce7fe3a] / 4 item
-cands / resolved by c_1a7c2a11c3a0dd21 (uncov=3: the item holds one doc'd cand too);
-mound-bottom 1 cand = its doc / no item; first zero-cand US sorted = aberdeen-mound-q4666953
-(no item, no pre_fit). newark 21 / ArcheologicalAtlasOfOhio_n0098_1 / 21 item / resolved /
-uncov=20; forthill 4 / b24849959_n0269_1 / 4 / resolved / uncov=3; marietta 4 / 0 / 4 /
-unresolved; fudge+highbank+hopeton 0 cands + site.json pre_fit, NO item (all six region-less
-is_pre_fit=True); yeavering-bell-camp-q17643662 0 cands / no pre_fit / HAS the 212a
-no-picture item (CORRECTION to the it.223/224 "no item" note: the batch re-stamps its
-no_picture_found.searched with its own string - upsert_item replaces it when passed a dict -
-and the file name stays <site>.json with no lead); avebury 7 / earthworkenglan01allcgoog_
-n0581_1 / 5 item / uncov=6; old-sarum 5 / 4 pre-docs / 3 item / resolved / uncov=1.
-platefits/ = 71 docs = 22 by:hand + 49 fitter:matcher; golden = 41 lines (22 docs + 19
-site.json). docs/batch_eu.md "Sites run: 294" != live EU 418 -> test_union_full_coverage_live
-skip-gates (expected). ELoFTR UP at 127.0.0.1:8091 (zju-community/matchanything_eloftr, RTX
-5060 Ti) -> (f) is doable next session. API re-checks: review.upsert_item (dict no_picture
-replaces, None+entries clears, None+no-entries keeps; resolved write-once; lead =
-candidates[0]); item_path lead-None -> <site>.json; propose.propose_for(sid, plan, root=
-default checkout) - the batch's _entry calls it 2-arg, the tests' _check_entry mirrors that.
+**Verified this session:** fast four (batch_us, batch_eu, site_done, fit_provenance) =
+18 passed / 1 skipped (the skip = test_union_full_coverage_live's expected skip-gate:
+docs/batch_eu.md "Sites run: 294" != live EU 418). test_fit_queue::
+test_save_runs_the_one_site_line green (18.6 s). test_matchfit_station 2/2 red EXACTLY at
+the stale fixtures' expected_stdout (red by construction until (f); no drift check fired).
+owner_check 2/2 red - NOT 239's: see DECISIONS it.226.
 
-**(e) part 1 DONE - the two rewrites (on disk, uncommitted):** tests/test_batch_us.py
-(4 tests: test_sample_run_records_reasons, test_no_reasons_records_no_matcher,
-test_batch_adds_items_rewrites_none, test_report_reproducible_from_seed) and
-tests/test_batch_eu.py (7: the same 4 EU-shaped - the no-reasons one uses batch_eu.run_eu
-over all 418 - plus test_hand_fitted_sites_get_items_for_their_other_pictures
-[AVEBURY/OLDSARUM], test_union_check, test_union_full_coverage_live). Shape per the it.224
-designs: NO_MATCHER + _VERDICTS(3) + state-aware _recorded_reasons (sha1(plan)%3) +
-_check_entry (2-arg propose, pairs==[], no gate_score) + _syn_records (2,11); the US
-report test parses the 5-cell per-candidate table and pins random.Random(SEED).sample
-for both synthetic branches (k==n IS a seeded shuffle). Read them fresh before committing.
+**Red inventory for the (h) done claim (no NEW reds = exactly these three families):**
+1. test_fit_queue::test_placement_gestures_and_save_in_the_browser - pre-existing red since
+   the 2026-10-13 driver note (before any 239 code landed); the suite's only red at that
+   loop start. Do not touch.
+2. test_matchfit_station (2) - red by construction until (f) re-records the fixtures
+   against the retired line. (f) fixes both.
+3. test_owner_check (2) - the 307d mid-transition flake family, proven not 239's by A/B
+   (it.226: probe fails at owner_probe.mjs:333 with 87.00574693662483/82 = 1.06105 vs
+   1.05+/-0.01, deterministic, identical with my file at HEAD bytes). Remedy queued as
+   242 (Depends on: 307d; Touches test_owner_check.py + docs/site_flow/); 230's done claim
+   is held by the driver on exactly this family (0d21b0d: "the driver holds the done claim
+   until the 307d stability fix merges"). If 242/307d have not merged by my done claim,
+   document it that way (the 230 precedent) - do not fix 242's files.
 
-**(e) part 2 - the FIVE patches to apply (exact old -> new; all were re-verified in place this
-session):**
+**(f) fixture re-record (the one remaining code step):** ELoFTR was UP at it.226 end
+(`curl -s -m 5 http://127.0.0.1:8091/health` -> zju-community/matchanything_eloftr, RTX
+5060 Ti) - RE-CURL FIRST; if down, log a DECISIONS entry and come back next session.
+Then: (1) in tests/fixtures/matchfit_station/record.py (the ONLY writer - never
+hand-edit the fixtures): L360 `"task": "302f"` -> `"239"`, L408 `len(c_out) != 11` (+ its
+SystemExit text "expected 11") -> 10, L493 `len(u_out) != 8` (+ "expected 8") -> 7. (2)
+Run `.venv/bin/python tests/fixtures/matchfit_station/record.py` (live ELoFTR; it
+re-records both fixtures, re-stamps the 9 input hashes, validates the replay against the
+frozen held-out data/matchfit/heldout/results.json). (3) Expected refreshed content: both
+expected_stdout lose line 0 (11->10, 8->7); the unsure item's candidate why and the
+unsure stdout's per-picture lines become "not sure: 8 consistent points (need 10)"
+(the RoMa port is dead -> no "; RoMa ..." suffix); recorded_at moves; the 15 request-body
+sha256 keys per fixture should be unchanged (same crops/grounds/windows - the only drift
+since the 302f/238 record was 230's index evidence re-stamp, which 0d21b0d already
+re-recorded). (4) Run `pytest tests/test_matchfit_station.py` -> 2/2 green. (5) Commit
+record.py + both fixtures.
 
-1. **tests/test_site_done.py** (5 spots): (i) module docstring line 16: "network attempt
-   fails loudly; no model is needed and no picture is fetched);" -> "network attempt fails
-   loudly: the pretrained matcher is unreachable so it is never called, and no picture is
-   fetched);". (ii) _run docstring line 243: "`, no model.`" -> " (sockets dead: the
-   matcher is unreachable and never called).". (iii) first run: DELETE line 285
-   `assert lines[0] == 'fit  no model given: ...'`; `lines[1]` -> `lines[0]` (site header),
-   the fit-summary two-line assert `lines[2]` -> `lines[1]` (its text UNCHANGED:
-   `{len(rows)} candidate picture(s): {len(docs)} fitted (doc), {len(orig)} in the review
-   item -> no batch run needed`). (iv) `assert len(lines) == 3 + len(docs) + 2 + len(rows)
-   + 1` -> `2 + ...`. (v) second run: keep `lines2[0] == lines[0]`; DELETE `lines2[1] ==
-   lines[1]` (the fit summaries now DIFFER: 7 vs 0 fitted); the explicit
-   `lines2[2] == (f"fit  {len(rows)} candidate picture(s): 0 fitted (doc), {len(cands)} in
-   the review item -> no batch run needed")` becomes `lines2[1] == ...`. The two _summary
-   mirrors (lines 306, 353: `cand.get("why") or "no model answer"`) STAY (display
-   fallback; every live Stonehenge entry has a why). Rationale: Stonehenge uncovered == 0
-   in both runs -> matchfit.reachable() IS called (dead sockets -> False, caught) ->
-   matcher never runs -> need_fit False -> "no batch run".
-2. **tests/test_fit_provenance.py** (case b + docstrings): module docstring case b:
-   "sockets dead, no model - the refusal precedes the build, so nothing is downloaded" ->
-   "sockets dead: the matcher is unreachable so it is never called, and the refusal
-   precedes the build, so nothing is downloaded"; _run docstring line 173 as in 1(ii);
-   _mini_tree docstring line 423 "needs no download, no model, no network" -> "needs no
-   download and no network". Case b asserts (lines 323-342): DELETE the lines[0] "no model
-   given" assert and shift: lines[1]->[0] site header, lines[2]-[3]->[1] fit summary
-   (`{n_item} ... 1 fitted (doc), {n_item-1} ...`), lines[4]->[2] sync refused, lines[5]->
-   [3] entry, lines[6]->[4] review line; `lines[6:6+len(expected)]` -> `[5:5+len(expected)]`;
-   `lines[6+len(expected)] == "done"` -> `[5+len(expected)]`; `len(lines) == 6 + len(
-   expected) + 1` -> `5 + len(expected) + 1`. The `cand.get("why") or "no model answer"`
-   mirror (line 342) STAYS. Second run `out2.splitlines() == lines` stays.
-3. **tests/test_fit_queue.py** (5 spots; do NOT touch test_placement_gestures... -
-   pre-existing red since 2026-10-13): line ~800 _pick_site docstring: "so the line's
-   model=None path runs and lands in the item as "no model answer"" -> "so the
-   no-matcher path runs and lands in the item as "no matcher on this machine""; line ~814
-   sort comment "the no-model path runs" -> "the no-matcher path runs"; test docstring
-   line ~903: "The line's model is None and every socket in the server process is dead, so
-   the run is network-free: any unfitted candidate lands in the item as "no model answer""
-   -> "Every socket in the server process is dead, so the matcher is unreachable and the
-   run is network-free: any unfitted candidate is recorded in the item as "no matcher on
-   this machine""; comment lines ~1002-1003 -> "was recorded in the item as "no matcher on
-   this machine" (the matcher was not reachable in the server process)"; assert line
-   ~1012 -> `after_cands.get(u, {}).get("why") == "no matcher on this machine", u`.
-4. **tests/test_owner_check.py** (ISOLATE to check 7; do NOT touch _run_one/_capture/
-   screenshot-copy - 242's): comment block lines ~646-651: "The no-model line prints on
-   every run (the worker runs the line without a model) and so does the no-batch line:
-   every candidate is the saved doc or an item candidate, so the batch never runs." ->
-   "The no-batch line prints on every run: every candidate is the saved doc or an item
-   candidate, so the matcher (unreachable - sockets dead) is never called and the batch
-   never runs."; want_fit (line ~659) drops its first element -> only `f"fit  {len(rows)}
-   candidate picture(s): {n_doc} fitted (doc), {len(rows) - n_doc} in the review item -> no
-   batch run needed"`. `assert not any("matcher" in ln ...)` stays green (matcher never
-   runs -> no "matcher" line; "no matcher on this machine" is never printed either since
-   uncovered == 0 -> reasons {}).
-5. **tests/test_matchfit_station.py** (2 edits; the fixtures STAY until (f)): module
-   docstring lines ~19-21: "the candidate in the site's review item with the batch's own
-   reason ("no model answer", from the socket-dead vision pass) plus the scale-bar
-   proposal" -> "... with the matcher's recorded reason ("not sure: 8 consistent points
-   (need 10)" - the RoMa port is dead, so no "; RoMa ..." suffix) plus the scale-bar
-   proposal"; line 313: `cand["why"] == "no model answer"` -> `cand["why"] == "not sure:
-   8 consistent points (need 10)"`. The stdout asserts read the fixture's
-   expected_stdout - they fail until (f) re-records (RED BY CONSTRUCTION, do not "fix"
-   by weakening).
+**(g) docs/site_flow.md - ONLY the 300 section** (append-only for every other section,
+302g's rule): the usage block drops `[--working | --model-json FILE]` and step 1's
+wording mirrors tools/site_done.py's current module docstring (matcher first; the second
+pass only records the matcher's reasons, never model coordinates; "no matcher on this
+machine" when unreachable).
 
-**Then (one commit):** `git add tests/test_batch_us.py tests/test_batch_eu.py tests/
-test_site_done.py tests/test_fit_provenance.py tests/test_fit_queue.py tests/test_owner_
-check.py tests/test_matchfit_station.py && git commit -m "239: retire the vision pass in
-the tests - the batch tests pass recorded matcher reasons (no model, no gate, no docs);
-the line/provenance/queue/owner/matchfit tests drop the deleted first stdout line and the
-'no model answer' expectations (the matcher's recorded reasons take their place)"`.
-**Expected red until (f):** test_matchfit_station (stale fixtures: 11/8-line stdout +
-"no model answer" item) and the pre-existing test_fit_queue::
-test_placement_gestures_and_save_in_the_browser. Everything else in the 8-file set must be
-green. Run: `.venv/bin/python -m pytest tests/test_batch_us.py tests/test_batch_eu.py
-tests/test_site_done.py tests/test_fit_provenance.py -p no:cacheprovider` (batch trees are
-hard-linked, fast); test_fit_queue::test_save_runs_the_one_site_line ~30-180 s, worth
-running; owner_check is browser-heavy - if run, `git checkout -- docs/site_flow/` after
-(307d PNGs regenerate). If a batch test fails: it is a state-drift (a new plans.json row
-for a sample site) or a bug in my rewrites - check which, fix the test only if the live
-state moved, never weaken an assertion.
+**(h) verify + close:** full suite (`.venv/bin/python -m pytest tests/ -p
+no:cacheprovider`, --ignore=tests/test_gate.py if you hit its 424 s - the 2026-10-13
+driver note ran it in 7 min; the owner_check 2 + placement_gestures 1 are the accepted
+reds per the inventory above) must show NO red outside those three families; golden
+byte-identity (`sha256sum -c tests/golden/hand_fit_docs.sha256` and the
+tests/golden/src_... sample checks) and `git status` clean on data/db/platefits +
+data/review; tick the 5 acceptance boxes, set Status: done, commit. If the driver rejects
+the claim, its reasons land in DECISIONS.md - the 230/0d21b0d A/B accounting is the
+precedent for the owner_check family.
 
-**(f) fixture re-record (ELoFTR was UP at it.225 start - re-check `curl -s
-http://127.0.0.1:8091/health` first):** in tests/fixtures/matchfit_station/record.py
-update the two stdout line-count asserts 11->10 and 8->7, header.task '302f'->'239', then
-`.venv/bin/python tests/fixtures/matchfit_station/record.py`; commit the two refreshed
-fixtures (expected_stdout loses line 0; unsure's lines 3+6 and item.why become "not sure:
-8 consistent points (need 10)"; responses/input_hashes/matcher_health re-recorded). If
-down: DECISIONS entry + come back. record.py is the only writer - never hand-edit.
+**Hygiene:** .venv works. Never `git add -A` (explicit paths; the 307d PNGs re-render on
+any owner_check run - restore with `git checkout -- docs/site_flow/`). Tests: no fixed
+ports, no writes outside project/tmp. A/B in-checkout only, never a bare worktree
+(PITFALLS 306d: locally-built site data is not in git).
 
-**(g)** docs/site_flow.md: reword ONLY the 300 section (usage block lines 5-7 drop
-`[--working | --model-json FILE]`; step 1 ~lines 19-27 mirrors the new site_done docstring:
-matcher first, second pass records reasons, no model pass). Append-only for every other
-section (302g's rule).
-
-**(h) verify + close:** the 8-file set green (only the pre-existing placement_gestures red);
-full suite no NEW reds vs the 2026-10-13 driver note; golden byte-identity + git status
-clean on data/db/platefits and data/review; tick the 5 acceptance boxes, Status: done.
-
-**Hygiene:** .venv works. Never `git add -A` (explicit paths). Tests: no fixed ports, no
-writes outside project/tmp. A/B in-checkout only, never a bare worktree (PITFALLS 306d).
-**Pitfalls to re-read before applying the patches:** PITFALLS fit/ - "pre_docs matches any
-existing <site>.*.json" (snapshot pre-run state before run_sites), "Recorded-answer batch
-tests must be state-aware" (same for recorded reasons), "write_report (path=None) silently
-falls back to docs/batch_us.md" (batch_eu pins its own); "A batch re-run of a review-item
-row replaces that candidate's entry whole" (the upsert replaces same-plan entries in place,
-keeps other plans' entries whole, resolved write-once - the tests assert exactly that);
-"Patching matchfit.reachable for an offline replay needs a lambda returning False - a bare
-False crashes the run" (the batch tests need no such patch: the batch never calls the
-matcher; the line tests rely on reachable()'s own except-Exception).
+**Re-read before (f):** record.py's run flow (it serves the line's subprocess over a
+private tree, so read what it asserts beyond the line counts - the replay/heldout
+validation is the real gate) and tests/test_matchfit_station.py's _drift (it recomputes
+the 9 input hashes - if (f)'s re-record lands while agent c's 207a/241 work re-stamps
+index/catalog rows on main, the next merge could re-fire the drift check; that is (f)'s
+known exposure, the remedy is re-running record.py, which needs the live matcher).
