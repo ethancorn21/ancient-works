@@ -69,8 +69,9 @@ for the remaining work is in the hand-over below.)
 241 had nothing to build waiting on this task alone, and nothing of this task was built yet - so,
 per the split rule, this task WAITS on the parts). `Depends on:` is now `307d, 810, 811` (307d is
 done - the file the parts touch was built there; kept on the line per repo convention). `Touches:`
-cut to none: what remains here is verification only. No cycle: 810 (depends only on done 307d,
-startable immediately) -> 811 (depends on 810) -> 242 (this).
+cut to none: what remains here is verification only. No cycle: 812 -> 813 -> 810 (the
+2026-10-15 iteration-190 re-split: depends on done 307d, 812, 813; verification only) ->
+811 (depends on 810) -> 242 (this).
 
 The parts (the lowest free numbers in 800-1099):
 - **810** (tasks/810-owner-check-settle-captures.md; Touches tests/test_owner_check.py) - the whole
