@@ -12,7 +12,6 @@ task file (for a subtask, read its parent's too).
 
 ## Next open tasks
 - `tasks/811-owner-check-pin-snapshot.md`
-- `tasks/815-fit-markers-subpixel.md`
 
 ## Your task's journal
 
