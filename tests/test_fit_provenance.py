@@ -509,7 +509,7 @@ def _serve(tmp_path):
     deadline = time.time() + 90
     while time.time() < deadline and proc.poll() is None:
         line = proc.stdout.readline()
-        m = re.match(r"Ancient Works on (\S+)", line) if line else None
+        m = re.match(r"(?:Resurface|Ancient Works) on (\S+)", line) if line else None
         if m:
             url = m.group(1)
             break

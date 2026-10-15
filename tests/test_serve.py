@@ -15,7 +15,7 @@ def test_page_loads(served):
     base, _ = served
     status, body = get(base + "/")
     assert status == 200
-    assert b"Ancient Works" in body
+    assert b"<title>Resurface</title>" in body  # the public name (Ethan 2026-10-15); ancient-works stays the codename
     assert b"maplibre" in body  # the vendored map library the page builds on
 
 

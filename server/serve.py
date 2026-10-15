@@ -1,4 +1,4 @@
-"""Serve Ancient Works from this Mac: the page and its data from web/, a small JSON document store, and live
+"""Serve Resurface (codename ancient-works) from this Mac: the page and its data from web/, a small JSON document store, and live
 LiDAR relief tiles.
 
 usage: .venv/bin/python server/serve.py [--lan] [--port 8642] [--allow 10.0.0.0/16 ...]
@@ -400,7 +400,7 @@ def main():
               flush=True)
     srv = ThreadingHTTPServer((host, a.port), Handler)
     # the bound address, not a.port: with --port 0 (tests) the operating system picks the real number
-    print(f"Ancient Works on http://{srv.server_address[0]}:{srv.server_address[1]}/", flush=True)
+    print(f"Resurface on http://{srv.server_address[0]}:{srv.server_address[1]}/", flush=True)
     if a.lan:
         ip = lan_address()
         print(f"  home network: http://{ip}:{srv.server_address[1]}/  (allowed clients: {', '.join(nets[2:])})", flush=True)

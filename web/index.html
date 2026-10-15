@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Ancient Works</title>
+<title>Resurface</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F3EDDC'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%23CE2E4E' stroke-width='3'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="vendor/fonts.css">
 <link rel="stylesheet" href="vendor/maplibre-gl-5.6.0.css">
@@ -347,15 +347,15 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
 
 <aside class="panel" id="panel">
   <button class="grab" id="grab" aria-label="Show or hide the panel"></button>
-  <div class="strip caps"><span>Ancient Works</span><span>LiDAR and the old surveys</span></div>
+  <div class="strip caps"><span>Resurface</span><span>LiDAR and the old surveys</span></div>
   <header class="panel-head">
-    <h1 class="wordmark">Ancient Works</h1>
+    <h1 class="wordmark">Resurface</h1>
     <p class="tagline">Old earthworks in old surveys and today's ground</p>
   </header>
   <div class="panel-body" id="body"></div>
 </aside>
 <!-- phones only (.mtop/.mera/.mhold show under the max-width 760px rules) -->
-<div class="mtop home" id="mtop"><button class="mt-back" id="mtback" aria-label="Back">←</button><div class="mt-name" id="mtname"><b>Ancient Works</b></div></div>
+<div class="mtop home" id="mtop"><button class="mt-back" id="mtback" aria-label="Back">←</button><div class="mt-name" id="mtname"><b>Resurface</b></div></div>
 <div class="mera" id="mera" hidden></div>
 <button class="mhold" id="mhold" hidden aria-label="Ink or original drawing; hold and slide for opacity"></button>
 <div class="mop" id="mop" hidden aria-hidden="true"><b id="mopv"></b><div class="mop-track"><div class="mop-fill" id="mopf"></div><div class="mop-knob" id="mopk"></div></div></div>
@@ -368,7 +368,7 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
 </section>
 
 <section class="sheet" id="sheet" hidden aria-label="Isometric block diagram">
-  <div class="sheet-strip caps"><span id="sheet-left">Ancient Works</span><button class="sheet-close" id="sheet-close">Back to map</button></div>
+  <div class="sheet-strip caps"><span id="sheet-left">Resurface</span><button class="sheet-close" id="sheet-close">Back to map</button></div>
   <div class="sheet-main">
     <div class="stage" id="stage">
       <div class="loading" id="loading">Building the block…</div>
@@ -866,7 +866,7 @@ function wireAlign(p, get, set, redraw, docPath, savedMsg) {
     try { await S.db.doc(docPath).set({ dx: a.dx, dy: a.dy, rot: a.rot, scale: a.scale, savedAt: new Date().toISOString() }); $(`#${p}saved`).textContent = savedMsg; }
     catch (e) { $(`#${p}saved`).textContent = `Could not save (${e && e.code || 'error'}). Try again in a moment.`; }
   };
-  if (!S.db) { $(`#${p}save`).disabled = true; $(`#${p}saved`).textContent = 'Saving needs the Ancient Works server. Changes last until you reload.'; }
+  if (!S.db) { $(`#${p}save`).disabled = true; $(`#${p}saved`).textContent = 'Saving needs the Resurface server. Changes last until you reload.'; }
 }
 // drag mode: the map stops panning and a drag moves the overlay instead (mouse or one finger)
 function startDrag(p, get, set, redraw) {
@@ -1023,7 +1023,7 @@ function syncTop() {
   if (!narrow()) return;
   const t = $('#body .site-title'), a = $('#body .site-aka'), back = $('#body #back') || $('#body #fitback');
   $('#mtop').classList.toggle('home', !back);
-  $('#mtname').innerHTML = t ? `<b>${esc(t.textContent)}</b>${a && a.textContent ? `<i>${esc(a.textContent)}</i>` : ''}` : '<b>Ancient Works</b>';
+  $('#mtname').innerHTML = t ? `<b>${esc(t.textContent)}</b>${a && a.textContent ? `<i>${esc(a.textContent)}</i>` : ''}` : '<b>Resurface</b>';
   const inSite = !!$('#body .lensbar');
   if (!inSite) { $('#mera').hidden = true; $('#mhold').hidden = true; $('#mop').hidden = true; $('#mtip').hidden = true; }
   setPeekVar();
@@ -1740,7 +1740,7 @@ function renderScan(name) {
       <p class="stats">${candLine(c)}. Signal to noise ${c.snr}.</p>
       <div class="verdicts" role="group" aria-label="Verdict">${Object.entries(VERDICT).map(([k, l], i) => `<button data-v="${k}" aria-pressed="${(F.verdicts[c.id] || {}).v === k}" ${S.db ? '' : 'disabled'} title="Key ${i + 1}">${l}</button>`).join('')}</div>
       <div class="tools"><button id="c-prev">← Previous</button><button id="c-next">Next to review →</button></div>
-      <p class="status" id="vsaved">${S.db ? '' : 'Verdicts need the Ancient Works server.'}</p>
+      <p class="status" id="vsaved">${S.db ? '' : 'Verdicts need the Resurface server.'}</p>
     </div>` : ''}
     <div class="group">
       <p class="section-title">Known works in the area</p>
@@ -1859,7 +1859,7 @@ async function openBlock(s) {
   if (B.site === s && B.scene) { resizeBlock(); B.dirty = true; loop(); syncBlock(); return; }
   B.site = s; $('#loading').hidden = false; $('#loading').textContent = 'Building the block…';
   const ve = verticalExaggeration(s), [W, Hm] = s.size_m;
-  $('#sheet-left').textContent = s.plate ? `${s.plate.label} · Squier & Davis 1848` : 'Ancient Works';
+  $('#sheet-left').textContent = s.plate ? `${s.plate.label} · Squier & Davis 1848` : 'Resurface';
   $('#cap-title').textContent = `Isometric block diagram of the ${s.name.replace(/^the /i, '')}, ${s.place}`;
   $('#cap-sub').textContent = `Ground from ${s.lidar_credit || 'USGS 3DEP LiDAR, 1 m'}. Block ${(W / 1000).toFixed(1)} by ${(Hm / 1000).toFixed(1)} km; vertical exaggeration ×${ve}; contour interval ${s.block.contour_m} m.`;
   B.drapeKeys = []; B.groundKind = null; renderExplain(s, ve);
@@ -2189,7 +2189,7 @@ map.on('click', e => {
   if (!A.sel || P.active || B.open) return;
   const hit = map.getLayer('amazon-marks') && map.queryRenderedFeatures(e.point, { layers: ['amazon-marks'] })[0];
   if (hit) return selectMark(hit.properties.id);
-  if (!S.db) { const st = $('#asaved'); if (st) st.textContent = 'Marks need the Ancient Works server.'; return; }
+  if (!S.db) { const st = $('#asaved'); if (st) st.textContent = 'Marks need the Resurface server.'; return; }
   if (map.getZoom() < 13) { const st = $('#asaved'); if (st) st.textContent = 'Zoom in to the relief (zoom 13 or closer) to mark a spot.'; return; }
   addMark(A.sel, e.lngLat);
 });
@@ -2206,7 +2206,7 @@ function renderArea(name) {
       <textarea id="mnote" rows="2" placeholder="Note (what you see, why)" ${S.db ? '' : 'disabled'}>${esc(cur.note || '')}</textarea>
       <div class="tools"><button id="mdrop">Delete mark</button><button id="mclose">Done</button></div>
     </div>` : ''}
-    <p class="status" id="asaved">${S.db ? 'Zoom in and click the relief to mark a spot.' : 'Marks need the Ancient Works server.'}</p>
+    <p class="status" id="asaved">${S.db ? 'Zoom in and click the relief to mark a spot.' : 'Marks need the Resurface server.'}</p>
     <div class="group">
       <p class="section-title">Surveys</p>
       <div class="tools"><button class="primary" id="anext">Next not looked at →</button>${A.survey ? `<button id="aseen">${A.seen[seenKey(name, A.survey)] ? 'Not looked at' : 'Looked at ✓'}</button>` : ''}</div>

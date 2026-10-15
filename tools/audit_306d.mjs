@@ -166,7 +166,7 @@ const main = async () => {
     const t = setTimeout(() => reject(new Error('server did not report a port in 20 s')), 20_000);
     server.stdout.on('data', (d) => {
       buf += d;
-      const m = buf.match(/Ancient Works on http:\/\/127\.0\.0\.1:(\d+)\//);
+      const m = buf.match(/(?:Resurface|Ancient Works) on http:\/\/127\.0\.0\.1:(\d+)\//);
       if (m) { clearTimeout(t); resolve(m[1]); }
     });
   });

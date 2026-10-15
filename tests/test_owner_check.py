@@ -598,7 +598,7 @@ def owner_served(tmp_path_factory):
     deadline = time.time() + 90
     while time.time() < deadline and proc.poll() is None and not url:
         for line in list(out):
-            m = re.match(r"Ancient Works on (\S+)", line)
+            m = re.match(r"(?:Resurface|Ancient Works) on (\S+)", line)
             if m:
                 url = m.group(1)
                 break
