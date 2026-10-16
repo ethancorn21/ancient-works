@@ -220,7 +220,7 @@ loadDeps = function (s) {
   const st = document.createElement('style');
   st.id = 'review-style';
   st.textContent = [
-    '#h-review { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--ink); }',
+    // the tabs are keys in one well now (index.html, 2026-10-16): the Review key sits in the row like the others
     '#rvcount { background: none; border: 0; padding: 0; margin-left: 2px; font: inherit; color: var(--survey); cursor: pointer; }',
     '#rvcount:hover { text-decoration: underline; }',
     '.rv-site { background: none; border: 0; padding: 0; cursor: pointer; color: inherit; font: inherit; letter-spacing: inherit; text-transform: inherit; }',

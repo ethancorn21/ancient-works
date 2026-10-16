@@ -15,26 +15,27 @@
   const root = document.documentElement;
   const COLORS = [
     ['--sheet', 'Panel paper'], ['--paper', 'Paper'], ['--paper-2', 'Paper, darker'], ['--ink', 'Ink'], ['--ink-2', 'Ink, mid grey'],
-    ['--hair', 'Hairlines'], ['--rule', 'Rules'], ['--survey', 'State red'], ['--space', 'Space round the globe'],
-    ['--scrim', 'Band under scrubber'], ['--on-scrim', 'Type on the band'],
+    ['--hair', 'Hairlines'], ['--rule', 'Rules, dial ticks'], ['--well', 'Key well, dial window'], ['--survey', 'Needle, state red'], ['--space', 'Space round the globe'],
   ];
   const FONTS = {
-    '--title': ['"Old Standard TT", "Century Schoolbook", Georgia, serif', 'Georgia, serif', '"Iowan Old Style", Georgia, serif', '"Times New Roman", serif', '"Helvetica Neue", Arial, sans-serif'],
-    '--label': ['"Archivo Narrow", "Arial Narrow", Arial, sans-serif', '"Helvetica Neue", Arial, sans-serif', 'ui-monospace, Menlo, monospace', '"Old Standard TT", Georgia, serif'],
+    '--title': ['"Helvetica Neue", Helvetica, Arial, sans-serif', '"Old Standard TT", "Century Schoolbook", Georgia, serif', 'Georgia, serif', '"Iowan Old Style", Georgia, serif', 'Futura, "Century Gothic", sans-serif', '"Avenir Next", Avenir, sans-serif'],
+    '--label': ['"Helvetica Neue", Helvetica, Arial, sans-serif', '"Archivo Narrow", "Arial Narrow", Arial, sans-serif', '"Avenir Next", Avenir, sans-serif', 'ui-monospace, Menlo, monospace'],
   };
   // [token or TUNE key, label, min, max, step, unit]
   const KNOBS = [
     ['--title-size', 'Title size', 16, 44, 1, 'px'], ['--card-w', 'Card width', 260, 520, 10, 'px'], ['--col-w', 'Column width', 280, 520, 10, 'px'],
-    ['--gap', 'Card margin', 0, 48, 2, 'px'], ['--scrim-a', 'Band darkness', 0, 1, .02, ''],
+    ['--gap', 'Card margin', 0, 48, 2, 'px'], ['--radius', 'Corner radius', 0, 32, 1, 'px'], ['--key-radius', 'Key radius', 0, 16, 1, 'px'], ['--shadow-a', 'Shadow depth', 0, 1, .02, ''],
     ['--tick-peak', 'Tick height, peak', 12, 80, 1, 'px'], ['--tick-base', 'Tick height, rest', 2, 24, 1, 'px'], ['--tick-stop', 'Tick height, a map', 2, 40, 1, 'px'],
     ['ticks', 'Ticks across (desktop)', 16, 160, 2, ''], ['ticksPhone', 'Ticks across (phone)', 12, 100, 2, ''],
     ['sigma', 'Swell width (ticks)', .5, 10, .25, ''], ['glide', 'Glide speed', .04, .6, .01, ''], ['follow', 'Drag follow', .1, 1, .05, ''],
   ];
   const PRESETS = {
-    'Plate': {},
-    'Bone': { '--sheet': '#FBFBFB', '--paper': '#F2F2F2', '--paper-2': '#E8E8E8', '--ink': '#1A1A1A', '--ink-2': '#606060', '--hair': '#D9D9D9', '--rule': '#8A8A8A', '--survey': '#CE2E4E', '--scrim': '#000000', '--on-scrim': '#FDFDFD' },
-    'Engraving': { '--sheet': '#FDFDFD', '--paper': '#F6F3EE', '--paper-2': '#ECE6DC', '--ink': '#523727', '--ink-2': '#8C7462', '--hair': '#E3D9CC', '--rule': '#A89482', '--survey': '#B3261E', '--scrim': '#1E140C', '--on-scrim': '#FDFAF5' },
-    'Night': { '--sheet': '#171412', '--paper': '#0E0C0A', '--paper-2': '#221E1A', '--ink': '#EFE6DC', '--ink-2': '#A89F95', '--hair': '#3A332D', '--rule': '#6E655C', '--survey': '#E2697F', '--space': '#07080B', '--scrim': '#000000', '--on-scrim': '#EFE6DC' },
+    'Braun': {},
+    'Braun orange': { '--survey': '#E5631B' },
+    'Plate paper': { '--paper': '#F3EDDC', '--paper-2': '#EAE2CC', '--sheet': '#F8F4E8', '--ink': '#2B2724', '--ink-2': '#6B625A', '--rule': '#8E8478', '--hair': '#D9D0BD', '--well': '#EAE2CC', '--survey': '#CE2E4E',
+      '--title': '"Old Standard TT", "Century Schoolbook", Georgia, serif', '--label': '"Archivo Narrow", "Arial Narrow", Arial, sans-serif' },
+    'Bone': { '--sheet': '#FBFBFB', '--paper': '#F2F2F2', '--paper-2': '#E8E8E8', '--ink': '#1A1A1A', '--ink-2': '#606060', '--hair': '#DDDDDD', '--rule': '#8A8A8A', '--well': '#E6E6E6', '--survey': '#CE2E4E' },
+    'Night': { '--sheet': '#232120', '--paper': '#151413', '--paper-2': '#2C2A28', '--ink': '#EDEAE4', '--ink-2': '#A29E97', '--hair': '#3A3734', '--rule': '#7A766F', '--well': '#181716', '--survey': '#E85A73', '--space': '#07080B' },
   };
   const state = (() => { try { return JSON.parse(ls.get('aw.dev') || '{}'); } catch { return {}; } })();
   state.vars = state.vars || {}; state.tune = state.tune || {};
@@ -123,7 +124,7 @@
     $$('[data-f]').forEach(s => { s.value = cur(s.dataset.f); });
   };
   $$('[data-pre]').forEach(b => b.onclick = () => {
-    for (const k of COLORS.map(c => c[0])) { delete state.vars[k]; root.style.removeProperty(k); }
+    for (const k of [...COLORS.map(c => c[0]), ...Object.keys(FONTS)]) { delete state.vars[k]; root.style.removeProperty(k); }
     Object.assign(state.vars, PRESETS[b.dataset.pre]);
     applyAll(); save(); refresh();
   });

@@ -10,119 +10,128 @@
 <link rel="stylesheet" href="vendor/fonts.css">
 <link rel="stylesheet" href="vendor/maplibre-gl-5.6.0.css">
 <style>
-/* Layout (Ethan 2026-10-16, design/one-living-thing applied to the plate palette): the map is the ground, one paper surface
-   holds the words, one ink draws everything, survey red marks only the state (the year showing, the overlay), and the year
-   scrubber is the page's one living thing. Two desktop layouts, picked on <body>: .lay-card (the panel is one card on the map)
-   and .lay-column (a full-height column at the left). Every colour and size is a token, so the dev canvas (?dev=1) reaches it. */
+/* Layout (Ethan 2026-10-16): the map is the ground, and the two things on it are objects in the manner of Dieter Rams's
+   Braun work: a warm light-grey body with rounded corners and a real shadow, controls as keys in a recessed well (the chosen
+   key raised), sliders as a groove with a round knob, one sans face, one accent. The panel keeps the editorial layout
+   (title, place, a label/value grid, the paragraph); the year scrubber is a radio tuning dial with a red needle, the page's
+   one living thing (design/one-living-thing). Survey red marks only the state: the needle and the year chip. Two desktop
+   layouts on <body>: .lay-card (the panel is one object on the map) and .lay-column (a full-height column at the left).
+   Every colour and size is a token, so the dev canvas (?dev=1) reaches it. */
 body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important; }
 :root {
-  --paper: #F3EDDC; --paper-2: #EAE2CC; --sheet: #F8F4E8; --ink: #2B2724; --ink-2: #6B625A; --rule: #8E8478;
-  --hair: #D9D0BD;              /* hairline rules, resting ticks on paper */
-  --survey: #CE2E4E;            /* 1848 plate ink, as on the ore bodies of USGS plates: the state colour */
+  --paper: #E9E7E1; --paper-2: #DFDCD5; --sheet: #F1EFEA; --ink: #262624; --ink-2: #6E6C67; --rule: #9A968E;
+  --hair: #D6D2CA;              /* hairline rules */
+  --well: #DEDAD2;              /* the recess keys and the dial sit in */
+  --survey: #CE2E4E;            /* 1848 plate ink: the state colour (needle, year chip) */
   --space: #10141C;             /* round the globe */
-  --scrim: #0E0C0A; --scrim-a: .72; --on-scrim: #F8F4E8;  /* the darkened band of map under the scrubber, and its type */
   --mauve: #D8BCD5; --mauve-2: #B996B6; --pink: #F2B5C4; --aqua: #9ED8D8; --sage: #C4D9A6; --lav: #CFC6E0; --ochre: #F2C48D;  /* swatches only */
-  --title: "Old Standard TT", "Century Schoolbook", "Iowan Old Style", Georgia, serif;
-  --label: "Archivo Narrow", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
-  --title-size: 28px; --card-w: 340px; --col-w: 360px; --gap: 20px;
-  --tick-peak: 34px; --tick-base: 7px; --tick-stop: 12px;
+  --title: "Helvetica Neue", Helvetica, Arial, sans-serif;   /* system face: native on Mac and iPhone, nearest free kin to Akzidenz */
+  --label: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --title-size: 30px; --card-w: 340px; --col-w: 360px; --gap: 20px; --radius: 18px; --key-radius: 8px; --shadow-a: .42;
+  --shadow: inset 0 1px 0 rgba(255, 255, 255, .75), 0 22px 46px -18px rgba(20, 18, 14, var(--shadow-a)), 0 3px 9px rgba(20, 18, 14, calc(var(--shadow-a) * .35));
+  --raised: 0 1px 2px rgba(20, 18, 14, .22), 0 0 0 .5px rgba(20, 18, 14, .10), inset 0 1px 0 rgba(255, 255, 255, .8);
+  --recess: inset 0 1px 2px rgba(20, 18, 14, .16), inset 0 0 0 .5px rgba(20, 18, 14, .06);
+  --tick-peak: 30px; --tick-base: 6px; --tick-stop: 12px;
   color-scheme: light;
 }
 html, body { height: 100%; }
-body { background: var(--paper); color: var(--ink); font: 15px/1.5 var(--title); overflow: hidden; }
+body { background: var(--paper); color: var(--ink); font: 14.5px/1.5 var(--label); overflow: hidden; -webkit-font-smoothing: antialiased; }
 #map { position: fixed; inset: 0; background: var(--space); }
 .caps { font-family: var(--label); text-transform: uppercase; letter-spacing: .09em; font-size: 11px; }
 
-/* ---------- the panel: one paper surface, no frame ---------- */
+/* ---------- the panel: one object on the map ---------- */
 .panel { position: fixed; z-index: 2; display: flex; flex-direction: column; background: var(--sheet); color: var(--ink); }
 body.lay-card { --map-left: calc(var(--card-w) + 2 * var(--gap)); }
-body.lay-card .panel { top: calc(var(--gap) + env(safe-area-inset-top, 0px)); left: var(--gap); width: var(--card-w); max-height: calc(100% - 2 * var(--gap)); }
+body.lay-card .panel { top: calc(var(--gap) + env(safe-area-inset-top, 0px)); left: var(--gap); width: var(--card-w); max-height: calc(100% - 2 * var(--gap));
+  border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
 body.lay-column { --map-left: var(--col-w); }
-body.lay-column .panel { top: 0; left: 0; bottom: 0; width: var(--col-w); border-right: 1px solid var(--hair); }
+body.lay-column .panel { top: 0; left: 0; bottom: 0; width: var(--col-w); box-shadow: 1px 0 0 var(--hair), 8px 0 24px -12px rgba(20, 18, 14, var(--shadow-a)); }
 .strip { display: none; }
-.panel-head { padding: 18px 22px 0; }
-.wordmark { margin: 0; font: 700 12px/1.2 var(--label); letter-spacing: .24em; text-transform: uppercase; }
-.tagline { margin: 2px 0 0; font: italic 12.5px/1.35 var(--title); color: var(--ink-2); }
+.panel-head { padding: 20px 22px 0; display: flex; align-items: baseline; gap: 10px; }
+.panel-head::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--survey); align-self: center; }  /* the one lit indicator */
+.wordmark { margin: 0; font: 700 12.5px/1.2 var(--label); letter-spacing: .02em; }
+.tagline { margin: 0; font: 400 12px/1.35 var(--label); color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .grab { display: none; }
 .panel-body { overflow-y: auto; padding: 16px 22px 22px; display: flex; flex-direction: column; gap: 16px; min-height: 0; }
-.section-title { margin: 0; font: 600 10.5px var(--label); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-2); }
+.section-title { margin: 0; font: 500 10.5px var(--label); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
 
 /* lists: hairline rows */
 .legend-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
 .entry { display: grid; grid-template-columns: 34px 1fr; gap: 10px; align-items: start; width: 100%; text-align: left;
-  padding: 9px 0; background: none; border: 0; border-bottom: 1px solid var(--hair); color: inherit; font: inherit; cursor: pointer; }
+  padding: 10px 0; background: none; border: 0; border-bottom: 1px solid var(--hair); color: inherit; font: inherit; cursor: pointer; }
 .entry.srow { grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 12px; }
-.entry:hover .name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.entry:hover .name { color: var(--ink-2); }
 .entry:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 .swatch { width: 34px; height: 22px; border: 1px solid var(--ink); display: block; }
 .swatch.plowed { background: var(--sage); } .swatch.standing { background: var(--aqua); } .swatch.urban { background: var(--pink); }
 .swatch.hatch { background: repeating-linear-gradient(135deg, var(--paper) 0 3px, var(--ink-2) 3px 4px); }
-.entry .name { display: block; font-size: 16px; line-height: 1.25; }
-.entry .desc { display: block; font-style: italic; color: var(--ink-2); font-size: 12.5px; line-height: 1.35; }
-.entry .yr { font: 600 11px var(--label); letter-spacing: .08em; font-variant-numeric: tabular-nums; color: var(--ink-2); white-space: nowrap; }
+.entry .name { display: block; font: 500 15px/1.25 var(--title); }
+.entry .desc { display: block; color: var(--ink-2); font-size: 12.5px; line-height: 1.35; }
+.entry .yr { font: 500 12px var(--label); font-variant-numeric: tabular-nums; color: var(--ink-2); white-space: nowrap; }
 
 /* a site: back, title, place, a label/value grid, the paragraph, the credit */
-.back { align-self: flex-start; background: none; border: 0; color: var(--ink-2); font: 600 10.5px var(--label); letter-spacing: .16em; text-transform: uppercase; padding: 0; cursor: pointer; }
+.back { align-self: flex-start; background: none; border: 0; color: var(--ink-2); font: 500 12px var(--label); padding: 0; cursor: pointer; }
 .back:hover { color: var(--ink); }
-.site-head { display: grid; gap: 3px; }
-.site-title { margin: 0; font: 400 var(--title-size)/1.08 var(--title); letter-spacing: -.005em; text-wrap: balance; }
-.site-aka { margin: 0; font: italic 14px/1.35 var(--title); color: var(--ink-2); }
-.facts { margin: 0; display: grid; grid-template-columns: 74px minmax(0, 1fr); gap: 9px 14px; align-items: baseline; padding: 13px 0; border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
-.facts dt { font: 600 10px/1.6 var(--label); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-2); }
-.facts dd { margin: 0; font-size: 14.5px; line-height: 1.35; min-width: 0; }
+.site-head { display: grid; gap: 4px; }
+.site-title { margin: 0; font: 500 var(--title-size)/1.05 var(--title); letter-spacing: -.02em; text-wrap: balance; }
+.site-aka { margin: 0; font: 400 13.5px/1.35 var(--label); color: var(--ink-2); }
+.facts { margin: 0; display: grid; grid-template-columns: 70px minmax(0, 1fr); gap: 10px 14px; align-items: center; padding: 14px 0; border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
+.facts dt { font: 500 10.5px/1.6 var(--label); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+.facts dd { margin: 0; font-size: 14px; line-height: 1.35; min-width: 0; }
 .facts dd.num { font-variant-numeric: tabular-nums; }
-/* toggles are words: the chosen one is ink and underlined, the others mid grey */
-.tabs, .seg { display: flex; flex-wrap: wrap; gap: 4px 16px; border: 0; }
-.tabs button, .seg button { background: none; border: 0; border-bottom: 1px solid transparent; padding: 1px 0 2px; color: var(--ink-2);
-  font: 600 11px/1.3 var(--label); letter-spacing: .14em; text-transform: uppercase; cursor: pointer; }
+/* toggles are keys in a recessed well; the chosen key is raised */
+.tabs, .seg { display: inline-flex; flex-wrap: wrap; gap: 2px; padding: 2px; border-radius: calc(var(--key-radius) + 2px); background: var(--well); box-shadow: var(--recess); }
+.tabs button, .seg button { background: none; border: 0; border-radius: var(--key-radius); padding: 5px 11px; color: var(--ink-2); font: 500 12px/1.2 var(--label); cursor: pointer; }
 .tabs button:hover, .seg button:hover { color: var(--ink); }
-.tabs button[aria-pressed="true"], .seg button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+.tabs button[aria-pressed="true"], .seg button[aria-pressed="true"] { background: var(--sheet); color: var(--ink); box-shadow: var(--raised); }
 .tabs button:disabled, .seg button:disabled { color: var(--hair); cursor: default; }
 .bchips { display: none; }
 .group { display: flex; flex-direction: column; gap: 9px; padding-top: 14px; border-top: 1px solid var(--hair); }
 .row { display: flex; align-items: center; gap: 12px; }
-.row label { flex: 0 0 auto; color: var(--ink-2); font: 600 10px var(--label); letter-spacing: .14em; text-transform: uppercase; }
-/* sliders: a hairline and a small ink bead */
-input[type=range] { flex: 1; min-width: 0; height: 18px; margin: 0; background: transparent; -webkit-appearance: none; appearance: none; cursor: pointer; }
-input[type=range]::-webkit-slider-runnable-track { height: 1px; background: var(--ink); }
-input[type=range]::-moz-range-track { height: 1px; background: var(--ink); }
-input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 11px; height: 11px; margin-top: -5px; border-radius: 50%; background: var(--ink); border: 0; }
-input[type=range]::-moz-range-thumb { width: 11px; height: 11px; border-radius: 50%; background: var(--ink); border: 0; }
-.val { font: 600 11px var(--label); color: var(--ink-2); min-width: 3em; text-align: right; font-variant-numeric: tabular-nums; letter-spacing: .06em; }
-.ramp { height: 6px; margin-top: 8px; background: linear-gradient(90deg, #2E2622, #B0A492, #FBF7EC); }
-.ramp-labels { display: flex; justify-content: space-between; margin-top: 3px; font: 10.5px var(--label); letter-spacing: .04em; color: var(--ink-2); font-variant-numeric: tabular-nums; }
-.summary { margin: 0; font-size: 15px; line-height: 1.55; }
-.notes { margin: 6px 0 0; padding-left: 18px; display: grid; gap: 6px; font-size: 14px; }
-.fit, .source { margin: 0; font-size: 12px; line-height: 1.45; color: var(--ink-2); font-style: italic; overflow-wrap: anywhere; }
+.row label { flex: 0 0 auto; color: var(--ink-2); font: 500 10.5px var(--label); letter-spacing: .08em; text-transform: uppercase; }
+/* sliders: a groove and a round knob */
+input[type=range] { flex: 1; min-width: 0; height: 22px; margin: 0; background: transparent; -webkit-appearance: none; appearance: none; cursor: pointer; }
+input[type=range]::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; background: var(--well); box-shadow: var(--recess); }
+input[type=range]::-moz-range-track { height: 4px; border-radius: 2px; background: var(--well); box-shadow: var(--recess); }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; margin-top: -7px; border-radius: 50%; border: 0;
+  background: radial-gradient(circle at 50% 35%, #FFFFFF, var(--sheet) 60%); box-shadow: 0 1px 3px rgba(20, 18, 14, .35), 0 0 0 .5px rgba(20, 18, 14, .15); }
+input[type=range]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; border: 0;
+  background: radial-gradient(circle at 50% 35%, #FFFFFF, var(--sheet) 60%); box-shadow: 0 1px 3px rgba(20, 18, 14, .35), 0 0 0 .5px rgba(20, 18, 14, .15); }
+.val { font: 500 12px var(--label); color: var(--ink-2); min-width: 3em; text-align: right; font-variant-numeric: tabular-nums; }
+.ramp { height: 6px; margin-top: 8px; border-radius: 3px; background: linear-gradient(90deg, #2E2622, #B0A492, #FBF7EC); }
+.ramp-labels { display: flex; justify-content: space-between; margin-top: 3px; font: 11px var(--label); color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.summary { margin: 0; font-size: 14.5px; line-height: 1.55; }
+.notes { margin: 6px 0 0; padding-left: 18px; display: grid; gap: 6px; font-size: 13.5px; }
+.fit, .source { margin: 0; font-size: 11.5px; line-height: 1.5; color: var(--ink-2); overflow-wrap: anywhere; }
 .source a, .about a { color: inherit; }
-details.align summary { cursor: pointer; color: var(--ink-2); font: 600 10.5px var(--label); letter-spacing: .14em; text-transform: uppercase; }
+details.align summary { cursor: pointer; color: var(--ink-2); font: 500 12px var(--label); }
 .pad { display: grid; grid-template-columns: repeat(3, 38px); gap: 5px; }
-.pad button, .tools button { background: none; color: var(--ink); border: 1px solid var(--hair); font: 15px/1 var(--title); height: 32px; cursor: pointer; }
-.pad button:hover, .tools button:hover { border-color: var(--ink); }
-.tools { display: flex; flex-wrap: wrap; gap: 5px; }
-.tools button { padding: 0 10px; font: 600 11px var(--label); letter-spacing: .1em; text-transform: uppercase; }
-.tools button.primary { background: var(--ink); border-color: var(--ink); color: var(--sheet); }
+.pad button, .tools button { background: var(--sheet); color: var(--ink); border: 0; border-radius: var(--key-radius); box-shadow: var(--raised); font: 15px/1 var(--label); height: 32px; cursor: pointer; }
+.pad button:active, .tools button:active { box-shadow: var(--recess); background: var(--well); }
+.tools { display: flex; flex-wrap: wrap; gap: 6px; }
+.tools button { padding: 0 12px; font: 500 12px var(--label); }
+.tools button.primary { background: var(--ink); color: var(--sheet); }
 .status { margin: 0; font-size: 13px; color: var(--ink-2); min-height: 1.4em; }
-.search { display: flex; gap: 14px; align-items: center; }
-.search input[type=search] { flex: 1; min-width: 0; padding: 6px 0; border: 0; border-bottom: 1px solid var(--ink); border-radius: 0; background: transparent; font: 15px var(--title); color: var(--ink); }
-.search input[type=search]::placeholder { color: var(--ink-2); font-style: italic; }
-.search input[type=search]:focus-visible { outline: 0; border-bottom-width: 2px; }
-.check { display: flex; gap: 6px; align-items: center; font: 600 10px var(--label); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); white-space: nowrap; cursor: pointer; }
+.search { display: flex; gap: 12px; align-items: center; }
+.search input[type=search] { flex: 1; min-width: 0; padding: 8px 11px; border: 0; border-radius: calc(var(--key-radius) + 2px); background: var(--well); box-shadow: var(--recess); font: 14px var(--label); color: var(--ink); }
+.search input[type=search]::placeholder { color: var(--ink-2); }
+.search input[type=search]:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
+.check { display: flex; gap: 6px; align-items: center; font: 500 12px var(--label); color: var(--ink-2); white-space: nowrap; cursor: pointer; }
 .check input { accent-color: var(--ink); margin: 0; }
-.group-title { margin: 14px 0 0; padding-bottom: 5px; font: 600 10px var(--label); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-2); border-bottom: 1px solid var(--ink); display: flex; justify-content: space-between; }
-.group-title span { font-weight: 400; font-variant-numeric: tabular-nums; }
-.lede { margin: 0; font-style: italic; font-size: 14px; line-height: 1.45; color: var(--ink-2); }
-/* kind filter: words with a flat swatch (the only colour on the panel, and it names a category) */
-.kinds { display: flex; flex-wrap: wrap; gap: 6px 14px; }
-.kinds button { display: flex; gap: 6px; align-items: center; background: none; border: 0; border-bottom: 1px solid transparent; padding: 1px 0 2px; font: 600 10.5px var(--label); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); cursor: pointer; }
+.group-title { margin: 14px 0 0; padding-bottom: 6px; font: 500 10.5px var(--label); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); border-bottom: 1px solid var(--rule); display: flex; justify-content: space-between; }
+.group-title span { font-variant-numeric: tabular-nums; }
+.lede { margin: 0; font-size: 13.5px; line-height: 1.45; color: var(--ink-2); }
+/* kind filter: keys with a flat swatch (the panel's only colour, and it names a category) */
+.kinds { display: flex; flex-wrap: wrap; gap: 4px; }
+.kinds button { display: flex; gap: 6px; align-items: center; background: none; border: 0; border-radius: 999px; padding: 4px 9px; font: 500 11.5px var(--label); color: var(--ink-2); cursor: pointer; }
 .kinds button:hover { color: var(--ink); }
-.kinds button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+.kinds button[aria-pressed="true"] { background: var(--sheet); color: var(--ink); box-shadow: var(--raised); }
 .kinds i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
 .swatch.dot { border-radius: 50%; width: 16px; height: 16px; margin: 3px 9px; }
-.links { display: flex; gap: 12px; font: 600 12px var(--label); letter-spacing: .06em; text-transform: uppercase; }
+.links { display: flex; gap: 12px; font: 500 12px var(--label); }
 .links a { color: var(--ink); }
-details.about { font-size: 13px; line-height: 1.5; color: var(--ink-2); }
-details.about summary { cursor: pointer; font: 600 10.5px var(--label); letter-spacing: .16em; text-transform: uppercase; }
+details.about { font-size: 12.5px; line-height: 1.5; color: var(--ink-2); }
+details.about summary { cursor: pointer; font: 500 12px var(--label); }
 details.about p { margin: 8px 0 0; }
 /* plate-fitting tool: an old book page beside the map, matching points clicked on both */
 .fitpane { position: absolute; z-index: 6; top: 12px; bottom: 12px; left: calc(var(--map-left) + 4px); width: min(46vw, 780px); background: var(--sheet); border: 1px solid var(--ink); display: flex; flex-direction: column; box-shadow: 0 2px 12px rgba(43,39,36,.25); }
@@ -230,7 +239,7 @@ details.about p { margin: 8px 0 0; }
 .marker.scan .tag { top: 50%; }
 
 .maplibregl-ctrl-attrib { font: 10.5px var(--label) !important; background: rgba(248, 244, 232, .85) !important; }
-.maplibregl-ctrl-group { background: var(--sheet) !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; }
+.maplibregl-ctrl-group { background: var(--sheet) !important; border: 0 !important; border-radius: 12px !important; box-shadow: var(--shadow) !important; overflow: hidden; }
 .maplibregl-ctrl-group button + button { border-top: 1px solid var(--hair) !important; }
 
 /* ---------- the plate sheet (block diagram) ---------- */
@@ -238,10 +247,10 @@ details.about p { margin: 8px 0 0; }
   position: fixed; z-index: 3; top: 0; right: 0; bottom: 0; left: var(--map-left);
   display: grid; grid-template-rows: auto 1fr auto; background: var(--sheet); border-left: 1px solid var(--hair);
 }
-body.lay-card .sheet { top: var(--gap); right: var(--gap); bottom: var(--gap); left: var(--map-left); border: 0; }
+body.lay-card .sheet { top: var(--gap); right: var(--gap); bottom: var(--gap); left: var(--map-left); border: 0; border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
 .sheet-strip { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; padding: 9px 14px 4px; color: var(--ink-2); }
-.sheet-close { background: none; border: 0; border-bottom: 1px solid var(--ink); color: var(--ink); font: 600 10.5px var(--label); letter-spacing: .14em; text-transform: uppercase; padding: 2px 0; cursor: pointer; }
-.sheet-close:hover { color: var(--ink-2); }
+.sheet-close { background: var(--sheet); border: 0; border-radius: var(--key-radius); box-shadow: var(--raised); color: var(--ink); font: 500 12px var(--label); padding: 6px 12px; cursor: pointer; }
+.sheet-close:active { box-shadow: var(--recess); background: var(--well); }
 .sheet-main { position: relative; display: grid; grid-template-columns: 1fr 230px; min-height: 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin: 0 14px; }
 .stage { position: relative; min-height: 0; min-width: 0; cursor: grab; touch-action: none; }
 .stage:active { cursor: grabbing; }
@@ -268,40 +277,32 @@ body.lay-card .sheet { top: var(--gap); right: var(--gap); bottom: var(--gap); l
    above the sheet: tap for ink lines or the original drawing, hold and slide for its opacity. */
 .mtop, .mera, .mpop { display: none; }
 .lensbar { display: none; }
-/* ---------- the year scrubber: the page's one living thing (design/one-living-thing, "The Life of a Cursor"): a ruler of 1px
-   ticks, one even slot per old map, swelling round the current point; the big year counts between maps as it slides; the
-   name below it; the oldest year at the left end, Today at the right. Desktop: straight on the map, which darkens toward
-   the bottom so the ticks read (depth by darkening the ground, no card). Phones: the same parts in the sheet's peek. */
-.yscrub { position: fixed; z-index: 2; left: var(--map-left); right: 0; bottom: 0; display: flex; justify-content: center; padding: 96px 40px 44px; pointer-events: none;
-  background: linear-gradient(to top, color-mix(in srgb, var(--scrim) calc(var(--scrim-a) * 100%), transparent) 0%,
-    color-mix(in srgb, var(--scrim) calc(var(--scrim-a) * 100%), transparent) 38%, transparent 100%);
-  --ys-text: var(--on-scrim); --ys-text-2: color-mix(in srgb, var(--on-scrim) 72%, transparent);
-  --tk: color-mix(in srgb, var(--on-scrim) 42%, transparent); --tk-stop: var(--on-scrim); --tk-on: var(--survey); }
+/* ---------- the year scrubber: a radio tuning dial (Braun; the ruler of "The Life of a Cursor", design/one-living-thing).
+   On desktop an object of the panel's make at the bottom of the map: the year and the map's name above, then the dial
+   window, recessed, with the oldest year and Today at its ends, fine ticks swelling round a red needle. Phones: the same
+   dial in the sheet's peek. */
+.yscrub { position: fixed; z-index: 2; left: var(--map-left); right: 0; bottom: calc(var(--gap) + 22px);  /* clear of the map credits line */ display: flex; justify-content: center; padding: 0 var(--gap); pointer-events: none; }
 .yscrub[hidden] { display: none; }
-body.blk .yscrub { display: none; }  /* the block's caption sits where the band would; scrub on the map */
-.yscrub .ys { pointer-events: auto; width: min(620px, 100%); }
-.ys { --ys-text: var(--ink); --ys-text-2: var(--ink-2); --tk: var(--hair); --tk-stop: var(--ink-2); --tk-on: var(--survey);
-  display: grid; gap: 8px; touch-action: none; user-select: none; -webkit-user-select: none; }
-.yscrub .ys { --ys-text: inherit; }
-.ys-head { display: grid; justify-items: center; gap: 1px; text-align: center; color: var(--ys-text); }
-.yscrub .ys-head { color: var(--on-scrim); }
-.ys-year { font: 400 26px/1.1 var(--title); font-variant-numeric: tabular-nums; letter-spacing: .01em; }
-.ys-name { max-width: 100%; font: italic 13.5px/1.35 var(--title); color: var(--ys-text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.ys-row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 0 14px; align-items: end; }
+body.blk .yscrub { display: none; }  /* the block's caption sits where the dial would; scrub on the map */
+.yscrub .ys { pointer-events: auto; width: min(620px, 100%); box-sizing: border-box; padding: 14px 16px 14px; background: var(--sheet); border-radius: var(--radius); box-shadow: var(--shadow); }
+.ys { display: grid; gap: 10px; touch-action: none; user-select: none; -webkit-user-select: none; }
+.ys-head { display: flex; align-items: baseline; gap: 12px; min-width: 0; padding: 0 4px; }
+.ys-year { flex: none; font: 500 30px/1 var(--title); font-variant-numeric: tabular-nums; letter-spacing: -.02em; color: var(--ink); }
+.ys-name { flex: 1; min-width: 0; font: 500 14px/1.3 var(--label); color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ys-row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 0 12px; align-items: end; padding: 10px 12px 8px; border-radius: calc(var(--key-radius) + 4px); background: var(--well); box-shadow: var(--recess); }
 .ys-ticks { position: relative; height: var(--tick-peak); cursor: ew-resize; touch-action: none; outline: none; }
-.ys-ticks:focus-visible { outline: 1px solid var(--ys-text-2); outline-offset: 6px; }
-.ys-tk { position: absolute; bottom: 0; width: 1px; height: var(--tick-peak); background: var(--tk); transform-origin: 50% 100%; transform: scaleY(calc(var(--tick-base) / var(--tick-peak))); will-change: transform; }
-.ys-tk.st { background: var(--tk-stop); }
-.ys-tk.on { background: var(--tk-on); width: 2px; margin-left: -.5px; }
-.ys-ticks.present .ys-tk.on { background: var(--tk-stop); }
-.ys-end { background: none; border: 0; padding: 4px 0; font: 600 10.5px/1 var(--label); letter-spacing: .14em; text-transform: uppercase; font-variant-numeric: tabular-nums; color: var(--ys-text-2); cursor: pointer; white-space: nowrap; }
-.yscrub .ys-end { color: color-mix(in srgb, var(--on-scrim) 72%, transparent); }
-.ys-end:hover, .yscrub .ys-end:hover { color: var(--on-scrim); }
-.ys .ys-end:hover { text-decoration: underline; text-underline-offset: 3px; }
+.ys-ticks:focus-visible { outline: 2px solid var(--ink); outline-offset: 6px; border-radius: 2px; }
+.ys-tk { position: absolute; bottom: 0; width: 1px; height: var(--tick-peak); background: var(--rule); transform-origin: 50% 100%; transform: scaleY(calc(var(--tick-base) / var(--tick-peak))); will-change: transform; }
+.ys-tk.st { background: var(--ink); }
+.ys-needle { position: absolute; top: -4px; bottom: -4px; width: 2px; margin-left: -1px; border-radius: 1px; background: var(--survey); box-shadow: 0 0 0 .5px rgba(20, 18, 14, .12); pointer-events: none; }
+.ys-ticks.present .ys-needle { background: var(--ink); }
+.ys-end { background: none; border: 0; padding: 2px 0; font: 500 11.5px/1 var(--label); font-variant-numeric: tabular-nums; color: var(--ink-2); cursor: pointer; white-space: nowrap; }
+.ys-end:hover { color: var(--ink); }
 @media (max-width: 760px) {
   :root { --peek: 40vh; }
   /* the layouts' desktop placement goes; the sheet's own transform stays on .panel so .panel.open still wins */
-  body.lay-card .panel, body.lay-column .panel { top: auto; left: 0; right: 0; bottom: 0; width: auto; max-height: none; border: 0; }
+  body.lay-card .panel, body.lay-column .panel { top: auto; left: 0; right: 0; bottom: 0; width: auto; max-height: none; border: 0;
+    border-radius: var(--radius) var(--radius) 0 0; box-shadow: 0 -10px 30px -12px rgba(20, 18, 14, var(--shadow-a)); }
   .panel { height: 84%; padding-bottom: env(safe-area-inset-bottom, 0px); overflow: hidden;
     transform: translateY(calc(100% - var(--peek))); transition: transform .34s cubic-bezier(.2, .8, .2, 1); }
   .panel.open { transform: none; }
@@ -310,7 +311,7 @@ body.blk .yscrub { display: none; }  /* the block's caption sits where the band 
   .panel:not(.open) .panel-body { overflow: hidden; }
   .strip, .panel-head { display: none; }
   .grab { display: block; flex: none; width: 100%; height: 24px; background: none; border: 0; padding: 0; cursor: pointer; touch-action: none; }
-  .grab::before { content: ""; display: block; margin: 8px auto 0; width: 44px; height: 5px; background: var(--rule); }
+  .grab::before { content: ""; display: block; margin: 8px auto 0; width: 40px; height: 5px; border-radius: 3px; background: var(--well); box-shadow: var(--recess); }
   .panel-body { padding: 2px 18px 18px; }
   /* in a site the lens bar carries view, ground and the old map's look, so the card's rows for them go */
   #body > .back, .lensbar ~ .facts .f-view, .lensbar ~ .facts .f-ground, .lensbar ~ .facts .f-look { display: none; }
@@ -318,37 +319,37 @@ body.blk .yscrub { display: none; }  /* the block's caption sits where the band 
   /* pulled up in a site: what it is and where to go next first, the map pickers and the owner's tools under them */
   #body > .lensbar ~ .facts, #body > .lensbar ~ .summary, #body > .lensbar ~ p.source, #body > .lensbar ~ div:has(> .notes), #near { order: 1; }
   #body > .lensbar ~ .group, #body > .lensbar ~ details.align { order: 2; }
-  .search input[type=search] { font-size: 16px; padding: 9px 0; }  /* 16px: iOS zooms the page into smaller inputs */
+  .search input[type=search] { font-size: 16px; padding: 10px 12px; }  /* 16px: iOS zooms the page into smaller inputs */
   .maplibregl-ctrl-top-right { display: none; }
   .maplibregl-ctrl-bottom-right, .maplibregl-ctrl-bottom-left { bottom: var(--peek); transition: bottom .34s; }
 
   /* the top bar is one plate label: back on its left behind a rule, the site's name centred in the rest, the year hung
      under the name's centre (Ethan 2026-10-15: the year sat off-centre, the back box felt detached). Home shows no bar. */
   .mtop { display: flex; position: fixed; z-index: 2; left: 10px; right: 10px; top: calc(10px + env(safe-area-inset-top, 0px)); align-items: stretch;
-    background: var(--sheet); }
+    background: var(--sheet); border-radius: 14px; box-shadow: var(--shadow); }
   .mtop.home { display: none; }
   .mt-back { flex: none; width: 46px; display: grid; place-items: center; background: none; border: 0; border-right: 1px solid var(--hair); color: var(--ink); cursor: pointer; padding: 0; }
   .mt-back svg { width: 22px; height: 22px; }
   .mt-back:active { background: var(--paper-2); }
   .mt-name { position: relative; flex: 1; min-width: 0; text-align: center; padding: 6px 46px 6px 0; }  /* right pad = back's width, so the name centres on the screen */
-  .mt-name b { display: block; font: 400 17px/1.2 var(--title); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .mt-name i { display: block; font: italic 12px/1.3 var(--title); color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mt-name b { display: block; font: 500 16px/1.2 var(--title); letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mt-name i { display: block; font: 400 12px/1.3 var(--label); font-style: normal; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .mera { position: absolute; left: calc(50% - 23px); top: calc(100% + 9px); transform: translateX(-50%); pointer-events: none;
-    font: 700 11px/1 var(--label); letter-spacing: .14em; text-transform: uppercase; background: var(--survey); color: #fff; padding: 5px 8px 4px; white-space: nowrap; }
+    font: 600 12px/1 var(--label); font-variant-numeric: tabular-nums; background: var(--survey); color: #fff; padding: 5px 10px; border-radius: 999px; box-shadow: 0 2px 6px rgba(20, 18, 14, .3); white-space: nowrap; }
   .mera:not([hidden]) { display: block; }
   .mera.present { background: var(--ink); }
 
   /* the old map's look: a chip in the lens bar's row opens a small card with Ink lines / Original and an opacity slider
      (replaced the round tap-or-hold button: "nothing indicates the button can be pressed") */
   .mpop { position: fixed; z-index: 3; right: 12px; bottom: calc(var(--peek) + 8px); width: min(300px, calc(100vw - 24px)); box-sizing: border-box;
-    background: var(--sheet); padding: 12px 14px 14px; display: grid; gap: 12px; }
+    background: var(--sheet); border-radius: var(--radius); box-shadow: var(--shadow); padding: 14px 16px 16px; display: grid; gap: 12px; }
   .mpop[hidden] { display: none; }
   .mpop .mp-t { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
   .mpop .mp-t b { font: 600 10.5px var(--label); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); }
   .mpop .mp-t span { font: italic 12px/1.2 var(--title); color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
-  .mp-seg { display: flex; gap: 18px; }
-  .mp-seg button { background: none; border: 0; border-bottom: 1px solid transparent; padding: 8px 0 3px; font: 600 11px/1 var(--label); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); cursor: pointer; }
-  .mp-seg button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+  .mp-seg { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; padding: 2px; border-radius: calc(var(--key-radius) + 2px); background: var(--well); box-shadow: var(--recess); }
+  .mp-seg button { background: none; border: 0; border-radius: var(--key-radius); padding: 9px 4px; font: 500 13px/1 var(--label); color: var(--ink-2); cursor: pointer; }
+  .mp-seg button[aria-pressed="true"] { background: var(--sheet); color: var(--ink); box-shadow: var(--raised); }
   .mp-seg button:disabled { color: var(--hair); cursor: default; }
   .mp-op { display: flex; align-items: center; gap: 10px; }
   .mp-op label { font: 600 10.5px var(--label); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); }
@@ -356,25 +357,24 @@ body.blk .yscrub { display: none; }  /* the block's caption sits where the band 
   .mp-op output { font: 700 12.5px var(--label); font-variant-numeric: tabular-nums; min-width: 3.2em; text-align: right; }
   .panel.open ~ .mpop { display: none; }
 
-  .lensbar { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; min-height: 104px; align-content: start; touch-action: none; }
+  .lensbar { flex: none; display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; min-height: 104px; align-content: start; touch-action: none; }  /* flex: none: the peek is its full height */
   .yscrub { display: none !important; }
-  /* the year scrubber in the peek: year and name on one line, the ends either side of the ticks */
-  .ys { gap: 5px; }
-  .ys-head { display: flex; align-items: baseline; gap: 10px; justify-items: start; text-align: left; min-height: 24px; }
-  .ys-year { font-size: 22px; flex: none; }
-  .ys-name { flex: 1; min-width: 0; font-size: 13.5px; }
-  .ys-row { gap: 0 12px; }
-  .ys-end { padding: 8px 0; font-size: 10.5px; }
+  /* the dial in the peek: the sheet is the object, so the dial sits in it without a body of its own */
+  .ys { gap: 8px; }
+  .ys-year { font-size: 26px; }
+  .ys-row { padding: 9px 12px 7px; }
+  .ys-end { padding: 6px 0; }
   .track-none { margin: 0; min-height: 44px; display: flex; align-items: center; font-size: 13px; font-style: italic; color: var(--ink-2); }
   .lrow { display: flex; gap: 8px; align-items: center; }
   /* the lens row: words, the chosen ones ink and underlined; the old map's look at the right with a caret, as the thing that opens */
-  .lchips { display: flex; gap: 18px; flex: 1; min-width: 0; align-items: center; border-top: 1px solid var(--hair); padding-top: 4px; }
-  .lchips button { flex: none; min-width: 0; white-space: nowrap; background: none; border: 0; border-bottom: 1px solid transparent; color: var(--ink-2); font: 600 11px/1 var(--label); letter-spacing: .14em; text-transform: uppercase; padding: 11px 0 4px; cursor: pointer; }
+  .lchips { display: flex; gap: 4px; flex: 1; min-width: 0; align-items: center; }
+  .lchips button { flex: none; min-width: 0; white-space: nowrap; background: none; border: 0; border-radius: var(--key-radius); color: var(--ink-2); font: 500 13px/1 var(--label); padding: 10px 11px; cursor: pointer; }
   .lchips .gap { flex: 1; }
-  .lchips button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+  .lchips button[aria-pressed="true"] { background: var(--sheet); color: var(--ink); box-shadow: var(--raised); }
+  .lchips { padding: 2px; border-radius: calc(var(--key-radius) + 2px); background: var(--well); box-shadow: var(--recess); }
   .lchips .lpast { color: var(--ink); display: flex; align-items: center; gap: 5px; }
   .lchips .lpast::after { content: ""; flex: none; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-bottom: 5px solid currentColor; }
-  .lchips .lpast[aria-expanded="true"] { border-bottom-color: var(--ink); }
+  .lchips .lpast[aria-expanded="true"] { background: var(--sheet); box-shadow: var(--raised); }
   .lchips .lpast:disabled { color: var(--hair); cursor: default; }
   .lchips .lpast b { font-weight: 700; font-variant-numeric: tabular-nums; }
   .strip { padding-top: 14px; }
@@ -1298,8 +1298,8 @@ function scrubEnd(s, stops, k) {
   hideScrubLater(s, stops, 250);
 }
 // the year scrubber's parts and motion, the same on a phone (in the lens bar) and on desktop (#yscrub over the map).
-// It is the page's one living thing (design/one-living-thing, Ethan 2026-10-16): a ruler of hairline ticks that swell round
-// the current point. One loop eases the shown point tc toward the target tt with no overshoot: it follows a drag closely,
+// It is the page's one living thing (design/one-living-thing, Ethan 2026-10-16), drawn as a radio tuning dial (Braun): fine
+// ticks that swell round a red needle at the current point. One loop eases the shown point tc toward the target tt with no overshoot: it follows a drag closely,
 // glides on a tap, a key or an end label, and the release settles on the nearest map, which then becomes the resting
 // layer (scrubEnd). The map name swaps instantly; only the ticks and the overlays ease. Reduced motion: no glide.
 // TUNE holds the knobs the dev canvas (?dev=1) turns.
@@ -1323,7 +1323,7 @@ function yearScrub(s, stops, at) {
     <div class="ys-head"><b class="ys-year${at === n ? ' present' : ''}">${esc(ysYear(stops, at))}</b><span class="ys-name">${esc(stopName(stops[at], s))}</span></div>
     <div class="ys-row">
       <button class="ys-end" data-ys="0" title="The oldest map">${esc(String(stopYear(stops[0]) || 'Undated'))}</button>
-      <div class="ys-ticks${at === n ? ' present' : ''}" role="slider" tabindex="0" aria-label="Old maps by year, oldest to today" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${at}">${ticks}</div>
+      <div class="ys-ticks${at === n ? ' present' : ''}" role="slider" tabindex="0" aria-label="Old maps by year, oldest to today" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${at}">${ticks}<i class="ys-needle" style="left:${(at / n * 100).toFixed(3)}%"></i></div>
       <button class="ys-end" data-ys="${n}">Today</button>
     </div>
   </div>`;
@@ -1331,7 +1331,7 @@ function yearScrub(s, stops, at) {
 function wireYearScrub(s, stops, at, root) {
   if (!root) { YS.el = null; return; }
   const n = stops.length - 1, tr = root.querySelector('.ys-ticks'), cs = getComputedStyle(tr), px = v => parseFloat(cs.getPropertyValue(v)) || 1;
-  YS.el = { tr, ticks: [...tr.querySelectorAll('.ys-tk')], year: root.querySelector('.ys-year'), name: root.querySelector('.ys-name'),
+  YS.el = { tr, needle: tr.querySelector('.ys-needle'), ticks: [...tr.querySelectorAll('.ys-tk')], year: root.querySelector('.ys-year'), name: root.querySelector('.ys-name'),
     peak: px('--tick-peak'), base: px('--tick-base'), stop: px('--tick-stop') };
   // a re-render mid-glide (the old maps arriving) keeps the motion going
   const live = YS.raf && YS.s === s;
@@ -1358,6 +1358,7 @@ function ysPaint(s, stops, t) {
     tk.style.transform = `scaleY(${((b + (el.peak - b) * Math.exp(-d * d / k2)) / el.peak).toFixed(4)})`;
     tk.classList.toggle('on', Math.abs(d) < .5);
   });
+  el.needle.style.left = (t / n * 100).toFixed(3) + '%';
   const y = ysYear(stops, t);
   el.year.textContent = y; el.year.classList.toggle('present', i === n); el.tr.classList.toggle('present', i === n);
   el.tr.setAttribute('aria-valuenow', String(i)); el.tr.setAttribute('aria-valuetext', `${y}, ${stopName(stops[i], s)}`);
