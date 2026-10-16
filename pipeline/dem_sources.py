@@ -291,6 +291,13 @@ def _reproject(name, fetch_native, bbox, w, h, tries):
                 a, ax0, ay0, asx, asy = _read_geotiff(fetch_native(sub, cw, ch, res, tries))
             except OutsideCoverage:  # coverage polygon is looser than the service's extent (AHN off Zeeland)
                 continue
+            except urllib.error.HTTPError as e:
+                # EA answers a block with no data at all (open sea, Scotland) with a bare 500, same as an outage.
+                # A tiny request inside known data tells them apart: if it works, the service is up and the 500
+                # belongs to this block.
+                if not (name in CONTROL and e.code == 500 and _service_up(name, fetch_native)):
+                    raise
+                continue
             a[~src["valid"](a)] = np.nan
             if name == "ign":  # the server blends -9999 into edge pixels before we see them
                 from scipy.ndimage import binary_dilation
@@ -304,6 +311,19 @@ def _reproject(name, fetch_native, bbox, w, h, tries):
                                 order=1, mode="nearest")
             out[inside] = np.where(np.isnan(out[inside]), v, out[inside])
     return out
+
+
+# a 100 m square of known data per service (native CRS), for _service_up
+CONTROL = {"ea": (351900.0, 528400.0)}   # Mayburgh Henge, Penrith
+
+
+def _service_up(name, fetch_native):
+    e, n = CONTROL[name]
+    try:
+        fetch_native((e, n, e + 100, n + 100), 100, 100, SOURCES[name]["native_m"], 2)
+        return True
+    except Exception:
+        return False
 
 
 # ---------------------------------------------------------------- per-service requests (native CRS)
