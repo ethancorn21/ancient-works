@@ -25,7 +25,7 @@
   // [token or TUNE key, label, min, max, step, unit]
   const KNOBS = [
     ['--title-size', 'Title size', 16, 44, 1, 'px'], ['--card-w', 'Card width', 260, 520, 10, 'px'], ['--col-w', 'Column width', 280, 520, 10, 'px'],
-    ['--gap', 'Margin', 0, 48, 2, 'px'], ['--float-w', 'Floating width', 260, 560, 10, 'px'], ['--halo-a', 'Halo strength', 0, 1, .02, ''], ['--year-size', 'Year size', 24, 120, 2, 'px'],
+    ['--gap', 'Margin', 0, 48, 2, 'px'], ['--float-w', 'Floating width', 260, 560, 10, 'px'], ['--halo-a', 'Halo strength', 0, 1, .02, ''], ['--scrim-a', 'Shade behind text', 0, 1, .02, ''], ['--year-size', 'Year size', 24, 120, 2, 'px'],
     ['--tick-peak', 'Tick height, peak', 12, 80, 1, 'px'], ['--tick-base', 'Tick height, rest', 2, 24, 1, 'px'], ['--tick-stop', 'Tick height, a map', 2, 40, 1, 'px'],
     ['ticks', 'Ticks across (desktop)', 16, 160, 2, ''], ['ticksPhone', 'Ticks across (phone)', 12, 100, 2, ''],
     ['sigma', 'Swell width (ticks)', .5, 10, .25, ''], ['glide', 'Glide speed', .04, .6, .01, ''], ['follow', 'Drag follow', .1, 1, .05, ''],

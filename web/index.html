@@ -24,6 +24,9 @@ body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important
   --halo-a: .6;                 /* how dark the halo round lettering on the map is: a cartographer's halo, not a band or a box */
   --halo: 0 1px 1px rgba(8, 7, 6, calc(var(--halo-a) * 1.1)), 0 0 8px rgba(8, 7, 6, calc(var(--halo-a) * .9)), 0 0 26px rgba(8, 7, 6, calc(var(--halo-a) * .55));
   --halo-f: drop-shadow(0 1px 1px rgba(8, 7, 6, calc(var(--halo-a) * 1.1))) drop-shadow(0 0 7px rgba(8, 7, 6, calc(var(--halo-a) * .8)));
+  --scrim-a: .62;               /* the soft shade under the lettering (Ethan 2026-10-16: "add a gradiant behind the text"): eased, no edge */
+  --scrim-rgb: 12, 10, 8;
+  --on-map-red: color-mix(in srgb, var(--survey) 72%, #fff);  /* the plate red, lifted to read on the shade */
   --mauve: #D8BCD5; --mauve-2: #B996B6; --pink: #F2B5C4; --aqua: #9ED8D8; --sage: #C4D9A6; --lav: #CFC6E0; --ochre: #F2C48D;  /* swatches only */
   --title: "Old Standard TT", "Century Schoolbook", "Iowan Old Style", Georgia, serif;
   --label: "Archivo Narrow", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
@@ -62,6 +65,19 @@ body.lay-float .tools button.primary { background: var(--on-map); color: #2B2724
 body.lay-float .search input[type=search] { color: var(--on-map); }
 body.lay-float .kinds i, body.lay-float .tiers { filter: drop-shadow(0 0 2px rgba(8, 7, 6, .8)); }
 body.lay-float .pad button { color: var(--on-map); border-color: var(--rule); }
+/* the shade behind the words: a wash off the left edge, eased so it has no edge of its own, over the map and under the panel.
+   Desktop only, like the red hints below: on a phone the words sit on the paper sheet. */
+@media (min-width: 761px) {
+body.lay-float::before { content: ""; position: fixed; z-index: 1; top: 0; bottom: 0; left: 0; width: calc(var(--float-w) + 2 * var(--gap) + 280px); pointer-events: none;
+  background: linear-gradient(to right, rgba(var(--scrim-rgb), var(--scrim-a)) 0%, rgba(var(--scrim-rgb), calc(var(--scrim-a) * .94)) 30%,
+    rgba(var(--scrim-rgb), calc(var(--scrim-a) * .78)) 46%, rgba(var(--scrim-rgb), calc(var(--scrim-a) * .52)) 60%, rgba(var(--scrim-rgb), calc(var(--scrim-a) * .27)) 74%,
+    rgba(var(--scrim-rgb), calc(var(--scrim-a) * .1)) 87%, rgba(var(--scrim-rgb), 0) 100%); }
+body.lay-float.blk::before { display: none; }
+/* hints of the plate red: the wordmark, the chosen toggle's rule, the fold's label */
+body.lay-float .wordmark { color: var(--on-map-red); }
+body.lay-float .seg button[aria-pressed="true"], body.lay-float .tabs button[aria-pressed="true"], body.lay-float .kinds button[aria-pressed="true"] { border-bottom-color: var(--on-map-red); }
+body.lay-float details.more > summary { color: var(--on-map-red); }
+}
 details.more > summary { cursor: pointer; font: 600 10.5px var(--label); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-2); list-style: none; }
 details.more > summary::-webkit-details-marker { display: none; }
 details.more > summary::before { content: "+ "; } details.more[open] > summary::before { content: "− "; }
@@ -307,6 +323,11 @@ body.lay-card .sheet { top: var(--gap); right: var(--gap); bottom: var(--gap); l
 body.blk .yscrub { display: none; }  /* the block's caption sits where the year would; scrub on the map */
 .yscrub .ys { pointer-events: auto; width: min(640px, 100%);
   --ys-text: var(--on-map); --ys-text-2: var(--on-map); --tk: color-mix(in srgb, var(--on-map) 62%, transparent); --tk-stop: var(--on-map); --tk-on: var(--survey); }
+.yscrub .ys { position: relative; isolation: isolate; }
+/* the same shade under the year: an ellipse that dies out before it reaches anything, never a band */
+.yscrub .ys::before { content: ""; position: absolute; z-index: -1; inset: -90px -150px -60px; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(var(--scrim-rgb), var(--scrim-a)) 0%, rgba(var(--scrim-rgb), calc(var(--scrim-a) * .9)) 35%,
+    rgba(var(--scrim-rgb), calc(var(--scrim-a) * .6)) 58%, rgba(var(--scrim-rgb), calc(var(--scrim-a) * .28)) 78%, rgba(var(--scrim-rgb), 0) 100%); }
 .yscrub .ys-head { text-shadow: var(--halo); }
 .yscrub .ys-row { filter: var(--halo-f); }
 .ys { --ys-text: var(--ink); --ys-text-2: var(--ink-2); --tk: var(--hair); --tk-stop: var(--ink-2); --tk-on: var(--survey);
