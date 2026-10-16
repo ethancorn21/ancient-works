@@ -39,5 +39,7 @@ data/db/surveyseen/
 .agent/
 data/sheetfit/*.jpg
 
-# the public build's Esri key lives here (window.RESURFACE.satTiles); never commit it
+# the public build's Esri key (window.RESURFACE.satTiles): only the public export copies it into the site;
+# the LAN copy runs keyless. Never commit it.
+deploy/config.js
 web/config.js

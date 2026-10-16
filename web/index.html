@@ -393,7 +393,7 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
   <div class="caption"><h2 id="cap-title"></h2><p id="cap-sub"></p></div>
 </section>
 
-<!-- config.js (not in git): window.RESURFACE = { satTiles: "<Esri tile URL with its key>" }; absent on the LAN copy -->
+<!-- config.js: only in the public export (copied from deploy/config.js, not in git): window.RESURFACE = { satTiles: "<Esri tile URL with its key>" }; the LAN copy has none and runs keyless -->
 <script src="config.js"></script>
 <script src="vendor/maplibre-gl-5.6.0.js"></script>
 <script src="vendor/three-r128.min.js"></script>
@@ -444,7 +444,8 @@ S.dep = {}; S.depUrl = {}; S.depAlign = {}; S.alignStep = lsGet('aw.alignStep', 
 // Esri tiles are counted against the account's free tier (2026-10-15, publishing): the zoomed-out globe comes from
 // NASA's Blue Marble instead (public domain, no key, z0-8), and Esri only from z9. A measured visit (globe, fly to a
 // site, zoom, pan, fly back) cost ~420 Esri tiles before; most were the in-between zooms of the flights.
-// The tile URL (with its key) comes from config.js, which is not in git; without it the keyless URL serves the LAN copy.
+// The tile URL (with its key) comes from config.js, which only the public export has (deploy/config.js, not in git);
+// the LAN copy has none and keeps the keyless URL. The key is referrer-restricted to resurface.ethanlawcorn.com.
 const SAT_TILES = (window.RESURFACE && window.RESURFACE.satTiles) ||
   'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
 const SAT_MINZOOM = 9;
