@@ -66,10 +66,13 @@ fences) a fit can hold on; otherwise record them as no-fit-possible, do not forc
 
 ## C. Checked and dropped, or not verified
 
-Dropped (volume fetched, no plan of the site): C. C. Jones 1873, Antiquities of the Southern Indians (cu31924091024426
-etc.: woodcuts are artefacts, the only plan is Bartram's Creek chunk-yard) - Ocmulgee, Lamar, Etowah; C. B. Moore 1916
+CORRECTED 2026-10-16: C. C. Jones 1873 was wrongly dropped here (only its woodcut list was read). Its plates hold
+surveyed plans: Pl. I Etowah (antiquitiessouthin00jonerich n156), Pl. IV Ocmulgee with Macon's streets and the
+railroad (n184), Pl. V Kolomoki (n198) - see section E, se.jsonl.
+Dropped (volume fetched, no plan of the site): C. B. Moore 1916
 Green River / lower Ohio (someaboriginalsi00mooruoft): Kincaid described, "seen but not measured", no plan; Moore 1910
-St. Francis (stfranciswhiteblk00moorrich): Parkin only artefacts, refers to Thomas 1894's plan; Winchell 1910
+St. Francis (stfranciswhiteblk00moorrich): Parkin only artefacts (its "plan in the Twelfth Annual Report" sentence is
+about the Miller Place, not Parkin; Thomas 1894 has no Cross County plan); Winchell 1910
 (prehistoricabori0000winc): a 34-leaf pamphlet with no plans; Myer, BAE 41st AR (annualreportofbu41smit): Castalian
 Springs described, no plan caption found in OCR.
 
@@ -111,8 +114,37 @@ ones. So the missing input is a measured seed, not a better picture. Sources a s
    maps. Licence-check each set before use (owner rule: modern data is licence-checked at adoption; the old map itself
    publishes with credit).
 
+## E. Wide search 2026-10-16 (seven research passes; rows in data/leads/us_2026-10-16/)
+
+Each `*.jsonl` row carries the source id (IA id + leaf, Commons File:, LoC item, GLO document id), the caption or
+text quote, what the drawing shows, and the licence basis (published before 1931, or a US federal work). The
+matching `*.md` lists, per site or per book, what was found and what was searched with no result. Rows marked
+`"confidence": "likely"` are leads, not verified sources.
+
+| file | rows | what |
+|---|---|---|
+| se.jsonl | 13 | FL/GA/AL/SC sites: Jones 1873 Etowah/Ocmulgee/Kolomoki, Moore 1905 Miller survey of Moundville (blackwarriorriver00moorrich n12), McKinley 1872 Kolomoki survey (Smithsonian AR), Whittlesey 1881 Etowah, S&D fig. 21 = Florence mound, Willey 1949 / Kelly 1938 federal plans (Fort Walton, Lake Jackson, Ocmulgee) |
+| lowmiss.jsonl | 22 | MS/LA/AR/TN: Myer 1922 Pinson full plan, Thruston 1890 Sellars, Brown 1926 Archeology of Mississippi (Batesville, Emerald, Winterville; full 1926 scan at mdeq.ms.gov, IA copy is a restricted reprint), Shiloh park map c.1920, Setzler 1933 Marksville; USGS 1934-1959 quads as seeds only (plain topo is not shown, owner 2026-10-10) |
+| midwest.jsonl | 23 | Atwater 1820 Archaeologia Americana vol. 1 (Newark, Marietta, Fort Ancient, Seip/Baum, Horseshoe, Piketon), Shetrone 1926 Hopewell group instrument survey, Cox 1878 / Dunn 1919 plan of Fudge (bearings and lengths; Cox: S&D's plat "inaccurately made"), Mills 1916 Tremper contour survey, Brown 1912 Halvorson, Dunn 1919 Mounds State Park, Schoolcraft 1851 Grave Creek, MacLean 1903 Marietta plans |
+| archive.jsonl | 8 | Marietta 1837 town map (LoC), Hempstead 1878 Portsmouth; BLM GLO township plats marking mounds (Mound Key 1889, Poverty Point c.1848, Turtle Mound 1844, Mounds SP 1821) = seeds, not overlays. archive.md has the 2026 GLO access path (guest token from the public portal; never commit a token) |
+| cities.jsonl | 72 | flat plans for all 25 cities; 20 have CC0 Allmaps control points (e.g. Boston 1743 69 pts, Philadelphia 1836 82, Washington Ellicott 1792 53, SF Eddy 1851 48); mapwarper.net points (no stated licence) = seed only, never published; Kansas City none. cities.md has the Allmaps API recipe |
+| thomas_locate.jsonl | 179 | Thomas 1894 orphan plats: 166 located (87 <= 1 km, 137 <= 3 km), 14 belong to existing sites, 13 not located, 12 not site plans; Little Tennessee groups lie under Tellico Lake |
+| books_locate.jsonl | 413 | S&D, Lapham, Fowke, Squier 1851, Mills, Whittlesey orphan rows: 381 located (307 <= 3 km, ~190 distinct places), 48 rows belong to existing sites, 32 not located; new works incl. Old Stone Fort, Mount Royal, Ganondagan, Fort Miami, Cedar-Bank, Spruce Hill, Glenford, Conneaut, Tarlton Cross, Colerain, Junction, Harness |
+
+Wrong picture links found in web/data/plans.json (midwest.md): hodgen-s-cemetery-mound and mound-cemetery carry the
+Mt. Vernon (Knox Co.) cemetery mound figures; beam-farm carries Fowke fig. 51 (Miami Co.); hopewell-culture-NHP
+carries Fowke fig. 39 (the Hopewell group, ~8 km W) and a Thomas artefact figure; newark carries Fowke fig. 39 and
+Mills "HOPEWELL WORKS". Fix in 253.
+
+Owner rulings that apply: drawings of the works of any age are shown (pre-1931 or federal = public domain, ship with
+credit); plain survey sheets/topo under 150 years are not shown but may serve as matcher ground or seeds; seeds are
+allowed and the matcher confirms (GOAL point 2, 2026-10-15). Post-1931 federal PLANS (Willey 1949, Kelly 1938,
+Setzler 1933) count as drawings of the works.
+
 ## Task
 
 Filed as task 253 (2026-10-15, owner "yes now"): sections A and B only, one site at a time end to end (one-piece
 flow), placement by `fit/matchfit.py` alone; whatever the matcher cannot place becomes a review item for the owner's
-fit tool. Section D is task 254 (seeds); 253 uses those seeds once 254 lands.
+fit tool. Section D is task 254 (seeds); 253 uses those seeds once 254 lands. Section E (2026-10-16): the
+existing-site rows (se, lowmiss, midwest, archive) and the wrong-link fixes go to 253; new US sites from the located
+orphan plans (thomas_locate, books_locate) are task 255; city plans with published control points feed 254 (c).
