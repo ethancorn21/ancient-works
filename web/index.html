@@ -443,10 +443,27 @@ body.blk .yscrub { display: none; }  /* the block's caption sits where the card 
 // live LiDAR relief tiles (server/relief_tiles.py, z12-17). The server picks the DEM for each tile; one source per
 // national DEM only so that each credit shows where its area is on screen and no tiles are asked for elsewhere.
 // The public copy has no tile server: the same tiles, pre-rendered around every site (tools/prerender_relief.py),
-// come from one PMTiles archive whose URL config.js gives (reliefTiles); read by HTTP range requests (pmtiles JS).
+// come from PMTiles archives (read by HTTP range requests, pmtiles JS) split by area to fit the uploader; config.js
+// gives the URL of their index (reliefTiles), which names the archive holding each area cell (a z8-z10 tile).
 const RELIEF_PM = window.RESURFACE && window.RESURFACE.public && window.RESURFACE.reliefTiles;
-if (RELIEF_PM) maplibregl.addProtocol('pmtiles', new pmtiles.Protocol().tile);
-const RELIEF_URL = RELIEF_PM ? `pmtiles://${RELIEF_PM}/{z}/{x}/{y}`
+if (RELIEF_PM) {
+  const index = fetch(RELIEF_PM).then(r => r.json());
+  const archives = new Map();
+  maplibregl.addProtocol('relief', async (params, abort) => {
+    const [z, x, y] = params.url.split('/').slice(-3).map(Number);
+    const ix = await index;
+    let file = null;
+    for (const L of ix.levels) {
+      if (z < L) break;
+      file = ix.cells[`${L}/${x >> (z - L)}/${y >> (z - L)}`] || file;
+    }
+    if (!file) return { data: null };  // no relief rendered here (as the live server's transparent tile)
+    if (!archives.has(file)) archives.set(file, new pmtiles.PMTiles(new URL(file, RELIEF_PM).href));
+    const t = await archives.get(file).getZxy(z, x, y, abort.signal);
+    return { data: t ? new Uint8Array(t.data) : null };
+  });
+}
+const RELIEF_URL = RELIEF_PM ? 'relief://{z}/{x}/{y}'
   : location.origin + location.pathname.replace(/[^/]*$/, '') + 'tiles/relief/{z}/{x}/{y}.webp';
 // `boxes` (rough, from pipeline/dem_sources.py) decide whether a credit is on screen; `bounds` is their union.
 // a public copy without the archive has no relief between sites; each site's own relief image still shows

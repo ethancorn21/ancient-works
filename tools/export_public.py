@@ -4,6 +4,7 @@ usage: .venv/bin/python tools/export_public.py [--out dist/public]
 
 The LAN copy (server/serve.py) is the owner's: it writes fits, reviews and Finder marks. The public copy is static
 files only, so it carries none of that:
+  - the page and the local scripts it includes (arrive.js), vendor/
   - no owner tools: review.js, fitqueue.js, fitkit.js, test.html are not copied, and config.js sets public: true,
     which makes the page skip them, the Finder tab, plate/drawing nudges and the plan pictures (web/index.html PUBLIC)
   - no private data: web/data/scan, scans.json, amazon, fit_queue.json, review.json, plans.json, and nothing from
@@ -21,6 +22,7 @@ in the site panel. Contrast the modern Esri aerial, which is copyrighted and ser
 import argparse
 import json
 import os
+import re
 import shutil
 import sys
 import tempfile
@@ -51,7 +53,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--out", default=os.path.join(ROOT, "dist", "public"))
     ap.add_argument("--relief", default=os.environ.get("RESURFACE_RELIEF"),
-                    help="URL of the relief PMTiles archive (tools/prerender_relief.py pack); none = no relief between sites")
+                    help="URL of the relief index (tools/prerender_relief.py pack); none = no relief between sites")
     a = ap.parse_args(argv)
     out = a.out
     cfg_src = os.path.join(ROOT, "deploy", "config.js")
@@ -62,13 +64,19 @@ def main(argv=None):
     os.makedirs(out)
 
     copy(os.path.join(WEB, "index.html"), os.path.join(out, "index.html"))
+    # every local script the page includes (arrive.js, ...): read from the page itself, so a new one ships without
+    # editing this list; config.js is written below, vendor/ copied whole. The owner tools are not <script src>
+    # includes (the page injects them only when not public), so they never match.
+    with open(os.path.join(WEB, "index.html")) as f:
+        for src in sorted(set(re.findall(r'<script src="([^":/]+\.js)"', f.read())) - {"config.js"}):
+            copy(os.path.join(WEB, src), os.path.join(out, src))
     copy(os.path.join(WEB, "arrive.js"), os.path.join(out, "arrive.js"))  # hand-off from the ethanlawcorn.com hub
     shutil.copytree(os.path.join(WEB, "vendor"), os.path.join(out, "vendor"))
     with open(cfg_src) as f:
         cfg = f.read()
     with open(os.path.join(out, "config.js"), "w") as f:
         f.write(cfg.rstrip("\n") + "\nwindow.RESURFACE.public = true;\n")
-        if a.relief:  # the pre-rendered relief archive (tools/prerender_relief.py pack), hosted outside the Worker
+        if a.relief:  # the pre-rendered relief index (tools/prerender_relief.py pack), archives on R2
             f.write(f"window.RESURFACE.reliefTiles = {json.dumps(a.relief)};\n")
     for name in WEB_DATA:
         p = os.path.join(WEB, "data", name)
