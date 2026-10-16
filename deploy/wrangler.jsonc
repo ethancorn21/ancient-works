@@ -1,0 +1,14 @@
+// The public copy at resurface.ethanlawcorn.com: static files only (Workers static assets), no server code.
+// Build first: .venv/bin/python tools/export_public.py   (writes dist/public, needs deploy/config.js with the Esri key)
+// Deploy:      ../digitalgarden/node_modules/.bin/wrangler deploy --config deploy/wrangler.jsonc
+{
+  "name": "resurface",
+  "compatibility_date": "2026-04-16",
+  "assets": {
+    "directory": "../dist/public",
+    "not_found_handling": "single-page-application"
+  },
+  "routes": [
+    { "pattern": "resurface.ethanlawcorn.com", "custom_domain": true }
+  ]
+}

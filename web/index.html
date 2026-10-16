@@ -402,7 +402,8 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
 // national DEM only so that each credit shows where its area is on screen and no tiles are asked for elsewhere.
 const RELIEF_URL = location.origin + location.pathname.replace(/[^/]*$/, '') + 'tiles/relief/{z}/{x}/{y}.webp';
 // `boxes` (rough, from pipeline/dem_sources.py) decide whether a credit is on screen; `bounds` is their union.
-const RELIEF = [
+// the public copy is static files: no live tile server, so no live relief; each site's own relief image still shows
+const RELIEF = (window.RESURFACE && window.RESURFACE.public) ? [] : [
   { id: 'relief-us', attribution: 'LiDAR: USGS 3DEP',
     boxes: [[-125.5, 24.3, -66.5, 49.5], [-170, 51, -129.9, 71.6], [-160.6, 18.8, -154.6, 22.4], [-67.5, 17.8, -65.2, 18.6]] },
   { id: 'relief-ea', attribution: 'LiDAR: Environment Agency, &copy; Crown copyright, Open Government Licence v3.0',
@@ -449,6 +450,9 @@ S.dep = {}; S.depUrl = {}; S.depAlign = {}; S.alignStep = lsGet('aw.alignStep', 
 const SAT_TILES = (window.RESURFACE && window.RESURFACE.satTiles) ||
   'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
 const SAT_MINZOOM = 9;
+// The public copy (resurface.ethanlawcorn.com, built by tools/export_public.py) sets public: true in config.js: no owner
+// tools (review, fit queue, fit tool, plate and drawing nudges), no Finder, no private Finder/Amazon data.
+const PUBLIC = !!(window.RESURFACE && window.RESURFACE.public);
 const map = new maplibregl.Map({
   container: 'map',
   style: {
@@ -542,6 +546,11 @@ function ensureSite(site) {
   if (site.lidar !== false) {  // aerial-only sites (no open LiDAR there) have no relief image
     map.addSource(`rel-${site.id}`, { type: 'image', url: base + 'relief.jpg', coordinates: site.corners });
     map.addLayer({ id: `rel-${site.id}`, type: 'raster', source: `rel-${site.id}`, paint });
+    // the LiDAR's credit: image sources take no attribution, so an empty GeoJSON source carries it (the live relief
+    // layers carry it too, but the public copy has none)
+    map.addSource(`cr-${site.id}`, { type: 'geojson', data: { type: 'FeatureCollection', features: [] },
+      attribution: `LiDAR: ${site.lidar_credit || 'USGS 3DEP'}` });
+    map.addLayer({ id: `cr-${site.id}`, type: 'fill', source: `cr-${site.id}` });
   }
   if (site.plate) {
     const pc = alignedCorners(site);
@@ -778,11 +787,12 @@ function bindEntries() {
 }
 function setTabHome(t) { S.tab = t; lsSet('aw.tab', t); renderList(); try { history.replaceState(null, '', t === 'finder' ? '#finder' : location.pathname + location.search); } catch {} }
 function renderList() {
+  if (PUBLIC && S.tab === 'finder') S.tab = 'sites';  // a remembered Finder tab from the owner's copy
   const n = S.sites.length, nc = C.rows.filter(r => !S.byId[r.id]).length;
   $('#body').innerHTML = `
     <div class="tabs" role="group" aria-label="Section">
       <button id="h-sites" aria-pressed="${S.tab !== 'finder'}">Sites</button>
-      <button id="h-finder" aria-pressed="${S.tab === 'finder'}">Finder</button>
+      ${PUBLIC ? '' : `<button id="h-finder" aria-pressed="${S.tab === 'finder'}">Finder</button>`}
     </div>
     ${S.tab === 'finder' ? finderHome() : `
     <p class="fit">${S.sites.filter(x => x.score > 0).length} sites with an old drawing or map, at least 150 years old, laid on today's ground. Bigger and darker: older, and truer to the ground.</p>
@@ -802,7 +812,7 @@ function renderList() {
       <p>Private site, served from this Mac on the home network.</p>
     </div>`}`;
   $('#h-sites').onclick = () => setTabHome('sites');
-  $('#h-finder').onclick = () => setTabHome('finder');
+  if ($('#h-finder')) $('#h-finder').onclick = () => setTabHome('finder');
   $('#body').querySelectorAll('[data-kind]').forEach(b => b.onclick = () => setKind(b.dataset.kind));
   if ($('#q')) {
     $('#q').oninput = e => { S.q = e.target.value; $('#entries').innerHTML = siteEntries(); bindEntries(); };
@@ -871,6 +881,7 @@ function depGroup(s) {
 // rotated, resized or dragged on the map, and the position saved for everyone on this server
 const STEP = { fine: { m: 2, r: 0.25, s: 0.005 }, coarse: { m: 10, r: 1, s: 0.02 } };
 function alignBlock(p, a, title) {
+  if (PUBLIC) return '';
   const moved = a && (a.dx || a.dy || a.rot || a.scale !== 1), st = STEP[S.alignStep];
   return `<details class="align" ${moved || (S.drag && S.drag.p === p) ? 'open' : ''}>
         <summary>${title}</summary>
@@ -1000,7 +1011,7 @@ function renderSite(s) {
   $('#op').oninput = e => { S.plateOpacity = e.target.value / 100; $('#opv').textContent = e.target.value + '%'; applyAll(); lsSet('aw.plateOpacity', S.plateOpacity); };
   $('#p-ink').onclick = () => setPlateMode('ink', s);
   $('#p-paper').onclick = () => setPlateMode('paper', s);
-  wireAlign('p', () => S.align[s.id], a => { S.align[s.id] = a; }, () => moveplate(s), `plates/${s.id}`, 'Saved. This is now the plate position for this site.');
+  if ($('#psave')) wireAlign('p', () => S.align[s.id], a => { S.align[s.id] = a; }, () => moveplate(s), `plates/${s.id}`, 'Saved. This is now the plate position for this site.');
 }
 function setTab(block) { const a = $('#t-map'), b = $('#t-block'); if (a && b) { a.setAttribute('aria-pressed', String(!block)); b.setAttribute('aria-pressed', String(block)); } if ($('#l-blk')) $('#l-blk').setAttribute('aria-pressed', String(block)); if (block) syncBlock(); }
 function alignDesc(a) {
@@ -2110,6 +2121,13 @@ function bindControls() {
 
 /* ---------- document store on the local server (same shape as the old artifact db) ---------- */
 async function openDb() {
+  // the public copy has no server: the saved plate and drawing positions come from a read-only snapshot the export
+  // writes (tools/export_public.py, data/align.json: { plates: {id: {...}}, depalign: {...} }), and nothing saves
+  if (PUBLIC) {
+    const snap = await fetch('data/align.json').then(r => r.ok ? r.json() : {}).catch(() => ({}));
+    return { readOnly: true, collection: name => ({
+      async get() { return { docs: Object.entries(snap[name] || {}).map(([id, d]) => ({ id, data: () => d })) }; } }) };
+  }
   const url = p => 'api/db/' + p.split('/').map(encodeURIComponent).join('/');
   try { if (!(await fetch(url('ping'))).ok) return null; } catch { return null; }
   return {
@@ -2279,15 +2297,15 @@ function renderArea(name) {
 async function boot() {
   const data = await fetch('data/sites.json').then(r => r.json());
   S.sites = data.sites; S.sites.forEach(s => S.byId[s.id] = s);
-  await loadPlans();
+  if (!PUBLIC) await loadPlans();  // the plan pictures are the fit tool's; the public copy has neither
   try {
     const cat = await fetch('data/catalog.json').then(r => r.json());
     C.rows = cat.rows.map(a => Object.fromEntries(cat.cols.map((c, i) => [c, a[i]])));
     C.rows.forEach(r => C.byId[r.id] = r);
   } catch {}
-  F.scans = await fetch('data/scans.json').then(r => r.ok ? r.json() : { scans: [] }).then(d => d.scans).catch(() => []);
+  if (!PUBLIC) F.scans = await fetch('data/scans.json').then(r => r.ok ? r.json() : { scans: [] }).then(d => d.scans).catch(() => []);
   F.scans.forEach(sc => F.byName[sc.name] = sc);
-  A.areas = await fetch('data/amazon/areas.json').then(r => r.ok ? r.json() : { areas: [] }).then(d => d.areas).catch(() => []);
+  if (!PUBLIC) A.areas = await fetch('data/amazon/areas.json').then(r => r.ok ? r.json() : { areas: [] }).then(d => d.areas).catch(() => []);
   A.areas.forEach(a => A.byName[a.name] = a);
   addMarkers();
   const start = () => {
@@ -2304,7 +2322,7 @@ async function boot() {
   if (S.mapLoaded) start(); else map.once('load', start);
   openDb().then(async db => {
     if (!db) return;
-    S.db = db;
+    if (!db.readOnly) S.db = db;  // S.db is the saving store: the owner tools show only with it
     try {
       const snap = await db.collection('plates').get();
       for (const doc of snap.docs) {
@@ -2335,8 +2353,11 @@ async function boot() {
 }
 boot();
 </script>
-<script src="review.js"></script>
-<script src="fitqueue.js"></script>
-<script src="fitkit.js"></script>
+<script>
+// the owner tools patch the page in; the public copy has none of them (and does not ship the files)
+if (!PUBLIC) for (const f of ['review.js', 'fitqueue.js', 'fitkit.js']) {
+  const el = document.createElement('script'); el.src = f; el.async = false; document.body.appendChild(el);
+}
+</script>
 </body>
 </html>
