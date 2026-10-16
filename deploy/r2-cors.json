@@ -1,0 +1,13 @@
+{
+  "rules": [
+    {
+      "allowed": {
+        "origins": ["https://resurface.ethanlawcorn.com"],
+        "methods": ["GET", "HEAD"],
+        "headers": ["range", "if-match"]
+      },
+      "exposeHeaders": ["ETag", "Content-Range", "Content-Length"],
+      "maxAgeSeconds": 86400
+    }
+  ]
+}
