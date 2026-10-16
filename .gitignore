@@ -43,3 +43,4 @@ data/sheetfit/*.jpg
 # the LAN copy runs keyless. Never commit it.
 deploy/config.js
 web/config.js
+.wrangler/

@@ -30,6 +30,7 @@ import os
 import threading
 import time
 import urllib.parse
+import urllib.error
 import urllib.request
 
 import logging
@@ -286,7 +287,10 @@ def _reproject(name, fetch_native, bbox, w, h, tries):
         for c0 in range(0, nw, bw):
             cw, ch = min(bw, nw - c0), min(bh, nh - r0)
             sub = (e0 + c0 * res, n1 - (r0 + ch) * res, e0 + (c0 + cw) * res, n1 - r0 * res)
-            a, ax0, ay0, asx, asy = _read_geotiff(fetch_native(sub, cw, ch, res, tries))
+            try:
+                a, ax0, ay0, asx, asy = _read_geotiff(fetch_native(sub, cw, ch, res, tries))
+            except OutsideCoverage:  # coverage polygon is looser than the service's extent (AHN off Zeeland)
+                continue
             a[~src["valid"](a)] = np.nan
             if name == "ign":  # the server blends -9999 into edge pixels before we see them
                 from scipy.ndimage import binary_dilation
@@ -327,16 +331,25 @@ def _ign_native(b, w, h, res, tries):
     return _get_raw(IGN_URL + "?" + q, tries)
 
 
+class OutsideCoverage(Exception):
+    """The service says the block lies wholly outside its data (AHN: "does not intersect"): no data, not a failure."""
+
+
 def _get_raw(q, tries):
     for i in range(tries):
         try:
-            with urllib.request.urlopen(urllib.request.Request(q, headers=UA), timeout=150) as r:
-                body = r.read()
+            try:
+                with urllib.request.urlopen(urllib.request.Request(q, headers=UA), timeout=150) as r:
+                    body = r.read()
+            except urllib.error.HTTPError as e:
+                if e.code == 400 and b"does not intersect" in e.read():
+                    raise OutsideCoverage(q) from None
+                raise
             if body[:4] not in (b"II*\x00", b"MM\x00*"):
                 raise RuntimeError("not a GeoTIFF: " + body[:300].decode("utf-8", "replace"))
             return body
         except Exception as e:
-            if i == tries - 1:
+            if i == tries - 1 or isinstance(e, OutsideCoverage):
                 raise
             print("  dem retry", i + 1, type(e).__name__, str(e)[:120], flush=True)
             time.sleep(3 * (i + 1))
