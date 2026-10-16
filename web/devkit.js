@@ -15,27 +15,26 @@
   const root = document.documentElement;
   const COLORS = [
     ['--sheet', 'Panel paper'], ['--paper', 'Paper'], ['--paper-2', 'Paper, darker'], ['--ink', 'Ink'], ['--ink-2', 'Ink, mid grey'],
-    ['--hair', 'Hairlines'], ['--rule', 'Rules, dial ticks'], ['--well', 'Key well, dial window'], ['--survey', 'Needle, state red'], ['--space', 'Space round the globe'],
+    ['--hair', 'Hairlines'], ['--rule', 'Rules'], ['--survey', 'State red'], ['--space', 'Space round the globe'],
+    ['--on-map', 'Lettering on the map'],
   ];
   const FONTS = {
-    '--title': ['"Helvetica Neue", Helvetica, Arial, sans-serif', '"Old Standard TT", "Century Schoolbook", Georgia, serif', 'Georgia, serif', '"Iowan Old Style", Georgia, serif', 'Futura, "Century Gothic", sans-serif', '"Avenir Next", Avenir, sans-serif'],
-    '--label': ['"Helvetica Neue", Helvetica, Arial, sans-serif', '"Archivo Narrow", "Arial Narrow", Arial, sans-serif', '"Avenir Next", Avenir, sans-serif', 'ui-monospace, Menlo, monospace'],
+    '--title': ['"Old Standard TT", "Century Schoolbook", Georgia, serif', 'Georgia, serif', '"Iowan Old Style", Georgia, serif', '"Times New Roman", serif', '"Helvetica Neue", Arial, sans-serif'],
+    '--label': ['"Archivo Narrow", "Arial Narrow", Arial, sans-serif', '"Helvetica Neue", Arial, sans-serif', 'ui-monospace, Menlo, monospace', '"Old Standard TT", Georgia, serif'],
   };
   // [token or TUNE key, label, min, max, step, unit]
   const KNOBS = [
     ['--title-size', 'Title size', 16, 44, 1, 'px'], ['--card-w', 'Card width', 260, 520, 10, 'px'], ['--col-w', 'Column width', 280, 520, 10, 'px'],
-    ['--gap', 'Card margin', 0, 48, 2, 'px'], ['--radius', 'Corner radius', 0, 32, 1, 'px'], ['--key-radius', 'Key radius', 0, 16, 1, 'px'], ['--shadow-a', 'Shadow depth', 0, 1, .02, ''],
+    ['--gap', 'Margin', 0, 48, 2, 'px'], ['--float-w', 'Floating width', 260, 560, 10, 'px'], ['--halo-a', 'Halo strength', 0, 1, .02, ''], ['--year-size', 'Year size', 24, 120, 2, 'px'],
     ['--tick-peak', 'Tick height, peak', 12, 80, 1, 'px'], ['--tick-base', 'Tick height, rest', 2, 24, 1, 'px'], ['--tick-stop', 'Tick height, a map', 2, 40, 1, 'px'],
     ['ticks', 'Ticks across (desktop)', 16, 160, 2, ''], ['ticksPhone', 'Ticks across (phone)', 12, 100, 2, ''],
     ['sigma', 'Swell width (ticks)', .5, 10, .25, ''], ['glide', 'Glide speed', .04, .6, .01, ''], ['follow', 'Drag follow', .1, 1, .05, ''],
   ];
   const PRESETS = {
-    'Braun': {},
-    'Braun orange': { '--survey': '#E5631B' },
-    'Plate paper': { '--paper': '#F3EDDC', '--paper-2': '#EAE2CC', '--sheet': '#F8F4E8', '--ink': '#2B2724', '--ink-2': '#6B625A', '--rule': '#8E8478', '--hair': '#D9D0BD', '--well': '#EAE2CC', '--survey': '#CE2E4E',
-      '--title': '"Old Standard TT", "Century Schoolbook", Georgia, serif', '--label': '"Archivo Narrow", "Arial Narrow", Arial, sans-serif' },
-    'Bone': { '--sheet': '#FBFBFB', '--paper': '#F2F2F2', '--paper-2': '#E8E8E8', '--ink': '#1A1A1A', '--ink-2': '#606060', '--hair': '#DDDDDD', '--rule': '#8A8A8A', '--well': '#E6E6E6', '--survey': '#CE2E4E' },
-    'Night': { '--sheet': '#232120', '--paper': '#151413', '--paper-2': '#2C2A28', '--ink': '#EDEAE4', '--ink-2': '#A29E97', '--hair': '#3A3734', '--rule': '#7A766F', '--well': '#181716', '--survey': '#E85A73', '--space': '#07080B' },
+    'Plate': {},
+    'Bone': { '--sheet': '#FBFBFB', '--paper': '#F2F2F2', '--paper-2': '#E8E8E8', '--ink': '#1A1A1A', '--ink-2': '#606060', '--hair': '#D9D9D9', '--rule': '#8A8A8A', '--survey': '#CE2E4E' },
+    'Engraving': { '--sheet': '#FDFDFD', '--paper': '#F6F3EE', '--paper-2': '#ECE6DC', '--ink': '#523727', '--ink-2': '#8C7462', '--hair': '#E3D9CC', '--rule': '#A89482', '--survey': '#B3261E' },
+    'Night': { '--sheet': '#171412', '--paper': '#0E0C0A', '--paper-2': '#221E1A', '--ink': '#EFE6DC', '--ink-2': '#A89F95', '--hair': '#3A332D', '--rule': '#6E655C', '--survey': '#E2697F', '--space': '#07080B' },
   };
   const state = (() => { try { return JSON.parse(ls.get('aw.dev') || '{}'); } catch { return {}; } })();
   state.vars = state.vars || {}; state.tune = state.tune || {};
@@ -89,7 +88,7 @@
     <div class="dk-h"><b>Dev canvas</b><button data-a="min">${state.min ? 'Open' : 'Fold'}</button><button data-a="off" title="Turn the dev canvas off in this browser">Off</button></div>
     <div class="dk-b">
       <h4>Layout</h4>
-      <div class="dk-btns">${['card', 'column'].map(l => `<button data-lay="${l}">${l === 'card' ? 'Card on the map' : 'Left column'}</button>`).join('')}</div>
+      <div class="dk-btns">${LAYOUTS.map(l => `<button data-lay="${l}">${{ float: 'Floating', card: 'Card', column: 'Column' }[l]}</button>`).join('')}</div>
       <h4>Presets</h4>
       <div class="dk-btns">${Object.keys(PRESETS).map(n => `<button data-pre="${n}">${n}</button>`).join('')}</div>
       <h4>Colour</h4>
@@ -107,7 +106,7 @@
   const $$ = s => el.querySelectorAll(s);
   const syncLay = () => $$('[data-lay]').forEach(b => b.setAttribute('aria-pressed', String(document.body.classList.contains('lay-' + b.dataset.lay))));
   syncLay();
-  $$('[data-lay]').forEach(b => b.onclick = () => { state.layout = setLayout(b.dataset.lay); save(); syncLay(); });
+  $$('[data-lay]').forEach(b => b.onclick = () => { state.layout = setLayout(b.dataset.lay, true); save(); syncLay(); });
   $$('[data-c]').forEach(i => i.oninput = () => { state.vars[i.dataset.c] = i.value; root.style.setProperty(i.dataset.c, i.value); save(); });
   $$('[data-f]').forEach(s => s.onchange = () => { state.vars[s.dataset.f] = s.value; root.style.setProperty(s.dataset.f, s.value); save(); });
   $$('[data-k]').forEach(i => i.oninput = () => {
@@ -124,14 +123,14 @@
     $$('[data-f]').forEach(s => { s.value = cur(s.dataset.f); });
   };
   $$('[data-pre]').forEach(b => b.onclick = () => {
-    for (const k of [...COLORS.map(c => c[0]), ...Object.keys(FONTS)]) { delete state.vars[k]; root.style.removeProperty(k); }
+    for (const k of COLORS.map(c => c[0])) { delete state.vars[k]; root.style.removeProperty(k); }
     Object.assign(state.vars, PRESETS[b.dataset.pre]);
     applyAll(); save(); refresh();
   });
   el.querySelector('[data-a="reset"]').onclick = () => {
     for (const k of Object.keys(state.vars)) root.style.removeProperty(k);
     for (const k of Object.keys(state.tune)) TUNE[k] = base[k];
-    state.vars = {}; state.tune = {}; delete state.layout; setLayout('card'); save(); refresh(); syncLay(); rebuild();
+    state.vars = {}; state.tune = {}; delete state.layout; setLayout('float', true); save(); refresh(); syncLay(); rebuild();
   };
   el.querySelector('[data-a="export"]').onclick = () => {
     const lay = LAYOUTS.find(l => document.body.classList.contains('lay-' + l));
