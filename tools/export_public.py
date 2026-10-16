@@ -62,6 +62,7 @@ def main(argv=None):
     os.makedirs(out)
 
     copy(os.path.join(WEB, "index.html"), os.path.join(out, "index.html"))
+    copy(os.path.join(WEB, "arrive.js"), os.path.join(out, "arrive.js"))  # hand-off from the ethanlawcorn.com hub
     shutil.copytree(os.path.join(WEB, "vendor"), os.path.join(out, "vendor"))
     with open(cfg_src) as f:
         cfg = f.read()
