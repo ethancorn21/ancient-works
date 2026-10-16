@@ -50,6 +50,8 @@ def copy(src, dst):
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--out", default=os.path.join(ROOT, "dist", "public"))
+    ap.add_argument("--relief", default=os.environ.get("RESURFACE_RELIEF"),
+                    help="URL of the relief PMTiles archive (tools/prerender_relief.py pack); none = no relief between sites")
     a = ap.parse_args(argv)
     out = a.out
     cfg_src = os.path.join(ROOT, "deploy", "config.js")
@@ -65,6 +67,8 @@ def main(argv=None):
         cfg = f.read()
     with open(os.path.join(out, "config.js"), "w") as f:
         f.write(cfg.rstrip("\n") + "\nwindow.RESURFACE.public = true;\n")
+        if a.relief:  # the pre-rendered relief archive (tools/prerender_relief.py pack), hosted outside the Worker
+            f.write(f"window.RESURFACE.reliefTiles = {json.dumps(a.relief)};\n")
     for name in WEB_DATA:
         p = os.path.join(WEB, "data", name)
         if os.path.exists(p) and name != "sites.json":
