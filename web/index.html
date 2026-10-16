@@ -545,7 +545,9 @@ function ensureSite(site) {
   const paint = { 'raster-fade-duration': 0, 'raster-resampling': 'linear' };
   if (site.lidar !== false) {  // aerial-only sites (no open LiDAR there) have no relief image
     map.addSource(`rel-${site.id}`, { type: 'image', url: base + 'relief.jpg', coordinates: site.corners });
-    map.addLayer({ id: `rel-${site.id}`, type: 'raster', source: `rel-${site.id}`, paint });
+    // under every site's old maps and plates: a neighbour loaded later must not cover the selected site's overlay
+    const firstOverlay = map.getStyle().layers.find(l => /^(dep|paper|ink)-/.test(l.id));
+    map.addLayer({ id: `rel-${site.id}`, type: 'raster', source: `rel-${site.id}`, paint }, firstOverlay && firstOverlay.id);
     // the LiDAR's credit: image sources take no attribution, so an empty GeoJSON source carries it (the live relief
     // layers carry it too, but the public copy has none)
     map.addSource(`cr-${site.id}`, { type: 'geojson', data: { type: 'FeatureCollection', features: [] },
