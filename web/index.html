@@ -10,102 +10,128 @@
 <link rel="stylesheet" href="vendor/fonts.css">
 <link rel="stylesheet" href="vendor/maplibre-gl-5.6.0.css">
 <style>
-/* Layout: a USGS Professional Paper plate. Full-bleed globe on paper; the panel is the plate's EXPLANATION
-   column; the block diagram opens as a framed plate sheet over the map. Single paper theme, by design. */
+/* Layout (Ethan 2026-10-16, design/one-living-thing applied to the plate palette): the map is the ground, one paper surface
+   holds the words, one ink draws everything, survey red marks only the state (the year showing, the overlay), and the year
+   scrubber is the page's one living thing. Two desktop layouts, picked on <body>: .lay-card (the panel is one card on the map)
+   and .lay-column (a full-height column at the left). Every colour and size is a token, so the dev canvas (?dev=1) reaches it. */
 body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important; }
 :root {
   --paper: #F3EDDC; --paper-2: #EAE2CC; --sheet: #F8F4E8; --ink: #2B2724; --ink-2: #6B625A; --rule: #8E8478;
-  --survey: #CE2E4E;            /* 1848 plate ink, as on the ore bodies of USGS plates */
-  --mauve: #D8BCD5; --mauve-2: #B996B6; --pink: #F2B5C4; --aqua: #9ED8D8; --sage: #C4D9A6; --lav: #CFC6E0; --ochre: #F2C48D;
+  --hair: #D9D0BD;              /* hairline rules, resting ticks on paper */
+  --survey: #CE2E4E;            /* 1848 plate ink, as on the ore bodies of USGS plates: the state colour */
+  --space: #10141C;             /* round the globe */
+  --scrim: #0E0C0A; --scrim-a: .72; --on-scrim: #F8F4E8;  /* the darkened band of map under the scrubber, and its type */
+  --mauve: #D8BCD5; --mauve-2: #B996B6; --pink: #F2B5C4; --aqua: #9ED8D8; --sage: #C4D9A6; --lav: #CFC6E0; --ochre: #F2C48D;  /* swatches only */
   --title: "Old Standard TT", "Century Schoolbook", "Iowan Old Style", Georgia, serif;
   --label: "Archivo Narrow", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --title-size: 28px; --card-w: 340px; --col-w: 360px; --gap: 20px;
+  --tick-peak: 34px; --tick-base: 7px; --tick-stop: 12px;
   color-scheme: light;
 }
 html, body { height: 100%; }
 body { background: var(--paper); color: var(--ink); font: 15px/1.5 var(--title); overflow: hidden; }
-#map { position: fixed; inset: 0; background: #10141C; }  /* space around the globe */
+#map { position: fixed; inset: 0; background: var(--space); }
 .caps { font-family: var(--label); text-transform: uppercase; letter-spacing: .09em; font-size: 11px; }
 
-/* ---------- panel: the EXPLANATION column ---------- */
-.panel {
-  position: fixed; z-index: 2; top: calc(12px + env(safe-area-inset-top, 0px)); left: 12px; bottom: 12px; width: 370px;
-  display: flex; flex-direction: column; background: var(--sheet);
-  border: 1px solid var(--ink); outline: 1px solid var(--rule); outline-offset: 3px;
-  box-shadow: 0 8px 24px rgba(43, 39, 36, .18);
-}
-.strip { display: flex; justify-content: space-between; gap: 10px; padding: 9px 14px 0; color: var(--ink-2); }
-.strip span:last-child { text-align: right; }
-.panel-head { padding: 6px 14px 10px; border-bottom: 1px solid var(--ink); text-align: center; }
-.wordmark { margin: 0; font: 700 22px/1.1 var(--title); letter-spacing: .14em; text-transform: uppercase; }
-.tagline { margin: 3px 0 0; font-style: italic; color: var(--ink-2); font-size: 13.5px; }
+/* ---------- the panel: one paper surface, no frame ---------- */
+.panel { position: fixed; z-index: 2; display: flex; flex-direction: column; background: var(--sheet); color: var(--ink); }
+body.lay-card { --map-left: calc(var(--card-w) + 2 * var(--gap)); }
+body.lay-card .panel { top: calc(var(--gap) + env(safe-area-inset-top, 0px)); left: var(--gap); width: var(--card-w); max-height: calc(100% - 2 * var(--gap)); }
+body.lay-column { --map-left: var(--col-w); }
+body.lay-column .panel { top: 0; left: 0; bottom: 0; width: var(--col-w); border-right: 1px solid var(--hair); }
+.strip { display: none; }
+.panel-head { padding: 18px 22px 0; }
+.wordmark { margin: 0; font: 700 12px/1.2 var(--label); letter-spacing: .24em; text-transform: uppercase; }
+.tagline { margin: 2px 0 0; font: italic 12.5px/1.35 var(--title); color: var(--ink-2); }
 .grab { display: none; }
-.panel-body { overflow-y: auto; padding: 12px 14px 18px; display: flex; flex-direction: column; gap: 14px; min-height: 0; }
-.section-title { margin: 0; text-align: center; font: 600 11.5px var(--label); letter-spacing: .16em; text-transform: uppercase; }
+.panel-body { overflow-y: auto; padding: 16px 22px 22px; display: flex; flex-direction: column; gap: 16px; min-height: 0; }
+.section-title { margin: 0; font: 600 10.5px var(--label); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-2); }
 
-.legend-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
-.entry {
-  display: grid; grid-template-columns: 34px 1fr; gap: 10px; align-items: start; width: 100%; text-align: left;
-  padding: 7px 6px; background: none; border: 1px solid transparent; color: inherit; font: inherit; cursor: pointer;
-}
-.entry:hover { border-color: var(--rule); background: var(--paper); }
-.entry:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--survey); outline-offset: 2px; }
+/* lists: hairline rows */
+.legend-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.entry { display: grid; grid-template-columns: 34px 1fr; gap: 10px; align-items: start; width: 100%; text-align: left;
+  padding: 9px 0; background: none; border: 0; border-bottom: 1px solid var(--hair); color: inherit; font: inherit; cursor: pointer; }
+.entry.srow { grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 12px; }
+.entry:hover .name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.entry:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 .swatch { width: 34px; height: 22px; border: 1px solid var(--ink); display: block; }
 .swatch.plowed { background: var(--sage); } .swatch.standing { background: var(--aqua); } .swatch.urban { background: var(--pink); }
 .swatch.hatch { background: repeating-linear-gradient(135deg, var(--paper) 0 3px, var(--ink-2) 3px 4px); }
-.entry .name { display: block; font-weight: 700; font-size: 15.5px; line-height: 1.25; }
-.entry .desc { display: block; font-style: italic; color: var(--ink-2); font-size: 13px; line-height: 1.35; }
+.entry .name { display: block; font-size: 16px; line-height: 1.25; }
+.entry .desc { display: block; font-style: italic; color: var(--ink-2); font-size: 12.5px; line-height: 1.35; }
+.entry .yr { font: 600 11px var(--label); letter-spacing: .08em; font-variant-numeric: tabular-nums; color: var(--ink-2); white-space: nowrap; }
 
-.back { align-self: flex-start; background: none; border: 0; color: var(--survey); font: 600 12px var(--label); letter-spacing: .08em; text-transform: uppercase; padding: 0; cursor: pointer; }
-.site-title { margin: 0; text-align: center; font: 700 20px/1.2 var(--title); letter-spacing: .1em; text-transform: uppercase; text-wrap: balance; }
-.site-aka { margin: 4px 0 0; text-align: center; font-style: italic; color: var(--ink-2); }
-.tabs { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--ink); }
-.tabs button { background: var(--sheet); color: var(--ink); border: 0; padding: 8px 6px; font: 600 12px var(--label); letter-spacing: .1em; text-transform: uppercase; cursor: pointer; }
-.tabs button + button { border-left: 1px solid var(--ink); }
-.tabs button[aria-pressed="true"] { background: var(--ink); color: var(--sheet); }
+/* a site: back, title, place, a label/value grid, the paragraph, the credit */
+.back { align-self: flex-start; background: none; border: 0; color: var(--ink-2); font: 600 10.5px var(--label); letter-spacing: .16em; text-transform: uppercase; padding: 0; cursor: pointer; }
+.back:hover { color: var(--ink); }
+.site-head { display: grid; gap: 3px; }
+.site-title { margin: 0; font: 400 var(--title-size)/1.08 var(--title); letter-spacing: -.005em; text-wrap: balance; }
+.site-aka { margin: 0; font: italic 14px/1.35 var(--title); color: var(--ink-2); }
+.facts { margin: 0; display: grid; grid-template-columns: 74px minmax(0, 1fr); gap: 9px 14px; align-items: baseline; padding: 13px 0; border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
+.facts dt { font: 600 10px/1.6 var(--label); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-2); }
+.facts dd { margin: 0; font-size: 14.5px; line-height: 1.35; min-width: 0; }
+.facts dd.num { font-variant-numeric: tabular-nums; }
+/* toggles are words: the chosen one is ink and underlined, the others mid grey */
+.tabs, .seg { display: flex; flex-wrap: wrap; gap: 4px 16px; border: 0; }
+.tabs button, .seg button { background: none; border: 0; border-bottom: 1px solid transparent; padding: 1px 0 2px; color: var(--ink-2);
+  font: 600 11px/1.3 var(--label); letter-spacing: .14em; text-transform: uppercase; cursor: pointer; }
+.tabs button:hover, .seg button:hover { color: var(--ink); }
+.tabs button[aria-pressed="true"], .seg button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+.tabs button:disabled, .seg button:disabled { color: var(--hair); cursor: default; }
 .bchips { display: none; }
-.group { display: flex; flex-direction: column; gap: 9px; padding: 11px 12px; border: 1px solid var(--rule); background: var(--paper); }
-.seg { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--ink); }
-.seg button { background: var(--sheet); color: var(--ink); border: 0; padding: 6px; font: 13.5px var(--title); cursor: pointer; }
-.seg button + button { border-left: 1px solid var(--ink); }
-.seg button[aria-pressed="true"] { background: var(--mauve); font-weight: 700; }
-.row { display: flex; align-items: center; gap: 10px; }
-.row label { flex: 0 0 auto; color: var(--ink-2); font: 12px var(--label); letter-spacing: .06em; text-transform: uppercase; }
-input[type=range] { flex: 1; min-width: 0; accent-color: var(--survey); }
-.val { font: 12px var(--label); color: var(--ink-2); min-width: 3em; text-align: right; font-variant-numeric: tabular-nums; }
-.ramp { height: 10px; border: 1px solid var(--ink); background: linear-gradient(90deg, #2E2622, #B0A492, #FBF7EC); }
-.ramp-labels { display: flex; justify-content: space-between; font: 11.5px var(--label); color: var(--ink-2); font-variant-numeric: tabular-nums; }
-.summary { margin: 0; }
-.notes { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 14px; }
-.fit, .source { margin: 0; font-size: 13px; color: var(--ink-2); font-style: italic; }
-details.align summary { cursor: pointer; color: var(--survey); font: 600 12px var(--label); letter-spacing: .08em; text-transform: uppercase; }
+.group { display: flex; flex-direction: column; gap: 9px; padding-top: 14px; border-top: 1px solid var(--hair); }
+.row { display: flex; align-items: center; gap: 12px; }
+.row label { flex: 0 0 auto; color: var(--ink-2); font: 600 10px var(--label); letter-spacing: .14em; text-transform: uppercase; }
+/* sliders: a hairline and a small ink bead */
+input[type=range] { flex: 1; min-width: 0; height: 18px; margin: 0; background: transparent; -webkit-appearance: none; appearance: none; cursor: pointer; }
+input[type=range]::-webkit-slider-runnable-track { height: 1px; background: var(--ink); }
+input[type=range]::-moz-range-track { height: 1px; background: var(--ink); }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 11px; height: 11px; margin-top: -5px; border-radius: 50%; background: var(--ink); border: 0; }
+input[type=range]::-moz-range-thumb { width: 11px; height: 11px; border-radius: 50%; background: var(--ink); border: 0; }
+.val { font: 600 11px var(--label); color: var(--ink-2); min-width: 3em; text-align: right; font-variant-numeric: tabular-nums; letter-spacing: .06em; }
+.ramp { height: 6px; margin-top: 8px; background: linear-gradient(90deg, #2E2622, #B0A492, #FBF7EC); }
+.ramp-labels { display: flex; justify-content: space-between; margin-top: 3px; font: 10.5px var(--label); letter-spacing: .04em; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.summary { margin: 0; font-size: 15px; line-height: 1.55; }
+.notes { margin: 6px 0 0; padding-left: 18px; display: grid; gap: 6px; font-size: 14px; }
+.fit, .source { margin: 0; font-size: 12px; line-height: 1.45; color: var(--ink-2); font-style: italic; overflow-wrap: anywhere; }
+.source a, .about a { color: inherit; }
+details.align summary { cursor: pointer; color: var(--ink-2); font: 600 10.5px var(--label); letter-spacing: .14em; text-transform: uppercase; }
 .pad { display: grid; grid-template-columns: repeat(3, 38px); gap: 5px; }
-.pad button, .tools button { background: var(--sheet); color: var(--ink); border: 1px solid var(--ink); font: 15px/1 var(--title); height: 32px; cursor: pointer; }
-.pad button:hover, .tools button:hover { background: var(--mauve); }
+.pad button, .tools button { background: none; color: var(--ink); border: 1px solid var(--hair); font: 15px/1 var(--title); height: 32px; cursor: pointer; }
+.pad button:hover, .tools button:hover { border-color: var(--ink); }
 .tools { display: flex; flex-wrap: wrap; gap: 5px; }
-.tools button { padding: 0 10px; font: 600 11.5px var(--label); letter-spacing: .06em; text-transform: uppercase; }
-.tools button.primary { background: var(--ink); color: var(--sheet); }
+.tools button { padding: 0 10px; font: 600 11px var(--label); letter-spacing: .1em; text-transform: uppercase; }
+.tools button.primary { background: var(--ink); border-color: var(--ink); color: var(--sheet); }
 .status { margin: 0; font-size: 13px; color: var(--ink-2); min-height: 1.4em; }
-.search { display: flex; gap: 10px; align-items: center; }
-.search input[type=search] { flex: 1; min-width: 0; padding: 7px 9px; border: 1px solid var(--ink); background: var(--sheet); font: 14px var(--title); color: var(--ink); }
-.check { display: flex; gap: 5px; align-items: center; font: 12px var(--label); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); white-space: nowrap; }
-.group-title { margin: 6px 0 2px; font: 600 11.5px var(--label); letter-spacing: .14em; text-transform: uppercase; border-bottom: 1px solid var(--rule); padding-bottom: 3px; display: flex; justify-content: space-between; }
-.group-title span { color: var(--ink-2); font-weight: 400; }
-.lede { margin: 0; font-style: italic; }
-.kinds { display: flex; flex-wrap: wrap; gap: 4px; }
-.kinds button { display: flex; gap: 5px; align-items: center; background: var(--sheet); border: 1px solid var(--rule); padding: 3px 7px; font: 11.5px var(--label); letter-spacing: .04em; color: var(--ink); cursor: pointer; }
-.kinds button[aria-pressed="true"] { border-color: var(--ink); background: var(--paper-2); }
-.kinds i { width: 10px; height: 10px; border-radius: 50%; border: 1px solid var(--ink); display: inline-block; }
+.search { display: flex; gap: 14px; align-items: center; }
+.search input[type=search] { flex: 1; min-width: 0; padding: 6px 0; border: 0; border-bottom: 1px solid var(--ink); border-radius: 0; background: transparent; font: 15px var(--title); color: var(--ink); }
+.search input[type=search]::placeholder { color: var(--ink-2); font-style: italic; }
+.search input[type=search]:focus-visible { outline: 0; border-bottom-width: 2px; }
+.check { display: flex; gap: 6px; align-items: center; font: 600 10px var(--label); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); white-space: nowrap; cursor: pointer; }
+.check input { accent-color: var(--ink); margin: 0; }
+.group-title { margin: 14px 0 0; padding-bottom: 5px; font: 600 10px var(--label); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-2); border-bottom: 1px solid var(--ink); display: flex; justify-content: space-between; }
+.group-title span { font-weight: 400; font-variant-numeric: tabular-nums; }
+.lede { margin: 0; font-style: italic; font-size: 14px; line-height: 1.45; color: var(--ink-2); }
+/* kind filter: words with a flat swatch (the only colour on the panel, and it names a category) */
+.kinds { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.kinds button { display: flex; gap: 6px; align-items: center; background: none; border: 0; border-bottom: 1px solid transparent; padding: 1px 0 2px; font: 600 10.5px var(--label); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); cursor: pointer; }
+.kinds button:hover { color: var(--ink); }
+.kinds button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+.kinds i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
 .swatch.dot { border-radius: 50%; width: 16px; height: 16px; margin: 3px 9px; }
 .links { display: flex; gap: 12px; font: 600 12px var(--label); letter-spacing: .06em; text-transform: uppercase; }
-.links a { color: var(--survey); }
+.links a { color: var(--ink); }
+details.about { font-size: 13px; line-height: 1.5; color: var(--ink-2); }
+details.about summary { cursor: pointer; font: 600 10.5px var(--label); letter-spacing: .16em; text-transform: uppercase; }
+details.about p { margin: 8px 0 0; }
 /* plate-fitting tool: an old book page beside the map, matching points clicked on both */
-.fitpane { position: absolute; z-index: 6; top: 12px; bottom: 12px; left: 398px; width: min(46vw, 780px); background: var(--sheet); border: 1px solid var(--ink); display: flex; flex-direction: column; box-shadow: 0 2px 12px rgba(43,39,36,.25); }
+.fitpane { position: absolute; z-index: 6; top: 12px; bottom: 12px; left: calc(var(--map-left) + 4px); width: min(46vw, 780px); background: var(--sheet); border: 1px solid var(--ink); display: flex; flex-direction: column; box-shadow: 0 2px 12px rgba(43,39,36,.25); }
 .fitpane canvas { flex: 1; width: 100%; min-height: 0; cursor: crosshair; touch-action: none; background: var(--paper); display: block; }
 .fit-top, .fit-tools { display: flex; gap: 6px; align-items: center; padding: 6px 8px; font: 600 11.5px var(--label); letter-spacing: .06em; text-transform: uppercase; color: var(--ink); }
 .fit-top { border-bottom: 1px solid var(--rule); } .fit-tools { border-top: 1px solid var(--rule); flex-wrap: wrap; }
 .fit-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .fitpane button { background: var(--sheet); border: 1px solid var(--rule); font: 600 11.5px var(--label); letter-spacing: .05em; padding: 3px 9px; cursor: pointer; color: var(--ink); }
-.fitpane button[aria-pressed="true"] { border-color: var(--ink); background: var(--mauve); }
+.fitpane button[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--sheet); }
 .fitpane.min { bottom: auto; } .fitpane.min canvas, .fitpane.min .fit-tools { display: none; }
 @media (max-width: 760px) { .fitpane { left: 0; right: 0; top: 0; width: auto; bottom: 50vh; } }
 .gpin { width: 20px; height: 20px; border-radius: 50%; background: var(--survey); color: #fff; border: 1.5px solid var(--ink); font: 700 11px var(--label); display: flex; align-items: center; justify-content: center; cursor: grab; }
@@ -180,10 +206,9 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
    size (crisp on retina). Must stay after the tier rules above: equal specificity,
    the .pin declarations win by order. */
 .marker .sq.pin, .tiers .sq.pin { border: 0; background: none; }
-/* a pin the zoom gate or the declutter holds back (syncMarkers sets data-off) fades out, then leaves the hit-test; maplibre
-   writes opacity on the marker element itself (globe occlusion), so the fade is on its children */
-.marker .sq, .marker .tag { transition: opacity .3s; }
-.marker[data-off] { visibility: hidden; transition: visibility 0s .3s; }
+/* a pin the zoom gate or the declutter holds back (syncMarkers sets data-off) goes at once and leaves the hit-test (one living
+   thing per page: the scrubber; state changes are instant) */
+.marker[data-off] { visibility: hidden; }
 .marker[data-off] .sq, .marker[data-off] .tag { opacity: 0; }
 .marker .sq.pin svg, .tiers .sq.pin svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .marker .sq.pin path, .tiers .sq.pin path { fill: var(--mks, var(--survey)); stroke: var(--ink); stroke-width: 1.2px; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
@@ -205,18 +230,18 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
 .marker.scan .tag { top: 50%; }
 
 .maplibregl-ctrl-attrib { font: 10.5px var(--label) !important; background: rgba(248, 244, 232, .85) !important; }
-.maplibregl-ctrl-group { background: var(--sheet) !important; border: 1px solid var(--ink) !important; border-radius: 0 !important; box-shadow: none !important; }
-.maplibregl-ctrl-group button + button { border-top: 1px solid var(--ink) !important; }
+.maplibregl-ctrl-group { background: var(--sheet) !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; }
+.maplibregl-ctrl-group button + button { border-top: 1px solid var(--hair) !important; }
 
 /* ---------- the plate sheet (block diagram) ---------- */
 .sheet {
-  position: fixed; z-index: 3; top: calc(12px + env(safe-area-inset-top, 0px)); right: 12px; bottom: 12px; left: 396px;
-  display: grid; grid-template-rows: auto 1fr auto; background: var(--sheet);
-  border: 1px solid var(--ink); outline: 1px solid var(--rule); outline-offset: 3px; box-shadow: 0 8px 24px rgba(43, 39, 36, .2);
+  position: fixed; z-index: 3; top: 0; right: 0; bottom: 0; left: var(--map-left);
+  display: grid; grid-template-rows: auto 1fr auto; background: var(--sheet); border-left: 1px solid var(--hair);
 }
+body.lay-card .sheet { top: var(--gap); right: var(--gap); bottom: var(--gap); left: var(--map-left); border: 0; }
 .sheet-strip { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; padding: 9px 14px 4px; color: var(--ink-2); }
-.sheet-close { background: var(--sheet); border: 1px solid var(--ink); color: var(--ink); font: 600 11.5px var(--label); letter-spacing: .08em; text-transform: uppercase; padding: 5px 10px; cursor: pointer; }
-.sheet-close:hover { background: var(--mauve); }
+.sheet-close { background: none; border: 0; border-bottom: 1px solid var(--ink); color: var(--ink); font: 600 10.5px var(--label); letter-spacing: .14em; text-transform: uppercase; padding: 2px 0; cursor: pointer; }
+.sheet-close:hover { color: var(--ink-2); }
 .sheet-main { position: relative; display: grid; grid-template-columns: 1fr 230px; min-height: 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin: 0 14px; }
 .stage { position: relative; min-height: 0; min-width: 0; cursor: grab; touch-action: none; }
 .stage:active { cursor: grabbing; }
@@ -231,7 +256,7 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
 .key b { display: block; font-size: 13px; }
 .key i { color: var(--ink-2); }
 .toggle { display: flex; gap: 8px; align-items: center; font: 12px var(--label); letter-spacing: .05em; text-transform: uppercase; cursor: pointer; }
-.toggle input { accent-color: var(--survey); width: 16px; height: 16px; }
+.toggle input { accent-color: var(--ink); width: 16px; height: 16px; }
 .caption { padding: 8px 14px 10px; text-align: center; }
 .caption h2 { margin: 0; font: 400 15px/1.3 var(--title); letter-spacing: .14em; text-transform: uppercase; text-wrap: balance; }
 .caption p { margin: 3px 0 0; font: italic 12.5px var(--title); color: var(--ink-2); }
@@ -243,56 +268,41 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
    above the sheet: tap for ink lines or the original drawing, hold and slide for its opacity. */
 .mtop, .mera, .mpop { display: none; }
 .lensbar { display: none; }
-/* ---------- the year scrubber (Ethan 2026-10-15, after Josh Puckett's "The Life of a Cursor"): fine ticks, one even slot per
-   old map, swelling round the current point like a dock; the big year counts through the years between two maps as it slides,
-   the name crossfades; the oldest year at the left end, Today at the right. Desktop: a plate card floating over the bottom of
-   the map. Phones: the same parts in the sheet's peek (the lens bar). */
-.yscrub { position: fixed; z-index: 2; left: 396px; right: 12px; bottom: 30px; display: flex; justify-content: center; pointer-events: none; }
+/* ---------- the year scrubber: the page's one living thing (design/one-living-thing, "The Life of a Cursor"): a ruler of 1px
+   ticks, one even slot per old map, swelling round the current point; the big year counts between maps as it slides; the
+   name below it; the oldest year at the left end, Today at the right. Desktop: straight on the map, which darkens toward
+   the bottom so the ticks read (depth by darkening the ground, no card). Phones: the same parts in the sheet's peek. */
+.yscrub { position: fixed; z-index: 2; left: var(--map-left); right: 0; bottom: 0; display: flex; justify-content: center; padding: 96px 40px 44px; pointer-events: none;
+  background: linear-gradient(to top, color-mix(in srgb, var(--scrim) calc(var(--scrim-a) * 100%), transparent) 0%,
+    color-mix(in srgb, var(--scrim) calc(var(--scrim-a) * 100%), transparent) 38%, transparent 100%);
+  --ys-text: var(--on-scrim); --ys-text-2: color-mix(in srgb, var(--on-scrim) 72%, transparent);
+  --tk: color-mix(in srgb, var(--on-scrim) 42%, transparent); --tk-stop: var(--on-scrim); --tk-on: var(--survey); }
 .yscrub[hidden] { display: none; }
-body.blk .yscrub { display: none; }  /* the block's caption sits where the card would; scrub on the map */
-/* a printed label you can push (Ethan 2026-10-15: smaller, "more tactile", not a box with a faint border): ink edge and a hard
-   offset shadow like a mis-registered plate print; held, it sinks a pixel toward its shadow */
-.yscrub .ys { pointer-events: auto; width: min(400px, 100%); box-sizing: border-box; padding: 7px 10px 9px; background: var(--sheet);
-  border: 1px solid var(--ink); box-shadow: 3px 3px 0 var(--ink), 0 12px 26px rgba(43, 39, 36, .26); transition: transform .14s cubic-bezier(.2, .8, .2, 1), box-shadow .14s; }
-.yscrub .ys.held { transform: translate(1px, 1px); box-shadow: 2px 2px 0 var(--ink), 0 6px 14px rgba(43, 39, 36, .22); }
-.ys { display: grid; gap: 5px; touch-action: none; user-select: none; -webkit-user-select: none; }
-.ys-head { display: flex; align-items: baseline; justify-content: center; gap: 8px; min-width: 0; }
-.ys-year { flex: none; font: 700 17px/1.15 var(--title); font-variant-numeric: tabular-nums; color: var(--survey); }
-.ys-year.present { color: var(--ink); }
-.ys-names { display: grid; min-width: 0; }
-.ys-n { grid-area: 1 / 1; display: flex; align-items: baseline; gap: 8px; min-width: 0; transition: opacity .28s, filter .28s, transform .28s cubic-bezier(.2, .8, .2, 1); }
-.ys-n.in, .ys-n.out { opacity: 0; filter: blur(3px); } .ys-n.in { transform: translateY(4px); } .ys-n.out { transform: translateY(-4px); }
-.ys-n b, .ys-n i { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
-.ys-n b { font: italic 400 12.5px/1.3 var(--title); color: var(--ink); }
-.ys-n i { flex: none; font: italic 11.5px/1.3 var(--title); color: var(--ink-2); }
-.ys-n i:empty { display: none; }
-.ys-row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 0 8px; align-items: center; }
-/* the ticks sit sunk in a groove; a red pointer rides its top edge; under the cursor the ticks swell a little too, so the
-   scale answers before it is touched */
-.ys-ticks { --peak: 28px; --base: 6px; --stop: 11px; position: relative; height: calc(var(--peak) + 9px); background: var(--paper-2);
-  box-shadow: inset 0 1px 3px rgba(43, 39, 36, .38), inset 0 -1px 0 rgba(255, 255, 255, .55); cursor: grab; touch-action: none; outline: none; }
-.ys-ticks:active { cursor: grabbing; }
-.ys-ticks:focus-visible { box-shadow: inset 0 1px 3px rgba(43, 39, 36, .38), 0 0 0 2px var(--ink); }
-.ys-scale { position: absolute; left: 9px; right: 9px; top: 0; bottom: 3px; }
-.ys-tk { position: absolute; bottom: 0; width: 1.5px; height: var(--peak); margin-left: -.75px; background: var(--rule); opacity: .6;
-  transform-origin: 50% 100%; transform: scaleY(calc(var(--base) / var(--peak))); will-change: transform; }
-.ys-tk.st { background: var(--ink); opacity: 1; width: 2px; margin-left: -1px; }
-.ys-tk.on { background: var(--survey); opacity: 1; width: 2px; margin-left: -1px; }
-.ys-ticks.present .ys-tk.on { background: var(--ink); }
-.ys-ptr { position: absolute; top: -3px; width: 0; height: 0; margin-left: -5px; border: 5px solid transparent; border-top: 6px solid var(--survey); border-bottom: 0;
-  filter: drop-shadow(0 1px 0 rgba(43, 39, 36, .35)); pointer-events: none; }
-.ys-ticks.present .ys-ptr { border-top-color: var(--ink); }
-.ys-end { background: none; border: 0; padding: 4px 2px; font: 600 10.5px/1 var(--label); letter-spacing: .06em; font-variant-numeric: tabular-nums; color: var(--ink-2); cursor: pointer; white-space: nowrap; }
-.ys-end:hover { color: var(--ink); }
-/* Today: a small key with its own hard shadow that goes down when pressed */
-.ys-today { padding: 5px 7px 4px; color: var(--ink); text-transform: uppercase; border: 1px solid var(--ink); background: var(--sheet); box-shadow: 2px 2px 0 var(--ink);
-  transition: transform .08s, box-shadow .08s, background .15s; }
-.ys-today:hover { background: var(--paper-2); }
-.ys-today:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--ink); }
+body.blk .yscrub { display: none; }  /* the block's caption sits where the band would; scrub on the map */
+.yscrub .ys { pointer-events: auto; width: min(620px, 100%); }
+.ys { --ys-text: var(--ink); --ys-text-2: var(--ink-2); --tk: var(--hair); --tk-stop: var(--ink-2); --tk-on: var(--survey);
+  display: grid; gap: 8px; touch-action: none; user-select: none; -webkit-user-select: none; }
+.yscrub .ys { --ys-text: inherit; }
+.ys-head { display: grid; justify-items: center; gap: 1px; text-align: center; color: var(--ys-text); }
+.yscrub .ys-head { color: var(--on-scrim); }
+.ys-year { font: 400 26px/1.1 var(--title); font-variant-numeric: tabular-nums; letter-spacing: .01em; }
+.ys-name { max-width: 100%; font: italic 13.5px/1.35 var(--title); color: var(--ys-text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ys-row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 0 14px; align-items: end; }
+.ys-ticks { position: relative; height: var(--tick-peak); cursor: ew-resize; touch-action: none; outline: none; }
+.ys-ticks:focus-visible { outline: 1px solid var(--ys-text-2); outline-offset: 6px; }
+.ys-tk { position: absolute; bottom: 0; width: 1px; height: var(--tick-peak); background: var(--tk); transform-origin: 50% 100%; transform: scaleY(calc(var(--tick-base) / var(--tick-peak))); will-change: transform; }
+.ys-tk.st { background: var(--tk-stop); }
+.ys-tk.on { background: var(--tk-on); width: 2px; margin-left: -.5px; }
+.ys-ticks.present .ys-tk.on { background: var(--tk-stop); }
+.ys-end { background: none; border: 0; padding: 4px 0; font: 600 10.5px/1 var(--label); letter-spacing: .14em; text-transform: uppercase; font-variant-numeric: tabular-nums; color: var(--ys-text-2); cursor: pointer; white-space: nowrap; }
+.yscrub .ys-end { color: color-mix(in srgb, var(--on-scrim) 72%, transparent); }
+.ys-end:hover, .yscrub .ys-end:hover { color: var(--on-scrim); }
+.ys .ys-end:hover { text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 760px) {
   :root { --peek: 40vh; }
-  .panel { top: auto; left: 0; right: 0; bottom: 0; width: auto; height: 84%; max-height: none; outline: none; border-width: 1px 0 0;
-    padding-bottom: env(safe-area-inset-bottom, 0px); overflow: hidden; box-shadow: 0 -6px 18px rgba(16, 20, 28, .28);
+  /* the layouts' desktop placement goes; the sheet's own transform stays on .panel so .panel.open still wins */
+  body.lay-card .panel, body.lay-column .panel { top: auto; left: 0; right: 0; bottom: 0; width: auto; max-height: none; border: 0; }
+  .panel { height: 84%; padding-bottom: env(safe-area-inset-bottom, 0px); overflow: hidden;
     transform: translateY(calc(100% - var(--peek))); transition: transform .34s cubic-bezier(.2, .8, .2, 1); }
   .panel.open { transform: none; }
   .panel.dragging { transition: none; }
@@ -301,26 +311,27 @@ body.blk .yscrub { display: none; }  /* the block's caption sits where the card 
   .strip, .panel-head { display: none; }
   .grab { display: block; flex: none; width: 100%; height: 24px; background: none; border: 0; padding: 0; cursor: pointer; touch-action: none; }
   .grab::before { content: ""; display: block; margin: 8px auto 0; width: 44px; height: 5px; background: var(--rule); }
-  .panel-body { padding-top: 2px; }
-  #body > .back, .lensbar ~ .tabs, .lensbar ~ .group:has(> .seg[aria-label="Ground layer"]) { display: none; }
+  .panel-body { padding: 2px 18px 18px; }
+  /* in a site the lens bar carries view, ground and the old map's look, so the card's rows for them go */
+  #body > .back, .lensbar ~ .facts .f-view, .lensbar ~ .facts .f-ground, .lensbar ~ .facts .f-look { display: none; }
   #body > .search { order: -2; touch-action: none; } #body > .tabs { order: -1; }
   /* pulled up in a site: what it is and where to go next first, the map pickers and the owner's tools under them */
-  #body > .lensbar ~ .summary, #body > .lensbar ~ p.source, #body > .lensbar ~ div:has(> .notes), #near { order: 1; }
-  #body > .lensbar ~ .group { order: 2; }
-  .search input[type=search] { font-size: 16px; padding: 9px 10px; }  /* 16px: iOS zooms the page into smaller inputs */
+  #body > .lensbar ~ .facts, #body > .lensbar ~ .summary, #body > .lensbar ~ p.source, #body > .lensbar ~ div:has(> .notes), #near { order: 1; }
+  #body > .lensbar ~ .group, #body > .lensbar ~ details.align { order: 2; }
+  .search input[type=search] { font-size: 16px; padding: 9px 0; }  /* 16px: iOS zooms the page into smaller inputs */
   .maplibregl-ctrl-top-right { display: none; }
   .maplibregl-ctrl-bottom-right, .maplibregl-ctrl-bottom-left { bottom: var(--peek); transition: bottom .34s; }
 
   /* the top bar is one plate label: back on its left behind a rule, the site's name centred in the rest, the year hung
      under the name's centre (Ethan 2026-10-15: the year sat off-centre, the back box felt detached). Home shows no bar. */
   .mtop { display: flex; position: fixed; z-index: 2; left: 10px; right: 10px; top: calc(10px + env(safe-area-inset-top, 0px)); align-items: stretch;
-    background: rgba(248, 244, 232, .95); border: 1px solid var(--ink); box-shadow: 0 2px 8px rgba(16, 20, 28, .22); }
+    background: var(--sheet); }
   .mtop.home { display: none; }
-  .mt-back { flex: none; width: 46px; display: grid; place-items: center; background: none; border: 0; border-right: 1px solid var(--rule); color: var(--ink); cursor: pointer; padding: 0; }
+  .mt-back { flex: none; width: 46px; display: grid; place-items: center; background: none; border: 0; border-right: 1px solid var(--hair); color: var(--ink); cursor: pointer; padding: 0; }
   .mt-back svg { width: 22px; height: 22px; }
   .mt-back:active { background: var(--paper-2); }
   .mt-name { position: relative; flex: 1; min-width: 0; text-align: center; padding: 6px 46px 6px 0; }  /* right pad = back's width, so the name centres on the screen */
-  .mt-name b { display: block; font: 700 14px/1.2 var(--title); letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mt-name b { display: block; font: 400 17px/1.2 var(--title); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .mt-name i { display: block; font: italic 12px/1.3 var(--title); color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .mera { position: absolute; left: calc(50% - 23px); top: calc(100% + 9px); transform: translateX(-50%); pointer-events: none;
     font: 700 11px/1 var(--label); letter-spacing: .14em; text-transform: uppercase; background: var(--survey); color: #fff; padding: 5px 8px 4px; white-space: nowrap; }
@@ -330,43 +341,41 @@ body.blk .yscrub { display: none; }  /* the block's caption sits where the card 
   /* the old map's look: a chip in the lens bar's row opens a small card with Ink lines / Original and an opacity slider
      (replaced the round tap-or-hold button: "nothing indicates the button can be pressed") */
   .mpop { position: fixed; z-index: 3; right: 12px; bottom: calc(var(--peek) + 8px); width: min(300px, calc(100vw - 24px)); box-sizing: border-box;
-    background: var(--sheet); border: 1px solid var(--ink); box-shadow: 0 4px 14px rgba(16, 20, 28, .32); padding: 10px 12px 12px; display: grid; gap: 10px; }
+    background: var(--sheet); padding: 12px 14px 14px; display: grid; gap: 12px; }
   .mpop[hidden] { display: none; }
   .mpop .mp-t { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
   .mpop .mp-t b { font: 600 10.5px var(--label); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); }
   .mpop .mp-t span { font: italic 12px/1.2 var(--title); color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
-  .mp-seg { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--ink); }
-  .mp-seg button { background: var(--sheet); border: 0; padding: 9px 4px; font: 600 11.5px/1 var(--label); letter-spacing: .07em; text-transform: uppercase; color: var(--ink); cursor: pointer; }
-  .mp-seg button + button { border-left: 1px solid var(--ink); }
-  .mp-seg button[aria-pressed="true"] { background: var(--ink); color: var(--sheet); }
-  .mp-seg button:disabled { color: var(--rule); cursor: default; }
+  .mp-seg { display: flex; gap: 18px; }
+  .mp-seg button { background: none; border: 0; border-bottom: 1px solid transparent; padding: 8px 0 3px; font: 600 11px/1 var(--label); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); cursor: pointer; }
+  .mp-seg button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+  .mp-seg button:disabled { color: var(--hair); cursor: default; }
   .mp-op { display: flex; align-items: center; gap: 10px; }
   .mp-op label { font: 600 10.5px var(--label); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); }
-  .mp-op input { flex: 1; min-width: 0; height: 30px; accent-color: var(--survey); }
+  .mp-op input { flex: 1; min-width: 0; height: 30px; }
   .mp-op output { font: 700 12.5px var(--label); font-variant-numeric: tabular-nums; min-width: 3.2em; text-align: right; }
   .panel.open ~ .mpop { display: none; }
 
   .lensbar { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; min-height: 104px; align-content: start; touch-action: none; }
   .yscrub { display: none !important; }
-  /* the year scrubber in the peek: year and name on one line, the ends either side of the ticks, so it stays as short as the old track */
-  .ys { gap: 6px; }
-  .ys-head { justify-content: flex-start; min-height: 21px; }
-  .ys-year { font-size: 18px; min-width: 2.5em; }
-  .ys-n b { font-size: 13.5px; }
-  .ys-ticks { --peak: 30px; --base: 7px; --stop: 12px; }
-  .ys-end { padding: 8px 2px; font-size: 11px; }
-  .ys-today { padding: 7px 8px 6px; }
+  /* the year scrubber in the peek: year and name on one line, the ends either side of the ticks */
+  .ys { gap: 5px; }
+  .ys-head { display: flex; align-items: baseline; gap: 10px; justify-items: start; text-align: left; min-height: 24px; }
+  .ys-year { font-size: 22px; flex: none; }
+  .ys-name { flex: 1; min-width: 0; font-size: 13.5px; }
+  .ys-row { gap: 0 12px; }
+  .ys-end { padding: 8px 0; font-size: 10.5px; }
   .track-none { margin: 0; min-height: 44px; display: flex; align-items: center; font-size: 13px; font-style: italic; color: var(--ink-2); }
   .lrow { display: flex; gap: 8px; align-items: center; }
-  .lchips { display: flex; gap: 5px; flex: 1; min-width: 0; }
-  .lchips button { flex: 1 1 0; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; background: var(--sheet); border: 1px solid var(--ink); color: var(--ink); font: 600 11px/1 var(--label); letter-spacing: .05em; text-transform: uppercase; padding: 8px 3px; cursor: pointer; }
-  .lchips .gap { flex: none; width: 4px; }
-  .lchips button[aria-pressed="true"] { background: var(--ink); color: var(--sheet); }
-  /* the old map's chip: red edge and a caret, so it reads as the thing that opens; wider than the others, it names the look and %. */
-  .lchips .lpast { flex: 1.5 1 0; border-color: var(--survey); color: var(--survey); display: flex; align-items: center; justify-content: center; gap: 4px; }
+  /* the lens row: words, the chosen ones ink and underlined; the old map's look at the right with a caret, as the thing that opens */
+  .lchips { display: flex; gap: 18px; flex: 1; min-width: 0; align-items: center; border-top: 1px solid var(--hair); padding-top: 4px; }
+  .lchips button { flex: none; min-width: 0; white-space: nowrap; background: none; border: 0; border-bottom: 1px solid transparent; color: var(--ink-2); font: 600 11px/1 var(--label); letter-spacing: .14em; text-transform: uppercase; padding: 11px 0 4px; cursor: pointer; }
+  .lchips .gap { flex: 1; }
+  .lchips button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+  .lchips .lpast { color: var(--ink); display: flex; align-items: center; gap: 5px; }
   .lchips .lpast::after { content: ""; flex: none; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-bottom: 5px solid currentColor; }
-  .lchips .lpast[aria-expanded="true"] { background: var(--survey); color: #fff; }
-  .lchips .lpast:disabled { border-color: var(--rule); color: var(--rule); cursor: default; }
+  .lchips .lpast[aria-expanded="true"] { border-bottom-color: var(--ink); }
+  .lchips .lpast:disabled { color: var(--hair); cursor: default; }
   .lchips .lpast b { font-weight: 700; font-variant-numeric: tabular-nums; }
   .strip { padding-top: 14px; }
   /* the block on a phone (Ethan 2026-10-15: "the block view needs to be fixed as well"): the block fills the screen above the
@@ -497,6 +506,18 @@ const S = { sites: [], byId: {}, sel: null, ground: 'relief', plateMode: 'ink', 
 const $ = (sel, el = document) => el.querySelector(sel);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const narrow = () => matchMedia('(max-width: 760px)').matches;
+// two desktop layouts (Ethan 2026-10-16, "build both"): 'card' = the map is the page and the panel one card on it; 'column' =
+// a full-height column at the left. The dev canvas (?dev=1) switches them; ?layout= or the saved pick chooses at load.
+const LAYOUTS = ['card', 'column'];
+function setLayout(l) {
+  if (!LAYOUTS.includes(l)) l = 'card';
+  LAYOUTS.forEach(x => document.body.classList.toggle('lay-' + x, x === l));
+  try { localStorage.setItem('aw.layout', l); } catch {}
+  return l;
+}
+setLayout(new URLSearchParams(location.search).get('layout') || (() => { try { return localStorage.getItem('aw.layout'); } catch { return null; } })() || 'card');
+// where the map's open area starts at the left, past the panel (the layouts set --map-left)
+const mapLeft = () => parseFloat(getComputedStyle(document.body).getPropertyValue('--map-left')) || 380;
 function lsGet(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch { return d; } }
 function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
 S.ground = lsGet('aw.ground', 'relief'); S.plateMode = lsGet('aw.plateMode', 'ink'); S.plateOpacity = lsGet('aw.plateOpacity', 0.85);
@@ -831,16 +852,17 @@ function siteEntries() {
   return names.map(g => `
     <p class="group-title">${esc(g)} <span>${groups[g].length}</span></p>
     <ul class="legend-list">${groups[g].map(s => `
-      <li><button class="entry" data-id="${esc(s.id)}">
-        <span class="tiers"><span class="sq pin ${tierOf(s)}">${PIN}</span></span>
-        <span><span class="name">${esc(s.name)}</span><span class="desc">${esc([s.kind ? kindLabel(s.kind) : '', s.place].filter(Boolean).join(', '))}.${s.oldest ? ` Oldest overlay ${s.oldest}${s.overlays > 1 ? `, ${s.overlays} in all` : ''}.` : ''}${s.lidar === false ? ' Aerial photograph only.' : ''}</span></span>
-      </button></li>`).join('')}</ul>`).join('') + (cm.length ? `
+      <li>${siteRow(s, s.oldest ? String(s.oldest) : '', 'data-id')}</li>`).join('')}</ul>`).join('') + (cm.length ? `
     <p class="group-title">From the catalog <span>${cm.length === 40 ? 'first 40' : cm.length}</span></p>
     <ul class="legend-list">${cm.map(r => `
       <li><button class="entry" data-cat="${esc(r.id)}">
         <span class="swatch dot" style="background:${KGROUP[kindGroup(r.kind)][1]}"></span>
         <span><span class="name">${esc(r.name)}</span><span class="desc">${esc([kindLabel(r.kind), r.place, r.region].filter(Boolean).join(', '))}</span></span>
       </button></li>`).join('')}</ul>` : '');
+}
+// one site in a list: name over kind and place, the oldest overlay's year (or the distance) at the right
+function siteRow(s, right, attr) {
+  return `<button class="entry srow" ${attr}="${esc(s.id)}"><span><span class="name">${esc(s.name)}</span><span class="desc">${esc([s.kind ? kindLabel(s.kind) : '', s.place].filter(Boolean).join(', '))}</span></span><span class="yr">${esc(right)}</span></button>`;
 }
 function bindEntries() {
   $('#body').querySelectorAll('.entry[data-cat]').forEach(b => b.addEventListener('click', () => selectCat(b.dataset.cat)));
@@ -853,12 +875,12 @@ function renderList() {
   if (PUBLIC && S.tab === 'finder') S.tab = 'sites';  // a remembered Finder tab from the owner's copy
   const n = S.sites.length, nc = C.rows.filter(r => !S.byId[r.id]).length;
   $('#body').innerHTML = `
-    <div class="tabs" role="group" aria-label="Section">
+    ${PUBLIC ? '' : `<div class="tabs" role="group" aria-label="Section">
       <button id="h-sites" aria-pressed="${S.tab !== 'finder'}">Sites</button>
-      ${PUBLIC ? '' : `<button id="h-finder" aria-pressed="${S.tab === 'finder'}">Finder</button>`}
-    </div>
+      <button id="h-finder" aria-pressed="${S.tab === 'finder'}">Finder</button>
+    </div>`}
     ${S.tab === 'finder' ? finderHome() : `
-    <p class="fit">${S.sites.filter(x => x.score > 0).length} sites with an old drawing or map, at least 150 years old, laid on today's ground. Bigger and darker: older, and truer to the ground.</p>
+    <p class="lede">${S.sites.filter(x => x.score > 0).length} places drawn or mapped at least 150 years ago, laid on today's ground.</p>
     <div class="tiers" aria-label="Marker key"><span class="sq pin t4">${PIN}</span><span class="sq pin t3">${PIN}</span><span class="sq pin t2">${PIN}</span><span class="sq pin t1">${PIN}</span><span>older, truer &rarr; newer, rougher</span>${S.more ? `<span class="sq pin plain">${PIN}</span><span>LiDAR or photo only</span>` : ''}</div>
     <div class="kinds" role="group" aria-label="Kind of earthwork">
       <button data-kind="all" aria-pressed="${C.kind === 'all'}">All</button>
@@ -869,12 +891,12 @@ function renderList() {
       <label class="check" title="Also sites with only LiDAR or the aerial photograph, and the ${nc.toLocaleString()} catalogued earthworks in search"><input id="more" type="checkbox" ${S.more ? 'checked' : ''}> More sites</label>
     </div>
     <div id="entries">${siteEntries()}</div>
-    <div class="about">
+    <details class="about"><summary>About</summary>
       <p>Each site pairs old drawings, surveys and maps with today's LiDAR, or where there is none, with the aerial photograph. The relief view removes the natural slope of the ground, so walls plowed down to a few tens of centimetres still show as light bands.</p>
       <p>Survey plates are fitted by machine: rotation, scale and position are searched until the drawn walls sit on the highest ridges, with roads, buildings and water masked out. Where a plate's features drift apart, each one is fitted on its own and the sheet is rubber-sheeted between them.</p>
-      <p>Private site, served from this Mac on the home network.</p>
-    </div>`}`;
-  $('#h-sites').onclick = () => setTabHome('sites');
+      ${PUBLIC ? '' : '<p>Private site, served from this Mac on the home network.</p>'}
+    </details>`}`;
+  if ($('#h-sites')) $('#h-sites').onclick = () => setTabHome('sites');
   if ($('#h-finder')) $('#h-finder').onclick = () => setTabHome('finder');
   $('#body').querySelectorAll('[data-kind]').forEach(b => b.onclick = () => setKind(b.dataset.kind));
   if ($('#q')) {
@@ -914,22 +936,6 @@ const rough = x => x.kind === 'map' && ROUGH.has(x.file.split('.')[0]);
 // Ethan 2026-10-14: sheets are measured against today's aerial and LiDAR (fit/sheetfit.py); a sheet that could not be
 // confirmed on today's ground opens only when the site has no confirmed sheet, and every checked sheet says what was done
 const unsure = x => x.check && x.check.use === 'unsure';
-// the panel holds the look of the old map the scrubber rests on (Ethan 2026-10-15: no list of maps beside the scrubber)
-function depGroup(s) {
-  const d = (S.dep[s.id] || []).find(x => x.file === S.depSel[s.id]);
-  if (!d) return '';
-  return `
-    <div class="group">
-      <p class="section-title">${DRAWING.has(d.kind) ? 'Old drawing' : d.kind === 'aerial' ? 'Old aerial photograph' : 'Old map'}</p>
-      ${d.ink ? `<div class="seg" role="group" aria-label="Map style">
-        <button id="d-ink" aria-pressed="${S.depMode === 'ink'}">Ink lines</button>
-        <button id="d-paper" aria-pressed="${S.depMode !== 'ink'}">Original paper</button>
-      </div>` : ''}
-      <div class="row"><label for="dop">Opacity</label><input id="dop" type="range" min="0" max="100" value="${Math.round(S.depOpacity * 100)}"><span class="val" id="dopv">${Math.round(S.depOpacity * 100)}%</span></div>
-      ${alignBlock('d', S.depAlign[depKey(s, d)], 'Adjust the drawing')}
-      <p class="source">${esc(d.source)}</p>
-    </div>`;
-}
 // Ethan 2026-10-10: some fits are off by a few metres; every overlay can be nudged (fine 2 m / coarse 10 m steps),
 // rotated, resized or dragged on the map, and the position saved for everyone on this server
 const STEP = { fine: { m: 2, r: 0.25, s: 0.005 }, coarse: { m: 10, r: 1, s: 0.02 } };
@@ -1000,53 +1006,36 @@ function dragStart(e) {
   S.drag.from = e.lngLat; S.drag.start = Object.assign({ dx: 0, dy: 0, rot: 0, scale: 1 }, S.drag.get());
 }
 function dragEnd() { if (S.drag && S.drag.from) { S.drag.from = null; const v = $(`#${S.drag.p}saved`); if (v) v.textContent = ''; } }
+// the site's panel, one editorial card (Ethan 2026-10-16, design/one-living-thing "Astra"): back, title, place, a label/value
+// grid (kind, oldest, view, ground, the showing map's look and opacity), the summary, then the credit and the owner's tools
 function renderSite(s) {
-  const f = s.plate && s.plate.fit;
-  const a = S.align[s.id];
-  const moved = a && (a.dx || a.dy || a.rot || a.scale !== 1);
-  const feats = s.plate && s.plate.features ? s.plate.features.filter(x => x.used) : null;
+  const dsel = (S.dep[s.id] || []).find(x => x.file === S.depSel[s.id]);
+  const past = dsel ? 'dep' : s.plate && !S.plateOff ? 'plate' : null;
+  const tog = (id, on, label) => `<button id="${id}" aria-pressed="${on}">${label}</button>`;
+  const look = past === 'plate' ? [tog('p-ink', S.plateMode === 'ink', 'Ink lines'), tog('p-paper', S.plateMode === 'paper', 'Original')]
+    : past === 'dep' && dsel.ink ? [tog('d-ink', S.depMode === 'ink', 'Ink lines'), tog('d-paper', S.depMode !== 'ink', 'Original')] : null;
+  const op = past === 'plate' ? ['op', 'opv', S.plateOpacity] : past === 'dep' ? ['dop', 'dopv', S.depOpacity] : null;
   $('#body').innerHTML = `${narrow() ? lensBar(s) : '<i hidden data-siteview></i>'}
     <button class="back" id="back">← All sites</button>
-    <div><h2 class="site-title">${esc(s.name)}</h2><p class="site-aka">${esc([s.aka, s.place].filter(Boolean).join(' · '))}</p></div>
-    ${s.block ? `<div class="tabs" role="group" aria-label="View">
-      <button id="t-map" aria-pressed="true">Map</button>
-      <button id="t-block" aria-pressed="false">Block diagram</button>
-    </div>` : ''}
-    <div class="group">
-      <p class="section-title">Ground</p>
-      ${s.lidar === false ? `<p class="fit"><span class="chip">Aerial photograph only</span></p>
-      <p class="fit">No open LiDAR here. Old maps are placed by what has not moved since they were drawn: roads, churches, river crossings, field edges.</p>` : `
-      <div class="seg" role="group" aria-label="Ground layer">
-        <button id="g-relief" aria-pressed="${S.ground === 'relief'}">LiDAR relief</button>
-        <button id="g-imagery" aria-pressed="${S.ground === 'imagery'}">Aerial photograph</button>
-      </div>
-      <div ${S.ground === 'relief' ? '' : 'hidden'}>
-        <div class="ramp"></div>
-        <div class="ramp-labels"><span>sunken −${s.relief_clip_m} m</span><span>level</span><span>raised +${s.relief_clip_m} m</span></div>
-      </div>`}
-    </div>
-    ${s.plate && !S.plateOff ? `
-    <div class="group">
-      <p class="section-title">${esc(s.plate.label || 'Plate of 1848')}</p>
-      <div class="row"><label for="op">Opacity</label><input id="op" type="range" min="0" max="100" value="${Math.round(S.plateOpacity * 100)}"><span class="val" id="opv">${Math.round(S.plateOpacity * 100)}%</span></div>
-      <div class="seg" role="group" aria-label="Plate style">
-        <button id="p-ink" aria-pressed="${S.plateMode === 'ink'}">Ink lines</button>
-        <button id="p-paper" aria-pressed="${S.plateMode === 'paper'}">Original paper</button>
-      </div>
-      ${f && f.model === 'control' ? `<p class="fit">Placed by ${f.control_resid_m.length} hand-picked points (surviving mounds); a single rotation and scale fits all of them within ${Math.ceil(Math.max(...f.control_resid_m))} m.</p>`
-        : feats ? `<p class="fit">Rubber-sheeted through ${feats.length} feature${feats.length === 1 ? '' : 's'}; drawn walls stand ${feats.map(x => x.contrast_m.toFixed(2)).join(', ')} m above the ground 20 m to either side.</p>`
-        : f ? `<p class="fit">Drawn walls stand ${f.ridge_contrast_m.toFixed(2)} m above the ground 20 m to either side (median). Random placements of the same shape: ${f.null_p99_m.toFixed(2)} m at the 99th percentile.</p>` : ''}
-      ${alignBlock('p', S.align[s.id], 'Adjust the plate')}
-      <p class="source">${esc(s.plate.source)}</p>
-    </div>` : ''}
-    ${depGroup(s)}
+    <div class="site-head"><h2 class="site-title">${esc(s.name)}</h2><p class="site-aka">${esc([s.aka, s.place].filter(Boolean).join(' · '))}</p></div>
+    <dl class="facts">
+      ${s.kind ? `<dt>Kind</dt><dd>${esc(kindLabel(s.kind))}</dd>` : ''}
+      ${s.oldest ? `<dt>Oldest</dt><dd class="num">${esc(String(s.oldest))}</dd>` : ''}
+      ${s.block ? `<dt class="f-view">View</dt><dd class="f-view"><span class="tabs" role="group" aria-label="View">${tog('t-map', true, 'Map')}${tog('t-block', false, 'Block')}</span></dd>` : ''}
+      <dt class="f-ground">Ground</dt><dd class="f-ground">${s.lidar === false ? 'Aerial photograph only' : `<span class="seg" role="group" aria-label="Ground layer">${tog('g-imagery', S.ground === 'imagery', 'Aerial')}${tog('g-relief', S.ground === 'relief', 'LiDAR')}</span>
+        ${S.ground === 'relief' ? `<div class="ramp"></div><div class="ramp-labels"><span>sunken −${s.relief_clip_m} m</span><span>raised +${s.relief_clip_m} m</span></div>` : ''}`}</dd>
+      ${look ? `<dt class="f-look">Look</dt><dd class="f-look"><span class="seg" role="group" aria-label="Map style">${look.join('')}</span></dd>` : ''}
+      ${op ? `<dt class="f-look">Opacity</dt><dd class="f-look"><div class="row"><input id="${op[0]}" type="range" min="0" max="100" value="${Math.round(op[2] * 100)}" aria-label="Opacity"><span class="val" id="${op[1]}">${Math.round(op[2] * 100)}%</span></div></dd>` : ''}
+    </dl>
+    ${s.summary ? `<p class="summary">${esc(s.summary)}</p>` : ''}
+    ${s.notes && s.notes.length ? `<div><p class="section-title">What the LiDAR shows</p><ul class="notes">${s.notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul></div>` : ''}
+    ${past === 'plate' ? alignBlock('p', S.align[s.id], 'Adjust the plate') : past === 'dep' ? alignBlock('d', S.depAlign[depKey(s, dsel)], 'Adjust the drawing') : ''}
+    <p class="source">${past === 'plate' ? esc(s.plate.source) + ' ' : past === 'dep' ? esc(dsel.source) + ' ' : ''}${s.summary && s.wiki ? `Summary from <a href="${esc(s.wiki)}" target="_blank" rel="noopener">Wikipedia</a> (CC BY-SA 4.0).` : ''}</p>
     ${S.db ? `<div class="group">
       <p class="section-title">Old plans in books</p>
       <p class="fit">${(P.bySite[s.id] || []).length ? `${P.bySite[s.id].length} old plan${P.bySite[s.id].length === 1 ? '' : 's'} may show this site. ` : ''}Pick a plan from ${P.rows.length} in old books and on Wikimedia Commons and pin it to the ground by clicking matching spots.</p>
       <div class="tools"><button class="primary" id="fitgo">Place an old plan</button></div>
     </div>` : ''}
-    ${s.summary ? `<p class="summary">${esc(s.summary)}</p>${s.wiki ? `<p class="source">Summary from <a href="${esc(s.wiki)}" target="_blank" rel="noopener">Wikipedia</a> (CC BY-SA 4.0).</p>` : ''}` : ''}
-    ${s.notes && s.notes.length ? `<div><p class="section-title" style="text-align:left">What the LiDAR shows</p><ul class="notes">${s.notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul></div>` : ''}
     ${narrow() ? nearBlock(s) : ''}`;
   $('#back').onclick = () => { closeBlock(); S.sel = null; syncMarkers(); renderList(); zoomOut(); };
   if (s.block) { $('#t-map').onclick = () => closeBlock(); $('#t-block').onclick = () => openBlock(s); }
@@ -1056,7 +1045,6 @@ function renderSite(s) {
   if ($('#d-ink')) { $('#d-ink').onclick = () => depMode('ink'); $('#d-paper').onclick = () => depMode('paper'); }
   if ($('#dop')) $('#dop').oninput = e => { S.depOpacity = e.target.value / 100; $('#dopv').textContent = e.target.value + '%'; applyDep(s); lsSet('aw.depOpacity', S.depOpacity); };
   if (narrow()) wireLens(s); else deskScrub(s);
-  const dsel = (S.dep[s.id] || []).find(x => x.file === S.depSel[s.id]);
   if (dsel && $('#dsave')) wireAlign('d', () => S.depAlign[depKey(s, dsel)], a => { S.depAlign[depKey(s, dsel)] = a; }, () => applyDep(s),
     `depalign/${depKey(s, dsel)}`, 'Saved. This is now where the drawing sits for everyone.');
   if (!$('#op')) return;
@@ -1103,7 +1091,7 @@ function select(id) {
   if (narrow()) { sheetOpen(false); const pad = sheetPad(8), cam = map.cameraForBounds(new maplibregl.LngLatBounds(s.corners[3], s.corners[1]), { padding: pad });
     map.flyTo({ center: [s.lon, s.lat], zoom: Math.min(17.5, cam ? cam.zoom : 15), duration: 4500, essential: true, padding: pad }); }
   else {
-    const pad = { left: 390, top: 20, right: 20, bottom: 190 };  // bottom: the year scrubber
+    const pad = { left: mapLeft() + 10, top: 20, right: 20, bottom: 170 };  // bottom: the year scrubber's band
     const span = Math.max(...s.size_m);
     map.flyTo({ center: [s.lon, s.lat], zoom: 15 - Math.max(0, Math.log2(span / 1800)), duration: 4500, essential: true, padding: pad });
   }
@@ -1226,11 +1214,8 @@ function nearSites(s, k = 5) {
   return S.sites.filter(x => x.id !== s.id && x.score > 0 && shown(x)).map(x => [km(x), x]).sort((a, b) => a[0] - b[0]).slice(0, k);
 }
 function nearBlock(s) {
-  return `<div id="near"><p class="group-title">Nearby sites</p><ul class="legend-list">${nearSites(s).map(([d, x]) => `
-    <li><button class="entry" data-near="${esc(x.id)}">
-      <span class="tiers"><span class="sq pin ${tierOf(x)}">${PIN}</span></span>
-      <span><span class="name">${esc(x.name)}</span><span class="desc">${esc([x.kind ? kindLabel(x.kind) : '', x.place].filter(Boolean).join(', '))}. ${d < 10 ? d.toFixed(1) : Math.round(d)} km away${x.oldest ? `, oldest overlay ${x.oldest}` : ''}.</span></span>
-    </button></li>`).join('')}</ul></div>`;
+  return `<div id="near"><p class="group-title">Nearby sites</p><ul class="legend-list">${nearSites(s).map(([d, x]) =>
+    `<li>${siteRow(x, `${d < 10 ? d.toFixed(1) : Math.round(d)} km`, 'data-near')}</li>`).join('')}</ul></div>`;
 }
 function wireLens(s) {
   const stops = lensStops(s), n = stops.length - 1, at = restIndex(s, stops);
@@ -1313,115 +1298,89 @@ function scrubEnd(s, stops, k) {
   hideScrubLater(s, stops, 250);
 }
 // the year scrubber's parts and motion, the same on a phone (in the lens bar) and on desktop (#yscrub over the map).
-// One loop eases the shown point tc toward the target tt: it follows a drag closely, glides on a tap, a key or an end button,
-// and the release snaps to the nearest map, which then becomes the resting layer (scrubEnd).
-const YS = { raf: 0, tc: 0, tt: 0, v: 0, hover: null, drag: false, s: null, stops: null, el: null, cap: -1, back: {} };
+// It is the page's one living thing (design/one-living-thing, Ethan 2026-10-16): a ruler of hairline ticks that swell round
+// the current point. One loop eases the shown point tc toward the target tt with no overshoot: it follows a drag closely,
+// glides on a tap, a key or an end label, and the release settles on the nearest map, which then becomes the resting
+// layer (scrubEnd). The map name swaps instantly; only the ticks and the overlays ease. Reduced motion: no glide.
+// TUNE holds the knobs the dev canvas (?dev=1) turns.
+const TUNE = { ticks: 64, ticksPhone: 36, sigma: 3, glide: 0.18, follow: 0.5 };
+const YS = { raf: 0, tc: 0, tt: 0, drag: false, s: null, stops: null, el: null, cap: -1 };
+const stillMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 const stopYear = st => st.kind === 'today' ? new Date().getFullYear() : st.year;
 const stopName = (st, s) => st.kind === 'today' ? `Today · ${todayName(s)}` : st.name;
-// fine ticks per map's slot: about 64 across the desktop card, 36 across a phone
-const ysPer = n => Math.max(2, Math.round((narrow() ? 36 : 64) / Math.max(1, n)));
+// fine ticks per map's slot
+const ysPer = n => Math.max(2, Math.round((narrow() ? TUNE.ticksPhone : TUNE.ticks) / Math.max(1, n)));
 // the year at t: counted between two dated maps, else the nearer map's own
 function ysYear(stops, t) {
   const k = Math.min(Math.floor(t), stops.length - 2), ya = stopYear(stops[k]), yb = stopYear(stops[k + 1]);
   if (ya && yb) return String(Math.round(ya + (yb - ya) * (t - k)));
   return String(stopYear(stops[Math.round(t)]) || 'Undated');
 }
-const ysName = (st, s) => `<span class="ys-n"><b>${esc(stopName(st, s))}</b><i>${esc(st.note || '')}</i></span>`;
-// at today the right end offers the way back to the map last looked at
-function ysRight(s, stops, i) {
-  const n = stops.length - 1, b = Math.min(YS.back[s.id] ?? n - 1, n - 1);
-  return i === n ? { to: b, label: `← ${stopYear(stops[b]) || 'Undated'}` } : { to: n, label: 'Today' };
-}
 function yearScrub(s, stops, at) {
-  const n = stops.length - 1, m = ysPer(n), r = ysRight(s, stops, at);
+  const n = stops.length - 1, m = ysPer(n);
   const ticks = Array.from({ length: n * m + 1 }, (_, j) => `<i class="ys-tk${j % m ? '' : ' st'}" style="left:${(j / (n * m) * 100).toFixed(3)}%"></i>`).join('');
   return `<div class="ys">
-    <div class="ys-head"><b class="ys-year${at === n ? ' present' : ''}">${esc(ysYear(stops, at))}</b><span class="ys-names">${ysName(stops[at], s)}</span></div>
+    <div class="ys-head"><b class="ys-year${at === n ? ' present' : ''}">${esc(ysYear(stops, at))}</b><span class="ys-name">${esc(stopName(stops[at], s))}</span></div>
     <div class="ys-row">
-      <button class="ys-end ys-first" data-ys="0" title="The oldest map">${esc(String(stopYear(stops[0]) || 'Undated'))}</button>
-      <div class="ys-ticks${at === n ? ' present' : ''}" role="slider" tabindex="0" aria-label="Old maps by year, oldest to today" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${at}"><div class="ys-scale">${ticks}<i class="ys-ptr" style="left:${(at / n * 100).toFixed(3)}%"></i></div></div>
-      <button class="ys-end ys-today" data-ys="${r.to}">${esc(r.label)}</button>
+      <button class="ys-end" data-ys="0" title="The oldest map">${esc(String(stopYear(stops[0]) || 'Undated'))}</button>
+      <div class="ys-ticks${at === n ? ' present' : ''}" role="slider" tabindex="0" aria-label="Old maps by year, oldest to today" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${at}">${ticks}</div>
+      <button class="ys-end" data-ys="${n}">Today</button>
     </div>
   </div>`;
 }
 function wireYearScrub(s, stops, at, root) {
   if (!root) { YS.el = null; return; }
   const n = stops.length - 1, tr = root.querySelector('.ys-ticks'), cs = getComputedStyle(tr), px = v => parseFloat(cs.getPropertyValue(v)) || 1;
-  const sc = tr.querySelector('.ys-scale');
-  YS.el = { root, tr, sc, ptr: sc.querySelector('.ys-ptr'), ticks: [...sc.querySelectorAll('.ys-tk')], year: root.querySelector('.ys-year'), names: root.querySelector('.ys-names'), right: root.querySelector('.ys-today'),
-    peak: px('--peak'), base: px('--base'), stop: px('--stop') };
+  YS.el = { tr, ticks: [...tr.querySelectorAll('.ys-tk')], year: root.querySelector('.ys-year'), name: root.querySelector('.ys-name'),
+    peak: px('--tick-peak'), base: px('--tick-base'), stop: px('--tick-stop') };
   // a re-render mid-glide (the old maps arriving) keeps the motion going
   const live = YS.raf && YS.s === s;
   YS.s = s; YS.stops = stops;
-  if (!live) { YS.tc = YS.tt = at; YS.v = 0; YS.cap = at; }
-  YS.hover = null;
+  if (!live) { YS.tc = YS.tt = at; YS.cap = at; }
   ysPaint(s, stops, YS.tc);
-  const tAt = e => { const r = sc.getBoundingClientRect(); return Math.max(0, Math.min(n, (e.clientX - r.left) / r.width * n)); };
+  const tAt = e => { const r = tr.getBoundingClientRect(); return Math.max(0, Math.min(n, (e.clientX - r.left) / r.width * n)); };
   let down = null;
-  const held = on => root.classList.toggle('held', on);
-  tr.onpointerdown = e => { e.stopPropagation(); e.preventDefault(); tr.setPointerCapture(e.pointerId); down = e.clientX; held(true); };
-  tr.onpointermove = e => {
-    // a mouse over the scale swells the ticks under it, as a preview of where a click lands
-    if (down === null) { if (e.pointerType === 'mouse') { YS.hover = tAt(e); if (!YS.raf) ysPaint(s, stops, YS.tc); } return; }
-    if (!YS.drag && Math.abs(e.clientX - down) < 4) return;
-    YS.drag = true; YS.hover = null; ysGo(tAt(e));
-  };
-  tr.onpointerleave = () => { if (YS.hover === null) return; YS.hover = null; if (!YS.raf) ysPaint(s, stops, YS.tc); };
-  tr.onpointerup = tr.onpointercancel = e => { if (down === null) return; down = null; held(false); const was = YS.drag; YS.drag = false; ysGo(Math.round(was ? YS.tt : tAt(e))); };
+  tr.onpointerdown = e => { e.stopPropagation(); e.preventDefault(); tr.setPointerCapture(e.pointerId); down = e.clientX; };
+  tr.onpointermove = e => { if (down === null || (!YS.drag && Math.abs(e.clientX - down) < 4)) return; YS.drag = true; ysGo(tAt(e)); };
+  tr.onpointerup = tr.onpointercancel = e => { if (down === null) return; down = null; const was = YS.drag; YS.drag = false; ysGo(Math.round(was ? YS.tt : tAt(e))); };
   tr.onkeydown = e => {
     const k = Math.round(YS.tt), to = { ArrowLeft: k - 1, ArrowDown: k - 1, ArrowRight: k + 1, ArrowUp: k + 1, Home: 0, End: n }[e.key];
     if (to !== undefined) { e.preventDefault(); ysGo(to); }
   };
   root.querySelectorAll('[data-ys]').forEach(b => b.onclick = () => ysGo(+b.dataset.ys));
 }
-// the ticks swell round t like a dock (gaussian, sigma 3 ticks); the year counts, the name crossfades at each map
+// the ticks swell round t (a smooth bump, gaussian over TUNE.sigma ticks); the year counts; the name swaps at each map
 function ysPaint(s, stops, t) {
   const el = YS.el; if (!el || !el.tr.isConnected) return;
-  const n = stops.length - 1, m = ysPer(n);
-  t = Math.max(0, Math.min(n, t));
-  const i = Math.round(t), c = t * m, h = YS.hover === null ? null : YS.hover * m;
+  const n = stops.length - 1, m = ysPer(n), i = Math.round(t), c = t * m, k2 = 2 * TUNE.sigma * TUNE.sigma;
   el.ticks.forEach((tk, j) => {
     const d = j - c, b = j % m ? el.base : el.stop;
-    const g = Math.max(Math.exp(-d * d / 18), h === null ? 0 : 0.5 * Math.exp(-(j - h) * (j - h) / 10));
-    tk.style.transform = `scaleY(${((b + (el.peak - b) * g) / el.peak).toFixed(4)})`;
+    tk.style.transform = `scaleY(${((b + (el.peak - b) * Math.exp(-d * d / k2)) / el.peak).toFixed(4)})`;
     tk.classList.toggle('on', Math.abs(d) < .5);
   });
-  el.ptr.style.left = (t / n * 100).toFixed(3) + '%';
   const y = ysYear(stops, t);
   el.year.textContent = y; el.year.classList.toggle('present', i === n); el.tr.classList.toggle('present', i === n);
   el.tr.setAttribute('aria-valuenow', String(i)); el.tr.setAttribute('aria-valuetext', `${y}, ${stopName(stops[i], s)}`);
-  if (i !== YS.cap) {
-    YS.cap = i;
-    if (YS.raf && navigator.vibrate) try { navigator.vibrate(6); } catch {}
-    el.names.querySelectorAll('.ys-n:not(.out)').forEach(o => { o.classList.add('out'); setTimeout(() => o.remove(), 320); });
-    el.names.insertAdjacentHTML('beforeend', ysName(stops[i], s).replace('class="ys-n"', 'class="ys-n in"'));
-    const nu = el.names.lastElementChild; requestAnimationFrame(() => requestAnimationFrame(() => nu.classList.remove('in')));
-    const r = ysRight(s, stops, i); el.right.dataset.ys = r.to; el.right.textContent = r.label;
-  }
+  if (i !== YS.cap) { YS.cap = i; el.name.textContent = stopName(stops[i], s); }
 }
 function ysGo(t) {
   const s = YS.s; if (!s || S.sel !== s.id || !YS.stops) return;
   YS.tt = Math.max(0, Math.min(YS.stops.length - 1, t));
+  if (stillMotion() && !YS.drag) YS.tc = YS.tt;
   if (!YS.raf) { scrubBegin(s); YS.raf = requestAnimationFrame(ysFrame); }
 }
 function ysFrame() {
   const s = YS.s, stops = YS.stops;
   if (!s || S.sel !== s.id) { YS.raf = 0; return; }
-  const was = YS.tc;
-  if (YS.drag) { YS.tc += (YS.tt - YS.tc) * 0.5; YS.v = YS.tc - was; }
-  else {
-    YS.v = (YS.v + (YS.tt - YS.tc) * 0.1) * 0.66; YS.tc += YS.v;
-    if (Math.abs(YS.tt - YS.tc) < 0.003 && Math.abs(YS.v) < 0.003) { YS.tc = YS.tt; YS.v = 0; }
-  }
-  if (YS.tc !== was) scrubTo(s, stops, Math.max(0, Math.min(stops.length - 1, YS.tc)));
+  const d = YS.tt - YS.tc, was = YS.tc;
+  YS.tc = Math.abs(d) < 0.003 || stillMotion() ? YS.tt : YS.tc + d * (YS.drag ? TUNE.follow : TUNE.glide);
+  if (YS.tc !== was) scrubTo(s, stops, YS.tc);
   if (YS.drag || YS.tc !== YS.tt) { YS.raf = requestAnimationFrame(ysFrame); return; }
   YS.raf = 0;
-  const k = Math.round(YS.tc);
-  if (k < stops.length - 1) YS.back[s.id] = k;
-  scrubEnd(s, stops, k);
+  scrubEnd(s, stops, Math.round(YS.tc));
 }
 function ysStop() { cancelAnimationFrame(YS.raf); YS.raf = 0; YS.drag = false; }
-// desktop: the scrubber floats over the bottom of the map while a site is open
+// desktop: the scrubber lies on a darkened band at the bottom of the map while a site is open
 function deskScrub(s) {
   const box = $('#yscrub'), stops = lensStops(s), n = stops.length - 1, at = restIndex(s, stops);
   if (!n) { box.hidden = true; box.innerHTML = ''; YS.el = null; return; }
@@ -2518,5 +2477,7 @@ if (!PUBLIC) for (const f of ['review.js', 'fitqueue.js', 'fitkit.js']) {
   const el = document.createElement('script'); el.src = f; el.async = false; document.body.appendChild(el);
 }
 </script>
+<!-- the dev canvas: inert unless ?dev=1 (or localhost) -->
+<script src="devkit.js"></script>
 </body>
 </html>
