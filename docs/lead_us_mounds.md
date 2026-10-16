@@ -86,11 +86,12 @@ Not verified (leads for a search task, not rows):
 - Spiro, Caddo Mounds (TX), LSU, Pharr, Pocahontas, Sewee, Aden, Batesville, Balmoral, Frogmore: no pre-1931 plan
   known; expect them to stay pictureless.
 
-## D. Placement aids (the 14 + any new rows) - NOT in task 253, owner ruling needed
+## D. Placement aids (the 14 + any new rows) - approved 2026-10-15 as seeds, task 254
 
-GOAL.md point 2 (owner, 2026-10-13): the image matcher (`fit/matchfit.py`) is the only automatic placement; Qwen never
-places a drawing or writes pairs. Items 1-2 below would be new automatic placement inputs, so they wait for the owner;
-item 3 (published control points) would be placement by someone else's georeference - also the owner's call.
+Owner ruling 2026-10-15 (all three approved): "For all of these i would just double check with the image matching
+tool anyways. Get it as close as possible deterministically then have the image matcher do the rest." GOAL.md point 2
+now allows program-computed seeds; the matcher refines and confirms; a seed alone is never a fit. Qwen still never
+writes coordinates. Built in task 254.
 
 The pattern documents failed because the model reported coordinates it had not measured. docs/autofit.md s5 shows the
 automatic fitter works from tight seeds (about +-3 deg, +-5 %, 50 m) with a cleaned template, and fails from loose
@@ -114,4 +115,4 @@ ones. So the missing input is a measured seed, not a better picture. Sources a s
 
 Filed as task 253 (2026-10-15, owner "yes now"): sections A and B only, one site at a time end to end (one-piece
 flow), placement by `fit/matchfit.py` alone; whatever the matcher cannot place becomes a review item for the owner's
-fit tool. Section D is out of scope until the owner rules on it.
+fit tool. Section D is task 254 (seeds); 253 uses those seeds once 254 lands.
