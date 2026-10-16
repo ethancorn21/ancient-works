@@ -393,6 +393,8 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
   <div class="caption"><h2 id="cap-title"></h2><p id="cap-sub"></p></div>
 </section>
 
+<!-- config.js (not in git): window.RESURFACE = { satTiles: "<Esri tile URL with its key>" }; absent on the LAN copy -->
+<script src="config.js"></script>
 <script src="vendor/maplibre-gl-5.6.0.js"></script>
 <script src="vendor/three-r128.min.js"></script>
 <script>
@@ -439,18 +441,30 @@ S.dep = {}; S.depUrl = {}; S.depAlign = {}; S.alignStep = lsGet('aw.alignStep', 
 // picture "gets blurry and ugly" and "has no drip", and the photograph only came in about 50 km out; a plate-style
 // vector map (OpenFreeMap + Mapterhorn hill shading, d939bd2) was tried side by side and lost: "satellite global all
 // the way out is better and way faster".
+// Esri tiles are counted against the account's free tier (2026-10-15, publishing): the zoomed-out globe comes from
+// NASA's Blue Marble instead (public domain, no key, z0-8), and Esri only from z9. A measured visit (globe, fly to a
+// site, zoom, pan, fly back) cost ~420 Esri tiles before; most were the in-between zooms of the flights.
+// The tile URL (with its key) comes from config.js, which is not in git; without it the keyless URL serves the LAN copy.
+const SAT_TILES = (window.RESURFACE && window.RESURFACE.satTiles) ||
+  'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+const SAT_MINZOOM = 9;
 const map = new maplibregl.Map({
   container: 'map',
   style: {
     version: 8, projection: { type: 'globe' },
     sources: {
-      sat: { type: 'raster', tileSize: 256, maxzoom: 19,
-             tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'] },
+      globe: { type: 'raster', tileSize: 256, maxzoom: 8,
+               attribution: 'Globe: NASA Blue Marble',
+               tiles: ['https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/BlueMarble_ShadedRelief_Bathymetry/default/GoogleMapsCompatible_Level8/{z}/{y}/{x}.jpeg'] },
+      sat: { type: 'raster', tileSize: 256, minzoom: SAT_MINZOOM, maxzoom: 19,
+             attribution: 'Aerial photographs: Esri, Vantor, Earthstar Geographics, and the GIS User Community · Powered by Esri',
+             tiles: [SAT_TILES] },
       // source minzoom (not layer minzoom): no tiles below z12, but the credit stays while per-site relief shows
       ...Object.fromEntries(RELIEF.map(r => [r.id, { type: 'raster', tileSize: 256, minzoom: 12, maxzoom: 17,
         bounds: r.bounds, attribution: r.attribution, tiles: [RELIEF_URL] }])),
     },
     layers: [
+      { id: 'globe', type: 'raster', source: 'globe', paint: { 'raster-fade-duration': 0 } },
       { id: 'sat', type: 'raster', source: 'sat', paint: { 'raster-fade-duration': 0 } },
       // beneath everything added later (per-site relief, plates, finder crops)
       ...RELIEF.map(r => ({ id: r.id, type: 'raster', source: r.id, layout: { visibility: 'none' },
@@ -474,7 +488,29 @@ const zoomOut = () => map.flyTo({ center: map.getCenter(), zoom: Math.min(map.ge
 map.once('load', () => { S.mapLoaded = true; });  // isStyleLoaded() is false while tiles load, so it cannot tell
 map.addControl(new maplibregl.NavigationControl({ visualizePitch: false }), 'top-right');
 map.addControl(new maplibregl.AttributionControl({ compact: true, customAttribution:
-  'Aerial photographs: Esri, Maxar, Earthstar Geographics · Plates: Squier &amp; Davis 1848' }), narrow() ? 'bottom-left' : 'bottom-right');  // phones: clear of the past button
+  'Plates: Squier &amp; Davis 1848' }), narrow() ? 'bottom-left' : 'bottom-right');  // phones: clear of the past button
+// A flight (flyTo) passes through every zoom between its ends, and each frame asked Esri for that zoom's tiles. While
+// one is under way the aerial waits until the camera is within a zoom and a half of where it lands, so the tiles
+// fetched are the ones of the place it arrives at; Blue Marble shows meanwhile.
+{
+  // also near where it took off: those tiles are already loaded, so the start does not flash to Blue Marble
+  const fly = map.flyTo.bind(map);
+  let target = null, start = null;
+  const gate = () => {
+    if (target === null) return;
+    const z = map.getZoom();
+    map.setLayoutProperty('sat', 'visibility', Math.abs(z - target) <= 1.5 || Math.abs(z - start) <= 0.5 ? 'visible' : 'none');
+  };
+  map.on('zoom', gate);
+  map.flyTo = (opts, ev) => {
+    start = map.getZoom();
+    target = opts && opts.zoom !== undefined ? opts.zoom : start;
+    gate();
+    const r = fly(opts, ev);  // stops a flight still under way first; its moveend must not end this one
+    map.once('moveend', () => { target = null; if (map.getLayer('sat')) map.setLayoutProperty('sat', 'visibility', 'visible'); });
+    return r;
+  };
+}
 
 /* ---------- geometry ---------- */
 const R = 6378137;
@@ -1955,7 +1991,13 @@ async function groundTexture(s) {
 }
 // a site without its own imagery.jpg: the map's satellite tiles (the 'sat' source) stitched over the
 // block's box, at the deepest zoom that keeps the picture within 2048 px
-async function satCanvas(s) {
+// kept per site for the visit: reopening the block or switching its ground asks Esri for nothing again
+const _satCanvas = new Map();
+function satCanvas(s) {
+  if (!_satCanvas.has(s.id)) _satCanvas.set(s.id, stitchSat(s).catch(e => { _satCanvas.delete(s.id); throw e; }));
+  return _satCanvas.get(s.id);
+}
+async function stitchSat(s) {
   const url = map.getStyle().sources.sat.tiles[0], R = 20037508.342789244;
   const [tl, , br] = s.corners.map(merc);
   let z = 19; while (z > 1 && (br[0] - tl[0]) / (2 * R / 2 ** z / 256) > 2048) z--;

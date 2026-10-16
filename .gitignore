@@ -38,3 +38,6 @@ data/db/surveyseen/
 # harness (agent-loop): per-checkout state and logs
 .agent/
 data/sheetfit/*.jpg
+
+# the public build's Esri key lives here (window.RESURFACE.satTiles); never commit it
+web/config.js
