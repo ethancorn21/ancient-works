@@ -1,6 +1,6 @@
 """Build the public, read-only copy of the site (resurface.ethanlawcorn.com) into dist/public/.
 
-usage: .venv/bin/python tools/export_public.py [--out dist/public] [--include-unverified]
+usage: .venv/bin/python tools/export_public.py [--out dist/public]
 
 The LAN copy (server/serve.py) is the owner's: it writes fits, reviews and Finder marks. The public copy is static
 files only, so it carries none of that:
@@ -9,19 +9,18 @@ files only, so it carries none of that:
   - no private data: web/data/scan, scans.json, amazon, fit_queue.json, review.json, plans.json, and nothing from
     data/ (db, raw, finder) is copied except the saved nudges below
   - only the site files the page draws: relief.jpg, block_h.png, block_top.jpg, imagery.jpg, the plate images, and
-    the old maps and drawings in depictions.json whose source may be published
+    every old map and drawing in depictions.json
   - data/align.json: the hand-saved plate and drawing nudges (data/db plates, depalign), read-only
   - config.js comes from deploy/config.js (gitignored: the Esri key) with public: true added
 
-Sources not cleared for publishing (2026-10-15 licence audit, see the memory note / docs): the National Library of
-Scotland layers and Roy's Military Survey (licence page not verified) and the Dutch TMK 1850 from Topotijdreis
-(Esri Nederland, no licence stated). Their depictions are left out, with the site's overlays/oldest recomputed so the
-markers match what the public copy shows. --include-unverified keeps them (for a private preview only).
+Every old map and drawing is published. The maps are 150+ years old (OS six-inch 1840s-1900s, Roy 1747-55, TMK 1850,
+Cassini, Etat-major), so the works themselves are public domain, and a faithful scan of a public-domain 2D work adds no
+new copyright (UK IPO guidance; EU DSM Directive art. 14, in force in NL/FR/DE). Each overlay keeps its source credit
+in the site panel. Contrast the modern Esri aerial, which is copyrighted and served under its own key and terms.
 """
 import argparse
 import json
 import os
-import re
 import shutil
 import sys
 import tempfile
@@ -31,21 +30,8 @@ WEB = os.path.join(ROOT, "web")
 sys.path.insert(0, os.path.join(ROOT, "pipeline"))
 import build_site  # noqa: E402  (marks: the marker fields, recomputed from what the public copy shows)
 
-# depiction "source" text of layers whose licence for publishing is not established
-UNVERIFIED = [  # first match names the reason; Roy's sheets are NLS layers too
-    (re.compile(r"Roy's Military Survey", re.I), "Roy's Military Survey (British Library): not verified"),
-    (re.compile(r"National Library of Scotland", re.I), "NLS georeferenced layer: licence page not verified"),
-    (re.compile(r"Topotijdreis|Esri Nederland", re.I), "TMK 1850 via Topotijdreis: no licence stated"),
-]
 SITE_FILES = ("relief.jpg", "block_h.png", "block_top.jpg", "imagery.jpg")
 WEB_DATA = ("sites.json", "catalog.json")
-
-
-def blocked(d):
-    for rx, why in UNVERIFIED:
-        if rx.search(d.get("source") or ""):
-            return why
-    return None
 
 
 def dep_files(d):
@@ -64,7 +50,6 @@ def copy(src, dst):
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--out", default=os.path.join(ROOT, "dist", "public"))
-    ap.add_argument("--include-unverified", action="store_true", help="keep NLS/Roy/TMK layers (private preview only)")
     a = ap.parse_args(argv)
     out = a.out
     cfg_src = os.path.join(ROOT, "deploy", "config.js")
@@ -87,7 +72,7 @@ def main(argv=None):
 
     with open(os.path.join(WEB, "data", "sites.json")) as f:
         index = json.load(f)
-    left_out, kept_deps, missing = {}, 0, []
+    kept_deps, missing = 0, []
     for s in index["sites"]:
         sid = s["id"]
         src_dir = os.path.join(WEB, "data", "sites", sid)
@@ -108,10 +93,6 @@ def main(argv=None):
             doc = json.load(f)
         keep = []
         for d in doc.get("depictions", []):
-            why = None if a.include_unverified else blocked(d)
-            if why:
-                left_out[why] = left_out.get(why, 0) + 1
-                continue
             for name in dep_files(d):
                 p = os.path.join(src_dir, name)
                 (copy(p, os.path.join(dst_dir, name)) if os.path.exists(p) else missing.append(f"{sid}/{name}"))
@@ -145,9 +126,7 @@ def main(argv=None):
     big = [os.path.relpath(os.path.join(r, f), out) for r, _, fs in os.walk(out) for f in fs
            if os.path.getsize(os.path.join(r, f)) > 25 * 1024 * 1024]
     print(f"public copy: {out}")
-    print(f"  sites {len(index['sites'])}, depictions kept {kept_deps}, left out {sum(left_out.values())}")
-    for why, n in sorted(left_out.items(), key=lambda t: -t[1]):
-        print(f"    {n:4d}  {why}")
+    print(f"  sites {len(index['sites'])}, depictions {kept_deps}")
     print(f"  files {n_files}, {size / 1e6:.0f} MB; over 25 MiB: {big or 'none'}")
     if missing:
         print(f"  MISSING source files ({len(missing)}): {missing[:10]}")
