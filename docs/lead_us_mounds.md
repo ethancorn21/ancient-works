@@ -86,7 +86,11 @@ Not verified (leads for a search task, not rows):
 - Spiro, Caddo Mounds (TX), LSU, Pharr, Pocahontas, Sewee, Aden, Batesville, Balmoral, Frogmore: no pre-1931 plan
   known; expect them to stay pictureless.
 
-## D. Placement aids (the 14 + any new rows): what the local model can measure from
+## D. Placement aids (the 14 + any new rows) - NOT in task 253, owner ruling needed
+
+GOAL.md point 2 (owner, 2026-10-13): the image matcher (`fit/matchfit.py`) is the only automatic placement; Qwen never
+places a drawing or writes pairs. Items 1-2 below would be new automatic placement inputs, so they wait for the owner;
+item 3 (published control points) would be placement by someone else's georeference - also the owner's call.
 
 The pattern documents failed because the model reported coordinates it had not measured. docs/autofit.md s5 shows the
 automatic fitter works from tight seeds (about +-3 deg, +-5 %, 50 m) with a cleaned template, and fails from loose
@@ -106,9 +110,8 @@ ones. So the missing input is a measured seed, not a better picture. Sources a s
    maps. Licence-check each set before use (owner rule: modern data is licence-checked at adoption; the old map itself
    publishes with credit).
 
-## Proposed task (for the lead to file on the VM)
+## Task
 
-"US mound plans: re-match the cached books by place (section A rows, lift the Criel HAND entry), add the section B
-books to `BOOKS` (pick scans, triage, lists), stage pictures with evidence, and run the cover loop. Acceptance: every
-section A/B site ends with a gated fit or a review item that names the picture and why it could not be placed; no
-document without measured pairs; section D item 2 only after its held-out test passes."
+Filed as task 253 (2026-10-15, owner "yes now"): sections A and B only, one site at a time end to end (one-piece
+flow), placement by `fit/matchfit.py` alone; whatever the matcher cannot place becomes a review item for the owner's
+fit tool. Section D is out of scope until the owner rules on it.
