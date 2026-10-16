@@ -98,7 +98,6 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
 .swatch.dot { border-radius: 50%; width: 16px; height: 16px; margin: 3px 9px; }
 .links { display: flex; gap: 12px; font: 600 12px var(--label); letter-spacing: .06em; text-transform: uppercase; }
 .links a { color: var(--survey); }
-.plain-title { font: 600 11.5px var(--label); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); margin: 6px 0 4px; }
 /* plate-fitting tool: an old book page beside the map, matching points clicked on both */
 .fitpane { position: absolute; z-index: 6; top: 12px; bottom: 12px; left: 398px; width: min(46vw, 780px); background: var(--sheet); border: 1px solid var(--ink); display: flex; flex-direction: column; box-shadow: 0 2px 12px rgba(43,39,36,.25); }
 .fitpane canvas { flex: 1; width: 100%; min-height: 0; cursor: crosshair; touch-action: none; background: var(--paper); display: block; }
@@ -117,11 +116,6 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
 .plans button:hover { border-color: var(--ink); }
 .plans small { display: block; font: 600 11px var(--label); letter-spacing: .05em; text-transform: uppercase; color: var(--ink-2); margin-top: 2px; }
 .step { margin: 0; padding: 7px 9px; border: 1px solid var(--ink); background: var(--paper-2); font-size: 14px; }
-.deps { display: grid; border: 1px solid var(--ink); }
-.deps button { background: var(--sheet); color: var(--ink); border: 0; padding: 6px 9px; font: 13.5px var(--title); text-align: left; cursor: pointer; }
-.deps button + button { border-top: 1px solid var(--rule); }
-.deps button[aria-pressed="true"] { background: var(--mauve); }
-.deps .yr { font: 600 11.5px var(--label); letter-spacing: .06em; color: var(--ink-2); margin-left: 4px; }
 .about { display: grid; gap: 7px; font-size: 13.5px; color: var(--ink-2); }
 .about p { margin: 0; }
 
@@ -253,34 +247,48 @@ details.align summary { cursor: pointer; color: var(--survey); font: 600 12px va
    old map, swelling round the current point like a dock; the big year counts through the years between two maps as it slides,
    the name crossfades; the oldest year at the left end, Today at the right. Desktop: a plate card floating over the bottom of
    the map. Phones: the same parts in the sheet's peek (the lens bar). */
-.yscrub { position: fixed; z-index: 2; left: 396px; right: 12px; bottom: 34px; display: flex; justify-content: center; pointer-events: none; }
+.yscrub { position: fixed; z-index: 2; left: 396px; right: 12px; bottom: 30px; display: flex; justify-content: center; pointer-events: none; }
 .yscrub[hidden] { display: none; }
 body.blk .yscrub { display: none; }  /* the block's caption sits where the card would; scrub on the map */
-.yscrub .ys { pointer-events: auto; width: min(580px, 100%); box-sizing: border-box; padding: 10px 18px 10px; background: rgba(248, 244, 232, .95);
-  border: 1px solid var(--ink); outline: 1px solid var(--rule); outline-offset: 3px; box-shadow: 0 8px 24px rgba(43, 39, 36, .22); }
-.ys { display: grid; gap: 6px; touch-action: none; user-select: none; -webkit-user-select: none; }
-.ys-head { text-align: center; }
-.ys-year { display: block; font: 700 24px/1.1 var(--title); font-variant-numeric: tabular-nums; color: var(--survey); }
+/* a printed label you can push (Ethan 2026-10-15: smaller, "more tactile", not a box with a faint border): ink edge and a hard
+   offset shadow like a mis-registered plate print; held, it sinks a pixel toward its shadow */
+.yscrub .ys { pointer-events: auto; width: min(400px, 100%); box-sizing: border-box; padding: 7px 10px 9px; background: var(--sheet);
+  border: 1px solid var(--ink); box-shadow: 3px 3px 0 var(--ink), 0 12px 26px rgba(43, 39, 36, .26); transition: transform .14s cubic-bezier(.2, .8, .2, 1), box-shadow .14s; }
+.yscrub .ys.held { transform: translate(1px, 1px); box-shadow: 2px 2px 0 var(--ink), 0 6px 14px rgba(43, 39, 36, .22); }
+.ys { display: grid; gap: 5px; touch-action: none; user-select: none; -webkit-user-select: none; }
+.ys-head { display: flex; align-items: baseline; justify-content: center; gap: 8px; min-width: 0; }
+.ys-year { flex: none; font: 700 17px/1.15 var(--title); font-variant-numeric: tabular-nums; color: var(--survey); }
 .ys-year.present { color: var(--ink); }
-.ys-names { display: grid; min-width: 0; justify-items: center; }
-.ys-n { grid-area: 1 / 1; min-width: 0; max-width: 100%; transition: opacity .3s, filter .3s, transform .3s cubic-bezier(.2, .8, .2, 1); }
-.ys-n.in, .ys-n.out { opacity: 0; filter: blur(3px); } .ys-n.in { transform: translateY(5px); } .ys-n.out { transform: translateY(-5px); }
-.ys-n b, .ys-n i { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
-.ys-n b { font: 400 14px/1.3 var(--title); }
-.ys-n i { font: italic 12px/1.3 var(--title); color: var(--ink-2); }
+.ys-names { display: grid; min-width: 0; }
+.ys-n { grid-area: 1 / 1; display: flex; align-items: baseline; gap: 8px; min-width: 0; transition: opacity .28s, filter .28s, transform .28s cubic-bezier(.2, .8, .2, 1); }
+.ys-n.in, .ys-n.out { opacity: 0; filter: blur(3px); } .ys-n.in { transform: translateY(4px); } .ys-n.out { transform: translateY(-4px); }
+.ys-n b, .ys-n i { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.ys-n b { font: italic 400 12.5px/1.3 var(--title); color: var(--ink); }
+.ys-n i { flex: none; font: italic 11.5px/1.3 var(--title); color: var(--ink-2); }
 .ys-n i:empty { display: none; }
-.ys-row { display: grid; grid-template-columns: auto 1fr auto; grid-template-areas: "t t t" "f . d"; gap: 6px 0; align-items: center; }
-.ys-ticks { --peak: 56px; --base: 12px; --stop: 20px; grid-area: t; position: relative; height: var(--peak); margin: 0 4px; cursor: ew-resize; touch-action: none; outline: none; }
-.ys-ticks:focus-visible { outline: 1px dashed var(--ink-2); outline-offset: 4px; }
-.ys-tk { position: absolute; bottom: 0; width: 2px; height: var(--peak); margin-left: -1px; background: var(--rule); opacity: .55;
+.ys-row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 0 8px; align-items: center; }
+/* the ticks sit sunk in a groove; a red pointer rides its top edge; under the cursor the ticks swell a little too, so the
+   scale answers before it is touched */
+.ys-ticks { --peak: 28px; --base: 6px; --stop: 11px; position: relative; height: calc(var(--peak) + 9px); background: var(--paper-2);
+  box-shadow: inset 0 1px 3px rgba(43, 39, 36, .38), inset 0 -1px 0 rgba(255, 255, 255, .55); cursor: grab; touch-action: none; outline: none; }
+.ys-ticks:active { cursor: grabbing; }
+.ys-ticks:focus-visible { box-shadow: inset 0 1px 3px rgba(43, 39, 36, .38), 0 0 0 2px var(--ink); }
+.ys-scale { position: absolute; left: 9px; right: 9px; top: 0; bottom: 3px; }
+.ys-tk { position: absolute; bottom: 0; width: 1.5px; height: var(--peak); margin-left: -.75px; background: var(--rule); opacity: .6;
   transform-origin: 50% 100%; transform: scaleY(calc(var(--base) / var(--peak))); will-change: transform; }
-.ys-tk.st { background: var(--ink); opacity: 1; }
-.ys-tk.on { background: var(--survey); opacity: 1; }
+.ys-tk.st { background: var(--ink); opacity: 1; width: 2px; margin-left: -1px; }
+.ys-tk.on { background: var(--survey); opacity: 1; width: 2px; margin-left: -1px; }
 .ys-ticks.present .ys-tk.on { background: var(--ink); }
-.ys-end { background: none; border: 0; padding: 5px 9px; font: 600 11.5px/1 var(--label); letter-spacing: .06em; font-variant-numeric: tabular-nums; color: var(--ink-2); cursor: pointer; white-space: nowrap; }
-.ys-first { grid-area: f; justify-self: start; }
-.ys-today { grid-area: d; justify-self: end; color: var(--ink); text-transform: uppercase; border: 1px solid var(--ink); background: var(--sheet); }
-.ys-end:hover { color: var(--ink); } .ys-today:hover { background: var(--paper-2); }
+.ys-ptr { position: absolute; top: -3px; width: 0; height: 0; margin-left: -5px; border: 5px solid transparent; border-top: 6px solid var(--survey); border-bottom: 0;
+  filter: drop-shadow(0 1px 0 rgba(43, 39, 36, .35)); pointer-events: none; }
+.ys-ticks.present .ys-ptr { border-top-color: var(--ink); }
+.ys-end { background: none; border: 0; padding: 4px 2px; font: 600 10.5px/1 var(--label); letter-spacing: .06em; font-variant-numeric: tabular-nums; color: var(--ink-2); cursor: pointer; white-space: nowrap; }
+.ys-end:hover { color: var(--ink); }
+/* Today: a small key with its own hard shadow that goes down when pressed */
+.ys-today { padding: 5px 7px 4px; color: var(--ink); text-transform: uppercase; border: 1px solid var(--ink); background: var(--sheet); box-shadow: 2px 2px 0 var(--ink);
+  transition: transform .08s, box-shadow .08s, background .15s; }
+.ys-today:hover { background: var(--paper-2); }
+.ys-today:active { transform: translate(2px, 2px); box-shadow: 0 0 0 var(--ink); }
 @media (max-width: 760px) {
   :root { --peek: 40vh; }
   .panel { top: auto; left: 0; right: 0; bottom: 0; width: auto; height: 84%; max-height: none; outline: none; border-width: 1px 0 0;
@@ -341,16 +349,13 @@ body.blk .yscrub { display: none; }  /* the block's caption sits where the card 
   .lensbar { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; min-height: 104px; align-content: start; touch-action: none; }
   .yscrub { display: none !important; }
   /* the year scrubber in the peek: year and name on one line, the ends either side of the ticks, so it stays as short as the old track */
-  .ys { gap: 4px; }
-  .ys-head { display: flex; align-items: baseline; gap: 9px; min-height: 22px; text-align: left; }
-  .ys-year { font-size: 19px; min-width: 2.6em; }
-  .ys-names { flex: 1; justify-items: stretch; }
-  .ys-n { display: flex; align-items: baseline; gap: 8px; justify-content: space-between; }
-  .ys-n b { flex: 1; font-size: 14px; }
-  .ys-n i { flex: none; max-width: 42%; text-align: right; }
-  .ys-row { grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "f t d"; gap: 0 10px; align-items: end; }
-  .ys-ticks { --peak: 36px; --base: 8px; --stop: 14px; }
-  .ys-end { padding: 6px 8px; }
+  .ys { gap: 6px; }
+  .ys-head { justify-content: flex-start; min-height: 21px; }
+  .ys-year { font-size: 18px; min-width: 2.5em; }
+  .ys-n b { font-size: 13.5px; }
+  .ys-ticks { --peak: 30px; --base: 7px; --stop: 12px; }
+  .ys-end { padding: 8px 2px; font-size: 11px; }
+  .ys-today { padding: 7px 8px 6px; }
   .track-none { margin: 0; min-height: 44px; display: flex; align-items: center; font-size: 13px; font-style: italic; color: var(--ink-2); }
   .lrow { display: flex; gap: 8px; align-items: center; }
   .lchips { display: flex; gap: 5px; flex: 1; min-width: 0; }
@@ -670,11 +675,6 @@ function applyDep(s) {
   if (B.site === s) syncBlock();
 }
 const depKey = (s, d) => `${s.id}.${d.file}`;
-function setDep(s, file) {
-  // one past at a time: a picked map hides the plate, None goes back to it
-  if (s.plate) { S.plateOff = !!file; applyLayers(s); }
-  S.depSel[s.id] = file; lsSet('aw.depSel', S.depSel); applyDep(s); renderSite(s); if (B.open) setTab(true);
-}
 
 function lazyLoad() {
   if (map.getZoom() < 10) return;
@@ -897,30 +897,20 @@ const rough = x => x.kind === 'map' && ROUGH.has(x.file.split('.')[0]);
 // Ethan 2026-10-14: sheets are measured against today's aerial and LiDAR (fit/sheetfit.py); a sheet that could not be
 // confirmed on today's ground opens only when the site has no confirmed sheet, and every checked sheet says what was done
 const unsure = x => x.check && x.check.use === 'unsure';
-const checkNote = x => !x.check ? '' : x.check.use === 'unsure' ? 'not confirmed on today\'s ground'
-  : x.check.use === 'shift' ? `aligned to today's ground, moved ${Math.round(x.check.moved_m)} m`
-  : x.check.use === 'bend' ? `aligned to today's ground, moved ${Math.round(x.check.moved_m)} m and bent` : 'checked: lines up';
+// the panel holds the look of the old map the scrubber rests on (Ethan 2026-10-15: no list of maps beside the scrubber)
 function depGroup(s) {
-  const list = S.dep[s.id] || [];
-  if (!list.length) return '';
-  const d = list.find(x => x.file === S.depSel[s.id]);
-  const draw = list.filter(x => DRAWING.has(x.kind)), plain = list.filter(x => !DRAWING.has(x.kind));
-  const btn = x => `<button data-dep="${esc(x.file)}" aria-pressed="${!!d && d.file === x.file}">${esc(x.label)}${x.scale ? `<span class="yr">${esc(x.scale)}</span>` : ''}${rough(x) ? '<span class="yr">rough, 250 m+ off</span>' : checkNote(x) ? `<span class="yr">${esc(checkNote(x))}</span>` : ''}</button>`;
+  const d = (S.dep[s.id] || []).find(x => x.file === S.depSel[s.id]);
+  if (!d) return '';
   return `
     <div class="group">
-      <p class="section-title">${draw.length ? 'Old drawings of the site' : 'Old maps and aerials'}</p>
-      <div class="deps" role="group" aria-label="Old drawing, map or aerial photograph">
-        <button data-dep="" aria-pressed="${!d}">None</button>
-        ${draw.map(btn).join('')}
-        ${draw.length && plain.length ? `</div><p class="plain-title">Survey maps and aerials</p><div class="deps">${plain.map(btn).join('')}</div><div>` : plain.map(btn).join('')}
-      </div>
-      ${d && d.ink ? `<div class="seg" role="group" aria-label="Map style">
+      <p class="section-title">${DRAWING.has(d.kind) ? 'Old drawing' : d.kind === 'aerial' ? 'Old aerial photograph' : 'Old map'}</p>
+      ${d.ink ? `<div class="seg" role="group" aria-label="Map style">
         <button id="d-ink" aria-pressed="${S.depMode === 'ink'}">Ink lines</button>
         <button id="d-paper" aria-pressed="${S.depMode !== 'ink'}">Original paper</button>
       </div>` : ''}
-      ${d ? `<div class="row"><label for="dop">Opacity</label><input id="dop" type="range" min="0" max="100" value="${Math.round(S.depOpacity * 100)}"><span class="val" id="dopv">${Math.round(S.depOpacity * 100)}%</span></div>
+      <div class="row"><label for="dop">Opacity</label><input id="dop" type="range" min="0" max="100" value="${Math.round(S.depOpacity * 100)}"><span class="val" id="dopv">${Math.round(S.depOpacity * 100)}%</span></div>
       ${alignBlock('d', S.depAlign[depKey(s, d)], 'Adjust the drawing')}
-      <p class="source">${esc(d.source)}${d.coverage < 0.98 ? ` Covers ${Math.round(d.coverage * 100)}% of the site box.` : ''}</p>` : ''}
+      <p class="source">${esc(d.source)}</p>
     </div>`;
 }
 // Ethan 2026-10-10: some fits are off by a few metres; every overlay can be nudged (fine 2 m / coarse 10 m steps),
@@ -1018,10 +1008,9 @@ function renderSite(s) {
         <div class="ramp-labels"><span>sunken −${s.relief_clip_m} m</span><span>level</span><span>raised +${s.relief_clip_m} m</span></div>
       </div>`}
     </div>
-    ${s.plate ? `
+    ${s.plate && !S.plateOff ? `
     <div class="group">
       <p class="section-title">${esc(s.plate.label || 'Plate of 1848')}</p>
-      ${S.plateOff ? '<p class="fit">Hidden: one old map shows at a time. Slide the years to 1848 to bring the plate back.</p>' : ''}
       <div class="row"><label for="op">Opacity</label><input id="op" type="range" min="0" max="100" value="${Math.round(S.plateOpacity * 100)}"><span class="val" id="opv">${Math.round(S.plateOpacity * 100)}%</span></div>
       <div class="seg" role="group" aria-label="Plate style">
         <button id="p-ink" aria-pressed="${S.plateMode === 'ink'}">Ink lines</button>
@@ -1045,7 +1034,6 @@ function renderSite(s) {
   $('#back').onclick = () => { closeBlock(); S.sel = null; syncMarkers(); renderList(); zoomOut(); };
   if (s.block) { $('#t-map').onclick = () => closeBlock(); $('#t-block').onclick = () => openBlock(s); }
   if ($('#g-relief')) { $('#g-relief').onclick = () => setGround('relief', s); $('#g-imagery').onclick = () => setGround('imagery', s); }
-  $('#body').querySelectorAll('[data-dep]').forEach(b => b.onclick = () => setDep(s, b.dataset.dep));
   if ($('#fitgo')) $('#fitgo').onclick = () => startFit(s);
   const depMode = m => { S.depMode = m; lsSet('aw.depMode', m); applyDep(s); renderSite(s); if (B.open) setTab(true); };
   if ($('#d-ink')) { $('#d-ink').onclick = () => depMode('ink'); $('#d-paper').onclick = () => depMode('paper'); }
@@ -1054,7 +1042,7 @@ function renderSite(s) {
   const dsel = (S.dep[s.id] || []).find(x => x.file === S.depSel[s.id]);
   if (dsel && $('#dsave')) wireAlign('d', () => S.depAlign[depKey(s, dsel)], a => { S.depAlign[depKey(s, dsel)] = a; }, () => applyDep(s),
     `depalign/${depKey(s, dsel)}`, 'Saved. This is now where the drawing sits for everyone.');
-  if (!s.plate) return;
+  if (!$('#op')) return;
   $('#op').oninput = e => { S.plateOpacity = e.target.value / 100; $('#opv').textContent = e.target.value + '%'; applyAll(); lsSet('aw.plateOpacity', S.plateOpacity); };
   $('#p-ink').onclick = () => setPlateMode('ink', s);
   $('#p-paper').onclick = () => setPlateMode('paper', s);
@@ -1185,10 +1173,9 @@ $('#body').addEventListener('focusin', e => { if (narrow() && e.target.id === 'q
 // the site has nothing else: they sit 250 m+ off), then today
 function lensStops(s) {
   const out = [];
-  if (s.plate) out.push({ kind: 'plate', year: 1848, name: `${s.plate.label || 'Plate'} · Squier & Davis`, note: 'surveyed 1846' });
+  if (s.plate) out.push({ kind: 'plate', year: 1848, name: `${s.plate.label || 'Plate'} · Squier & Davis` });
   const deps = S.dep[s.id] || [], keep = deps.filter(d => !rough(d));
-  (keep.length ? keep : deps).forEach(d => out.push({ kind: 'dep', d, year: d.year || null, name: d.label,
-    note: rough(d) ? 'rough, 250 m+ off' : checkNote(d) }));
+  (keep.length ? keep : deps).forEach(d => out.push({ kind: 'dep', d, year: d.year || null, name: d.label }));
   out.sort((a, b) => (a.year || 9999) - (b.year || 9999));
   out.push({ kind: 'today', note: todayNote(s) });
   return out;
@@ -1311,7 +1298,7 @@ function scrubEnd(s, stops, k) {
 // the year scrubber's parts and motion, the same on a phone (in the lens bar) and on desktop (#yscrub over the map).
 // One loop eases the shown point tc toward the target tt: it follows a drag closely, glides on a tap, a key or an end button,
 // and the release snaps to the nearest map, which then becomes the resting layer (scrubEnd).
-const YS = { raf: 0, tc: 0, tt: 0, drag: false, s: null, stops: null, el: null, cap: -1, back: {} };
+const YS = { raf: 0, tc: 0, tt: 0, v: 0, hover: null, drag: false, s: null, stops: null, el: null, cap: -1, back: {} };
 const stopYear = st => st.kind === 'today' ? new Date().getFullYear() : st.year;
 const stopName = (st, s) => st.kind === 'today' ? `Today · ${todayName(s)}` : st.name;
 // fine ticks per map's slot: about 64 across the desktop card, 36 across a phone
@@ -1335,7 +1322,7 @@ function yearScrub(s, stops, at) {
     <div class="ys-head"><b class="ys-year${at === n ? ' present' : ''}">${esc(ysYear(stops, at))}</b><span class="ys-names">${ysName(stops[at], s)}</span></div>
     <div class="ys-row">
       <button class="ys-end ys-first" data-ys="0" title="The oldest map">${esc(String(stopYear(stops[0]) || 'Undated'))}</button>
-      <div class="ys-ticks${at === n ? ' present' : ''}" role="slider" tabindex="0" aria-label="Old maps by year, oldest to today" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${at}">${ticks}</div>
+      <div class="ys-ticks${at === n ? ' present' : ''}" role="slider" tabindex="0" aria-label="Old maps by year, oldest to today" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${at}"><div class="ys-scale">${ticks}<i class="ys-ptr" style="left:${(at / n * 100).toFixed(3)}%"></i></div></div>
       <button class="ys-end ys-today" data-ys="${r.to}">${esc(r.label)}</button>
     </div>
   </div>`;
@@ -1343,18 +1330,27 @@ function yearScrub(s, stops, at) {
 function wireYearScrub(s, stops, at, root) {
   if (!root) { YS.el = null; return; }
   const n = stops.length - 1, tr = root.querySelector('.ys-ticks'), cs = getComputedStyle(tr), px = v => parseFloat(cs.getPropertyValue(v)) || 1;
-  YS.el = { tr, ticks: [...tr.children], year: root.querySelector('.ys-year'), names: root.querySelector('.ys-names'), right: root.querySelector('.ys-today'),
+  const sc = tr.querySelector('.ys-scale');
+  YS.el = { root, tr, sc, ptr: sc.querySelector('.ys-ptr'), ticks: [...sc.querySelectorAll('.ys-tk')], year: root.querySelector('.ys-year'), names: root.querySelector('.ys-names'), right: root.querySelector('.ys-today'),
     peak: px('--peak'), base: px('--base'), stop: px('--stop') };
   // a re-render mid-glide (the old maps arriving) keeps the motion going
   const live = YS.raf && YS.s === s;
   YS.s = s; YS.stops = stops;
-  if (!live) { YS.tc = YS.tt = at; YS.cap = at; }
+  if (!live) { YS.tc = YS.tt = at; YS.v = 0; YS.cap = at; }
+  YS.hover = null;
   ysPaint(s, stops, YS.tc);
-  const tAt = e => { const r = tr.getBoundingClientRect(); return Math.max(0, Math.min(n, (e.clientX - r.left) / r.width * n)); };
+  const tAt = e => { const r = sc.getBoundingClientRect(); return Math.max(0, Math.min(n, (e.clientX - r.left) / r.width * n)); };
   let down = null;
-  tr.onpointerdown = e => { e.stopPropagation(); e.preventDefault(); tr.setPointerCapture(e.pointerId); down = e.clientX; };
-  tr.onpointermove = e => { if (down === null || (!YS.drag && Math.abs(e.clientX - down) < 4)) return; YS.drag = true; ysGo(tAt(e)); };
-  tr.onpointerup = tr.onpointercancel = e => { if (down === null) return; down = null; const was = YS.drag; YS.drag = false; ysGo(Math.round(was ? YS.tt : tAt(e))); };
+  const held = on => root.classList.toggle('held', on);
+  tr.onpointerdown = e => { e.stopPropagation(); e.preventDefault(); tr.setPointerCapture(e.pointerId); down = e.clientX; held(true); };
+  tr.onpointermove = e => {
+    // a mouse over the scale swells the ticks under it, as a preview of where a click lands
+    if (down === null) { if (e.pointerType === 'mouse') { YS.hover = tAt(e); if (!YS.raf) ysPaint(s, stops, YS.tc); } return; }
+    if (!YS.drag && Math.abs(e.clientX - down) < 4) return;
+    YS.drag = true; YS.hover = null; ysGo(tAt(e));
+  };
+  tr.onpointerleave = () => { if (YS.hover === null) return; YS.hover = null; if (!YS.raf) ysPaint(s, stops, YS.tc); };
+  tr.onpointerup = tr.onpointercancel = e => { if (down === null) return; down = null; held(false); const was = YS.drag; YS.drag = false; ysGo(Math.round(was ? YS.tt : tAt(e))); };
   tr.onkeydown = e => {
     const k = Math.round(YS.tt), to = { ArrowLeft: k - 1, ArrowDown: k - 1, ArrowRight: k + 1, ArrowUp: k + 1, Home: 0, End: n }[e.key];
     if (to !== undefined) { e.preventDefault(); ysGo(to); }
@@ -1364,17 +1360,22 @@ function wireYearScrub(s, stops, at, root) {
 // the ticks swell round t like a dock (gaussian, sigma 3 ticks); the year counts, the name crossfades at each map
 function ysPaint(s, stops, t) {
   const el = YS.el; if (!el || !el.tr.isConnected) return;
-  const n = stops.length - 1, m = ysPer(n), i = Math.round(t), c = t * m;
+  const n = stops.length - 1, m = ysPer(n);
+  t = Math.max(0, Math.min(n, t));
+  const i = Math.round(t), c = t * m, h = YS.hover === null ? null : YS.hover * m;
   el.ticks.forEach((tk, j) => {
     const d = j - c, b = j % m ? el.base : el.stop;
-    tk.style.transform = `scaleY(${((b + (el.peak - b) * Math.exp(-d * d / 18)) / el.peak).toFixed(4)})`;
+    const g = Math.max(Math.exp(-d * d / 18), h === null ? 0 : 0.5 * Math.exp(-(j - h) * (j - h) / 10));
+    tk.style.transform = `scaleY(${((b + (el.peak - b) * g) / el.peak).toFixed(4)})`;
     tk.classList.toggle('on', Math.abs(d) < .5);
   });
+  el.ptr.style.left = (t / n * 100).toFixed(3) + '%';
   const y = ysYear(stops, t);
   el.year.textContent = y; el.year.classList.toggle('present', i === n); el.tr.classList.toggle('present', i === n);
   el.tr.setAttribute('aria-valuenow', String(i)); el.tr.setAttribute('aria-valuetext', `${y}, ${stopName(stops[i], s)}`);
   if (i !== YS.cap) {
     YS.cap = i;
+    if (YS.raf && navigator.vibrate) try { navigator.vibrate(6); } catch {}
     el.names.querySelectorAll('.ys-n:not(.out)').forEach(o => { o.classList.add('out'); setTimeout(() => o.remove(), 320); });
     el.names.insertAdjacentHTML('beforeend', ysName(stops[i], s).replace('class="ys-n"', 'class="ys-n in"'));
     const nu = el.names.lastElementChild; requestAnimationFrame(() => requestAnimationFrame(() => nu.classList.remove('in')));
@@ -1389,9 +1390,13 @@ function ysGo(t) {
 function ysFrame() {
   const s = YS.s, stops = YS.stops;
   if (!s || S.sel !== s.id) { YS.raf = 0; return; }
-  const d = YS.tt - YS.tc, was = YS.tc;
-  YS.tc = Math.abs(d) < 0.004 ? YS.tt : YS.tc + d * (YS.drag ? 0.5 : 0.2);
-  if (YS.tc !== was) scrubTo(s, stops, YS.tc);
+  const was = YS.tc;
+  if (YS.drag) { YS.tc += (YS.tt - YS.tc) * 0.5; YS.v = YS.tc - was; }
+  else {
+    YS.v = (YS.v + (YS.tt - YS.tc) * 0.1) * 0.66; YS.tc += YS.v;
+    if (Math.abs(YS.tt - YS.tc) < 0.003 && Math.abs(YS.v) < 0.003) { YS.tc = YS.tt; YS.v = 0; }
+  }
+  if (YS.tc !== was) scrubTo(s, stops, Math.max(0, Math.min(stops.length - 1, YS.tc)));
   if (YS.drag || YS.tc !== YS.tt) { YS.raf = requestAnimationFrame(ysFrame); return; }
   YS.raf = 0;
   const k = Math.round(YS.tc);
